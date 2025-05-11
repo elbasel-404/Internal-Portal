@@ -1,0 +1,1 @@
+export { PressFileDetails } from './PressFileDetails';

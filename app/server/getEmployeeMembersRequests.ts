@@ -1,0 +1,238 @@
+'use server';
+
+import type { EmployeeMembersRequest } from '@types';
+
+export const getEmployeeMembersRequests = async () => {
+  return dummyData;
+};
+
+const dummyData: EmployeeMembersRequest[] = [
+  {
+    id: '#55965',
+    date: '2024-05-05',
+    applicant: 'حمد',
+    requestType: 'اضافة',
+    relation: 'أب',
+    nameAr: 'يوسف حمد عبد الله القشيمط',
+    nameEn: 'youssef Hamad Abdullah Alqushaymit',
+    idNumber: '10326569',
+    birthDate: '2024-05-05 ',
+    status: 'اعتمد'
+  },
+  {
+    id: '#55964',
+    date: '2024-05-05',
+    applicant: 'حمد',
+    requestType: 'اضافة',
+    relation: 'أب',
+    nameAr: 'يوسف حمد عبد الله القشيمط',
+    nameEn: 'youssef Hamad Abdullah Alqushaymit',
+    idNumber: '10326569',
+    birthDate: '2024-05-05 ',
+    status: 'اعتمد'
+  },
+  {
+    id: '#55963',
+    date: '2024-05-05',
+    applicant: 'حمد',
+    requestType: 'اضافة',
+    relation: 'أب',
+    nameAr: 'يوسف حمد عبد الله القشيمط',
+    nameEn: 'youssef Hamad Abdullah Alqushaymit',
+    idNumber: '10326569',
+    birthDate: '2024-05-05 ',
+    status: 'عمليات الموارد البشرية'
+  },
+  {
+    id: '#55962',
+    date: '2024-05-05',
+    applicant: 'حمد',
+    requestType: 'اضافة',
+    relation: 'أب',
+    nameAr: 'يوسف حمد عبد الله القشيمط',
+    nameEn: 'youssef Hamad Abdullah Alqushaymit',
+    idNumber: '10326569',
+    birthDate: '2024-05-05 ',
+    status: 'المدير المباشر'
+  },
+  {
+    id: '#55961',
+    date: '2024-05-05',
+    applicant: 'حمد',
+    requestType: 'اضافة',
+    relation: 'أب',
+    nameAr: 'يوسف حمد عبد الله القشيمط',
+    nameEn: 'youssef Hamad Abdullah Alqushaymit',
+    idNumber: '10326569',
+    birthDate: '2024-05-05 ',
+    status: 'اعتمد'
+  },
+  {
+    id: '#55960',
+    date: '2024-05-05',
+    applicant: 'حمد',
+    requestType: 'اضافة',
+    relation: 'أب',
+    nameAr: 'يوسف حمد عبد الله القشيمط',
+    nameEn: 'youssef Hamad Abdullah Alqushaymit',
+    idNumber: '10326569',
+    birthDate: '2024-05-05 ',
+    status: 'عمليات الموارد البشرية'
+  },
+  {
+    id: '#55959',
+    date: '2024-05-05',
+    applicant: 'حمد',
+    requestType: 'اضافة',
+    relation: 'أب',
+    nameAr: 'يوسف حمد عبد الله القشيمط',
+    nameEn: 'youssef Hamad Abdullah Alqushaymit',
+    idNumber: '10326569',
+    birthDate: '2024-05-05 ',
+    status: 'المدير المباشر'
+  },
+  {
+    id: '#55958',
+    date: '2024-05-04',
+    applicant: 'حمد',
+    requestType: 'اضافة',
+    relation: 'أب',
+    nameAr: 'يوسف حمد عبد الله القشيمط',
+    nameEn: 'youssef Hamad Abdullah Alqushaymit',
+    idNumber: '10326569',
+    birthDate: '2024-05-05 ',
+    status: 'اعتمد'
+  },
+  {
+    id: '#55957',
+    date: '2024-05-04',
+    applicant: 'حمد',
+    requestType: 'اضافة',
+    relation: 'أب',
+    nameAr: 'يوسف حمد عبد الله القشيمط',
+    nameEn: 'youssef Hamad Abdullah Alqushaymit',
+    idNumber: '10326569',
+    birthDate: '2024-05-05 ',
+    status: 'عمليات الموارد البشرية'
+  },
+  {
+    id: '#55956',
+    date: '2024-05-03',
+    applicant: 'حمد',
+    requestType: 'اضافة',
+    relation: 'أب',
+    nameAr: 'يوسف حمد عبد الله القشيمط',
+    nameEn: 'youssef Hamad Abdullah Alqushaymit',
+    idNumber: '10326569',
+    birthDate: '2024-05-05 ',
+    status: 'المدير المباشر'
+  },
+  {
+    id: '#55955',
+    date: '2024-05-05',
+    applicant: 'حمد',
+    requestType: 'اضافة',
+    relation: 'أب',
+    nameAr: 'يوسف حمد عبد الله القشيمط',
+    nameEn: 'youssef Hamad Abdullah Alqushaymit',
+    idNumber: '10326569',
+    birthDate: '2024-05-05 ',
+    status: 'عمليات الموارد البشرية'
+  },
+  {
+    id: '#55954',
+    date: '2024-05-05',
+    applicant: 'حمد',
+    requestType: 'اضافة',
+    relation: 'أب',
+    nameAr: 'يوسف حمد عبد الله القشيمط',
+    nameEn: 'youssef Hamad Abdullah Alqushaymit',
+    idNumber: '10326569',
+    birthDate: '2024-05-05 ',
+    status: 'اعتمد'
+  },
+  {
+    id: '#55953',
+    date: '2024-05-05',
+    applicant: 'حمد',
+    requestType: 'اضافة',
+    relation: 'أب',
+    nameAr: 'يوسف حمد عبد الله القشيمط',
+    nameEn: 'youssef Hamad Abdullah Alqushaymit',
+    idNumber: '10326569',
+    birthDate: '2024-05-05 ',
+    status: 'المدير المباشر'
+  },
+  {
+    id: '#55952',
+    date: '2024-05-05',
+    applicant: 'حمد',
+    requestType: 'اضافة',
+    relation: 'أب',
+    nameAr: 'يوسف حمد عبد الله القشيمط',
+    nameEn: 'youssef Hamad Abdullah Alqushaymit',
+    idNumber: '10326569',
+    birthDate: '2024-05-05 ',
+    status: 'اعتمد'
+  },
+  {
+    id: '#55951',
+    date: '2024-05-05',
+    applicant: 'حمد',
+    requestType: 'اضافة',
+    relation: 'أب',
+    nameAr: 'يوسف حمد عبد الله القشيمط',
+    nameEn: 'youssef Hamad Abdullah Alqushaymit',
+    idNumber: '10326569',
+    birthDate: '2024-05-05 ',
+    status: 'عمليات الموارد البشرية'
+  },
+  {
+    id: '#55950',
+    date: '2024-05-05',
+    applicant: 'حمد',
+    requestType: 'اضافة',
+    relation: 'أب',
+    nameAr: 'يوسف حمد عبد الله القشيمط',
+    nameEn: 'youssef Hamad Abdullah Alqushaymit',
+    idNumber: '10326569',
+    birthDate: '2024-05-05 ',
+    status: 'اعتمد'
+  },
+  {
+    id: '#55949',
+    date: '2024-05-05',
+    applicant: 'حمد',
+    requestType: 'اضافة',
+    relation: 'أب',
+    nameAr: 'يوسف حمد عبد الله القشيمط',
+    nameEn: 'youssef Hamad Abdullah Alqushaymit',
+    idNumber: '10326569',
+    birthDate: '2024-05-05 ',
+    status: 'المدير المباشر'
+  },
+  {
+    id: '#55948',
+    date: '2024-05-04',
+    applicant: 'حمد',
+    requestType: 'اضافة',
+    relation: 'أب',
+    nameAr: 'يوسف حمد عبد الله القشيمط',
+    nameEn: 'youssef Hamad Abdullah Alqushaymit',
+    idNumber: '10326569',
+    birthDate: '2024-05-05 ',
+    status: 'اعتمد'
+  },
+  {
+    id: '#55947',
+    date: '2024-05-04',
+    applicant: 'حمد',
+    requestType: 'اضافة',
+    relation: 'أب',
+    nameAr: 'يوسف حمد عبد الله القشيمط',
+    nameEn: 'youssef Hamad Abdullah Alqushaymit',
+    idNumber: '10326569',
+    birthDate: '2024-05-05 ',
+    status: 'عمليات الموارد البشرية'
+  },
+];

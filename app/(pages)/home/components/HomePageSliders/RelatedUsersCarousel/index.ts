@@ -1,0 +1,1 @@
+export { RelatedUsersCarousel } from './RelatedUsersCarousel';

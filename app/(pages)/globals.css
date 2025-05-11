@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .app-scrollbar {
+    @apply scrollbar scrollbar-track-primary-opacity scrollbar-thumb-primary scrollbar-w-[4px] scrollbar-track-rounded-3xl scrollbar-thumb-rounded-3xl scrollbar-corner-primary scrollbar-h-1 scrollbar-corner-rounded-3xl;
+  }
+}
+
+@layer base {
+  :root {
+    --radius: 0.75rem; /* 12px */
+    --background: 210, 29%, 97%; /* #F6F8FA */
+    --foreground: 217, 63%, 18%; /* #11274A */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 193, 100%, 31%; /* #007C9E */
+    --primary-foreground: 0 0% 98%;
+    --primary-opacity: 193, 100%, 31%, 0.15; /* #007C9E15 */
+    --secondary: 213, 31%, 94%; /* #ECF0F5 */
+    --secondary-foreground: 217, 63%, 18%, 0.7; /* #11274A */
+    --cloud-gray: 210, 31%, 95%; /* #EEF2F6 */
+    --light-gray: 206, 41%, 97%; /* #F3F7FA*/
+    --light-grayish: 195, 29%, 97%; /* #F6F9FA */
+    --ocean-blue: 194, 100%, 29%; /* #007396 */
+    --ocean-blue-opacity: 194, 100%, 29%, 0.1;
+    --storm-gray: 213, 31%, 40%; /* #466386 */
+    --light: 210, 27%, 96%; /* #F1F4F7 */
+    --shadow-blue: 213, 31%, 60%; /* #7996B9 */
+    --dark-blue: 216, 71%, 12%; /* #091B36 */
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 357, 81%, 58%;
+    --destructive-foreground: 357, 81%, 58%;
+    --destructive-opacity: 357, 81%, 58%, 0.15;
+    --success: 154, 100%, 30%, 0.15; /* #009957 */
+    --success-foreground: 154, 100%, 30%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 218, 11%, 65%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --sidebar-background: 217, 63%, 18%; /* #11274A */
+    --sidebar-foreground: 0, 0%, 100%; /* #FFFFFF */
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* danger */
+    --danger: 0, 100%, 97%; /* #FFF0F0 */
+    --danger-foreground: 0, 100%, 66%; /*	#FF5252 */
+    --danger-500: 0, 100%, 70%; /* #FF6464 */
+    /* blue */
+    --blue-50: 210, 31%, 95%; /* #EEF2F6 */ /* !! Duplicate */
+    --blue-100: 212, 29%, 90%; /* #DEE5ED */ /* !! Duplicate */
+    --blue-200: 214, 31%, 80%; /* #BCCADC */ /* !! Duplicate */
+    --blue-300: 213, 31%, 70%; /* #9BB0CA */
+    --blue-400: 213, 31%, 60%; /* #7996B9 */ /* !! Duplicate */
+    --blue-500: 213, 31%, 40%; /* #466386 */ /* !! Duplicate */
+    --blue-600: 213, 31%, 30%; /* #354A64 */ /* !! Duplicate */
+    --blue-700: 214, 33%, 20%; /* #233143 */
+    --blue-800: 212, 29%, 10%; /* #121921 */
+    --blue-950: 218, 31%, 5%; /* #090C11 */
+    /* grey */
+    --gray-muted: 210, 67%, 99%; /*#FAFCFE */
+    --grey-50: 210, 31%, 95%; /* #EEF2F6 */ /* !! Duplicate */
+    --grey-100: 212, 29%, 90%; /* #DEE5ED */ /* !! Duplicate */
+    --grey-200: 214, 31%, 80%; /* #BCCADC */ /* !! Duplicate */
+    --grey-300: 213, 31%, 94%; /* #ECF0F5 */
+    --grey-400: 213, 31%, 60%; /* #7996B9 */ /* !! Duplicate */
+    --grey-500: 213, 31%, 40%; /* #466386 */ /* !! Duplicate */
+    --grey-600: 213, 31%, 30%; /* #354A64 */ /* !! Duplicate */
+    --grey-700: 194, 44%, 90%; /* #DBECF1 */
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+
+/* This should be outside @layer base otherwise it is overwritten by radixUI Select component */
+/* ! This ensure that scrollbar isn't hidden when a select is triggered causing layout shifts */
+html body[data-scroll-locked] {
+  @apply scrollbar-track-sidebar scrollbar-thumb-sidebar;
+  --removed-body-scroll-bar-size: 0 !important;
+  overflow: visible !important;
+  margin-right: 0 !important;
+}
+
+::-webkit-calendar-picker-indicator {
+  color: rgba(0, 0, 0, 0);
+  opacity: 1;
+  background-image: url('data:image/svg+xml;charset=utf8,%3Csvg fill="%23000" fill-opacity=".54" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/%3E%3Cpath d="M0 0h24v24H0z" fill="none"/%3E%3C/svg%3E');
+  width: 14px;
+  height: 18px;
+  cursor: pointer;
+  border-radius: 50%;
+  position: relative;
+  left: 0px;
+}

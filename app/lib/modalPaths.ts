@@ -1,0 +1,22 @@
+export const modalPaths = {
+  HomePageSettingsModal: {
+    title: 'الإعدادات',
+    href: '/modal/HomePageSettingsModal',
+  },
+  EmployeeServicesModal: {
+    title: 'خدمات الموظفين',
+    href: '/modal/EmployeeServicesModal',
+  },
+  InternalSystemsModal: {
+    title: 'الأنظمة الداخلية',
+    href: '/modal/InternalSystemsModal',
+  },
+  CovenantDetailsModal: {
+    title: 'تفاصيل استعاضة / اقفال عهدة',
+    href: '/modal/CovenantDetailsModal',
+  },
+  ConfirmationModal: {
+    title: 'تأكيد طلب الدورة الداخلية',
+    href: '/modal/ConfirmationModal',
+  },
+} as const;

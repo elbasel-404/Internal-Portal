@@ -1,20 +1,84 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# ! Building & running docker image:
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+# Clone the repo
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+<!-- See file://./.gitmodules for more info -->
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+`git clone --recurse-submodules git@ssh.dev.azure.com:v3/Algoriza/Monshaat/InternalPortal`
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+# To pull latest changes
+
+`git pull --recurse-submodules git@ssh.dev.azure.com:v3/Algoriza/Monshaat/InternalPortal`
+
+# Setup git aliases to make this automatic
+
+```
+git config --global alias.clone-all 'clone --recurse-submodules'
+git config --global alias.pull-all 'pull --recurse-submodules'
+```
+
+Now you can use `git pull-all` and `git clone-all`
+
+# Building
+
+## Local
+
+For troubleshooting, refer to [Troubleshooting](#troubleshooting)
+
+### Install dependencies
+
+`pnpm i`
+
+### Build the app
+
+`pnpm build`
+
+### Copy static files to the server directory
+
+`cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/`
+
+### Copy database to server directory:
+
+`mkdir -p .next/standalone/app/db`
+<br>
+`cp app/db/db.json .next/standalone/app/db/`
+
+### Run the node server:
+
+`node .next/standalone/server.js`
+
+### (optional) To use the nextjs server instead:
+
+<sub>if using this command to run the server you don't need to copy static files or database</sub>
+<br>
+
+<sub>CAUTION: might produce unexpected results see: [Next.js Documentation](https://nextjs.org/docs/app/api-reference/config/next-config-js/output)</sub>
+<br>
+`pnpm start`
+
+## Troubleshooting
+
+### Cleaning local files
+
+Run the following commands in case you face any unexpected errors:
+<br>
+`rm -rf node_modules`
+<br>
+`rm -rf .next`
+<br>
+remove all data from `app/db/db.json`;
+<br>
+`rm -rf pnpm-lock.yaml`
+<br>
+`pnpm update`
+
+#### Or copy/past the following to run all commands at once:
+
+rm -rf .next && \
+rm -rf pnpm-lock.yaml && \
+mkdir -p .next/standalone/app/db && \
+cp app/db/db.json .next/standalone/app/db/ && \
+pnpm update && \
+=pnpm build && \
+cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/ && \
+node .next/standalone/server.js

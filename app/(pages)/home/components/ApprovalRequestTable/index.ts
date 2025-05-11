@@ -1,0 +1,1 @@
+export { ApprovalRequestsTable } from './ApprovalRequestsTable';

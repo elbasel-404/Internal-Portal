@@ -1,0 +1,54 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      // "@/*": ["./*"],
+      "@db": ["./app/db"],
+      "@db/actions": ["./app/db/actions"],
+      "@db/types": ["./app/db/types"],
+      "@db/schemas": ["./app/db/schemas"],
+      "@db/validation": ["./app/db/validation"],
+      "@components": ["./app/components/"],
+      "@components/charts": ["./app/components/charts"],
+      "@components/providers": ["./app/components/providers"],
+      "@components/buttons": ["./app/components/buttons"],
+      "@components/form": ["./app/components/Form"],
+      "@components/modals/*": ["./app/components/modals/*"],
+      "@types": ["./app/types"],
+      "@schemas": ["./app/types/schemas.ts"],
+      "@lib": ["./app/lib"],
+      "@atoms": ["./app/atoms"],
+      "@utils": ["./app/utils"],
+      "@ui": ["./app/ui"],
+      "@server": ["./app/server"],
+      "@server/api": ["./app/server/api"],
+      "@server/validation": ["./app/db/validation/validation"],
+      "@hooks": ["./app/hooks"],
+      "@hooks/data": ["./app/hooks/data"],
+      "@icons": ["./app/icons/"],
+      "@zodSchemas": ["./app/zodSchemas/"],
+      "@api/*": ["./app/api/*"],
+      "@api/schemas/*": ["./api-schemas/*"],
+    },
+    "typeRoots": ["./node_modules/@types", "modules.d"]
+  },
+  "include": ["**/*.ts", "**/*.tsx", "modules.d", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}

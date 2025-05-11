@@ -1,0 +1,2 @@
+export { EmployeeDepartment } from './EmployeeDepartment';
+
