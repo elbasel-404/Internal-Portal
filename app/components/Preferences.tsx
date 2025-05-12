@@ -49,7 +49,7 @@ export const Preferences = () => {
           className='flex flex-col justify-center gap-3 px-0 py-4 bg-white rounded-xl shadow-lg w-full'
         >
           <h2 className='text-foreground font-bold text-xl px-4 py-2 text-start'>
-            قائمة السمات و المظهر
+            قائمة السمات و الأنماط
           </h2>
           <div className='flex justify-center items-center w-full'>
             {/* Side Menu */}
