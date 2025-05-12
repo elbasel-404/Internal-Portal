@@ -124,7 +124,12 @@ export const MenuItems: MenuItem[] = [
         href: paths.internalCoursesList.href,
         tag: 'training',
       },
-      { iconKey: 'Flag', label: 'ترشيحاتي', href: '/', tag: 'training' },
+      {
+        iconKey: 'Flag',
+        label: 'ترشيحاتي',
+        href: paths.recommendation.href,
+        tag: 'training',
+      },
       {
         iconKey: 'DoubleSquare',
         label: 'تخطيط الأداء',
