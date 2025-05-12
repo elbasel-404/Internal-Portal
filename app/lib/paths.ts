@@ -363,4 +363,12 @@ export const paths: Record<string, AppPath> = {
     title: 'تفاصيل طلب العهدة',
     href: '/request/custody/details/:id',
   },
+  recommendation: {
+    title: 'قائمة الترشيحات',
+    href: '/request/recommendations',
+  },
+  recommendationDetails: {
+    title: 'نفاصيل طلب الترشيح',
+    href: '/request/recommendations/details/:id',
+  },
 };
