@@ -38,6 +38,8 @@ export { getPassportRequests } from './getPassportsRequests';
 export { getPermissionDetails } from './getPermissionDetails';
 export { getPressFileDetails } from './getPressFileDetails';
 export { getProfileDetails } from './getProfileDetails';
+export { getRecommendationDetails } from './getRecommendationDetails';
+export { getRecommendationsRequests } from './getRecommendationsRequests';
 export { getRelatedUsers } from './getRelatedUsers';
 export { getRelativeRelations } from './getRelativeRelations';
 export { getRemoteWorkDetails } from './getRemoteWorkDetails';
