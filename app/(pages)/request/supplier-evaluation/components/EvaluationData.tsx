@@ -5,7 +5,7 @@ import { colors } from '@lib';
 const data: GeneralInfo[] = [
   {
     title: 'الطلبات تحت الإجراء',
-    count: 1.15,
+    count: 0,
     icon: 'CalenderSpecialIcon',
     id: -42,
     backgroundColor: colors.light.primaryOpacity,
@@ -14,7 +14,7 @@ const data: GeneralInfo[] = [
     index: 0,
   },
     {title: 'الطلبات المعتمدة',
-    count: 1.15,
+    count: 0,
     icon: 'StampIcon',
     id: -43,
     backgroundColor: colors.light.primaryOpacity,
@@ -24,7 +24,7 @@ const data: GeneralInfo[] = [
   },
   {
     title: 'الطلبات المرفوضة',
-    count: 1.15,
+    count: 0,
     icon: 'ClipboardIcon',
     id: -44,
     backgroundColor: colors.light.primaryOpacity,
@@ -34,7 +34,7 @@ const data: GeneralInfo[] = [
   },
   {
     title: 'كل الطلبات',
-    count: 1.15,
+    count: 1,
     icon: 'ListAlternativeIcon',
     id: -45,
     backgroundColor: colors.light.primaryOpacity,

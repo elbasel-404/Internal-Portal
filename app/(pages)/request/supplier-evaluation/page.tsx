@@ -1,15 +1,15 @@
 import { Instructions } from '@components';
 import { EvaluationTable } from './components';
-import { getVacationRequests } from '@server';
+import { getSupplierEvaluationRequests } from '@server';
 
 export const dynamic = "force-dynamic"
 
-const VacationsListPage = async () => {
-  const VacationRequests = await getVacationRequests();
+const SupplierEvaluationRequestsListPage = async () => {
+  const SupplierEvaluationRequests = await getSupplierEvaluationRequests();
 
   return (
     <div className='space-y-4 mb-12'>
-      <EvaluationTable data={VacationRequests} />
+      <EvaluationTable data={SupplierEvaluationRequests} />
       <Instructions
         title='توضيحات حول الخدمة'
         description='تتيح هذه الخدمة للموظف إمكانية طلب إجازة. يتم تعبئة الطلب بالبيانات الأساسية ويجب على الموظف التأكد من تاريخ بداية ونهاية الإدارة.'
@@ -18,4 +18,4 @@ const VacationsListPage = async () => {
   );
 };
 
-export default VacationsListPage;
+export default SupplierEvaluationRequestsListPage;
