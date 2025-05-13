@@ -1,5 +1,5 @@
 import { Input } from '@ui';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, ReactNode } from 'react';
 
 interface InputFieldProps {
   name: string;
@@ -7,8 +7,9 @@ interface InputFieldProps {
   placeholder: string;
   disabled?: boolean;
   required?: boolean;
-  value?: string;
+  value?: string | number;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  icon?: ReactNode;
 }
 
 export const InputField = ({
@@ -19,6 +20,7 @@ export const InputField = ({
   onChange,
   disabled = false,
   required = false,
+  icon,
 }: InputFieldProps) => {
   return (
     <div className='flex flex-col gap-2 w-full'>
@@ -29,6 +31,8 @@ export const InputField = ({
       <Input
         name={name}
         value={value}
+        icon={icon}
+        iconPosition='left-4'
         onChange={onChange}
         type='text'
         disabled={disabled}
