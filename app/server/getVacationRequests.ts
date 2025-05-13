@@ -26,7 +26,6 @@ export const getVacationRequests = async (): Promise<VacationRequest[]> => {
     body: requestBodyString,
   });
   const responseJson = await apiResponse.json();
-  console.log(responseJson);
 
   // ! VALIDATION
   // ! ==================================
