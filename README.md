@@ -1,24 +1,5 @@
 # ! Building & running docker image:
 
-# Clone the repo
-
-<!-- See file://./.gitmodules for more info -->
-
-`git clone --recurse-submodules git@ssh.dev.azure.com:v3/Algoriza/Monshaat/InternalPortal`
-
-# To pull latest changes
-
-`git pull --recurse-submodules git@ssh.dev.azure.com:v3/Algoriza/Monshaat/InternalPortal`
-
-# Setup git aliases to make this automatic
-
-```
-git config --global alias.clone-all 'clone --recurse-submodules'
-git config --global alias.pull-all 'pull --recurse-submodules'
-```
-
-Now you can use `git pull-all` and `git clone-all`
-
 # Building
 
 ## Local
@@ -32,16 +13,6 @@ For troubleshooting, refer to [Troubleshooting](#troubleshooting)
 ### Build the app
 
 `pnpm build`
-
-### Copy static files to the server directory
-
-`cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/`
-
-### Copy database to server directory:
-
-`mkdir -p .next/standalone/app/db`
-<br>
-`cp app/db/db.json .next/standalone/app/db/`
 
 ### Run the node server:
 

@@ -1,10 +1,11 @@
 import {
   BankDetailSchema,
   type BankDetail,
-} from '@api/schemas/bank-details/schema';
-import { ResponseSchema } from '@api/schemas/responseSchema';
-import { getDemo } from '../db/actions/getDemo';
-import { getFetchHeaders } from './getFetchHeaders';
+} from "@api/schemas/bank-details/schema";
+import { ResponseSchema } from "@api/schemas/responseSchema";
+import { getDemo } from "../db/actions/getDemo";
+import { getFetchHeaders } from "./getFetchHeaders";
+import { da } from "date-fns/locale";
 
 export const getBankDetails = async (): Promise<BankDetail[]> => {
   const isDemo = await getDemo();
@@ -12,7 +13,7 @@ export const getBankDetails = async (): Promise<BankDetail[]> => {
 
   // ! VARIBLES
   // ! ==================================
-  const url = 'api/po/hr/new-bank';
+  const url = "api/po/hr/new-bank";
   const apiRootUrl = process.env.API_ROOT_URL as string;
   const { headers } = await getFetchHeaders();
   const requestBody = {};
@@ -23,7 +24,7 @@ export const getBankDetails = async (): Promise<BankDetail[]> => {
   // ! ==================================
   const apiResponse = await fetch(requestUrl, {
     headers,
-    method: 'POST',
+    method: "POST",
     body: requestBodyString,
   });
   const responseJson = await apiResponse.json();
@@ -44,6 +45,22 @@ export const getBankDetails = async (): Promise<BankDetail[]> => {
       id: data.id,
       name: data.name,
       display_name: data.display_name,
+      street: data.street,
+      street2: data.street2,
+      zip: data.zip,
+      city: data.city,
+      state: data.state,
+      country: data.country,
+      email: data.email,
+      phone: data.phone,
+      active: data.active,
+      bic: data.bic,
+      create_uid: data.create_uid,
+      write_date: data.write_date,
+      __last_update: data.__last_update,
+      create_date: data.create_date,
+      write_uid: data.write_uid,
+
     };
     return bankItem;
   });
@@ -53,49 +70,43 @@ export const getBankDetails = async (): Promise<BankDetail[]> => {
 
 const dummyData: BankDetail[] = [
   {
-    id: 38,
-    name: 'ADCB, Alkarama Brunch, Dubai, UAE',
-    display_name: 'ADCB, Alkarama Brunch, Dubai, UAE - ADCBAEAA',
+    id: 1,
+    name: "Dummy Bank 1",
+    street: false,
+    street2: false,
+    zip: false,
+    city: false,
+    state: false,
+    country: false,
+    email: false,
+    phone: false,
+    active: true,
+    bic: false,
+    create_uid: [1, "admin"],
+    create_date: new Date("2023-01-01"),
+    write_uid: [2, "editor"],
+    write_date: new Date("2023-01-02"),
+    display_name: "Dummy Bank 1 - DUMMY1",
+    __last_update: new Date("2023-01-03"),
   },
   {
-    id: 43,
-    name: 'ANZ Bank',
-    display_name: 'ANZ Bank',
-  },
-  {
-    id: 23,
-    name: 'Bank of America',
-    display_name: 'Bank of America - BOFAUS3N',
-  },
-  {
-    id: 16,
-    name: 'Bank of America, NA',
-    display_name: 'Bank of America, NA - BOFAUS3N',
-  },
-  {
-    id: 55,
-    name: 'Bank of Ireland',
-    display_name: 'Bank of Ireland - BOFIIE2D',
-  },
-  {
-    id: 49,
-    name: 'Barclays',
-    display_name: 'Barclays - BUKBGB22',
-  },
-  {
-    id: 46,
-    name: 'BMO Harris Bank NA',
-    display_name: 'BMO Harris Bank NA - HATRUS44',
-  },
-  {
-    id: 33,
-    name: 'BNP Paribas',
-    display_name: 'BNP Paribas - BNPASARI',
-  },
-  {
-    id: 34,
-    name: 'Branch: Mashreq Bank DIC (Dubai Internet City)',
-    display_name:
-      'Branch: Mashreq Bank DIC (Dubai Internet City) - SWIFT: BOMLAEAD',
+    id: 2,
+    name: "Dummy Bank 2",
+    street: false,
+    street2: false,
+    zip: false,
+    city: "Sample City",
+    state: false,
+    country: [1, "CountryName"],
+    email: false,
+    phone: false,
+    active: true,
+    bic: "DUMMYBIC",
+    create_uid: [3, "creator"],
+    create_date: new Date("2023-02-01"),
+    write_uid: [4, "updater"],
+    write_date: new Date("2023-02-02"),
+    display_name: "Dummy Bank 2 - DUMMY2",
+    __last_update: new Date("2023-02-03"),
   },
 ];

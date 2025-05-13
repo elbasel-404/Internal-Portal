@@ -20,10 +20,10 @@ export {
   MedicalInsuranceElementSchema,
   type MedicalInsuranceElement
 } from './medical-insurance/schema';
-export {
-  PermissionElementSchema,
-  type PermissionElement
-} from './permission/schema';
+// export {
+//   PermissionElementSchema,
+//   type PermissionElement
+// } from './permission/schema';
 export {
   RemoteWorkElementSchema,
   type RemoteWorkElement

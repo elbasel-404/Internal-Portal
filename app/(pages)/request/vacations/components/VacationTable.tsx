@@ -36,11 +36,16 @@ export const VacationTable = ({ data }: VacationTableProps) => {
   // if (isLoading) return <p>Loading...</p>;
   // if (error) return <p>Error: {error.message}</p>;
 
-  const filteredRequests = data.filter(
-    (request) =>
-      request.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      request.id.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredRequests = data
+    .filter(
+      (request) =>
+        request.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        request.id.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .map((request) => ({
+      ...request,
+      approvalDate: request.approvalDate.toLocaleDateString(), // Convert Date to string
+    }));
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value.trim());

@@ -1,7 +1,7 @@
 'use server';
 
 import { PermissionDetails } from '@types';
-import { PermissionElementSchema, ResponseSchema } from '../../api-schemas';
+// import { PermissionElementSchema, ResponseSchema } from '../../api-schemas';
 import { getDemo } from '../db/actions/getDemo';
 import { getFetchHeaders } from './getFetchHeaders';
 
@@ -11,7 +11,7 @@ export const getPermissionDetails = async (
   const isDemo = await getDemo();
   if (isDemo) return dummyData;
 
-  // ! VARIBLES
+  // ! VARIABLES
   // ! ==================================
   const url = 'api/po/hr/authorization';
   const apiRootUrl = process.env.API_ROOT_URL as string;
@@ -31,31 +31,32 @@ export const getPermissionDetails = async (
 
   // ! VALIDATION
   // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson);
-  const { result } = validatedResponse;
-  const { data } = result;
-  const validatedData = PermissionElementSchema.parse(data[0]);
+  // const validatedResponse = ResponseSchema.parse(responseJson);
+  // const { result } = validatedResponse;
+  // const { data } = result;
+  // const validatedData = PermissionElementSchema.parse(data[0]);
 
   // ! PARSING
   // ! ==================================
 
-  const returnedData: PermissionDetails = {
-    id: validatedData.id.toString(),
-    requestDate: validatedData.date,
-    dateFrom: validatedData.date_from,
-    dateTo: validatedData.date_to,
-    reason: validatedData.reason,
-    duration: validatedData.hour_number.toFixed(2),
-    type: validatedData.type_id[1].toString(),
-    time: `من ${validatedData.hour_from.toFixed(
-      2
-    )} الي  ${validatedData.hour_to.toFixed(2)}`,
-    attachments: validatedData.attachment_ids.map(
-      (file) => new File([''], file.toString())
-    ),
-  };
+  // const returnedData: PermissionDetails = {
+  //   id: validatedData.id.toString(),
+  //   requestDate: validatedData.date,
+  //   dateFrom: validatedData.date_from,
+  //   dateTo: validatedData.date_to,
+  //   reason: validatedData.reason,
+  //   duration: validatedData.hour_number.toFixed(2),
+  //   type: validatedData.type_id[1].toString(),
+  //   time: `من ${validatedData.hour_from.toFixed(
+  //     2
+  //   )} الي  ${validatedData.hour_to.toFixed(2)}`,
+  //   attachments: validatedData.attachment_ids.map(
+  //     (file) => new File([''], file.toString())
+  //   ),
+  // };
 
-  return returnedData;
+  // return returnedData;
+  return dummyData
 };
 
 const dummyData: PermissionDetails = {
