@@ -3,6 +3,8 @@ import { CovenantSchema } from './covenantSchema';
 import { generalInfoKeyEnum } from './generalInfoKeyEnum';
 import { homePageSlotKeyEnum } from './homePageSlotKeyEnum';
 import { newsTabsKeyEnum } from './newsTabsKeyEnum';
+import { ProductSchema } from './productsSchema';
+import { ProjectCompletionSchema } from './projectCompletionSchema';
 
 export const userSchema = z.object({
   id: z.number(),
@@ -11,4 +13,6 @@ export const userSchema = z.object({
   activeNewsTabsKeys: z.array(newsTabsKeyEnum),
   demo: z.boolean(),
   convenantData: z.array(CovenantSchema),
+  projectCompletion: z.array(ProjectCompletionSchema),
+  products: z.array(ProductSchema),
 });
