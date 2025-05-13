@@ -1,6 +1,6 @@
-import { forwardRef, type ReactNode, type InputHTMLAttributes } from 'react';
 import { cn } from '@utils';
 import { cva, type VariantProps } from 'class-variance-authority';
+import { forwardRef, type InputHTMLAttributes, type ReactNode } from 'react';
 
 const inputVariants = cva(
   'flex h-10 w-full rounded-full bg-secondary px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
@@ -29,20 +29,37 @@ export interface InputProps
     VariantProps<typeof inputVariants> {
   icon?: ReactNode;
   label?: string;
+  iconPosition?: string;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, variant: variant, size, type, icon, label, ...props }, ref) => {
+  (
+    {
+      className,
+      variant: variant,
+      size,
+      type,
+      icon,
+      iconPosition = 'right-4',
+      label,
+      ...props
+    },
+    ref
+  ) => {
     return (
       <div className={`relative ${label && 'space-y-1'}`}>
-        {label && <h4 className='text-foreground font-medium text-sm'>{label}</h4>}
+        {label && (
+          <h4 className='text-foreground font-medium text-sm'>{label}</h4>
+        )}
         <input
           type={type}
           className={cn(inputVariants({ variant, size, className }))}
           ref={ref}
           {...props}
         />
-        <div className='absolute top-1/2 right-4 transform -translate-y-1/2'>
+        <div
+          className={`absolute top-1/2 ${iconPosition} transform -translate-y-1/2`}
+        >
           {icon}
         </div>
       </div>
