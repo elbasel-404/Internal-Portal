@@ -187,7 +187,7 @@ export const MenuItems: MenuItem[] = [
       {
         iconKey: 'DashedCircle',
         label: 'طلب شراء',
-        href: '/',
+        href: paths.purchase.href,
         tag: 'purchases',
       },
       {
