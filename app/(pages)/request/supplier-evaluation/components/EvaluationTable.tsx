@@ -13,12 +13,10 @@ interface VacationTableProps {
 }
 
 const tableHeaders = [
+  { label: 'رقم الطلب' },
   { label: 'تاريخ الطلب' },
-  { label: 'النوع' },
-  { label: 'تاريخ البدء' },
-  { label: 'تاريخ الانتهاء' },
-  { label: 'مدتها باليوم' },
-  { label: 'تاريخ الاعتماد' },
+  { label: 'الموظف' },
+  { label: 'العقد' },
   { label: 'الحالة' },
 ];
 
@@ -51,7 +49,7 @@ export const EvaluationTable = ({ data }: VacationTableProps) => {
     <>
       <div className='bg-white rounded-lg'>
         <div className='flex flex-col md:flex-row gap-4 items-start md:items-center justify-between border-b border-border-[#ECF0F480] p-4'>
-          <h2 className='text-foreground font-bold text-2xl'>قائمة الإجازات</h2>
+          <h2 className='text-foreground font-bold text-2xl'>قائمة تقييم اداء المتعادقين</h2>
           <div className='flex gap-4 items-center'>
             <Input
               placeholder='البحث في الطلبات'

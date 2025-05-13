@@ -18,7 +18,7 @@ const VacationDetailsPage = async ({ params }: VacationDetailsPageProps) => {
   if (!requestDetails) notFound();
   // ! TODO: add server action instead:
   const requestCaption =
-    'انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر';
+    'انت الآن في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر';
 
   const requestHeaders: RequestHeader[] = [
     {

@@ -2,8 +2,8 @@ import { ReactNode } from 'react';
 import { EvaluationData } from './components';
 
 export const metadata = {
-  title: 'Vacations',
-  description: 'Vacations data',
+  title: 'Supplier Evaluation Request',
+  description: 'Supplier Evaluation Request data',
 };
 interface VacationsLayoutProps {
   children: ReactNode;
