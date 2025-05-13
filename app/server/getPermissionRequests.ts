@@ -1,7 +1,7 @@
 'use server';
 
 import type { PermissionRequest } from '@types';
-import { PermissionElementSchema, ResponseSchema } from '../../api-schemas';
+// import { PermissionElementSchema, ResponseSchema } from '../../api-schemas';
 import { getDemo } from '../db/actions/getDemo';
 import { getFetchHeaders } from './getFetchHeaders';
 
@@ -9,7 +9,7 @@ export const getPermissionRequests = async (): Promise<PermissionRequest[]> => {
   const isDemo = await getDemo();
   if (isDemo) return PermissionDummyData;
 
-  // ! VARIBLES
+  // ! VARIABLES
   // ! ==================================
   const url = 'api/po/hr/authorization';
   const apiRootUrl = process.env.API_ROOT_URL as string;
@@ -29,28 +29,29 @@ export const getPermissionRequests = async (): Promise<PermissionRequest[]> => {
 
   // ! VALIDATION
   // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson);
-  const { result } = validatedResponse;
-  const { data } = result;
-  const validatedData = PermissionElementSchema.array().parse(data);
+  // const validatedResponse = ResponseSchema.parse(responseJson);
+  // const { result } = validatedResponse;
+  // const { data } = result;
+  // const validatedData = PermissionElementSchema.array().parse(data);
 
   // ! PARSING
   // ! ==================================
-  const returnedData: PermissionRequest[] = validatedData.map((data) => {
-    const vacationItem: PermissionRequest = {
-      id: data.id.toString(),
-      date: data.create_date.toISOString().split('T')[0],
-      description: data.type_id[1].toString(),
-      fromDate: data.date_from,
-      toDate: data.date_to,
-      timing: `من ${data.hour_from.toFixed(2)} الى ${data.hour_to.toFixed(2)}`,
-      durationInHours: data.hour_number.toFixed(2),
-      status: data.state,
-    };
-    return vacationItem;
-  });
+  // const returnedData: PermissionRequest[] = validatedData.map((data) => {
+  //   const vacationItem: PermissionRequest = {
+  //     id: data.id.toString(),
+  //     date: data.create_date.toISOString().split('T')[0],
+  //     description: data.type_id[1].toString(),
+  //     fromDate: data.date_from,
+  //     toDate: data.date_to,
+  //     timing: `من ${data.hour_from.toFixed(2)} الى ${data.hour_to.toFixed(2)}`,
+  //     durationInHours: data.hour_number.toFixed(2),
+  //     status: data.state,
+  //   };
+  //   return vacationItem;
+  // });
 
-  return returnedData;
+  // return returnedData;
+  return PermissionDummyData
 };
 
 const PermissionDummyData: PermissionRequest[] = [

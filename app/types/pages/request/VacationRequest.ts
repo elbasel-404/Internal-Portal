@@ -7,7 +7,7 @@ export const VacationRequestSchema = z.object({
   status: z.string(),
   startDate: z.string(),
   endDate: z.string(),
-  approvalDate: z.string(),
+  approvalDate: z.date(),
   durationInDays: z.number(),
 });
 

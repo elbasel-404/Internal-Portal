@@ -2,44 +2,22 @@ import * as z from "zod";
 
 
 export const CreateUidEnumSchema = z.enum([
-    "aashehri.uat",
-    "Abeer F. Albaker",
-    "Albaraa A. Abo Aqeel",
-    "hqushaymit.uat",
-    "Khaled Alamri",
+    "Administrator",
+    "Hamad Y. Alqushaymit",
 ]);
 export type CreateUidEnum = z.infer<typeof CreateUidEnumSchema>;
 
 
 export const DepartmentGlobalIdEnumSchema = z.enum([
-    "خدمات المنشآت / خدمات المنشآت",
+    "خدمات المنشآت / التقنية والحلول الرقمية",
 ]);
 export type DepartmentGlobalIdEnum = z.infer<typeof DepartmentGlobalIdEnumSchema>;
-
-
-export const DestinationIdEnumSchema = z.enum([
-    "إلى من يهمه الأمر",
-    "البنك الأهلي السعودي",
-    "مصرف الإنماء",
-    "مصرف الراجحي",
-]);
-export type DestinationIdEnum = z.infer<typeof DestinationIdEnumSchema>;
 
 
 export const DisplayNameSchema = z.enum([
     "[1401] حمد بن يوسف القشيميط",
 ]);
 export type DisplayName = z.infer<typeof DisplayNameSchema>;
-
-
-export const EngDestinationSchema = z.enum([
-    "Alinma Bank",
-    "Alrajhi Bank",
-    "",
-    "Saudi National Bank",
-    "To Whom",
-]);
-export type EngDestination = z.infer<typeof EngDestinationSchema>;
 
 
 export const ResModelSchema = z.enum([
@@ -56,35 +34,24 @@ export type SectorIdEnum = z.infer<typeof SectorIdEnumSchema>;
 
 export const StateSchema = z.enum([
     "done",
-    "draft",
 ]);
 export type State = z.infer<typeof StateSchema>;
 
 
 export const TemplateSchema = z.enum([
     "",
+    "Salary Request RTL",
     "خطاب تعريف بتفاصيل الراتب",
 ]);
 export type Template = z.infer<typeof TemplateSchema>;
-
-
-export const TypeSchema = z.enum([
-    "nosalary_identification",
-    "salary_check",
-    "salary_detail",
-    "salary_identification",
-    "salary_payslip",
-    "total_salary",
-]);
-export type Type = z.infer<typeof TypeSchema>;
 
 export const SalaryIdentificationElementSchema = z.object({
     "id": z.number(),
     "number": z.string(),
     "order_date": z.string(),
     "employee_id": z.array(z.union([DisplayNameSchema, z.number()])),
-    "destination_id": z.array(z.union([DestinationIdEnumSchema, z.number()])),
-    "type": TypeSchema,
+    "destination_id": z.array(z.union([z.number(), z.string()])),
+    "type": z.string(),
     "speech_lang": z.union([z.boolean(), z.string()]),
     "state": StateSchema,
     "partner_id": z.boolean(),
@@ -99,15 +66,15 @@ export const SalaryIdentificationElementSchema = z.object({
     "open_link": z.string(),
     "res_model": ResModelSchema,
     "is_from_mobile": z.boolean(),
-    "website_message_ids": z.array(z.any()),
     "message_follower_ids": z.array(z.number()),
     "message_ids": z.array(z.number()),
     "message_last_post": z.boolean(),
+    "website_message_ids": z.array(z.any()),
     "create_uid": z.array(z.union([CreateUidEnumSchema, z.number()])),
     "create_date": z.coerce.date(),
-    "write_uid": z.array(z.union([CreateUidEnumSchema, z.number()])),
+    "write_uid": z.array(z.union([z.number(), z.string()])),
     "write_date": z.coerce.date(),
-    "eng_destination": EngDestinationSchema,
+    "eng_destination": z.string(),
     "template_name": TemplateSchema,
     "basic_salary": z.number(),
     "allowance_housing": z.number(),

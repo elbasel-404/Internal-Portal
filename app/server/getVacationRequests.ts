@@ -1,9 +1,9 @@
-'use server';
+"use server";
 
-import type { VacationRequest } from '@types';
-import { HolidayElementSchema, ResponseSchema } from '../../api-schemas';
-import { getDemo } from '../db/actions/getDemo';
-import { getFetchHeaders } from './getFetchHeaders';
+import type { VacationRequest } from "@types";
+import { HolidayElementSchema, ResponseSchema } from "../../api-schemas";
+import { getDemo } from "../db/actions/getDemo";
+import { getFetchHeaders } from "./getFetchHeaders";
 
 export const getVacationRequests = async (): Promise<VacationRequest[]> => {
   const isDemo = await getDemo();
@@ -11,7 +11,7 @@ export const getVacationRequests = async (): Promise<VacationRequest[]> => {
 
   // ! VARIABLES
   // ! ==================================
-  const url = 'api/po/hr/holidays/request';
+  const url = "api/po/hr/holidays/request";
   const apiRootUrl = process.env.API_ROOT_URL as string;
   const { headers } = await getFetchHeaders();
   const requestBody = { employee_id: 1711 };
@@ -22,10 +22,11 @@ export const getVacationRequests = async (): Promise<VacationRequest[]> => {
   // ! ==================================
   const apiResponse = await fetch(requestUrl, {
     headers,
-    method: 'POST',
+    method: "POST",
     body: requestBodyString,
   });
   const responseJson = await apiResponse.json();
+  console.log(responseJson);
 
   // ! VALIDATION
   // ! ==================================
@@ -54,104 +55,104 @@ export const getVacationRequests = async (): Promise<VacationRequest[]> => {
 };
 const dummyData: VacationRequest[] = [
   {
-    id: '#55965',
-    date: '2024-05-05 - 04:30:00',
-    description: 'إجازة المولود',
-    startDate: '2024-05-01',
-    endDate: '2024-05-03',
+    id: "#55965",
+    date: "2024-05-05 - 04:30:00",
+    description: "إجازة المولود",
+    startDate: "2024-05-01",
+    endDate: "2024-05-03",
     durationInDays: 3,
-    approvalDate: '2024-05-04',
-    status: 'طلب',
+    approvalDate: new Date(),
+    status: "طلب",
   },
   {
-    id: '#55964',
-    date: '2024-05-05 - 04:30:00',
-    description: 'إجازة سنوية',
-    startDate: '2024-05-02',
-    endDate: '2024-05-04',
+    id: "#55964",
+    date: "2024-05-05 - 04:30:00",
+    description: "إجازة سنوية",
+    startDate: "2024-05-02",
+    endDate: "2024-05-04",
     durationInDays: 3,
-    approvalDate: '2024-05-05',
-    status: 'المدير المباشر',
+    approvalDate: new Date(),
+    status: "المدير المباشر",
   },
   {
-    id: '#55963',
-    date: '2024-05-05 - 04:30:00',
-    description: 'إجازة مرضية',
-    startDate: '2024-05-01',
-    endDate: '2024-05-03',
+    id: "#55963",
+    date: "2024-05-05 - 04:30:00",
+    description: "إجازة مرضية",
+    startDate: "2024-05-01",
+    endDate: "2024-05-03",
     durationInDays: 3,
-    approvalDate: '2024-05-04',
-    status: 'عمليات الموارد البشرية',
+    approvalDate: new Date(),
+    status: "عمليات الموارد البشرية",
   },
   {
-    id: '#55962',
-    date: '2024-05-05 - 04:30:00',
-    description: 'إجازة سنوية',
-    startDate: '2024-05-02',
-    endDate: '2024-05-04',
+    id: "#55962",
+    date: "2024-05-05 - 04:30:00",
+    description: "إجازة سنوية",
+    startDate: "2024-05-02",
+    endDate: "2024-05-04",
     durationInDays: 3,
-    approvalDate: '2024-05-05',
-    status: 'اعتمد',
+    approvalDate: new Date(),
+    status: "اعتمد",
   },
   {
-    id: '#55961',
-    date: '2024-05-05 - 04:30:00',
-    description: 'إجازة المولود',
-    startDate: '2024-05-01',
-    endDate: '2024-05-03',
+    id: "#55961",
+    date: "2024-05-05 - 04:30:00",
+    description: "إجازة المولود",
+    startDate: "2024-05-01",
+    endDate: "2024-05-03",
     durationInDays: 3,
-    approvalDate: '2024-05-04',
-    status: 'طلب',
+    approvalDate: new Date(),
+    status: "طلب",
   },
   {
-    id: '#55960',
-    date: '2024-05-05 - 04:30:00',
-    description: 'إجازة سنوية',
-    startDate: '2024-04-10',
-    endDate: '2024-05-03',
+    id: "#55960",
+    date: "2024-05-05 - 04:30:00",
+    description: "إجازة سنوية",
+    startDate: "2024-04-10",
+    endDate: "2024-05-03",
     durationInDays: 24,
-    approvalDate: '2024-05-04',
-    status: 'المدير المباشر',
+    approvalDate: new Date(),
+    status: "المدير المباشر",
   },
   {
-    id: '#55959',
-    date: '2024-05-05 - 04:30:00',
-    description: 'إجازة مرضية',
-    startDate: '2024-05-01',
-    endDate: '2024-05-03',
+    id: "#55959",
+    date: "2024-05-05 - 04:30:00",
+    description: "إجازة مرضية",
+    startDate: "2024-05-01",
+    endDate: "2024-05-03",
     durationInDays: 3,
-    approvalDate: '2024-05-04',
-    status: 'عمليات الموارد البشرية',
+    approvalDate: new Date(),
+    status: "عمليات الموارد البشرية",
   },
   {
-    id: '#55958',
-    date: '2024-05-04 - 14:30:00',
-    description: 'إجازة مرضية',
-    startDate: '2024-05-02',
-    endDate: '2024-05-03',
+    id: "#55958",
+    date: "2024-05-04 - 14:30:00",
+    description: "إجازة مرضية",
+    startDate: "2024-05-02",
+    endDate: "2024-05-03",
     durationInDays: 2,
-    approvalDate: '2024-05-03',
-    status: 'طلب',
+    approvalDate: new Date(),
+    status: "طلب",
   },
   {
-    id: '#55957',
-    date: '2024-05-04 - 10:15:00',
-    description: 'إجازة المولود',
-    startDate: '2024-05-01',
-    endDate: '2024-05-02',
+    id: "#55957",
+    date: "2024-05-04 - 10:15:00",
+    description: "إجازة المولود",
+    startDate: "2024-05-01",
+    endDate: "2024-05-02",
     durationInDays: 2,
-    approvalDate: '2024-05-03',
-    status: 'اعتمد',
+    approvalDate: new Date(),
+    status: "اعتمد",
   },
   {
-    id: '#55956',
-    date: '2024-05-03 - 09:45:00',
-    description: 'إجازة سنوية',
-    startDate: '2024-04-29',
-    endDate: '2024-05-01',
+    id: "#55956",
+    date: "2024-05-03 - 09:45:00",
+    description: "إجازة سنوية",
+    startDate: "2024-04-29",
+    endDate: "2024-05-01",
     durationInDays: 3,
-    approvalDate: '2024-05-02',
-    status: 'عمليات الموارد البشرية',
+    approvalDate: new Date(),
+    status: "عمليات الموارد البشرية",
   },
 ];
 

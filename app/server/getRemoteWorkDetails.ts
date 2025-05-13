@@ -1,9 +1,9 @@
-'use server';
+"use server";
 
-import type { RemoteWorkDetails } from '@types';
-import { RemoteWorkElementSchema, ResponseSchema } from '../../api-schemas';
-import { getDemo } from '../db/actions/getDemo';
-import { getFetchHeaders } from './getFetchHeaders';
+import type { RemoteWorkDetails } from "@types";
+import { RemoteWorkElementSchema, ResponseSchema } from "../../api-schemas";
+import { getDemo } from "../db/actions/getDemo";
+import { getFetchHeaders } from "./getFetchHeaders";
 
 export const getRemoteWorkDetails = async (
   id: string
@@ -13,7 +13,7 @@ export const getRemoteWorkDetails = async (
 
   // ! VARIBLES
   // ! ==================================
-  const url = 'api/po/hr/distance/work';
+  const url = "api/po/hr/distance/work";
   const apiRootUrl = process.env.API_ROOT_URL as string;
   const { headers } = await getFetchHeaders();
   const requestBody = { id: id };
@@ -24,7 +24,7 @@ export const getRemoteWorkDetails = async (
   // ! ==================================
   const apiResponse = await fetch(requestUrl, {
     headers,
-    method: 'POST',
+    method: "POST",
     body: requestBodyString,
   });
   const responseJson = await apiResponse.json();
@@ -44,19 +44,19 @@ export const getRemoteWorkDetails = async (
     requestDate: validatedData.create_date.toISOString().split("T")[0],
     remoteWorkDate: `من ${validatedData.date_from} الي  ${validatedData.date_to}`,
     duration: validatedData.duration.toString(),
-    madeThroughTheApp: validatedData.is_from_mobile.toString(),
-    notes: validatedData.note,
+    madeThroughTheApp: "false",
+    notes: typeof validatedData.note === "string" ? validatedData.note : "",
   };
 
   return returnedData;
 };
 
 const dummyData: RemoteWorkDetails = {
-  id: '1',
-  requestDate: '2021-09-01',
-  remoteWorkDate: 'من 17-04-2024 الى 18-04-2024',
-  duration: '1 يوم',
-  madeThroughTheApp: 'نعم',
+  id: "1",
+  requestDate: "2021-09-01",
+  remoteWorkDate: "من 17-04-2024 الى 18-04-2024",
+  duration: "1 يوم",
+  madeThroughTheApp: "نعم",
   notes:
-    'ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ',
+    "ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ",
 };
