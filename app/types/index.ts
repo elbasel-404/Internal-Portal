@@ -40,6 +40,17 @@ export type { PassportRequest } from './pages/request/PassportRequest';
 export type { PermissionDetails } from './pages/request/PermissionDetails';
 export type { PermissionRequest } from './pages/request/PermissionRequest';
 export type { PressFileDetails } from './pages/request/PressFileDetails';
+export type { PurchaseRequest } from './pages/request/PurchaseRequest';
+export type {
+    AttachmentType,
+    FileHandler,
+    FileWithId,
+    PlanData,
+    ProgramData,
+    ProjectData,
+    PurchaseType,
+    YesNoOption
+} from './pages/request/PurchaseTypes';
 export type { RecommendationDetails } from './pages/request/RecommendationDetails';
 export type { RecommendationRequest } from './pages/request/RecommendationRequest';
 export type { RemoteWorkDetails } from './pages/request/RemoteWorkDetails';
