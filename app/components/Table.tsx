@@ -9,8 +9,10 @@ import {
   PdfFileIcon,
   ProjectorIcon,
   RejectIcon,
+  RiyalCurrencyIcon,
   SandClock2Icon,
   TagsIcon,
+  TrashIcon,
   UserIcon,
   UserWithXMarkIcon,
   XMarkIcon,
@@ -43,11 +45,13 @@ interface TableProps {
   link?: string;
   toggleId?: boolean;
   toggleStatus?: boolean;
+  toggleDelete?: boolean;
   showCheckBox?: boolean;
   idTableHeader?: string;
   tableClassName?: string;
   onApprove?: (id: string) => void;
   onReject?: (request: Row) => void;
+  onRemove?: (id: number) => void;
 }
 
 export const Table = ({
@@ -59,8 +63,10 @@ export const Table = ({
   idTableHeader = 'رقم الطلب',
   toggleId = true,
   toggleStatus = false,
-  tableClassName = 'h-[440px]',
+  toggleDelete = false,
+  tableClassName = 'h-[500px]',
   onReject,
+  onRemove,
 }: TableProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectAll, setSelectAll] = useState(false);
@@ -97,7 +103,7 @@ export const Table = ({
         <TableHeader className='bg-cloudGray'>
           <TableRow>
             {toggleId && (
-              <TableHead className='text-right text-darkBlue text-lg w-1/12'>
+              <TableHead className='text-right text-darkBlue text-lg py-4'>
                 <div className='flex items-center gap-2 mr-2'>
                   {showCheckBox && (
                     <Checkbox
@@ -114,7 +120,7 @@ export const Table = ({
             {columns.map((col, index) => (
               <TableHead
                 key={index}
-                className='text-right text-darkBlue text-lg w-1/12'
+                className='text-right text-darkBlue text-lg'
               >
                 {col.label}
               </TableHead>
@@ -128,7 +134,7 @@ export const Table = ({
               key={request.id}
             >
               {toggleId && (
-                <TableCell className='w-1/12'>
+                <TableCell>
                   <div className='flex items-center gap-2 mr-2'>
                     {showCheckBox && (
                       <Checkbox
@@ -159,7 +165,7 @@ export const Table = ({
               {Object.entries(request)
                 .filter(([key]) => key !== 'id')
                 .map(([key, value]) => (
-                  <TableCell key={key} className='w-1/12'>
+                  <TableCell key={key} className='py-3'>
                     {key === 'status' ? (
                       <div
                         className={`flex items-center truncate gap-1 py-2 px-4 text-sm rounded-xl font-medium w-fit ${
@@ -182,9 +188,13 @@ export const Table = ({
                           <SandClock2Icon />
                         ) : value === 'مرفوض' || value === 'refuse' ? (
                           <XMarkIcon className='fill-destructive-foreground' />
-                        ) : value === 'طلب' || value === 'draft' ? (
+                        ) : value === 'طلب' ||
+                          value === 'draft' ||
+                          value === 'اتفاقية شراء' ? (
                           <BriefcaseIcon className='fill-primary' />
-                        ) : value === 'المدير المباشر' || value === 'dm' ? (
+                        ) : value === 'المدير المباشر' ||
+                          value === 'تحت الطرح' ||
+                          value === 'dm' ? (
                           <UserIcon className='fill-primary' />
                         ) : value === 'غائب' ||
                           value === 'الموظف' ||
@@ -202,6 +212,10 @@ export const Table = ({
                         ) : value === 'تم الإلغاء' ? (
                           <RejectIcon />
                         ) : value === 'عمليات الموارد البشرية' ||
+                          value === 'التحليل الفني' ||
+                          value === 'مدقق مالي' ||
+                          value === 'الترسية و التعميد' ||
+                          value === 'إدارة العقود و المشتريات' ||
                           value === 'hrm' ||
                           value === 'humain' ||
                           value === 'gm_humain' ? (
@@ -240,6 +254,13 @@ export const Table = ({
                         />
                         <p className='truncate'>{value}</p>
                       </div>
+                    ) : key === 'totalWithoutTax' ||
+                      key === 'totalWithTax' ||
+                      key === 'amount' ? (
+                      <div className='flex items-center gap-3'>
+                        <p className='truncate'>{value}</p>
+                        {typeof value !== 'string' && <RiyalCurrencyIcon />}
+                      </div>
                     ) : key === 'courseName' ? (
                       <Link
                         href={
@@ -261,7 +282,7 @@ export const Table = ({
                   </TableCell>
                 ))}
               {!request.status && toggleStatus && (
-                <TableCell className='flex items-center gap-3 w-1/12'>
+                <TableCell className='flex items-center gap-3'>
                   <Button className='flex group gap-1 items-center shadow-none hover:bg-green-600 hover:text-white justify-end text-success-foreground bg-success rounded-xl px-4 py-2.5'>
                     <CheckIcon className='fill-success-foreground group-hover:fill-white' />
                     اعتمد
@@ -273,6 +294,20 @@ export const Table = ({
                   >
                     <XMarkIcon className='fill-destructive-foreground group-hover:fill-white' />
                     مرفوض
+                  </Button>
+                </TableCell>
+              )}
+              {toggleDelete && (
+                <TableCell className='flex items-center gap-3'>
+                  <Button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onRemove && onRemove(Number(request.id));
+                    }}
+                    className='flex group gap-1 items-center shadow-none hover:bg-red-600 hover:text-white justify-end text-destructive-foreground bg-destructive-opacity rounded-xl px-4 py-2.5'
+                  >
+                    <TrashIcon className='fill-destructive-foreground group-hover:fill-white' />
+                    حذف
                   </Button>
                 </TableCell>
               )}
