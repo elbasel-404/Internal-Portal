@@ -181,7 +181,7 @@ export const MenuItems: MenuItem[] = [
       {
         iconKey: 'Star',
         label: 'تقييم أداء المتعاقدين',
-        href: '/',
+        href: paths.supplierEvaluation.href,
         tag: 'purchases',
       },
       {
