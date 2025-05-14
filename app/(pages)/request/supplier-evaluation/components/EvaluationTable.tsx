@@ -62,7 +62,7 @@ export const EvaluationTable = ({ data }: SupplierEvaluationProps) => {
               <FilterIcon className='fill-primary' />
             </Button>
             <Link
-              href={paths.workDocumentNew.href}
+              href={paths.supplierEvaluationNew.href}
               className='flex group font-medium items-center gap-2 bg-primary text-white px-4 py-1 rounded-full hover:bg-primary-opacity hover:text-primary border-2 border-primary'
             >
               <CirclePlusIcon className='fill-white group-hover:fill-primary' />
@@ -78,7 +78,7 @@ export const EvaluationTable = ({ data }: SupplierEvaluationProps) => {
         <Table
           columns={tableHeaders}
           rows={filteredRequests}
-          link={paths.workDocumentDetails.href}
+          link={paths.supplierEvaluationDetails.href}
         />
       </div>
     </>

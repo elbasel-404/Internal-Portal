@@ -63,6 +63,7 @@ export { getVacationRequests } from './getVacationRequests';
 export { getWorkDocumentDetails } from './getWorkDocumentDetails';
 export { getWorkDocumentRequests } from './getWorkDocumentRequests';
 export { getSupplierEvaluationRequests } from './getSupplierEvaluationRequests';
+export { getSupplierEvaluationRequestDetails } from './getSupplierEvaluationRequestDetails';
 export { revalidateHomePage } from './revalidateHomePage';
 export { setUserId } from './setUserId';
 export { toggleHomePageSetting } from './toggleHomePageSetting';
