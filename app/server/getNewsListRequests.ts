@@ -2,7 +2,7 @@
 
 import type { NewsListRequest } from '@types';
 
-export const getNewsListRequests = async (): Promise<NewsListRequest[]> => {
+export const getNewsList = async (): Promise<NewsListRequest[]> => {
   return NewsListDummyData;
 };
 

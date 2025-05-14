@@ -1,9 +1,9 @@
 import { paths } from '@lib';
-import { getNewsListRequests } from '@server';
+import { getNewsList } from '@server';
 import { NewsList } from '../components';
 
 const NewsPage = async () => {
-  const newsData = await getNewsListRequests();
+  const newsData = await getNewsList();
   return (
     <>
       <NewsList
