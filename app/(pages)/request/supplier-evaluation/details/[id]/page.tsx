@@ -1,4 +1,4 @@
-import { EvaluationCriteriaTable } from '../../components';
+import { EvaluationCriteriaTable ,EvaluationResultTable} from '../../components';
 import { RequestDetails, RequestStatus } from '@components';
 import { getRequestStatus, getSupplierEvaluationRequestDetails } from '@server';
 import { RequestHeader } from '@types';
@@ -96,6 +96,7 @@ const SupplierEvaluationDetailsPage = async ({
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails headers={requestHeaders} />
       <EvaluationCriteriaTable data={[]}/>
+      <EvaluationResultTable data={[]}/>
     </main>
   );
 };
