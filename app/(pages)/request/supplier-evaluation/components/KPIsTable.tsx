@@ -15,7 +15,7 @@ export const KPIsTable = ({ data }: SupplierKPIProps) => {
       <UITable>
         <TableBody>
           {tableData.map((kpi: SupplierKPI) => (
-            <TableRow key={kpi.id}>
+            <TableRow key={kpi.id} className={"bg-white"}>
               {Object.entries(kpi)
                 .filter(([key]) => key !== "id")
                 .map(([key, value]) => (

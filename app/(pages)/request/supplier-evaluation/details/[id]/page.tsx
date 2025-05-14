@@ -1,14 +1,19 @@
 import {
+  EvaluationCriteriaTableStatistics,
   EvaluationCriteriaTable,
   EvaluationResultTable,
 } from "../../components";
-import { RequestDetails, RequestStatus } from "@components";
+import { RequestDetails, RequestStatus, Instructions } from "@components";
 import {
   getRequestStatus,
   getSupplierEvaluationRequestDetails,
   getSupplierEvaluationRequestCriteria,
 } from "@server";
-import { RequestHeader, SupplierEvaluationCriterionResult } from "@types";
+import {
+  RequestHeader,
+  SupplierEvaluationCriterionResult,
+  SupplierKPI,
+} from "@types";
 
 type Params = Promise<{ id: string }>;
 
@@ -112,12 +117,26 @@ const SupplierEvaluationDetailsPage = async ({
       };
     }) || [];
 
+  const CriteriaStatistics: SupplierKPI = {
+    id: "0000",
+    name: "",
+    measurement: "",
+    pointsValue: "",
+    evaluationPoints: ["", "", ""],
+    notes: "لا يوجد",
+  };
+
   return (
     <main className="space-y-4">
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails headers={requestHeaders} />
+      <EvaluationCriteriaTableStatistics data={CriteriaStatistics} />
       <EvaluationCriteriaTable data={evaluationCriteriaData} />
       <EvaluationResultTable data={evaluationResultData} />
+      <Instructions
+        title="توضيحات حول الخدمة"
+        description="تتيح هذه الخدمة للموظف امكانية الاطلاع علي تفاصيل طلب تقييم أداء المتعاقدين.."
+      />
     </main>
   );
 };
