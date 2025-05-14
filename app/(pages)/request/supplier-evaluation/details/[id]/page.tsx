@@ -1,7 +1,14 @@
-import { EvaluationCriteriaTable ,EvaluationResultTable} from '../../components';
-import { RequestDetails, RequestStatus } from '@components';
-import { getRequestStatus, getSupplierEvaluationRequestDetails, getSupplierEvaluationRequestCriteria } from '@server';
-import { RequestHeader, SupplierEvaluationCriterion, SupplierEvaluationCriterionResult } from '@types';
+import {
+  EvaluationCriteriaTable,
+  EvaluationResultTable,
+} from "../../components";
+import { RequestDetails, RequestStatus } from "@components";
+import {
+  getRequestStatus,
+  getSupplierEvaluationRequestDetails,
+  getSupplierEvaluationRequestCriteria,
+} from "@server";
+import { RequestHeader, SupplierEvaluationCriterionResult } from "@types";
 
 type Params = Promise<{ id: string }>;
 
@@ -32,7 +39,8 @@ const SupplierEvaluationDetailsPage = async ({
     confirmationContractNumber,
   } = (await getSupplierEvaluationRequestDetails(id)) || {};
 
-  const evaluationCriteriaData = (await getSupplierEvaluationRequestCriteria(id)) || [];
+  const evaluationCriteriaData =
+    (await getSupplierEvaluationRequestCriteria(id)) || [];
 
   const requestHeaders: RequestHeader[] = [
     {
@@ -93,23 +101,22 @@ const SupplierEvaluationDetailsPage = async ({
     },
   ];
 
-
   const evaluationResultData: SupplierEvaluationCriterionResult[] =
-  evaluationCriteriaData?.map((item) => {
-    return {
-      id: item.id,
-      name: item.name,
-      weight: item.weight,
-      evaluationPoints: item.evaluationPoints,
-      totalPoints: item.totalPoints,
-    };
-  }) || [];
+    evaluationCriteriaData?.map((item) => {
+      return {
+        id: item.id,
+        name: item.name,
+        weight: item.weight,
+        evaluationPoints: item.evaluationPoints,
+        totalPoints: item.totalPoints,
+      };
+    }) || [];
 
   return (
     <main className="space-y-4">
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails headers={requestHeaders} />
-      <EvaluationCriteriaTable data={[]} />
+      <EvaluationCriteriaTable data={evaluationCriteriaData} />
       <EvaluationResultTable data={evaluationResultData} />
     </main>
   );
