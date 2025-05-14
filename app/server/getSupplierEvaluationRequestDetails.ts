@@ -21,7 +21,6 @@ export const getSupplierEvaluationRequestDetails = async (
       confirmationSerialNumber: '',
       confirmationProjectName: '',
       confirmationContractNumber: '',
-      evaluationCriteria: [],
     };
     return details;
   } catch (error) {

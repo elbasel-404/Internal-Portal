@@ -1,5 +1,3 @@
-import { SupplierEvaluationCriterion } from '@types';
-
 export type SupplierEvaluationRequestDetails = {
   id: string;
   requestDate: string;
@@ -15,5 +13,4 @@ export type SupplierEvaluationRequestDetails = {
   confirmationSerialNumber: string;
   confirmationProjectName: string;
   confirmationContractNumber: string;
-  evaluationCriteria: SupplierEvaluationCriterion[];
 };

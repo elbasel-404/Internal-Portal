@@ -64,6 +64,7 @@ export { getWorkDocumentDetails } from './getWorkDocumentDetails';
 export { getWorkDocumentRequests } from './getWorkDocumentRequests';
 export { getSupplierEvaluationRequests } from './getSupplierEvaluationRequests';
 export { getSupplierEvaluationRequestDetails } from './getSupplierEvaluationRequestDetails';
+export { getSupplierEvaluationRequestCriteria } from './getSupplierEvaluationRequestCriteria';
 export { revalidateHomePage } from './revalidateHomePage';
 export { setUserId } from './setUserId';
 export { toggleHomePageSetting } from './toggleHomePageSetting';

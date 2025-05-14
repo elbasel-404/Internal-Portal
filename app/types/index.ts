@@ -61,6 +61,7 @@ export type { SupplierEvaluationRequest } from './pages/request/SupplierEvaluati
 export type { SupplierEvaluationRequestDetails } from './pages/request/SupplierEvaluationRequestDetails';
 export type { SupplierKPI } from './pages/request/SupplierKPI';
 export type { SupplierEvaluationCriterion } from './pages/request/SupplierEvaluationCriterion';
+export type { SupplierEvaluationCriterionResult } from './pages/request/SupplierEvaluationCriterionResult';
 export type { RequestHeader } from './pages/RequestHeader';
 export type { RequestLabel } from './pages/RequestLabel';
 export type { RequestStatus } from './pages/RequestStatus';

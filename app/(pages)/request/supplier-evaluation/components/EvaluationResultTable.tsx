@@ -2,22 +2,24 @@
 
 import { Table } from '@components';
 import { PrinterIcon } from '@icons';
-import { SupplierEvaluationRequest } from '@types';
+import { SupplierEvaluationCriterionResult } from '@types';
 import { Button, Input } from '@ui';
 import { ChangeEvent, useState } from 'react';
 
-interface SupplierEvaluationProps {
-  data: SupplierEvaluationRequest[];
+interface SupplierEvaluationCriterionResultProps {
+  data: SupplierEvaluationCriterionResult[];
 }
 
 const tableHeaders = [
-  { label: 'تاريخ الطلب' },
-  { label: 'الموظف' },
-  { label: 'العقد' },
-  { label: 'الحالة' },
+ { label: 'معدل التقييم' },
+  { label: 'الوزن %' },
+  { label: 'تقييم المورد' },
+  { label: 'مجموعة نقاط الموردين %' },
 ];
 
-export const EvaluationResultTable = ({ data }: SupplierEvaluationProps) => {
+export const EvaluationResultTable = ({ data }: SupplierEvaluationCriterionResultProps) => {
+
+  const tableData = data;
 
   return (
     <>
@@ -29,7 +31,7 @@ export const EvaluationResultTable = ({ data }: SupplierEvaluationProps) => {
         </div>
         <Table
           columns={tableHeaders}
-          rows={data}
+          rows={tableData}
         />
       </div>
     </>
