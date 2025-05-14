@@ -10,6 +10,7 @@ WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 
 COPY package.json pnpm-lock.yaml* .npmrc* ./
+COPY .env .env
 RUN echo "Before: corepack version => $(corepack --version || echo 'not installed')" && \
     npm install -g corepack@latest && \
     echo "After : corepack version => $(corepack --version)" && \
@@ -24,6 +25,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=deps /app/node_modules ./node_modules
 # COPY --from=deps /app/db/db.json /app/db/db.json
 COPY . .
+COPY .env .env
 
 RUN echo "Before: corepack version => $(corepack --version || echo 'not installed')" && \
     npm install -g corepack@latest && \
@@ -38,6 +40,7 @@ WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 
 COPY --from=builder /app/public ./public
+COPY --from=builder .env .env 
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
