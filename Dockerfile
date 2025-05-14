@@ -9,8 +9,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 
-COPY package.json pnpm-lock.yaml* .npmrc* ./
-COPY .env .env
+COPY package.json pnpm-lock.yaml* .npmrc* .env ./
 RUN echo "Before: corepack version => $(corepack --version || echo 'not installed')" && \
     npm install -g corepack@latest && \
     echo "After : corepack version => $(corepack --version)" && \
@@ -23,6 +22,7 @@ FROM base AS builder
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/.env ./.env
 # COPY --from=deps /app/db/db.json /app/db/db.json
 COPY . .
 COPY .env .env
@@ -40,7 +40,12 @@ WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 
 COPY --from=builder /app/public ./public
+
+# !.env
 COPY --from=builder /app/.env ./.env
+COPY --from=builder /app/.env ./.next/static/.env
+COPY --from=builder /app/.env ./.next/standalone/.env
+COPY --from=builder /app/.env ./.next/public/.env
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
