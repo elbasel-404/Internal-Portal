@@ -33,9 +33,7 @@
           "statement": "active",
           "amount": "10",
           "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
+          "attachments": ["file-name-i"]
         }
       ]
     },
@@ -72,9 +70,7 @@
           "statement": "active",
           "amount": "10",
           "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
+          "attachments": ["file-name-i"]
         }
       ]
     },
@@ -111,9 +107,7 @@
           "statement": "active",
           "amount": "10",
           "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
+          "attachments": ["file-name-i"]
         }
       ]
     },
@@ -150,9 +144,7 @@
           "statement": "active",
           "amount": "10",
           "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
+          "attachments": ["file-name-i"]
         }
       ]
     },
@@ -182,58 +174,17 @@
         "monshaatFamilyTab",
         "internalTab"
       ],
-      "demo": false,
+      "demo": true,
       "convenantData": [
         {
           "product": "prod",
           "statement": "active",
           "amount": "10",
           "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
-        }
-      ]
-    },
-    {
-      "id": 6,
-      "activeGeneralInfoKeys": [
-        "employeeRequests",
-        "approvalRequests",
-        "totalVacationBalance",
-        "permissions",
-        "remoteWork",
-        "delegations"
-      ],
-      "activeHomePageSlotsKeys": [
-        "completeProfile",
-        "generalInfo",
-        "userInfo",
-        "attendance",
-        "approvalRequestsTable",
-        "sliders",
-        "timelineCalendar",
-        "news"
-      ],
-      "activeNewsTabsKeys": [
-        "pressTab",
-        "newsTab",
-        "monshaatFamilyTab",
-        "internalTab"
-      ],
-      "demo": false,
-      "convenantData": [
-        {
-          "product": "prod",
-          "statement": "active",
-          "amount": "10",
-          "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
+          "attachments": ["file-name-i"]
         }
       ]
     }
   ],
-  "userCount": 6
+  "userCount": 5
 }
