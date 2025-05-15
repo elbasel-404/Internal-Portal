@@ -1,3 +1,4 @@
+
 export const modalPaths = {
   HomePageSettingsModal: {
     title: 'الإعدادات',
