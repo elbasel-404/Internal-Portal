@@ -9,13 +9,6 @@ export const CreateUidEnumSchema = z.enum([
 export type CreateUidEnum = z.infer<typeof CreateUidEnumSchema>;
 
 
-export const ImageFileNameSchema = z.enum([
-    "Biban-Logo (1).jpg",
-    "Monshaat_Logo_PNG.png",
-]);
-export type ImageFileName = z.infer<typeof ImageFileNameSchema>;
-
-
 export const TypeSchema = z.enum([
     "news",
 ]);
@@ -26,7 +19,7 @@ export const NewsElementSchema = z.object({
     "published": z.boolean(),
     "title": z.string(),
     "image": z.string(),
-    "image_file_name": ImageFileNameSchema,
+    "image_file_name": z.string(),
     "attachment": z.boolean(),
     "attachment_file_name": z.boolean(),
     "resume": z.string(),
