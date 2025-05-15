@@ -1,4 +1,5 @@
 export { BankAccountSchema } from './bankAccountSchema';
+export { BatchProductSchema } from './batchProductsSchema';
 export { CovenantSchema } from './covenantSchema';
 export { generalInfoKeyEnum } from './generalInfoKeyEnum';
 export { generalInfoSchema } from './generalInfoSchema';
