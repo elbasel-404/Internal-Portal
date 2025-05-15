@@ -1,0 +1,1 @@
+export { BatchsModal } from './BatchsModal';
