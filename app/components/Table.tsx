@@ -256,7 +256,12 @@ export const Table = ({
                       </div>
                     ) : key === 'totalWithoutTax' ||
                       key === 'totalWithTax' ||
-                      key === 'amount' ? (
+                      key === 'unitPrice' ||
+                      key === 'completedCost' ||
+                      key === 'remainingCost' ||
+                      key === 'unitPriceWithTax' ||
+                      key === 'subtotal' ||
+                      key === 'subtotalWithTax' ? (
                       <div className='flex items-center gap-3'>
                         <p className='truncate'>{value}</p>
                         {typeof value !== 'string' && <RiyalCurrencyIcon />}
