@@ -1,0 +1,144 @@
+import {
+  EvaluationCriteriaTableStatistics,
+  EvaluationCriteriaTable,
+  EvaluationResultTable,
+} from "../../components";
+import { RequestDetails, RequestStatus, Instructions } from "@components";
+import {
+  getRequestStatus,
+  getSupplierEvaluationRequestDetails,
+  getSupplierEvaluationRequestCriteria,
+} from "@server";
+import {
+  RequestHeader,
+  SupplierEvaluationCriterionResult,
+  SupplierKPI,
+} from "@types";
+
+type Params = Promise<{ id: string }>;
+
+interface SupplierEvaluationDetailsPageProps {
+  params: Params;
+}
+
+const SupplierEvaluationDetailsPage = async ({
+  params,
+}: SupplierEvaluationDetailsPageProps) => {
+  const { id } = await params;
+  const requestStatus = await getRequestStatus();
+  const requestCaption =
+    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر";
+  const {
+    requestDate,
+    contract,
+    step,
+    purchaseRequestNumber,
+    supplier,
+    projectName,
+    contractStartDate,
+    contractEndDate,
+    startDate,
+    endDate,
+    confirmationSerialNumber,
+    confirmationProjectName,
+    confirmationContractNumber,
+  } = (await getSupplierEvaluationRequestDetails(id)) || {};
+
+  const evaluationCriteriaData =
+    (await getSupplierEvaluationRequestCriteria(id)) || [];
+
+  const requestHeaders: RequestHeader[] = [
+    {
+      label: "رقم العقد من الاعتماد",
+      value: id,
+    },
+    {
+      label: "تاريخ الطلب",
+      value: requestDate,
+    },
+    {
+      label: "العقد",
+      value: contract,
+    },
+    {
+      label: "المرحلة",
+      value: step,
+    },
+    {
+      label: "رقم طلب الشراء",
+      value: purchaseRequestNumber,
+    },
+    {
+      label: "المورد",
+      value: supplier,
+    },
+    {
+      label: "اسم المشروع",
+      value: projectName,
+    },
+    {
+      label: "تاريخ بداية العقد",
+      value: contractStartDate,
+    },
+    {
+      label: "تاريخ نهاية العقد",
+      value: contractEndDate,
+    },
+    {
+      label: "التاريخ من",
+      value: startDate,
+    },
+    {
+      label: "التاريخ الي",
+      value: endDate,
+    },
+    {
+      label: "الرقم التسلسلي من الاعتماد",
+      value: confirmationSerialNumber,
+    },
+    {
+      label: "اسم المشروع من الاعتماد",
+      value: confirmationProjectName,
+    },
+    {
+      label: "رقم العقد من الاعتماد",
+      value: confirmationContractNumber,
+    },
+  ];
+
+  const evaluationResultData: SupplierEvaluationCriterionResult[] =
+    evaluationCriteriaData?.map((item) => {
+      return {
+        id: item.id,
+        name: item.name,
+        weight: item.weight,
+        evaluationPoints: item.evaluationPoints,
+        totalPoints: item.totalPoints,
+      };
+    }) || [];
+
+  const CriteriaStatistics: SupplierKPI = {
+    id: "0000",
+    name: "",
+    measurement: "",
+    pointsValue: "",
+    evaluationPoints: ["", "", ""],
+    notes: "لا يوجد",
+  };
+
+  return (
+    <main className="space-y-4">
+      <RequestStatus status={requestStatus} caption={requestCaption} />
+      <RequestDetails headers={requestHeaders} />
+      <EvaluationCriteriaTableStatistics data={CriteriaStatistics} />
+      <EvaluationCriteriaTable data={evaluationCriteriaData} />
+      <EvaluationResultTable data={evaluationResultData} />
+      <Instructions
+        title="توضيحات حول الخدمة"
+        description="تتيح هذه الخدمة للموظف امكانية الاطلاع علي تفاصيل طلب تقييم أداء المتعاقدين.."
+      />
+    </main>
+  );
+};
+
+export default SupplierEvaluationDetailsPage;
