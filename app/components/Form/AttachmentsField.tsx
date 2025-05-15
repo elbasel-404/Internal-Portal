@@ -8,6 +8,7 @@ interface AttachmentsFieldProps {
   label?: string;
   required?: boolean;
   files: File[];
+  name?: string;
 }
 
 export const AttachmentsField = ({
@@ -16,6 +17,7 @@ export const AttachmentsField = ({
   label = 'المرفقات',
   required,
   files,
+  name = 'attachment_ids',
 }: AttachmentsFieldProps) => {
   return (
     <div>
@@ -28,7 +30,7 @@ export const AttachmentsField = ({
           <input
             type='file'
             id='attachments'
-            name='attachment_ids'
+            name={name}
             className='sr-only'
             onChange={(e) => handleFileUpload(e.target.files)}
             multiple
