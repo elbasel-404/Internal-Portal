@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { BatchProductSchema } from './batchProductsSchema';
 import { CovenantSchema } from './covenantSchema';
 import { generalInfoKeyEnum } from './generalInfoKeyEnum';
 import { homePageSlotKeyEnum } from './homePageSlotKeyEnum';
@@ -15,4 +16,6 @@ export const userSchema = z.object({
   convenantData: z.array(CovenantSchema),
   projectCompletion: z.array(ProjectCompletionSchema),
   products: z.array(ProductSchema),
+  batchs: z.array(ProductSchema),
+  batchProducts: z.array(BatchProductSchema),
 });
