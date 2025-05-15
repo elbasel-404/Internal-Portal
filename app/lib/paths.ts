@@ -383,4 +383,16 @@ export const paths: Record<string, AppPath> = {
     title: 'قائمة طلبات الشراء',
     href: '/request/purchase/details/:id',
   },
+  supplierEvaluation: {
+    title: 'قائمة طلب تقييم اداء المتعاقدين',
+    href: '/request/supplier-evaluation',
+  },
+  supplierEvaluationDetails: {
+    title: 'تفاصيل طلب تقييم اداء المتعاقدين',
+    href: '/request/supplier-evaluation/details/:id',
+  },
+  supplierEvaluationNew: {
+    title: 'طلب تقييم اداء المتعاقدين',
+    href: '/request/supplier-evaluation/new',
+  },
 };

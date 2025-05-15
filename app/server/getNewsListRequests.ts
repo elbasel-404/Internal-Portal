@@ -1,12 +1,64 @@
 'use server';
 
 import type { NewsListRequest } from '@types';
+import { getDemo } from '../db/actions/getDemo';
+import { getFetchHeaders } from './getFetchHeaders';
+import { NewsElementSchema, ResponseSchema } from '../../schemas';
 
-export const getNewsListRequests = async (): Promise<NewsListRequest[]> => {
-  return NewsListDummyData;
+
+export const getNewsListRequests  = async (): Promise<NewsListRequest[]> => {
+  const isDemo = await getDemo();
+  if (isDemo) return dummyData
+  
+  // ! VARIBLES
+  // ! ==================================
+  const url = 'po/read/portal-news';
+  const apiRootUrl = process.env.API_ROOT_URL as string;
+  const { headers } = await getFetchHeaders();
+  const requestBody = { news_type:"news" };
+  const requestBodyString = JSON.stringify(requestBody);
+  const requestUrl = `${apiRootUrl}/${url}`;
+
+  // ! FETCH
+  // ! ==================================
+  const apiResponse = await fetch(requestUrl, {
+    headers,
+    method: 'POST',
+    body: requestBodyString,
+  });
+  const responseJson = await apiResponse.json();
+
+  // ! VALIDATION
+  // ! ==================================
+  const validatedResponse = ResponseSchema.parse(responseJson);
+  const { result } = validatedResponse;
+  const { data } = result;
+  const validatedData = NewsElementSchema.array().parse(data);
+
+  // ! PARSING
+  // ! ==================================
+  const returnedData: NewsListRequest[] = validatedData.map((data) => {
+    const newsItem: NewsListRequest = {
+    id: data.id,
+    title: data.title,
+    date: new Date(data.create_date).toLocaleDateString('ar-EG', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }),
+    description: data.resume,
+    // image: data.image,
+    image: `data:image/gif;base64,${data.image}`,
+    };
+    return newsItem;
+  });
+console.log(returnedData);
+  return returnedData;
+  
 };
 
-const NewsListDummyData: NewsListRequest[] = [
+const dummyData: NewsListRequest[] = [
   {
     id: 1,
     title: '"منشآت" تطلق جولة الامتياز التجاري أغسطس المقبل في 14 مدينة...',

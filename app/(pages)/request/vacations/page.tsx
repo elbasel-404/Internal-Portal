@@ -1,18 +1,18 @@
-import { Instructions } from '@components';
-import { VacationTable } from './components';
-import { getVacationRequests } from '@server';
+import { Instructions } from "@components";
+import { VacationTable } from "./components";
+import { getVacationRequests } from "@server";
 
-export const dynamic = "force-dynamic"
+export const dynamic = "force-dynamic";
 
 const VacationsListPage = async () => {
   const VacationRequests = await getVacationRequests();
 
   return (
-    <div className='space-y-4 mb-12'>
+    <div className="space-y-4 mb-12">
       <VacationTable data={VacationRequests} />
       <Instructions
-        title='توضيحات حول الخدمة'
-        description='تتيح هذه الخدمة للموظف إمكانية طلب إجازة. يتم تعبئة الطلب بالبيانات الأساسية ويجب على الموظف التأكد من تاريخ بداية ونهاية الإدارة.'
+        title="توضيحات حول الخدمة"
+        description="تتيح هذه الخدمة للموظف إمكانية طلب إجازة. يتم تعبئة الطلب بالبيانات الأساسية ويجب على الموظف التأكد من تاريخ بداية ونهاية الإدارة."
       />
     </div>
   );
