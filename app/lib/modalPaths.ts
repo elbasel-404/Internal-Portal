@@ -1,3 +1,4 @@
+
 export const modalPaths = {
   HomePageSettingsModal: {
     title: 'الإعدادات',
@@ -18,5 +19,13 @@ export const modalPaths = {
   ConfirmationModal: {
     title: 'تأكيد طلب الدورة الداخلية',
     href: '/modal/ConfirmationModal',
+  },
+  ProjectCompletionModal: {
+    title: 'مرحلة استكمال المشروع',
+    href: '/modal/ProjectCompletionModal',
+  },
+  ProductsModal: {
+    title: 'المنتجات',
+    href: '/modal/ProductsModal',
   },
 } as const;

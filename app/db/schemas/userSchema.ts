@@ -3,6 +3,8 @@ import {
   generalInfoKeyEnum,
   homePageSlotKeyEnum,
   newsTabsKeyEnum,
+  ProductSchema,
+  ProjectCompletionSchema,
 } from '@zodSchemas';
 import { z } from 'zod';
 
@@ -13,4 +15,6 @@ export const userSchema = z.object({
   activeNewsTabsKeys: z.array(newsTabsKeyEnum),
   demo: z.boolean(),
   convenantData: z.array(CovenantSchema),
+  projectCompletion: z.array(ProjectCompletionSchema),
+  products: z.array(ProductSchema),
 });
