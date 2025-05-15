@@ -12,7 +12,7 @@ export const getNewsListRequests  = async (): Promise<NewsListRequest[]> => {
   
   // ! VARIBLES
   // ! ==================================
-  const url = 'po/read/portal-news';
+  const url = 'api/po/read/portal-news';
   const apiRootUrl = process.env.API_ROOT_URL as string;
   const { headers } = await getFetchHeaders();
   const requestBody = { news_type:"news" };
