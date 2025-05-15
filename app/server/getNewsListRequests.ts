@@ -6,7 +6,7 @@ import { getFetchHeaders } from './getFetchHeaders';
 import { NewsElementSchema, ResponseSchema } from '../../schemas';
 
 
-export const getNewsList = async (): Promise<NewsListRequest[]> => {
+export const getNewsListRequests  = async (): Promise<NewsListRequest[]> => {
   const isDemo = await getDemo();
   if (isDemo) return dummyData
   

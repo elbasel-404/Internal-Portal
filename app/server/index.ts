@@ -26,7 +26,7 @@ export { getJobApplicationsDetails } from './getJobApplicationsDetails';
 export { getJobApplicationsRequests } from './getJobApplicationsRequests';
 export { getMedicalInsuranceDetails } from './getMedicalInsuranceDetails';
 export { getMedicalInsuranceRequests } from './getMedicalInsuranceRequests';
-export { getNewsList } from './getNewsList';
+export { getNewsListRequests  } from './getNewsListRequests';
 export { getNewsSlides } from './getNewsSlides';
 export { getNotifications } from './getNotification';
 export { getObligationDetails } from './getObligationDetails';
