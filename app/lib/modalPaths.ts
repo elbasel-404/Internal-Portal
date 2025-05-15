@@ -1,4 +1,3 @@
-
 export const modalPaths = {
   HomePageSettingsModal: {
     title: 'الإعدادات',
@@ -27,5 +26,13 @@ export const modalPaths = {
   ProductsModal: {
     title: 'المنتجات',
     href: '/modal/ProductsModal',
+  },
+  BatchsModal: {
+    title: 'الدفعات',
+    href: '/modal/BatchsModal',
+  },
+  BatchProductsModal: {
+    title: 'منتجات الدفعة',
+    href: '/modal/BatchProductsModal',
   },
 } as const;
