@@ -4,8 +4,6 @@ import { SupplierKPI, SupplierEvaluationCriterion } from "@types";
 import { PrinterIcon } from "@icons";
 import {
   Button,
-  TableBody,
-  TableRow,
   PieChartElem,
 } from "@ui";
 import { colors } from "@lib";
