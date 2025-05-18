@@ -4,8 +4,9 @@ import { ChangeEvent, ReactNode } from "react";
 interface InputFieldProps {
   name: string;
   label: string;
-  placeholder: string;
+  placeholder?: string;
   disabled?: boolean;
+  readOnly?: boolean;
   required?: boolean;
   value?: string | number;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -20,6 +21,7 @@ export const InputField = ({
   value,
   onChange,
   disabled = false,
+  readOnly = false,
   required = false,
   icon,
   hideLabel = false,
@@ -38,7 +40,8 @@ export const InputField = ({
         icon={icon}
         iconPosition="left-4"
         onChange={onChange}
-        type="text"
+        type='text'
+        readOnly={readOnly}
         disabled={disabled}
         placeholder={placeholder}
         className="w-full shadow-none text-black placeholder:text-black placeholder:font-medium rounded-sm py-6 bg-cloudGray border-b-2 border-b-[#BCCADC] hover:bg-primary-opacity hover:border-b-primary"

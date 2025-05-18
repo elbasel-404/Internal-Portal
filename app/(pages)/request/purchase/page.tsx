@@ -9,7 +9,7 @@ const PurchaseListPage = async () => {
       <PurchaseTable data={purchaseData} />
       <Instructions
         title='توضيحات حول الخدمة'
-        description='تتيح هذه الخدمة عرض الترشيحات الخاصة به للدورات الداخلية'
+        description='تتيح هذه الخدمة للموظف إمكانية تقديم طلب أمر شراء، يتم تعبئة الطلب بالبيانات الأساسية ويجب على الموظف التأكد من الحقول اللازمة.'
       />
     </div>
   );
