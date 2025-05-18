@@ -2,8 +2,6 @@
 
 import { SupplierEvaluationCriterionResult } from "@types";
 import {
-  Button,
-  Input,
   TableBody,
   TableCell,
   TableHead,
@@ -11,11 +9,11 @@ import {
   TableRow,
   Table as UITable,
 } from "@ui";
-
-import { ChangeEvent, useState } from "react";
+import { InputField } from "@components/form";
 
 interface SupplierEvaluationCriterionResultProps {
   data: SupplierEvaluationCriterionResult[];
+  isForm?: boolean;
 }
 
 const tableHeaders = [
@@ -27,6 +25,7 @@ const tableHeaders = [
 
 export const EvaluationResultTable = ({
   data,
+  isForm,
 }: SupplierEvaluationCriterionResultProps) => {
   const totalsRow = data.reduce(
     (acc, item) => {
@@ -49,7 +48,7 @@ export const EvaluationResultTable = ({
 
   return (
     <>
-      <div className="bg-white rounded-lg">
+      <div className="bg-white rounded-lg my-6">
         <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between border-b border-border-[#ECF0F480] p-4">
           <h2 className="text-foreground font-bold text-2xl">نتيجة التقييم</h2>
         </div>
@@ -74,11 +73,25 @@ export const EvaluationResultTable = ({
               >
                 {Object.entries(resultItem)
                   .filter(([key]) => key !== "id")
-                  .map(([key, value]) => (
-                    <TableCell key={key} className="w-1/12">
-                      {value}
-                    </TableCell>
-                  ))}
+                  .map(([key, value]) =>
+                    !isForm ||
+                    (resultItem.name === "المجموع" && key === "name") ? (
+                      <TableCell key={key} className="w-1/12">
+                        {value}
+                      </TableCell>
+                    ) : (
+                      <TableCell key={key} className="w-1/12">
+                        <InputField
+                          label={`${resultItem.id}-${key}`}
+                          name={`${resultItem.id}-${key}`}
+                          placeholder=""
+                          value={value.toString() || ""}
+                          disabled
+                          hideLabel
+                        />
+                      </TableCell>
+                    )
+                  )}
               </TableRow>
             ))}
           </TableBody>

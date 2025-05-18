@@ -70,6 +70,7 @@
     "tailwind-merge": "^2.6.0",
     "tailwind-scrollbar": "^3.1.0",
     "tailwindcss-animate": "^1.0.7",
+    "unstorage": "^1.16.0",
     "zod": "^3.24.2",
     "zod-openapi": "^4.2.3"
   },
