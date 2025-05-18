@@ -30,8 +30,8 @@ export const KPIsTable = ({ data, isForm }: SupplierKPIProps) => {
                         value
                       ) : (
                         <div className="flex flex-col md:flex-row gap-4 items-start">
-                          {value.map((item) => (
-                            <div>{item}</div>
+                          {value.map((item, index) => (
+                            <div  key={`${kpi.id}-${key}-${index}`}>{item}</div>
                           ))}
                         </div>
                       )}
@@ -48,11 +48,12 @@ export const KPIsTable = ({ data, isForm }: SupplierKPIProps) => {
                           hideLabel
                         />
                       ) : (
-                        <div className="flex flex-col md:flex-row gap-4 items-start">
+                        <div className="flex flex-col md:flex-row gap-4 items-start" key={`${key}-row`}>
                           {value.map((item, index) => (
                             <InputField
                               label={`${kpi.id}-${key}-${index}`}
                               name={`${kpi.id}-${key}-${index}`}
+                              key={`${kpi.id}-${key}-${index}`}
                               placeholder=""
                               value={item}
                               disabled
