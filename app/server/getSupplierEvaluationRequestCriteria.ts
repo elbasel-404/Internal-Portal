@@ -182,7 +182,7 @@ const SupplierEvaluationData: SupplierEvaluationCriterion[] = [
         notes: "لا يوجد",
       },
       {
-        id: "60001",
+        id: "60002",
         name: "عدم وجود مخالفات للسلامة",
         measurement: "عدد المخالفات",
         pointsValue: "30",
