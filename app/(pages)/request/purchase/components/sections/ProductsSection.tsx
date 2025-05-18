@@ -3,7 +3,7 @@
 import { costsAtom } from '@atoms';
 import { Table } from '@components';
 import { ModalLink } from '@components/modals/ModalLink';
-import { CirclePlusIcon } from '@icons';
+import { CirclePlusIcon, RiyalCurrencyIcon } from '@icons';
 import { removeProduct } from '@server';
 import { ProductSchema } from '@zodSchemas';
 import { useAtom } from 'jotai';
@@ -52,26 +52,14 @@ export const ProductsSection = ({ data }: ProductsProps) => {
     };
   });
 
-  const handleRemove = async (id: number) => {
-    await removeProduct(id);
+  const handleRemove = (id: number) => {
+    void removeProduct(id);
   };
 
   const totalAmount = productsData.reduce(
     (acc, curr) => acc + curr.totalWithTax,
     0
   );
-  if (productsData.length > 0) {
-    productsData.push({
-      id: 'totalAmount',
-      description: '',
-      product: '',
-      quantity: '',
-      unitPrice: '',
-      tax: '',
-      totalWithoutTax: 'الإجمالي مع الضريبة',
-      totalWithTax: totalAmount,
-    });
-  }
 
   useEffect(() => {
     setCosts(totalAmount);
@@ -93,14 +81,23 @@ export const ProductsSection = ({ data }: ProductsProps) => {
       </div>
 
       {productsData.length > 0 && (
-        <Table
-          tableClassName='h-fit'
-          columns={tableHeaders}
-          rows={productsData}
-          toggleId={false}
-          toggleDelete
-          onRemove={handleRemove}
-        />
+        <>
+          <Table
+            tableClassName='h-fit'
+            columns={tableHeaders}
+            rows={productsData}
+            toggleId={false}
+            toggleDelete
+            onRemove={handleRemove}
+          />
+          <div className='p-4 bg-cloudGray flex items-center justify-end pl-20 gap-4 sm:gap-10'>
+            <p className='text-foreground font-medium'>الإجمالي مع الضريبة</p>
+            <span className='flex items-center gap-2 text-foreground font-medium text-xl'>
+              {totalAmount}
+              <RiyalCurrencyIcon />
+            </span>
+          </div>
+        </>
       )}
     </>
   );

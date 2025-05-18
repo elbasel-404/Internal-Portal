@@ -1,4 +1,6 @@
 export { BankAccountSchema } from './bankAccountSchema';
+export { BatchProductSchema } from './batchProductsSchema';
+export { BatchSchema } from './batchSchema';
 export { CovenantSchema } from './covenantSchema';
 export { generalInfoKeyEnum } from './generalInfoKeyEnum';
 export { generalInfoSchema } from './generalInfoSchema';
@@ -9,7 +11,7 @@ export { keyboardAlphaNumericKeysEnum } from './keyboardAlphaNumericKeyEnum';
 export { MedicalSchema } from './medicalInsuranceSchema';
 export { modalNameSchema } from './modalNameSchema';
 export { newsTabsKeyEnum } from './newsTabsKeyEnum';
-export { ProductSchema } from './productsSchema';
+export { ProductSchema } from './productSchema';
 export { ProjectCompletionSchema } from './projectCompletionSchema';
 export { ReplacementCovenantSchema } from './replacementCovenantSchema';
 export { TrialPeriodSchema } from './trialPeriodSchema';

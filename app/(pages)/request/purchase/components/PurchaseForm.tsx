@@ -13,7 +13,7 @@ import {
   ProjectDetailsSection,
   PurchaseFormHeader,
   RequirementsSection,
-} from '../sections';
+} from './sections';
 
 type ProjectCompletionData = z.infer<typeof ProjectCompletionSchema>;
 type ProductsData = z.infer<typeof ProductSchema>;

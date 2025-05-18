@@ -39,6 +39,7 @@ export const durationAtom = atom<string>((get) => {
   return diffDays > 0 ? `${diffDays.toString()} يوم` : '1 يوم';
 });
 export const costsAtom = atom<number>(0);
+export const batchAmount = atomWithStorage<number>('batchAmount', 0);
 
 // Requirements atoms
 export const institutionalDiscriminationAtom = atomWithStorage<YesNoOption>(

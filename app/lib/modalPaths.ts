@@ -28,4 +28,12 @@ export const modalPaths = {
     title: 'المنتجات',
     href: '/modal/ProductsModal',
   },
+  BatchsModal: {
+    title: 'الدفعات',
+    href: '/modal/BatchsModal',
+  },
+  BatchProductsModal: {
+    title: 'منتجات الدفعة',
+    href: '/modal/BatchProductsModal',
+  },
 } as const;
