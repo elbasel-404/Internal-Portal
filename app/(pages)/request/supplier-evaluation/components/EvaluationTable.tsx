@@ -1,5 +1,4 @@
 'use client';
-
 import { FilterSection, Table } from '@components';
 import { CirclePlusIcon, FilterIcon, SearchIcon } from '@icons';
 import { paths } from '@lib';
