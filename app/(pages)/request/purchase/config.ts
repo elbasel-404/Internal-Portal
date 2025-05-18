@@ -1,0 +1,51 @@
+export const requestStatus = [
+  {
+    id: '1',
+    title: 'مقدم الطلب',
+    subtitle: 'عساف بن رشود الصاعدي',
+    icon: 'person',
+    status: 'completed',
+  },
+  {
+    id: '2',
+    title: 'المدير المباشر',
+    subtitle: 'حمد بن يوسف القشيميط',
+    icon: 'person',
+    status: 'in-progress',
+  },
+  {
+    id: '3',
+    title: 'عمليات الموارد البشرية',
+    subtitle: 'حمد بن يوسف القشيميط',
+    icon: 'person',
+    status: 'pending',
+  },
+  {
+    id: '4',
+    title: 'مدير القطاع',
+    subtitle: 'حمد بن يوسف القشيميط',
+    icon: 'person',
+    status: 'pending',
+  },
+  {
+    id: '5',
+    title: 'مدقق مالي',
+    subtitle: 'حمد بن يوسف القشيميط',
+    icon: 'person',
+    status: 'pending',
+  },
+  {
+    id: '6',
+    title: 'أمر شراء',
+    subtitle: 'حمد بن يوسف القشيميط',
+    icon: 'person',
+    status: 'pending',
+  },
+  {
+    id: '7',
+    title: 'أُعتمد',
+    subtitle: 'حمد بن يوسف القشيميط',
+    icon: 'personConfirmed',
+    status: 'pending',
+  },
+];
