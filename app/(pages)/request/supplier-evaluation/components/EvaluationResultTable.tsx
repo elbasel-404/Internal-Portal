@@ -32,8 +32,8 @@ export const EvaluationResultTable = ({
       acc.id = (data.length + 1).toString();
       acc.name = "المجموع";
       acc.weight += Number(item.weight);
-      acc.evaluationPoints += Number(item.evaluationPoints);
-      acc.totalPoints += Number(item.totalPoints);
+      acc.evaluationPoints += parseFloat(item.evaluationPoints);
+      acc.totalPoints += parseFloat(item.totalPoints);
       return acc;
     },
     {
@@ -44,7 +44,14 @@ export const EvaluationResultTable = ({
       totalPoints: 0,
     }
   );
-  const tableData = [...data, totalsRow];
+  // Format totalsRow values for display
+  const formattedTotalsRow = {
+    ...totalsRow,
+    weight: totalsRow.weight.toFixed(2),
+    evaluationPoints: totalsRow.evaluationPoints.toFixed(2),
+    totalPoints: totalsRow.totalPoints.toFixed(2),
+  };
+  const tableData = [...data, formattedTotalsRow];
 
   return (
     <>
@@ -58,7 +65,7 @@ export const EvaluationResultTable = ({
               {tableHeaders.map((col, index) => (
                 <TableHead
                   key={index}
-                  className="text-right text-darkBlue text-lg w-1/12"
+                  className={isForm ? "text-right bg-[#007C9E24] p-4 border-r-4 border-[#007497]" : "text-right text-darkBlue text-lg w-1/12"}
                 >
                   {col.label}
                 </TableHead>
@@ -85,7 +92,7 @@ export const EvaluationResultTable = ({
                           label={`${resultItem.id}-${key}`}
                           name={`${resultItem.id}-${key}`}
                           placeholder=""
-                          value={value.toString() || ""}
+                          value={value}
                           disabled
                           hideLabel
                         />

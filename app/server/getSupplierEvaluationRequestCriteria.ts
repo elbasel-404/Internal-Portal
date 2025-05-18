@@ -12,8 +12,8 @@ const SupplierEvaluationData: SupplierEvaluationCriterion[] = [
     id: "1",
     name: "ادارة عقد",
     weight: "10",
-    evaluationPoints: "10",
-    totalPoints: "1",
+    evaluationPoints: "",
+    totalPoints: "",
     kpis: [
       {
         id: "10001",
@@ -29,8 +29,8 @@ const SupplierEvaluationData: SupplierEvaluationCriterion[] = [
     id: "2",
     name: "الجودة",
     weight: "20",
-    evaluationPoints: "47",
-    totalPoints: "9",
+    evaluationPoints: "",
+    totalPoints: "",
     kpis: [
       {
         id: "2001",
@@ -68,8 +68,8 @@ const SupplierEvaluationData: SupplierEvaluationCriterion[] = [
     id: "3",
     name: "التسليم",
     weight: "30",
-    evaluationPoints: "20",
-    totalPoints: "6",
+    evaluationPoints: "",
+    totalPoints: "",
     kpis: [
       {
         id: "30001",
@@ -107,8 +107,8 @@ const SupplierEvaluationData: SupplierEvaluationCriterion[] = [
     id: "4",
     name: "الالتزام بالمحتوى المحلي",
     weight: "15",
-    evaluationPoints: "20",
-    totalPoints: "3",
+    evaluationPoints: "",
+    totalPoints: "",
     kpis: [
       {
         id: "40001",
@@ -129,8 +129,8 @@ const SupplierEvaluationData: SupplierEvaluationCriterion[] = [
     id: "5",
     name: "سرعة وسهولة تجاوب المتعاقد",
     weight: "15",
-    evaluationPoints: "45",
-    totalPoints: "7",
+    evaluationPoints: "",
+    totalPoints: "",
     kpis: [
       {
         id: "50001",
@@ -170,8 +170,8 @@ const SupplierEvaluationData: SupplierEvaluationCriterion[] = [
     id: "6",
     name: "البيئة والصحة والسلامة",
     weight: "10",
-    evaluationPoints: "30",
-    totalPoints: "5",
+    evaluationPoints: "",
+    totalPoints: "",
     kpis: [
       {
         id: "60001",
