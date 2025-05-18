@@ -95,7 +95,7 @@ const ProfilePage = async () => {
       <div className='bg-white p-6 rounded-xl flex gap-4 flex-col md:flex-row'>
         <div className='md:w-0-1/4 bg-primary-opacity rounded-xl p-4 h-fit'>
           <Image
-            src='/profile-img.svg'
+            src='/profile-img.jpg'
             alt='profile'
             width={100}
             height={100}
@@ -103,10 +103,10 @@ const ProfilePage = async () => {
           />
           <div className='flex flex-col mt-2'>
             <h2 className='font-medium text-foreground text-2xl'>
-              بدر بن محمد البديري
+               عساف بن رشود الصاعدي
             </h2>
             <p className='font-medium text-grey-600'>
-              مدير عام المرافق والخدمات الادراية
+              مدير الأنظمة الداخلية (مكلف)
             </p>
           </div>
         </div>
