@@ -1,5 +1,6 @@
 'use client';
 
+import { batchAmount } from '@atoms';
 import { Table } from '@components';
 import {
   AttachmentsField,
@@ -7,12 +8,18 @@ import {
   InputField,
   TextareaField,
 } from '@components/form';
-import { CheckIcon, CirclePlusIcon, XMarkIcon } from '@icons';
+import {
+  CheckIcon,
+  CirclePlusIcon,
+  RiyalCurrencyIcon,
+  XMarkIcon,
+} from '@icons';
 import { removeBatchProduct } from '@server';
 import { BatchProduct } from '@types';
 import { Button } from '@ui';
+import { useAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { ModalLink } from '../ModalLink';
 import { batchsFormAction } from './BatchsFormAction';
 
@@ -43,6 +50,7 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
   const [batchNumber, setBatchNumber] = useState('');
   const [paymentDate, setPaymentDate] = useState(new Date());
   const [notes, setNotes] = useState('');
+  const [, setTotalBatchAmount] = useAtom(batchAmount);
 
   const batchProductsData = batchProducts.map((batchProductDetails, index) => {
     return {
@@ -50,6 +58,11 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
       id: index + 'id',
     };
   });
+
+  const totalAmount = batchProductsData.reduce(
+    (acc, curr) => acc + Number(curr.subtotal),
+    0
+  );
 
   const handleBatchNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setBatchName(e.target.value);
@@ -84,6 +97,10 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
   const handleSubmit = () => {
     closeModal();
   };
+
+  useEffect(() => {
+    setTotalBatchAmount(totalAmount);
+  }, [totalAmount]);
 
   return (
     <form
@@ -147,14 +164,25 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
           </ModalLink>
         </div>
 
-        <Table
-          tableClassName='h-fit'
-          columns={tableHeaders}
-          rows={batchProductsData}
-          toggleId={false}
-          toggleDelete
-          onRemove={handleRemoveBatchProducts}
-        />
+        {batchProductsData.length > 0 && (
+          <>
+            <Table
+              tableClassName='h-fit'
+              columns={tableHeaders}
+              rows={batchProductsData}
+              toggleId={false}
+              toggleDelete
+              onRemove={handleRemoveBatchProducts}
+            />
+            <div className='p-4 bg-cloudGray flex items-center justify-end pl-20 gap-4 sm:gap-10'>
+              <p className='text-foreground font-medium'>الإجمالي مع الضريبة</p>
+              <span className='flex items-center gap-2 text-foreground font-medium text-xl'>
+                {totalAmount}
+                <RiyalCurrencyIcon />
+              </span>
+            </div>
+          </>
+        )}
       </div>
 
       <div className='flex justify-end mb-2 gap-2'>

@@ -3,7 +3,7 @@
 import { db } from '@db'; // Database instance
 import { getUserIndex } from '@db/actions';
 import { getUserId } from '@server';
-import { ProductSchema } from '@zodSchemas';
+import { BatchSchema } from '@zodSchemas';
 
 export const batchsFormAction = async (formData: FormData) => {
   try {
@@ -16,7 +16,7 @@ export const batchsFormAction = async (formData: FormData) => {
       success,
       data: validatedData,
       error,
-    } = ProductSchema.safeParse(responseData);
+    } = BatchSchema.safeParse(responseData);
 
     await db.read();
 
@@ -35,7 +35,7 @@ export const batchsFormAction = async (formData: FormData) => {
       );
     }
     const userIndex = await getUserIndex(userId);
-    db.data.users[userIndex].products.push(validatedData);
+    db.data.users[userIndex].batchs.push(validatedData);
 
     await db.write();
   } catch (error) {
