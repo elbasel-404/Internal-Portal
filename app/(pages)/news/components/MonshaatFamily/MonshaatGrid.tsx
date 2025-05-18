@@ -26,7 +26,7 @@ export const MonshaatGrid = ({ monshaatData }: MonshaatDataProps) => {
             alt={n.title}
             width={200}
             height={200}
-            className="w-full rounded-xl h-fit object-cover"
+            className="w-full rounded-xl h-[190px] object-cover"
           />
           <div className="bg-white px-6 py-4 rounded-xl group-hover:bg-primary-opacity transition duration-500">
             <div className="relative overflow-hidden">
