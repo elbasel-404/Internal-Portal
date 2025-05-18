@@ -4,6 +4,7 @@ import {
   BriefcaseIcon,
   CheckIcon,
   ClipboardCheckIcon,
+  EyeIcon,
   HourGlassIcon,
   ListTimelineIcon,
   PdfFileIcon,
@@ -277,6 +278,17 @@ export const Table = ({
                       >
                         <p className='text-primary'>{value}</p>
                       </Link>
+                    ) : key === 'batchNumber' ? (
+                      <Link
+                        href={`${
+                          (link?.replace(/:\w+$/, '') +
+                            `/${request.id.replace('#', '')}`) as Route
+                        }`}
+                        className=' flex items-center gap-2 bg-primary-opacity rounded-md w-fit p-2'
+                      >
+                        <p className='text-primary'>{request.id}</p>
+                        <EyeIcon />
+                      </Link>
                     ) : key === 'attachments' ? (
                       <div className='bg-[#FFF4CF] p-3 rounded-md w-fit'>
                         <PdfFileIcon />
@@ -320,7 +332,7 @@ export const Table = ({
           ))}
         </TableBody>
       </UITable>
-      <div className='flex justify-between items-center p-4'>
+      <div className='flex justify-between items-center'>
         <p className='text-[#78787A] text-sm font-light'>
           إظهار {Math.min(currentPage * itemsPerPage, rows.length)} من أصل{' '}
           {rows.length} طلب
