@@ -48,12 +48,10 @@ export const getNewsListRequests  = async (): Promise<NewsListRequest[]> => {
       day: 'numeric',
     }),
     description: data.resume,
-    // image: data.image,
     image: `data:image/gif;base64,${data.image}`,
     };
     return newsItem;
   });
-console.log(returnedData);
   return returnedData;
   
 };
