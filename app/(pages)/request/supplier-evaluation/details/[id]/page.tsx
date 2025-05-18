@@ -1,5 +1,4 @@
 import {
-  EvaluationCriteriaTableStatistics,
   EvaluationCriteriaTable,
   EvaluationResultTable,
 } from "../../components";
@@ -42,14 +41,19 @@ const SupplierEvaluationDetailsPage = async ({
     confirmationSerialNumber,
     confirmationProjectName,
     confirmationContractNumber,
+    status,
+    reason,
   } = (await getSupplierEvaluationRequestDetails(id)) || {};
 
   const evaluationCriteriaData =
     (await getSupplierEvaluationRequestCriteria(id)) || [];
 
+  const displayReason =
+    status === "مرفوض" || status === "إعتماد" ? reason : null;
+
   const requestHeaders: RequestHeader[] = [
     {
-      label: "رقم العقد من الاعتماد",
+      label: "رقم الطلب",
       value: id,
     },
     {
@@ -104,6 +108,16 @@ const SupplierEvaluationDetailsPage = async ({
       label: "رقم العقد من الاعتماد",
       value: confirmationContractNumber,
     },
+    // TODO: Reason Label Is Conditional According To Request Status
+    // 
+    //  ...(displayReason
+    //   ? [
+    //       {
+    //         label: status === "مرفوض" ? "سبب الرفض" : "إعتماد",
+    //         value: reason,
+    //       },
+    //     ]
+    //   : []),
   ];
 
   const evaluationResultData: SupplierEvaluationCriterionResult[] =
@@ -122,16 +136,18 @@ const SupplierEvaluationDetailsPage = async ({
     name: "",
     measurement: "",
     pointsValue: "",
-    evaluationPoints: ["", "", ""],
+    evaluationPoints: ["90-100", "70-89", "50-69"],
     notes: "لا يوجد",
   };
 
   return (
-    <main className="space-y-4">
+    <main>
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails headers={requestHeaders} />
-      <EvaluationCriteriaTableStatistics data={CriteriaStatistics} />
-      <EvaluationCriteriaTable data={evaluationCriteriaData} />
+      <EvaluationCriteriaTable
+        data={CriteriaStatistics}
+        evaluationCriteriaData={evaluationCriteriaData}
+      />
       <EvaluationResultTable data={evaluationResultData} />
       <Instructions
         title="توضيحات حول الخدمة"
