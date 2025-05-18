@@ -1,7 +1,6 @@
 export { isSideBarOpenAtom } from './isSideBarOpenAtom';
 export {
-    addressRequestAtom,
-    costsAtom,
+    addressRequestAtom, batchAmount, costsAtom,
     createFileHandler,
     cyberSecurityAtom,
     dataFilesAtom,
