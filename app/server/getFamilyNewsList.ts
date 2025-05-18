@@ -40,12 +40,18 @@ export const getFamilyNewsList = async (): Promise<NewsFamily[]> => {
     const newsItem: NewsFamily = {
       id: data.id,
       title: data.title,
-      date: new Date(data.create_date).toLocaleDateString("ar-EG", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      }),
+      date: (() => {
+        const date = new Date(data.create_date);
+        const day = date.toLocaleString("en-US", { day: "2-digit" });
+        const month = date.toLocaleString("en-US", { month: "2-digit" });
+        const year = date.toLocaleString("en-US", { year: "numeric" });
+        let hours = date.getHours();
+        const minutes = date.getMinutes().toString().padStart(2, "0");
+        const period = hours < 12 ? "صباحًا" : "مساءً";
+        hours = hours % 12 || 12;
+        const hourString = hours.toString().padStart(2, "0");
+        return `${day}.${month}.${year} - ${hourString}:${minutes} ${period}`;
+      })(),
       image: data.image
         ? `data:image/gif;base64,${data.image}`
         : "/monshaatFamily-1.svg",
