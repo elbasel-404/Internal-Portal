@@ -376,11 +376,11 @@ export const paths: Record<string, AppPath> = {
     href: '/request/purchase',
   },
   purchaseNew: {
-    title: 'قائمة طلبات الشراء',
+    title: 'طلب شراء',
     href: '/request/purchase/new',
   },
   purchaseDetails: {
-    title: 'قائمة طلبات الشراء',
+    title: 'تفاصيل طلب الشراء',
     href: '/request/purchase/details/:id',
   },
   supplierEvaluation: {
@@ -394,5 +394,9 @@ export const paths: Record<string, AppPath> = {
   supplierEvaluationNew: {
     title: 'طلب تقييم اداء المتعاقدين',
     href: '/request/supplier-evaluation/new',
+  },
+  batchDetails: {
+    title: 'تفاصيل الدفعة',
+    href: '/request/batch/details/:id',
   },
 };
