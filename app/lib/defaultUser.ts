@@ -16,7 +16,9 @@ export const defaultUser: z.TypeOf<typeof userSchema> = {
       statement: 'active',
       amount: '10',
       invoiceNumber: '25',
-      attachments: ['file-name-i']
+      attachments: ['file-name-i'],
     },
   ],
+  projectCompletion: [],
+  products: []
 } as const;

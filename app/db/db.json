@@ -33,9 +33,13 @@
           "statement": "active",
           "amount": "10",
           "invoiceNumber": "25",
-          "attachments": ["file-name-i"]
+          "attachments": [
+            "file-name-i"
+          ]
         }
-      ]
+      ],
+      "projectCompletion": [],
+      "products": []
     },
     {
       "id": 2,
@@ -70,121 +74,14 @@
           "statement": "active",
           "amount": "10",
           "invoiceNumber": "25",
-          "attachments": ["file-name-i"]
+          "attachments": [
+            "file-name-i"
+          ]
         }
-      ]
-    },
-    {
-      "id": 3,
-      "activeGeneralInfoKeys": [
-        "employeeRequests",
-        "approvalRequests",
-        "totalVacationBalance",
-        "permissions",
-        "remoteWork",
-        "delegations"
       ],
-      "activeHomePageSlotsKeys": [
-        "completeProfile",
-        "generalInfo",
-        "userInfo",
-        "attendance",
-        "approvalRequestsTable",
-        "sliders",
-        "timelineCalendar",
-        "news"
-      ],
-      "activeNewsTabsKeys": [
-        "pressTab",
-        "newsTab",
-        "monshaatFamilyTab",
-        "internalTab"
-      ],
-      "demo": false,
-      "convenantData": [
-        {
-          "product": "prod",
-          "statement": "active",
-          "amount": "10",
-          "invoiceNumber": "25",
-          "attachments": ["file-name-i"]
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "activeGeneralInfoKeys": [
-        "employeeRequests",
-        "approvalRequests",
-        "totalVacationBalance",
-        "permissions",
-        "remoteWork",
-        "delegations"
-      ],
-      "activeHomePageSlotsKeys": [
-        "completeProfile",
-        "generalInfo",
-        "userInfo",
-        "attendance",
-        "approvalRequestsTable",
-        "sliders",
-        "timelineCalendar",
-        "news"
-      ],
-      "activeNewsTabsKeys": [
-        "pressTab",
-        "newsTab",
-        "monshaatFamilyTab",
-        "internalTab"
-      ],
-      "demo": false,
-      "convenantData": [
-        {
-          "product": "prod",
-          "statement": "active",
-          "amount": "10",
-          "invoiceNumber": "25",
-          "attachments": ["file-name-i"]
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "activeGeneralInfoKeys": [
-        "employeeRequests",
-        "approvalRequests",
-        "totalVacationBalance",
-        "permissions",
-        "remoteWork",
-        "delegations"
-      ],
-      "activeHomePageSlotsKeys": [
-        "completeProfile",
-        "generalInfo",
-        "userInfo",
-        "attendance",
-        "approvalRequestsTable",
-        "sliders",
-        "timelineCalendar",
-        "news"
-      ],
-      "activeNewsTabsKeys": [
-        "pressTab",
-        "newsTab",
-        "monshaatFamilyTab",
-        "internalTab"
-      ],
-      "demo": true,
-      "convenantData": [
-        {
-          "product": "prod",
-          "statement": "active",
-          "amount": "10",
-          "invoiceNumber": "25",
-          "attachments": ["file-name-i"]
-        }
-      ]
+      "projectCompletion": [],
+      "products": []
     }
   ],
-  "userCount": 5
+  "userCount": 2
 }

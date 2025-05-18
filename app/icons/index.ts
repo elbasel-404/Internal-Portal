@@ -123,6 +123,7 @@ export { RemoteWorkIcon } from './RemoteWork.icon';
 export { RenewIcon } from './Renew.icon';
 export { RequestsIcon } from './Requests.icon';
 export { RingsIcon } from './Rings.icon';
+export { RiyalCurrencyIcon } from './RiyalCurrency.icon';
 export { SandClockIcon } from './SandClock.icon';
 export { SandClock2Icon } from './SandClock2.icon';
 export { SaveIcon } from './Save.icon';

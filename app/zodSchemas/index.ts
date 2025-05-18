@@ -9,6 +9,8 @@ export { keyboardAlphaNumericKeysEnum } from './keyboardAlphaNumericKeyEnum';
 export { MedicalSchema } from './medicalInsuranceSchema';
 export { modalNameSchema } from './modalNameSchema';
 export { newsTabsKeyEnum } from './newsTabsKeyEnum';
+export { ProductSchema } from './productsSchema';
+export { ProjectCompletionSchema } from './projectCompletionSchema';
 export { ReplacementCovenantSchema } from './replacementCovenantSchema';
 export { TrialPeriodSchema } from './trialPeriodSchema';
 
