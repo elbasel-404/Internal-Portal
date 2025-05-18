@@ -5,11 +5,7 @@ import { PrinterIcon } from "@icons";
 import {
   Button,
   TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
   TableRow,
-  Table as UITable,
   PieChartElem,
 } from "@ui";
 import { colors } from "@lib";
@@ -118,32 +114,30 @@ export const EvaluationCriteriaTable = ({
             </Button>
           </div>
         </div>
-        <UITable>
-          <TableHeader className="bg-cloudGray">
-            <TableRow>
+        <div>
+            <div className="bg-cloudGray flex">
               {tableHeaders.map((col, index) => (
-                <TableHead
+                <div
                   key={index}
-                  className="text-right text-darkBlue text-lg w-1/12"
+                  className="text-darkBlue text-lg w-1/5 py-4 text-center"
                 >
                   {col.label}
-                </TableHead>
+                </div>
               ))}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+            </div>
+          <div>
             {
-              <TableRow className={"bg-white"}>
+              <div className={"bg-white flex text-center items-center"}>
                 {Object.entries(data)
                   .filter(([key]) => key !== "id")
                   .map(([key, value], keyIndex) =>
                     key !== "evaluationPoints" ? (
-                      <TableCell key={key} className="w-1/12">
-                        {value}
-                      </TableCell>
+                      <div key={key} className="w-1/5">
+                        <span>{value}</span>
+                      </div>
                     ) : (
-                      <TableCell key={key} className="w-1/12 p-0">
-                        <div className="flex flex-col md:flex-row">
+                      <div key={key} className="w-1/5">
+                        <div className="flex">
                           {chartContainers.map((item, index) => (
                             <div className={item.className} key={`${key}-${index}`}>
                               <PieChartElem
@@ -161,13 +155,13 @@ export const EvaluationCriteriaTable = ({
                             </div>
                           ))}
                         </div>
-                      </TableCell>
+                      </div>
                     )
                   )}
-              </TableRow>
+              </div>
             }
-          </TableBody>
-        </UITable>
+          </div>
+        </div>
         <EvaluationCriteriaItems data={evaluationCriteriaData} isForm={isForm}/>
       </div>
     </>

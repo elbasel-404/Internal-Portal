@@ -2,7 +2,6 @@
 
 import { InputField } from "@components/form";
 import { SupplierKPI } from "@types";
-import { TableCell } from "@ui";
 
 interface SupplierKPIProps {
   data: SupplierKPI[];
@@ -20,24 +19,24 @@ export const KPIsTable = ({ data, isForm }: SupplierKPIProps) => {
       <div>
         <div>
           {tableData.map((kpi: SupplierKPI) => (
-            <div key={kpi.id} className={"bg-white flex"}>
+            <div key={kpi.id} className={`bg-white flex items-center`}>
               {Object.entries(kpi)
                 .filter(([key]) => key !== "id")
                 .map(([key, value]) =>
                   !isForm ? (
-                    <div key={key} className="w-1/5 px-4 py-7">
+                    <div key={key} className={`w-1/5 px-4 py-7 ${!isDisabledField(key) ? "text-center" : "text-right"}`}>
                       {typeof value === "string" ? (
                         value
                       ) : (
-                        <div className="flex flex-col md:flex-row gap-4 items-start">
+                        <div className="flex flex-col md:flex-row gap-4 items-center text-center">
                           {value.map((item, index) => (
-                            <div key={`${kpi.id}-${key}-${index}`}>{item}</div>
+                            <div key={`${kpi.id}-${key}-${index}`} className="w-1/3">{item}</div>
                           ))}
                         </div>
                       )}
                     </div>
                   ) : (
-                    <TableCell key={key} className="w-1/12">
+                    <div key={key} className="w-1/5 px-4 py-2">
                       {typeof value === "string" ? (
                         <InputField
                           label={`${kpi.id}-${key}`}
@@ -65,7 +64,7 @@ export const KPIsTable = ({ data, isForm }: SupplierKPIProps) => {
                           ))}
                         </div>
                       )}
-                    </TableCell>
+                    </div>
                   )
                 )}
             </div>
