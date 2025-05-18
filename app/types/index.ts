@@ -16,6 +16,8 @@ export type { ApprovalRequest } from './pages/request/ApprovalRequest';
 export type { AttendanceListRequest } from './pages/request/AttendanceListRequest';
 export type { BankAccountDetails } from './pages/request/BankAccountDetails';
 export type { BankAccountRequest } from './pages/request/BankAccountRequest';
+export type { BatchDetails } from './pages/request/BatchDetails';
+export type { BatchItem } from './pages/request/BatchItem';
 export type { BatchProduct } from './pages/request/BatchProduct';
 export type { CovenantDetails } from './pages/request/CovenantDetails';
 export type { CustodyDetails } from './pages/request/CustodyDetails';

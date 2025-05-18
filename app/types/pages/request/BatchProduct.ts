@@ -1,4 +1,5 @@
 export type BatchProduct = {
+  id?: string;
   product: string;
   description: string;
   quantity: string;
