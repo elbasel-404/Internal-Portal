@@ -3,7 +3,7 @@
 import type { NewsFamily } from "@types";
 import { getDemo } from "../db/actions/getDemo";
 import { getFetchHeaders } from "./getFetchHeaders";
-import { NewsElementSchema, ResponseSchema } from "../../schemas";
+import { FamilyNewSchema, ResponseSchema } from "@api/schemas";
 
 export const getFamilyNewsList = async (): Promise<NewsFamily[]> => {
   const isDemo = await getDemo();
@@ -32,7 +32,7 @@ export const getFamilyNewsList = async (): Promise<NewsFamily[]> => {
   const validatedResponse = ResponseSchema.parse(responseJson);
   const { result } = validatedResponse;
   const { data } = result;
-  const validatedData = NewsElementSchema.array().parse(data);
+  const validatedData = FamilyNewSchema.array().parse(data);
 
   // ! PARSING
   // ! ==================================
