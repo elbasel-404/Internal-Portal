@@ -1,10 +1,11 @@
 import { z } from 'zod';
 import { BatchProductSchema } from './batchProductsSchema';
+import { BatchSchema } from './batchSchema';
 import { CovenantSchema } from './covenantSchema';
 import { generalInfoKeyEnum } from './generalInfoKeyEnum';
 import { homePageSlotKeyEnum } from './homePageSlotKeyEnum';
 import { newsTabsKeyEnum } from './newsTabsKeyEnum';
-import { ProductSchema } from './productsSchema';
+import { ProductSchema } from './productSchema';
 import { ProjectCompletionSchema } from './projectCompletionSchema';
 
 export const userSchema = z.object({
@@ -16,6 +17,6 @@ export const userSchema = z.object({
   convenantData: z.array(CovenantSchema),
   projectCompletion: z.array(ProjectCompletionSchema),
   products: z.array(ProductSchema),
-  batchs: z.array(ProductSchema),
+  batchs: z.array(BatchSchema),
   batchProducts: z.array(BatchProductSchema),
 });
