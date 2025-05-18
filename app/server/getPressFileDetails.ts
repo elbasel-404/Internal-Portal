@@ -1,26 +1,25 @@
-'use server';
+"use server";
 
-import type { PressFileDetails } from '@types';
-import { getFetchHeaders } from './getFetchHeaders';
-import { NewsElementSchema, ResponseSchema } from '../../schemas';
-import { getDemo } from '../db/actions/getDemo';
+import type { PressFileDetails } from "@types";
+import { getFetchHeaders } from "./getFetchHeaders";
+import { NewsElementSchema, ResponseSchema } from "@api/schemas";
+import { getDemo } from "../db/actions/getDemo";
 
 export const getPressFileDetails = async (
   id: string
 ): Promise<PressFileDetails | void> => {
-
   const isDemo = await getDemo();
-  if (isDemo) return dummyData
-  
-// ! VARIBLES
+  if (isDemo) return dummyData;
+
+  // ! VARIBLES
   // ! ==================================
-  const url = 'po/read/portal-news';
+  const url = "po/read/portal-news";
   const apiRootUrl = process.env.API_ROOT_URL as string;
   const { headers } = await getFetchHeaders();
   const requestBody = {
-    news_type:"news",
-    news_id:id
-};
+    news_type: "news",
+    news_id: id,
+  };
   const requestBodyString = JSON.stringify(requestBody);
   const requestUrl = `${apiRootUrl}/${url}`;
 
@@ -28,7 +27,7 @@ export const getPressFileDetails = async (
   // ! ==================================
   const apiResponse = await fetch(requestUrl, {
     headers,
-    method: 'POST',
+    method: "POST",
     body: requestBodyString,
   });
   const responseJson = await apiResponse.json();
@@ -45,37 +44,42 @@ export const getPressFileDetails = async (
 
   const returnedData: PressFileDetails = {
     id: validatedData.id.toString(),
-      title: validatedData.title,
-      date: (()=>{
-        const formattedDate = new Date(validatedData.create_date).toLocaleDateString('ar-EG', {
-          weekday: 'long',
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-        });
-        const formattedTime = new Date(validatedData.create_date).toLocaleTimeString('ar-EG', {
-          hour: '2-digit',
-          minute: '2-digit',
-          hour12: true,
-        });
-        const fixedTime = formattedTime.replace('ص', 'صباحاً').replace('م', 'مساءً');
+    title: validatedData.title,
+    date: (() => {
+      const formattedDate = new Date(
+        validatedData.create_date
+      ).toLocaleDateString("ar-EG", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+      const formattedTime = new Date(
+        validatedData.create_date
+      ).toLocaleTimeString("ar-EG", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      });
+      const fixedTime = formattedTime
+        .replace("ص", "صباحاً")
+        .replace("م", "مساءً");
 
-        return `${formattedDate} - ${fixedTime}`
+      return `${formattedDate} - ${fixedTime}`;
     })(),
-      description: validatedData.description,
-      imageUrl: `data:image/gif;base64,${validatedData.image}`,
+    description: validatedData.description,
+    imageUrl: `data:image/gif;base64,${validatedData.image}`,
   };
   return returnedData;
+};
 
-  };
-
-  const dummyData: PressFileDetails = {
-    id:"602",
-    date: '01.06.2024 - 07:54 صباحاً',
-    imageUrl: '/article.svg',
-    title:
-      '"منشآت" تختتم أسبوع القانون بمناقشة أهم الفرص الداعمة لرواد الأعمال في قطاع القانون"',
-    description: ` اختتمت الهيئة العامة للمنشآت الصغيرة والمتوسطة "منشآت" جولة الامتياز
+const dummyData: PressFileDetails = {
+  id: "602",
+  date: "01.06.2024 - 07:54 صباحاً",
+  imageUrl: "/article.svg",
+  title:
+    '"منشآت" تختتم أسبوع القانون بمناقشة أهم الفرص الداعمة لرواد الأعمال في قطاع القانون"',
+  description: ` اختتمت الهيئة العامة للمنشآت الصغيرة والمتوسطة "منشآت" جولة الامتياز
         التجاري في محافظة الخبر من 12 وحتى 13 أغسطس، بشراكة مع وزارة التجارة
         وبرنامج التحول الوطني وبنك التنمية الاجتماعية وبنك المنشآت الصغيرة
         والمتوسطة، إلى جانب مشاركة عددٍ من الجهات الداعمة والممكنة؛ للتعريف
@@ -120,4 +124,4 @@ export const getPressFileDetails = async (
         مبادرات وبرامج متخصصة، وذلك لأهميتها ودورها الفاعل في دعم قطاع المنشآت
         الصغيرة والمتوسطة، ويمكن للمهتمين التسجيل لحضور الجولة، عبر الرابط:
         `,
-  };
+};
