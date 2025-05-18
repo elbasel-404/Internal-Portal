@@ -26,7 +26,7 @@ export const TextareaField = ({
       </label>
       <Textarea
         className='text-right resize-none w-full shadow-none text-black placeholder:text-secondary-foreground rounded-sm bg-cloudGray border-b-2 border-b-[#BCCADC] hover:bg-primary-opacity hover:border-b-primary'
-        rows={4}
+        rows={3}
         name={name}
         placeholder={placeholder}
         value={value}

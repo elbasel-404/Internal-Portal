@@ -1,7 +1,7 @@
 import { RadioGroup, RadioGroupItem } from '@ui';
 
 interface RadioFieldProps {
-  label: string;
+  label?: string;
   name: string;
   options: { value: string; label: string }[];
   className?: string;
@@ -31,10 +31,12 @@ export const RadioField = ({
 
   return (
     <div className={`flex gap-x-2 mt-2 ${className}`}>
-      <label className={`mt-2 ${labelStyle}`}>
-        {label}
-        {required && <span className='text-red-500'> *</span>}
-      </label>
+      {label && (
+        <label className={`mt-2 ${labelStyle}`}>
+          {label}
+          {required && <span className='text-red-500'> *</span>}
+        </label>
+      )}
       <input
         type='text'
         value={selectedValue}
