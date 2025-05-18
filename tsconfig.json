@@ -46,7 +46,8 @@
       "@zodSchemas": ["./app/zodSchemas/"],
       "@api/*": ["./app/api/*"],
       "@api/schemas/*": ["./api-schemas/*"],
-      "@api/schemas": ["./api-schemas"]
+      "@api/schemas": ["./api-schemas"],
+      "@storage": ["./app/storage"]
     },
     "typeRoots": ["./node_modules/@types", "modules.d"]
   },
