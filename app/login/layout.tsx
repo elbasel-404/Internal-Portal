@@ -1,6 +1,6 @@
-import './index.css';
+import "./index.css";
 export const metadata = {
-  title: 'منشآت',
+  title: "منشآت",
 };
 
 export default function RootLayout({
@@ -9,7 +9,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en'>
+    <html lang="en">
       <body>{children}</body>
     </html>
   );

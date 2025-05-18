@@ -21,6 +21,8 @@ export const getSupplierEvaluationRequestDetails = async (
       confirmationSerialNumber: '',
       confirmationProjectName: '',
       confirmationContractNumber: '',
+      status: 'إعتماد',
+      reason: 'test reason',
     };
     return details;
   } catch (error) {

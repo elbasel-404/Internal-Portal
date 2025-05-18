@@ -33,6 +33,7 @@ export type { JobApplicationsDetails } from './pages/request/JobApplicationsDeta
 export type { JobApplicationsRequest } from './pages/request/JobApplicationsRequest';
 export type { MedicalInsuranceDetails } from './pages/request/MedicalInsuranceDetails';
 export type { MedicalInsuranceRequest } from './pages/request/MedicalInsuranceRequest';
+export type { NewsFamily } from './pages/request/NewsFamily';
 export type { NewsListRequest } from './pages/request/NewsListRequest';
 export type { ObligationDetails } from './pages/request/ObligationDetails';
 export type { OvertimeAssignmentDetails } from './pages/request/OvertimeAssignmentDetails';

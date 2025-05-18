@@ -19,6 +19,7 @@ export { getEmployeeMembersDetails } from './getEmployeeMembersDetails';
 export { getEmployeeMembersRequests } from './getEmployeeMembersRequests';
 export { getEmployeeRequests } from './getEmployees';
 export { getEmployeeDepartmentRequests } from './getEmployeesDepartment';
+export { getFamilyNewsList } from './getFamilyNewsList';
 export { getHrLetterDetails } from './getHrLetterDetails';
 export { getHrLetterRequests } from './getHrLetterRequests';
 export { getHrLetterTypes } from './getHrLetterTypes';
