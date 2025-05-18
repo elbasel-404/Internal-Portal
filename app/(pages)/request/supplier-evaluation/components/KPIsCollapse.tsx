@@ -2,10 +2,9 @@
 
 import { Animate } from "@components";
 import { animations, type ParentConfig } from "@formkit/drag-and-drop";
-import { useDragAndDrop } from "@formkit/drag-and-drop/react";
 import { CircleMinusIcon } from "@icons";
 import { cn } from "@utils";
-import { RefObject, useState, type ReactNode } from "react";
+import { RefObject, useRef, useState, type ReactNode } from "react";
 
 type Slot = {
   node: ReactNode;
@@ -29,15 +28,14 @@ export const KPIsCollapse = ({
   // ! Config
   // ! ===============================================================
   const config: Partial<ParentConfig<{ node: ReactNode; key: string }>> = {
-    dragHandle: ".slotHandle",
     plugins: [animations()],
   };
 
   // ! ===============================================================
   // ! State
   // ! ===============================================================
-  const [parent, dndNodes] = useDragAndDrop(slots, config);
   const [collapsedSlots, setCollapsedSlots] = useState<string[]>([]);
+  const parent = useRef<HTMLDivElement>(null);
 
   // ! ===============================================================
   // ! Rendering
@@ -50,7 +48,7 @@ export const KPIsCollapse = ({
         className={`${key}-slot ${key} slot ${className} overflow-hidden`}
         data-key={key}
       >
-        {renderTitle({ key, title : title || ""})}
+        {renderTitle({ key, title: title || "" })}
         {!isCollapsed && node}
       </Animate>
     );
@@ -59,7 +57,7 @@ export const KPIsCollapse = ({
   const renderTitle = ({ key, title }: { key: string; title: string }) => {
     return (
       <div className="flex border-r-4 border-[#007497]">
-        <div className="bg-[#007C9E24] flex gap-2 cursor-move slotHandle p-4 flex-1">
+        <div className="bg-[#007C9E24] flex gap-2 slotHandle p-4 flex-1">
           <h2 className="text-2xl font-bold">{title}</h2>
         </div>
         <button
@@ -84,10 +82,21 @@ export const KPIsCollapse = ({
       ref={parent as RefObject<HTMLDivElement>}
       className={cn(defaultClassName, className)}
     >
-      {dndNodes.map((node) => {
-        const hidden = visuallyHiddenKeys?.includes(node.key);
-        return renderSlot(node, hidden ? "hidden" : "");
-      })}
+      {slots.map(
+        ({
+          key,
+          node,
+          title,
+        }: {
+          key: any;
+          node?: ReactNode;
+          title?: string | undefined;
+        }) => {
+          const hidden = visuallyHiddenKeys?.includes(key);
+          if (!node) return null; // Ensure node is defined
+          return renderSlot({ key, node, title }, hidden ? "hidden" : "");
+        }
+      )}
     </div>
   );
 };

@@ -2,7 +2,7 @@
 
 import { InputField } from "@components/form";
 import { SupplierKPI } from "@types";
-import { TableBody, TableCell, TableRow, Table as UITable } from "@ui";
+import { TableCell } from "@ui";
 
 interface SupplierKPIProps {
   data: SupplierKPI[];
@@ -17,25 +17,25 @@ export const KPIsTable = ({ data, isForm }: SupplierKPIProps) => {
 
   return (
     <>
-      <UITable>
-        <TableBody>
+      <div>
+        <div>
           {tableData.map((kpi: SupplierKPI) => (
-            <TableRow key={kpi.id} className={"bg-white"}>
+            <div key={kpi.id} className={"bg-white flex"}>
               {Object.entries(kpi)
                 .filter(([key]) => key !== "id")
                 .map(([key, value]) =>
                   !isForm ? (
-                    <TableCell key={key} className="w-1/12">
+                    <div key={key} className="w-1/5 px-4 py-7">
                       {typeof value === "string" ? (
                         value
                       ) : (
                         <div className="flex flex-col md:flex-row gap-4 items-start">
                           {value.map((item, index) => (
-                            <div  key={`${kpi.id}-${key}-${index}`}>{item}</div>
+                            <div key={`${kpi.id}-${key}-${index}`}>{item}</div>
                           ))}
                         </div>
                       )}
-                    </TableCell>
+                    </div>
                   ) : (
                     <TableCell key={key} className="w-1/12">
                       {typeof value === "string" ? (
@@ -48,7 +48,10 @@ export const KPIsTable = ({ data, isForm }: SupplierKPIProps) => {
                           hideLabel
                         />
                       ) : (
-                        <div className="flex flex-col md:flex-row gap-4 items-start" key={`${key}-row`}>
+                        <div
+                          className="flex flex-col md:flex-row gap-4 items-start"
+                          key={`${key}-row`}
+                        >
                           {value.map((item, index) => (
                             <InputField
                               label={`${kpi.id}-${key}-${index}`}
@@ -65,10 +68,10 @@ export const KPIsTable = ({ data, isForm }: SupplierKPIProps) => {
                     </TableCell>
                   )
                 )}
-            </TableRow>
+            </div>
           ))}
-        </TableBody>
-      </UITable>
+        </div>
+      </div>
     </>
   );
 };
