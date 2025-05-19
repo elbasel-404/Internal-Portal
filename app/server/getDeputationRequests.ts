@@ -12,7 +12,7 @@ const DeputationRequestsDummyData: DeputationRequest[] = [
   {
     id: '#10011',
     requestDate: "2024-05-05 - 04.30.00",
-    deputationType: "داخلي",
+    deputation: "داخلي",
     startDate: "2024-05-05 - 04.30.00",
     endDate: "2024-05-15 - 04.30.00",
     duration: "10",
@@ -21,7 +21,7 @@ const DeputationRequestsDummyData: DeputationRequest[] = [
   {
     id: '#10012',
     requestDate: "2024-05-05 - 04.30.00",
-    deputationType: "داخلي",
+    deputation: "داخلي",
     startDate: "2024-05-05 - 04.30.00",
     endDate: "2024-05-15 - 04.30.00",
     duration: "10",
@@ -30,7 +30,7 @@ const DeputationRequestsDummyData: DeputationRequest[] = [
   {
     id: '#10013',
     requestDate: "2024-05-05 - 04.30.00",
-    deputationType: "خارجي",
+    deputation: "خارجي",
     startDate: "2024-05-05 - 04.30.00",
     endDate: "2024-05-15 - 04.30.00",
     duration: "10",
@@ -39,7 +39,7 @@ const DeputationRequestsDummyData: DeputationRequest[] = [
   {
     id: '#10014',
     requestDate: "2024-05-05 - 04.30.00",
-    deputationType: "خارجي",
+    deputation: "خارجي",
     startDate: "2024-05-05 - 04.30.00",
     endDate: "2024-05-15 - 04.30.00",
     duration: "10",
@@ -48,7 +48,7 @@ const DeputationRequestsDummyData: DeputationRequest[] = [
   {
     id: '#10015',
     requestDate: "2024-05-05 - 04.30.00",
-    deputationType: "خارجي",
+    deputation: "خارجي",
     startDate: "2024-05-05 - 04.30.00",
     endDate: "2024-05-15 - 04.30.00",
     duration: "10",
@@ -57,7 +57,7 @@ const DeputationRequestsDummyData: DeputationRequest[] = [
   {
     id: '#10016',
     requestDate: "2024-05-05 - 04.30.00",
-    deputationType: "داخلي",
+    deputation: "داخلي",
     startDate: "2024-05-05 - 04.30.00",
     endDate: "2024-05-15 - 04.30.00",
     duration: "10",
@@ -66,7 +66,7 @@ const DeputationRequestsDummyData: DeputationRequest[] = [
   {
     id: '#10017',
     requestDate: "2024-05-05 - 04.30.00",
-    deputationType: "داخلي",
+    deputation: "داخلي",
     startDate: "2024-05-05 - 04.30.00",
     endDate: "2024-05-15 - 04.30.00",
     duration: "10",
@@ -75,7 +75,7 @@ const DeputationRequestsDummyData: DeputationRequest[] = [
   {
     id: '#10018',
     requestDate: "2024-05-05 - 04.30.00",
-    deputationType: "داخلي",
+    deputation: "داخلي",
     startDate: "2024-05-05 - 04.30.00",
     endDate: "2024-05-15 - 04.30.00",
     duration: "10",
@@ -84,7 +84,7 @@ const DeputationRequestsDummyData: DeputationRequest[] = [
   {
     id: '#10019',
     requestDate: "2024-05-05 - 04.30.00",
-    deputationType: "داخلي",
+    deputation: "داخلي",
     startDate: "2024-05-05 - 04.30.00",
     endDate: "2024-05-15 - 04.30.00",
     duration: "10",
@@ -93,7 +93,7 @@ const DeputationRequestsDummyData: DeputationRequest[] = [
   {
     id: '#10020',
     requestDate: "2024-05-05 - 04.30.00",
-    deputationType: "داخلي",
+    deputation: "داخلي",
     startDate: "2024-05-05 - 04.30.00",
     endDate: "2024-05-15 - 04.30.00",
     duration: "10",
