@@ -55,7 +55,7 @@ const data: GeneralInfo[] = [
   },
 ];
 
-export const WorkDocumentData = () => {
+export const DeputationData = () => {
   return (
     <div className='py-6'>
       <InfoGrid info={data} className='lg:grid-cols-2' />

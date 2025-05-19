@@ -1,11 +1,11 @@
 import { getWorkDocumentRequests } from '@server';
-import { WorkDocumentTable } from './components';
+import { DeputationTable } from './components';
 
 const WorkDocumentListPage = async () => {
   const workDocumentData = await getWorkDocumentRequests();
   return (
     <div className='mb-12'>
-      <WorkDocumentTable data={workDocumentData} />
+      <DeputationTable data={workDocumentData} />
     </div>
   );
 };
