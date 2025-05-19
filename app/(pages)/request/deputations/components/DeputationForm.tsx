@@ -13,7 +13,7 @@ import { paths } from '@lib';
 import { useState } from 'react';
 import { DocumentTypes, RequestTypes } from './config';
 
-export const WorkDocumentForm = () => {
+export const DeputationForm = () => {
   const [files, setFiles] = useState<File[]>([]);
   const [requestDate, setRequsetDate] = useState<Date>(new Date());
 

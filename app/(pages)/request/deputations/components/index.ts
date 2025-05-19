@@ -1,4 +1,4 @@
-export { WorkDocumentData } from './WorkDocumentData';
-export { WorkDocumentForm } from './WorkDocumentForm';
-export { WorkDocumentTable } from './WorkDocumentTable';
+export { DeputationData } from './DeputationData';
+export { DeputationForm } from './DeputationForm';
+export { DeputationTable } from './DeputationTable';
 

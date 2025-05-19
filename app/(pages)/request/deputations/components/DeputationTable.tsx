@@ -23,7 +23,7 @@ const tableHeaders = [
   { label: 'الحالة' },
 ];
 
-export const WorkDocumentTable = ({ data }: WorkDocumentProps) => {
+export const DeputationTable = ({ data }: WorkDocumentProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');

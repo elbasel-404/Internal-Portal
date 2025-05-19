@@ -57,7 +57,7 @@ export const MenuItems: MenuItem[] = [
       //   href: '/',
       //   tag: 'hrServices',
       // },
-      { iconKey: 'Timer', label: 'الانتدابات', href: '/', tag: 'hrServices' },
+      { iconKey: 'Timer', label: 'الانتدابات', href: paths.deputations.href, tag: 'hrServices' },
       {
         iconKey: 'ClockTime',
         label: 'العمل الإضافي',
