@@ -16,6 +16,7 @@ const batchTableHeader = [
   { label: 'قيمة الدفعة قبل الخصم' },
   { label: 'نسبة الخصم' },
   { label: 'قيمة الدفعة' },
+  { label: 'شهادة الإنجاز' },
   { label: 'أمر صرف' },
   { label: 'الإجراءات' },
 ];
@@ -36,6 +37,7 @@ export const BatchTableSection = ({ requestStatus, batchs }: Props) => {
     batchAmountWithoutDiscount: totalBatchAmount,
     discount: '0',
     batchAmount: totalBatchAmount,
+    achievementCertificate: '',
     disbursementOrder: '',
   }));
 
