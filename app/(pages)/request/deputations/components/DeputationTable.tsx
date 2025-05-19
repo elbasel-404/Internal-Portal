@@ -81,7 +81,7 @@ export const DeputationTable = ({ data }: DeputationProps) => {
         <Table
           columns={tableHeaders}
           rows={filteredRequests}
-          link={paths.workDocumentDetails.href}
+          link={paths.deputationDetails.href}
         />
       </div>
     </>

@@ -1,10 +1,9 @@
 export type DeputationRequest = {
   id: string;
-  employee: string;
-  management: string;
-  sector: string;
-  requestType: string;
-  documentType: string;
-  documentCode: string;
+  requestDate: string;
+   deputationType: string;
+  startDate: string;
+  endDate: string;
+  duration: string;
   status: string;
 };
