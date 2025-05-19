@@ -4,9 +4,9 @@ import type { GeneralInfo } from '@types';
 
 const data: GeneralInfo[] = [
   {
-    title: 'الطلبات الجديدة',
-    count: 4,
-    icon: 'FileWithPenIcon',
+    title: 'الرصيد الحالي',
+    count: 1.15,
+    icon: 'TimeBlueIcon',
     backgroundColor: colors.light.primaryOpacity,
     id: -230,
     key: 'employeeRequests',
@@ -14,8 +14,8 @@ const data: GeneralInfo[] = [
     index: 0,
   },
   {
-    title: 'الطلبات تحت الإجراء',
-    count: 15,
+    title: 'الانتدابات تحت الإجراء',
+    count: 1.15,
     icon: 'CalenderSpecialIcon',
     backgroundColor: colors.light.primaryOpacity,
     id: -231,
@@ -24,8 +24,8 @@ const data: GeneralInfo[] = [
     index: 1,
   },
   {
-    title: 'الطلبات المعتمدة',
-    count: 9,
+    title: 'الانتدابات المعتمدة',
+    count: 1.15,
     icon: 'StampIcon',
     backgroundColor: colors.light.primaryOpacity,
     id: -232,
@@ -34,8 +34,8 @@ const data: GeneralInfo[] = [
     index: 2,
   },
   {
-    title: 'الطلبات المرفوضة',
-    count: 4,
+    title: 'المرفوضة/الملغاة',
+    count: 1.5,
     icon: 'ClipboardIcon',
     backgroundColor: colors.light.primaryOpacity,
     id: -233,
@@ -44,8 +44,8 @@ const data: GeneralInfo[] = [
     index: 3,
   },
   {
-    title: 'كل الطلبات',
-    count: 32,
+    title: 'كل الانتدابات',
+    count: 1.15,
     icon: 'ListAlternativeIcon',
     backgroundColor: colors.light.primaryOpacity,
     id: -234,
