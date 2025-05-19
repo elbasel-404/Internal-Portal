@@ -1,5 +1,6 @@
 'use client';
 
+import { completionRequestAtom } from '@atoms';
 import { ModalLink } from '@components/modals/ModalLink';
 import {
   CheckIcon,
@@ -7,6 +8,7 @@ import {
   PdfFileIcon,
   ProjectorIcon,
   RiyalCurrencyIcon,
+  SandClock2Icon,
   TrashIcon,
   XMarkIcon,
 } from '@icons';
@@ -22,6 +24,7 @@ import {
   TableRow,
   Table as UITable,
 } from '@ui';
+import { useAtom } from 'jotai';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
@@ -66,6 +69,7 @@ export const Table = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRequests, setSelectedRequests] = useState<string[]>([]);
+  const [completionRequest] = useAtom(completionRequestAtom);
 
   // Use useMemo to avoid recalculating these values on every render
   const totalPages = useMemo(
@@ -177,15 +181,21 @@ export const Table = ({
   );
 
   // Achievement Certificate cell renderer
-  const renderAchievementCertificateCell = () => (
-    <ModalLink
-      name='BatchsModal'
-      className='flex items-center gap-2 bg-primary-opacity rounded-md w-fit py-2 px-3'
-    >
-      <CheckIcon className='fill-primary' />
-      <p className='text-primary font-medium'>طلب إنجاز</p>
-    </ModalLink>
-  );
+  const renderAchievementCertificateCell = () =>
+    completionRequest ? (
+      <div className='flex items-center gap-2 bg-primary-opacity rounded-md w-fit py-2 px-3'>
+        <SandClock2Icon />
+        <p className='text-primary font-medium'>تحت الإجراء</p>
+      </div>
+    ) : (
+      <ModalLink
+        name='AchievementCertificateModal'
+        className='flex items-center gap-2 bg-primary-opacity rounded-md w-fit py-2 px-3'
+      >
+        <CheckIcon className='fill-primary' />
+        <p className='text-primary font-medium'>طلب إنجاز</p>
+      </ModalLink>
+    );
 
   // Cell content renderer based on key
   const renderCellContent = (key: string, value: any, row: Row) => {
