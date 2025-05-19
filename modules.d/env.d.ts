@@ -5,5 +5,10 @@ declare namespace NodeJS {
     API_KEY_HEADER_NAME: string;
     BEARER_TOKEN: string;
     SESSION_ID: string;
+    AUTH_SECRET: string;
+    CLIENT_ID: string;
+    CLIENT_SECRET: string;
+    SCOPE: string;
+    GRANT_TYPE: string;
   }
 }
