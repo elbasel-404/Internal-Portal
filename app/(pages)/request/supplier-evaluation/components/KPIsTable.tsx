@@ -24,13 +24,23 @@ export const KPIsTable = ({ data, isForm }: SupplierKPIProps) => {
                 .filter(([key]) => key !== "id")
                 .map(([key, value]) =>
                   !isForm ? (
-                    <div key={key} className={`w-1/5 px-4 py-7 ${!isDisabledField(key) ? "text-center" : "text-right"}`}>
+                    <div
+                      key={key}
+                      className={`w-1/5 px-4 py-7 ${
+                        !isDisabledField(key) ? "text-center" : "text-right"
+                      }`}
+                    >
                       {typeof value === "string" ? (
                         value
                       ) : (
                         <div className="flex flex-col md:flex-row gap-4 items-center text-center">
                           {value.map((item, index) => (
-                            <div key={`${kpi.id}-${key}-${index}`} className="w-1/3">{item}</div>
+                            <div
+                              key={`${kpi.id}-${key}-${index}`}
+                              className="w-1/3"
+                            >
+                              {item}
+                            </div>
                           ))}
                         </div>
                       )}
@@ -52,15 +62,16 @@ export const KPIsTable = ({ data, isForm }: SupplierKPIProps) => {
                           key={`${key}-row`}
                         >
                           {value.map((item, index) => (
-                            <InputField
-                              label={`${kpi.id}-${key}-${index}`}
-                              name={`${kpi.id}-${key}-${index}`}
-                              key={`${kpi.id}-${key}-${index}`}
-                              placeholder=""
-                              value={item}
-                              disabled
-                              hideLabel
-                            />
+                            <div key={`${kpi.id}-${key}-${index}`} className="w-1/3">
+                              <InputField
+                                label={`${kpi.id}-${key}-${index}`}
+                                name={`${kpi.id}-${key}-${index}`}
+                                placeholder=""
+                                value={item}
+                                disabled
+                                hideLabel
+                              />
+                            </div>
                           ))}
                         </div>
                       )}
