@@ -52,7 +52,7 @@ export const RadioField = ({
         {options.map((option) => (
           <div
             key={option.value}
-            className={`flex items-center gap-x-2 p-4 rounded-xl bg-cloudGray ${
+            className={`flex items-center gap-x-2 px-4 py-2 rounded-xl bg-cloudGray ${
               selectedValue === option.value
                 ? 'bg-primary-opacity'
                 : 'bg-cloudGray'

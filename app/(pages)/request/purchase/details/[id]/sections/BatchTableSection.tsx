@@ -1,13 +1,14 @@
 'use client';
 
-import { batchAmount } from '@atoms';
+import { batchAmount, completionRequestAtom } from '@atoms';
 import { Table } from '@components';
 import { ModalLink } from '@components/modals/ModalLink';
-import { CirclePlusIcon } from '@icons';
+import { CheckIcon, CirclePlusIcon } from '@icons';
 import { paths } from '@lib';
 import { removeBatch } from '@server';
 import { BatchItem } from '@types';
 import { useAtom } from 'jotai';
+import { useEffect, useState } from 'react';
 
 const batchTableHeader = [
   { label: 'رقم الدفعة' },
@@ -16,6 +17,7 @@ const batchTableHeader = [
   { label: 'قيمة الدفعة قبل الخصم' },
   { label: 'نسبة الخصم' },
   { label: 'قيمة الدفعة' },
+  { label: 'شهادة الإنجاز' },
   { label: 'أمر صرف' },
   { label: 'الإجراءات' },
 ];
@@ -27,7 +29,30 @@ interface Props {
 
 export const BatchTableSection = ({ requestStatus, batchs }: Props) => {
   if (!requestStatus.some((step) => step.id === '6')) return null;
+
+  const [completionRequest] = useAtom(completionRequestAtom);
   const [totalBatchAmount] = useAtom(batchAmount);
+  const [showSuccess, setShowSuccess] = useState<boolean>(false);
+  const [countdown, setCountdown] = useState<number>(5);
+
+  useEffect(() => {
+    if (completionRequest) {
+      setShowSuccess(true);
+      setCountdown(5); // Reset countdown
+
+      const interval = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev === 1) {
+            clearInterval(interval);
+            setShowSuccess(false);
+          }
+          return prev - 1;
+        });
+      }, 1000);
+
+      return () => clearInterval(interval); // Cleanup on unmount
+    }
+  }, [completionRequest]);
 
   const batchData = batchs.map((batch, index) => ({
     ...batch,
@@ -36,6 +61,7 @@ export const BatchTableSection = ({ requestStatus, batchs }: Props) => {
     batchAmountWithoutDiscount: totalBatchAmount,
     discount: '0',
     batchAmount: totalBatchAmount,
+    achievementCertificate: '',
     disbursementOrder: '',
   }));
 
@@ -58,6 +84,22 @@ export const BatchTableSection = ({ requestStatus, batchs }: Props) => {
           إضافة عنصر
         </ModalLink>
       </div>
+      {showSuccess && (
+        <div className='flex items-center justify-between gap-4 text-sm bg-[#04AA6D] p-4 rounded-md'>
+          <div className='flex items-center gap-4'>
+            <div className='rounded-full bg-white w-8 h-8 flex items-center justify-center'>
+              <CheckIcon className='w-5 h-5 text-white fill-[#04AA6D]' />
+            </div>
+            <span className='text-white font-medium text-xl'>
+              تم إرسال الطلب بنجاح
+            </span>
+          </div>
+          <span className='text-white font-semibold'>
+            يختفي خلال {countdown} ثانية
+          </span>
+        </div>
+      )}
+
       {batchData.length > 0 && (
         <Table
           tableClassName='h-fit'
