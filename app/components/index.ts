@@ -11,6 +11,7 @@ export { FullPageLoader } from './FullPageLoader';
 export { InfoGrid } from './InfoGrid';
 export { InitUser } from './InitUser';
 export { Instructions } from './Instructions';
+export { Login } from './Login';
 export { Main } from './Main';
 export { NavBar } from './Navbar';
 export { ThemeToggle } from './Navbar/ThemeToggle';
