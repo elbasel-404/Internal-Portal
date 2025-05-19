@@ -9,7 +9,7 @@ import {
 } from "../../components";
 
 export const EvaluationForm = async () => {
-  //TODO: this is a temporary solution, we need to get the data from the server from a deiffrent endpoint
+  //TODO: this is a temporary solution, we need to get the data from the server from a different endpoint
   const evaluationCriteriaData =
     (await getSupplierEvaluationRequestCriteria("1")) || [];
 
