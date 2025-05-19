@@ -1,0 +1,75 @@
+{
+    "folders": [
+        {
+            "path": "./api-schemas",
+            "name": "api-schemas"
+        },
+        {
+            "path": "./.env",
+            "name": ".env",
+        },
+        {
+            "path": "./app/(pages)",
+            "name": "pages"
+        },
+        {
+            "path": "./app/api",
+            "name": "api"
+        },
+        {
+            "path": "./app/atoms",
+            "name": "atoms"
+        },
+        {
+            "path": "./app/components",
+            "name": "components"
+        },
+        {
+            "path": "./app/db",
+            "name": "db"
+        },
+        {
+            "path": "./app/hooks",
+            "name": "hooks"
+        },
+        {
+            "path": "./app/icons",
+            "name": "icons"
+        },
+        {
+            "path": "./app/lib",
+            "name": "lib"
+        },
+        {
+            "path": "./app/server",
+            "name": "server"
+        },
+        {
+            "path": "./app/storage",
+            "name": "storage"
+        },
+        {
+            "path": "./app/test",
+            "name": "test"
+        },
+        {
+            "path": "./app/types",
+            "name": "types"
+        },
+        {
+            "path": "./app/ui",
+            "name": "ui"
+        },
+        {
+            "path": "./app/utils",
+            "name": "utils"
+        },
+        {
+            "path": "./app/zodSchemas",
+            "name": "zodSchemas"
+        }
+    ],
+    "settings": {
+        "typescript.tsdk": "node_modules/typescript/lib"
+    }
+}
