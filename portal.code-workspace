@@ -71,5 +71,6 @@
     ],
     "settings": {
         "typescript.tsdk": "node_modules/typescript/lib"
+	"git.openRepositoryInParentFolders": "always"
     }
 }
