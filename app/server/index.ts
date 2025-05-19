@@ -78,4 +78,6 @@ export { removeProjectCompletion } from './removeProjectCompletion';
 export { revalidateHomePage } from './revalidateHomePage';
 export { setUserId } from './setUserId';
 export { toggleHomePageSetting } from './toggleHomePageSetting';
+export { getDeputationRequests } from './getDeputationRequests';
+export { getDeputationRequestDetails } from './getDeputationRequestDetails';
 
