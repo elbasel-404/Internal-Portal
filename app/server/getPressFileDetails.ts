@@ -4,6 +4,7 @@ import type { PressFileDetails } from "@types";
 import { getFetchHeaders } from "./getFetchHeaders";
 import { NewsElementSchema, ResponseSchema } from "@api/schemas";
 import { getDemo } from "../db/actions/getDemo";
+import {formatDate} from "@utils"
 
 export const getPressFileDetails = async (
   id: string
@@ -13,7 +14,7 @@ export const getPressFileDetails = async (
 
   // ! VARIBLES
   // ! ==================================
-  const url = "po/read/portal-news";
+  const url = "api/po/read/portal-news";
   const apiRootUrl = process.env.API_ROOT_URL as string;
   const { headers } = await getFetchHeaders();
   const requestBody = {
@@ -45,28 +46,7 @@ export const getPressFileDetails = async (
   const returnedData: PressFileDetails = {
     id: validatedData.id.toString(),
     title: validatedData.title,
-    date: (() => {
-      const formattedDate = new Date(
-        validatedData.create_date
-      ).toLocaleDateString("ar-EG", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      });
-      const formattedTime = new Date(
-        validatedData.create_date
-      ).toLocaleTimeString("ar-EG", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
-      });
-      const fixedTime = formattedTime
-        .replace("ص", "صباحاً")
-        .replace("م", "مساءً");
-
-      return `${formattedDate} - ${fixedTime}`;
-    })(),
+    date: formatDate(validatedData.create_date),
     description: validatedData.description,
     imageUrl: `data:image/gif;base64,${validatedData.image}`,
   };
