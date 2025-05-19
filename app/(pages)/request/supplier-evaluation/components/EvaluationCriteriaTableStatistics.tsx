@@ -4,7 +4,6 @@ import { SupplierKPI } from "@types";
 import { PrinterIcon } from "@icons";
 import {
   Button,
-  Input,
   TableBody,
   TableCell,
   TableHead,
