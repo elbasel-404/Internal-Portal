@@ -137,7 +137,7 @@ export const EvaluationCriteriaTable = ({
                       <div key={key} className="w-1/5">
                         <div className="flex">
                           {chartContainers.map((item, index) => (
-                            <div className={item.className} key={`${key}-${index}`}>
+                            <div className={`${item.className} w-1/3 flex items-center justify-center`} key={`${key}-${index}`}>
                               <PieChartElem
                                 size={2}
                                 thickness={8}
