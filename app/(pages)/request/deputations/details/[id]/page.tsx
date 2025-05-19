@@ -1,6 +1,6 @@
-import { RequestDetails, RequestStatus } from '@components';
-import { getRequestStatus, getWorkDocumentDetails } from '@server';
-import { RequestHeader } from '@types';
+import { RequestDetails, RequestStatus } from "@components";
+import { getRequestStatus, getDeputationRequestDetails } from "@server";
+import { RequestHeader } from "@types";
 
 type Params = Promise<{ id: string }>;
 
@@ -14,68 +14,128 @@ const WorkDocumentDetailsPage = async ({
   const { id } = await params;
   const requestStatus = await getRequestStatus();
   const requestCaption =
-    'انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر';
+    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر";
   const {
-    requestType,
     requestDate,
-    documentAddress,
-    documentType,
-    employee,
-    sector,
-    management,
-    target,
+    deputation,
+    transportation,
+    startDate,
+    endDate,
+    duration,
+    city,
+    deputationType,
+    task,
+    taskDetails,
+    departureDatesStatus,
+    travelDuration,
+    travelStartDate,
+    travelEndDate,
+    deputationAmount,
+    transferDate,
+    reserved,
     status,
+    reason,
+    notes,
     attachments,
-  } = (await getWorkDocumentDetails(id)) || {};
+  } = (await getDeputationRequestDetails(id)) || {};
+
+  const displayReason = status === "مرفوض" ? reason : null;
 
   const requestHeaders: RequestHeader[] = [
     {
-      label: 'رقم الطلب',
+      label: "رقم الطلب",
       value: id,
     },
     {
-      label: 'نوع الطلب',
-      value: requestType,
-    },
-    {
-      label: 'تاريخ الطلب',
+      label: "تاريخ الطلب",
       value: requestDate,
     },
     {
-      label: 'نوع الوثيقة',
-      value: documentType,
+      label: "انتداب",
+      value: deputation,
     },
     {
-      label: 'عنوان الوثيقة',
-      value: documentAddress,
+      label: "وسيلة النقل",
+      value: transportation,
     },
     {
-      label: 'الهدف',
-      value: target,
+      label: "تاريخ بداية الانتداب",
+      value: startDate,
     },
     {
-      label: 'الموظف',
-      value: employee,
+      label: "تاريخ نهاية الانتداب",
+      value: endDate,
     },
     {
-      label: 'القطاع',
-      value: sector,
+      label: "المدة",
+      value: duration,
     },
     {
-      label: 'الإدارة',
-      value: management,
+      label: "المدينة",
+      value: city,
     },
     {
-      label: 'الحالة',
-      value: status,
+      label: "نوع الانتداب",
+      value: deputationType,
     },
     {
-      label: 'المرفقات',
-      value: attachments,
+      label: "المهمة",
+      value: task,
     },
+    {
+      label: "تفاصيل المهمة",
+      value: taskDetails,
+    },
+    {
+      label: "اعداد تواريخ السفر",
+      value: departureDatesStatus,
+    },
+    {
+      label: "أيام السفر",
+      value: travelDuration,
+    },
+    {
+      label: "تاريخ السفر للانتداب",
+      value: travelStartDate,
+    },
+    {
+      label: "تاريخ العودة للانتداب",
+      value: travelEndDate,
+    },
+    {
+      label: "بدل الانتداب (بالريال)",
+      value: deputationAmount,
+    },
+    {
+      label: "تاريخ التحويل",
+      value: transferDate,
+    },
+    {
+      label: "تم حجز تذكرة السفر",
+      value: reserved,
+    },
+    ...(displayReason
+      ? [
+          {
+            label: "سبب الرفض" as RequestHeader["label"],
+            value: reason,
+          },
+        ]
+      : []),
+    ...[
+      {
+        label: "ملاحظات" as RequestHeader["label"],
+        value: notes,
+      },
+      {
+        label: "المرفقات" as RequestHeader["label"],
+        value: attachments,
+      },
+    ],
   ];
+
   return (
-    <main className='space-y-4'>
+    <main className="space-y-4">
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails headers={requestHeaders} />
     </main>
