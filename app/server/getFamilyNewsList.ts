@@ -14,7 +14,7 @@ export const getFamilyNewsList = async (): Promise<NewsFamily[]> => {
   const url = "api/po/read/portal-news";
   const apiRootUrl = process.env.API_ROOT_URL as string;
   const { headers } = await getFetchHeaders();
-  const requestBody = { "news_type":"family_news" };
+  const requestBody = { news_type: "family_news" };
   const requestBodyString = JSON.stringify(requestBody);
   const requestUrl = `${apiRootUrl}/${url}`;
 
@@ -55,6 +55,7 @@ export const getFamilyNewsList = async (): Promise<NewsFamily[]> => {
       image: data.image
         ? `data:image/gif;base64,${data.image}`
         : "/monshaatFamily-1.svg",
+      description: data.resume,
     };
     return newsItem;
   });
@@ -68,6 +69,7 @@ const dummyData: NewsFamily[] = [
       "رزقت الزميلة: لمياء بنت عبدالله الربيعان بأحمد جعله الله من مواليد ال...",
     date: "01.06.2024 - 07:54 صباحاً",
     image: "/monshaatFamily-1.svg",
+    description: "",
   },
   {
     id: 2,
@@ -75,6 +77,7 @@ const dummyData: NewsFamily[] = [
       "رزقت الزميلة: لمياء بنت عبدالله الربيعان بأحمد جعله الله من مواليد ال...",
     date: "01.06.2024 - 07:54 صباحاً",
     image: "/monshaatFamily-2.svg",
+    description: "",
   },
   {
     id: 3,
@@ -82,6 +85,7 @@ const dummyData: NewsFamily[] = [
       "رزقت الزميلة: لمياء بنت عبدالله الربيعان بأحمد جعله الله من مواليد ال...",
     date: "01.06.2024 - 07:54 صباحاً",
     image: "/monshaatFamily-3.svg",
+    description: "",
   },
   {
     id: 4,
@@ -89,5 +93,6 @@ const dummyData: NewsFamily[] = [
       "رزقت الزميلة: لمياء بنت عبدالله الربيعان بأحمد جعله الله من مواليد ال...",
     date: "01.06.2024 07:54 صباحًا",
     image: "/MonshaatFamily-4.svg",
+    description: "",
   },
 ];
