@@ -403,4 +403,16 @@ export const paths: Record<string, AppPath> = {
     title: "login",
     href: "/login",
   },
+  deputations: {
+    title: 'قائمة الإنتدابات',
+    href: '/request/deputations',
+  },
+  deputationDetails: {
+    title: 'تفاصيل إنتداب',
+    href: '/request/deputations/details/:id',
+  },
+  deputationNew: {
+    title: 'طلب إنتداب',
+    href: '/request/deputations/new',
+  },
 };
