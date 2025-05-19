@@ -108,16 +108,14 @@ const SupplierEvaluationDetailsPage = async ({
       label: "رقم العقد من الاعتماد",
       value: confirmationContractNumber,
     },
-    // TODO: Reason Label Is Conditional According To Request Status
-    //
-    //  ...(displayReason
-    //   ? [
-    //       {
-    //         label: status === "مرفوض" ? "سبب الرفض" : "إعتماد",
-    //         value: reason,
-    //       },
-    //     ]
-    //   : []),
+     ...(displayReason
+      ? [
+          {
+            label: (status === "مرفوض" ? "سبب الرفض" : "إعتماد") as RequestHeader["label"],
+            value: reason,
+          },
+        ]
+      : []),
   ];
 
   const evaluationResultData: SupplierEvaluationCriterionResult[] =
