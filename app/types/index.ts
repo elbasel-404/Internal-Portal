@@ -69,6 +69,8 @@ export type { SupplierEvaluationCriterion } from './pages/request/SupplierEvalua
 export type { SupplierEvaluationCriterionResult } from './pages/request/SupplierEvaluationCriterionResult';
 export type { SupplierEvaluationRequest } from './pages/request/SupplierEvaluationRequest';
 export type { SupplierEvaluationRequestDetails } from './pages/request/SupplierEvaluationRequestDetails';
+export type { DeputationRequest } from './pages/request/DeputationRequest';
+export type { DeputationRequestDetails } from './pages/request/DeputationRequestDetails';
 export type { SupplierKPI } from './pages/request/SupplierKPI';
 export type { TicketDetails } from './pages/request/TicketDetails';
 export type { TicketRequest } from './pages/request/TicketRequest';
