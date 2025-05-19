@@ -1,5 +1,6 @@
 'use client';
 
+import { ModalLink } from '@components/modals/ModalLink';
 import {
   CheckIcon,
   EyeIcon,
@@ -175,6 +176,17 @@ export const Table = ({
     </div>
   );
 
+  // Achievement Certificate cell renderer
+  const renderAchievementCertificateCell = () => (
+    <ModalLink
+      name='BatchsModal'
+      className='flex items-center gap-2 bg-primary-opacity rounded-md w-fit py-2 px-3'
+    >
+      <CheckIcon className='fill-primary' />
+      <p className='text-primary font-medium'>طلب إنجاز</p>
+    </ModalLink>
+  );
+
   // Cell content renderer based on key
   const renderCellContent = (key: string, value: any, row: Row) => {
     if (key === 'status') return renderStatusCell(value);
@@ -183,6 +195,8 @@ export const Table = ({
     if (key === 'courseName') return renderCourseNameCell(value, row);
     if (key === 'batchNumber') return renderBatchNumberCell(value, row);
     if (key === 'attachments') return renderAttachmentsCell();
+    if (key === 'achievementCertificate')
+      return renderAchievementCertificateCell();
     return value;
   };
 
