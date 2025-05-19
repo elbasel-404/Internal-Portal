@@ -78,4 +78,4 @@ export { removeProjectCompletion } from "./removeProjectCompletion";
 export { revalidateHomePage } from "./revalidateHomePage";
 export { setUserId } from "./setUserId";
 export { toggleHomePageSetting } from "./toggleHomePageSetting";
-export { signIn } from "./signIn";
+export { getSession, signIn } from "./auth";

@@ -1,7 +1,10 @@
-import { signIn } from "@server";
-import { auth } from "./auth";
+import { Login } from "@components";
+import { getSession } from "@server";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import "./(pages)/globals.css";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "منشآت",
@@ -12,28 +15,12 @@ interface RootLayoutProps {
 }
 
 const RootLayout = async ({ children }: Readonly<RootLayoutProps>) => {
-  const sesision = await auth();
+  const sesision = await getSession();
   if (!sesision)
     return (
       <html>
         <body>
-          <h1>Login</h1>
-          <form action={signIn}>
-            <input
-              defaultValue="ssaeed"
-              type="text"
-              name="username"
-              id="username"
-              placeholder="username"
-            />
-            <input
-              type="password"
-              name="password"
-              id="password"
-              defaultValue="@111"
-            />
-            <button type="submit">login</button>
-          </form>
+          <Login />
         </body>
       </html>
     );

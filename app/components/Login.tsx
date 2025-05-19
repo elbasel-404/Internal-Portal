@@ -1,13 +1,14 @@
 import { DownloadIcon, LockIcon, User2Icon } from "@icons";
+import { signIn } from "@server";
 import { Button } from "@ui";
 import Image from "next/image";
 import Link from "next/link";
 
 export const rememberMeInputName = "rememberMe";
-export const usernameInputName = "userName";
+export const usernameInputName = "username";
 export const passwordInputName = "password";
 
-const Login = () => {
+export const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#11274A] bg-[url(/login-background.svg)]">
       <div className="hidden lg:block relative lg:w-1/3 w-fit bg-gradient-to-t from-[#007C9E] to-[#0D3C5F] rounded-tr-[60px] rounded-bl-[60px] shadow-lg py-28 2xl:py-36 px-10 md:px-20">
@@ -78,9 +79,10 @@ const Login = () => {
               </div>
             </div>
 
-            <form className="space-y-6">
+            <form action={signIn} className="space-y-6">
               <div className="relative">
                 <input
+                  name="username"
                   type="text"
                   id="username"
                   className="w-full p-3 border border-gray-300 focus:outline-none focus:shadow-outline focus:border-[#007C9E] rounded-full text-right pr-12 placeholder:text-foreground"
@@ -94,6 +96,7 @@ const Login = () => {
 
               <div className="relative">
                 <input
+                  name="password"
                   type="password"
                   id="password"
                   className="w-full p-3 border border-gray-300 focus:outline-none focus:shadow-outline focus:border-[#007C9E] rounded-full text-right pr-12 placeholder:text-foreground"
@@ -141,5 +144,3 @@ const Login = () => {
     </div>
   );
 };
-
-export default Login;
