@@ -1,10 +1,12 @@
 import { BookmarkIcon } from '@icons';
 import { Card, CardContent } from '@ui';
 import Image from 'next/image';
-import { newsData } from './config';
+import { getNewsListRequests } from '@server';
+// import { newsData } from './config';
 
-export const FeaturedSection = () => {
-  const featuredNews = newsData.find((news) => news.isFeatured);
+export const FeaturedSection = async () => {
+  const newsData = await getNewsListRequests();
+  const featuredNews = newsData[0];
 
   return (
     <>
@@ -17,7 +19,8 @@ export const FeaturedSection = () => {
             alt={featuredNews.title}
             className='w-full h-full xl:h-[430px] object-cover'
           />
-          <CardContent className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-foreground/70 to-transparent p-6 text-white'>
+          <CardContent style={{background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.07) 0%, #091B36 80%)',}} 
+          className='absolute bottom-0 left-0 right-0 p-6 text-white'>
             <div className='flex justify-between items-center text-gray-300 text-sm'>
               <span>{featuredNews.date}</span>
               <BookmarkIcon className='fill-white cursor-pointer' />
