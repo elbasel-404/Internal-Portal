@@ -177,4 +177,5 @@ export { WorkTimeIcon } from './WorkTime.icon';
 export { WritingNoteIcon } from './WritingNote.icon';
 export { XMarkIcon } from './XMark.icon';
 export { XMarkIcon2 } from './XMark.icon2';
+export { TimeBlueIcon } from './TimeBlue.icon';
 
