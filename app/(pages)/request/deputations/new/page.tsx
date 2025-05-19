@@ -1,6 +1,6 @@
 import { RequestStatus } from '@components';
 import { getRequestStatus } from '@server';
-import { WorkDocumentForm } from '../components';
+import { DeputationForm } from '../components';
 
 
 const NewWorkDocumentPage = async () => {
@@ -10,7 +10,7 @@ const NewWorkDocumentPage = async () => {
   return (
     <div className='space-y-4 mb-16'>
       <RequestStatus status={requestStatus} caption={requestCaption} />
-      <WorkDocumentForm />
+      <DeputationForm />
     </div>
   );
 };
