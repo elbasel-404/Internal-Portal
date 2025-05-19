@@ -7,23 +7,22 @@ import Link from 'next/link';
 import { ChangeEvent, useState } from 'react';
 
 import { paths } from '@lib';
-import { WorkDocumentRequest } from '@types';
+import { DeputationRequest } from '@types';
 
-interface WorkDocumentProps {
-  data: WorkDocumentRequest[];
+interface DeputationProps {
+  data: DeputationRequest[];
 }
 
 const tableHeaders = [
-  { label: 'الموظف' },
-  { label: 'الإدارة' },
-  { label: 'القطاع' },
-  { label: 'نوع الطلب' },
-  { label: 'نوع الوثيقة' },
-  { label: 'رمز الوثيقة' },
+  { label: 'تاريخ الطلب' },
+  { label: 'انتداب' },
+  { label: 'تاريخ البدء' },
+  { label: 'تاريخ الانتهاء' },
+  { label: 'مدتها باليوم' },
   { label: 'الحالة' },
 ];
 
-export const DeputationTable = ({ data }: WorkDocumentProps) => {
+export const DeputationTable = ({ data }: DeputationProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
@@ -49,7 +48,7 @@ export const DeputationTable = ({ data }: WorkDocumentProps) => {
       <div className='bg-white rounded-lg'>
         <div className='flex flex-col md:flex-row gap-4 items-start md:items-center justify-between border-b border-border-[#ECF0F480] p-4'>
           <h2 className='text-foreground font-bold text-2xl'>
-            قائمة طلبات إصدار/تعديل وثيقة عمل
+            قائمة الانتدابات
           </h2>
           <div className='flex gap-4 items-center'>
             <Input
