@@ -13,4 +13,6 @@ export type SupplierEvaluationRequestDetails = {
   confirmationSerialNumber: string;
   confirmationProjectName: string;
   confirmationContractNumber: string;
+  status: string;
+  reason: string;
 };

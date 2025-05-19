@@ -4,7 +4,6 @@ import type { NewsListRequest } from "@types";
 import { getDemo } from "../db/actions/getDemo";
 import { getFetchHeaders } from "./getFetchHeaders";
 import { NewsElementSchema, ResponseSchema } from "@api/schemas";
-
 export const getNewsListRequests = async (): Promise<NewsListRequest[]> => {
   const isDemo = await getDemo();
   if (isDemo) return dummyData;

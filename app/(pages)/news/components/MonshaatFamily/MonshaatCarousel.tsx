@@ -6,9 +6,11 @@ import {
     CarouselPrevious,
 } from '@ui';
 import { MonshaatCard } from './MonshaatCard';
-import { MonshaatCarouselData } from './config';
+import { getFamilyNewsList } from "@server";
+// import { MonshaatCarouselData } from './config';
 
-export const MonshaatCarousel = () => {
+export const MonshaatCarousel = async() => {
+  const MonshaatCarouselData = await getFamilyNewsList();
   return (
     <div>
       <Carousel

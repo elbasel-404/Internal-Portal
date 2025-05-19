@@ -20,5 +20,7 @@ export const defaultUser: z.TypeOf<typeof userSchema> = {
     },
   ],
   projectCompletion: [],
-  products: []
+  products: [],
+  batchs: [],
+  batchProducts: []
 } as const;

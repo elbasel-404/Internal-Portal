@@ -39,7 +39,9 @@
         }
       ],
       "projectCompletion": [],
-      "products": []
+      "products": [],
+      "batchs": [],
+      "batchProducts": []
     },
     {
       "id": 2,
@@ -80,7 +82,9 @@
         }
       ],
       "projectCompletion": [],
-      "products": []
+      "products": [],
+      "batchs": [],
+      "batchProducts": []
     }
   ],
   "userCount": 2

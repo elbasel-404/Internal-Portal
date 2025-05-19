@@ -15,6 +15,7 @@ export { Main } from './Main';
 export { NavBar } from './Navbar';
 export { ThemeToggle } from './Navbar/ThemeToggle';
 export { NewsHeader } from './NewsHeader';
+export { ProductsTableSection } from './ProductsTableSection';
 export { RegisterChartJSPlugins } from './RegisterChartJSPlugins';
 export { RegisterKeyboardShortcuts } from './RegisterKeyboardShortcuts';
 export { RejectReasonDialog } from './RejectionDialog';

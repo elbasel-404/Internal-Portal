@@ -1,18 +1,22 @@
-import { CreateRequestStatus } from '@components';
-import { getCreateRequestStatus, getVacationElements } from '@server';
-import { EvaluationForm } from '../components';
+import { CreateRequestStatus, Instructions } from "@components";
 
-const NewVacationPage = async () => {
-  const model = 'hr.holidays';
+import { getCreateRequestStatus } from "@server";
+import { EvaluationForm } from "../components";
+
+const NewEvaluationPage = async () => {
+  const model = "hr.holidays";
   const requestStatus = await getCreateRequestStatus(model);
-  const vacationElements = await getVacationElements();
-  const requestCaption = 'انت الان في مرحلة انشاء الطلب';
+  const requestCaption = "انت الان في مرحلة انشاء الطلب";
   return (
-    <div className='space-y-4 mb-16'>
+    <div className="space-y-4 mb-16">
       <CreateRequestStatus status={requestStatus} caption={requestCaption} />
-      <EvaluationForm vacationElements={vacationElements} />
+      <EvaluationForm />
+      <Instructions
+        title="توضيحات حول الخدمة"
+        description="تتيح هذه الخدمة للموظف امكانية الاطلاع علي تفاصيل طلب تقييم أداء المتعاقدين.."
+      />
     </div>
   );
 };
 
-export default NewVacationPage;
+export default NewEvaluationPage;
