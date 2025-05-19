@@ -8,6 +8,7 @@ import { ReactNode } from 'react';
 interface RequestDetailsProps {
   headers: RequestHeader[];
   evaluationCritera?: ReactNode;
+  requestDetailsLabel?: string;
 }
 
 type AttachmentList = {
@@ -18,6 +19,7 @@ type AttachmentList = {
 export const RequestDetails = ({
   headers,
   evaluationCritera,
+  requestDetailsLabel = 'تفاصيل الطلب',
 }: RequestDetailsProps) => {
   const attachmentHeader = headers.find(({ label }) => label === 'المرفقات');
   const convenantRequestNumber = headers.find(
@@ -35,7 +37,7 @@ export const RequestDetails = ({
       <h1 className='font-bold text-2xl mb-4'>
         {convenantRequestNumber
           ? 'بيانات استعاضة / اقفال عهدة'
-          : 'تفاصيل الطلب'}
+          : requestDetailsLabel}
       </h1>
       <div>
         {headers.map(({ label, value }, index) => {
@@ -67,9 +69,7 @@ export const RequestDetails = ({
                   dangerouslySetInnerHTML={
                     typeof value === 'string' ? { __html: value } : undefined
                   }
-                >
-                  
-                </div>
+                ></div>
               </div>
             </div>
           );
