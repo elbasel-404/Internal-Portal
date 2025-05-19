@@ -1,9 +1,9 @@
 import { paths } from '@lib';
-import { getNewsListRequests } from '@server';
+import { getFamilyNewsList } from '@server';
 import { NewsList } from '../components';
 
 const MonshaatFamilyPage = async () => {
-  const monshaatFamilyData = await getNewsListRequests();
+  const monshaatFamilyData = await getFamilyNewsList();
   return (
     <>
       <NewsList
