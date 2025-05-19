@@ -23,7 +23,7 @@ export { RequestDetails } from './RequestDetails';
 export { RequestStatus } from './RequestStatus';
 export { Select } from './Select';
 export { AppSideBar } from './Sidebar';
-export { Table } from './Table';
+export { Table } from './Table/Table';
 export { TimePicker } from './TimePicker';
 export { VisuallyHidden } from './VisuallyHidden';
 export { WrappedImage } from './WrappedImage';
