@@ -1,5 +1,6 @@
 import {
   BriefcaseIcon,
+  CashRegisterIcon,
   CheckIcon,
   ClipboardCheckIcon,
   HourGlassIcon,
@@ -149,6 +150,11 @@ export const STATUS_CONFIG = {
   'إدارة العقود و المشتريات': {
     label: 'إدارة العقود و المشتريات',
     icon: TagsIcon,
+    className: 'bg-primary-opacity text-primary',
+  },
+  'معتمد وتم أمر الصرف': {
+    label: 'معتمد وتم أمر الصرف',
+    icon: CashRegisterIcon,
     className: 'bg-primary-opacity text-primary',
   },
   hrm: {
