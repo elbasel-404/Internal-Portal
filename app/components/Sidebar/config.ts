@@ -57,7 +57,12 @@ export const MenuItems: MenuItem[] = [
       //   href: '/',
       //   tag: 'hrServices',
       // },
-      { iconKey: 'Timer', label: 'الانتدابات', href: paths.deputations.href, tag: 'hrServices' },
+      {
+        iconKey: 'Timer',
+        label: 'الانتدابات',
+        href: paths.deputations.href,
+        tag: 'hrServices',
+      },
       {
         iconKey: 'ClockTime',
         label: 'العمل الإضافي',
@@ -117,7 +122,12 @@ export const MenuItems: MenuItem[] = [
         href: paths.jobApplications.href,
         tag: 'organizationalDevelopment',
       },
-      { iconKey: 'Laptop', label: 'طلبات التدريب', href: '/', tag: 'training' },
+      {
+        iconKey: 'Laptop',
+        label: 'طلبات التدريب',
+        href: paths.training.href,
+        tag: 'training',
+      },
       {
         iconKey: 'UsersGroup',
         label: 'التدريب الجماعي',
