@@ -35,16 +35,16 @@ export const getDeputationRequestDetails = async (
       notes:
         "ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف",
       deputationPlaces: [
-        { id: "1", name: "الرياض", city: "السعودية" },       // Saudi Arabia
-        { id: "2", name: "القاهرة", city: "مصر" },            // Egypt
-        { id: "3", name: "الرباط", city: "المغرب" },          // Morocco
-        { id: "4", name: "تونس", city: "تونس" },              // Tunisia
-        { id: "5", name: "الجزائر", city: "الجزائر" },        // Algeria
-        { id: "6", name: "بغداد", city: "العراق" },           // Iraq
-        { id: "7", name: "دمشق", city: "سوريا" },             // Syria
-        { id: "8", name: "الخرطوم", city: "السودان" },        // Sudan
-        { id: "9", name: "مسقط", city: "عُمان" },             // Oman
-        { id: "10", name: "الدوحة", city: "قطر" }
+        { id: "1", name: "السعودية", city: "الرياض" }, // Saudi Arabia
+        { id: "2", name: "مصر", city: "القاهرة" }, // Egypt
+        { id: "3", name: "المغرب", city: "الرباط" }, // Morocco
+        { id: "4", name: "تونس", city: "تونس" }, // Tunisia
+        { id: "5", name: "الجزائر", city: "الجزائر" }, // Algeria
+        { id: "6", name: "العراق", city: "بغداد" }, // Iraq
+        { id: "7", name: "سوريا", city: "دمشق" }, // Syria
+        { id: "8", name: "السودان", city: "الخرطوم" }, // Sudan
+        { id: "9", name: "عُمان", city: "مسقط" }, // Oman
+        { id: "10", name: "قطر", city: "الدوحة" },
       ],
       attachments: [
         new File([""], "نموذج طلب .pdf"),
