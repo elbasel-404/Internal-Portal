@@ -15,7 +15,8 @@ interface RootLayoutProps {
 }
 
 const RootLayout = async ({ children }: Readonly<RootLayoutProps>) => {
-  const sesision = await getSession();
+  // const sesision = await getSession();
+  const sesision = true;
   if (!sesision)
     return (
       <html>
