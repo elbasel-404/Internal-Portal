@@ -1,0 +1,20 @@
+export type TrainingDetails = {
+  id: string;
+  requestDate: string;
+  employeeName: string;
+  jobNumber: string;
+  jobTitle: string;
+  sector: string;
+  courseName: string;
+  courseDate: string;
+  duration: string;
+  mechanismConvening: string;
+  courseValue: string;
+  mandateAllowance: string;
+  transcationDate: string;
+  directWorkData: string;
+  trainingCenter: string;
+  status: string;
+  courseProgram: string;
+  attachments: File[];
+};
