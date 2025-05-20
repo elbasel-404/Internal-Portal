@@ -11,6 +11,7 @@ interface CheckboxListFieldProps {
   selectedValues: string[];
   onChange: (selected: string[]) => void;
   className?: string;
+  layoutClass?: string;
   labelStyle?: string;
   checkboxStyle?: string;
   required?: boolean;
@@ -23,6 +24,7 @@ export const CheckboxListField = ({
   selectedValues,
   onChange,
   className,
+  layoutClass,
   labelStyle,
   checkboxStyle,
   required,
@@ -43,7 +45,7 @@ export const CheckboxListField = ({
           {required && <span className='text-red-500'>*</span>}
         </label>
       )}
-      <div className='flex flex-col md:flex-row md:items-center gap-2 md:gap-6'>
+      <div className={`flex flex-col md:flex-row md:items-center gap-2 md:gap-6 ${layoutClass}`}>
         {options.map((option) => (
           <label key={option.value} className='flex items-center space-x-2 gap-2'>
             <Checkbox
