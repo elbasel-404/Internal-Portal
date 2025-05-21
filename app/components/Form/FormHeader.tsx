@@ -8,7 +8,7 @@ interface FormHeaderProps {
 
 export const FormHeader = ({ label, path }: FormHeaderProps) => {
   return (
-    <div className='flex items-center justify-between border-b border-[#ECF0F480] py-4 '>
+    <div className='flex items-center justify-between border-b border-[#ECF0F480] p-4'>
       <h1 className='text-2xl font-bold text-foreground'>{label}</h1>
       <Link
         href={path}
