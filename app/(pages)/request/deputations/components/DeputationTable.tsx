@@ -65,7 +65,7 @@ export const DeputationTable = ({ data }: DeputationProps) => {
               <FilterIcon className='fill-primary' />
             </Button>
             <Link
-              href={paths.workDocumentNew.href}
+              href={paths.deputationNew.href}
               className='flex group font-medium items-center gap-2 bg-primary text-white px-4 py-1 rounded-full hover:bg-primary-opacity hover:text-primary border-2 border-primary'
             >
               <CirclePlusIcon className='fill-white group-hover:fill-primary' />

@@ -7,6 +7,7 @@ interface SelectProps {
   label: string;
   name: string;
   placeholder?: string;
+  required?: boolean;
   value?: string;
   onChange?: (value: string) => void;
 }
@@ -16,6 +17,7 @@ export const SelectField = ({
   label,
   name,
   placeholder = 'اختر النوع',
+  required = false,
   value,
   onChange,
 }: SelectProps) => {
@@ -23,7 +25,7 @@ export const SelectField = ({
     <div className='flex flex-col gap-1 w-full'>
       <label className='font-medium text-foreground'>
         {label}
-        <span className='text-red-500'>*</span>
+        {required && <span className="text-red-500">*</span>}
       </label>
       <Select
         name={name}
