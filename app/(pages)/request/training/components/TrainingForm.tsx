@@ -5,23 +5,30 @@ import {
   dateFromAtom,
   dateToAtom,
   durationAtom,
+  trainingMethodAtom,
 } from '@atoms';
 import { FormHeader, SubmitButton } from '@components/form';
 import { paths } from '@lib';
-import { FileWithId } from '@types';
+import { FileWithId, TrainingCourse } from '@types';
 import { useAtom } from 'jotai';
 import { ChangeEvent, useState } from 'react';
 import {
   AdditionalInfoSection,
   AttachmentsSection,
   DateDurationSection,
+  ExtendedTrainingSection,
   TrainingCenterSection,
   TrainingDetailsSection,
+  TrainingLocationSection,
   TrainingTypeSection,
 } from './FormSections';
 import { FileHandlerType, SectionProps } from './FormTypes/types';
 
-export const TrainingForm = (): JSX.Element => {
+interface TrainingFormProps {
+  trainingCourses: TrainingCourse[];
+}
+
+export const TrainingForm = ({ trainingCourses }: TrainingFormProps) => {
   // State definitions
   const [files, setFiles] = useState<FileWithId[]>([]);
   const [trainingName, setTrainingName] = useState<string>('');
@@ -29,14 +36,19 @@ export const TrainingForm = (): JSX.Element => {
   const [trainingCenter, setTrainingCenter] = useState<string>('');
   const [isOtherTrainingCenter, setIsOtherTrainingCenter] =
     useState<boolean>(false);
+  const [extendedTraining, setExtendedTraining] = useState<boolean>(false);
   const [trainingCenterName, setTrainingCenterName] = useState<string>('');
   const [trainingNature, setTrainingNature] = useState<string[]>([]);
-  const [trainingMethod, setTrainingMethod] = useState<string>('internal');
   const [trainingProgram, setTrainingProgram] = useState<string>('');
+  const [trainingCountry, setTrainingCountry] = useState<string>('');
+  const [trainingCity, setTrainingCity] = useState<string>('');
+  const [travelDays, setTravelDays] = useState<string>('1');
+  const [trainingAssignment, setTrainingAssignment] = useState<string>('');
   const [substituteEmployee, setSubstituteEmployee] = useState<string>('');
   const [dateFrom, setDateFrom] = useAtom(dateFromAtom);
   const [dateTo, setDateTo] = useAtom(dateToAtom);
   const [duration] = useAtom(durationAtom);
+  const [trainingMethod, setTrainingMethod] = useAtom(trainingMethodAtom);
 
   // Handlers
   const fileHandler: FileHandlerType = createFileHandler(
@@ -62,6 +74,12 @@ export const TrainingForm = (): JSX.Element => {
     setTrainingProgram(event.target.value);
   };
 
+  const handleTravelDaysChangeValue = (
+    event: ChangeEvent<HTMLInputElement>
+  ): void => {
+    setTravelDays(event.target.value);
+  };
+
   // Form sections
   const sections: SectionProps[] = [
     {
@@ -84,17 +102,21 @@ export const TrainingForm = (): JSX.Element => {
         />
       ),
     },
-    {
-      component: (
-        <DateDurationSection
-          dateFrom={dateFrom}
-          setDateFrom={setDateFrom}
-          dateTo={dateTo}
-          setDateTo={setDateTo}
-          duration={duration}
-        />
-      ),
-    },
+    ...(!extendedTraining
+      ? [
+          {
+            component: (
+              <DateDurationSection
+                dateFrom={dateFrom}
+                setDateFrom={setDateFrom}
+                dateTo={dateTo}
+                setDateTo={setDateTo}
+                duration={duration}
+              />
+            ),
+          },
+        ]
+      : []),
     {
       component: (
         <TrainingCenterSection
@@ -111,6 +133,21 @@ export const TrainingForm = (): JSX.Element => {
     },
     {
       component: (
+        <TrainingLocationSection
+          trainingCountry={trainingCountry}
+          setTrainingCountry={setTrainingCountry}
+          trainingCity={trainingCity}
+          setTrainingCity={setTrainingCity}
+          travelDays={travelDays}
+          trainingAssignment={trainingAssignment}
+          setTrainingAssignment={setTrainingAssignment}
+          trainingMethod={trainingMethod}
+          handleTravelDaysChangeValue={handleTravelDaysChangeValue}
+        />
+      ),
+    },
+    {
+      component: (
         <AdditionalInfoSection
           substituteEmployee={substituteEmployee}
           setSubstituteEmployee={setSubstituteEmployee}
@@ -121,6 +158,15 @@ export const TrainingForm = (): JSX.Element => {
     },
     {
       component: <AttachmentsSection files={files} fileHandler={fileHandler} />,
+    },
+    {
+      component: (
+        <ExtendedTrainingSection
+          extendedTraining={extendedTraining}
+          setExtendedTraining={setExtendedTraining}
+          trainingCourses={trainingCourses}
+        />
+      ),
     },
   ];
 
