@@ -3,6 +3,7 @@ import { getRequestStatus, getDeputationRequestDetails } from "@server";
 import { RequestHeader } from "@types";
 import { ReactNode } from "react";
 import { AnglesLeftIcon } from "@icons";
+import { ModalLink } from "@components/modals/ModalLink";
 
 type Params = Promise<{ id: string }>;
 
@@ -189,13 +190,13 @@ const WorkDocumentDetailsPage = async ({
     <main className="space-y-4">
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails headers={requestHeaders} />
-      <button
-        type="submit"
-        className="w-full flex font-medium justify-center rounded-lg items-center gap-2 bg-primary text-white px-4 py-1 border-2 border-primary"
+      <ModalLink
+        name="ProjectCompletionModal"
+        className="w-full flex group text-sm text-center  justify-center font-medium items-center gap-2 bg-primary text-white px-4 py-1 rounded-full hover:bg-primary-opacity hover:text-primary border-2 border-primary"
       >
         تأكيد الانتداب
-        <AnglesLeftIcon width={18} height={18} className="fill-white" />
-      </button>
+        <AnglesLeftIcon width={18} height={18} className='fill-white group-hover:fill-primary' />
+      </ModalLink>
     </main>
   );
 };
