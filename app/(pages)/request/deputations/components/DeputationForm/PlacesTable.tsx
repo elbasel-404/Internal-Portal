@@ -10,9 +10,9 @@ import {
   Table as UITable,
   Button,
 } from "@ui";
-import Link from "next/link";
 import { CirclePlusIcon, TrashIcon } from "@icons";
 import { CheckboxField } from "@components/form";
+import { ModalLink } from "@components/modals/ModalLink";
 
 interface DeputationPlacesProps {
   //TODO: DeputationPlace Type
@@ -53,10 +53,13 @@ export const PlacesTable = ({
             </h2>
           </div>
           <div>
-            <Button className="rounded-full shadow-none text-white bg-primary text-lg border-[#007C9E24] hover:bg-primary hover:border-[#007C9E24] h-12">
-              <CirclePlusIcon className="fill-white" />
+            <ModalLink
+              name="ProjectCompletionModal"
+              className="flex group text-sm font-medium items-center gap-2 bg-primary text-white px-4 py-1 rounded-full hover:bg-primary-opacity hover:text-primary border-2 border-primary"
+            >
+              <CirclePlusIcon className="fill-white group-hover:fill-primary" />
               اضافة مكان الانتداب
-            </Button>
+            </ModalLink>
           </div>
         </div>
         <UITable>
