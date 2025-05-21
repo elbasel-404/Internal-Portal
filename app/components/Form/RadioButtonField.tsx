@@ -10,6 +10,7 @@ interface RadioFieldProps {
   selectedValue?: string;
   required: boolean;
   onChange?: (value: string) => void;
+  inline?: boolean;
 }
 
 export const RadioField = ({
@@ -22,6 +23,7 @@ export const RadioField = ({
   selectedValue,
   required,
   onChange,
+  inline = true
 }: RadioFieldProps) => {
   const handleChange = (value: string) => {
     if (onChange) {
@@ -30,7 +32,7 @@ export const RadioField = ({
   };
 
   return (
-    <div className={`flex gap-x-2 mt-2 ${className}`}>
+    <div className={`${inline ? "flex gap-x-2 mt-2" : ""} ${className}`}>
       {label && (
         <label className={`mt-2 ${labelStyle}`}>
           {label}
