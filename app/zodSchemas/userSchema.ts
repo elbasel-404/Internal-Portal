@@ -7,6 +7,7 @@ import { homePageSlotKeyEnum } from './homePageSlotKeyEnum';
 import { newsTabsKeyEnum } from './newsTabsKeyEnum';
 import { ProductSchema } from './productSchema';
 import { ProjectCompletionSchema } from './projectCompletionSchema';
+import { TrainingCoursesSchema } from './trainingCoursesSchema';
 
 export const userSchema = z.object({
   id: z.number(),
@@ -19,4 +20,5 @@ export const userSchema = z.object({
   products: z.array(ProductSchema),
   batchs: z.array(BatchSchema),
   batchProducts: z.array(BatchProductSchema),
+  trainingCourses: z.array(TrainingCoursesSchema),
 });
