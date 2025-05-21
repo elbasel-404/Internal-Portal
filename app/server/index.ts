@@ -80,6 +80,7 @@ export { removeBatch } from './removeBatch';
 export { removeBatchProduct } from './removeBatchProduct';
 export { removeProduct } from './removeProduct';
 export { removeProjectCompletion } from './removeProjectCompletion';
+export { removeTrainingCourse } from './removeTrainingCourse';
 export { revalidateHomePage } from './revalidateHomePage';
 export { setUserId } from './setUserId';
 export { toggleHomePageSetting } from './toggleHomePageSetting';
