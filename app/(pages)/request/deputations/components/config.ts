@@ -42,7 +42,7 @@ export const Cities = [
 ];
 
 export const Tasks = [
- { id: 1, name: "task 1" },
+  { id: 1, name: "task 1" },
   { id: 2, name: "task 2" },
   { id: 3, name: "task 3" },
   { id: 4, name: "task 4" },
@@ -56,7 +56,7 @@ export const Tasks = [
 
 export const ReplacementEmployees = [
   { id: 1, name: "employee 1" },
-  { id: 2, name: "employee 2" },      
+  { id: 2, name: "employee 2" },
   { id: 3, name: "employee 3" },
   { id: 4, name: "employee 4" },
   { id: 5, name: "employee 5" },
@@ -66,3 +66,16 @@ export const ReplacementEmployees = [
   { id: 9, name: "employee 9" },
   { id: 10, name: "employee 10" }
 ];
+
+export const DeputationPlaces = [
+  { id: "1", name: "السعودية", city: "الرياض" }, // Saudi Arabia
+  { id: "2", name: "مصر", city: "القاهرة" }, // Egypt
+  { id: "3", name: "المغرب", city: "الرباط" }, // Morocco
+  { id: "4", name: "تونس", city: "تونس" }, // Tunisia
+  { id: "5", name: "الجزائر", city: "الجزائر" }, // Algeria
+  { id: "6", name: "العراق", city: "بغداد" }, // Iraq
+  { id: "7", name: "سوريا", city: "دمشق" }, // Syria
+  { id: "8", name: "السودان", city: "الخرطوم" }, // Sudan
+  { id: "9", name: "عُمان", city: "مسقط" }, // Oman
+  { id: "10", name: "قطر", city: "الدوحة" },
+] 
