@@ -1,4 +1,4 @@
-import { FileWithId } from '@types';
+import { FileWithId, TrainingCourse } from '@types';
 import { ChangeEvent, ReactNode } from 'react';
 
 export interface FileHandlerType {
@@ -55,4 +55,22 @@ export interface AdditionalInfoSectionProps {
   handleTrainingProgramChangeValue: (
     event: ChangeEvent<HTMLTextAreaElement>
   ) => void;
+}
+
+export interface TrainingLocationSectionProps {
+  trainingCity: string;
+  setTrainingCity: (value: string) => void;
+  trainingCountry: string;
+  setTrainingCountry: (value: string) => void;
+  travelDays: string;
+  trainingAssignment: string;
+  setTrainingAssignment: (value: string) => void;
+  trainingMethod: string;
+  handleTravelDaysChangeValue: (event: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface ExtendedTrainingSectionProps {
+  extendedTraining: boolean;
+  setExtendedTraining: (value: boolean) => void;
+  trainingCourses: TrainingCourse[];
 }
