@@ -192,7 +192,7 @@ const WorkDocumentDetailsPage = async ({
       <RequestDetails headers={requestHeaders} />
       <ModalLink
         name="ProjectCompletionModal"
-        className="w-full flex group text-sm text-center justify-center font-medium items-center gap-2 bg-primary text-white px-4 py-5 rounded-full hover:bg-primary-opacity hover:text-primary border-2 border-primary"
+        className="w-full flex group text-sm text-center justify-center font-medium items-center gap-2 bg-primary text-white px-4 py-5 rounded-md hover:bg-primary-opacity hover:text-primary border-2 border-primary"
       >
         تأكيد الانتداب
         <AnglesLeftIcon width={18} height={18} className='fill-white group-hover:fill-primary' />
