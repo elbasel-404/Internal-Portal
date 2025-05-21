@@ -1,8 +1,7 @@
 import { atom } from 'jotai';
-import { atomWithStorage } from 'jotai/utils';
 
-export const dateFromAtom = atomWithStorage<Date>('dateFrom', new Date());
-export const dateToAtom = atomWithStorage<Date>('dateTo', new Date());
+export const dateFromAtom = atom<Date>(new Date());
+export const dateToAtom = atom<Date>(new Date());
 
 export const durationAtom = atom<string>((get) => {
   const dateFrom = get(dateFromAtom);
