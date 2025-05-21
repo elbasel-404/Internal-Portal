@@ -38,6 +38,13 @@ export const DeputationForm = () => {
   const [duration, setDeputationDuration] = useState<number>(0);
   const [isInternal, setIsInternal] = useState<boolean>(false);
   const [issueVisa, setIssueVisa] = useState<boolean>(false);
+  const [places, updatePlaces] = useState<
+    {
+      id: string;
+      name: string;
+      city: string;
+    }[]
+  >(DeputationPlaces);
 
   const handleRequestTypeChange = (value: string) => {
     setRequestType(value);
@@ -71,6 +78,15 @@ export const DeputationForm = () => {
     } else {
       setDeputationDuration(0);
     }
+  };
+
+  const handleRemovePlace = (id: string) => {
+    const updatedPlaces = places.filter((place) => place.id !== id);
+    updatePlaces(updatedPlaces);
+  };
+  const handleAddPlace = (newPlace: { id: string; name: string; city: string }) => {
+    const updatedPlaces = [...places, newPlace];
+    updatePlaces(updatedPlaces);
   };
 
   const handleFileUpload = (uploadedFiles: FileList | null) => {
@@ -184,7 +200,13 @@ export const DeputationForm = () => {
               required={isInternal}
             />
           ) : (
-            <PlacesTable data={DeputationPlaces} issueVisa={issueVisa} />
+            <PlacesTable
+              data={places}
+              issueVisa={issueVisa}
+              onChangeIssueVisa={(value) => setIssueVisa(value)}
+              onRemove={(id) => handleRemovePlace(id)}
+              onAdd={() =>handleAddPlace ({ id: "", name: "", city: "" })} // Add a new place
+            />
           )}
 
           <SelectField
