@@ -74,6 +74,7 @@ export type { SupplierEvaluationRequestDetails } from './pages/request/SupplierE
 export type { SupplierKPI } from './pages/request/SupplierKPI';
 export type { TicketDetails } from './pages/request/TicketDetails';
 export type { TicketRequest } from './pages/request/TicketRequest';
+export type { TrainingCourse } from './pages/request/TrainingCourse';
 export type { TrainingDetails } from './pages/request/TrainingDetails';
 export type { TrainingRequest } from './pages/request/TrainingRequest';
 export type { TransactionRequest } from './pages/request/TransactionRequets';
