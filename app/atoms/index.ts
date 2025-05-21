@@ -29,4 +29,5 @@ export {
 } from './purchaseAtom';
 export { isSubmitted } from './submitted';
 export { testAtom } from './test-atom';
+export { trainingMethodAtom } from './trainingAtom';
 
