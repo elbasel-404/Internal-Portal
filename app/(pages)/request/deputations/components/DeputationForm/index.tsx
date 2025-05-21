@@ -115,6 +115,7 @@ export const DeputationForm = () => {
             labelStyle="text-base"
             selectedValue={requestType}
             required
+            inline={false}
             onChange={handleRequestTypeChange}
           />
           <div className={`bg-primary-opacity py-4 px-4 rounded-lg`}>
@@ -130,6 +131,7 @@ export const DeputationForm = () => {
             labelStyle="text-base"
             selectedValue={transportationType}
             required
+            inline={false}
             onChange={handleTransportationTypeChange}
           />
           {showKilometers && (
