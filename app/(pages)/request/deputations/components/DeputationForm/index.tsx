@@ -1,5 +1,7 @@
 "use client";
 
+import { paths } from "@lib";
+import { useState } from "react";
 import {
   AttachmentsField,
   DateField,
@@ -10,8 +12,6 @@ import {
   TextareaField,
   RadioField,
 } from "@components/form";
-import { paths } from "@lib";
-import { useState } from "react";
 import {
   TransportationTypes,
   RequestTypes,
@@ -20,12 +20,14 @@ import {
   Cities,
   Tasks,
   ReplacementEmployees,
+  DeputationPlaces,
 } from "../config";
+import { PlacesTable } from "./PlacesTable";
 
 export const DeputationForm = () => {
   const [files, setFiles] = useState<File[]>([]);
-  const [requestType, setRequestType] = useState<string>("internal");
-  const [requestTypeCaption, setRequestTypeCaption] = useState<string>("داخل");
+  const [requestType, setRequestType] = useState<string>("external");
+  const [requestTypeCaption, setRequestTypeCaption] = useState<string>("خارج");
   const [transportationType, setTransportationType] = useState<string>("ByAir");
   const [showKilometers, setShowKilometers] = useState<boolean>(false);
   const [deputationType, setDeputationType] = useState<string>("task");
@@ -34,7 +36,15 @@ export const DeputationForm = () => {
   const [deputationStartDate, setDeputationStartDate] = useState(new Date());
   const [deputationEndDate, setDeputationEndDate] = useState(new Date());
   const [duration, setDeputationDuration] = useState<number>(0);
-  const [isInternal, setIsInternal] = useState<boolean>(true);
+  const [isInternal, setIsInternal] = useState<boolean>(false);
+  const [issueVisa, setIssueVisa] = useState<boolean>(false);
+  const [places, updatePlaces] = useState<
+    {
+      id: string;
+      name: string;
+      city: string;
+    }[]
+  >(DeputationPlaces);
 
   const handleRequestTypeChange = (value: string) => {
     setRequestType(value);
@@ -68,6 +78,15 @@ export const DeputationForm = () => {
     } else {
       setDeputationDuration(0);
     }
+  };
+
+  const handleRemovePlace = (id: string) => {
+    const updatedPlaces = places.filter((place) => place.id !== id);
+    updatePlaces(updatedPlaces);
+  };
+  const handleAddPlace = (newPlace: { id: string; name: string; city: string }) => {
+    const updatedPlaces = [...places, newPlace];
+    updatePlaces(updatedPlaces);
   };
 
   const handleFileUpload = (uploadedFiles: FileList | null) => {
@@ -174,13 +193,21 @@ export const DeputationForm = () => {
           />
         </div>
         <div className="gird grid-cols-12 space-y-4">
-          {isInternal && (
+          {isInternal ? (
             <SelectField
               name="city"
               label="المدينة"
               placeholder="__"
               types={Cities}
               required={isInternal}
+            />
+          ) : (
+            <PlacesTable
+              data={places}
+              issueVisa={issueVisa}
+              onChangeIssueVisa={(value) => setIssueVisa(value)}
+              onRemove={(id) => handleRemovePlace(id)}
+              onAdd={() =>handleAddPlace ({ id: "", name: "", city: "" })} // Add a new place
             />
           )}
 
@@ -192,7 +219,7 @@ export const DeputationForm = () => {
           />
           <TextareaField label="تفاصيل المهمة" name="taskDetails" required />
 
-           {!isInternal && (
+          {!isInternal && (
             <SelectField
               name="replacementEmployee"
               label="الموظف البديل "
