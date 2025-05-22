@@ -1,17 +1,17 @@
 import { RequestStatus } from '@components';
 import { getRequestStatus } from '@server';
-import { TrialPeriodForm } from '../components';
+import { ProbationPeriodForm } from '../components';
 
-const NewTrialPeriodPage = async () => {
+const NewProbationPeriodPage = async () => {
   const requestStatus = await getRequestStatus();
   const requestCaption =
     'انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر';
   return (
     <div className='space-y-4 mb-16'>
       <RequestStatus status={requestStatus} caption={requestCaption} />
-      <TrialPeriodForm />
+      <ProbationPeriodForm />
     </div>
   );
 };
 
-export default NewTrialPeriodPage;
+export default NewProbationPeriodPage;

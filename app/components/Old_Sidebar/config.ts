@@ -1,6 +1,6 @@
 import { paths } from '@lib';
-import { IconKey } from './SidebarIcons';
 import { Route } from 'next';
+import { IconKey } from './SidebarIcons';
 
 interface MenuItem {
   iconKey: IconKey;
@@ -63,7 +63,7 @@ export const MenuItems: MenuItem[] = [
       {
         iconKey: 'ChartWithArrow',
         label: 'تقييم فترة التجربة',
-        href: paths.trialPeriod.href,
+        href: paths.probationPeriod.href,
       },
       { iconKey: 'Bag', label: 'طلبات التوظيف', href: '/' },
     ],

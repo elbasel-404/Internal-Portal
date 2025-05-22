@@ -1,14 +1,14 @@
 'use server';
 
-import type { TrialPeriodRequest } from '@types';
+import type { ProbationPeriodRequest } from '@types';
 
-export const getTrialPeriodRequests = async (): Promise<
-  TrialPeriodRequest[]
+export const getProbationPeriodRequests = async (): Promise<
+  ProbationPeriodRequest[]
 > => {
-  return TrialPeriodDummyData;
+  return ProbationPeriodDummyData;
 };
 
-const TrialPeriodDummyData: TrialPeriodRequest[] = [
+const ProbationPeriodDummyData: ProbationPeriodRequest[] = [
   {
     id: '#55465',
     date: '2024-05-05',
