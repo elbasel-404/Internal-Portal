@@ -1,16 +1,16 @@
 import { RequestDetails, RequestStatus } from '@components';
-import { getRequestStatus, getTrialPeriodDetails } from '@server';
+import { getProbationPeriodDetails, getRequestStatus } from '@server';
 import { RequestHeader } from '@types';
-import { TrialPeriodCriteria } from '../../components';
+import { ProbationPeriodCriteria } from '../../components';
 
 // !  // !It will be used when id passed to endpoint for integration
 // type Params = Promise<{ id: string }>;
 
-// interface TrialPeriodDetailsPageProps {
+// interface ProbationPeriodDetailsPageProps {
 //   params: Params;
 // }
 
-const TrialPeriodDetailsPage = async ({
+const ProbationPeriodDetailsPage = async ({
 //   params,
 }) => {
   // !  // !It will be used when id passed to endpoint for integration
@@ -24,11 +24,11 @@ const TrialPeriodDetailsPage = async ({
     jobTitle,
     management,
     appointmentDate,
-    endTrialPeriodDate,
+    endProbationPeriodDate,
     recommendation,
     notes,
     attachments,
-  } = (await getTrialPeriodDetails()) || {};
+  } = (await getProbationPeriodDetails()) || {};
 
   const requestHeaders: RequestHeader[] = [
     {
@@ -53,7 +53,7 @@ const TrialPeriodDetailsPage = async ({
     },
     {
       label: 'تاريخ إنتهاء فترة التجربة',
-      value: endTrialPeriodDate,
+      value: endProbationPeriodDate,
     },
     {
       label: 'التوصية',
@@ -73,10 +73,10 @@ const TrialPeriodDetailsPage = async ({
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails
         headers={requestHeaders}
-        evaluationCritera={<TrialPeriodCriteria />}
+        evaluationCritera={<ProbationPeriodCriteria />}
       />
     </main>
   );
 };
 
-export default TrialPeriodDetailsPage;
+export default ProbationPeriodDetailsPage;
