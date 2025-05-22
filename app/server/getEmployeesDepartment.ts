@@ -1,12 +1,61 @@
-'use server';
+"use server";
 
-import type { Employee } from '@types';
-
+import type { Employee } from "@types";
+import { getDemo } from "../db/actions/getDemo";
+import { getFetchHeaders } from "./getFetchHeaders";
+import { EmployeeDepartmentElementSchema, ResponseSchema } from "@api/schemas";
 export const getEmployeeDepartmentRequests = async (): Promise<Employee[]> => {
-  return employeeDepartmentRequests;
+  const isDemo = await getDemo();
+  if (isDemo) return dummyData;
+
+  // ! VARIBLES
+  // ! ==================================
+  const url = "api/po/read/relative-employees";
+  const apiRootUrl = process.env.API_ROOT_URL as string;
+  const { headers } = await getFetchHeaders();
+  const requestBody = { employee_id: 305 };
+  const requestBodyString = JSON.stringify(requestBody);
+  const requestUrl = `${apiRootUrl}/${url}`;
+
+  // ! FETCH
+  // ! ==================================
+  const apiResponse = await fetch(requestUrl, {
+    headers,
+    method: "POST",
+    body: requestBodyString,
+  });
+  const responseJson = await apiResponse.json();
+
+  // ! VALIDATION
+  // ! ==================================
+  const validatedResponse = ResponseSchema.parse(responseJson);
+  const { result } = validatedResponse;
+  const { data } = result;
+  const validatedData = EmployeeDepartmentElementSchema.array().parse(data);
+
+  // ! PARSING
+  // ! ==================================
+  const returnedData: Employee[] = validatedData.map((data) => {
+    const newsItem: Employee = {
+    name: data.complete_name,
+    image: `data:image/gif;base64,${data.image}`,
+    position: data.job_id[1].toString(),
+    phone: data.mobile_phone,
+    recycleWork: 'تحويل العمل 4554',
+    address: 'العامل الرئيسي - الدور الأرضي',
+    email: data.work_email,
+    sector: data.sector_id[1].toString(),
+    generalAdministration: data.administration_id[1].toString(),
+    management: data.department_global_id[1].toString(),
+    department: data.department_id[1].toString(),
+    generalManager: data.sector_manager_id[1].toString(),
+    };
+    return newsItem;
+  });
+  return returnedData;
 };
 
-const employeeDepartmentRequests: Employee[] = [
+const dummyData: Employee[] = [
   {
     name: 'سعود القامري',
     position: 'مبرر عام المبادئ والخدمات الدولية',
