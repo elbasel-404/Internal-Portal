@@ -45,10 +45,10 @@ export const getHrLetterDetails = async (
   const returnedData: HrLetterDetails = {
     id: validatedData.id.toString(),
     requestDate: validatedData.order_date,
-    destinationAr: validatedData.destination_id[1]?.toString(),
-    destinationEn: validatedData.eng_destination,
-    type: validatedData.template_name,
-    notes: validatedData.notes.toString(),
+    destinationAr: validatedData.destination_id[1]?.toString() || '__',
+    destinationEn: validatedData.eng_destination || '__',
+    type: validatedData.template_name || '__',
+    notes: validatedData.notes.toString() || '__',
     attachments: validatedData.message_ids.map(
       (file) => new File([''], file.toString())
     ),
