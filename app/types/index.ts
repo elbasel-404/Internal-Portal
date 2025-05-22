@@ -22,6 +22,7 @@ export type { BatchProduct } from './pages/request/BatchProduct';
 export type { CovenantDetails } from './pages/request/CovenantDetails';
 export type { CustodyDetails } from './pages/request/CustodyDetails';
 export type { CustodyRequest } from './pages/request/CustodyRequest';
+export type { DeputationPlace } from './pages/request/DeputationPlace';
 export type { DeputationRequest } from './pages/request/DeputationRequest';
 export type { DeputationRequestDetails } from './pages/request/DeputationRequestDetails';
 export type { EmployeeAttendanceRequest } from './pages/request/EmployeeAttendanceRequest';

@@ -1,6 +1,9 @@
 import { RequestDetails, RequestStatus } from "@components";
 import { getRequestStatus, getDeputationRequestDetails } from "@server";
 import { RequestHeader } from "@types";
+import { ReactNode } from "react";
+import { AnglesLeftIcon } from "@icons";
+import { ModalLink } from "@components/modals/ModalLink";
 
 type Params = Promise<{ id: string }>;
 
@@ -22,6 +25,10 @@ const WorkDocumentDetailsPage = async ({
     startDate,
     endDate,
     duration,
+    trainingRequestNumber,
+    kilometers,
+    issueVisa,
+    replacementEmployee,
     city,
     deputationType,
     task,
@@ -37,9 +44,13 @@ const WorkDocumentDetailsPage = async ({
     reason,
     notes,
     attachments,
+    deputationPlaces,
   } = (await getDeputationRequestDetails(id)) || {};
 
-  const displayReason = status === "مرفوض" ? reason : null;
+  const isInternal = deputation === "داخلي";
+  const displayReason = status === "مرفوض";
+  const displayTrainingRequestNumber = deputationType === "رحلة تدريب";
+  const displayKilometers = transportation === "برا";
 
   const requestHeaders: RequestHeader[] = [
     {
@@ -47,12 +58,16 @@ const WorkDocumentDetailsPage = async ({
       value: id,
     },
     {
-      label: "تاريخ الطلب",
-      value: requestDate,
-    },
-    {
       label: "انتداب",
       value: deputation,
+    },
+    {
+      label: "نوع الانتداب",
+      value: deputationType,
+    },
+    {
+      label: "تاريخ الطلب",
+      value: requestDate,
     },
     {
       label: "وسيلة النقل",
@@ -70,14 +85,22 @@ const WorkDocumentDetailsPage = async ({
       label: "المدة",
       value: duration,
     },
-    {
-      label: "المدينة",
-      value: city,
-    },
-    {
-      label: "نوع الانتداب",
-      value: deputationType,
-    },
+    ...(displayTrainingRequestNumber
+      ? [
+          {
+            label: "رقم طلب التدريب" as RequestHeader["label"],
+            value: trainingRequestNumber,
+          },
+        ]
+      : []),
+    ...(displayKilometers
+      ? [
+          {
+            label: "عدد الكيلومترات" as RequestHeader["label"],
+            value: kilometers,
+          },
+        ]
+      : []),
     {
       label: "المهمة",
       value: task,
@@ -95,6 +118,29 @@ const WorkDocumentDetailsPage = async ({
       value: travelDuration,
     },
     {
+      label: "تم حجز تذكرة السفر",
+      value: reserved,
+      key: "reserved",
+    },
+    ...(isInternal
+      ? [
+          {
+            label: "المدينة" as RequestHeader["label"],
+            value: city,
+          },
+        ]
+      : [
+          {
+            label: "إصدار تأشيرة" as RequestHeader["label"],
+            value: issueVisa,
+            key: "issueVisa",
+          },
+          {
+            label: "الموظف البديل" as RequestHeader["label"],
+            value: replacementEmployee,
+          },
+        ]),
+    {
       label: "تاريخ السفر للانتداب",
       value: travelStartDate,
     },
@@ -110,10 +156,6 @@ const WorkDocumentDetailsPage = async ({
       label: "تاريخ التحويل",
       value: transferDate,
     },
-    {
-      label: "تم حجز تذكرة السفر",
-      value: reserved,
-    },
     ...(displayReason
       ? [
           {
@@ -122,22 +164,39 @@ const WorkDocumentDetailsPage = async ({
           },
         ]
       : []),
-    ...[
-      {
-        label: "ملاحظات" as RequestHeader["label"],
-        value: notes,
-      },
-      {
-        label: "المرفقات" as RequestHeader["label"],
-        value: attachments,
-      },
-    ],
+    {
+      label: "ملاحظات" as RequestHeader["label"],
+      value: notes,
+    },
+    ...(isInternal
+      ? []
+      : [
+          {
+            label: "مكان الانتداب" as RequestHeader["label"],
+            value: deputationPlaces as ReactNode,
+            tableHeaders: [
+              { label: "الدولة", key: "name" },
+              { label: "المدينة", key: "city" },
+            ],
+          },
+        ]),
+    {
+      label: "المرفقات" as RequestHeader["label"],
+      value: attachments,
+    },
   ];
 
   return (
     <main className="space-y-4">
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails headers={requestHeaders} />
+      <ModalLink
+        name="DeputationConfirmationModal"
+        className="w-full flex group text-sm text-center justify-center font-medium items-center gap-2 bg-primary text-white px-4 py-5 rounded-md hover:bg-primary-opacity hover:text-primary border-2 border-primary"
+      >
+        تأكيد الانتداب
+        <AnglesLeftIcon width={18} height={18} className='fill-white group-hover:fill-primary' />
+      </ModalLink>
     </main>
   );
 };

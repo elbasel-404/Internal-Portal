@@ -43,4 +43,12 @@ export const modalPaths = {
     title: 'الدورات التدريبية',
     href: '/modal/TrainingCoursesModal',
   },
+  DeputationConfirmationModal: {
+    title: 'تأكيد الانتداب',
+    href: '/modal/DeputationConfirmationModal',
+  },
+  DeputationPlacesModal: {
+    title: 'مكان الانتداب',
+    href: '/modal/DeputationPlacesModal',
+  },
 } as const;
