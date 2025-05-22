@@ -22,6 +22,7 @@ import {
   ReplacementEmployees,
   DeputationPlaces,
 } from "../config";
+import { DeputationPlace } from "@types";
 import { PlacesTable } from "./PlacesTable";
 
 export const DeputationForm = () => {
@@ -38,13 +39,7 @@ export const DeputationForm = () => {
   const [duration, setDeputationDuration] = useState<number>(0);
   const [isInternal, setIsInternal] = useState<boolean>(false);
   const [issueVisa, setIssueVisa] = useState<boolean>(false);
-  const [places, updatePlaces] = useState<
-    {
-      id: string;
-      name: string;
-      city: string;
-    }[]
-  >(DeputationPlaces);
+  const [places, updatePlaces] = useState<DeputationPlace[]>(DeputationPlaces);
 
   const handleRequestTypeChange = (value: string) => {
     setRequestType(value);
@@ -84,7 +79,11 @@ export const DeputationForm = () => {
     const updatedPlaces = places.filter((place) => place.id !== id);
     updatePlaces(updatedPlaces);
   };
-  const handleAddPlace = (newPlace: { id: string; name: string; city: string }) => {
+  const handleAddPlace = (newPlace: {
+    id: string;
+    name: string;
+    city: string;
+  }) => {
     const updatedPlaces = [...places, newPlace];
     updatePlaces(updatedPlaces);
   };
@@ -207,7 +206,7 @@ export const DeputationForm = () => {
               issueVisa={issueVisa}
               onChangeIssueVisa={(value) => setIssueVisa(value)}
               onRemove={(id) => handleRemovePlace(id)}
-              onAdd={() =>handleAddPlace ({ id: "", name: "", city: "" })} // Add a new place
+              onAdd={() => handleAddPlace({ id: "", name: "", city: "" })} // Add a new place
             />
           )}
 
