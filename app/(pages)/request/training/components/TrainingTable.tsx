@@ -20,6 +20,7 @@ const tableHeaders = [
   { label: 'مدتها (باليوم)' },
   { label: 'النوع' },
   { label: 'الحالة' },
+  { label: 'طلب انتداب' },
 ];
 
 export const TrainingTable = ({ data }: TrainingProps) => {
@@ -81,6 +82,7 @@ export const TrainingTable = ({ data }: TrainingProps) => {
           columns={tableHeaders}
           rows={filteredRequests}
           link={paths.trainingDetails.href}
+          isAssignmentRequest
         />
       </div>
     </>
