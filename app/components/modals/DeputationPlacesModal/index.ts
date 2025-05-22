@@ -1,0 +1,1 @@
+export { DeputationPlacesModal } from './DeputationPlacesModal';
