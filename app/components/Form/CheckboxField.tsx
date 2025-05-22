@@ -1,4 +1,4 @@
-import { Checkbox } from '@ui';
+import { Checkbox } from "@ui";
 
 interface CheckboxFieldProps {
   label: string;
@@ -9,6 +9,8 @@ interface CheckboxFieldProps {
   required?: boolean;
   checked?: boolean;
   onChange?: (checked: boolean) => void;
+  hideLabel?: boolean;
+  disabled?: boolean;
 }
 
 export const CheckboxField = ({
@@ -20,18 +22,23 @@ export const CheckboxField = ({
   required,
   checked,
   onChange,
+  hideLabel = false,
+  disabled = false,
 }: CheckboxFieldProps) => {
   return (
     <div className={`${className}`}>
-      <label className={`${labelStyle}`}>
-        {label}
-        {required && <span className='text-red-500'>*</span>}
-      </label>
+      {!hideLabel && (
+        <label className={`${labelStyle}`}>
+          {label}
+          {required && <span className="text-red-500">*</span>}
+        </label>
+      )}
       <Checkbox
         name={name}
         className={`rounded-[3px] border-2 shadow-none space-y-0 ${checkboxStyle}`}
         checked={checked}
         onCheckedChange={onChange}
+        disabled={disabled}
       />
     </div>
   );
