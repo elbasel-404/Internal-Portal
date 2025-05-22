@@ -1,6 +1,6 @@
 "use client";
 
-// import { DeputationPlace  } from "@types";
+import { DeputationPlace  } from "@types";
 import {
   TableBody,
   TableCell,
@@ -16,11 +16,7 @@ import { ModalLink } from "@components/modals/ModalLink";
 
 interface DeputationPlacesProps {
   //TODO: DeputationPlace Type
-  data: {
-    id: string;
-    name: string;
-    city: string;
-  }[];
+  data: DeputationPlace[];
   issueVisa: boolean;
   onChangeIssueVisa: (value: boolean) => void;
   onRemove?: (id: string) => void;
@@ -54,7 +50,7 @@ export const PlacesTable = ({
           </div>
           <div>
             <ModalLink
-              name="ProjectCompletionModal"
+              name="DeputationPlacesModal"
               className="flex group text-sm font-medium items-center gap-2 bg-primary text-white px-4 py-1 rounded-full hover:bg-primary-opacity hover:text-primary border-2 border-primary"
             >
               <CirclePlusIcon className="fill-white group-hover:fill-primary" />

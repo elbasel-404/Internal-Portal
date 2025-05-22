@@ -191,7 +191,7 @@ const WorkDocumentDetailsPage = async ({
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails headers={requestHeaders} />
       <ModalLink
-        name="ProjectCompletionModal"
+        name="DeputationConfirmationModal"
         className="w-full flex group text-sm text-center justify-center font-medium items-center gap-2 bg-primary text-white px-4 py-5 rounded-md hover:bg-primary-opacity hover:text-primary border-2 border-primary"
       >
         تأكيد الانتداب
