@@ -3,6 +3,7 @@
 import { completionRequestAtom } from '@atoms';
 import { ModalLink } from '@components/modals/ModalLink';
 import {
+  ArrowSquareIcon,
   CheckIcon,
   EyeIcon,
   PdfFileIcon,
@@ -10,7 +11,7 @@ import {
   RiyalCurrencyIcon,
   SandClock2Icon,
   TrashIcon,
-  XMarkIcon,
+  XMarkIcon
 } from '@icons';
 import type { Row } from '@types';
 import {
@@ -44,6 +45,7 @@ interface TableProps {
   toggleStatus?: boolean;
   toggleDelete?: boolean;
   showCheckBox?: boolean;
+  isAssignmentRequest?: boolean;
   idTableHeader?: string;
   tableClassName?: string;
   onApprove?: (id: string) => void;
@@ -61,6 +63,7 @@ export const Table = ({
   toggleId = true,
   toggleStatus = false,
   toggleDelete = false,
+  isAssignmentRequest = false,
   tableClassName = 'h-[500px]',
   onApprove,
   onReject,
@@ -307,6 +310,17 @@ export const Table = ({
                     <TrashIcon className='fill-destructive-foreground group-hover:fill-white' />
                     حذف
                   </Button>
+                </TableCell>
+              )}
+
+              {isAssignmentRequest && (
+                <TableCell className='flex items-center gap-3'>
+                  <Link href={''}>
+                    <Button className='flex group gap-2 items-center shadow-none hover:bg-primary-opacity hover:text-primary justify-end text-white bg-primary rounded-xl px-4 py-2.5'>
+                      <ArrowSquareIcon className='fill-white group-hover:fill-primary' />
+                      إنشاء طلب انتداب
+                    </Button>
+                  </Link>
                 </TableCell>
               )}
             </TableRow>
