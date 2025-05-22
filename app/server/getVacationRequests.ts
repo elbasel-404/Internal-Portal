@@ -44,7 +44,7 @@ export const getVacationRequests = async (): Promise<VacationRequest[]> => {
       startDate: data.date_from,
       endDate: data.date_to,
       durationInDays: data.duration,
-      approvalDate: data.done_date,
+      approvalDate: data.done_date.split(" ")[0],
       status: data.state,
     };
     return vacationItem;
@@ -60,7 +60,7 @@ const dummyData: VacationRequest[] = [
     startDate: "2024-05-01",
     endDate: "2024-05-03",
     durationInDays: 3,
-    approvalDate: new Date(),
+    approvalDate: '',
     status: "طلب",
   },
   {
@@ -70,7 +70,7 @@ const dummyData: VacationRequest[] = [
     startDate: "2024-05-02",
     endDate: "2024-05-04",
     durationInDays: 3,
-    approvalDate: new Date(),
+    approvalDate: '',
     status: "المدير المباشر",
   },
   {
@@ -80,7 +80,7 @@ const dummyData: VacationRequest[] = [
     startDate: "2024-05-01",
     endDate: "2024-05-03",
     durationInDays: 3,
-    approvalDate: new Date(),
+    approvalDate: '',
     status: "عمليات الموارد البشرية",
   },
   {
@@ -90,7 +90,7 @@ const dummyData: VacationRequest[] = [
     startDate: "2024-05-02",
     endDate: "2024-05-04",
     durationInDays: 3,
-    approvalDate: new Date(),
+    approvalDate: '',
     status: "اعتمد",
   },
   {
@@ -100,7 +100,7 @@ const dummyData: VacationRequest[] = [
     startDate: "2024-05-01",
     endDate: "2024-05-03",
     durationInDays: 3,
-    approvalDate: new Date(),
+    approvalDate: '',
     status: "طلب",
   },
   {
@@ -110,7 +110,7 @@ const dummyData: VacationRequest[] = [
     startDate: "2024-04-10",
     endDate: "2024-05-03",
     durationInDays: 24,
-    approvalDate: new Date(),
+    approvalDate: '',
     status: "المدير المباشر",
   },
   {
@@ -120,7 +120,7 @@ const dummyData: VacationRequest[] = [
     startDate: "2024-05-01",
     endDate: "2024-05-03",
     durationInDays: 3,
-    approvalDate: new Date(),
+    approvalDate: '',
     status: "عمليات الموارد البشرية",
   },
   {
@@ -130,7 +130,7 @@ const dummyData: VacationRequest[] = [
     startDate: "2024-05-02",
     endDate: "2024-05-03",
     durationInDays: 2,
-    approvalDate: new Date(),
+    approvalDate: '',
     status: "طلب",
   },
   {
@@ -140,7 +140,7 @@ const dummyData: VacationRequest[] = [
     startDate: "2024-05-01",
     endDate: "2024-05-02",
     durationInDays: 2,
-    approvalDate: new Date(),
+    approvalDate: '',
     status: "اعتمد",
   },
   {
@@ -150,7 +150,7 @@ const dummyData: VacationRequest[] = [
     startDate: "2024-04-29",
     endDate: "2024-05-01",
     durationInDays: 3,
-    approvalDate: new Date(),
+    approvalDate: '',
     status: "عمليات الموارد البشرية",
   },
 ];
