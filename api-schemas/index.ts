@@ -24,10 +24,9 @@ export {
 //   PermissionElementSchema,
 //   type PermissionElement
 // } from './permission/schema';
-export { AdNewSchema } from './ad-news/schema';
-export { FamilyNewSchema } from './family-news/schema';
-export { NewsElementSchema } from './news/schema';
-export { RecommendationSchema } from './recommendations/schema';
+export { AdNewSchema } from "./ad-news/schema";
+export { FamilyNewSchema } from "./family-news/schema";
+export { NewsElementSchema } from "./news/schema";
 export {
   RemoteWorkElementSchema,
   type RemoteWorkElement
