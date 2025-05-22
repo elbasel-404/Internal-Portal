@@ -6,6 +6,7 @@ import { getUserId } from '@server';
 import { ProjectCompletionSchema } from '@zodSchemas';
 
 export const deputationPlaceFormAction = async (formData: FormData) => {
+  //TODO: Handle Store Places
   try {
     const formEntries = formData.entries();
     const rawData = Object.fromEntries(formEntries);
