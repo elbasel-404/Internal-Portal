@@ -39,4 +39,12 @@ export const modalPaths = {
     title: 'شهادة الإنجاز',
     href: '/modal/AchievementCertificateModal',
   },
+  DeputationConfirmationModal: {
+    title: 'تأكيد الانتداب',
+    href: '/modal/DeputationConfirmationModal',
+  },
+  DeputationPlacesModal: {
+    title: 'مكان الانتداب',
+    href: '/modal/DeputationPlacesModal',
+  },
 } as const;

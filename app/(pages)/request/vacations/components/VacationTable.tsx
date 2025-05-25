@@ -44,7 +44,7 @@ export const VacationTable = ({ data }: VacationTableProps) => {
     )
     .map((request) => ({
       ...request,
-      approvalDate: request.approvalDate.toLocaleDateString(), // Convert Date to string
+      approvalDate: request.approvalDate, // Convert Date to string
     }));
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
