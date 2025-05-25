@@ -28,6 +28,18 @@ export { AdNewSchema } from './ad-news/schema';
 export { FamilyNewSchema } from './family-news/schema';
 export { NewsElementSchema } from './news/schema';
 export {
+  ProbationEvaluationEmployeeSchema,
+  type ProbationEvaluationEmployee
+} from './probation-evaluation-employees/schema';
+export {
+  ProbationEvaluationFieldsSchema,
+  type ProbationEvaluationFields
+} from './probation-evaluation-fields/schema';
+export {
+  ProbationEvaluationElementSchema,
+  type ProbationEvaluationElement
+} from './probation-evaluation/schema';
+export {
   RecommendationSchema,
   type Recommendation
 } from './recommendations/schema';
