@@ -1,11 +1,58 @@
 'use server';
 
+import { RecommendationSchema } from '@api/schemas/index';
+import { ResponseSchema } from '@api/schemas/responseSchema';
+import { getDemo } from '@db/actions';
 import type { RecommendationRequest } from '@types';
+import { getFetchHeaders } from './getFetchHeaders';
 
 export const getRecommendationsRequests = async (): Promise<
   RecommendationRequest[]
 > => {
-  return RecommendationsDummyData;
+  const isDemo = await getDemo();
+    if (isDemo) return RecommendationsDummyData;
+  
+    // ! VARIABLES
+    // ! ==================================
+    const url = "api/po/hr/application/read";
+    const apiRootUrl = process.env.API_ROOT_URL as string;
+    const { headers } = await getFetchHeaders();
+    const requestBody = { employee_id: 1711 };
+    const requestBodyString = JSON.stringify(requestBody);
+    const requestUrl = `${apiRootUrl}/${url}`;
+  
+    // ! FETCH
+    // ! ==================================
+    const apiResponse = await fetch(requestUrl, {
+      headers,
+      method: "POST",
+      body: requestBodyString,
+    });
+    const responseJson = await apiResponse.json();
+  
+    // ! VALIDATION
+    // ! ==================================
+    const validatedResponse = ResponseSchema.parse(responseJson);
+    const { result } = validatedResponse;
+    const { data } = result;
+    const validatedData = RecommendationSchema.array().parse(data);
+  
+    // ! PARSING
+    // ! ==================================
+    const returnedData: RecommendationRequest[] = validatedData.map((data) => {
+      const vacationItem: RecommendationRequest = {
+        id: data.id.toString(),
+        date: data.date,
+        type: data.type,
+        cycle: data.training_id[1].toString(),
+        startDate: data.date_from,
+        endDate: data.date_to,
+        status: data.state,
+      };
+      return vacationItem;
+    });
+  
+    return returnedData;
 };
 
 const RecommendationsDummyData: RecommendationRequest[] = [
