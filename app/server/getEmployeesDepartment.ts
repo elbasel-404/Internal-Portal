@@ -37,6 +37,7 @@ export const getEmployeeDepartmentRequests = async (): Promise<Employee[]> => {
   // ! ==================================
   const returnedData: Employee[] = validatedData.map((data) => {
     const newsItem: Employee = {
+    id:data.id.toString(),
     name: data.complete_name,
     image: `data:image/gif;base64,${data.image}`,
     position: data.job_id[1].toString(),
@@ -57,6 +58,7 @@ export const getEmployeeDepartmentRequests = async (): Promise<Employee[]> => {
 
 const dummyData: Employee[] = [
   {
+    id: '220164#',
     name: 'سعود القامري',
     position: 'مبرر عام المبادئ والخدمات الدولية',
     image: '/employee-1.svg',
@@ -71,6 +73,7 @@ const dummyData: Employee[] = [
     generalManager: 'مي بنت سعد البدراني',
   },
   {
+    id: '220165#',
     name: 'نورة العتبس',
     position: 'مبرر عام المبادئ والخدمات الدولية',
     image: '/employee-2.svg',
@@ -85,6 +88,7 @@ const dummyData: Employee[] = [
     generalManager: 'مي بنت سعد البدراني',
   },
   {
+    id: '220166#',
     name: 'عبدالله الشمري',
     position: 'مبرر عام المبادئ والخدمات الدولية',
     image: '/employee-6.svg',
@@ -99,6 +103,7 @@ const dummyData: Employee[] = [
     generalManager: 'مي بنت سعد البدراني',
   },
   {
+    id: '220167#',
     name: 'فاطمة الحربي',
     position: 'مبرر عام المبادئ والخدمات الدولية',
     image: '/employee-5.svg',
@@ -113,6 +118,7 @@ const dummyData: Employee[] = [
     generalManager: 'مي بنت سعد البدراني',
   },
   {
+    id: '220168#',
     name: 'فهد الدوسري',
     position: 'مبرر عام المبادئ والخدمات الدولية',
     image: '/employee-4.svg',
@@ -127,6 +133,7 @@ const dummyData: Employee[] = [
     generalManager: 'مي بنت سعد البدراني',
   },
   {
+    id: '220169#',
     name: 'رهف العبدلله',
     position: 'مبرر عام المبادئ والخدمات الدولية',
     image: '/employee-3.svg',

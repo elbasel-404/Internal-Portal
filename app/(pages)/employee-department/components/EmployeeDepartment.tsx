@@ -73,9 +73,9 @@ export const EmployeeDepartment = ({ employees }: EmployeeDepartmentPageProps) =
 
         {currentEmployees.length > 0 ? (
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-            {currentEmployees.map((employee, index) => (
+            {currentEmployees.map((employee) => (
               <div
-                key={index}
+                key={employee.id}
                 className='flex flex-col bg-background rounded-xl p-4 gap-3'
               >
                 <EmployeeCard {...employee} />
