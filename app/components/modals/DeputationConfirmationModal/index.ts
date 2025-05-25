@@ -1,0 +1,1 @@
+export { DeputationConfirmationModal } from './DeputationConfirmationModal';

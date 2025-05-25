@@ -10,9 +10,11 @@ import { ProbationPeriodCriteria } from '../../components';
 //   params: Params;
 // }
 
-const ProbationPeriodDetailsPage = async ({
-//   params,
-}) => {
+const ProbationPeriodDetailsPage = async (
+  {
+    //   params,
+  }
+) => {
   // !  // !It will be used when id passed to endpoint for integration
   //   const { id } = await params;
   const requestStatus = await getRequestStatus();
@@ -73,7 +75,7 @@ const ProbationPeriodDetailsPage = async ({
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails
         headers={requestHeaders}
-        evaluationCritera={<ProbationPeriodCriteria />}
+        evaluationCriteria={<ProbationPeriodCriteria />}
       />
     </main>
   );
