@@ -4,19 +4,17 @@ import { RequestHeader } from '@types';
 import { ProbationPeriodCriteria } from '../../components';
 
 // !  // !It will be used when id passed to endpoint for integration
-// type Params = Promise<{ id: string }>;
+type Params = Promise<{ id: string }>;
 
-// interface ProbationPeriodDetailsPageProps {
-//   params: Params;
-// }
+interface ProbationPeriodDetailsPageProps {
+  params: Params;
+}
 
-const ProbationPeriodDetailsPage = async (
-  {
-    //   params,
-  }
-) => {
+const ProbationPeriodDetailsPage = async ({
+  params,
+}: ProbationPeriodDetailsPageProps) => {
   // !  // !It will be used when id passed to endpoint for integration
-  //   const { id } = await params;
+  const { id } = await params;
   const requestStatus = await getRequestStatus();
   const requestCaption =
     'انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر';
@@ -30,7 +28,7 @@ const ProbationPeriodDetailsPage = async (
     recommendation,
     notes,
     attachments,
-  } = (await getProbationPeriodDetails()) || {};
+  } = (await getProbationPeriodDetails(id)) || {};
 
   const requestHeaders: RequestHeader[] = [
     {
