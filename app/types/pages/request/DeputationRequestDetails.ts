@@ -1,8 +1,12 @@
+import { DeputationPlace } from '@types';
+
 export type DeputationRequestDetails = {
   id: string;
   requestDate: string;
   deputation: string;
+  trainingRequestNumber: string;
   transportation: string;
+  kilometers: string;
   startDate: string;
   endDate: string;
   duration: string;
@@ -16,9 +20,12 @@ export type DeputationRequestDetails = {
   travelEndDate: string;
   deputationAmount: string;
   transferDate: string;
-  reserved: string;
+  reserved: boolean;
+  issueVisa: boolean;
+  replacementEmployee: string;
   status: string;
   reason: string;
   notes: string;
+  deputationPlaces: DeputationPlace[];
   attachments: File[];
 };
