@@ -7,13 +7,13 @@ import { ModalLink } from "@components/modals/ModalLink";
 
 type Params = Promise<{ id: string }>;
 
-interface DeputationDetailsPageProps {
+interface EvaluationGoalDetailsPageProps {
   params: Params;
 }
 
-const DeputationDetailsPage = async ({
+const EvaluationGoalDetailsPage = async ({
   params,
-}: DeputationDetailsPageProps) => {
+}: EvaluationGoalDetailsPageProps) => {
   const { id } = await params;
   const requestStatus = await getRequestStatus();
   const requestCaption =
@@ -201,4 +201,4 @@ const DeputationDetailsPage = async ({
   );
 };
 
-export default DeputationDetailsPage;
+export default EvaluationGoalDetailsPage;
