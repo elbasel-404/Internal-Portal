@@ -27,7 +27,10 @@ export {
 export { AdNewSchema } from './ad-news/schema';
 export { FamilyNewSchema } from './family-news/schema';
 export { NewsElementSchema } from './news/schema';
-export { RecommendationSchema } from './recommendations/schema';
+export {
+  RecommendationSchema,
+  type Recommendation
+} from './recommendations/schema';
 export {
   RemoteWorkElementSchema,
   type RemoteWorkElement

@@ -43,8 +43,8 @@ export const getHrLetterRequests = async (): Promise<HrLetterRequest[]> => {
     const vacationItem: HrLetterRequest = {
       id: data.id.toString(),
       date: data.order_date,
-      description: data.template_name,
-      destination: data.destination_id[1]?.toString(),
+      description: data.template_name || '__',
+      destination: data.destination_id[1]?.toString() || '__',
       status: data.state,
     };
     return vacationItem;

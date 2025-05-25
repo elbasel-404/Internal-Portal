@@ -4,13 +4,14 @@ import type { NewsListRequest } from "@types";
 import { getDemo } from "../db/actions/getDemo";
 import { getFetchHeaders } from "./getFetchHeaders";
 import { NewsElementSchema, ResponseSchema } from "@api/schemas";
+import { formatDate } from "@utils";
 export const getNewsListRequests = async (): Promise<NewsListRequest[]> => {
   const isDemo = await getDemo();
   if (isDemo) return dummyData;
 
   // ! VARIBLES
   // ! ==================================
-  const url = "po/read/portal-news";
+  const url = "api/po/read/portal-news";
   const apiRootUrl = process.env.API_ROOT_URL as string;
   const { headers } = await getFetchHeaders();
   const requestBody = { news_type: "news" };
@@ -39,14 +40,8 @@ export const getNewsListRequests = async (): Promise<NewsListRequest[]> => {
     const newsItem: NewsListRequest = {
       id: data.id,
       title: data.title,
-      date: new Date(data.create_date).toLocaleDateString("ar-EG", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      }),
+      date: formatDate(data.create_date),
       description: data.resume,
-      // image: data.image,
       image: `data:image/gif;base64,${data.image}`,
     };
     return newsItem;
