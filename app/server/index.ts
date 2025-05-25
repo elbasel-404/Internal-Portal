@@ -44,6 +44,8 @@ export { getPassportRequests } from './getPassportsRequests';
 export { getPermissionDetails } from './getPermissionDetails';
 export { getPressFileDetails } from './getPressFileDetails';
 export { getProbationPeriodDetails } from './getProbationPeriodDetails';
+export { getProbationPeriodEmployees } from './getProbationPeriodEmployees';
+export { getProbationPeriodFields } from './getProbationPeriodFields';
 export { getProbationPeriodRequests } from './getProbationPeriodRequests';
 export { getProfileDetails } from './getProfileDetails';
 export { getPurchaseDetails } from './getPurchaseDetails';
