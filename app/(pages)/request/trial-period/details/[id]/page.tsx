@@ -73,7 +73,7 @@ const TrialPeriodDetailsPage = async ({
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails
         headers={requestHeaders}
-        evaluationCritera={<TrialPeriodCriteria />}
+        evaluationCriteria={<TrialPeriodCriteria />}
       />
     </main>
   );

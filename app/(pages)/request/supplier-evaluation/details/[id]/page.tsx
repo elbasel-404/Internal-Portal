@@ -108,26 +108,29 @@ const SupplierEvaluationDetailsPage = async ({
       label: "رقم العقد من الاعتماد",
       value: confirmationContractNumber,
     },
-    // TODO: Reason Label Is Conditional According To Request Status
-    // 
-    //  ...(displayReason
-    //   ? [
-    //       {
-    //         label: status === "مرفوض" ? "سبب الرفض" : "إعتماد",
-    //         value: reason,
-    //       },
-    //     ]
-    //   : []),
+     ...(displayReason
+      ? [
+          {
+            label: (status === "مرفوض" ? "سبب الرفض" : "إعتماد") as RequestHeader["label"],
+            value: reason,
+          },
+        ]
+      : []),
   ];
 
   const evaluationResultData: SupplierEvaluationCriterionResult[] =
     evaluationCriteriaData?.map((item) => {
+      const totalPointsValue = item.kpis.reduce((sum, kpi) => {
+        return sum + parseFloat(kpi.pointsValue);
+      }, 0);
+      const evaluationPoints = (totalPointsValue / item.kpis.length).toFixed(2).toString();
+      const totalPoints = ((parseFloat(item.weight) * parseFloat(evaluationPoints)) / 100).toFixed(2).toString();
       return {
         id: item.id,
         name: item.name,
         weight: item.weight,
-        evaluationPoints: item.evaluationPoints,
-        totalPoints: item.totalPoints,
+        evaluationPoints,
+        totalPoints,
       };
     }) || [];
 
