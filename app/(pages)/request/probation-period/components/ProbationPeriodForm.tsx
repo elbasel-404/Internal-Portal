@@ -11,25 +11,22 @@ import {
   TextareaField,
 } from '@components/form';
 import { paths } from '@lib';
+import { ProbationPeriodEmployees, ProbationPeriodFields } from '@types';
 import { useState } from 'react';
 
-const evaluation = [
-  { id: 1, name: 'ممتاز' },
-  { id: 2, name: 'مؤهل بشكل عالي' },
-  { id: 3, name: 'مؤهل' },
-  { id: 4, name: 'أقل من المستوى المطلوب' },
-  { id: 5, name: 'ضعيف' },
-];
+interface ProbationPeriodFormProps {
+  probationPeriodEmployees: ProbationPeriodEmployees[];
+  probationPeriodQuestions: ProbationPeriodFields[];
+  probationPeriodAnswers: ProbationPeriodFields[];
+  probationPeriodRecommendation: ProbationPeriodFields[];
+}
 
-const employeeList = [
-  { id: 1, name: 'محمد عبدالعزيز الحربي' },
-  { id: 2, name: 'فاطمة خالد الشمراني' },
-  { id: 3, name: 'عبدالعزيز فهد العتيبي' },
-  { id: 4, name: 'ريم صالح الزهراني' },
-  { id: 5, name: 'فيصل علي الدوسري' },
-];
-
-export const ProbationPeriodForm = () => {
+export const ProbationPeriodForm = ({
+  probationPeriodEmployees,
+  probationPeriodQuestions,
+  probationPeriodAnswers,
+  probationPeriodRecommendation,
+}: ProbationPeriodFormProps) => {
   const [files, setFiles] = useState<File[]>([]);
   const [employeeName, setEmployeeName] = useState('');
   const [jobNumber, setJobNumber] = useState('');
@@ -62,14 +59,17 @@ export const ProbationPeriodForm = () => {
     setFiles(updatedFiles);
   };
 
-  const handleAppointmentDateChange = (date: Date | null | undefined) => {
-    setAppointmentDate(date || new Date());
-  };
+  const handleEmployeeChange = (value: string) => {
+    setEmployeeName(value);
 
-  const handleProbationPeriodEndDateChange = (
-    date: Date | null | undefined
-  ) => {
-    setProbationPeriodEndDate(date || new Date());
+    const selected = probationPeriodEmployees.find((emp) => emp.id === value);
+    if (selected) {
+      setJobNumber(selected.jobNumber);
+      setJobTitle(selected.jobTitle);
+      setManagment(selected.department);
+      setAppointmentDate(new Date(selected.appointmentDate));
+      setProbationPeriodEndDate(new Date(selected.endProbationPeriodDate));
+    }
   };
 
   return (
@@ -84,54 +84,55 @@ export const ProbationPeriodForm = () => {
             name='employeeName'
             label='اسم الموظف'
             placeholder='...'
-            types={employeeList}
+            types={probationPeriodEmployees.map(({ id, employeeName }) => ({
+              id,
+              name: employeeName,
+            }))}
             value={employeeName}
-            onChange={(value) => setEmployeeName(value)}
+            onChange={handleEmployeeChange}
+            required
           />
           <InputField
             name='jobNumber'
             label='الرقم الوظيفى'
             placeholder=''
             value={jobNumber}
-            onChange={(e) => setJobNumber(e.target.value)}
+            disabled
           />
           <InputField
             name='jobTitle'
             label='المسمى الوظيفى'
             placeholder=''
             value={jobTitle}
-            onChange={(e) => setJobTitle(e.target.value)}
+            disabled
           />
           <InputField
             name='managment'
             label='الإدارة/القطاع'
             placeholder=''
             value={managment}
-            onChange={(e) => setManagment(e.target.value)}
+            disabled
           />
           <DateField
             name='appointmentDate'
             label='تاريخ التعيين'
-            required={false}
             date={appointmentDate}
-            onChange={handleAppointmentDateChange}
+            required={false}
           />
           <DateField
             name='probationPeriodEndDate'
             label='تاريخ انتهاء فترة التجربة'
-            required={false}
             date={probationPeriodEndDate}
-            onChange={handleProbationPeriodEndDateChange}
+            required={false}
           />
         </div>
         <RadioField
           label='التوصية:'
           name='recommendation'
-          options={[
-            { value: 'option1', label: 'اجتياز فترة التجربة' },
-            { value: 'option2', label: 'تمديد فترة التجربة' },
-            { value: 'option3', label: 'إنهاء خدمات الموظف' },
-          ]}
+          options={probationPeriodRecommendation.map((item) => ({
+            value: item.id,
+            label: item.name,
+          }))}
           required={true}
           selectedValue={recommendation}
           onChange={(value) => setRecommendation(value)}
@@ -145,65 +146,70 @@ export const ProbationPeriodForm = () => {
           </h2>
         </div>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-          <SelectField
-            label='ملائمة ثقافة الهيئة'
-            name='organizationCulture'
-            placeholder=''
-            types={evaluation}
-            value={organizationCulture}
-            onChange={(value) => setOrganizationCulture(value)}
-          />
-          <SelectField
-            label='جودة مخرجات العمل'
-            name='workOutputQuality'
-            placeholder=''
-            types={evaluation}
-            value={workOutputQuality}
-            onChange={(value) => setWorkOutputQuality(value)}
-          />
-          <SelectField
-            label='تحمل المسؤولية'
-            name='responsibility'
-            placeholder=''
-            types={evaluation}
-            value={responsibility}
-            onChange={(value) => setResponsibility(value)}
-          />
-          <SelectField
-            label='روح المبادرة'
-            name='initiative'
-            placeholder=''
-            types={evaluation}
-            value={initiative}
-            onChange={(value) => setInitiative(value)}
-          />
+          {probationPeriodQuestions?.slice(0, 4).map((question, index) => (
+            <SelectField
+              label={question.name}
+              name={question.name}
+              placeholder=''
+              types={probationPeriodAnswers ?? []}
+              value={
+                {
+                  0: organizationCulture,
+                  1: workOutputQuality,
+                  2: responsibility,
+                  3: initiative,
+                }[index] || ''
+              }
+              onChange={(value) => {
+                switch (index) {
+                  case 0:
+                    setOrganizationCulture(value);
+                    break;
+                  case 1:
+                    setWorkOutputQuality(value);
+                    break;
+                  case 2:
+                    setResponsibility(value);
+                    break;
+                  case 3:
+                    setInitiative(value);
+                    break;
+                }
+              }}
+            />
+          ))}
         </div>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-          <SelectField
-            label='الامتثال للسياسات والحفاظ على مواعيد العمل '
-            name='policyCompliance'
-            placeholder=''
-            types={evaluation}
-            value={policyCompliance}
-            onChange={(value) => setPolicyCompliance(value)}
-          />
-          <SelectField
-            label='العمل ضمن فريق'
-            name='teamWork'
-            placeholder=''
-            types={evaluation}
-            value={teamWork}
-            onChange={(value) => setTeamWork(value)}
-          />
-          <SelectField
-            label='مهارات التواصل'
-            name='communicationSkills'
-            placeholder=''
-            types={evaluation}
-            value={communicationSkills}
-            onChange={(value) => setCommunicationSkills(value)}
-          />
+          {probationPeriodQuestions?.slice(4, 7).map((question, index) => (
+            <SelectField
+              label={question.name}
+              name={question.name}
+              placeholder=''
+              types={probationPeriodAnswers ?? []}
+              value={
+                {
+                  0: policyCompliance,
+                  1: teamWork,
+                  2: communicationSkills,
+                }[index] || ''
+              }
+              onChange={(value) => {
+                switch (index) {
+                  case 0:
+                    setPolicyCompliance(value);
+                    break;
+                  case 1:
+                    setTeamWork(value);
+                    break;
+                  case 2:
+                    setCommunicationSkills(value);
+                    break;
+                }
+              }}
+            />
+          ))}
         </div>
+
         <TextareaField
           name='permissonReason'
           label='ملاحظات'
