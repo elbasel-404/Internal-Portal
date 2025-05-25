@@ -47,6 +47,8 @@ export type { PermissionDetails } from './pages/request/PermissionDetails';
 export type { PermissionRequest } from './pages/request/PermissionRequest';
 export type { PressFileDetails } from './pages/request/PressFileDetails';
 export type { ProbationPeriodDetails } from './pages/request/ProbationPeriodDetails';
+export type { ProbationPeriodEmployees } from './pages/request/ProbationPeriodEmployees';
+export type { ProbationPeriodFields } from './pages/request/ProbationPeriodFields';
 export type { ProbationPeriodRequest } from './pages/request/ProbationPeriodRequest';
 export type { PurchaseDetails } from './pages/request/PurchaseDetails';
 export type { PurchaseProduct } from './pages/request/PurchaseProduct';
