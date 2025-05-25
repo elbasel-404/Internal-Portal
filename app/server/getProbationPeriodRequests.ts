@@ -1,11 +1,59 @@
 'use server';
 
+import {
+  ProbationEvaluationElementSchema
+} from '@api/schemas/index';
+import { ResponseSchema } from '@api/schemas/responseSchema';
+import { getDemo } from '@db/actions';
 import type { ProbationPeriodRequest } from '@types';
+import { getFetchHeaders } from './getFetchHeaders';
 
 export const getProbationPeriodRequests = async (): Promise<
   ProbationPeriodRequest[]
 > => {
-  return ProbationPeriodDummyData;
+  const isDemo = await getDemo();
+  if (isDemo) return ProbationPeriodDummyData;
+
+  // ! VARIABLES
+  // ! ==================================
+  const url = 'api/po/hr/probation-evaluation';
+  const apiRootUrl = process.env.API_ROOT_URL as string;
+  const { headers } = await getFetchHeaders();
+  const requestBody = { employee_id: 358 };
+  const requestBodyString = JSON.stringify(requestBody);
+  const requestUrl = `${apiRootUrl}/${url}`;
+
+  // ! FETCH
+  // ! ==================================
+  const apiResponse = await fetch(requestUrl, {
+    headers,
+    method: 'POST',
+    body: requestBodyString,
+  });
+  const responseJson = await apiResponse.json();
+
+  // ! VALIDATION
+  // ! ==================================
+  const validatedResponse = ResponseSchema.parse(responseJson);
+  const { result } = validatedResponse;
+  const { data } = result;
+  const validatedData = ProbationEvaluationElementSchema.array().parse(data);
+
+  // ! PARSING
+  // ! ==================================
+  const returnedData: ProbationPeriodRequest[] = validatedData.map((data) => {
+    const probationItem: ProbationPeriodRequest = {
+      id: data.id.toString(),
+      date: data.date,
+      employee: data.complete_name,
+      jobTitle: data.job_id[1].toString(),
+      recommendation: data.recommendation,
+      status: data.state,
+    };
+    return probationItem;
+  });
+
+  return returnedData;
 };
 
 const ProbationPeriodDummyData: ProbationPeriodRequest[] = [
