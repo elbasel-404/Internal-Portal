@@ -80,4 +80,4 @@ export { setUserId } from "./setUserId";
 export { toggleHomePageSetting } from "./toggleHomePageSetting";
 export { getSession, signIn } from "./auth";
 export { getDeputationRequests } from "./getDeputationRequests";
-export { getDeputationRequestDetails } from "./getDeputationRequestDetails";
+export { getDeputationRequestDetails } from "./getDeputationRequestDetails";export {getFamilyNewsDetails} from './getFamilyNewsDetails'
