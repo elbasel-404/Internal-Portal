@@ -1,25 +1,75 @@
 'use server';
 
+import { ProbationEvaluationElementSchema } from '@api/schemas/index';
+import { ResponseSchema } from '@api/schemas/responseSchema';
+import { getDemo } from '@db/actions';
 import type { ProbationPeriodDetails } from '@types';
+import { getFetchHeaders } from './getFetchHeaders';
 
 export const getProbationPeriodDetails = async (
   // !It will be used for integration
-  // id: string
+  id: string
 ): Promise<ProbationPeriodDetails | void> => {
-  const probationPeriodDetails: ProbationPeriodDetails = {
-    employeeName: '[1651] عبدالله بن حسين الجفري',
-    jobNumber: '[1651]',
-    jobTitle: 'أخصائي تطوير تنظيمي أول',
-    management:
-      'الخدمات المشتركة/الموارد البشرية/تطوير الموارد البشرية/التطوير التنظيمي',
-    appointmentDate: '02-08-2023',
-    endProbationPeriodDate: '02-08-2025',
-    recommendation: 'اجتياز فترة التجربة',
-    notes: 'ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ',
-    attachments: [
-      new File([''], 'نموذج طلب 2 .pdf'),
-      new File([''], 'نموذج طلب .pdf'),
-    ],
+  const isDemo = await getDemo();
+  if (isDemo) return probationPeriodDetails;
+
+  // ! VARIBLES
+  // ! ==================================
+  const url = 'api/po/hr/probation-evaluation';
+  const apiRootUrl = process.env.API_ROOT_URL as string;
+  const { headers } = await getFetchHeaders();
+  const requestBody = { id: id };
+  const requestBodyString = JSON.stringify(requestBody);
+  const requestUrl = `${apiRootUrl}/${url}`;
+
+  // ! FETCH
+  // ! ==================================
+  const apiResponse = await fetch(requestUrl, {
+    headers,
+    method: 'POST',
+    body: requestBodyString,
+  });
+  const responseJson = await apiResponse.json();
+
+  // ! VALIDATION
+  // ! ==================================
+  const validatedResponse = ResponseSchema.parse(responseJson);
+  const { result } = validatedResponse;
+  const { data } = result;
+  const validatedData = ProbationEvaluationElementSchema.parse(data[0]);
+
+  // ! PARSING
+  // ! ==================================
+
+  const returnedData: ProbationPeriodDetails = {
+    employeeName: validatedData.complete_name,
+    jobNumber: validatedData.job_id[0].toString(),
+    jobTitle: validatedData.job_id[1].toString(),
+    management: validatedData.department_id[1].toString(),
+    appointmentDate: validatedData.date_hiring,
+    endProbationPeriodDate: validatedData.date_probation_end,
+    recommendation: validatedData.recommendation,
+    notes: validatedData.notes.toString(),
+    attachments: validatedData.attachment_ids.map(
+      (file) => new File([''], file.toString())
+    ),
   };
-  return { ...probationPeriodDetails };
+
+  return returnedData;
+};
+
+const probationPeriodDetails: ProbationPeriodDetails = {
+  employeeName: '[1651] عبدالله بن حسين الجفري',
+  jobNumber: '[1651]',
+  jobTitle: 'أخصائي تطوير تنظيمي أول',
+  management:
+    'الخدمات المشتركة/الموارد البشرية/تطوير الموارد البشرية/التطوير التنظيمي',
+  appointmentDate: '02-08-2023',
+  endProbationPeriodDate: '02-08-2025',
+  recommendation: 'اجتياز فترة التجربة',
+  notes: 'ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ',
+  attachments: [
+    new File([''], 'نموذج طلب 2 .pdf'),
+    new File([''], 'نموذج طلب .pdf'),
+  ],
 };
