@@ -71,6 +71,7 @@ export type { SupplierEvaluationRequest } from './pages/request/SupplierEvaluati
 export type { SupplierEvaluationRequestDetails } from './pages/request/SupplierEvaluationRequestDetails';
 export type { DeputationRequest } from './pages/request/DeputationRequest';
 export type { DeputationRequestDetails } from './pages/request/DeputationRequestDetails';
+export type { DeputationPlace } from './pages/request/DeputationPlace';
 export type { SupplierKPI } from './pages/request/SupplierKPI';
 export type { TicketDetails } from './pages/request/TicketDetails';
 export type { TicketRequest } from './pages/request/TicketRequest';
