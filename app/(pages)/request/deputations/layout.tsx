@@ -5,10 +5,10 @@ export const metadata = {
   title: 'Deputations',
   description: 'Deputation data',
 };
-interface WorkDocumentLayoutProps {
+interface DeputationLayoutProps {
   children: ReactNode;
 }
-const WorkDocumentLayout = ({ children }: WorkDocumentLayoutProps) => {
+const DeputationLayout = ({ children }: DeputationLayoutProps) => {
   return (
     <>
       <DeputationData />
@@ -17,4 +17,4 @@ const WorkDocumentLayout = ({ children }: WorkDocumentLayoutProps) => {
   );
 };
 
-export default WorkDocumentLayout;
+export default DeputationLayout;
