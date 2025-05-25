@@ -98,4 +98,5 @@ export type { Row } from './shared/Row';
 export type { Rules } from './shared/Rules';
 export type { TabType } from './shared/TabType';
 export type { User } from './shared/User';
-
+export type { EvaluationGoal } from './pages/evaluation/EvaluationGoal';
+export type { EvaluationGoalDetails } from './pages/evaluation/EvaluationGoalDetails';
