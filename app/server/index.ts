@@ -1,5 +1,4 @@
 export { acceptTraining } from './accept_training';
-export { getSession, signIn } from './auth';
 export { cancelTraining } from './cancel_training';
 export { clearUser } from './clearUser';
 export { getApprovalRequests } from './getApprovalRequests';
@@ -14,8 +13,6 @@ export { getCovenantDetails } from './getCovenantDetails';
 export { getCreateRequestStatus } from './getCreateRequestStatus';
 export { getCustodyDetails } from './getCustodyDetails';
 export { getCustodyRequests } from './getCustodyRequests';
-export { getDeputationRequestDetails } from './getDeputationRequestDetails';
-export { getDeputationRequests } from './getDeputationRequests';
 export { getDestinationElement } from './getDestination';
 export { getEmployeeAttendanceRequests } from './getEmployeeAttendanceRequests';
 export { getEmployeeMembersDetails } from './getEmployeeMembersDetails';
@@ -69,6 +66,12 @@ export { getSupplierEvaluationRequests } from './getSupplierEvaluationRequests';
 export { getTicketDetails } from './getTicketDetails';
 export { getTicketRequests } from './getTicketRequests';
 export { getTransactionRequests } from './getTransactionRequests';
+
+export { getSession, signIn } from './auth';
+export { getDeputationRequestDetails } from './getDeputationRequestDetails';
+export { getDeputationRequests } from './getDeputationRequests';
+export { getEvaluationGoals } from './getEvaluationGoals';
+export { getFamilyNewsDetails } from './getFamilyNewsDetails';
 export { getUser } from './getUser';
 export { getUserId } from './getUserId';
 export { getVacationDetails } from './getVacationDetails';

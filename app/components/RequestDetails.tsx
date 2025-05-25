@@ -55,7 +55,7 @@ export const RequestDetails = ({
           <CheckboxField
             label={""}
             name={key || ""}
-            className="rounded-[3px] shadow-none space-y-0"
+            className="rounded-[3px] shadow-none space-  y-0"
             checked={Boolean(value)}
             disabled
           />
