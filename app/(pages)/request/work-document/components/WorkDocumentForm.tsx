@@ -1,5 +1,6 @@
 'use client';
 
+import { createFileHandler } from '@atoms';
 import {
   AttachmentsField,
   DateField,
@@ -10,26 +11,18 @@ import {
   TextareaField,
 } from '@components/form';
 import { paths } from '@lib';
+import { FileWithId } from '@types';
 import { useState } from 'react';
 import { DocumentTypes, RequestTypes } from './config';
 
 export const WorkDocumentForm = () => {
-  const [files, setFiles] = useState<File[]>([]);
+  const [files, setFiles] = useState<FileWithId[]>([]);
   const [requestDate, setRequsetDate] = useState<Date>(new Date());
 
-  const handleFileUpload = (uploadedFiles: FileList | null) => {
-    if (uploadedFiles) {
-      const newFiles = Array.from(uploadedFiles).map(
-        (file) => new File([file], file.name)
-      );
-      setFiles([...files, ...newFiles]);
-    }
-  };
-
-  const handleRemoveFile = (index: number) => {
-    const updatedFiles = files.filter((_, i) => i !== index);
-    setFiles(updatedFiles);
-  };
+  const fileHandler = createFileHandler(
+    () => files,
+    (newFiles) => setFiles(newFiles)
+  );
 
   return (
     <form className='bg-white rounded-md'>
@@ -88,8 +81,10 @@ export const WorkDocumentForm = () => {
         <AttachmentsField
           label='المرفقات'
           files={files}
-          handleFileUpload={handleFileUpload}
-          handleRemoveFile={handleRemoveFile}
+          handleFileUpload={fileHandler.upload}
+          handleRemoveFile={(index: number) =>
+            fileHandler.remove(files[index].id)
+          }
           required
         />
 

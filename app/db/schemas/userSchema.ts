@@ -7,6 +7,7 @@ import {
   newsTabsKeyEnum,
   ProductSchema,
   ProjectCompletionSchema,
+  TrainingCoursesSchema,
 } from '@zodSchemas';
 import { z } from 'zod';
 
@@ -21,4 +22,5 @@ export const userSchema = z.object({
   products: z.array(ProductSchema),
   batchs: z.array(BatchSchema),
   batchProducts: z.array(BatchProductSchema),
+  trainingCourses: z.array(TrainingCoursesSchema),
 });

@@ -1,6 +1,7 @@
 'use client';
 
 import { RelativeRelationElement } from '@api/schemas/relative-relation/schema';
+import { createFileHandler } from '@atoms';
 import {
   AttachmentsField,
   FormHeader,
@@ -9,6 +10,7 @@ import {
   SubmitButton,
 } from '@components/form';
 import { paths } from '@lib';
+import { FileWithId } from '@types';
 import { ChangeEvent, useActionState, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { State } from './helpers/State';
@@ -29,7 +31,7 @@ interface MedicalFormProps {
 
 export const MedicalForm = ({ relativeRelation }: MedicalFormProps) => {
   const [state, action, pending] = useActionState(stateAction, initialState);
-  const [files, setFiles] = useState<File[]>([]);
+  const [files, setFiles] = useState<FileWithId[]>([]);
   const [requestType, setRequestType] = useState('');
   const [relation, setRelation] = useState('');
   const [individualName, setIndividualName] = useState('');
@@ -53,19 +55,10 @@ export const MedicalForm = ({ relativeRelation }: MedicalFormProps) => {
     setIndividualEnglishName(event.target.value);
   };
 
-  const handleFileUpload = (uploadedFiles: FileList | null) => {
-    if (uploadedFiles) {
-      const newFiles = Array.from(uploadedFiles).map(
-        (file) => new File([file], file.name)
-      );
-      setFiles([...files, ...newFiles]);
-    }
-  };
-
-  const handleRemoveFile = (index: number) => {
-    const updatedFiles = files.filter((_, i) => i !== index);
-    setFiles(updatedFiles);
-  };
+  const fileHandler = createFileHandler(
+    () => files,
+    (newFiles) => setFiles(newFiles)
+  );
 
   useEffect(() => {
     const { success, errors } = state;
@@ -149,8 +142,10 @@ export const MedicalForm = ({ relativeRelation }: MedicalFormProps) => {
         />
         <AttachmentsField
           files={files}
-          handleFileUpload={handleFileUpload}
-          handleRemoveFile={handleRemoveFile}
+          handleFileUpload={fileHandler.upload}
+          handleRemoveFile={(index: number) =>
+            fileHandler.remove(files[index].id)
+          }
           required
         />
         <SubmitButton />
