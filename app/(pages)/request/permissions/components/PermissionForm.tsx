@@ -1,5 +1,6 @@
 'use client';
 
+import { createFileHandler } from '@atoms';
 import {
   AttachmentsField,
   CheckboxField,
@@ -11,6 +12,7 @@ import {
   TimeField,
 } from '@components/form';
 import { paths } from '@lib';
+import { FileWithId } from '@types';
 import { useActionState, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { formAction } from './helpers/formAction';
@@ -27,7 +29,7 @@ const PermissionTypes = [
 
 export const PermissionForm = () => {
   const [state, action, pending] = useActionState(stateAction, initialState);
-  const [files, setFiles] = useState<File[]>([]);
+  const [files, setFiles] = useState<FileWithId[]>([]);
   const [isMultipleDays, setIsMultipleDays] = useState(false);
   const [permissionTypeValue, setPermissionTypeValue] = useState<string>('');
   const [startTime, setStartTime] = useState<Date>(new Date());
@@ -35,19 +37,10 @@ export const PermissionForm = () => {
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
 
-  const handleFileUpload = (uploadedFiles: FileList | null) => {
-    if (uploadedFiles) {
-      const newFiles = Array.from(uploadedFiles).map(
-        (file) => new File([file], file.name)
-      );
-      setFiles([...files, ...newFiles]);
-    }
-  };
-
-  const handleRemoveFile = (index: number) => {
-    const updatedFiles = files.filter((_, i) => i !== index);
-    setFiles(updatedFiles);
-  };
+  const fileHandler = createFileHandler(
+    () => files,
+    (newFiles) => setFiles(newFiles)
+  );
 
   const handlePermissionTypeChange = (value: string) => {
     setPermissionTypeValue(value); // Update the permission type value
@@ -79,7 +72,10 @@ export const PermissionForm = () => {
   }
 
   return (
-    <form action={action} className='bg-white rounded-lg text-black text-lg p-4 space-y-4'>
+    <form
+      action={action}
+      className='bg-white rounded-lg text-black text-lg p-4 space-y-4'
+    >
       <FormHeader label='نموذج طلب استئذان' path={paths.permissions.href} />
       <input
         type='text'
@@ -169,8 +165,10 @@ export const PermissionForm = () => {
         {permissionTypeValue === '1' && (
           <AttachmentsField
             files={files}
-            handleFileUpload={handleFileUpload}
-            handleRemoveFile={handleRemoveFile}
+            handleFileUpload={fileHandler.upload}
+            handleRemoveFile={(index: number) =>
+              fileHandler.remove(files[index].id)
+            }
           />
         )}
         <SubmitButton />

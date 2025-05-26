@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   AttachmentsField,
@@ -7,32 +7,25 @@ import {
   InputField,
   SelectField,
   SubmitButton,
-} from "@components/form";
-import { paths } from "@lib";
-import { useState } from "react";
+} from '@components/form';
+import { paths } from '@lib';
+import { useState } from 'react';
 // import { RequestTypes, members, relations } from './config';
-import { RequestTypes, relations } from "./config";
+import { createFileHandler } from '@atoms';
+import { FileWithId } from '@types';
+import { RequestTypes, relations } from './config';
 
 export const EmployeeMembersForm = () => {
-  const [files, setFiles] = useState<File[]>([]);
+  const [files, setFiles] = useState<FileWithId[]>([]);
   // const [requestTypeValue, setRequestTypeValue] = useState<string>('');
   // const [relationTypeValue, setRelationTypeValue] = useState<string>('');
   // const [member, setMember] = useState<string>('');
   const [birthDate, setBirthDate] = useState<Date>(new Date());
 
-  const handleFileUpload = (uploadedFiles: FileList | null) => {
-    if (uploadedFiles) {
-      const newFiles = Array.from(uploadedFiles).map(
-        (file) => new File([file], file.name)
-      );
-      setFiles([...files, ...newFiles]);
-    }
-  };
-
-  const handleRemoveFile = (index: number) => {
-    const updatedFiles = files.filter((_, i) => i !== index);
-    setFiles(updatedFiles);
-  };
+  const fileHandler = createFileHandler(
+    () => files,
+    (newFiles) => setFiles(newFiles)
+  );
 
   // const handleRequestTypeChange = (value: string) => {
   //   setRequestTypeValue(value);
@@ -49,16 +42,16 @@ export const EmployeeMembersForm = () => {
   // console.log(relationTypeValue);
 
   return (
-    <form className="bg-white rounded-md">
+    <form className='bg-white rounded-md'>
       <FormHeader
-        label="نموذج طلب تحديث أفراد الأسرة"
+        label='نموذج طلب تحديث أفراد الأسرة'
         path={paths.employeeMembers.href}
       />
-      <div className="p-4 space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className='p-4 space-y-6'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
           <SelectField
-            name="requestType"
-            label="نوع الطلب"
+            name='requestType'
+            label='نوع الطلب'
             types={RequestTypes}
             // value={requestTypeValue}
             // onChange={handleRequestTypeChange}
@@ -74,89 +67,91 @@ export const EmployeeMembersForm = () => {
               />
             )} */}
           <InputField
-            label="الاسم الأول"
-            name="firstName"
-            placeholder=""
+            label='الاسم الأول'
+            name='firstName'
+            placeholder=''
             required
             // disabled={requestTypeValue === '3'}
           />
           <InputField
-            label="الاسم الأب"
-            name="parentName"
-            placeholder=""
+            label='الاسم الأب'
+            name='parentName'
+            placeholder=''
             required
             // disabled={requestTypeValue === '3'}
           />
           <InputField
-            label="اسم الجد"
-            name="grandFatherName"
-            placeholder=""
+            label='اسم الجد'
+            name='grandFatherName'
+            placeholder=''
             required
             // disabled={requestTypeValue === '3'}
           />
           <InputField
-            label="اسم العائلة"
-            name="familyName"
-            placeholder=""
+            label='اسم العائلة'
+            name='familyName'
+            placeholder=''
             required
             // disabled={requestTypeValue === '3'}
           />
           <InputField
-            label="First Name"
-            name="firstName"
-            placeholder=""
+            label='First Name'
+            name='firstName'
+            placeholder=''
             required
             // disabled={requestTypeValue === '3'}
           />
           <InputField
             label="Father's name"
-            name="parentName"
-            placeholder=""
+            name='parentName'
+            placeholder=''
             required
             // disabled={requestTypeValue === '3'}
           />
           <InputField
             label="Grandfather's Name"
-            name="grandFatherName"
-            placeholder=""
+            name='grandFatherName'
+            placeholder=''
             required
             // disabled={requestTypeValue === '3'}
           />
           <InputField
-            label="Family Name"
-            name="familyName"
-            placeholder=""
+            label='Family Name'
+            name='familyName'
+            placeholder=''
             required
             // disabled={requestTypeValue === '3'}
           />
           <InputField
-            label="رقم الهوية"
-            name="idNumber"
-            placeholder=""
+            label='رقم الهوية'
+            name='idNumber'
+            placeholder=''
             required
             // disabled={requestTypeValue === '3'}
           />
           <DateField
             date={birthDate}
             onChange={(value) => setBirthDate(value || new Date())}
-            label="تاريخ الميلاد"
-            name="birthDate"
+            label='تاريخ الميلاد'
+            name='birthDate'
             required
           />
           <SelectField
-            name="relationType"
-            label="صلة القرابة"
+            name='relationType'
+            label='صلة القرابة'
             types={relations}
             // value={relationTypeValue}
-            placeholder=""
+            placeholder=''
             // onChange={handleRelationTypeChange}
           />
         </div>
 
         <AttachmentsField
           files={files}
-          handleFileUpload={handleFileUpload}
-          handleRemoveFile={handleRemoveFile}
+          handleFileUpload={fileHandler.upload}
+          handleRemoveFile={(index: number) =>
+            fileHandler.remove(files[index].id)
+          }
         />
 
         <SubmitButton />

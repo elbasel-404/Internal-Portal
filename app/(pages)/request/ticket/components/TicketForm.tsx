@@ -1,5 +1,6 @@
 'use client';
 
+import { createFileHandler } from '@atoms';
 import {
   AttachmentsField,
   FormHeader,
@@ -8,6 +9,7 @@ import {
   TextareaField,
 } from '@components/form';
 import { paths } from '@lib';
+import { FileWithId } from '@types';
 import { useState } from 'react';
 import {
   NonTechnicalRequest,
@@ -19,7 +21,7 @@ export const TicketForm = () => {
   const [ticketType, setTicketType] = useState('technical');
   const [techTicketType, setTechTicketType] = useState('reportProblem');
   const [nonTechTicketType, setNonTechTicketType] = useState('request');
-  const [files, setFiles] = useState<File[]>([]);
+  const [files, setFiles] = useState<FileWithId[]>([]);
 
   const handleTicketTypeChangeValue = (value: string) => {
     setTicketType(value);
@@ -33,26 +35,14 @@ export const TicketForm = () => {
     setNonTechTicketType(value);
   };
 
-  const handleFileUpload = (uploadedFiles: FileList | null) => {
-    if (uploadedFiles) {
-      const newFiles = Array.from(uploadedFiles).map(
-        (file) => new File([file], file.name)
-      );
-      setFiles([...files, ...newFiles]);
-    }
-  };
-
-  const handleRemoveFile = (index: number) => {
-    const updatedFiles = files.filter((_, i) => i !== index);
-    setFiles(updatedFiles);
-  };
+  const fileHandler = createFileHandler(
+    () => files,
+    (newFiles) => setFiles(newFiles)
+  );
 
   return (
     <form className='bg-white rounded-md'>
-      <FormHeader
-        label='إنشاء تذكرة جديدة'
-        path={paths.tickets.href}
-      />
+      <FormHeader label='إنشاء تذكرة جديدة' path={paths.tickets.href} />
       <div className='p-4 space-y-6'>
         <RadioField
           label='الرجاء اختيار نوع التذكرة'
@@ -121,8 +111,10 @@ export const TicketForm = () => {
           required
         />
         <AttachmentsField
-          handleFileUpload={handleFileUpload}
-          handleRemoveFile={handleRemoveFile}
+          handleFileUpload={fileHandler.upload}
+          handleRemoveFile={(index: number) =>
+            fileHandler.remove(files[index].id)
+          }
           files={files}
         />
         <SubmitButton />

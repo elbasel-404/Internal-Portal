@@ -15,4 +15,5 @@ export { ProbationPeriodSchema } from './probationPeriodSchema';
 export { ProductSchema } from './productSchema';
 export { ProjectCompletionSchema } from './projectCompletionSchema';
 export { ReplacementCovenantSchema } from './replacementCovenantSchema';
+export { TrainingCoursesSchema } from './trainingCoursesSchema';
 

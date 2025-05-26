@@ -1,6 +1,6 @@
 'use client';
 
-import { batchAmount } from '@atoms';
+import { batchAmount, createFileHandler } from '@atoms';
 import { Table } from '@components';
 import {
   AttachmentsField,
@@ -15,7 +15,7 @@ import {
   XMarkIcon,
 } from '@icons';
 import { removeBatchProduct } from '@server';
-import { BatchProduct } from '@types';
+import { BatchProduct, FileWithId } from '@types';
 import { Button } from '@ui';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
@@ -45,7 +45,7 @@ const tableHeaders = [
 
 export const BatchsForm = ({ batchProducts }: BatchsProps) => {
   const router = useRouter();
-  const [files, setFiles] = useState<File[]>([]);
+  const [files, setFiles] = useState<FileWithId[]>([]);
   const [batchName, setBatchName] = useState('');
   const [batchNumber, setBatchNumber] = useState('');
   const [paymentDate, setPaymentDate] = useState(new Date());
@@ -72,19 +72,10 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
     setBatchNumber(e.target.value);
   };
 
-  const handleFileUpload = (uploadedFiles: FileList | null) => {
-    if (uploadedFiles) {
-      const newFiles = Array.from(uploadedFiles).map(
-        (file) => new File([file], file.name)
-      );
-      setFiles([...files, ...newFiles]);
-    }
-  };
-
-  const handleRemoveFile = (index: number) => {
-    const updatedFiles = files.filter((_, i) => i !== index);
-    setFiles(updatedFiles);
-  };
+  const fileHandler = createFileHandler(
+    () => files,
+    (newFiles) => setFiles(newFiles)
+  );
 
   const handleRemoveBatchProducts = async (id: number) => {
     await removeBatchProduct(id);
@@ -137,8 +128,10 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
 
       <AttachmentsField
         files={files}
-        handleFileUpload={handleFileUpload}
-        handleRemoveFile={handleRemoveFile}
+        handleFileUpload={fileHandler.upload}
+        handleRemoveFile={(index: number) =>
+          fileHandler.remove(files[index].id)
+        }
       />
 
       <TextareaField
