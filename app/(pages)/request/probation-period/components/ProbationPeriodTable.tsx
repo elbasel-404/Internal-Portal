@@ -64,7 +64,7 @@ export const ProbationPeriodTable = ({ data }: ProbationPeriodProps) => {
             </Button>
             <Link
               href={paths.newProbationPeriod.href}
-              className='flex group font-medium items-center gap-2 bg-primary text-white px-4 py-1 rounded-full hover:bg-primary-opacity hover:text-primary hover:border-2 hover:border-primary'
+              className='flex group font-medium items-center gap-2 bg-primary text-white px-4 py-1 rounded-full hover:bg-primary-opacity hover:text-primary'
             >
               <CirclePlusIcon className='fill-white group-hover:fill-primary' />
               أضف جديد
