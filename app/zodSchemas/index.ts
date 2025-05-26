@@ -11,9 +11,9 @@ export { keyboardAlphaNumericKeysEnum } from './keyboardAlphaNumericKeyEnum';
 export { MedicalSchema } from './medicalInsuranceSchema';
 export { modalNameSchema } from './modalNameSchema';
 export { newsTabsKeyEnum } from './newsTabsKeyEnum';
+export { ProbationPeriodSchema } from './probationPeriodSchema';
 export { ProductSchema } from './productSchema';
 export { ProjectCompletionSchema } from './projectCompletionSchema';
 export { ReplacementCovenantSchema } from './replacementCovenantSchema';
 export { TrainingCoursesSchema } from './trainingCoursesSchema';
-export { TrialPeriodSchema } from './trialPeriodSchema';
 

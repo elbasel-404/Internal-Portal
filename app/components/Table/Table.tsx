@@ -200,9 +200,21 @@ export const Table = ({
       </ModalLink>
     );
 
+  // Recommendation cell renderer
+  const renderRecommendationCell = (value: string) => {
+    return (
+      <div>
+        {value === 'pass' && 'اجتياز فترة التجربة'}
+        {value === 'continue' && 'تمديد فترة التجربة'}
+        {value === 'fail' && 'إنهاء خدمات الموظف'}
+      </div>
+    );
+  };
+
   // Cell content renderer based on key
   const renderCellContent = (key: string, value: any, row: Row) => {
     if (key === 'status') return renderStatusCell(value);
+    if (key === 'recommendation') return renderRecommendationCell(value);
     if (key === 'employeeName') return renderEmployeeNameCell(value);
     if (isCurrencyField(key)) return renderCurrencyCell(value);
     if (key === 'courseName') return renderCourseNameCell(value, row);
@@ -328,7 +340,7 @@ export const Table = ({
         </TableBody>
       </UITable>
 
-      <div className='flex justify-between items-center mt-4'>
+      <div className='flex justify-between items-center mt-4 px-4'>
         <p className='text-[#78787A] text-sm font-light'>
           إظهار {Math.min(currentPage * itemsPerPage, rows.length)} من أصل{' '}
           {rows.length} طلب

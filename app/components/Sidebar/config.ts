@@ -107,7 +107,7 @@ export const MenuItems: MenuItem[] = [
       {
         iconKey: 'ChartWithArrow',
         label: 'تقييم فترة التجربة',
-        href: paths.trialPeriod.href,
+        href: paths.probationPeriod.href,
         tag: 'hrServices',
       },
       {

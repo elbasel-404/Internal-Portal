@@ -175,17 +175,17 @@ export const paths: Record<string, AppPath> = {
     title: 'تفاصيل طلب تأمين طبي',
     href: '/request/medical/details/:id',
   },
-  trialPeriod: {
-    title: 'قائمة طلبات فترة التقييم',
-    href: '/request/trial-period',
+  probationPeriod: {
+    title: "قائمة طلبات فترة التقييم",
+    href: "/request/probation-period",
   },
-  newTrialPeriod: {
-    title: 'طلب تقييم فترة التجربة',
-    href: '/request/trial-period/new',
+  newProbationPeriod: {
+    title: "طلب تقييم فترة التجربة",
+    href: "/request/probation-period/new",
   },
-  trialPeriodDetails: {
-    title: 'تفاصيل تقييم فترة التجربة',
-    href: '/request/trial-period/details/:id',
+  probationPeriodDetails: {
+    title: "تفاصيل تقييم فترة التجربة",
+    href: "/request/probation-period/details/:id",
   },
   bankAccountChange: {
     title: 'قائمة طلبات تغيير الحسابات البنكية',
