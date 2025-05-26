@@ -20,6 +20,7 @@ const employeeRequests: Employee[] = [
     management: 'المرافق والخدمات الادراية',
     department: 'المرافق والخدمات الادراية',
     generalManager: 'مي بنت سعد البدراني',
+    id: ''
   },
   {
     name: 'نورة العتبس',
@@ -34,6 +35,7 @@ const employeeRequests: Employee[] = [
     management: 'المرافق والخدمات الادراية',
     department: 'المرافق والخدمات الادراية',
     generalManager: 'مي بنت سعد البدراني',
+    id: ''
   },
   {
     name: 'عبدالله الشمري',
@@ -48,6 +50,7 @@ const employeeRequests: Employee[] = [
     management: 'المرافق والخدمات الادراية',
     department: 'المرافق والخدمات الادراية',
     generalManager: 'مي بنت سعد البدراني',
+    id: ''
   },
   {
     name: 'فاطمة الحربي',
@@ -62,6 +65,7 @@ const employeeRequests: Employee[] = [
     management: 'المرافق والخدمات الادراية',
     department: 'المرافق والخدمات الادراية',
     generalManager: 'مي بنت سعد البدراني',
+    id: ''
   },
   {
     name: 'فهد الدوسري',
@@ -76,6 +80,7 @@ const employeeRequests: Employee[] = [
     management: 'المرافق والخدمات الادراية',
     department: 'المرافق والخدمات الادراية',
     generalManager: 'مي بنت سعد البدراني',
+    id: ''
   },
   {
     name: 'رهف العبدلله',
@@ -90,5 +95,6 @@ const employeeRequests: Employee[] = [
     management: 'المرافق والخدمات الادراية',
     department: 'المرافق والخدمات الادراية',
     generalManager: 'مي بنت سعد البدراني',
+    id: ''
   },
 ];
