@@ -47,8 +47,8 @@ export {
   SalaryIdentificationElementSchema,
   type SalaryIdentificationElement
 } from './salary-identification/schema';
-export { TrainingElementSchema, type TrainingElement } from './training/schema';
-export { TransactionListElementSchema } from './transaction-list/schema';
-export { VacationTypeSchema, type VacationType } from './vacation-types/schema';
 export {EmployeeDepartmentElementSchema } from './employee-department/schema';
+export { TrainingElementSchema, type TrainingElement } from "./training/schema";
+export { TransactionListElementSchema } from "./transaction-list/schema";
+export { VacationTypeSchema, type VacationType } from "./vacation-types/schema";
 export { type ProfileElement, ProfileElementSchema } from "./profile/schema";
