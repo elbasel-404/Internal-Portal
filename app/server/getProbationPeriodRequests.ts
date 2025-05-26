@@ -1,8 +1,6 @@
 'use server';
 
-import {
-  ProbationEvaluationElementSchema
-} from '@api/schemas/index';
+import { ProbationEvaluationElementSchema } from '@api/schemas/index';
 import { ResponseSchema } from '@api/schemas/responseSchema';
 import { getDemo } from '@db/actions';
 import type { ProbationPeriodRequest } from '@types';
@@ -19,7 +17,7 @@ export const getProbationPeriodRequests = async (): Promise<
   const url = 'api/po/hr/probation-evaluation';
   const apiRootUrl = process.env.API_ROOT_URL as string;
   const { headers } = await getFetchHeaders();
-  const requestBody = { employee_id: 358 };
+  const requestBody = { employee_id: 1711 };
   const requestBodyString = JSON.stringify(requestBody);
   const requestUrl = `${apiRootUrl}/${url}`;
 
@@ -45,8 +43,8 @@ export const getProbationPeriodRequests = async (): Promise<
     const probationItem: ProbationPeriodRequest = {
       id: data.id.toString(),
       date: data.date,
-      employee: data.complete_name,
-      jobTitle: data.job_id[1].toString(),
+      employee: data.employee_id[1].toString(),
+      jobTitle: data.number,
       recommendation: data.recommendation,
       status: data.state,
     };

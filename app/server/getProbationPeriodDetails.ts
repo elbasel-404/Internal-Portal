@@ -42,7 +42,7 @@ export const getProbationPeriodDetails = async (
   // ! ==================================
 
   const returnedData: ProbationPeriodDetails = {
-    employeeName: validatedData.complete_name,
+    employeeName: validatedData.employee_id[1].toString(),
     jobNumber: validatedData.job_id[0].toString(),
     jobTitle: validatedData.job_id[1].toString(),
     management: validatedData.department_id[1].toString(),
