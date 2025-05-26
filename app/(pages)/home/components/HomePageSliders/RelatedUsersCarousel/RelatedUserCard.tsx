@@ -7,7 +7,7 @@ import {
   SignsPostIcon,
   UserHomeIcon,
 } from '@icons';
-import { RelatedUser } from '@types';
+import { Employee } from '@types';
 import {
   Button,
   Tooltip,
@@ -27,8 +27,7 @@ export const RelatedUserCard = ({
   phone,
   position,
   recycleWork,
-  workType,
-}: RelatedUser) => {
+}: Employee) => {
   return (
     <div
       className='bg-cloudGray transition-colors rounded-[24px]
@@ -63,9 +62,9 @@ export const RelatedUserCard = ({
 
         <div className='flex justify-center items-center gap-2 p-2 rounded-md w-full bg-cloudGray font-normal'>
           <UserHomeIcon />
-          <span className='text-sm text-primary font-medium pt-1'>
+          {/* <span className='text-sm text-primary font-medium pt-1'>
             {workType}
-          </span>
+          </span> */}
         </div>
 
         <div className='flex flex-col w-full gap-2.5 mt-4'>

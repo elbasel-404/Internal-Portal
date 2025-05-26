@@ -1,6 +1,6 @@
 'use client';
 
-import type { RelatedUser } from '@types';
+import type { Employee } from '@types';
 import { Carousel, type CarouselApi, CarouselItem } from '@ui';
 import { useWindowSize } from '@uidotdev/usehooks';
 import { cn } from '@utils';
@@ -14,7 +14,7 @@ const CarouselContent = dynamic(
 );
 
 interface RelatedUsersCarouselProps {
-  relatedUsers: RelatedUser[];
+  relatedUsers: Employee[];
   className?: string;
 }
 

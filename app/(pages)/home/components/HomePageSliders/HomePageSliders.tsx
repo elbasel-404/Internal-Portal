@@ -2,13 +2,13 @@
 
 import { AngleLeftIcon } from '@icons';
 import { paths } from '@lib';
-import type { NewsCardSlide, RelatedUser } from '@types';
+import type { NewsCardSlide, Employee } from '@types';
 import Link from 'next/link';
 import { RelatedUsersCarousel } from './RelatedUsersCarousel';
 
 interface HomePageSlidersProps {
   slides: NewsCardSlide[];
-  relatedUsers: RelatedUser[];
+  relatedUsers: Employee[];
 }
 
 export const HomePageSliders = ({ relatedUsers }: HomePageSlidersProps) => {
