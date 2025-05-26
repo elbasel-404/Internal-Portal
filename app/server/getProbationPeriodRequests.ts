@@ -1,14 +1,60 @@
 'use server';
 
-import type { TrialPeriodRequest } from '@types';
+import { ProbationEvaluationElementSchema } from '@api/schemas/index';
+import { ResponseSchema } from '@api/schemas/responseSchema';
+import { getDemo } from '@db/actions';
+import type { ProbationPeriodRequest } from '@types';
+import { getFetchHeaders } from './getFetchHeaders';
 
-export const getTrialPeriodRequests = async (): Promise<
-  TrialPeriodRequest[]
+export const getProbationPeriodRequests = async (): Promise<
+  ProbationPeriodRequest[]
 > => {
-  return TrialPeriodDummyData;
+  const isDemo = await getDemo();
+  if (isDemo) return ProbationPeriodDummyData;
+
+  // ! VARIABLES
+  // ! ==================================
+  const url = 'api/po/hr/probation-evaluation';
+  const apiRootUrl = process.env.API_ROOT_URL as string;
+  const { headers } = await getFetchHeaders();
+  const requestBody = { employee_id: 1711 };
+  const requestBodyString = JSON.stringify(requestBody);
+  const requestUrl = `${apiRootUrl}/${url}`;
+
+  // ! FETCH
+  // ! ==================================
+  const apiResponse = await fetch(requestUrl, {
+    headers,
+    method: 'POST',
+    body: requestBodyString,
+  });
+  const responseJson = await apiResponse.json();
+
+  // ! VALIDATION
+  // ! ==================================
+  const validatedResponse = ResponseSchema.parse(responseJson);
+  const { result } = validatedResponse;
+  const { data } = result;
+  const validatedData = ProbationEvaluationElementSchema.array().parse(data);
+
+  // ! PARSING
+  // ! ==================================
+  const returnedData: ProbationPeriodRequest[] = validatedData.map((data) => {
+    const probationItem: ProbationPeriodRequest = {
+      id: data.id.toString(),
+      date: data.date,
+      employee: data.employee_id[1].toString(),
+      jobTitle: data.number,
+      recommendation: data.recommendation,
+      status: data.state,
+    };
+    return probationItem;
+  });
+
+  return returnedData;
 };
 
-const TrialPeriodDummyData: TrialPeriodRequest[] = [
+const ProbationPeriodDummyData: ProbationPeriodRequest[] = [
   {
     id: '#55465',
     date: '2024-05-05',

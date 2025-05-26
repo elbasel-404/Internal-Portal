@@ -1,10 +1,10 @@
-"use server";
+'use server';
 
-import type { PressFileDetails } from "@types";
-import { getFetchHeaders } from "./getFetchHeaders";
-import { NewsElementSchema, ResponseSchema } from "@api/schemas";
-import { getDemo } from "../db/actions/getDemo";
-import {formatDate} from "@utils"
+import { NewsElementSchema, ResponseSchema } from '@api/schemas';
+import type { PressFileDetails } from '@types';
+import { formatNewsDate } from '@utils';
+import { getDemo } from '../db/actions/getDemo';
+import { getFetchHeaders } from './getFetchHeaders';
 
 export const getPressFileDetails = async (
   id: string
@@ -14,11 +14,11 @@ export const getPressFileDetails = async (
 
   // ! VARIBLES
   // ! ==================================
-  const url = "api/po/read/portal-news";
+  const url = 'api/po/read/portal-news';
   const apiRootUrl = process.env.API_ROOT_URL as string;
   const { headers } = await getFetchHeaders();
   const requestBody = {
-    news_type: "news",
+    news_type: 'news',
     news_id: id,
   };
   const requestBodyString = JSON.stringify(requestBody);
@@ -28,7 +28,7 @@ export const getPressFileDetails = async (
   // ! ==================================
   const apiResponse = await fetch(requestUrl, {
     headers,
-    method: "POST",
+    method: 'POST',
     body: requestBodyString,
   });
   const responseJson = await apiResponse.json();
@@ -46,7 +46,7 @@ export const getPressFileDetails = async (
   const returnedData: PressFileDetails = {
     id: validatedData.id.toString(),
     title: validatedData.title,
-    date: formatDate(validatedData.create_date),
+    date: formatNewsDate(validatedData.create_date),
     description: validatedData.description,
     imageUrl: `data:image/gif;base64,${validatedData.image}`,
   };
@@ -54,9 +54,9 @@ export const getPressFileDetails = async (
 };
 
 const dummyData: PressFileDetails = {
-  id: "602",
-  date: "01.06.2024 - 07:54 صباحاً",
-  imageUrl: "/article.svg",
+  id: '602',
+  date: '01.06.2024 - 07:54 صباحاً',
+  imageUrl: '/article.svg',
   title:
     '"منشآت" تختتم أسبوع القانون بمناقشة أهم الفرص الداعمة لرواد الأعمال في قطاع القانون"',
   description: ` اختتمت الهيئة العامة للمنشآت الصغيرة والمتوسطة "منشآت" جولة الامتياز

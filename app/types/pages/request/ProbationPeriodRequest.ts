@@ -1,4 +1,4 @@
-export type TrialPeriodRequest = {
+export type ProbationPeriodRequest = {
   id: string;
   date: string;
   employee: string;

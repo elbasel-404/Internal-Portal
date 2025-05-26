@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const TrialPeriodSchema = z.object({
+export const ProbationPeriodSchema = z.object({
   employeeName: z.string().min(1, 'اختر اسم الموظف'),
   recommendation: z.string().min(1, 'اختر التوصية'),
   organizationCulture: z.string().min(1, 'اختر ملائمة ثقافة الهيئة'),

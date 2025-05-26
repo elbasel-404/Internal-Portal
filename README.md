@@ -41,7 +41,6 @@ remove all data from `app/db/db.json`;
 <br>
 `rm -rf pnpm-lock.yaml`
 <br>
-`pnpm update`
 
 #### Or copy/past the following to run all commands at once:
 
@@ -49,7 +48,6 @@ rm -rf .next && \
 rm -rf pnpm-lock.yaml && \
 mkdir -p .next/standalone/app/db && \
 cp app/db/db.json .next/standalone/app/db/ && \
-pnpm update && \
 =pnpm build && \
 cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/ && \
 node .next/standalone/server.js
