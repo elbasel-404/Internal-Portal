@@ -22,6 +22,8 @@ export { getEmployeeMembersDetails } from './getEmployeeMembersDetails';
 export { getEmployeeMembersRequests } from './getEmployeeMembersRequests';
 export { getEmployeeRequests } from './getEmployees';
 export { getEmployeeDepartmentRequests } from './getEmployeesDepartment';
+export { getEvaluationGoals } from './getEvaluationGoals';
+export { getFamilyNewsDetails } from './getFamilyNewsDetails';
 export { getFamilyNewsList } from './getFamilyNewsList';
 export { getHrLetterDetails } from './getHrLetterDetails';
 export { getHrLetterRequests } from './getHrLetterRequests';

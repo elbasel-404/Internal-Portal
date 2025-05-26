@@ -28,6 +28,10 @@ export { AdNewSchema } from "./ad-news/schema";
 export { FamilyNewSchema } from "./family-news/schema";
 export { NewsElementSchema } from "./news/schema";
 export {
+  RecommendationSchema,
+  type Recommendation,
+} from "./recommendations/schema";
+export {
   RemoteWorkElementSchema,
   type RemoteWorkElement,
 } from "./remote-work/schema";
@@ -46,3 +50,4 @@ export {
 export { TrainingElementSchema, type TrainingElement } from "./training/schema";
 export { TransactionListElementSchema } from "./transaction-list/schema";
 export { VacationTypeSchema, type VacationType } from "./vacation-types/schema";
+export { type ProfileElement, ProfileElementSchema } from "./profile/schema";

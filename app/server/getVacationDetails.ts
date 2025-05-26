@@ -1,9 +1,9 @@
-'use server';
+"use server";
 
-import { VacationDetails } from '@types';
-import { HolidayElementSchema, ResponseSchema } from '../../api-schemas';
-import { getDemo } from '../db/actions/getDemo';
-import { getFetchHeaders } from './getFetchHeaders';
+import { VacationDetails } from "@types";
+import { HolidayElementSchema, ResponseSchema } from "../../api-schemas";
+import { getDemo } from "../db/actions/getDemo";
+import { getFetchHeaders } from "./getFetchHeaders";
 
 export const getVacationDetails = async (
   id: string
@@ -11,9 +11,9 @@ export const getVacationDetails = async (
   const isDemo = await getDemo();
   if (isDemo) return dummyData;
 
-  // ! VARIBLES
+  // ! VARIABLES
   // ! ==================================
-  const url = 'api/po/hr/holidays/request';
+  const url = "api/po/hr/holidays/request";
   const apiRootUrl = process.env.API_ROOT_URL as string;
   const { headers } = await getFetchHeaders();
   const requestBody = { id: id };
@@ -24,7 +24,7 @@ export const getVacationDetails = async (
   // ! ==================================
   const apiResponse = await fetch(requestUrl, {
     headers,
-    method: 'POST',
+    method: "POST",
     body: requestBodyString,
   });
   const responseJson = await apiResponse.json();
@@ -48,7 +48,7 @@ export const getVacationDetails = async (
     alternativeEmployee: validatedData.substitute_employee_id[1].toString(),
     notes: validatedData.notes,
     attachments: validatedData.attachment_ids.map(
-      (file) => new File([''], file.toString())
+      (file) => new File([""], file.toString())
     ),
   };
 
@@ -56,16 +56,16 @@ export const getVacationDetails = async (
 };
 
 const dummyData: VacationDetails = {
-  id: '1',
-  requestDate: '2021-09-01',
-  type: 'اجازة مرضية',
-  vacationDate: 'من 17-04-2024 الى 18-04-2024',
-  duration: '1 يوم',
-  alternativeEmployee: 'عساف بن رشود الصاعدي (1725)',
+  id: "1",
+  requestDate: "2021-09-01",
+  type: "اجازة مرضية",
+  vacationDate: "من 17-04-2024 الى 18-04-2024",
+  duration: "1 يوم",
+  alternativeEmployee: "عساف بن رشود الصاعدي (1725)",
   notes:
-    'ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ',
+    "ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ",
   attachments: [
-    new File([''], 'نموذج طلب 2 .pdf'),
-    new File([''], 'نموذج طلب .pdf'),
+    new File([""], "نموذج طلب 2 .pdf"),
+    new File([""], "نموذج طلب .pdf"),
   ],
 };
