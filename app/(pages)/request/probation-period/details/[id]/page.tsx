@@ -1,20 +1,20 @@
 import { RequestDetails, RequestStatus } from '@components';
-import { getRequestStatus, getTrialPeriodDetails } from '@server';
+import { getProbationPeriodDetails, getRequestStatus } from '@server';
 import { RequestHeader } from '@types';
-import { TrialPeriodCriteria } from '../../components';
+import { ProbationPeriodCriteria } from '../../components';
 
 // !  // !It will be used when id passed to endpoint for integration
-// type Params = Promise<{ id: string }>;
+type Params = Promise<{ id: string }>;
 
-// interface TrialPeriodDetailsPageProps {
-//   params: Params;
-// }
+interface ProbationPeriodDetailsPageProps {
+  params: Params;
+}
 
-const TrialPeriodDetailsPage = async ({
-//   params,
-}) => {
+const ProbationPeriodDetailsPage = async ({
+  params,
+}: ProbationPeriodDetailsPageProps) => {
   // !  // !It will be used when id passed to endpoint for integration
-  //   const { id } = await params;
+  const { id } = await params;
   const requestStatus = await getRequestStatus();
   const requestCaption =
     'انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر';
@@ -24,11 +24,11 @@ const TrialPeriodDetailsPage = async ({
     jobTitle,
     management,
     appointmentDate,
-    endTrialPeriodDate,
+    endProbationPeriodDate,
     recommendation,
     notes,
     attachments,
-  } = (await getTrialPeriodDetails()) || {};
+  } = (await getProbationPeriodDetails(id)) || {};
 
   const requestHeaders: RequestHeader[] = [
     {
@@ -53,7 +53,7 @@ const TrialPeriodDetailsPage = async ({
     },
     {
       label: 'تاريخ إنتهاء فترة التجربة',
-      value: endTrialPeriodDate,
+      value: endProbationPeriodDate,
     },
     {
       label: 'التوصية',
@@ -73,10 +73,10 @@ const TrialPeriodDetailsPage = async ({
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails
         headers={requestHeaders}
-        evaluationCriteria={<TrialPeriodCriteria />}
+        evaluationCriteria={<ProbationPeriodCriteria />}
       />
     </main>
   );
 };
 
-export default TrialPeriodDetailsPage;
+export default ProbationPeriodDetailsPage;
