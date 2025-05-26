@@ -1,4 +1,4 @@
-export const formatDate = (date: Date) => {
+export const formatNewsDate = (date: Date) => {
   const dateToFormat = new Date(date);
   const day = dateToFormat.toLocaleString("en-US", { day: "2-digit" });
   const month = dateToFormat.toLocaleString("en-US", { month: "2-digit" });
