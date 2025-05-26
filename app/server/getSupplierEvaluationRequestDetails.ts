@@ -13,7 +13,7 @@ export const getSupplierEvaluationRequestDetails = async (
       step: 'step 1',
       purchaseRequestNumber: '250087',
       supplier: 'شركة الحلول المتميزة',
-      projectName: 'matrial',
+      projectName: 'maprobation',
       contractStartDate: '2025-02-13',
       contractEndDate: '2025-02-22',
       startDate: '',

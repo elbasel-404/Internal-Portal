@@ -1,6 +1,6 @@
 import { cn } from '@utils';
 
-export const TrialPeriodCriteria = () => {
+export const ProbationPeriodCriteria = () => {
   const data = [
     { label: 'سلوكيات العمل', value: 'يفى بالتوقعات' },
     { label: 'مظهر الشخصي', value: 'يفى بالتوقعات' },

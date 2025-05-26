@@ -35,7 +35,7 @@ const data: GeneralInfo[] = [
   },
 ];
 
-export const TrialPeriodData = () => {
+export const ProbationPeriodData = () => {
   return (
     <div className='py-6'>
       <InfoGrid info={data} className='lg:grid-cols-2' />

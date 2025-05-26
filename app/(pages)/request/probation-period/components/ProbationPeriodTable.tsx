@@ -7,10 +7,10 @@ import Link from 'next/link';
 import { ChangeEvent, useState } from 'react';
 
 import { paths } from '@lib';
-import { TrialPeriodRequest } from '@types';
+import { ProbationPeriodRequest } from '@types';
 
-interface TrialPeriodProps {
-  data: TrialPeriodRequest[];
+interface ProbationPeriodProps {
+  data: ProbationPeriodRequest[];
 }
 
 const tableHeaders = [
@@ -21,7 +21,7 @@ const tableHeaders = [
   { label: 'الحالة' },
 ];
 
-export const TrialPeriodTable = ({ data }: TrialPeriodProps) => {
+export const ProbationPeriodTable = ({ data }: ProbationPeriodProps) => {
   const [, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [isFilterVisible, setIsFilterVisible] = useState(false);
@@ -63,8 +63,8 @@ export const TrialPeriodTable = ({ data }: TrialPeriodProps) => {
               <FilterIcon className='fill-primary' />
             </Button>
             <Link
-              href={paths.newTrialPeriod.href}
-              className='flex group font-medium items-center gap-2 bg-primary text-white px-4 py-1 rounded-full hover:bg-primary-opacity hover:text-primary hover:border-2 hover:border-primary'
+              href={paths.newProbationPeriod.href}
+              className='flex group font-medium items-center gap-2 bg-primary text-white px-4 py-1 rounded-full hover:bg-primary-opacity hover:text-primary'
             >
               <CirclePlusIcon className='fill-white group-hover:fill-primary' />
               أضف جديد
@@ -79,7 +79,7 @@ export const TrialPeriodTable = ({ data }: TrialPeriodProps) => {
         <Table
           columns={tableHeaders}
           rows={filteredRequests}
-          link={paths.trialPeriodDetails.href}
+          link={paths.probationPeriodDetails.href}
         />
       </div>
     </>
