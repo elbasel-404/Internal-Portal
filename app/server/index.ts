@@ -88,4 +88,5 @@ export { removeTrainingCourse } from './removeTrainingCourse';
 export { revalidateHomePage } from './revalidateHomePage';
 export { setUserId } from './setUserId';
 export { toggleHomePageSetting } from './toggleHomePageSetting';
-
+export {getAdsNewsList} from "./getAdsNewsList"
+export {getAdsNewsDetails} from "./getAdsNewsDetails"
