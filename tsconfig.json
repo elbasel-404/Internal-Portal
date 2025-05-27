@@ -48,7 +48,7 @@
       "@api/schemas/*": ["./api-schemas/*"],
       "@api/schemas": ["./api-schemas"],
       "@storage": ["./app/storage"],
-      "@auth": ["./app/auth"]
+      "@auth": ["./app/server/auth"]
     },
     "typeRoots": ["./node_modules/@types", "modules.d"]
   },
