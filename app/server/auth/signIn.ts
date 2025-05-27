@@ -3,6 +3,7 @@
 import { encrypt } from "@utils";
 import { cookies } from "next/headers";
 import { z } from "zod";
+import { getEmployeeId } from "./getEmployeeId";
 
 export const signIn = async (formData: FormData) => {
   // ! ================= ENV =================
@@ -65,7 +66,7 @@ export const signIn = async (formData: FormData) => {
 
   const responseJson = await response.json();
 
-  // ! ================= RESPONE VALIDATION =================
+  // ! ================= RESPONSE VALIDATION =================
   const authResponseValidation = authResponseSchema.safeParse(responseJson);
 
   if (!authResponseValidation.success) {
@@ -95,6 +96,17 @@ export const signIn = async (formData: FormData) => {
   });
   const cookieStore = await cookies();
   cookieStore.set("session", session, { expires, httpOnly: true });
+
+  // ! ================= Employee ID =================
+  console.log("Getting employee id...");
+  const accessToken = access_token;
+  const employeeId = await getEmployeeId({
+    username,
+    password,
+    accessToken,
+  });
+  console.log("Logged in with", { employeeId });
+  cookieStore.set("employeeId", employeeId);
 };
 
 // ! ================= SCHEMAS =================
