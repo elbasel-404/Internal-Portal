@@ -1,5 +1,10 @@
 import * as z from "zod";
 
+export const ProbationLineIdSchema = z.object({
+    "question": z.string(),
+    "answer": z.string(),
+});
+export type ProbationLineId = z.infer<typeof ProbationLineIdSchema>;
 
 export const ProbationEvaluationElementSchema = z.object({
     "id": z.number(),
@@ -10,11 +15,11 @@ export const ProbationEvaluationElementSchema = z.object({
     "date": z.string(),
     "date_hiring": z.string(),
     "date_probation_end": z.string(),
-    "recruiter_date": z.boolean(),
+    "recruiter_date": z.union([z.boolean(), z.string()]),
     "attachment_ids": z.array(z.any()),
     "state": z.string(),
     "notes": z.boolean(),
-    "probation_line_ids": z.array(z.any()),
+    "probation_line_ids": z.array(ProbationLineIdSchema),
     "reason": z.boolean(),
     "set_to_draft_reason": z.boolean(),
     "workflow_user_ids": z.array(z.any()),
