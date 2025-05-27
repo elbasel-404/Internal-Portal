@@ -4,6 +4,7 @@ import type { VacationRequest } from "@types";
 import { HolidayElementSchema, ResponseSchema } from "../../api-schemas";
 import { getDemo } from "../db/actions/getDemo";
 import { getFetchHeaders } from "./getFetchHeaders";
+import { getStoredEmployeeId } from "@auth";
 
 export const getVacationRequests = async (): Promise<VacationRequest[]> => {
   const isDemo = await getDemo();
@@ -11,10 +12,11 @@ export const getVacationRequests = async (): Promise<VacationRequest[]> => {
 
   // ! VARIABLES
   // ! ==================================
+  const employeeId = await getStoredEmployeeId();
   const url = "api/po/hr/holidays/request";
   const apiRootUrl = process.env.API_ROOT_URL as string;
   const { headers } = await getFetchHeaders();
-  const requestBody = { employee_id: 1711 };
+  const requestBody = { employee_id: employeeId };
   const requestBodyString = JSON.stringify(requestBody);
   const requestUrl = `${apiRootUrl}/${url}`;
 
