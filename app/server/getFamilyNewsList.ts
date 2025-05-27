@@ -3,8 +3,9 @@
 import { FamilyNewSchema, ResponseSchema } from '@api/schemas';
 import type { NewsFamily } from '@types';
 import { formatNewsDate } from '@utils';
-import { getDemo } from '../db/actions/getDemo';
-import { getFetchHeaders } from './getFetchHeaders';
+import { getDemo } from "../db/actions/getDemo";
+import { getFetchHeaders } from "./getFetchHeaders";
+import { formatDate } from "@utils";
 
 export const getFamilyNewsList = async (): Promise<NewsFamily[]> => {
   const isDemo = await getDemo();
@@ -41,10 +42,10 @@ export const getFamilyNewsList = async (): Promise<NewsFamily[]> => {
     const newsItem: NewsFamily = {
       id: data.id,
       title: data.title,
-      date: formatNewsDate(data.create_date),
+      date: formatDate(data.create_date),
       image: data.image
         ? `data:image/gif;base64,${data.image}`
-        : '/monshaatFamily-1.svg',
+        : "/monshaatFamily-1.svg",
       description: data.resume,
     };
     return newsItem;
@@ -64,25 +65,25 @@ const dummyData: NewsFamily[] = [
   {
     id: 2,
     title:
-      'رزقت الزميلة: لمياء بنت عبدالله الربيعان بأحمد جعله الله من مواليد ال...',
-    date: '01.06.2024 - 07:54 صباحاً',
-    image: '/monshaatFamily-2.svg',
-    description: '',
+      "رزقت الزميلة: لمياء بنت عبدالله الربيعان بأحمد جعله الله من مواليد ال...",
+    date: "01.06.2024 - 07:54 صباحا",
+    image: "/monshaatFamily-2.svg",
+    description: "",
   },
   {
     id: 3,
     title:
-      'رزقت الزميلة: لمياء بنت عبدالله الربيعان بأحمد جعله الله من مواليد ال...',
-    date: '01.06.2024 - 07:54 صباحاً',
-    image: '/monshaatFamily-3.svg',
-    description: '',
+      "رزقت الزميلة: لمياء بنت عبدالله الربيعان بأحمد جعله الله من مواليد ال...",
+    date: "01.06.2024 - 07:54 صباحا",
+    image: "/monshaatFamily-3.svg",
+    description: "",
   },
   {
     id: 4,
     title:
-      'رزقت الزميلة: لمياء بنت عبدالله الربيعان بأحمد جعله الله من مواليد ال...',
-    date: '01.06.2024 07:54 صباحًا',
-    image: '/MonshaatFamily-4.svg',
-    description: '',
+      "رزقت الزميلة: لمياء بنت عبدالله الربيعان بأحمد جعله الله من مواليد ال...",
+    date: "01.06.2024 - 07:54 صباحا",
+    image: "/MonshaatFamily-4.svg",
+    description:"",
   },
 ];
