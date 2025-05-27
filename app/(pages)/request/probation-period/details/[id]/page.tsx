@@ -28,6 +28,7 @@ const ProbationPeriodDetailsPage = async ({
     recommendation,
     notes,
     attachments,
+    probationLineIds,
   } = (await getProbationPeriodDetails(id)) || {};
 
   const requestHeaders: RequestHeader[] = [
@@ -73,7 +74,7 @@ const ProbationPeriodDetailsPage = async ({
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails
         headers={requestHeaders}
-        evaluationCriteria={<ProbationPeriodCriteria />}
+        evaluationCriteria={<ProbationPeriodCriteria probationCriteriaData={probationLineIds ?? []} />}
       />
     </main>
   );
