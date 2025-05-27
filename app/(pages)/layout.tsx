@@ -1,11 +1,11 @@
-import { Body } from '@components';
-import { fonts } from '@lib';
-import type { Metadata } from 'next';
-import type { ReactNode } from 'react';
-import './globals.css';
+import { Body } from "@components";
+import { fonts } from "@lib";
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: 'منشآت',
+  title: "منشآت",
 };
 
 interface RootLayoutProps {
@@ -16,10 +16,10 @@ interface RootLayoutProps {
 const RootLayout = ({ children, modalSlot }: Readonly<RootLayoutProps>) => {
   return (
     <html
-      lang='en'
-      dir='rtl'
+      lang="en"
+      dir="rtl"
       suppressHydrationWarning={true}
-      className='app-scrollbar'
+      className="app-scrollbar"
     >
       <Body
         className={`${fonts.className} antialiased app-scrollbar bg-background text-foreground`}
