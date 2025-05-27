@@ -17,7 +17,7 @@ export const getProbationPeriodRequests = async (): Promise<
   const url = 'api/po/hr/probation-evaluation';
   const apiRootUrl = process.env.API_ROOT_URL as string;
   const { headers } = await getFetchHeaders();
-  const requestBody = { employee_id: 1711 };
+  const requestBody = { employee_id: 1722 };
   const requestBodyString = JSON.stringify(requestBody);
   const requestUrl = `${apiRootUrl}/${url}`;
 
