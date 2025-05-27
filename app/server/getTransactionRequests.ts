@@ -4,6 +4,7 @@ import { ResponseSchema, TransactionListElementSchema } from "@api/schemas";
 import { getDemo } from "@db/actions";
 import type { TransactionRequest } from "@types";
 import { getFetchHeaders } from "./getFetchHeaders";
+import { getStoredEmployeeId } from "@auth";
 
 export const getTransactionRequests = async (): Promise<
   TransactionRequest[]
@@ -13,10 +14,11 @@ export const getTransactionRequests = async (): Promise<
 
   // ! VARIABLES
   // ! ======>============================
+  const employeeId = await getStoredEmployeeId();
   const url = "api/po/read/retrieve-my-requests";
   const apiRootUrl = process.env.API_ROOT_URL as string;
   const { headers } = await getFetchHeaders();
-  const requestBody = { employee_id: 305 };
+  const requestBody = { employee_id: employeeId };
   const requestBodyString = JSON.stringify(requestBody);
   const requestUrl = `${apiRootUrl}/${url}`;
 
