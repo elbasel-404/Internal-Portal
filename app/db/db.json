@@ -342,7 +342,94 @@
       "batchs": [],
       "batchProducts": [],
       "trainingCourses": []
+    },
+    {
+      "id": 9,
+      "activeGeneralInfoKeys": [
+        "employeeRequests",
+        "approvalRequests",
+        "totalVacationBalance",
+        "permissions",
+        "remoteWork",
+        "delegations"
+      ],
+      "activeHomePageSlotsKeys": [
+        "completeProfile",
+        "generalInfo",
+        "userInfo",
+        "attendance",
+        "approvalRequestsTable",
+        "sliders",
+        "timelineCalendar",
+        "news"
+      ],
+      "activeNewsTabsKeys": [
+        "pressTab",
+        "newsTab",
+        "monshaatFamilyTab",
+        "internalTab"
+      ],
+      "demo": true,
+      "convenantData": [
+        {
+          "product": "prod",
+          "statement": "active",
+          "amount": "10",
+          "invoiceNumber": "25",
+          "attachments": [
+            "file-name-i"
+          ]
+        }
+      ],
+      "projectCompletion": [],
+      "products": [],
+      "batchs": [],
+      "batchProducts": [],
+      "trainingCourses": []
+    },
+    {
+      "id": 10,
+      "activeGeneralInfoKeys": [
+        "approvalRequests",
+        "totalVacationBalance",
+        "permissions",
+        "remoteWork",
+        "delegations"
+      ],
+      "activeHomePageSlotsKeys": [
+        "completeProfile",
+        "generalInfo",
+        "userInfo",
+        "attendance",
+        "approvalRequestsTable",
+        "sliders",
+        "timelineCalendar",
+        "news"
+      ],
+      "activeNewsTabsKeys": [
+        "pressTab",
+        "newsTab",
+        "monshaatFamilyTab",
+        "internalTab"
+      ],
+      "demo": true,
+      "convenantData": [
+        {
+          "product": "prod",
+          "statement": "active",
+          "amount": "10",
+          "invoiceNumber": "25",
+          "attachments": [
+            "file-name-i"
+          ]
+        }
+      ],
+      "projectCompletion": [],
+      "products": [],
+      "batchs": [],
+      "batchProducts": [],
+      "trainingCourses": []
     }
   ],
-  "userCount": 8
+  "userCount": 10
 }
