@@ -1,10 +1,10 @@
 'use server';
 
-import { NewsElementSchema, ResponseSchema } from '@api/schemas';
-import type { PressFileDetails } from '@types';
-import { formatNewsDate } from '@utils';
-import { getDemo } from '../db/actions/getDemo';
-import { getFetchHeaders } from './getFetchHeaders';
+import type { PressFileDetails } from "@types";
+import { getFetchHeaders } from "./getFetchHeaders";
+import { NewsElementSchema, ResponseSchema } from "@api/schemas";
+import { getDemo } from "../db/actions/getDemo";
+import {formatDate} from "@utils"
 
 export const getPressFileDetails = async (
   id: string
@@ -14,7 +14,7 @@ export const getPressFileDetails = async (
 
   // ! VARIBLES
   // ! ==================================
-  const url = 'api/po/read/portal-news';
+  const url = "api/po/read/portal-news";
   const apiRootUrl = process.env.API_ROOT_URL as string;
   const { headers } = await getFetchHeaders();
   const requestBody = {
@@ -46,7 +46,7 @@ export const getPressFileDetails = async (
   const returnedData: PressFileDetails = {
     id: validatedData.id.toString(),
     title: validatedData.title,
-    date: formatNewsDate(validatedData.create_date),
+    date: formatDate(validatedData.create_date),
     description: validatedData.description,
     imageUrl: `data:image/gif;base64,${validatedData.image}`,
   };
