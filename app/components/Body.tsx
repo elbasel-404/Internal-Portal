@@ -1,6 +1,7 @@
 import {
   AppSideBar,
   Breadcrumbs,
+  EmployeeId,
   Footer,
   InitUser,
   Main,
@@ -23,6 +24,7 @@ export const Body = ({ children, className }: BodyProps) => {
   return (
     <body className={className}>
       <AppProvider>
+        <EmployeeId />
         <InitUser />
         <Toaster richColors={true} position="top-center" />
         <RegisterChartJSPlugins />
