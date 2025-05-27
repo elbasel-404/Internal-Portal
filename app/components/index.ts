@@ -28,4 +28,4 @@ export { Table } from './Table/Table';
 export { TimePicker } from './TimePicker';
 export { VisuallyHidden } from './VisuallyHidden';
 export { WrappedImage } from './WrappedImage';
-
+export { EmployeeId } from './EmployeeId'
