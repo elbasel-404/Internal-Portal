@@ -1,9 +1,8 @@
-import { InitUser, Login } from "@components";
+import { InitUser, Login, RegisterChartJSPlugins } from "@components";
 import { getSession } from "@server";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "./(pages)/globals.css";
-
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
@@ -21,6 +20,7 @@ const RootLayout = async ({ children }: Readonly<RootLayoutProps>) => {
       <html>
         <body>
           <InitUser />
+          <RegisterChartJSPlugins />
           <Login />
         </body>
       </html>
