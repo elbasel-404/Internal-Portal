@@ -1,9 +1,9 @@
 import { paths } from '@lib';
-import { getNewsListRequests } from '@server';
+import { getAdsNewsList } from '@server';
 import { NewsList } from '../components';
 
 const InternalAdsPage = async () => {
-  const internalAdsData = await getNewsListRequests();
+  const internalAdsData = await getAdsNewsList();
   return (
     <>
       <NewsList

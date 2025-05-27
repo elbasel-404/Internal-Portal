@@ -1,4 +1,4 @@
-import { getPressFileDetails } from '@server';
+import { getAdsNewsDetails } from '@server';
 import { PressFileDetails } from '../../../press-file/components';
 
 type Params = Promise<{ id: string }>;
@@ -12,7 +12,7 @@ const InternalAdsDetailsPage = async ({
 }: InternalAdsDetailsPageProps) => {
   const { id } = await params;
 
-  const { date, title, description, imageUrl } = (await getPressFileDetails(
+  const { date, title, description, imageUrl } = (await getAdsNewsDetails(
     id
   )) || { date: '', title: '', description: '', imageUrl: '' };
   return (

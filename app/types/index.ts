@@ -104,4 +104,6 @@ export type { Row } from './shared/Row';
 export type { Rules } from './shared/Rules';
 export type { TabType } from './shared/TabType';
 export type { User } from './shared/User';
+export type {AdsListRequst} from './pages/request/AdsListRequest'
+export type {AdsNewsDetails} from'./pages/request/AdsNewsDetails'
 

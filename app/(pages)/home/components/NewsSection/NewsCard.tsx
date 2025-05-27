@@ -1,21 +1,15 @@
 import { BookmarkIcon, ClockIcon } from '@icons';
-
-type NewsItem = {
-  id: number;
-  title: string;
-  date: string;
-  description: string;
-};
+import type { AdsListRequst } from "@types";
 
 type NewsGridProps = {
-  newsData: NewsItem[];
+  newsData: AdsListRequst[];
 };
 
 export const NewsCard = ({ newsData }: NewsGridProps) => {
   return (
     <aside className='bg-white col-span-1 order-2 lg:-order-1'>
       <div className='space-y-4'>
-        {newsData.map((n) => (
+        {newsData?.map((n) => (
           <div
             key={n.id}
             className='bg-primary-opacity px-6 py-4 rounded-xl hover:bg-white'
