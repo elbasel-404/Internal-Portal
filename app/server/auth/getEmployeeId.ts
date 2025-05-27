@@ -6,14 +6,17 @@ interface GetEmployeeIdParams {
     accessToken: string,
 }
 
-const QUERY_URL = "http://172.25.54.80:8069"
-const FETCH_URL = "https://publicapis.monshaat.gov.sa/ERP/TaskService/api/call/res.users/api_login"
-const FETCH_DB = "pre_prod"
-const FETCH_DEVICE = "SM-N970F"
+// ! ======================= ENV =============================
+const API_ROOT_URL = process.env.API_ROOT_URL;
 const API_KEY = process.env.API_KEY
 const API_KEY_HEADER_NAME = process.env.API_KEY_HEADER_NAME
 const SESSION_ID = process.env.SESSION_ID
 
+// ! ======================= STATIC =============================
+const QUERY_URL = "http://172.25.54.80:8069"
+const FETCH_URL = `${API_ROOT_URL}/api/call/res.users/api_login`
+const FETCH_DB = "pre_prod"
+const FETCH_DEVICE = "SM-N970F"
 
 export const getEmployeeId = async ({ username, password, accessToken }: GetEmployeeIdParams) => {
     const query = {
