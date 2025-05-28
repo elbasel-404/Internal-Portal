@@ -64,3 +64,4 @@ export { TrainingElementSchema, type TrainingElement } from "./training/schema";
 export { TransactionListElementSchema } from "./transaction-list/schema";
 export { VacationTypeSchema, type VacationType } from "./vacation-types/schema";
 export { type ProfileElement, ProfileElementSchema } from "./profile/schema";
+export {EmployeesListElementSchema} from './employees-list/schema'

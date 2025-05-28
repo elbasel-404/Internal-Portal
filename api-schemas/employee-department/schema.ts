@@ -16,6 +16,7 @@ export const EmployeeDepartmentElementSchema = z.object({
     "work_phone": z.string(),
     "work_email": z.string(),
     "work_email2": z.string(),
+    "work_location": z.string(),
     "mobile_phone": z.string(),
     "mobile_phone2": z.string(),
     "administration_id": z.array(z.union([z.number(), z.string()])),
