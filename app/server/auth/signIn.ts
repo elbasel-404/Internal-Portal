@@ -98,15 +98,15 @@ export const signIn = async (formData: FormData) => {
   cookieStore.set("session", session, { expires, httpOnly: true });
 
   // ! ================= Employee ID =================
-  // console.log("Getting employee id...");
-  // const accessToken = access_token;
-  // const employeeId = await getEmployeeId({
-  //   username,
-  //   password,
-  //   accessToken,
-  // });
-  // console.log("Logged in with", { employeeId });
-  // cookieStore.set("employeeId", employeeId);
+  console.log("Getting employee id...");
+  const accessToken = access_token;
+  const employeeId = await getEmployeeId({
+    username,
+    password,
+    accessToken,
+  });
+  console.log("Logged in with", { employeeId });
+  cookieStore.set("employeeId", employeeId);
 };
 
 // ! ================= SCHEMAS =================
