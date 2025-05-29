@@ -1,10 +1,16 @@
 "use server";
 
+import { getSession } from "@auth";
+
 export const getFetchHeaders = async () => {
   const API_KEY = process.env.API_KEY as string;
   const API_KEY_HEADER_NAME = process.env.API_KEY_HEADER_NAME as string;
-  const BEARER_TOKEN = process.env.BEARER_TOKEN as string;
+  // const BEARER_TOKEN = process.env.BEARER_TOKEN as string;
   const SESSION_ID = process.env.SESSION_ID as string;
+  const session = await getSession();
+  if (!session) throw new Error(`Error getting session ${{ session }}`,)
+  const { access_token } = session;
+  const BEARER_TOKEN = access_token;
 
   if (!API_KEY || !API_KEY_HEADER_NAME || !BEARER_TOKEN || !SESSION_ID) {
     console.log({
