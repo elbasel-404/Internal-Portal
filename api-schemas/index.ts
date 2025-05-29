@@ -66,3 +66,4 @@ export { VacationTypeSchema, type VacationType } from "./vacation-types/schema";
 export { type ProfileElement, ProfileElementSchema } from "./profile/schema";
 export { EmployeesListElementSchema } from "./employees-list/schema";
 export { OvertimeAssignmentElementSchema } from "./overtime-assignment/schema";
+export { PassportRequestSchema } from "./passport-requests/schema";
