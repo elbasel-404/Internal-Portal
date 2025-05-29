@@ -1,0 +1,1 @@
+export { GoalsModal } from './GoalsModal';

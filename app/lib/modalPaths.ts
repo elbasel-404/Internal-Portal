@@ -51,4 +51,8 @@ export const modalPaths = {
     title: 'مكان الانتداب',
     href: '/modal/DeputationPlacesModal',
   },
+  GoalsModal: {
+    title: 'قائمة الأهداف',
+    href: '/modal/GoalsModal',
+  },
 } as const;
