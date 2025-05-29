@@ -6,12 +6,13 @@ import {
   ArrowSquareIcon,
   CheckIcon,
   EyeIcon,
+  FolderWithSearchIcon,
   PdfFileIcon,
   ProjectorIcon,
   RiyalCurrencyIcon,
   SandClock2Icon,
   TrashIcon,
-  XMarkIcon
+  XMarkIcon,
 } from '@icons';
 import type { Row } from '@types';
 import {
@@ -126,8 +127,8 @@ export const Table = ({
               value === 'اعتمد' || value === 'done' || value === 'confirm'
                 ? 'fill-success-foreground'
                 : value === 'مرفوض' || value === 'refuse'
-                ? 'fill-destructive-foreground'
-                : 'fill-primary'
+                  ? 'fill-destructive-foreground'
+                  : 'fill-primary'
             }
           />
         )}
@@ -231,7 +232,7 @@ export const Table = ({
         <TableHeader className='bg-cloudGray'>
           <TableRow>
             {toggleId && (
-              <TableHead className='text-right text-darkBlue text-lg py-4'>
+              <TableHead className='text-right text-darkBlue text-base py-4'>
                 <div className='flex items-center gap-2 mr-2'>
                   {showCheckBox && (
                     <Checkbox
@@ -248,7 +249,7 @@ export const Table = ({
             {columns.map((col, index) => (
               <TableHead
                 key={index}
-                className='text-right text-darkBlue text-lg'
+                className='text-right text-darkBlue text-base px-4'
               >
                 {col.label}
               </TableHead>
@@ -256,101 +257,131 @@ export const Table = ({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {paginatedRequests.map((request, index) => (
-            <TableRow
-              className={`${index % 2 !== 0 ? 'bg-cloudGray' : 'bg-white'}`}
-              key={request.id}
-            >
-              {toggleId && (
-                <TableCell>
-                  <div className='flex items-center gap-2 mr-2'>
-                    {showCheckBox && (
-                      <Checkbox
-                        className='rounded-none shadow-none'
-                        checked={selectedRequests.includes(request.id)}
-                        onCheckedChange={() => handleSelectRequest(request.id)}
-                      />
-                    )}
-                    <Link href={getRowLink(link, request.id)}>
-                      <span
-                        className={`${link ? 'underline text-primary' : ''}`}
-                      >
-                        {request.id}
-                      </span>
-                    </Link>
-                  </div>
-                </TableCell>
-              )}
-
-              {Object.entries(request)
-                .filter(([key]) => key !== 'id')
-                .map(([key, value]) => (
-                  <TableCell key={key} className='py-3'>
-                    {renderCellContent(key, value, request)}
-                  </TableCell>
-                ))}
-
-              {!request.status && toggleStatus && (
-                <TableCell className='flex items-center gap-3'>
-                  <Button
-                    onClick={() => onApprove && onApprove(request.id)}
-                    className='flex group gap-1 items-center shadow-none hover:bg-green-600 hover:text-white justify-end text-success-foreground bg-success rounded-xl px-4 py-2.5'
-                  >
-                    <CheckIcon className='fill-success-foreground group-hover:fill-white' />
-                    اعتمد
-                  </Button>
-
-                  <Button
-                    onClick={() => onReject && onReject(request)}
-                    className='flex group gap-1 items-center shadow-none hover:bg-red-600 hover:text-white justify-end text-destructive-foreground bg-destructive-opacity rounded-xl px-4 py-2.5'
-                  >
-                    <XMarkIcon className='fill-destructive-foreground group-hover:fill-white' />
-                    مرفوض
-                  </Button>
-                </TableCell>
-              )}
-
-              {toggleDelete && (
-                <TableCell className='flex items-center gap-3'>
-                  <Button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      onRemove && onRemove(Number(request.id));
-                    }}
-                    className='flex group gap-1 items-center shadow-none hover:bg-red-600 hover:text-white justify-end text-destructive-foreground bg-destructive-opacity rounded-xl px-4 py-2.5'
-                  >
-                    <TrashIcon className='fill-destructive-foreground group-hover:fill-white' />
-                    حذف
-                  </Button>
-                </TableCell>
-              )}
-
-              {isAssignmentRequest && (
-                <TableCell className='flex items-center gap-3'>
-                  <Link href={''}>
-                    <Button className='flex group gap-2 items-center shadow-none hover:bg-primary-opacity hover:text-primary justify-end text-white bg-primary rounded-xl px-4 py-2.5'>
-                      <ArrowSquareIcon className='fill-white group-hover:fill-primary' />
-                      إنشاء طلب انتداب
-                    </Button>
-                  </Link>
-                </TableCell>
-              )}
+          {rows.length === 0 ? (
+            <TableRow>
+              <TableCell
+                colSpan={
+                  columns.length +
+                  (toggleId ? 1 : 0) +
+                  (toggleStatus ? 1 : 0) +
+                  (toggleDelete ? 1 : 0) +
+                  (isAssignmentRequest ? 1 : 0)
+                }
+                className='text-center py-10'
+              >
+                <div className='flex flex-col items-center justify-center gap-6'>
+                  <FolderWithSearchIcon />
+                  <p className='text-grey-400 text-xl font-medium'>
+                    لم يعثر على أي سجلات
+                  </p>
+                </div>
+              </TableCell>
             </TableRow>
-          ))}
+          ) : (
+            paginatedRequests.map((request, index) => (
+              <TableRow
+                className={`${index % 2 !== 0 ? 'bg-cloudGray' : 'bg-white'}`}
+                key={request.id}
+              >
+                {toggleId && (
+                  <TableCell>
+                    <div className='flex items-center gap-2 mr-2'>
+                      {showCheckBox && (
+                        <Checkbox
+                          className='rounded-none shadow-none'
+                          checked={selectedRequests.includes(request.id)}
+                          onCheckedChange={() =>
+                            handleSelectRequest(request.id)
+                          }
+                        />
+                      )}
+                      <Link href={getRowLink(link, request.id)}>
+                        <span
+                          className={`${link ? 'underline text-primary' : ''}`}
+                        >
+                          {request.id}
+                        </span>
+                      </Link>
+                    </div>
+                  </TableCell>
+                )}
+
+                {Object.entries(request)
+                  .filter(([key]) => key !== 'id')
+                  .map(([key, value]) => (
+                    <TableCell key={key} className='py-3'>
+                      {renderCellContent(key, value, request)}
+                    </TableCell>
+                  ))}
+
+                {!request.status && toggleStatus && (
+                  <TableCell className='flex items-center gap-3'>
+                    <Button
+                      onClick={() => onApprove && onApprove(request.id)}
+                      className='flex group gap-1 items-center shadow-none hover:bg-green-600 hover:text-white justify-end text-success-foreground bg-success rounded-xl px-4 py-2.5'
+                    >
+                      <CheckIcon className='fill-success-foreground group-hover:fill-white' />
+                      اعتمد
+                    </Button>
+
+                    <Button
+                      onClick={() => onReject && onReject(request)}
+                      className='flex group gap-1 items-center shadow-none hover:bg-red-600 hover:text-white justify-end text-destructive-foreground bg-destructive-opacity rounded-xl px-4 py-2.5'
+                    >
+                      <XMarkIcon className='fill-destructive-foreground group-hover:fill-white' />
+                      مرفوض
+                    </Button>
+                  </TableCell>
+                )}
+
+                {toggleDelete && (
+                  <TableCell className='flex items-center gap-3'>
+                    <Button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        onRemove && onRemove(Number(request.id));
+                      }}
+                      className='flex group gap-1 items-center shadow-none hover:bg-red-600 hover:text-white justify-end text-destructive-foreground bg-destructive-opacity rounded-xl px-4 py-2.5'
+                    >
+                      <TrashIcon className='fill-destructive-foreground group-hover:fill-white' />
+                      حذف
+                    </Button>
+                  </TableCell>
+                )}
+
+                {isAssignmentRequest && (
+                  <TableCell className='flex items-center gap-3'>
+                    <Link href={''}>
+                      <Button className='flex group gap-2 items-center shadow-none hover:bg-primary-opacity hover:text-primary justify-end text-white bg-primary rounded-xl px-4 py-2.5'>
+                        <ArrowSquareIcon className='fill-white group-hover:fill-primary' />
+                        إنشاء طلب انتداب
+                      </Button>
+                    </Link>
+                  </TableCell>
+                )}
+              </TableRow>
+            ))
+          )}
         </TableBody>
       </UITable>
 
-      <div className='flex justify-between items-center mt-4 px-4'>
-        <p className='text-[#78787A] text-sm font-light'>
-          إظهار {Math.min(currentPage * itemsPerPage, rows.length)} من أصل{' '}
-          {rows.length} طلب
-        </p>
-        {totalPages > 1 && (
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
+      <div className=''>
+        {rows.length > 0 ? (
+          <div className='flex justify-between items-center mt-4 p-4'>
+            <p className='text-[#78787A] text-sm font-light'>
+              إظهار {Math.min(currentPage * itemsPerPage, rows.length)} من أصل{' '}
+              {rows.length} طلب
+            </p>
+            {totalPages > 1 && (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
+            )}
+          </div>
+        ) : (
+          <div className='w-full'></div>
         )}
       </div>
     </>
