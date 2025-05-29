@@ -176,16 +176,16 @@ export const paths: Record<string, AppPath> = {
     href: '/request/medical/details/:id',
   },
   probationPeriod: {
-    title: "قائمة طلبات فترة التقييم",
-    href: "/request/probation-period",
+    title: 'قائمة طلبات فترة التقييم',
+    href: '/request/probation-period',
   },
   newProbationPeriod: {
-    title: "طلب تقييم فترة التجربة",
-    href: "/request/probation-period/new",
+    title: 'طلب تقييم فترة التجربة',
+    href: '/request/probation-period/new',
   },
   probationPeriodDetails: {
-    title: "تفاصيل تقييم فترة التجربة",
-    href: "/request/probation-period/details/:id",
+    title: 'تفاصيل تقييم فترة التجربة',
+    href: '/request/probation-period/details/:id',
   },
   bankAccountChange: {
     title: 'قائمة طلبات تغيير الحسابات البنكية',
@@ -426,5 +426,17 @@ export const paths: Record<string, AppPath> = {
   trainingDetails: {
     title: 'تفاصيل الدورة التدريبية',
     href: '/request/training/details/:id',
+  },
+  evaluationGoals: {
+    title: 'قائمة طلبات تخطيط الأداء',
+    href: '/evaluation/goals',
+  },
+  evaluationGoalDetails: {
+    title: 'تفاصيل طلب الهدف',
+    href: '/evaluation/goals/details/:id',
+  },
+  evaluationGoalsNew: {
+    title: 'طلب أهداف',
+    href: '/evaluation/goals/new',
   },
 };
