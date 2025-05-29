@@ -82,6 +82,7 @@ export const Login = () => {
             <form action={signIn} className="space-y-6">
               <div className="relative">
                 <input
+                  defaultValue="asaedi.uat"
                   name="username"
                   type="text"
                   id="username"
@@ -96,6 +97,7 @@ export const Login = () => {
 
               <div className="relative">
                 <input
+                  defaultValue="@112"
                   name="password"
                   type="password"
                   id="password"
