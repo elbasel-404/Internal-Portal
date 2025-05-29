@@ -1,5 +1,5 @@
-import { SelectField } from "@components/form";
-import { AddNewGoalButton } from "./AddNewGoalButton";
+import { SelectField } from '@components/form';
+import { AddNewGoalButton } from './AddNewGoalButton';
 
 interface IndividualGoalSectionProps {
   individualGoal: string;
@@ -12,20 +12,20 @@ export const IndividualGoalSection = ({
 }: IndividualGoalSectionProps) => {
   return (
     <>
-      <AddNewGoalButton modalName="IndividualGoalModal">
+      <AddNewGoalButton modalName='GoalsModal'>
         إضافة هدف فردي جديد
       </AddNewGoalButton>
 
       <SelectField
-        label="الهدف الفردي"
-        name="individualGoal"
-        placeholder=""
+        label='الهدف الفردي'
+        name='individualGoal'
+        placeholder=''
         value={individualGoal}
-        onChange={(value) => onInputChange("individualGoal", value)}
+        onChange={(value) => onInputChange('individualGoal', value)}
         required
         types={[
-          { id: "1", name: "الهدف الفردي الأول" },
-          { id: "2", name: "الهدف الفردي الثاني" },
+          { id: '1', name: 'الهدف الفردي الأول' },
+          { id: '2', name: 'الهدف الفردي الثاني' },
         ]}
       />
     </>
