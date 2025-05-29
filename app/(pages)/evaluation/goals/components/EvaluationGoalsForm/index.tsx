@@ -1,7 +1,7 @@
 'use client';
 
 import { Table } from '@components';
-import { SelectField } from '@components/form';
+import { DateField } from '@components/form';
 import { ModalLink } from '@components/modals/ModalLink';
 import { CirclePlusIcon } from '@icons';
 
@@ -15,12 +15,6 @@ const tableHeaders = [
   { label: 'المستهدف (رقم - تاريخ)' },
   { label: 'وزن الهدف ٪' },
 ];
-
-const YearsList = Array.from({ length: 51 }, (_, i) => {
-  const currentYear = new Date().getFullYear();
-  const year = currentYear + i;
-  return { id: year, name: year.toString() };
-});
 
 export const EvaluationGoalsForm = () => {
   return (
@@ -36,13 +30,7 @@ export const EvaluationGoalsForm = () => {
         </ModalLink>
       </div>
       <div className='p-4'>
-        <SelectField
-          label='السنة'
-          name='year'
-          placeholder='--'
-          types={YearsList}
-          required
-        />
+        <DateField label='السنة' name='year' required />
       </div>
 
       <Table
