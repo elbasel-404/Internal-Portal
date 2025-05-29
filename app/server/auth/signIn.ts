@@ -39,7 +39,7 @@ export const signIn = async (formData: FormData) => {
 
   // ! ================= FETCH SETUP =================
   const { username, password } = credsValidation.data;
-  const AUTH_ENDPOINT_URL = `${ROOT_API_URL}/api/authentication/oauth2/v2/token`;
+  const AUTH_ENDPOINT_URL = `http://172.25.54.80/api/authentication/oauth2/v2/token`;
   const method = "POST";
   const headers = {
     Connection: "keep-alive",
