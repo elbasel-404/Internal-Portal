@@ -12,10 +12,10 @@ export const signIn = async (formData: FormData) => {
   const SCOPE = process.env.SCOPE;
   const GRANT_TYPE = process.env.GRANT_TYPE;
   const API_KEY = process.env.API_KEY;
-  const ROOT_API_URL = process.env.API_ROOT_URL;
+  const API_ROOT_URL = process.env.API_ROOT_URL;
   const SESSION_ID = process.env.SESSION_ID;
 
-  if (!ROOT_API_URL) throw new Error("Invalid root api url");
+  if (!API_ROOT_URL) throw new Error("Invalid root api url");
   if (!CLIENT_SECRET) throw new Error("Invalid client secret");
   if (!CLIENT_ID) throw new Error("Invalid client ID");
   if (!SCOPE) throw new Error("Invalid scope");
@@ -39,7 +39,7 @@ export const signIn = async (formData: FormData) => {
 
   // ! ================= FETCH SETUP =================
   const { username, password } = credsValidation.data;
-  const AUTH_ENDPOINT_URL = `${ROOT_API_URL}/api/authentication/oauth2/v2/token`;
+  const AUTH_ENDPOINT_URL = `${API_ROOT_URL}/api/authentication/oauth2/v2/token`;
   const method = "POST";
   const headers = {
     Connection: "keep-alive",

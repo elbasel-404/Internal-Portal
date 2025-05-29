@@ -15,7 +15,7 @@ interface AuthSession {
   iat: number,
   exp: number
 }
-export const getSession = async () => {
+export const getSession = async (): Promise<AuthSession | null> => {
   const cookieStore = await cookies();
   const session = cookieStore.get("session")?.value;
   if (!session) return null;
