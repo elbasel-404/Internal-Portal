@@ -33,14 +33,17 @@ export const getTransactionRequests = async (): Promise<
 
   // ! VALIDATION
   // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson);
-  const { result } = validatedResponse;
-  const { data } = result;
-  const validatedData = TransactionListElementSchema.array().parse(data);
+  const validatedResponse = ResponseSchema.safeParse(responseJson);
+  // const { result } = validatedResponse;
+  const result = validatedResponse.data?.result;
+  const data = result?.data;
+  console.log("typeof ", typeof data?.[0].name)
+  const validatedData = TransactionListElementSchema.array().safeParse(data);
+  const transactionData = validatedData.data;
 
   // ! PARSING
   // ! ==================================
-  const returnedData: TransactionRequest[] = validatedData.map((data) => {
+  const returnedData: TransactionRequest[] = (transactionData ?? []).map((data) => {
     const transactionItem: TransactionRequest = {
       id: data.id.toString(),
       date: data.date ?? "",

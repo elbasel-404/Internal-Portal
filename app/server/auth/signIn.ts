@@ -99,14 +99,9 @@ export const signIn = async (formData: FormData) => {
 
   // ! ================= Employee ID =================
   console.log("Getting employee id...");
-  const accessToken = access_token;
-  const employeeId = await getEmployeeId({
-    username,
-    password,
-    accessToken,
-  });
+  const employeeId = await getEmployeeId();
   console.log("Logged in with", { employeeId });
-  cookieStore.set("employeeId", employeeId);
+  cookieStore.set("employeeId", employeeId ?? "none");
 };
 
 // ! ================= SCHEMAS =================
