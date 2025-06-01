@@ -10,7 +10,7 @@ export const passwordInputName = "password";
 
 export const Login = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#11274A] bg-[url(/login-background.svg)]">
+    <div className="min-h-screen flex items-center justify-center bg-[#11274A] bg-[url(/login-background.svg)] bg-cover bg-no-repeat bg-center px-4 lg:px-0">
       <div className="hidden lg:block relative lg:w-1/3 w-fit bg-gradient-to-t from-[#007C9E] to-[#0D3C5F] rounded-tr-[60px] rounded-bl-[60px] shadow-lg py-28 2xl:py-36 px-10 md:px-20">
         <Image
           src="/app-login.svg"
@@ -82,6 +82,7 @@ export const Login = () => {
             <form action={signIn} className="space-y-6">
               <div className="relative">
                 <input
+                  defaultValue="asaedi.uat"
                   name="username"
                   type="text"
                   id="username"
@@ -96,6 +97,7 @@ export const Login = () => {
 
               <div className="relative">
                 <input
+                  defaultValue="@112"
                   name="password"
                   type="password"
                   id="password"

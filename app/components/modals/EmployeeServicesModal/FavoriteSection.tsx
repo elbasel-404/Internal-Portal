@@ -16,7 +16,9 @@ export const FavoriteSection = ({
   if (!favorites.length) return null;
 
   return (
-    <div className='bg-lightGrayish px-4 pt-4 rounded-2xl h-3/5 overflow-y-auto app-scrollbar my-3'>
+    <div
+      className={`bg-lightGrayish px-4 pt-4 rounded-2xl ${favorites.length > 6 ? 'h-3/5' : 'h-fit'} overflow-y-auto app-scrollbar my-3`}
+    >
       <div className='mb-6'>
         <div className='bg-primary-opacity rounded-lg flex justify-center items-center gap-2 p-2 text-primary text-xl font-medium'>
           <HeartIcon size={18} className='mb-1' />
