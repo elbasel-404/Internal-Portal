@@ -7,7 +7,7 @@ export type OvertimeAssignmentRequest = {
   category: string;
   fromDate: string;
   toDate: string;
-  hours: string;
+  hours: number;
   assignmentDescription: string;
   status: string;
 };

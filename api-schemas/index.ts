@@ -29,16 +29,16 @@ export { FamilyNewSchema } from "./family-news/schema";
 export { NewsElementSchema } from "./news/schema";
 export {
   ProbationEvaluationEmployeeSchema,
-  type ProbationEvaluationEmployee
-} from './probation-evaluation-employees/schema';
+  type ProbationEvaluationEmployee,
+} from "./probation-evaluation-employees/schema";
 export {
   ProbationEvaluationFieldsSchema,
-  type ProbationEvaluationFields
-} from './probation-evaluation-fields/schema';
+  type ProbationEvaluationFields,
+} from "./probation-evaluation-fields/schema";
 export {
   ProbationEvaluationElementSchema,
-  type ProbationEvaluationElement
-} from './probation-evaluation/schema';
+  type ProbationEvaluationElement,
+} from "./probation-evaluation/schema";
 export {
   RecommendationSchema,
   type Recommendation,
@@ -57,11 +57,12 @@ export {
 } from "./request-details-workflow/schema";
 export {
   SalaryIdentificationElementSchema,
-  type SalaryIdentificationElement
-} from './salary-identification/schema';
-export {EmployeeDepartmentElementSchema } from './employee-department/schema';
+  type SalaryIdentificationElement,
+} from "./salary-identification/schema";
+export { EmployeeDepartmentElementSchema } from "./employee-department/schema";
 export { TrainingElementSchema, type TrainingElement } from "./training/schema";
 export { TransactionListElementSchema } from "./transaction-list/schema";
 export { VacationTypeSchema, type VacationType } from "./vacation-types/schema";
 export { type ProfileElement, ProfileElementSchema } from "./profile/schema";
-export {EmployeesListElementSchema} from './employees-list/schema'
+export { EmployeesListElementSchema } from "./employees-list/schema";
+export { OvertimeAssignmentElementSchema } from "./overtime-assignment/schema";
