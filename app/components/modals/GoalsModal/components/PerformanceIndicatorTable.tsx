@@ -3,12 +3,12 @@
 import { FolderWithSearchIcon } from '@icons';
 import { Indicator } from '@types';
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from '@ui';
 import { useState } from 'react';
 import { AddNewGoalButton } from './AddNewGoalButton';
@@ -84,7 +84,7 @@ const PerformanceIndicatorsTable = ({
       </Table>
 
       <div className='px-4 flex flex-col gap-4 mt-6'>
-        <AddNewGoalButton modalName='GoalsModal'>
+        <AddNewGoalButton modalName='IndicatorModal'>
           إضافة مؤشر جديد
         </AddNewGoalButton>
         <div className='w-full p-4 bg-[#00A65A] bg-opacity-15 rounded-lg mt-4'>
