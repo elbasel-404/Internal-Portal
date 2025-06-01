@@ -34,26 +34,30 @@ export const getVacationRequests = async (): Promise<VacationRequest[]> => {
 
   // ! VALIDATION
   // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson);
-  const { result } = validatedResponse;
-  const { data } = result;
-  const validatedData = HolidayElementSchema.array().parse(data);
+  const validatedResponse = ResponseSchema.safeParse(responseJson);
+  // const { result } = validatedResponse;
+  const result = validatedResponse.data?.result;
+  const data = result?.data;
+  const validatedData = HolidayElementSchema.array().safeParse(data);
+  const holidaysData = validatedData.data
 
   // ! PARSING
   // ! ==================================
-  const returnedData: VacationRequest[] = validatedData.map((data) => {
-    const vacationItem: VacationRequest = {
-      id: data.id.toString(),
-      date: data.date,
-      description: data.holiday_status_id[1].toString(),
-      startDate: data.date_from,
-      endDate: data.date_to,
-      durationInDays: data.duration,
-      approvalDate: data.done_date.split(" ")[0],
-      status: data.state,
-    };
-    return vacationItem;
-  });
+  const returnedData: VacationRequest[] = holidaysData
+    ? holidaysData.map((data) => {
+      const vacationItem: VacationRequest = {
+        id: data.id.toString(),
+        date: data.date,
+        description: data.holiday_status_id[1].toString(),
+        startDate: data.date_from,
+        endDate: data.date_to,
+        durationInDays: data.duration,
+        approvalDate: data.done_date.split(" ")[0],
+        status: data.state,
+      };
+      return vacationItem;
+    })
+    : [];
 
   return returnedData;
 };
