@@ -2,7 +2,6 @@
 
 import { Table } from "@components";
 import { SelectField } from "@components/form";
-import { DateField } from "@components/form";
 import { ModalLink } from "@components/modals/ModalLink";
 import { CirclePlusIcon } from "@icons";
 
@@ -44,7 +43,6 @@ export const EvaluationGoalsForm = () => {
           types={YearsList}
           required
         />
-        <DateField label="السنة" name="year" required />
       </div>
 
       <Table
