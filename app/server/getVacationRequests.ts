@@ -13,11 +13,9 @@ export const getVacationRequests = async (): Promise<VacationRequest[]> => {
   // ! VARIABLES
   // ! ==================================
   const employeeId = await getStoredEmployeeId();
-  console.log({ employeeId })
   const url = "api/po/hr/holidays/request";
   const apiRootUrl = process.env.API_ROOT_URL as string;
   const { headers } = await getFetchHeaders();
-  console.log({ headers })
   const requestBody = { employee_id: employeeId };
   const requestBodyString = JSON.stringify(requestBody);
   const requestUrl = `${apiRootUrl}/${url}`;
@@ -30,7 +28,6 @@ export const getVacationRequests = async (): Promise<VacationRequest[]> => {
     body: requestBodyString,
   });
   const responseJson = await apiResponse.json();
-  console.log({ responseJson })
 
   // ! VALIDATION
   // ! ==================================
@@ -63,7 +60,7 @@ export const getVacationRequests = async (): Promise<VacationRequest[]> => {
 };
 const dummyData: VacationRequest[] = [
   {
-    id: "#55965",
+    id: "#dummy",
     date: "2024-05-05 - 04:30:00",
     description: "إجازة المولود",
     startDate: "2024-05-01",
