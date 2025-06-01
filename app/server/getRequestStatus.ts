@@ -1,5 +1,5 @@
-import type { RequestStatus } from '@types';
-import { getDemo } from '../db/actions/getDemo';
+import type { RequestStatus } from "@types";
+import { getDemo } from "../db/actions/getDemo";
 
 export const getRequestStatus = async (
   id?: string,
@@ -52,31 +52,31 @@ export const getRequestStatus = async (
 
 const dummyData: RequestStatus[] = [
   {
-    id: '1',
-    title: 'مقدم الطلب',
-    subtitle: 'عساف بن رشود الصاعدي',
-    icon: 'person',
-    status: 'completed',
+    id: "1",
+    title: "مقدم الطلب",
+    subtitle: "عساف بن رشود الصاعدي",
+    icon: "person",
+    status: "completed",
   },
   {
-    id: '2',
-    title: 'المدير المباشر',
-    subtitle: 'حمد بن يوسف القشيميط',
-    icon: 'person',
-    status: 'in-progress',
+    id: "2",
+    title: "المدير المباشر",
+    subtitle: "حمد بن يوسف القشيميط",
+    icon: "person",
+    status: "in-progress",
   },
   {
-    id: '3',
-    title: 'عمليات الموارد البشرية',
-    subtitle: 'حمد بن يوسف القشيميط',
-    icon: 'person',
-    status: 'pending',
+    id: "3",
+    title: "عمليات الموارد البشرية",
+    subtitle: "حمد بن يوسف القشيميط",
+    icon: "person",
+    status: "pending",
   },
   {
-    id: '4',
-    title: 'أُعتمد',
-    subtitle: 'حمد بن يوسف القشيميط',
-    icon: 'personConfirmed',
-    status: 'pending',
+    id: "4",
+    title: "أُعتمد",
+    subtitle: "حمد بن يوسف القشيميط",
+    icon: "personConfirmed",
+    status: "pending",
   },
 ];
