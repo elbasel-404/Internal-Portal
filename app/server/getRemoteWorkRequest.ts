@@ -4,6 +4,7 @@ import { RemoteWorkRequest } from '@types';
 import { RemoteWorkElementSchema, ResponseSchema } from '../../api-schemas';
 import { getDemo } from '../db/actions/getDemo';
 import { getFetchHeaders } from './getFetchHeaders';
+import { getStoredEmployeeId } from '@auth';
 
 export const getRemoteWorkRequests = async (): Promise<RemoteWorkRequest[]> => {
   const isDemo = await getDemo();
@@ -11,10 +12,11 @@ export const getRemoteWorkRequests = async (): Promise<RemoteWorkRequest[]> => {
 
   // ! VARIBLES
   // ! ==================================
+  const employeeId = await getStoredEmployeeId();
   const url = 'api/po/hr/distance/work';
   const apiRootUrl = process.env.API_ROOT_URL as string;
   const { headers } = await getFetchHeaders();
-  const requestBody = { employee_id: 1711 };
+  const requestBody = { employee_id: employeeId };
   const requestBodyString = JSON.stringify(requestBody);
   const requestUrl = `${apiRootUrl}/${url}`;
 
@@ -39,7 +41,7 @@ export const getRemoteWorkRequests = async (): Promise<RemoteWorkRequest[]> => {
   const returnedData: RemoteWorkRequest[] = validatedData.map((data) => {
     const vacationItem: RemoteWorkRequest = {
       id: data.id.toString(),
-      date: data.create_date.toISOString().split("T")[0],
+      date: data.create_date,
       startDate: data.date_from,
       endDate: data.date_to,
       durationInDays: data.duration,
