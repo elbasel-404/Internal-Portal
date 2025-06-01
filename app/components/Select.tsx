@@ -19,6 +19,7 @@ interface SelectProps<T extends Record<string, string | number>> {
   onChange?: (value: string) => void;
   valueKey?: keyof T;
   labelKey?: keyof T;
+  className?: string;
 }
 
 export const Select = <T extends Record<string, string | number>>({
@@ -30,6 +31,7 @@ export const Select = <T extends Record<string, string | number>>({
   name,
   valueKey = 'id',
   labelKey = 'name',
+  className,
 }: SelectProps<T>) => {
   return (
     <UISelect dir='rtl' value={value} onValueChange={onChange}>
@@ -44,7 +46,9 @@ export const Select = <T extends Record<string, string | number>>({
         <SelectLabel className='text-foreground font-medium text-sm p-0'>
           {label}
         </SelectLabel>
-        <SelectTrigger className='w-full shadow-none text-black data-[placeholder]:text-black font-medium rounded-sm py-6 bg-cloudGray border-b-2 border-b-[#BCCADC] hover:bg-primary-opacity hover:border-b-primary'>
+        <SelectTrigger
+          className={`w-full shadow-none text-black data-[placeholder]:text-black font-medium rounded-sm py-6 bg-cloudGray border-b-2 border-b-[#BCCADC] hover:bg-primary-opacity hover:border-b-primary ${className}`}
+        >
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent className='text-right font-medium'>
