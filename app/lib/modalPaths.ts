@@ -55,4 +55,12 @@ export const modalPaths = {
     title: 'قائمة الأهداف',
     href: '/modal/GoalsModal',
   },
+  IndividualGoalModal: {
+    title: 'إضافة هدف فردي جديد',
+    href: '/modal/IndividualGoalModal',
+  },
+  IndicatorModal: {
+    title: 'إضافة مؤشر الأداء',
+    href: '/modal/IndicatorModal',
+  },
 } as const;
