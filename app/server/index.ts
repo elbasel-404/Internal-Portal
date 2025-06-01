@@ -2,6 +2,8 @@ export { acceptTraining } from './accept_training';
 export { getSession, signIn } from './auth';
 export { cancelTraining } from './cancel_training';
 export { clearUser } from './clearUser';
+export { getAdsNewsDetails } from './getAdsNewsDetails';
+export { getAdsNewsList } from './getAdsNewsList';
 export { getApprovalRequests } from './getApprovalRequests';
 export { getAttendanceGeneralInfo } from './getAttendanceGeneralInfo';
 export { getAttendanceListRequests } from './getAttendanceListRequests';
@@ -28,6 +30,7 @@ export { getFamilyNewsList } from './getFamilyNewsList';
 export { getHrLetterDetails } from './getHrLetterDetails';
 export { getHrLetterRequests } from './getHrLetterRequests';
 export { getHrLetterTypes } from './getHrLetterTypes';
+export { getIndicatorsRequests } from './getIndicatorsRequests';
 export { getInternalCoursesDetails } from './getInternalCoursesDetails';
 export { getInternalCoursesRequests } from './getInternalCoursesRequests';
 export { getJobApplicationsDetails } from './getJobApplicationsDetails';
@@ -88,5 +91,4 @@ export { removeTrainingCourse } from './removeTrainingCourse';
 export { revalidateHomePage } from './revalidateHomePage';
 export { setUserId } from './setUserId';
 export { toggleHomePageSetting } from './toggleHomePageSetting';
-export {getAdsNewsList} from "./getAdsNewsList"
-export {getAdsNewsDetails} from "./getAdsNewsDetails"
+
