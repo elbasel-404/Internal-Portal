@@ -18,6 +18,12 @@ export const getFetchHeaders = async () => {
     throw new Error("No session found");
   }
 
+  if (!session) {
+    console.error("No session found");
+    console.log({ session });
+    throw new Error("No session found");
+  }
+
   if (!API_KEY || !API_KEY_HEADER_NAME || !BEARER_TOKEN || !SESSION_ID) {
     console.log({
       API_KEY,

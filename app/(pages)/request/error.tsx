@@ -33,7 +33,14 @@ const ApiError = ({ error }: ErrorProps) => {
       <pre dir="rtl">
         {typeof error.name === "string" ? error.name : "Unknown error"}
       </pre>
-      <pre dir="rtl">
+      <pre>
+        {typeof error.cause === "string" ? error.cause : "Unknown error"}
+      </pre>
+      <pre>
+        {typeof error.message === "string" ? error.message : "Unknown error"}
+      </pre>
+      <pre>{typeof error.name === "string" ? error.name : "Unknown error"}</pre>
+      <pre>
         {typeof error.stack === "string"
           ? error.stack
           : "No stack trace available"}
