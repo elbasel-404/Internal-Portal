@@ -14,6 +14,8 @@ export type { GeneralInfoMap } from './pages/Indicator';
 export type { NewsTab } from './pages/NewsTab';
 export type { NewsTabsKey } from './pages/NewsTabsKey';
 export type { ProfileDetails } from './pages/ProfileDetails';
+export type { AdsListRequst } from './pages/request/AdsListRequest';
+export type { AdsNewsDetails } from './pages/request/AdsNewsDetails';
 export type { ApprovalRequest } from './pages/request/ApprovalRequest';
 export type { AttendanceListRequest } from './pages/request/AttendanceListRequest';
 export type { BankAccountDetails } from './pages/request/BankAccountDetails';
@@ -96,6 +98,7 @@ export type { VacationTypes } from './pages/VacationTypes';
 export type { Employee } from './shared/Employee';
 export type { IconKey } from './shared/IconKey';
 export type { IconProps } from './shared/IconProps';
+export type { Indicator } from './shared/Indicator';
 export type { KeyboardAlphaNumericKey } from './shared/KeyboardAlphaNumericKey';
 export type { MenuItem } from './shared/MenuItem';
 export type { NotificationItem } from './shared/Notification';
@@ -104,6 +107,4 @@ export type { Row } from './shared/Row';
 export type { Rules } from './shared/Rules';
 export type { TabType } from './shared/TabType';
 export type { User } from './shared/User';
-export type {AdsListRequst} from './pages/request/AdsListRequest'
-export type {AdsNewsDetails} from'./pages/request/AdsNewsDetails'
 

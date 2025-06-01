@@ -70,6 +70,7 @@ export { FingerprintIcon } from './Fingerprint.icon';
 export { FingerScanIcon } from './FingerScan.icon';
 export { FlagIcon } from './Flag.icon';
 export { FolderWithPlusIcon } from './FolderWithPlus.icon';
+export { FolderWithSearchIcon } from './FolderWithSearch.icon';
 export { GearIcon } from './Gear.icon';
 export { GraphIcon } from './Graph.icon';
 export { GreenCheckMarkIcon } from './GreenCheckMark.icon';
