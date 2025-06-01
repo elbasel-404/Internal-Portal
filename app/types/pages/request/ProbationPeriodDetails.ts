@@ -8,4 +8,8 @@ export type ProbationPeriodDetails = {
   recommendation: string;
   notes: string;
   attachments: File[];
+  probationLineIds?: {
+    question: string;
+    answer: string;
+  }[];
 };

@@ -12,7 +12,7 @@ export const EmployeeServicesModal = () => {
     >
       <div className='p-3 flex items-center gap-2 div rounded-lg bg-primary-opacity'>
         <div className='p-3 rounded-xl bg-primary'>
-          <UserWithFolderIcon />
+          <UserWithFolderIcon className='#fff' />
         </div>
         <p className='text-xl font-bold text-foreground'>خدمات الموظفين</p>
       </div>

@@ -33,4 +33,3 @@ export const getEmployeeId = async () => {
     const employeeId = validatedData.id.toString();
     return employeeId;
 };
-

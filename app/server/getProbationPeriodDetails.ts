@@ -50,6 +50,10 @@ export const getProbationPeriodDetails = async (
     endProbationPeriodDate: validatedData.date_probation_end,
     recommendation: validatedData.recommendation,
     notes: validatedData.notes.toString(),
+    probationLineIds: validatedData.probation_line_ids.map((line) => ({
+      question: line.question,
+      answer: line.answer,
+    })),
     attachments: validatedData.attachment_ids.map(
       (file) => new File([''], file.toString())
     ),
