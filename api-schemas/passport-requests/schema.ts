@@ -1,0 +1,32 @@
+import * as z from "zod";
+
+export const PassportRequestSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  date: z.string(),
+  employee_id: z.array(z.union([z.number(), z.string()])),
+  state: z.string(),
+  actual_passport: z.boolean(),
+  new_passport: z.string(),
+  passport_end_date: z.string(),
+  passport_image: z.string(),
+  active: z.boolean(),
+  website_message_ids: z.array(z.any()),
+  message_follower_ids: z.array(z.number()),
+  message_ids: z.array(z.number()),
+  message_last_post: z.boolean(),
+  create_uid: z.array(z.union([z.number(), z.string()])),
+  create_date: z.coerce.date(),
+  write_uid: z.array(z.union([z.number(), z.string()])),
+  write_date: z.coerce.date(),
+  message_is_follower: z.boolean(),
+  message_partner_ids: z.array(z.number()),
+  message_channel_ids: z.array(z.any()),
+  message_unread: z.boolean(),
+  message_unread_counter: z.number(),
+  message_needaction: z.boolean(),
+  message_needaction_counter: z.number(),
+  display_name: z.string(),
+  __last_update: z.coerce.date(),
+});
+export type PassportRequest = z.infer<typeof PassportRequestSchema>;
