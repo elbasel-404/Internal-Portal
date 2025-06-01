@@ -1,7 +1,7 @@
-import { Checkbox } from "@ui";
+import { Checkbox } from '@ui';
 
 interface CheckboxFieldProps {
-  label: string;
+  label?: string;
   name: string;
   className?: string;
   labelStyle?: string;
@@ -30,7 +30,7 @@ export const CheckboxField = ({
       {!hideLabel && (
         <label className={`${labelStyle}`}>
           {label}
-          {required && <span className="text-red-500">*</span>}
+          {required && <span className='text-red-500'>*</span>}
         </label>
       )}
       <Checkbox
