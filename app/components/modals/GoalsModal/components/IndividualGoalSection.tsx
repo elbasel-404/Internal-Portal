@@ -12,7 +12,7 @@ export const IndividualGoalSection = ({
 }: IndividualGoalSectionProps) => {
   return (
     <>
-      <AddNewGoalButton modalName='GoalsModal'>
+      <AddNewGoalButton modalName='IndividualGoalModal'>
         إضافة هدف فردي جديد
       </AddNewGoalButton>
 
