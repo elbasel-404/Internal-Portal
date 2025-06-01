@@ -4,6 +4,7 @@ interface DateFieldProps {
   name: string;
   label: string;
   subLabel?: string;
+  dateInputClassName?: string;
   required: boolean;
   date?: Date | undefined;
   onChange?: (date: Date | undefined | null) => void;
@@ -16,6 +17,7 @@ export const DateField = ({
   label,
   subLabel,
   required,
+  dateInputClassName,
 }: DateFieldProps) => {
   return (
     <div className='flex flex-col gap-2 w-full'>
@@ -26,7 +28,13 @@ export const DateField = ({
         </label>
         <p className='text-grey-400 text-sm'>{subLabel}</p>
       </div>
-      <DatePicker label='' name={name} value={date} onChange={onChange} />
+      <DatePicker
+        label=''
+        name={name}
+        value={date}
+        onChange={onChange}
+        className={dateInputClassName}
+      />
     </div>
   );
 };

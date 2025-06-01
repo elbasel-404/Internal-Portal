@@ -37,7 +37,7 @@ const data: GeneralInfo[] = [
 
 export const EvaluationGoalsData = () => {
   return (
-    <div className='py-6'>
+    <div>
       <InfoGrid info={data} className='lg:grid-cols-2' />
     </div>
   );
