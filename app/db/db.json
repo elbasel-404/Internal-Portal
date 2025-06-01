@@ -13,10 +13,19 @@
       "activeHomePageSlotsKeys": [
         "completeProfile",
         "generalInfo",
+        "userInfo",
+        "attendance",
+        "approvalRequestsTable",
+        "sliders",
         "timelineCalendar",
         "news"
       ],
-      "activeNewsTabsKeys": [],
+      "activeNewsTabsKeys": [
+        "pressTab",
+        "newsTab",
+        "monshaatFamilyTab",
+        "internalTab"
+      ],
       "demo": false,
       "convenantData": [
         {
@@ -24,9 +33,7 @@
           "statement": "active",
           "amount": "10",
           "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
+          "attachments": ["file-name-i"]
         }
       ],
       "projectCompletion": [],
@@ -61,367 +68,14 @@
         "monshaatFamilyTab",
         "internalTab"
       ],
-      "demo": true,
+      "demo": false,
       "convenantData": [
         {
           "product": "prod",
           "statement": "active",
           "amount": "10",
           "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
-        }
-      ],
-      "projectCompletion": [],
-      "products": [],
-      "batchs": [],
-      "batchProducts": [],
-      "trainingCourses": []
-    },
-    {
-      "id": 3,
-      "activeGeneralInfoKeys": [
-        "employeeRequests",
-        "approvalRequests",
-        "totalVacationBalance",
-        "permissions",
-        "remoteWork",
-        "delegations"
-      ],
-      "activeHomePageSlotsKeys": [
-        "completeProfile",
-        "generalInfo",
-        "userInfo",
-        "attendance",
-        "approvalRequestsTable",
-        "sliders",
-        "timelineCalendar",
-        "news"
-      ],
-      "activeNewsTabsKeys": [
-        "pressTab",
-        "newsTab",
-        "monshaatFamilyTab",
-        "internalTab"
-      ],
-      "demo": true,
-      "convenantData": [
-        {
-          "product": "prod",
-          "statement": "active",
-          "amount": "10",
-          "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
-        }
-      ],
-      "projectCompletion": [],
-      "products": [],
-      "batchs": [],
-      "batchProducts": [],
-      "trainingCourses": []
-    },
-    {
-      "id": 4,
-      "activeGeneralInfoKeys": [
-        "employeeRequests",
-        "approvalRequests",
-        "totalVacationBalance",
-        "permissions",
-        "remoteWork",
-        "delegations"
-      ],
-      "activeHomePageSlotsKeys": [
-        "completeProfile",
-        "generalInfo",
-        "userInfo",
-        "attendance",
-        "approvalRequestsTable",
-        "sliders",
-        "timelineCalendar",
-        "news"
-      ],
-      "activeNewsTabsKeys": [
-        "pressTab",
-        "newsTab",
-        "monshaatFamilyTab",
-        "internalTab"
-      ],
-      "demo": true,
-      "convenantData": [
-        {
-          "product": "prod",
-          "statement": "active",
-          "amount": "10",
-          "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
-        }
-      ],
-      "projectCompletion": [],
-      "products": [],
-      "batchs": [],
-      "batchProducts": [],
-      "trainingCourses": []
-    },
-    {
-      "id": 5,
-      "activeGeneralInfoKeys": [
-        "employeeRequests",
-        "approvalRequests",
-        "totalVacationBalance",
-        "permissions",
-        "remoteWork",
-        "delegations"
-      ],
-      "activeHomePageSlotsKeys": [
-        "completeProfile",
-        "generalInfo",
-        "userInfo",
-        "attendance",
-        "approvalRequestsTable",
-        "sliders",
-        "timelineCalendar",
-        "news"
-      ],
-      "activeNewsTabsKeys": [
-        "pressTab",
-        "newsTab",
-        "monshaatFamilyTab",
-        "internalTab"
-      ],
-      "demo": true,
-      "convenantData": [
-        {
-          "product": "prod",
-          "statement": "active",
-          "amount": "10",
-          "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
-        }
-      ],
-      "projectCompletion": [],
-      "products": [],
-      "batchs": [],
-      "batchProducts": [],
-      "trainingCourses": []
-    },
-    {
-      "id": 6,
-      "activeGeneralInfoKeys": [
-        "employeeRequests",
-        "approvalRequests",
-        "totalVacationBalance",
-        "permissions",
-        "remoteWork",
-        "delegations"
-      ],
-      "activeHomePageSlotsKeys": [
-        "completeProfile",
-        "generalInfo",
-        "userInfo",
-        "attendance",
-        "approvalRequestsTable",
-        "sliders",
-        "timelineCalendar",
-        "news"
-      ],
-      "activeNewsTabsKeys": [
-        "pressTab",
-        "newsTab",
-        "monshaatFamilyTab",
-        "internalTab"
-      ],
-      "demo": true,
-      "convenantData": [
-        {
-          "product": "prod",
-          "statement": "active",
-          "amount": "10",
-          "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
-        }
-      ],
-      "projectCompletion": [],
-      "products": [],
-      "batchs": [],
-      "batchProducts": [],
-      "trainingCourses": []
-    },
-    {
-      "id": 7,
-      "activeGeneralInfoKeys": [
-        "employeeRequests",
-        "approvalRequests",
-        "totalVacationBalance",
-        "permissions",
-        "remoteWork",
-        "delegations"
-      ],
-      "activeHomePageSlotsKeys": [
-        "completeProfile",
-        "generalInfo",
-        "userInfo",
-        "attendance",
-        "approvalRequestsTable",
-        "sliders",
-        "timelineCalendar",
-        "news"
-      ],
-      "activeNewsTabsKeys": [
-        "pressTab",
-        "newsTab",
-        "monshaatFamilyTab",
-        "internalTab"
-      ],
-      "demo": true,
-      "convenantData": [
-        {
-          "product": "prod",
-          "statement": "active",
-          "amount": "10",
-          "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
-        }
-      ],
-      "projectCompletion": [],
-      "products": [],
-      "batchs": [],
-      "batchProducts": [],
-      "trainingCourses": []
-    },
-    {
-      "id": 8,
-      "activeGeneralInfoKeys": [
-        "employeeRequests",
-        "approvalRequests",
-        "totalVacationBalance",
-        "permissions",
-        "remoteWork",
-        "delegations"
-      ],
-      "activeHomePageSlotsKeys": [
-        "completeProfile",
-        "generalInfo",
-        "userInfo",
-        "attendance",
-        "approvalRequestsTable",
-        "sliders",
-        "timelineCalendar",
-        "news"
-      ],
-      "activeNewsTabsKeys": [
-        "pressTab",
-        "newsTab",
-        "monshaatFamilyTab",
-        "internalTab"
-      ],
-      "demo": true,
-      "convenantData": [
-        {
-          "product": "prod",
-          "statement": "active",
-          "amount": "10",
-          "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
-        }
-      ],
-      "projectCompletion": [],
-      "products": [],
-      "batchs": [],
-      "batchProducts": [],
-      "trainingCourses": []
-    },
-    {
-      "id": 9,
-      "activeGeneralInfoKeys": [
-        "employeeRequests",
-        "approvalRequests",
-        "totalVacationBalance",
-        "permissions",
-        "remoteWork",
-        "delegations"
-      ],
-      "activeHomePageSlotsKeys": [
-        "completeProfile",
-        "generalInfo",
-        "userInfo",
-        "attendance",
-        "approvalRequestsTable",
-        "sliders",
-        "timelineCalendar",
-        "news"
-      ],
-      "activeNewsTabsKeys": [
-        "pressTab",
-        "newsTab",
-        "monshaatFamilyTab",
-        "internalTab"
-      ],
-      "demo": true,
-      "convenantData": [
-        {
-          "product": "prod",
-          "statement": "active",
-          "amount": "10",
-          "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
-        }
-      ],
-      "projectCompletion": [],
-      "products": [],
-      "batchs": [],
-      "batchProducts": [],
-      "trainingCourses": []
-    },
-    {
-      "id": 10,
-      "activeGeneralInfoKeys": [
-        "approvalRequests",
-        "totalVacationBalance",
-        "permissions",
-        "remoteWork",
-        "delegations"
-      ],
-      "activeHomePageSlotsKeys": [
-        "completeProfile",
-        "generalInfo",
-        "userInfo",
-        "attendance",
-        "approvalRequestsTable",
-        "sliders",
-        "timelineCalendar",
-        "news"
-      ],
-      "activeNewsTabsKeys": [
-        "pressTab",
-        "newsTab",
-        "monshaatFamilyTab",
-        "internalTab"
-      ],
-      "demo": true,
-      "convenantData": [
-        {
-          "product": "prod",
-          "statement": "active",
-          "amount": "10",
-          "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
+          "attachments": ["file-name-i"]
         }
       ],
       "projectCompletion": [],
@@ -463,9 +117,7 @@
           "statement": "active",
           "amount": "10",
           "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
+          "attachments": ["file-name-i"]
         }
       ],
       "projectCompletion": [],
@@ -507,9 +159,7 @@
           "statement": "active",
           "amount": "10",
           "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
+          "attachments": ["file-name-i"]
         }
       ],
       "projectCompletion": [],
@@ -551,9 +201,7 @@
           "statement": "active",
           "amount": "10",
           "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
+          "attachments": ["file-name-i"]
         }
       ],
       "projectCompletion": [],
@@ -595,9 +243,7 @@
           "statement": "active",
           "amount": "10",
           "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
+          "attachments": ["file-name-i"]
         }
       ],
       "projectCompletion": [],
@@ -639,9 +285,7 @@
           "statement": "active",
           "amount": "10",
           "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
+          "attachments": ["file-name-i"]
         }
       ],
       "projectCompletion": [],
@@ -683,9 +327,7 @@
           "statement": "active",
           "amount": "10",
           "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
+          "attachments": ["file-name-i"]
         }
       ],
       "projectCompletion": [],
@@ -727,9 +369,7 @@
           "statement": "active",
           "amount": "10",
           "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
+          "attachments": ["file-name-i"]
         }
       ],
       "projectCompletion": [],
@@ -771,9 +411,7 @@
           "statement": "active",
           "amount": "10",
           "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
+          "attachments": ["file-name-i"]
         }
       ],
       "projectCompletion": [],
@@ -815,9 +453,7 @@
           "statement": "active",
           "amount": "10",
           "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
+          "attachments": ["file-name-i"]
         }
       ],
       "projectCompletion": [],
@@ -859,9 +495,7 @@
           "statement": "active",
           "amount": "10",
           "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
+          "attachments": ["file-name-i"]
         }
       ],
       "projectCompletion": [],
@@ -903,9 +537,7 @@
           "statement": "active",
           "amount": "10",
           "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
+          "attachments": ["file-name-i"]
         }
       ],
       "projectCompletion": [],
@@ -947,9 +579,7 @@
           "statement": "active",
           "amount": "10",
           "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
+          "attachments": ["file-name-i"]
         }
       ],
       "projectCompletion": [],
