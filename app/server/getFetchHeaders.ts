@@ -8,21 +8,14 @@ export const getFetchHeaders = async () => {
   // const BEARER_TOKEN = process.env.BEARER_TOKEN as string;
   const SESSION_ID = process.env.SESSION_ID as string;
   const session = await getSession();
+  if (!session) {
+    console.error("No session found");
+    console.log({ session });
+    throw new Error("No session found");
+  }
   if (!session) throw new Error(`Error getting session ${{ session }}`);
   const { access_token } = session;
   const BEARER_TOKEN = access_token;
-
-  if (!session) {
-    console.error("No session found");
-    console.log({ session });
-    throw new Error("No session found");
-  }
-
-  if (!session) {
-    console.error("No session found");
-    console.log({ session });
-    throw new Error("No session found");
-  }
 
   if (!API_KEY || !API_KEY_HEADER_NAME || !BEARER_TOKEN || !SESSION_ID) {
     console.log({
