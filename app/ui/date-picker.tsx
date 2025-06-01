@@ -10,10 +10,17 @@ interface DatePickerProps {
   label: string;
   value?: Date;
   name?: string;
+  className?: string;
   onChange?: (date: Date | undefined | null) => void;
 }
 
-export function DatePicker({ label, name, value, onChange }: DatePickerProps) {
+export function DatePicker({
+  label,
+  name,
+  className,
+  value,
+  onChange,
+}: DatePickerProps) {
   const [date, setDate] = useState<Date | undefined>(value);
   const [isHovering, setIsHovering] = useState(false);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
@@ -54,7 +61,7 @@ export function DatePicker({ label, name, value, onChange }: DatePickerProps) {
               type='button'
               variant={'outline'}
               className={cn(
-                'w-full shadow-none justify-between text-right font-medium rounded-sm py-6 bg-cloudGray border-b-2 border-b-[#BCCADC] hover:bg-primary-opacity hover:border-b-primary',
+                `w-full shadow-none justify-between text-right font-medium rounded-sm py-6 bg-cloudGray border-b-2 border-b-[#BCCADC] hover:bg-primary-opacity hover:border-b-primary ${className}`,
                 !date && 'text-black'
               )}
               onMouseEnter={() => setIsHovering(true)}
