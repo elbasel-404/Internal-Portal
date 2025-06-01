@@ -24,6 +24,18 @@ const ApiError = ({ error }: ErrorProps) => {
   return (
     <div>
       <h1>Api Error</h1>
+      <pre>
+        {typeof error.cause === "string" ? error.cause : "Unknown error"}
+      </pre>
+      <pre>
+        {typeof error.message === "string" ? error.message : "Unknown error"}
+      </pre>
+      <pre>{typeof error.name === "string" ? error.name : "Unknown error"}</pre>
+      <pre>
+        {typeof error.stack === "string"
+          ? error.stack
+          : "No stack trace available"}
+      </pre>
     </div>
   );
 };

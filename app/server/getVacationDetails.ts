@@ -48,7 +48,7 @@ export const getVacationDetails = async (
     alternativeEmployee: validatedData.substitute_employee_id[1].toString(),
     notes: validatedData.notes,
     attachments: validatedData.attachment_ids.map(
-      (file) => new File([""], file.toString())
+      (file: any) => new File([""], file.toString())
     ),
   };
 
