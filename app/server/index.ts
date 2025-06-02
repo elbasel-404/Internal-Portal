@@ -27,6 +27,7 @@ export { getEmployeeDepartmentRequests } from './getEmployeesDepartment';
 export { getEvaluationGoals } from './getEvaluationGoals';
 export { getFamilyNewsDetails } from './getFamilyNewsDetails';
 export { getFamilyNewsList } from './getFamilyNewsList';
+export { getGoalsRequests } from './getGoalsRequests';
 export { getHrLetterDetails } from './getHrLetterDetails';
 export { getHrLetterRequests } from './getHrLetterRequests';
 export { getHrLetterTypes } from './getHrLetterTypes';

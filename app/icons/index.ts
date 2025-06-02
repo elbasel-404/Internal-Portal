@@ -110,6 +110,7 @@ export { PaperIcon } from './Paper.icon';
 export { PaperPlaneIcon } from './PaperPlane.icon';
 export { PdfIcon } from './Pdf.icon';
 export { PdfFileIcon } from './PdfFile.icon';
+export { PencilIcon } from './Pencil.icon';
 export { PenLineIcon } from './PenLine.icon';
 export { PerformanceIcon } from './Performance.icon';
 export { PersonIcon } from './Person.icon';
