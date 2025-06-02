@@ -7,6 +7,7 @@ import {
 } from '../../api-schemas';
 import { getDemo } from '../db/actions/getDemo';
 import { getFetchHeaders } from './getFetchHeaders';
+import { getEmployeeId } from './auth/getEmployeeId';
 
 export const getHrLetterRequests = async (): Promise<HrLetterRequest[]> => {
   const isDemo = await getDemo();
@@ -14,10 +15,11 @@ export const getHrLetterRequests = async (): Promise<HrLetterRequest[]> => {
 
   // ! VARIBLES
   // ! ==================================
+  const employeeId = await getEmployeeId();
   const url = 'api/po/salary/identification/request/read';
   const apiRootUrl = process.env.API_ROOT_URL as string;
   const { headers } = await getFetchHeaders();
-  const requestBody = { employee_id: 447 };
+  const requestBody = { employee_id: employeeId };
   const requestBodyString = JSON.stringify(requestBody);
   const requestUrl = `${apiRootUrl}/${url}`;
 
@@ -43,8 +45,8 @@ export const getHrLetterRequests = async (): Promise<HrLetterRequest[]> => {
     const vacationItem: HrLetterRequest = {
       id: data.id.toString(),
       date: data.order_date,
-      description: data.template_name || '__',
-      destination: data.destination_id[1]?.toString() || '__',
+      description: data.template_name,
+      destination: data.destination_id,
       status: data.state,
     };
     return vacationItem;
