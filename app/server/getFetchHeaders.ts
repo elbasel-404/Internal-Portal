@@ -6,24 +6,6 @@ export const getFetchHeaders = async () => {
   const API_KEY = process.env.API_KEY as string;
   const API_KEY_HEADER_NAME = process.env.API_KEY_HEADER_NAME as string;
   const SESSION_ID = process.env.SESSION_ID as string;
-  const session = await getSession();
-  if (!session) {
-    console.error("No session found");
-    console.log({ session });
-    throw new Error("No session found");
-  }
-  if (!session) throw new Error(`Error getting session ${{ session }}`);
-  const { access_token } = session;
-  const BEARER_TOKEN = access_token;
-
-  const session = await getSession();
-  if (!session) {
-    console.error("No session found");
-    console.log({ session })
-    throw new Error("No session found");
-  }
-  const { access_token } = session;
-  const BEARER_TOKEN = access_token;
 
   const session = await getSession();
   if (!session) {
