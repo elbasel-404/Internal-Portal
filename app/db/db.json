@@ -767,7 +767,7 @@
         "monshaatFamilyTab",
         "internalTab"
       ],
-      "demo": true,
+      "demo": false,
       "convenantData": [
         {
           "product": "prod",
