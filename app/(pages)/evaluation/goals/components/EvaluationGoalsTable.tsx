@@ -62,7 +62,7 @@ export const EvaluationGoalsTable = ({ data }: EvaluationGoalsProps) => {
               <FilterIcon className='fill-primary' />
             </Button>
             <Link
-              href={paths.evaluationGoals.href}
+              href={paths.evaluationGoalsNew.href}
               className='flex group font-medium items-center gap-2 bg-primary text-white px-4 py-1 rounded-full hover:bg-primary-opacity hover:text-primary border-2 border-primary'
             >
               <CirclePlusIcon className='fill-white group-hover:fill-primary' />
