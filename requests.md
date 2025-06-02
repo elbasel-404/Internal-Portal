@@ -45,3 +45,11 @@
 - integration: FALSE
 - dynamic: -
 - page: file://./app/(pages)/request/attendance/attendance-list/page.tsx
+
+# Employee Attendance
+
+- title: 'حضور و إنصراف الموظفين اليومي',
+- href: '/request/attendance/
+- integration: FALSE
+- dynamic: -
+- page: file://./app/(pages)/request/attendance/employee-attendance/page.tsx
