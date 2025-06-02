@@ -1,20 +1,10 @@
 'use client';
 
-import { Table } from '@components';
 import { SelectField } from '@components/form';
 import { ModalLink } from '@components/modals/ModalLink';
 import { CirclePlusIcon } from '@icons';
-
-const tableHeaders = [
-  { label: 'الهدف الفردي' },
-  { label: 'مؤشر الأداء' },
-  { label: 'وزن المؤشر' },
-  { label: 'خطوات الإنجاز' },
-  { label: 'مقياس المؤشر' },
-  { label: 'نوع المستهدف' },
-  { label: 'المستهدف (رقم - تاريخ)' },
-  { label: 'وزن الهدف ٪' },
-];
+import { GoalRequest } from '@types';
+import { GoalsTable } from './GoalsTable';
 
 const YearsList = Array.from({ length: 51 }, (_, i) => {
   const currentYear = new Date().getFullYear();
@@ -22,7 +12,17 @@ const YearsList = Array.from({ length: 51 }, (_, i) => {
   return { id: year, name: year.toString() };
 });
 
-export const EvaluationGoalsForm = () => {
+interface EvaluationGoalsFormProps {
+  goalsData: GoalRequest[];
+}
+
+export const EvaluationGoalsForm = ({
+  goalsData,
+}: EvaluationGoalsFormProps) => {
+  const totalGoalWeight = goalsData.reduce(
+    (sum, goal) => sum + Number(goal.goalWeight || 0),
+    0
+  );
   return (
     <form className='bg-white rounded-md'>
       <div className='flex flex-col md:flex-row gap-4 items-start md:items-center justify-between border-b border-border-[#ECF0F480] p-4'>
@@ -45,22 +45,17 @@ export const EvaluationGoalsForm = () => {
         />
       </div>
 
-      <Table
-        columns={tableHeaders}
-        rows={[]}
-        toggleId={false}
-        tableClassName='h-fit'
-      />
+      <GoalsTable goalsData={goalsData} />
 
       <div className='border-t border-[#ECF0F480]'></div>
 
       <div className='p-4'>
         <div className='flex items-center gap-4'>
-          <p className='text-foreground font-medium'>0%</p>
+          <p className='text-foreground font-medium'>{totalGoalWeight}%</p>
           <div className='w-full rounded-full bg-cloudGray h-3'>
             <div
-              className='bg-[#00A65A] h-3 transition-all duration-300'
-              style={{ width: `0%` }}
+              className='bg-primary rounded-full h-3 transition-all duration-300'
+              style={{ width: `${totalGoalWeight}%` }}
             />
           </div>
         </div>
