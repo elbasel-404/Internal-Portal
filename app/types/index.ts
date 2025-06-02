@@ -32,6 +32,7 @@ export type { DeputationRequestDetails } from './pages/request/DeputationRequest
 export type { EmployeeAttendanceRequest } from './pages/request/EmployeeAttendanceRequest';
 export type { EmployeeMembersDetails } from './pages/request/EmployeeMembersDetails';
 export type { EmployeeMembersRequest } from './pages/request/EmployeeMembersRequest';
+export type { GoalRequest } from './pages/request/GoalRequest';
 export type { HrLetterDetails } from './pages/request/HrLetterDetails';
 export type { HrLetterRequest } from './pages/request/HrLetterRequest';
 export type { InternalCoursesDetails } from './pages/request/InternalCoursesDetails';
