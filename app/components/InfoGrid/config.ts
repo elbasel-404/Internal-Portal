@@ -26,8 +26,8 @@ import {
   WorkTimeIcon,
   WorkingHomeIcon,
   WritingNoteIcon,
-  TimeBlueIcon
-} from '@icons';
+  TimeBlueIcon,
+} from "@icons"
 
 export const infoIcons = {
   RequestsIcon,
@@ -57,5 +57,5 @@ export const infoIcons = {
   TagWithXIcon,
   PriceIcon,
   FileWithPenIcon,
-  TimeBlueIcon
-} as const;
+  TimeBlueIcon,
+} as const

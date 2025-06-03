@@ -1,1 +1,1 @@
-export { PressFileDetails } from './PressFileDetails';
+export { PressFileDetails } from "./PressFileDetails"

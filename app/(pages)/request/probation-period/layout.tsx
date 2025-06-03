@@ -1,12 +1,12 @@
-import type { ReactNode } from 'react';
-import { ProbationPeriodData } from './components';
+import type { ReactNode } from "react"
+import { ProbationPeriodData } from "./components"
 
 export const metadata = {
-  title: 'Probation Period',
-  description: 'Probation Period Data',
-};
+  title: "Probation Period",
+  description: "Probation Period Data",
+}
 interface MedicalInsuranceLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 const ProbationPeriodLayout = ({ children }: MedicalInsuranceLayoutProps) => {
   return (
@@ -14,7 +14,7 @@ const ProbationPeriodLayout = ({ children }: MedicalInsuranceLayoutProps) => {
       <ProbationPeriodData />
       <section>{children}</section>
     </>
-  );
-};
+  )
+}
 
-export default ProbationPeriodLayout;
+export default ProbationPeriodLayout

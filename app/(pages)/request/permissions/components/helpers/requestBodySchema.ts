@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod"
 
 export const requestBodySchema = z.object({
   employee_id: z.string(),
@@ -10,4 +10,4 @@ export const requestBodySchema = z.object({
   hour_to: z.string().optional(),
   description: z.string().optional(),
   attachment_ids: z.instanceof(File).or(z.string()).optional(),
-});
+})

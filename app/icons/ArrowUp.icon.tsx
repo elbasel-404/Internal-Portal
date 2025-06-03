@@ -12,5 +12,5 @@ export const ArrowUpIcon = () => {
         fill="#007C9E"
       />
     </svg>
-  );
-};
+  )
+}

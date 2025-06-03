@@ -1,22 +1,22 @@
-import { RequestDetails, RequestStatus } from "@components";
-import { getOvertimeAssignmentDetails, getRequestStatus } from "@server";
-import { RequestHeader } from "@types";
+import { RequestDetails, RequestStatus } from "@components"
+import { getOvertimeAssignmentDetails, getRequestStatus } from "@server"
+import { RequestHeader } from "@types"
 
-type Params = Promise<{ id: string }>;
+type Params = Promise<{ id: string }>
 
 interface OverTimeAssignmentDetailsPageProps {
-  params: Params;
+  params: Params
 }
 
 const OverTimeAssignmentDetailsPage = async ({
   params,
 }: OverTimeAssignmentDetailsPageProps) => {
-  const { id } = await params;
-  const requestStatus = await getRequestStatus();
+  const { id } = await params
+  const requestStatus = await getRequestStatus()
   const requestCaption =
-    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر";
+    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const { applicant, assignmentDescription, fromDate, toDate, hours } =
-    (await getOvertimeAssignmentDetails(id)) || {};
+    (await getOvertimeAssignmentDetails(id)) || {}
 
   const requestHeaders: RequestHeader[] = [
     {
@@ -43,13 +43,13 @@ const OverTimeAssignmentDetailsPage = async ({
       label: "وصف التكليف",
       value: assignmentDescription,
     },
-  ];
+  ]
   return (
     <main className="space-y-4">
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails headers={requestHeaders} />
     </main>
-  );
-};
+  )
+}
 
-export default OverTimeAssignmentDetailsPage;
+export default OverTimeAssignmentDetailsPage

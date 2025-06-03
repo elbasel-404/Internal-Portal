@@ -1,12 +1,12 @@
-import type { ReactNode } from 'react';
-import { HrLetterData } from './components';
+import type { ReactNode } from "react"
+import { HrLetterData } from "./components"
 
 export const metadata = {
-  title: 'HR Letter',
-  description: 'Hr Letter Data',
-};
+  title: "HR Letter",
+  description: "Hr Letter Data",
+}
 interface HrLetterLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 const HrLetterLayout = ({ children }: HrLetterLayoutProps) => {
   return (
@@ -14,7 +14,7 @@ const HrLetterLayout = ({ children }: HrLetterLayoutProps) => {
       <HrLetterData />
       <section>{children}</section>
     </>
-  );
-};
+  )
+}
 
-export default HrLetterLayout;
+export default HrLetterLayout

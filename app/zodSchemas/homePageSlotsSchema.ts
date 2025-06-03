@@ -1,5 +1,5 @@
-import { homePageSlotKeyEnum } from '@zodSchemas';
-import { z } from 'zod';
+import { homePageSlotKeyEnum } from "@zodSchemas"
+import { z } from "zod"
 
 export const homePageSlotsSchema = z.array(
   z.object({
@@ -9,6 +9,6 @@ export const homePageSlotsSchema = z.array(
     index: z.number(),
     key: homePageSlotKeyEnum,
     userId: z.number(),
-    slotType: z.literal('homePage'),
-  })
-);
+    slotType: z.literal("homePage"),
+  }),
+)

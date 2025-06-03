@@ -28,5 +28,5 @@ export const PaperIcon = () => {
         fill="#007C9E"
       />
     </svg>
-  );
-};
+  )
+}

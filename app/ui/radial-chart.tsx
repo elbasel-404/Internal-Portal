@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import {
   Label,
@@ -6,13 +6,13 @@ import {
   PolarRadiusAxis,
   RadialBar,
   RadialBarChart,
-} from "recharts";
+} from "recharts"
 
-import { ChartConfig, ChartContainer } from "./chart";
+import { ChartConfig, ChartContainer } from "./chart"
 
 const chartData = [
   { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-];
+]
 
 const chartConfig = {
   visitors: {
@@ -22,7 +22,7 @@ const chartConfig = {
     label: "Safari",
     color: "hsl(var(--chart-2))",
   },
-} satisfies ChartConfig;
+} satisfies ChartConfig
 
 export function RadialChart() {
   return (
@@ -71,12 +71,12 @@ export function RadialChart() {
                       Visitors
                     </tspan>
                   </text>
-                );
+                )
               }
             }}
           />
         </PolarRadiusAxis>
       </RadialBarChart>
     </ChartContainer>
-  );
+  )
 }

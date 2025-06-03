@@ -1,1 +1,1 @@
-export { GoalsModal } from './GoalsModal';
+export { GoalsModal } from "./GoalsModal"

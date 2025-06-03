@@ -1,28 +1,28 @@
 // app/components/RegisterKeyboardShortcuts.tsx
-'use client';
+"use client"
 
 // import { useKeyPress } from '@hooks';
 // import { usePathname, useRouter } from 'next/navigation';
-import { keyboardShortcuts } from '../lib/keyboardShortcuts/keyboardShortcuts';
+import { keyboardShortcuts } from "../lib/keyboardShortcuts/keyboardShortcuts"
 
 export const RegisterKeyboardShortcuts = () => {
   keyboardShortcuts.forEach(({ key, withCommandKey, callback }) => {
-    document.addEventListener('keydown', (event) => {
-      const isKeyMatch = event.key === key;
-      const isCommandKeyPressed = event.ctrlKey;
+    document.addEventListener("keydown", (event) => {
+      const isKeyMatch = event.key === key
+      const isCommandKeyPressed = event.ctrlKey
 
-      if (isKeyMatch) event.preventDefault();
+      if (isKeyMatch) event.preventDefault()
 
       if (withCommandKey && isCommandKeyPressed && isKeyMatch) {
-        callback();
-        return;
+        callback()
+        return
       }
 
       if (!withCommandKey && isKeyMatch) {
-        callback();
+        callback()
       }
-    });
-  });
+    })
+  })
 
   // const router = useRouter();
   // const pathName = usePathname();
@@ -42,5 +42,5 @@ export const RegisterKeyboardShortcuts = () => {
   //     router.push(url);
   //   },
   // });
-  return null;
-};
+  return null
+}

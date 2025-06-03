@@ -1,10 +1,10 @@
-import { ChevronRight, ChevronLeft } from "lucide-react";
-import { Button } from "@ui";
+import { ChevronRight, ChevronLeft } from "lucide-react"
+import { Button } from "@ui"
 
 interface PaginationProps {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
+  currentPage: number
+  totalPages: number
+  onPageChange: (page: number) => void
 }
 
 export const Pagination = ({
@@ -45,4 +45,4 @@ export const Pagination = ({
       <ChevronLeft />
     </Button>
   </div>
-);
+)

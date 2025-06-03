@@ -37,66 +37,66 @@ export const UserFolderIcon = () => {
     //   />
     // </svg>
     <svg
-      width='25'
-      height='29'
-      viewBox='0 0 25 29'
-      fill='none'
-      xmlns='http://www.w3.org/2000/svg'
+      width="25"
+      height="29"
+      viewBox="0 0 25 29"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <g clipPath='url(#clip0_6852_119289)'>
+      <g clipPath="url(#clip0_6852_119289)">
         <path
-          d='M13.895 0.929688H11.095L9.125 2.90969V5.69969L11.095 7.67969H13.895L15.865 5.69969V2.90969L13.895 0.929688Z'
-          stroke='white'
-          strokeWidth='2'
-          strokeMiterlimit='10'
+          d="M13.895 0.929688H11.095L9.125 2.90969V5.69969L11.095 7.67969H13.895L15.865 5.69969V2.90969L13.895 0.929688Z"
+          stroke="white"
+          strokeWidth="2"
+          strokeMiterlimit="10"
         />
         <path
-          d='M21.7084 4.97949H19.4784L17.8984 6.55949V8.79949L19.4784 10.3795H21.7084L23.2984 8.79949V6.55949L21.7084 4.97949Z'
-          stroke='white'
-          strokeWidth='2'
-          strokeMiterlimit='10'
+          d="M21.7084 4.97949H19.4784L17.8984 6.55949V8.79949L19.4784 10.3795H21.7084L23.2984 8.79949V6.55949L21.7084 4.97949Z"
+          stroke="white"
+          strokeWidth="2"
+          strokeMiterlimit="10"
         />
         <path
-          d='M5.51531 4.97949H3.27531L1.69531 6.55949V8.79949L3.27531 10.3795H5.51531L7.09531 8.79949V6.55949L5.51531 4.97949Z'
-          stroke='white'
-          strokeWidth='2'
-          strokeMiterlimit='10'
+          d="M5.51531 4.97949H3.27531L1.69531 6.55949V8.79949L3.27531 10.3795H5.51531L7.09531 8.79949V6.55949L5.51531 4.97949Z"
+          stroke="white"
+          strokeWidth="2"
+          strokeMiterlimit="10"
         />
         <path
-          d='M14.5431 28.5899L14.5331 21.1699H16.5331V12.3999L14.1631 10.3799H10.8131L8.45312 12.3999V21.1699H10.4231L10.4331 28.5899'
-          stroke='white'
-          strokeWidth='2'
-          strokeMiterlimit='10'
+          d="M14.5431 28.5899L14.5331 21.1699H16.5331V12.3999L14.1631 10.3799H10.8131L8.45312 12.3999V21.1699H10.4231L10.4331 28.5899"
+          stroke="white"
+          strokeWidth="2"
+          strokeMiterlimit="10"
         />
         <path
-          d='M14.5425 28.5899L14.5325 21.1699H16.5325V12.3999L14.1625 10.3799H10.8125'
-          stroke='white'
-          strokeWidth='2'
-          strokeMiterlimit='10'
+          d="M14.5425 28.5899L14.5325 21.1699H16.5325V12.3999L14.1625 10.3799H10.8125"
+          stroke="white"
+          strokeWidth="2"
+          strokeMiterlimit="10"
         />
         <path
-          d='M21.9503 28.5901L21.9403 22.5201H23.9703V15.1001L21.6003 13.0801H18.5703'
-          stroke='white'
-          strokeWidth='1.04'
-          strokeMiterlimit='10'
+          d="M21.9503 28.5901L21.9403 22.5201H23.9703V15.1001L21.6003 13.0801H18.5703"
+          stroke="white"
+          strokeWidth="1.04"
+          strokeMiterlimit="10"
         />
         <path
-          d='M3.05125 28.5901L3.06125 22.5201H1.03125V15.1001L3.40125 13.0801H6.43125'
-          stroke='white'
-          strokeWidth='1.04'
-          strokeMiterlimit='10'
+          d="M3.05125 28.5901L3.06125 22.5201H1.03125V15.1001L3.40125 13.0801H6.43125"
+          stroke="white"
+          strokeWidth="1.04"
+          strokeMiterlimit="10"
         />
       </g>
       <defs>
-        <clipPath id='clip0_6852_119289'>
+        <clipPath id="clip0_6852_119289">
           <rect
-            width='23.98'
-            height='28.18'
-            fill='white'
-            transform='translate(0.507812 0.410156)'
+            width="23.98"
+            height="28.18"
+            fill="white"
+            transform="translate(0.507812 0.410156)"
           />
         </clipPath>
       </defs>
     </svg>
-  );
-};
+  )
+}

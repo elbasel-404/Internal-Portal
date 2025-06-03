@@ -1,41 +1,41 @@
-import type { CreateRequestStatus } from '@types';
+import type { CreateRequestStatus } from "@types"
 import {
   RequestCreateWorkflowElementSchema,
   ResponseSchema,
-} from '../../api-schemas';
-import { getDemo } from '../db/actions/getDemo';
-import { getFetchHeaders } from './getFetchHeaders';
+} from "../../api-schemas"
+import { getDemo } from "../db/actions/getDemo"
+import { getFetchHeaders } from "./getFetchHeaders"
 
 export const getCreateRequestStatus = async (
-  model?: string
+  model?: string,
 ): Promise<CreateRequestStatus[]> => {
-  const isDemo = await getDemo();
-  if (isDemo) return dummyData;
+  const isDemo = await getDemo()
+  if (isDemo) return dummyData
 
   // ! VARIBLES
   // ! ==================================
-  const url = 'api/po/request_workflow';
-  const apiRootUrl = process.env.API_ROOT_URL as string;
-  const { headers } = await getFetchHeaders();
-  const requestBody = { model: model };
-  const requestBodyString = JSON.stringify(requestBody);
-  const requestUrl = `${apiRootUrl}/${url}`;
+  const url = "api/po/request_workflow"
+  const apiRootUrl = process.env.API_ROOT_URL as string
+  const { headers } = await getFetchHeaders()
+  const requestBody = { model: model }
+  const requestBodyString = JSON.stringify(requestBody)
+  const requestUrl = `${apiRootUrl}/${url}`
 
   // ! FETCH
   // ! ==================================
   const apiResponse = await fetch(requestUrl, {
     headers,
-    method: 'POST',
+    method: "POST",
     body: requestBodyString,
-  });
-  const responseJson = await apiResponse.json();
+  })
+  const responseJson = await apiResponse.json()
 
   // ! VALIDATION
   // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson);
-  const { result } = validatedResponse;
-  const { data } = result;
-  const validatedData = RequestCreateWorkflowElementSchema.array().parse(data);
+  const validatedResponse = ResponseSchema.parse(responseJson)
+  const { result } = validatedResponse
+  const { data } = result
+  const validatedData = RequestCreateWorkflowElementSchema.array().parse(data)
 
   // ! PARSING
   // ! ==================================
@@ -43,24 +43,24 @@ export const getCreateRequestStatus = async (
   const returnedData: CreateRequestStatus[] = validatedData.map((data) => {
     const vacationItem: CreateRequestStatus = {
       status: data.state,
-    };
-    return vacationItem;
-  });
+    }
+    return vacationItem
+  })
 
-  return returnedData;
-};
+  return returnedData
+}
 
 const dummyData: CreateRequestStatus[] = [
   {
-    status: 'طلب',
+    status: "طلب",
   },
   {
-    status: 'المدير المباشر',
+    status: "المدير المباشر",
   },
   {
-    status: 'عمليات الموارد البشرية',
+    status: "عمليات الموارد البشرية",
   },
   {
-    status: 'أعتمد',
+    status: "أعتمد",
   },
-];
+]

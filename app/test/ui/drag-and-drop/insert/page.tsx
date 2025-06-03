@@ -1,85 +1,85 @@
-'use client';
+"use client"
 
-import { insert } from '@formkit/drag-and-drop';
-import { useDragAndDrop } from '@formkit/drag-and-drop/react';
+import { insert } from "@formkit/drag-and-drop"
+import { useDragAndDrop } from "@formkit/drag-and-drop/react"
 // import { useState } from 'react';
 
 const insertPointClasses = [
-  'absolute',
-  'bg-blue-500',
-  'z-[1000]',
-  'rounded-full',
-  'duration-500',
-  'before:block',
+  "absolute",
+  "bg-blue-500",
+  "z-[1000]",
+  "rounded-full",
+  "duration-500",
+  "before:block",
   'before:content-["Insert"]',
-  'before:whitespace-nowrap',
-  'before:block',
-  'before:bg-blue-500',
-  'before:py-1',
-  'before:px-2',
-  'before:rounded-full',
-  'before:text-xs',
-  'before:absolute',
-  'before:top-1/2',
-  'before:left-1/2',
-  'before:-translate-y-1/2',
-  'before:-translate-x-1/2',
-  'before:text-white',
-  'before:text-xs',
-];
+  "before:whitespace-nowrap",
+  "before:block",
+  "before:bg-blue-500",
+  "before:py-1",
+  "before:px-2",
+  "before:rounded-full",
+  "before:text-xs",
+  "before:absolute",
+  "before:top-1/2",
+  "before:left-1/2",
+  "before:-translate-y-1/2",
+  "before:-translate-x-1/2",
+  "before:text-white",
+  "before:text-xs",
+]
 
 const DragAndDropInsertTestPage = () => {
   const todoItems = [
-    'Schedule perm',
-    'Rewind VHS tapes',
-    'Make change for the arcade',
-    'Get disposable camera developed',
-    'Learn C++',
-    'Return Nintendo Power Glove',
-  ];
+    "Schedule perm",
+    "Rewind VHS tapes",
+    "Make change for the arcade",
+    "Get disposable camera developed",
+    "Learn C++",
+    "Return Nintendo Power Glove",
+  ]
 
   // const [todoSwap, setTodoSwap] = useState(false);
   // const [doneSwap, setDoneSwap] = useState(false);
 
-  const doneItems = ['Pickup new mix-tape from Beth'];
+  const doneItems = ["Pickup new mix-tape from Beth"]
 
   const [todoList, todos] = useDragAndDrop<HTMLUListElement, string>(
     todoItems,
     {
-      group: 'todoList',
+      group: "todoList",
 
       plugins: [
         insert({
           insertPoint: () => {
-            const div = document.createElement('div');
+            const div = document.createElement("div")
 
-            for (const cls of insertPointClasses) div.classList.add(cls);
+            for (const cls of insertPointClasses) div.classList.add(cls)
 
-            return div;
+            return div
           },
         }),
       ],
-    }
-  );
+    },
+  )
 
   const [doneList, dones] = useDragAndDrop<HTMLUListElement, string>(
     doneItems,
     {
-      group: 'todoList',
+      group: "todoList",
 
       plugins: [
         insert({
           insertPoint: () => {
-            const div = document.createElement('div');
+            const div = document.createElement("div")
 
-            for (const cls of insertPointClasses) div.classList.add(cls);
+            for (const cls of insertPointClasses) div.classList.add(cls)
 
-            return div;
+            return div
           },
         }),
       ],
-    }
-  );
+    },
+  )
 
   //   function toggleTodoSwap() {
   // setTodoSwap(!todoSwap);
@@ -90,23 +90,23 @@ const DragAndDropInsertTestPage = () => {
   //   }
 
   return (
-    <div className='kanban-board'>
+    <div className="kanban-board">
       <ul ref={todoList}>
         {todos.map((todo) => (
-          <li className='kanban-item' key={todo}>
+          <li className="kanban-item" key={todo}>
             {todo}
           </li>
         ))}
       </ul>
       <ul ref={doneList}>
         {dones.map((done) => (
-          <li className='kanban-item' key={done}>
+          <li className="kanban-item" key={done}>
             {done}
           </li>
         ))}
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default DragAndDropInsertTestPage;
+export default DragAndDropInsertTestPage

@@ -1,17 +1,17 @@
 // import { Body } from '@components';
-import { fonts } from '@lib';
-import type { ReactNode } from 'react';
-import '../(pages)/globals.css';
+import { fonts } from "@lib"
+import type { ReactNode } from "react"
+import "../(pages)/globals.css"
 // import { DirectionProvider } from '@components/providers';
 
 interface RootLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 const RootLayout = ({ children }: Readonly<RootLayoutProps>) => {
   return (
     // <html lang='en' suppressHydrationWarning={true}>
-    <html lang='en'>
+    <html lang="en">
       {/* <DirectionProvider dir='rtl'> */}
       <body className={`${fonts.className} antialiased`}>
         {/* <Body className={`${fonts.className} antialiased`}>{children}</Body> */}
@@ -19,7 +19,7 @@ const RootLayout = ({ children }: Readonly<RootLayoutProps>) => {
       </body>
       {/* </DirectionProvider> */}
     </html>
-  );
-};
+  )
+}
 
-export default RootLayout;
+export default RootLayout

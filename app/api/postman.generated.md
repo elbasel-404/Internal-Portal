@@ -1,6 +1,7 @@
 # API Documentation
 
 ## Table of Contents
+
 - [API Configuration Interface](#api-configuration-interface)
   - [`ApiConfig`](#apiconfig)
 - [Generic API Request Helper](#generic-api-request-helper)
@@ -58,6 +59,7 @@
 ## API Configuration Interface
 
 ### `ApiConfig`
+
 - **Description**: Interface for API configuration.
 - **Properties**:
   - `baseUrl` (string): Base URL for the API endpoints.
@@ -69,6 +71,7 @@
 ## Generic API Request Helper
 
 ### `apiRequest`
+
 - **Description**: A generic helper function for making API requests.
 - **Parameters**:
   - `config` (ApiConfig): API configuration object.
@@ -83,6 +86,7 @@
 ## HR: Holidays Endpoints
 
 ### `createHolidayRequest`
+
 - **Description**: Creates a holiday request using a `FormData` body.
 - **Parameters**:
   - `data` (object): Holiday request details.
@@ -90,6 +94,7 @@
 - **Returns**: API response.
 
 ### `getHolidaysRequest`
+
 - **Description**: Retrieves holiday requests using a raw JSON body.
 - **Parameters**:
   - `data` (object): Parameters (e.g., `employee_id`).
@@ -97,6 +102,7 @@
 - **Returns**: API response.
 
 ### `getHolidaysStatusByGender`
+
 - **Description**: Retrieves holiday statuses by gender using a raw JSON body.
 - **Parameters**:
   - `data` (Record<string, any>): Request payload.
@@ -104,6 +110,7 @@
 - **Returns**: API response.
 
 ### `acceptHolidayRequest`
+
 - **Description**: Accepts a holiday request using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains `holiday_id`.
@@ -111,6 +118,7 @@
 - **Returns**: API response.
 
 ### `rejectHolidayRequest`
+
 - **Description**: Rejects a holiday request using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains `holiday_id` and `refuse_reason`.
@@ -118,6 +126,7 @@
 - **Returns**: API response.
 
 ### `getSubstituteEmployees`
+
 - **Description**: Retrieves substitute employees using query parameters.
 - **Parameters**:
   - `query` (object): Query parameters (e.g., `employee_id`, `parent_id`).
@@ -129,6 +138,7 @@
 ## HR: Authorization Endpoints
 
 ### `createAuthorization`
+
 - **Description**: Creates an authorization request using a `FormData` body.
 - **Parameters**:
   - `data` (object): Authorization request details.
@@ -136,6 +146,7 @@
 - **Returns**: API response.
 
 ### `getAuthorization`
+
 - **Description**: Retrieves an authorization request using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains `employee_id` and `type_id`.
@@ -143,6 +154,7 @@
 - **Returns**: API response.
 
 ### `acceptAuthorization`
+
 - **Description**: Accepts an authorization request using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains the authorization `id`.
@@ -150,6 +162,7 @@
 - **Returns**: API response.
 
 ### `rejectAuthorization`
+
 - **Description**: Rejects an authorization request using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains the authorization `id` and `refuse_reason`.
@@ -161,6 +174,7 @@
 ## HR: Attendance Endpoints
 
 ### `createHrAttendance`
+
 - **Description**: Creates an HR attendance record using query parameters.
 - **Parameters**:
   - `query` (object): Contains `employee_id` and `action` (e.g., `sign_in`).
@@ -168,6 +182,7 @@
 - **Returns**: API response.
 
 ### `getHrAttendance`
+
 - **Description**: Retrieves HR attendance records using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains `employee_id` (and optionally `id`).
@@ -175,6 +190,7 @@
 - **Returns**: API response.
 
 ### `getEmployeePresence`
+
 - **Description**: Retrieves employee presence using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains `employee_id`, `date_from`, and optionally `date_to`.
@@ -182,6 +198,7 @@
 - **Returns**: API response.
 
 ### `getAttendancePerYear`
+
 - **Description**: Retrieves attendance per year using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains `employee_id`, `date_from`, and `date_to`.
@@ -189,6 +206,7 @@
 - **Returns**: API response.
 
 ### `getAttendancePerYearV2`
+
 - **Description**: Retrieves attendance per year (version 2) using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains `employee_id`, `date_from`, and `date_to`.
@@ -200,6 +218,7 @@
 ## HR: Distance Work Endpoints
 
 ### `createDistanceWork`
+
 - **Description**: Creates a distance work request using a `FormData` body.
 - **Parameters**:
   - `data` (object): Distance work details.
@@ -207,6 +226,7 @@
 - **Returns**: API response.
 
 ### `getDistanceWork`
+
 - **Description**: Retrieves a distance work request using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains the `id` of the distance work request.
@@ -214,6 +234,7 @@
 - **Returns**: API response.
 
 ### `acceptDistanceWork`
+
 - **Description**: Accepts a distance work request using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains the `id` of the distance work request.
@@ -221,6 +242,7 @@
 - **Returns**: API response.
 
 ### `rejectDistanceWork`
+
 - **Description**: Rejects a distance work request using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains the `id` and `refuse_reason` for the request.
@@ -232,6 +254,7 @@
 ## HR: Change Bank Account Endpoints
 
 ### `createChangeBankAccount`
+
 - **Description**: Creates a change bank account request using a `FormData` body.
 - **Parameters**:
   - `data` (object): Details for bank account change.
@@ -239,6 +262,7 @@
 - **Returns**: API response.
 
 ### `getChangeBankAccount`
+
 - **Description**: Retrieves change bank account requests using a raw JSON body.
 - **Parameters**:
   - `data` (object): Request parameters (e.g., `id`).
@@ -246,6 +270,7 @@
 - **Returns**: API response.
 
 ### `getBanks`
+
 - **Description**: Retrieves a list of banks using a raw JSON body.
 - **Parameters**:
   - `data` (Record<string, any>): Empty object or parameters if needed.
@@ -253,6 +278,7 @@
 - **Returns**: API response.
 
 ### `acceptChangeBankAccount`
+
 - **Description**: Accepts a change bank account request using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains the request `id`.
@@ -260,6 +286,7 @@
 - **Returns**: API response.
 
 ### `rejectChangeBankAccount`
+
 - **Description**: Rejects a change bank account request using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains the request `id`.
@@ -271,6 +298,7 @@
 ## HR: Probation Evaluation Endpoints
 
 ### `probationEvaluationRead`
+
 - **Description**: Reads probation evaluation data using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains `employee_id`.
@@ -278,6 +306,7 @@
 - **Returns**: API response.
 
 ### `probationEvaluationCreate`
+
 - **Description**: Creates a probation evaluation record using a `FormData` body.
 - **Parameters**:
   - `data` (object): Probation evaluation details.
@@ -289,6 +318,7 @@
 ## HR: Custody Endpoints
 
 ### `custodyCreate`
+
 - **Description**: Creates a custody close request using a `FormData` body.
 - **Parameters**:
   - `data` (object): Custody close details.
@@ -296,6 +326,7 @@
 - **Returns**: API response.
 
 ### `custodyRead`
+
 - **Description**: Reads custody close requests using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains `employee_id`.
@@ -307,6 +338,7 @@
 ## HR: Salary Identification Request Endpoints
 
 ### `createSalaryRequest`
+
 - **Description**: Creates a salary identification request using a `FormData` body.
 - **Parameters**:
   - `data` (object): Salary request details.
@@ -314,6 +346,7 @@
 - **Returns**: API response.
 
 ### `getSalaryRequest`
+
 - **Description**: Retrieves salary identification requests using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains `employee_id`.
@@ -321,6 +354,7 @@
 - **Returns**: API response.
 
 ### `acceptSalaryRequest`
+
 - **Description**: Accepts a salary identification request using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains `salary_request_id`.
@@ -328,6 +362,7 @@
 - **Returns**: API response.
 
 ### `rejectSalaryRequest`
+
 - **Description**: Rejects a salary identification request using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains `salary_request_id`.
@@ -339,6 +374,7 @@
 ## HR: Medical Insurance Endpoints
 
 ### `getMedicalInsurance`
+
 - **Description**: Retrieves medical insurance details using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains `id` (or other parameters).
@@ -346,6 +382,7 @@
 - **Returns**: API response.
 
 ### `createMedicalInsurance`
+
 - **Description**: Creates a medical insurance request using a `FormData` body.
 - **Parameters**:
   - `data` (object): Medical insurance details.
@@ -353,6 +390,7 @@
 - **Returns**: API response.
 
 ### `rejectMedicalInsurance`
+
 - **Description**: Rejects a medical insurance request using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains `medical_insurance_id`.
@@ -360,6 +398,7 @@
 - **Returns**: API response.
 
 ### `acceptMedicalInsurance`
+
 - **Description**: Accepts a medical insurance request using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains `medical_insurance_id`.
@@ -371,6 +410,7 @@
 ## Helpdesk: Ticket Endpoints
 
 ### `createTicket`
+
 - **Description**: Creates a helpdesk ticket using a `FormData` body.
 - **Parameters**:
   - `data` (object): Ticket details.
@@ -378,6 +418,7 @@
 - **Returns**: API response.
 
 ### `getTicket`
+
 - **Description**: Retrieves a helpdesk ticket using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains `id` and optional parameters.
@@ -385,6 +426,7 @@
 - **Returns**: API response.
 
 ### `getTicketFields`
+
 - **Description**: Retrieves ticket fields using a raw JSON body.
 - **Parameters**:
   - `data` (object): Contains parameters such as `class_id` or `ticket_type_id`.

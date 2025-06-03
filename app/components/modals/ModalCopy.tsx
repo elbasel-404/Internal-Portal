@@ -1,6 +1,6 @@
-'use client';
+"use client"
 
-import { VisuallyHidden } from '@components';
+import { VisuallyHidden } from "@components"
 // import { useKeyPress } from '@hooks';
 import {
   Dialog,
@@ -15,13 +15,13 @@ import {
   //   Label,
   DialogClose,
   DialogContent,
-} from '@ui';
+} from "@ui"
 // import { cn, sleep } from '@utils';
 // import { useRouter } from 'next/navigation';
-import { type ReactNode } from 'react';
+import { type ReactNode } from "react"
 
 interface ModalProps {
-  children?: ReactNode;
+  children?: ReactNode
 }
 
 export const ModalCopy = ({ children }: ModalProps) => {
@@ -30,8 +30,8 @@ export const ModalCopy = ({ children }: ModalProps) => {
     // <Dialog open={modalOpen}>
     <Dialog open={true}>
       <VisuallyHidden>
-        <DialogTitle title='User Settings' />
-        <DialogDescription description={'desck'} />
+        <DialogTitle title="User Settings" />
+        <DialogDescription description={"desck"} />
       </VisuallyHidden>
       <DialogContent
       // onCloseAutoFocus={closeDialog}
@@ -46,5 +46,5 @@ export const ModalCopy = ({ children }: ModalProps) => {
       </DialogContent>
       <DialogClose>Close</DialogClose>
     </Dialog>
-  );
-};
+  )
+}

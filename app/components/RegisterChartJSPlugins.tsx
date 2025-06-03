@@ -1,12 +1,12 @@
-'use client';
+"use client"
 
-import { useEffect } from 'react';
-import { registerChartjsPlugins } from '@utils';
+import { useEffect } from "react"
+import { registerChartjsPlugins } from "@utils"
 
 export const RegisterChartJSPlugins = () => {
   useEffect(() => {
-    registerChartjsPlugins();
-  }, []);
+    registerChartjsPlugins()
+  }, [])
 
-  return null;
-};
+  return null
+}

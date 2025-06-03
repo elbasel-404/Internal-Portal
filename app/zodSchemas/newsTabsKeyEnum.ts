@@ -1,4 +1,4 @@
-import { newsTabsKeys } from '@lib';
-import { z } from 'zod';
+import { newsTabsKeys } from "@lib"
+import { z } from "zod"
 
-export const newsTabsKeyEnum = z.enum(newsTabsKeys);
+export const newsTabsKeyEnum = z.enum(newsTabsKeys)

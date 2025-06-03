@@ -1,1 +1,1 @@
-export { CovenantDetailsModal } from './CovenantDetailsModal';
+export { CovenantDetailsModal } from "./CovenantDetailsModal"

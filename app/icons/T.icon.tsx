@@ -12,5 +12,5 @@ export const TIcon = () => {
         fill="#88D0EC"
       />
     </svg>
-  );
-};
+  )
+}

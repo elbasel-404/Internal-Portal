@@ -1,20 +1,20 @@
-import { RequestDetails, RequestStatus } from '@components';
-import { getEmployeeMembersDetails, getRequestStatus } from '@server';
-import { RequestHeader } from '@types';
+import { RequestDetails, RequestStatus } from "@components"
+import { getEmployeeMembersDetails, getRequestStatus } from "@server"
+import { RequestHeader } from "@types"
 
-type Params = Promise<{ id: string }>;
+type Params = Promise<{ id: string }>
 
 interface EmployeeMembersDetailsPageProps {
-  params: Params;
+  params: Params
 }
 
 const EmployeeMembersDetailsPage = async ({
   params,
 }: EmployeeMembersDetailsPageProps) => {
-  const { id } = await params;
-  const requestStatus = await getRequestStatus();
+  const { id } = await params
+  const requestStatus = await getRequestStatus()
   const requestCaption =
-    'انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر';
+    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const {
     date,
     requestType,
@@ -24,52 +24,52 @@ const EmployeeMembersDetailsPage = async ({
     birthDate,
     idNumber,
     attachments,
-  } = (await getEmployeeMembersDetails(id)) || {};
+  } = (await getEmployeeMembersDetails(id)) || {}
 
   const requestHeaders: RequestHeader[] = [
     {
-      label: 'رقم الطلب',
+      label: "رقم الطلب",
       value: id,
     },
     {
-      label: 'تاريخ الطلب',
+      label: "تاريخ الطلب",
       value: date,
     },
     {
-      label: 'نوع الطلب',
+      label: "نوع الطلب",
       value: requestType,
     },
     {
-      label: 'الاسم الكامل للفرد بالعربية',
+      label: "الاسم الكامل للفرد بالعربية",
       value: nameAr,
     },
     {
-      label: 'الاسم الكامل للفرد بالانجليزية',
+      label: "الاسم الكامل للفرد بالانجليزية",
       value: nameEn,
     },
     {
-      label: 'رقم الهوية',
+      label: "رقم الهوية",
       value: idNumber,
     },
     {
-      label: 'تاريخ الميلاد',
+      label: "تاريخ الميلاد",
       value: birthDate,
     },
     {
-      label: 'صلة القرابة',
+      label: "صلة القرابة",
       value: relation,
     },
     {
-      label: 'المرفقات',
+      label: "المرفقات",
       value: attachments,
     },
-  ];
+  ]
   return (
     <main>
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails headers={requestHeaders} />
     </main>
-  );
-};
+  )
+}
 
-export default EmployeeMembersDetailsPage;
+export default EmployeeMembersDetailsPage

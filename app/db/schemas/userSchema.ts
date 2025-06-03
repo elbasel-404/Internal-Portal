@@ -8,8 +8,8 @@ import {
   ProductSchema,
   ProjectCompletionSchema,
   TrainingCoursesSchema,
-} from '@zodSchemas';
-import { z } from 'zod';
+} from "@zodSchemas"
+import { z } from "zod"
 
 export const userSchema = z.object({
   id: z.number(),
@@ -23,4 +23,4 @@ export const userSchema = z.object({
   batchs: z.array(BatchSchema),
   batchProducts: z.array(BatchProductSchema),
   trainingCourses: z.array(TrainingCoursesSchema),
-});
+})

@@ -1,1 +1,1 @@
-export { AchievementCertificateModal } from './AchievementCertificateModal';
+export { AchievementCertificateModal } from "./AchievementCertificateModal"

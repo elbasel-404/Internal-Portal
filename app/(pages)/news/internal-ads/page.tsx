@@ -1,18 +1,18 @@
-import { paths } from '@lib';
-import { getAdsNewsList } from '@server';
-import { NewsList } from '../components';
+import { paths } from "@lib"
+import { getAdsNewsList } from "@server"
+import { NewsList } from "../components"
 
 const InternalAdsPage = async () => {
-  const internalAdsData = await getAdsNewsList();
+  const internalAdsData = await getAdsNewsList()
   return (
     <>
       <NewsList
         newsData={internalAdsData}
-        title='إعلانات داخلية'
+        title="إعلانات داخلية"
         path={paths.internalAdsDetails.href}
       />
     </>
-  );
-};
+  )
+}
 
-export default InternalAdsPage;
+export default InternalAdsPage

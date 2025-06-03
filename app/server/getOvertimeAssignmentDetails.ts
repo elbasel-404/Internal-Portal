@@ -1,12 +1,13 @@
 "use server";
 
-import { OvertimeAssignmentDetails } from "@types";
 import { getDemo } from "../db/actions/getDemo";
 import { getFetchHeaders } from "./getFetchHeaders";
 import { OvertimeAssignmentElementSchema, ResponseSchema } from "@api/schemas";
 
+import { OvertimeAssignmentDetails } from "@types"
+
 export const getOvertimeAssignmentDetails = async (
-  id: string
+  id: string,
 ): Promise<OvertimeAssignmentDetails | void> => {
   const isDemo = await getDemo();
   if (isDemo) return dummyData;

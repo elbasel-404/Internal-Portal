@@ -1,4 +1,4 @@
-import * as z from "zod";
+import * as z from "zod"
 
 export const NewsElementSchema = z.object({
   id: z.number(),
@@ -20,5 +20,5 @@ export const NewsElementSchema = z.object({
   write_date: z.coerce.date(),
   display_name: z.string(),
   __last_update: z.coerce.date(),
-});
-export type NewsElement = z.infer<typeof NewsElementSchema>;
+})
+export type NewsElement = z.infer<typeof NewsElementSchema>

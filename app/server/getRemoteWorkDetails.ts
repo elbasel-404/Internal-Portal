@@ -1,24 +1,24 @@
-"use server";
+"use server"
 
-import type { RemoteWorkDetails } from "@types";
-import { RemoteWorkElementSchema, ResponseSchema } from "../../api-schemas";
-import { getDemo } from "../db/actions/getDemo";
-import { getFetchHeaders } from "./getFetchHeaders";
+import type { RemoteWorkDetails } from "@types"
+import { RemoteWorkElementSchema, ResponseSchema } from "../../api-schemas"
+import { getDemo } from "../db/actions/getDemo"
+import { getFetchHeaders } from "./getFetchHeaders"
 
 export const getRemoteWorkDetails = async (
-  id: string
+  id: string,
 ): Promise<RemoteWorkDetails | void> => {
-  const isDemo = await getDemo();
-  if (isDemo) return dummyData;
+  const isDemo = await getDemo()
+  if (isDemo) return dummyData
 
   // ! VARIBLES
   // ! ==================================
-  const url = "api/po/hr/distance/work";
-  const apiRootUrl = process.env.API_ROOT_URL as string;
-  const { headers } = await getFetchHeaders();
-  const requestBody = { id: id };
-  const requestBodyString = JSON.stringify(requestBody);
-  const requestUrl = `${apiRootUrl}/${url}`;
+  const url = "api/po/hr/distance/work"
+  const apiRootUrl = process.env.API_ROOT_URL as string
+  const { headers } = await getFetchHeaders()
+  const requestBody = { id: id }
+  const requestBodyString = JSON.stringify(requestBody)
+  const requestUrl = `${apiRootUrl}/${url}`
 
   // ! FETCH
   // ! ==================================
@@ -26,15 +26,15 @@ export const getRemoteWorkDetails = async (
     headers,
     method: "POST",
     body: requestBodyString,
-  });
-  const responseJson = await apiResponse.json();
+  })
+  const responseJson = await apiResponse.json()
 
   // ! VALIDATION
   // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson);
-  const { result } = validatedResponse;
-  const { data } = result;
-  const validatedData = RemoteWorkElementSchema.parse(data[0]);
+  const validatedResponse = ResponseSchema.parse(responseJson)
+  const { result } = validatedResponse
+  const { data } = result
+  const validatedData = RemoteWorkElementSchema.parse(data[0])
 
   // ! PARSING
   // ! ==================================
@@ -46,10 +46,10 @@ export const getRemoteWorkDetails = async (
     duration: validatedData.duration.toString(),
     madeThroughTheApp: "false",
     notes: typeof validatedData.note === "string" ? validatedData.note : "",
-  };
+  }
 
-  return returnedData;
-};
+  return returnedData
+}
 
 const dummyData: RemoteWorkDetails = {
   id: "1",
@@ -59,4 +59,4 @@ const dummyData: RemoteWorkDetails = {
   madeThroughTheApp: "نعم",
   notes:
     "ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ",
-};
+}

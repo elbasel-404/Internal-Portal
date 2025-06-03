@@ -1,24 +1,24 @@
-"use server";
+"use server"
 
-import { VacationDetails } from "@types";
-import { HolidayElementSchema, ResponseSchema } from "../../api-schemas";
-import { getDemo } from "../db/actions/getDemo";
-import { getFetchHeaders } from "./getFetchHeaders";
+import { VacationDetails } from "@types"
+import { HolidayElementSchema, ResponseSchema } from "../../api-schemas"
+import { getDemo } from "../db/actions/getDemo"
+import { getFetchHeaders } from "./getFetchHeaders"
 
 export const getVacationDetails = async (
-  id: string
+  id: string,
 ): Promise<VacationDetails> => {
-  const isDemo = await getDemo();
-  if (isDemo) return dummyData;
+  const isDemo = await getDemo()
+  if (isDemo) return dummyData
 
   // ! VARIABLES
   // ! ==================================
-  const url = "api/po/hr/holidays/request";
-  const apiRootUrl = process.env.API_ROOT_URL as string;
-  const { headers } = await getFetchHeaders();
-  const requestBody = { id: id };
-  const requestBodyString = JSON.stringify(requestBody);
-  const requestUrl = `${apiRootUrl}/${url}`;
+  const url = "api/po/hr/holidays/request"
+  const apiRootUrl = process.env.API_ROOT_URL as string
+  const { headers } = await getFetchHeaders()
+  const requestBody = { id: id }
+  const requestBodyString = JSON.stringify(requestBody)
+  const requestUrl = `${apiRootUrl}/${url}`
 
   // ! FETCH
   // ! ==================================
@@ -26,15 +26,15 @@ export const getVacationDetails = async (
     headers,
     method: "POST",
     body: requestBodyString,
-  });
-  const responseJson = await apiResponse.json();
+  })
+  const responseJson = await apiResponse.json()
 
   // ! VALIDATION
   // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson);
-  const { result } = validatedResponse;
-  const { data } = result;
-  const validatedData = HolidayElementSchema.parse(data[0]);
+  const validatedResponse = ResponseSchema.parse(responseJson)
+  const { result } = validatedResponse
+  const { data } = result
+  const validatedData = HolidayElementSchema.parse(data[0])
 
   // ! PARSING
   // ! ==================================
@@ -48,12 +48,12 @@ export const getVacationDetails = async (
     alternativeEmployee: validatedData.substitute_employee_id[1].toString(),
     notes: validatedData.notes,
     attachments: validatedData.attachment_ids.map(
-      (file: any) => new File([""], file.toString())
+      (file: any) => new File([""], file.toString()),
     ),
-  };
+  }
 
-  return returnedData;
-};
+  return returnedData
+}
 
 const dummyData: VacationDetails = {
   id: "1",
@@ -68,4 +68,4 @@ const dummyData: VacationDetails = {
     new File([""], "نموذج طلب 2 .pdf"),
     new File([""], "نموذج طلب .pdf"),
   ],
-};
+}

@@ -1,1 +1,1 @@
-export { TrainingCoursesModal } from './TrainingCoursesModal';
+export { TrainingCoursesModal } from "./TrainingCoursesModal"

@@ -1,14 +1,14 @@
-import { getEmployeeAttendanceRequests } from '@server';
-import { Fragment } from 'react';
-import { EmployeeAttendanceTable } from '../components';
+import { getEmployeeAttendanceRequests } from "@server"
+import { Fragment } from "react"
+import { EmployeeAttendanceTable } from "../components"
 
 const EmployeeAttendancePage = async () => {
-  const getEmployeeAttendanceData = await getEmployeeAttendanceRequests();
+  const getEmployeeAttendanceData = await getEmployeeAttendanceRequests()
   return (
     <Fragment>
       <EmployeeAttendanceTable data={getEmployeeAttendanceData} />
     </Fragment>
-  );
-};
+  )
+}
 
-export default EmployeeAttendancePage;
+export default EmployeeAttendancePage
