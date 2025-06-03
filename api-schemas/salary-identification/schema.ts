@@ -49,6 +49,8 @@ export const SalaryIdentificationElementSchema = z.object({
     "__last_update": z.any(),
 });
 
+export type SalaryIdentificationElement = z.infer<typeof SalaryIdentificationElementSchema>;
+
 // export const CreateUidEnumSchema = z.enum([
 //     "Administrator",
 //     "Hamad Y. Alqushaymit",
@@ -141,4 +143,3 @@ export const SalaryIdentificationElementSchema = z.object({
 //     "display_name": DisplayNameSchema,
 //     "__last_update": z.coerce.date(),
 // });
-// export type SalaryIdentificationElement = z.infer<typeof SalaryIdentificationElementSchema>;
