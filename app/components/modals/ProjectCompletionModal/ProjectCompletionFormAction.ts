@@ -1,44 +1,44 @@
-'use server';
+"use server"
 
-import { db } from '@db'; // Database instance
-import { getUserIndex } from '@db/actions';
-import { getUserId } from '@server';
-import { ProjectCompletionSchema } from '@zodSchemas';
+import { db } from "@db" // Database instance
+import { getUserIndex } from "@db/actions"
+import { getUserId } from "@server"
+import { ProjectCompletionSchema } from "@zodSchemas"
 
 export const projectCompletionFormAction = async (formData: FormData) => {
   try {
-    const formEntries = formData.entries();
-    const rawData = Object.fromEntries(formEntries);
+    const formEntries = formData.entries()
+    const rawData = Object.fromEntries(formEntries)
 
-    const responseData = { ...rawData };
+    const responseData = { ...rawData }
 
     const {
       success,
       data: validatedData,
       error,
-    } = ProjectCompletionSchema.safeParse(responseData);
+    } = ProjectCompletionSchema.safeParse(responseData)
 
-    console.log(success, validatedData, error);
+    console.log(success, validatedData, error)
 
-    await db.read();
+    await db.read()
 
-    const userId = await getUserId();
+    const userId = await getUserId()
     if (!userId) {
       throw new Error(
-        'Invalid User Id (app/components/modals/ProjectCompletionModal/ProjectCompletionFormActions.ts)'
-      );
+        "Invalid User Id (app/components/modals/ProjectCompletionModal/ProjectCompletionFormActions.ts)",
+      )
     }
     if (!success) {
       throw new Error(
-        'Validation Error (app/components/modals/ProjectCompletionModal/ProjectCompletionFormActions.ts)',
-        error
-      );
+        "Validation Error (app/components/modals/ProjectCompletionModal/ProjectCompletionFormActions.ts)",
+        error,
+      )
     }
-    const userIndex = await getUserIndex(userId);
-    db.data.users[userIndex].projectCompletion.push(validatedData);
+    const userIndex = await getUserIndex(userId)
+    db.data.users[userIndex].projectCompletion.push(validatedData)
 
-    await db.write();
+    await db.write()
   } catch (error) {
-    console.error(error);
+    console.error(error)
   }
-};
+}

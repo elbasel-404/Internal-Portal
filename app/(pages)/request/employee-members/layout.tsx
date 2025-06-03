@@ -1,12 +1,12 @@
-import type { ReactNode } from 'react';
-import { EmployeeMembersData } from './components';
+import type { ReactNode } from "react"
+import { EmployeeMembersData } from "./components"
 
 export const metadata = {
-  title: 'Employee Members',
-  description: 'Employee Members Data',
-};
+  title: "Employee Members",
+  description: "Employee Members Data",
+}
 interface EmployeeMembersLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 const EmployeeMembersLayout = ({ children }: EmployeeMembersLayoutProps) => {
   return (
@@ -14,7 +14,7 @@ const EmployeeMembersLayout = ({ children }: EmployeeMembersLayoutProps) => {
       <EmployeeMembersData />
       <section>{children}</section>
     </>
-  );
-};
+  )
+}
 
-export default EmployeeMembersLayout;
+export default EmployeeMembersLayout

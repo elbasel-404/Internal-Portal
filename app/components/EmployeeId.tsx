@@ -1,7 +1,7 @@
-import { getStoredEmployeeId } from "@auth";
+import { getStoredEmployeeId } from "@auth"
 
 export const EmployeeId = async () => {
-  const storedEmployeeId = await getStoredEmployeeId();
+  const storedEmployeeId = await getStoredEmployeeId()
   return (
     <div
       dir="ltr"
@@ -9,5 +9,5 @@ export const EmployeeId = async () => {
     >
       <p>Employee ID: {storedEmployeeId ? storedEmployeeId : "null"}</p>
     </div>
-  );
-};
+  )
+}

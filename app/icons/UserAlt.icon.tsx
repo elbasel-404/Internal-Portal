@@ -28,5 +28,5 @@ export const UserAltIcon = () => {
         </clipPath>
       </defs>
     </svg>
-  );
-};
+  )
+}

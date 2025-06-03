@@ -1,23 +1,23 @@
 // app/(pages)/home/layout.tsx
-import { getUserId } from '@server';
-import { type ReactNode } from 'react';
-import { getUser } from '@db/actions';
-import { createInitialSlots, filterSlots, renderLayout } from './util';
-import { HomePageSlotKey } from '@types';
+import { getUserId } from "@server"
+import { type ReactNode } from "react"
+import { getUser } from "@db/actions"
+import { createInitialSlots, filterSlots, renderLayout } from "./util"
+import { HomePageSlotKey } from "@types"
 
 export interface HomePageLayoutProps {
-  children: ReactNode;
-  completeProfile: ReactNode;
-  generalInfo: ReactNode;
-  userInfo: ReactNode;
-  attendance: ReactNode;
-  approvalRequestsTable: ReactNode;
-  sliders: ReactNode;
-  news: ReactNode;
-  timelineCalendar: ReactNode;
+  children: ReactNode
+  completeProfile: ReactNode
+  generalInfo: ReactNode
+  userInfo: ReactNode
+  attendance: ReactNode
+  approvalRequestsTable: ReactNode
+  sliders: ReactNode
+  news: ReactNode
+  timelineCalendar: ReactNode
 }
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic"
 
 const HomePageLayout = async ({
   children,
@@ -40,19 +40,19 @@ const HomePageLayout = async ({
     sliders,
     timelineCalendar,
     news,
-  });
+  })
 
-  const userId = await getUserId();
+  const userId = await getUserId()
   if (!userId)
-    return renderLayout({ slotsToRender: initSlots, children, userId });
+    return renderLayout({ slotsToRender: initSlots, children, userId })
 
-  const user = await getUser(userId);
-  const activeSlotKeys = user.activeHomePageSlotsKeys || [];
-  const slotsToRender = filterSlots(initSlots, activeSlotKeys);
-  const visuallyHiddenKeys: HomePageSlotKey[] = [];
-  if (user.activeNewsTabsKeys.length === 0) visuallyHiddenKeys.push('news');
+  const user = await getUser(userId)
+  const activeSlotKeys = user.activeHomePageSlotsKeys || []
+  const slotsToRender = filterSlots(initSlots, activeSlotKeys)
+  const visuallyHiddenKeys: HomePageSlotKey[] = []
+  if (user.activeNewsTabsKeys.length === 0) visuallyHiddenKeys.push("news")
 
-  return renderLayout({ slotsToRender, children, userId, visuallyHiddenKeys });
-};
+  return renderLayout({ slotsToRender, children, userId, visuallyHiddenKeys })
+}
 
-export default HomePageLayout;
+export default HomePageLayout

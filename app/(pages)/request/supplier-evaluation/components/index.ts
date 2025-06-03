@@ -1,6 +1,6 @@
-export { EvaluationData } from './EvaluationData';
-export { EvaluationTable } from './EvaluationTable';
-export { EvaluationForm } from './EvaluationForm/index';
-export { EvaluationCriteriaTable } from './EvaluationCriteriaTable';
-export { EvaluationResultTable } from './EvaluationResultTable';
-export { KPIsTable } from './KPIsTable';
+export { EvaluationData } from "./EvaluationData"
+export { EvaluationTable } from "./EvaluationTable"
+export { EvaluationForm } from "./EvaluationForm/index"
+export { EvaluationCriteriaTable } from "./EvaluationCriteriaTable"
+export { EvaluationResultTable } from "./EvaluationResultTable"
+export { KPIsTable } from "./KPIsTable"

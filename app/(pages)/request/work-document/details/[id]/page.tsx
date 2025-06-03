@@ -1,20 +1,20 @@
-import { RequestDetails, RequestStatus } from '@components';
-import { getRequestStatus, getWorkDocumentDetails } from '@server';
-import { RequestHeader } from '@types';
+import { RequestDetails, RequestStatus } from "@components"
+import { getRequestStatus, getWorkDocumentDetails } from "@server"
+import { RequestHeader } from "@types"
 
-type Params = Promise<{ id: string }>;
+type Params = Promise<{ id: string }>
 
 interface WorkDocumentDetailsPageProps {
-  params: Params;
+  params: Params
 }
 
 const WorkDocumentDetailsPage = async ({
   params,
 }: WorkDocumentDetailsPageProps) => {
-  const { id } = await params;
-  const requestStatus = await getRequestStatus();
+  const { id } = await params
+  const requestStatus = await getRequestStatus()
   const requestCaption =
-    'انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر';
+    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const {
     requestType,
     requestDate,
@@ -26,60 +26,60 @@ const WorkDocumentDetailsPage = async ({
     target,
     status,
     attachments,
-  } = (await getWorkDocumentDetails(id)) || {};
+  } = (await getWorkDocumentDetails(id)) || {}
 
   const requestHeaders: RequestHeader[] = [
     {
-      label: 'رقم الطلب',
+      label: "رقم الطلب",
       value: id,
     },
     {
-      label: 'نوع الطلب',
+      label: "نوع الطلب",
       value: requestType,
     },
     {
-      label: 'تاريخ الطلب',
+      label: "تاريخ الطلب",
       value: requestDate,
     },
     {
-      label: 'نوع الوثيقة',
+      label: "نوع الوثيقة",
       value: documentType,
     },
     {
-      label: 'عنوان الوثيقة',
+      label: "عنوان الوثيقة",
       value: documentAddress,
     },
     {
-      label: 'الهدف',
+      label: "الهدف",
       value: target,
     },
     {
-      label: 'الموظف',
+      label: "الموظف",
       value: employee,
     },
     {
-      label: 'القطاع',
+      label: "القطاع",
       value: sector,
     },
     {
-      label: 'الإدارة',
+      label: "الإدارة",
       value: management,
     },
     {
-      label: 'الحالة',
+      label: "الحالة",
       value: status,
     },
     {
-      label: 'المرفقات',
+      label: "المرفقات",
       value: attachments,
     },
-  ];
+  ]
   return (
-    <main className='space-y-4'>
+    <main className="space-y-4">
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails headers={requestHeaders} />
     </main>
-  );
-};
+  )
+}
 
-export default WorkDocumentDetailsPage;
+export default WorkDocumentDetailsPage

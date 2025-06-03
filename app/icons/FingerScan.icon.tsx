@@ -52,5 +52,5 @@ export const FingerScanIcon = () => {
         strokeLinejoin="round"
       />
     </svg>
-  );
-};
+  )
+}

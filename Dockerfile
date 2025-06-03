@@ -1,4 +1,4 @@
-FROM node:slim AS base
+FROM node:24-slim AS base
 
 FROM base AS deps
 # RUN apk add --no-cache libc6-compat
@@ -6,7 +6,9 @@ FROM base AS deps
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 
-COPY package.json pnpm-lock.yaml* .npmrc* .env ./
+# COPY package.json pnpm-lock.yaml* .npmrc* .env ./
+COPY package.json pnpm-lock.yaml* .npmrc* ./
+
 RUN echo "Before: corepack version => $(corepack --version || echo 'not installed')" && \
     npm install -g corepack@latest && \
     echo "After : corepack version => $(corepack --version)" && \
@@ -19,10 +21,10 @@ FROM base AS builder
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/.env ./.env
+# COPY --from=deps /app/.env ./.env
 # COPY --from=deps /app/db/db.json /app/db/db.json
 COPY . .
-COPY .env .env
+# COPY .env .env
 
 RUN echo "Before: corepack version => $(corepack --version || echo 'not installed')" && \
     npm install -g corepack@latest && \
@@ -39,10 +41,10 @@ ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=builder /app/public ./public
 
 # !.env
-COPY --from=builder /app/.env ./.env
-COPY --from=builder /app/.env ./.next/static/.env
-COPY --from=builder /app/.env ./.next/standalone/.env
-COPY --from=builder /app/.env ./.next/public/.env
+# COPY --from=builder /app/.env ./.env
+# COPY --from=builder /app/.env ./.next/static/.env
+# COPY --from=builder /app/.env ./.next/standalone/.env
+# COPY --from=builder /app/.env ./.next/public/.env
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs

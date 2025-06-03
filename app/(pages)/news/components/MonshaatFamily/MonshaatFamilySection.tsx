@@ -1,12 +1,12 @@
-import { NewsHeader } from "@components";
-import { paths } from "@lib";
-import { MonshaatCarousel } from "./MonshaatCarousel";
-import { MonshaatGrid } from "./MonshaatGrid";
-import { getFamilyNewsList } from "@server";
+import { NewsHeader } from "@components"
+import { paths } from "@lib"
+import { MonshaatCarousel } from "./MonshaatCarousel"
+import { MonshaatGrid } from "./MonshaatGrid"
+import { getFamilyNewsList } from "@server"
 // import { monshaatData } from './config';
 
 export const MonshaatFamilySection = async () => {
-  const data = await getFamilyNewsList();
+  const data = await getFamilyNewsList()
   return (
     <div className="bg-white rounded-xl">
       <NewsHeader title="عائلة منشآت" url={paths.monshaatFamily.href} />
@@ -15,5 +15,5 @@ export const MonshaatFamilySection = async () => {
         <MonshaatCarousel />
       </div>
     </div>
-  );
-};
+  )
+}

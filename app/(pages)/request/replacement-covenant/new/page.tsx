@@ -1,27 +1,27 @@
-import { RequestStatus } from '@components';
-import { getUser } from '@db/actions';
-import { getRequestStatus, getUserId } from '@server';
-import { ReplacementCovenantForm } from '../components';
+import { RequestStatus } from "@components"
+import { getUser } from "@db/actions"
+import { getRequestStatus, getUserId } from "@server"
+import { ReplacementCovenantForm } from "../components"
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic"
 
 const NewReplacementCovenantPage = async () => {
-  const userId = await getUserId();
+  const userId = await getUserId()
   if (!userId) {
     throw new Error(
-      'Invalid User Id (app/(pages)/request/replacement-covenant/new/page.tsx)'
-    );
+      "Invalid User Id (app/(pages)/request/replacement-covenant/new/page.tsx)",
+    )
   }
-  const { convenantData } = await getUser(userId);
-  const requestStatus = await getRequestStatus();
+  const { convenantData } = await getUser(userId)
+  const requestStatus = await getRequestStatus()
   const requestCaption =
-    'انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر';
+    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   return (
-    <div className='space-y-4 mb-16'>
+    <div className="space-y-4 mb-16">
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <ReplacementCovenantForm data={convenantData} />
     </div>
-  );
-};
+  )
+}
 
-export default NewReplacementCovenantPage;
+export default NewReplacementCovenantPage

@@ -166,7 +166,7 @@
 //         postResponse.request
 //       )} \n StatusText: \n ${
 //         postResponse.response.responseStatus.responseStatusText
-//       } \n 
+//       } \n
 //           \n StatusOk: \n ${postResponse.response.responseStatus.ok} \n
 //           \n ${JSON.stringify(postResponse.response.responseData)?.slice(0, 1)}
 //       `;
@@ -210,7 +210,7 @@
 // async function fetchAndProcessLeaves() {
 //   // Example request body (type would be enforced by the callback)
 //     const requestBody = { employee_id: 123, page: 1, limit: 10 };
-  
+
 //     const result = await callback(requestBody);
 
 //   if (result.error || result.validationError) {

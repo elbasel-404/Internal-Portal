@@ -31,5 +31,5 @@ export const ListAlternativeIcon = () => {
         </clipPath>
       </defs>
     </svg>
-  );
-};
+  )
+}

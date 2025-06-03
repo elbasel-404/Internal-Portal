@@ -1,54 +1,54 @@
-import { InfoGrid } from '@components';
-import { colors } from '@lib';
-import type { GeneralInfo } from '@types';
+import { InfoGrid } from "@components"
+import { colors } from "@lib"
+import type { GeneralInfo } from "@types"
 
 const data: GeneralInfo[] = [
   {
-    title: 'الترشيحات تحت الإجراء',
+    title: "الترشيحات تحت الإجراء",
     count: 1.15,
-    icon: 'CalenderSpecialIcon',
+    icon: "CalenderSpecialIcon",
     backgroundColor: colors.light.primaryOpacity,
     id: -180,
-    key: 'employeeRequests',
+    key: "employeeRequests",
     active: true,
     index: 0,
   },
   {
-    title: 'الترشيحات المعتمدة',
+    title: "الترشيحات المعتمدة",
     count: 1.15,
-    icon: 'StampIcon',
+    icon: "StampIcon",
     backgroundColor: colors.light.primaryOpacity,
     id: -181,
-    key: 'employeeRequests',
+    key: "employeeRequests",
     active: true,
     index: 1,
   },
   {
-    title: 'الترشيحات المرفوضة',
+    title: "الترشيحات المرفوضة",
     count: 1.15,
-    icon: 'ClipboardIcon',
+    icon: "ClipboardIcon",
     backgroundColor: colors.light.primaryOpacity,
     id: -182,
-    key: 'employeeRequests',
+    key: "employeeRequests",
     active: true,
     index: 2,
   },
   {
-    title: 'كل الترشيحات',
+    title: "كل الترشيحات",
     count: 1.15,
-    icon: 'ListAlternativeIcon',
+    icon: "ListAlternativeIcon",
     backgroundColor: colors.light.primaryOpacity,
     id: -183,
-    key: 'employeeRequests',
+    key: "employeeRequests",
     active: true,
     index: 3,
   },
-];
+]
 
 export const RecommendationData = () => {
   return (
-    <div className='py-6'>
-      <InfoGrid info={data} className='lg:grid-cols-2' />
+    <div className="py-6">
+      <InfoGrid info={data} className="lg:grid-cols-2" />
     </div>
-  );
-};
+  )
+}

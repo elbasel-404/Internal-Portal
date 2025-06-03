@@ -1,12 +1,12 @@
-import type { ReactNode } from 'react';
-import { MedicalData } from './components';
+import type { ReactNode } from "react"
+import { MedicalData } from "./components"
 
 export const metadata = {
-  title: 'Medical Insurance',
-  description: 'Medical Insurance Data',
-};
+  title: "Medical Insurance",
+  description: "Medical Insurance Data",
+}
 interface MedicalInsuranceLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 const MedicalInsuranceLayout = ({ children }: MedicalInsuranceLayoutProps) => {
   return (
@@ -14,7 +14,7 @@ const MedicalInsuranceLayout = ({ children }: MedicalInsuranceLayoutProps) => {
       <MedicalData />
       <section>{children}</section>
     </>
-  );
-};
+  )
+}
 
-export default MedicalInsuranceLayout;
+export default MedicalInsuranceLayout

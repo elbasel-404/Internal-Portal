@@ -1,2 +1,2 @@
-export { DoughnutChart } from "./DoughnutChart";
-export { LineChart } from "./LineChart";
+export { DoughnutChart } from "./DoughnutChart"
+export { LineChart } from "./LineChart"

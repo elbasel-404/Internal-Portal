@@ -1,1 +1,1 @@
-export { HomePageSettingsModal } from './HomePageSettingsModal';
+export { HomePageSettingsModal } from "./HomePageSettingsModal"

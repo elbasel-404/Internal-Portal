@@ -12,5 +12,5 @@ export const ArrowLeftToLineIcon = () => {
         fill="white"
       />
     </svg>
-  );
-};
+  )
+}

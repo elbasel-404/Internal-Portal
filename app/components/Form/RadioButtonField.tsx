@@ -1,16 +1,16 @@
-import { RadioGroup, RadioGroupItem } from '@ui';
+import { RadioGroup, RadioGroupItem } from "@ui"
 
 interface RadioFieldProps {
-  label?: string;
-  name: string;
-  options: { value: string; label: string }[];
-  className?: string;
-  labelStyle?: string;
-  radioStyle?: string;
-  selectedValue?: string;
-  required: boolean;
-  onChange?: (value: string) => void;
-  inline?: boolean;
+  label?: string
+  name: string
+  options: { value: string; label: string }[]
+  className?: string
+  labelStyle?: string
+  radioStyle?: string
+  selectedValue?: string
+  required: boolean
+  onChange?: (value: string) => void
+  inline?: boolean
 }
 
 export const RadioField = ({
@@ -23,27 +23,27 @@ export const RadioField = ({
   selectedValue,
   required,
   onChange,
-  inline = true
+  inline = true,
 }: RadioFieldProps) => {
   const handleChange = (value: string) => {
     if (onChange) {
-      onChange(value);
+      onChange(value)
     }
-  };
+  }
 
   return (
     <div className={`${inline ? "flex gap-x-2 mt-2" : ""} ${className}`}>
       {label && (
         <label className={`mt-2 ${labelStyle}`}>
           {label}
-          {required && <span className='text-red-500'> *</span>}
+          {required && <span className="text-red-500"> *</span>}
         </label>
       )}
       <input
-        type='text'
+        type="text"
         value={selectedValue}
         name={name}
-        className='hidden'
+        className="hidden"
         readOnly
       />
       <RadioGroup
@@ -56,8 +56,8 @@ export const RadioField = ({
             key={option.value}
             className={`flex items-center gap-x-2 px-4 py-2 rounded-xl bg-cloudGray ${
               selectedValue === option.value
-                ? 'bg-primary-opacity'
-                : 'bg-cloudGray'
+                ? "bg-primary-opacity"
+                : "bg-cloudGray"
             }`}
           >
             <RadioGroupItem
@@ -65,16 +65,16 @@ export const RadioField = ({
               id={`${name}-${option.value}`}
               className={`border-[#49454F] hover:border-primary text-[#49454F] hover:text-primary ${
                 selectedValue === option.value
-                  ? 'border-primary text-primary'
-                  : ''
+                  ? "border-primary text-primary"
+                  : ""
               }`}
             />
             <label
               htmlFor={`${name}-${option.value}`}
               className={`text-darkBlue font-medium ${
                 selectedValue === option.value
-                  ? 'text-primary'
-                  : 'text-darkBlue'
+                  ? "text-primary"
+                  : "text-darkBlue"
               }`}
             >
               {option.label}
@@ -83,5 +83,5 @@ export const RadioField = ({
         ))}
       </RadioGroup>
     </div>
-  );
-};
+  )
+}

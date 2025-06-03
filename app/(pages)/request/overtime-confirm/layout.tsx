@@ -1,12 +1,12 @@
-import { ReactNode } from 'react';
-import { OvertimeConfirmData } from './components';
+import { ReactNode } from "react"
+import { OvertimeConfirmData } from "./components"
 
 export const metadata = {
-  title: 'Overtime Confirm',
-  description: 'Overtime Confirm data',
-};
+  title: "Overtime Confirm",
+  description: "Overtime Confirm data",
+}
 interface OvertimeConfirmLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 const OvertimeConfirmLayout = ({ children }: OvertimeConfirmLayoutProps) => {
   return (
@@ -14,7 +14,7 @@ const OvertimeConfirmLayout = ({ children }: OvertimeConfirmLayoutProps) => {
       <OvertimeConfirmData />
       <section>{children}</section>
     </>
-  );
-};
+  )
+}
 
-export default OvertimeConfirmLayout;
+export default OvertimeConfirmLayout

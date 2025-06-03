@@ -1,29 +1,29 @@
-import { FileWithId } from '@types';
+import { FileWithId } from "@types"
 
 /**
  * Helper functions for file operations
  */
 export const createFileHandler = (
   getAtom: () => FileWithId[],
-  setAtom: (files: FileWithId[]) => void
+  setAtom: (files: FileWithId[]) => void,
 ) => {
   return {
     upload: (uploadedFiles: FileList | null) => {
-      if (!uploadedFiles) return;
+      if (!uploadedFiles) return
 
       const newFiles = Array.from(uploadedFiles).map(
         (file) =>
           ({
             id: crypto.randomUUID(),
             name: file.name,
-          } as FileWithId)
-      );
+          }) as FileWithId,
+      )
 
-      setAtom([...getAtom(), ...newFiles]);
+      setAtom([...getAtom(), ...newFiles])
     },
     remove: (id: string) => {
-      const updatedFiles = getAtom().filter((file) => file.id !== id);
-      setAtom(updatedFiles);
+      const updatedFiles = getAtom().filter((file) => file.id !== id)
+      setAtom(updatedFiles)
     },
-  };
-};
+  }
+}

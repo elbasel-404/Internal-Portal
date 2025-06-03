@@ -1,45 +1,45 @@
-'use server';
+"use server"
 
-import type { CovenantDetails } from '@types';
+import type { CovenantDetails } from "@types"
 
 export const getCovenantDetails = async (): Promise<CovenantDetails[]> => {
-  return CovenantDetailsDummyData;
-};
+  return CovenantDetailsDummyData
+}
 
 const CovenantDetailsDummyData: CovenantDetails[] = [
   {
-    product: 'المنتج',
-    statement: 'بيان المنتج',
+    product: "المنتج",
+    statement: "بيان المنتج",
     amount: 1000,
     invoiceNumber: 12354,
-    attachments: '',
+    attachments: "",
   },
   {
-    product: 'المنتج',
-    statement: 'بيان المنتج',
+    product: "المنتج",
+    statement: "بيان المنتج",
     amount: 2000,
     invoiceNumber: 12354,
-    attachments: '',
+    attachments: "",
   },
   {
-    product: 'المنتج',
-    statement: 'بيان المنتج',
+    product: "المنتج",
+    statement: "بيان المنتج",
     amount: 1000,
     invoiceNumber: 18632,
-    attachments: '',
+    attachments: "",
   },
   {
-    product: 'المنتج',
-    statement: 'بيان المنتج',
+    product: "المنتج",
+    statement: "بيان المنتج",
     amount: 1000,
     invoiceNumber: 14585,
-    attachments: '',
+    attachments: "",
   },
   {
-    product: 'المنتج',
-    statement: 'بيان المنتج',
+    product: "المنتج",
+    statement: "بيان المنتج",
     amount: 1000,
     invoiceNumber: 84651,
-    attachments: '',
+    attachments: "",
   },
-];
+]

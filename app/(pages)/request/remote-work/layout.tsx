@@ -1,12 +1,12 @@
-import { ReactNode } from 'react';
-import { RemoteWorkData } from './components';
+import { ReactNode } from "react"
+import { RemoteWorkData } from "./components"
 
 export const metadata = {
-  title: 'Remote Work',
-  description: 'Remote work data',
-};
+  title: "Remote Work",
+  description: "Remote work data",
+}
 interface VacationsLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 const RemoteWorksLayout = ({ children }: VacationsLayoutProps) => {
   return (
@@ -14,7 +14,7 @@ const RemoteWorksLayout = ({ children }: VacationsLayoutProps) => {
       <RemoteWorkData />
       <section>{children}</section>
     </>
-  );
-};
+  )
+}
 
-export default RemoteWorksLayout;
+export default RemoteWorksLayout

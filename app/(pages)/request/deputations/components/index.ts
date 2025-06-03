@@ -1,4 +1,3 @@
-export { DeputationData } from './DeputationData';
-export { DeputationForm } from './DeputationForm/index';
-export { DeputationTable } from './DeputationTable';
-
+export { DeputationData } from "./DeputationData"
+export { DeputationForm } from "./DeputationForm/index"
+export { DeputationTable } from "./DeputationTable"

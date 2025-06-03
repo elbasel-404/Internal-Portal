@@ -12,5 +12,5 @@ export const BoxIcon = () => {
         fill="#88D0EC"
       />
     </svg>
-  );
-};
+  )
+}

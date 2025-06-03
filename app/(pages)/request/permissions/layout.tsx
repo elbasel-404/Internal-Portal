@@ -1,12 +1,12 @@
-import { ReactNode } from 'react';
-import { PermissionData } from './components';
+import { ReactNode } from "react"
+import { PermissionData } from "./components"
 
 export const metadata = {
-  title: 'Permissions',
-  description: 'Permissions data',
-};
+  title: "Permissions",
+  description: "Permissions data",
+}
 interface PermissionssLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 const PermissionLayout = ({ children }: PermissionssLayoutProps) => {
   return (
@@ -14,7 +14,7 @@ const PermissionLayout = ({ children }: PermissionssLayoutProps) => {
       <PermissionData />
       <section>{children}</section>
     </>
-  );
-};
+  )
+}
 
-export default PermissionLayout;
+export default PermissionLayout

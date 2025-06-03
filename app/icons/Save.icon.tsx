@@ -12,5 +12,5 @@ export const SaveIcon = () => {
         fill="#88D0EC"
       />
     </svg>
-  );
-};
+  )
+}
