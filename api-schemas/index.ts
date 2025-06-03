@@ -56,8 +56,7 @@ export {
   type RequestDetailsWorkflowElement,
 } from "./request-details-workflow/schema";
 export {
-  SalaryIdentificationElementSchema,
-  type SalaryIdentificationElement,
+  SalaryIdentificationElementSchema, type SalaryIdentificationElement
 } from "./salary-identification/schema";
 export { EmployeeDepartmentElementSchema } from "./employee-department/schema";
 export { TrainingElementSchema, type TrainingElement } from "./training/schema";
