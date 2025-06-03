@@ -1,30 +1,30 @@
-import { CheckIcon, XMarkIcon } from '@icons';
-import { Button } from '@ui';
+import { CheckIcon, XMarkIcon } from "@icons"
+import { Button } from "@ui"
 
 interface FormActionsProps {
-  onClose: () => void;
-  onSubmit: () => void;
+  onClose: () => void
+  onSubmit: () => void
 }
 
 export const FormActions = ({ onClose, onSubmit }: FormActionsProps) => {
   return (
-    <div className='flex justify-end mb-2 gap-2'>
+    <div className="flex justify-end mb-2 gap-2">
       <Button
         onClick={onClose}
-        type='button'
-        className='flex items-center gap-1 bg-[#DEE5ED] text-stormGray shadow-none hover:bg-gray-300 rounded-xl p-4'
+        type="button"
+        className="flex items-center gap-1 bg-[#DEE5ED] text-stormGray shadow-none hover:bg-gray-300 rounded-xl p-4"
       >
-        <XMarkIcon className='fill-stormGray w-0 h-0' />
+        <XMarkIcon className="fill-stormGray w-0 h-0" />
         إغلاق
       </Button>
 
       <Button
-        className='flex items-center gap-1 bg-primary-opacity group text-primary shadow-none hover:bg-primary hover:text-white rounded-xl p-4'
-        type='submit'
+        className="flex items-center gap-1 bg-primary-opacity group text-primary shadow-none hover:bg-primary hover:text-white rounded-xl p-4"
+        type="submit"
       >
-        <CheckIcon className='fill-primary group-hover:fill-white' />
+        <CheckIcon className="fill-primary group-hover:fill-white" />
         إضافة
       </Button>
     </div>
-  );
-};
+  )
+}

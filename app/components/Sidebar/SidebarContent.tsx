@@ -1,11 +1,11 @@
-import { Dispatch, SetStateAction } from 'react';
-import { AppSection } from './AppSection';
-import { SidebarHeader } from './SidebarHeader';
-import { SidebarMenus } from './SidebarMenus';
+import { Dispatch, SetStateAction } from "react"
+import { AppSection } from "./AppSection"
+import { SidebarHeader } from "./SidebarHeader"
+import { SidebarMenus } from "./SidebarMenus"
 
 interface SideBarContentProps {
-  isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  isOpen: boolean
+  setIsOpen: Dispatch<SetStateAction<boolean>>
 }
 
 export const SidebarContent = ({ isOpen, setIsOpen }: SideBarContentProps) => {
@@ -15,5 +15,5 @@ export const SidebarContent = ({ isOpen, setIsOpen }: SideBarContentProps) => {
       <SidebarMenus isOpen={isOpen} />
       <AppSection isOpen={isOpen} />
     </>
-  );
-};
+  )
+}

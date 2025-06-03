@@ -1,12 +1,12 @@
-import { ReactNode } from 'react';
-import { WorkDocumentData } from './components';
+import { ReactNode } from "react"
+import { WorkDocumentData } from "./components"
 
 export const metadata = {
-  title: 'Work Document',
-  description: 'Work Document data',
-};
+  title: "Work Document",
+  description: "Work Document data",
+}
 interface WorkDocumentLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 const WorkDocumentLayout = ({ children }: WorkDocumentLayoutProps) => {
   return (
@@ -14,7 +14,7 @@ const WorkDocumentLayout = ({ children }: WorkDocumentLayoutProps) => {
       <WorkDocumentData />
       <section>{children}</section>
     </>
-  );
-};
+  )
+}
 
-export default WorkDocumentLayout;
+export default WorkDocumentLayout

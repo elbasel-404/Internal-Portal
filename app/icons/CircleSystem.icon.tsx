@@ -33,72 +33,72 @@ export const CircleSystemIcon = () => {
     //   </defs>
     // </svg>
     <svg
-      width='31'
-      height='26'
-      viewBox='0 0 31 26'
-      fill='none'
-      xmlns='http://www.w3.org/2000/svg'
+      width="31"
+      height="26"
+      viewBox="0 0 31 26"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <g clipPath='url(#clip0_6852_119318)'>
+      <g clipPath="url(#clip0_6852_119318)">
         <path
-          d='M26.2866 18.2852V15.1552L29.5366 12.7052L29.1666 11.0652L28.7966 9.43519L24.6366 8.9252C24.1066 8.0052 23.4366 7.1752 22.6666 6.4552L23.0966 2.2852L21.5866 1.5552L20.0766 0.825195L17.0866 3.7652C16.5666 3.6852 16.0466 3.6352 15.5066 3.6352C14.9666 3.6352 14.4466 3.6852 13.9266 3.7652L10.9366 0.825195L9.42656 1.5552L7.91656 2.2852L8.34656 6.4552C7.57656 7.1752 6.90656 8.0052 6.37656 8.9252L2.21656 9.43519L1.84656 11.0652L1.47656 12.7052L4.71656 15.1552V18.1552'
-          stroke='white'
-          strokeWidth='1.04'
-          strokeMiterlimit='10'
+          d="M26.2866 18.2852V15.1552L29.5366 12.7052L29.1666 11.0652L28.7966 9.43519L24.6366 8.9252C24.1066 8.0052 23.4366 7.1752 22.6666 6.4552L23.0966 2.2852L21.5866 1.5552L20.0766 0.825195L17.0866 3.7652C16.5666 3.6852 16.0466 3.6352 15.5066 3.6352C14.9666 3.6352 14.4466 3.6852 13.9266 3.7652L10.9366 0.825195L9.42656 1.5552L7.91656 2.2852L8.34656 6.4552C7.57656 7.1752 6.90656 8.0052 6.37656 8.9252L2.21656 9.43519L1.84656 11.0652L1.47656 12.7052L4.71656 15.1552V18.1552"
+          stroke="white"
+          strokeWidth="1.04"
+          strokeMiterlimit="10"
         />
         <path
-          d='M20.8938 16.5052V12.1552L17.7338 9.0752H13.2638L10.0938 12.1552V16.5052'
-          stroke='white'
-          strokeWidth='1.04'
-          strokeMiterlimit='10'
+          d="M20.8938 16.5052V12.1552L17.7338 9.0752H13.2638L10.0938 12.1552V16.5052"
+          stroke="white"
+          strokeWidth="1.04"
+          strokeMiterlimit="10"
         />
         <path
-          d='M5.42625 18.5254H2.62625L0.65625 20.5054V23.2954L2.62625 25.2754H5.42625L7.40625 23.2954V20.5054L5.42625 18.5254Z'
-          stroke='white'
-          strokeWidth='1.04'
-          strokeMiterlimit='10'
+          d="M5.42625 18.5254H2.62625L0.65625 20.5054V23.2954L2.62625 25.2754H5.42625L7.40625 23.2954V20.5054L5.42625 18.5254Z"
+          stroke="white"
+          strokeWidth="1.04"
+          strokeMiterlimit="10"
         />
         <path
-          d='M16.895 18.5254H14.105L12.125 20.5054V23.2954L14.105 25.2754H16.895L18.875 23.2954V20.5054L16.895 18.5254Z'
-          stroke='white'
-          strokeWidth='1.04'
-          strokeMiterlimit='10'
+          d="M16.895 18.5254H14.105L12.125 20.5054V23.2954L14.105 25.2754H16.895L18.875 23.2954V20.5054L16.895 18.5254Z"
+          stroke="white"
+          strokeWidth="1.04"
+          strokeMiterlimit="10"
         />
         <path
-          d='M28.3638 18.5254H25.5738L23.5938 20.5054V23.2954L25.5738 25.2754H28.3638L30.3438 23.2954V20.5054L28.3638 18.5254Z'
-          stroke='white'
-          strokeWidth='1.04'
-          strokeMiterlimit='10'
+          d="M28.3638 18.5254H25.5738L23.5938 20.5054V23.2954L25.5738 25.2754H28.3638L30.3438 23.2954V20.5054L28.3638 18.5254Z"
+          stroke="white"
+          strokeWidth="1.04"
+          strokeMiterlimit="10"
         />
         <path
-          d='M7.60938 21.8955H12.0094'
-          stroke='white'
-          strokeWidth='1.04'
-          strokeMiterlimit='10'
+          d="M7.60938 21.8955H12.0094"
+          stroke="white"
+          strokeWidth="1.04"
+          strokeMiterlimit="10"
         />
         <path
-          d='M18.9766 21.8955H23.3866'
-          stroke='white'
-          strokeWidth='1.04'
-          strokeMiterlimit='10'
+          d="M18.9766 21.8955H23.3866"
+          stroke="white"
+          strokeWidth="1.04"
+          strokeMiterlimit="10"
         />
         <path
-          d='M13.8594 21.9448L15.2294 22.9048L17.1294 20.4248'
-          stroke='white'
-          strokeWidth='1.04'
-          strokeMiterlimit='10'
+          d="M13.8594 21.9448L15.2294 22.9048L17.1294 20.4248"
+          stroke="white"
+          strokeWidth="1.04"
+          strokeMiterlimit="10"
         />
       </g>
       <defs>
-        <clipPath id='clip0_6852_119318'>
+        <clipPath id="clip0_6852_119318">
           <rect
-            width='30.73'
-            height='25.59'
-            fill='white'
-            transform='translate(0.132812 0.205078)'
+            width="30.73"
+            height="25.59"
+            fill="white"
+            transform="translate(0.132812 0.205078)"
           />
         </clipPath>
       </defs>
     </svg>
-  );
-};
+  )
+}

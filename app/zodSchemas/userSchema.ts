@@ -1,13 +1,13 @@
-import { z } from 'zod';
-import { BatchProductSchema } from './batchProductsSchema';
-import { BatchSchema } from './batchSchema';
-import { CovenantSchema } from './covenantSchema';
-import { generalInfoKeyEnum } from './generalInfoKeyEnum';
-import { homePageSlotKeyEnum } from './homePageSlotKeyEnum';
-import { newsTabsKeyEnum } from './newsTabsKeyEnum';
-import { ProductSchema } from './productSchema';
-import { ProjectCompletionSchema } from './projectCompletionSchema';
-import { TrainingCoursesSchema } from './trainingCoursesSchema';
+import { z } from "zod"
+import { BatchProductSchema } from "./batchProductsSchema"
+import { BatchSchema } from "./batchSchema"
+import { CovenantSchema } from "./covenantSchema"
+import { generalInfoKeyEnum } from "./generalInfoKeyEnum"
+import { homePageSlotKeyEnum } from "./homePageSlotKeyEnum"
+import { newsTabsKeyEnum } from "./newsTabsKeyEnum"
+import { ProductSchema } from "./productSchema"
+import { ProjectCompletionSchema } from "./projectCompletionSchema"
+import { TrainingCoursesSchema } from "./trainingCoursesSchema"
 
 export const userSchema = z.object({
   id: z.number(),
@@ -21,4 +21,4 @@ export const userSchema = z.object({
   batchs: z.array(BatchSchema),
   batchProducts: z.array(BatchProductSchema),
   trainingCourses: z.array(TrainingCoursesSchema),
-});
+})

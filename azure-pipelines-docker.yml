@@ -1,34 +1,60 @@
 trigger:
   - main
 
-resources:
-  - repo: self
+schedules:
+  - cron: "41 13 * * *"
+    displayOnly: true
+    branches:
+      include:
+        - main
 
 variables:
-  tag: "$(Build.BuildId)"
+  REGISTRY: docker.io
+  IMAGE_NAME: monshaat/portal
+  TAG: $(Build.BuildId)
 
 stages:
   - stage: Build
-    displayName: Build image
+    displayName: Build Docker Image
     jobs:
       - job: Build
-        displayName: Build
+        displayName: Docker Build
         pool:
           vmImage: ubuntu-latest
-        steps:
-          # Explicit checkout of the repository along with submodules.
-          - checkout: self
-            submodules: recursive
-            displayName: "Checkout repository with submodules"
 
-          # Build the Docker image using the Docker@2 task.
-          - task: Docker@2
-            displayName: "Build an image"
+        steps:
+          - checkout: self
+            displayName: "Checkout repository"
+
+          # Equivalent to docker/setup-buildx-action
+          - script: |
+              docker buildx version || docker buildx install
+              docker buildx create --use --name builder || docker buildx use builder
+            displayName: "Set up Docker Buildx"
+
+          # Equivalent to docker/metadata-action (simplified)
+          - script: |
+              echo "##[group]Generate Docker metadata"
+              echo "##vso[task.setvariable variable=IMAGE_TAG]$(REGISTRY)/$(IMAGE_NAME):$(TAG)"
+              echo "##vso[task.setvariable variable=LABEL_VERSION]$(TAG)"
+              echo "##[endgroup]"
+            displayName: "Extract Docker metadata"
+
+          # Equivalent to docker/build-push-action (but build-only)
+          - script: |
+              docker buildx build \
+                --tag "$(IMAGE_TAG)" \
+                --label "org.opencontainers.image.version=$(LABEL_VERSION)" \
+                --cache-from=type=local,src=/tmp/.buildx-cache \
+                --cache-to=type=local,dest=/tmp/.buildx-cache-new,mode=max \
+                --output type=docker \
+                .
             env:
               DOCKER_BUILDKIT: 1
-            inputs:
-              command: build
-              dockerfile: "$(Build.SourcesDirectory)/Dockerfile"
-              tags: |
-                $(tag)
-              buildContext: "$(Build.SourcesDirectory)"
+            displayName: "Build Docker image (no push)"
+
+          # Optional: replace old cache
+          - script: |
+              rm -rf /tmp/.buildx-cache
+              mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+            displayName: "Persist Docker cache"

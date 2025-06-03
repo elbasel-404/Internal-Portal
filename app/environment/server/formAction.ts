@@ -1,13 +1,13 @@
-"use server";
+"use server"
 
-import { environmentStorage } from "@storage";
-import { revalidatePath } from "next/cache";
+import { environmentStorage } from "@storage"
+import { revalidatePath } from "next/cache"
 
 export const formAction = async (formData: FormData) => {
-  const formEntires = formData.entries();
+  const formEntires = [...formData.entries()]
   formEntires.forEach(([key, value]) => {
-    environmentStorage.set(key, value.toString());
-  });
+    environmentStorage.set(key, value.toString())
+  })
 
-  revalidatePath("/environment", "layout");
-};
+  revalidatePath("/environment", "layout")
+}

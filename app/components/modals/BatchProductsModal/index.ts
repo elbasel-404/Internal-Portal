@@ -1,1 +1,1 @@
-export { BatchProductsModal } from './BatchProductsModal';
+export { BatchProductsModal } from "./BatchProductsModal"

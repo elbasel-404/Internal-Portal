@@ -1,32 +1,32 @@
-"use client";
+"use client"
 
-import { costsAtom, dateFromAtom, dateToAtom } from "@atoms";
-import { InputField, SelectField } from "@components/form";
-import { CheckIcon, RiyalCurrencyIcon, XMarkIcon } from "@icons";
-import { Button } from "@ui";
-import { useLocalStorage } from "@uidotdev/usehooks";
-import { useAtom } from "jotai";
-import { useRouter } from "next/navigation";
-import { ChangeEvent, useEffect, useState } from "react";
-import { toast } from "sonner";
-import { deputationPlaceFormAction } from "./DeputationPlaceFormAction";
+import { costsAtom, dateFromAtom, dateToAtom } from "@atoms"
+import { InputField, SelectField } from "@components/form"
+import { CheckIcon, RiyalCurrencyIcon, XMarkIcon } from "@icons"
+import { Button } from "@ui"
+import { useLocalStorage } from "@uidotdev/usehooks"
+import { useAtom } from "jotai"
+import { useRouter } from "next/navigation"
+import { ChangeEvent, useEffect, useState } from "react"
+import { toast } from "sonner"
+import { deputationPlaceFormAction } from "./DeputationPlaceFormAction"
 
 export const DeputationPlaceForm = () => {
-  const router = useRouter();
-  const [place, setPlace] = useState("");
-  const [city, setCity] = useState("");
+  const router = useRouter()
+  const [place, setPlace] = useState("")
+  const [city, setCity] = useState("")
   const closeModal = () => {
-    router.back();
-  };
+    router.back()
+  }
 
   const handleDeputationPlaceChange = (value: string) => {
-    setPlace(value);
-    setCity("");
-  };
+    setPlace(value)
+    setCity("")
+  }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    closeModal();
-  };
+    closeModal()
+  }
 
   return (
     <form
@@ -78,5 +78,5 @@ export const DeputationPlaceForm = () => {
         </Button>
       </div>
     </form>
-  );
-};
+  )
+}

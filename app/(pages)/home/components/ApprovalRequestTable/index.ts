@@ -1,1 +1,1 @@
-export { ApprovalRequestsTable } from './ApprovalRequestsTable';
+export { ApprovalRequestsTable } from "./ApprovalRequestsTable"

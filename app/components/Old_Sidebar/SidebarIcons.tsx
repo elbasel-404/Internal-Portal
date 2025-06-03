@@ -40,7 +40,7 @@ import {
   BagIcon,
   SaveIcon,
   TIcon,
-} from '@icons';
+} from "@icons"
 
 export const SidebarIcons = {
   Home: <HomeIcon />,
@@ -54,7 +54,7 @@ export const SidebarIcons = {
   BookAlt: <BookAltIcon />,
   File: <FileIcon />,
   Mobile: <MobileIcon />,
-  User: <UserIcon className='fill-[#88D0EC]' />,
+  User: <UserIcon className="fill-[#88D0EC]" />,
   Info: <InfoIcon />,
   Board: <BoardIcon />,
   Buckle: <BuckleIcon />,
@@ -85,6 +85,6 @@ export const SidebarIcons = {
   Bag: <BagIcon />,
   Save: <SaveIcon />,
   T: <TIcon />,
-} as const;
+} as const
 
-export type IconKey = keyof typeof SidebarIcons;
+export type IconKey = keyof typeof SidebarIcons

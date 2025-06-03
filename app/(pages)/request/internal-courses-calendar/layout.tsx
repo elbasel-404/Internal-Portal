@@ -1,12 +1,12 @@
-import type { ReactNode } from 'react';
-import { InternalCoursesData } from './components';
+import type { ReactNode } from "react"
+import { InternalCoursesData } from "./components"
 
 export const metadata = {
-  title: 'Internal Courses Calendar',
-  description: 'Internal Courses Calendar Data',
-};
+  title: "Internal Courses Calendar",
+  description: "Internal Courses Calendar Data",
+}
 interface InternalCoursesCalendarLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 const InternalCoursesCalendarLayout = ({
   children,
@@ -16,7 +16,7 @@ const InternalCoursesCalendarLayout = ({
       <InternalCoursesData />
       <section>{children}</section>
     </>
-  );
-};
+  )
+}
 
-export default InternalCoursesCalendarLayout;
+export default InternalCoursesCalendarLayout

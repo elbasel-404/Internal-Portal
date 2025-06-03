@@ -1,1 +1,1 @@
-export { ProjectCompletionModal } from './ProjectCompletionModal';
+export { ProjectCompletionModal } from "./ProjectCompletionModal"

@@ -1,1 +1,1 @@
-export { NewsCarousel } from './NewsCarousel';
+export { NewsCarousel } from "./NewsCarousel"

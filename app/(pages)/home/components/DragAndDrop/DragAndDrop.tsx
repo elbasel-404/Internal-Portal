@@ -1,28 +1,28 @@
-'use client';
+"use client"
 
-import { Animate } from '@components';
-import { animations, type ParentConfig } from '@formkit/drag-and-drop';
-import { useDragAndDrop } from '@formkit/drag-and-drop/react';
-import { CircleMinusIcon } from '@icons';
-import type { HomePageSlotKey } from '@types';
-import { cn, getSlotTitle } from '@utils';
-import { Grip as GripIcon } from 'lucide-react';
-import { RefObject, useEffect, useState, type ReactNode } from 'react';
-import { handleDrag } from './handleDrag';
+import { Animate } from "@components"
+import { animations, type ParentConfig } from "@formkit/drag-and-drop"
+import { useDragAndDrop } from "@formkit/drag-and-drop/react"
+import { CircleMinusIcon } from "@icons"
+import type { HomePageSlotKey } from "@types"
+import { cn, getSlotTitle } from "@utils"
+import { Grip as GripIcon } from "lucide-react"
+import { RefObject, useEffect, useState, type ReactNode } from "react"
+import { handleDrag } from "./handleDrag"
 
 type Slot = {
-  node: ReactNode;
-  key: HomePageSlotKey;
-};
+  node: ReactNode
+  key: HomePageSlotKey
+}
 interface DragAndDropProps {
-  slots: Slot[];
-  className?: string;
-  userId?: number;
-  visuallyHiddenKeys?: HomePageSlotKey[];
-  indexOffset: number;
+  slots: Slot[]
+  className?: string
+  userId?: number
+  visuallyHiddenKeys?: HomePageSlotKey[]
+  indexOffset: number
 }
 
-const defaultClassName = '';
+const defaultClassName = ""
 
 export const DragAndDrop = ({
   slots,
@@ -37,48 +37,48 @@ export const DragAndDrop = ({
   const config: Partial<
     ParentConfig<{ node: ReactNode; key: HomePageSlotKey }>
   > = {
-    dragHandle: '.slotHandle',
+    dragHandle: ".slotHandle",
     plugins: [animations()],
     onDragstart: (dragStartData) => {
-      const { position, draggedNode } = dragStartData;
-      const { value } = draggedNode.data;
-      const { key } = value as { key: HomePageSlotKey };
-      setOriginIndex(position);
-      setDestinationIndex(null);
-      setElementKey(key);
+      const { position, draggedNode } = dragStartData
+      const { value } = draggedNode.data
+      const { key } = value as { key: HomePageSlotKey }
+      setOriginIndex(position)
+      setDestinationIndex(null)
+      setElementKey(key)
     },
     onDragend: (dragEndData) => {
-      const { draggedNode } = dragEndData;
-      const { data } = draggedNode;
-      const { index } = data;
-      setDestinationIndex(index);
+      const { draggedNode } = dragEndData
+      const { data } = draggedNode
+      const { index } = data
+      setDestinationIndex(index)
     },
-  };
+  }
 
   // ! ===============================================================
   // ! State
   // ! ===============================================================
-  const [parent, dndNodes, setValues] = useDragAndDrop(slots, config);
-  const [elementKey, setElementKey] = useState<HomePageSlotKey | null>(null);
-  const [originIndex, setOriginIndex] = useState<number | null>(null);
-  const [destinationIndex, setDestinationIndex] = useState<number | null>(null);
-  const [collapsedSlots, setCollapsedSlots] = useState<HomePageSlotKey[]>([]);
+  const [parent, dndNodes, setValues] = useDragAndDrop(slots, config)
+  const [elementKey, setElementKey] = useState<HomePageSlotKey | null>(null)
+  const [originIndex, setOriginIndex] = useState<number | null>(null)
+  const [destinationIndex, setDestinationIndex] = useState<number | null>(null)
+  const [collapsedSlots, setCollapsedSlots] = useState<HomePageSlotKey[]>([])
 
   // ! ===============================================================
   // ! Effects
   // ! ===============================================================
   useEffect(() => {
-    if (destinationIndex === null) return;
-    if (elementKey === null) return;
-    if (originIndex === null) return;
-    handleDragEnd();
+    if (destinationIndex === null) return
+    if (elementKey === null) return
+    if (originIndex === null) return
+    handleDragEnd()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [destinationIndex]);
+  }, [destinationIndex])
 
   useEffect(() => {
-    setValues(slots);
+    setValues(slots)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slots]);
+  }, [slots])
 
   // ! ===============================================================
   // ! Event Handlers
@@ -90,17 +90,17 @@ export const DragAndDrop = ({
       destinationIndex: destinationIndex as number,
       userId,
       indexOffset,
-    });
-    setElementKey(null);
-    setDestinationIndex(null);
-    setOriginIndex(null);
-  };
+    })
+    setElementKey(null)
+    setDestinationIndex(null)
+    setOriginIndex(null)
+  }
 
   // ! ===============================================================
   // ! Rendering
   // ! ===============================================================
   const renderSlot = ({ key, node }: Slot, className?: string) => {
-    const isCollapsed = collapsedSlots.includes(key);
+    const isCollapsed = collapsedSlots.includes(key)
     return (
       <Animate
         key={key}
@@ -110,35 +110,33 @@ export const DragAndDrop = ({
         {renderTitle({ key })}
         {!isCollapsed && node}
       </Animate>
-    );
-  };
+    )
+  }
 
   const renderTitle = ({ key }: { key: HomePageSlotKey }) => {
-    const title = getSlotTitle({ key, type: 'homePage' });
+    const title = getSlotTitle({ key, type: "homePage" })
     return (
-      <div className='flex border-b border-[#ECF0F480]'>
-        <div className='bg-white rounded-tr-xl flex gap-2 cursor-move slotHandle p-4 flex-1'>
+      <div className="flex border-b border-[#ECF0F480]">
+        <div className="bg-white rounded-tr-xl flex gap-2 cursor-move slotHandle p-4 flex-1">
           <GripIcon />
-          <h2 className='text-2xl font-bold'>
-            {title}
-          </h2>
+          <h2 className="text-2xl font-bold">{title}</h2>
         </div>
         <button
-          className='flex flex-[0.07] items-center justify-center bg-white rounded-tl-xl'
+          className="flex flex-[0.07] items-center justify-center bg-white rounded-tl-xl"
           onClick={() => {
             setCollapsedSlots((prev) => {
               if (prev.includes(key)) {
-                return prev.filter((k) => k !== key);
+                return prev.filter((k) => k !== key)
               }
-              return [...prev, key];
-            });
+              return [...prev, key]
+            })
           }}
         >
           <CircleMinusIcon />
         </button>
       </div>
-    );
-  };
+    )
+  }
 
   return (
     <div
@@ -146,9 +144,9 @@ export const DragAndDrop = ({
       className={cn(defaultClassName, className)}
     >
       {dndNodes.map((node) => {
-        const hidden = visuallyHiddenKeys?.includes(node.key);
-        return renderSlot(node, hidden ? 'hidden' : '');
+        const hidden = visuallyHiddenKeys?.includes(node.key)
+        return renderSlot(node, hidden ? "hidden" : "")
       })}
     </div>
-  );
-};
+  )
+}

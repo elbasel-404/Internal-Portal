@@ -1,1 +1,1 @@
-export { VacationRequestSchema } from "./pages/request/VacationRequest";
+export { VacationRequestSchema } from "./pages/request/VacationRequest"

@@ -7,7 +7,7 @@ import {
   PointElement,
   Tooltip,
   ArcElement,
-} from 'chart.js';
+} from "chart.js"
 
 export const registerChartjsPlugins = () => {
   Chart.register(
@@ -17,6 +17,6 @@ export const registerChartjsPlugins = () => {
     LinearScale,
     PointElement,
     Tooltip,
-    ArcElement
-  );
-};
+    ArcElement,
+  )
+}

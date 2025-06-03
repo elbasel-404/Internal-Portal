@@ -1,12 +1,12 @@
-import type { ReactNode } from 'react';
-import { BankAccountData } from './components';
+import type { ReactNode } from "react"
+import { BankAccountData } from "./components"
 
 export const metadata = {
-  title: 'Bank Account Change',
-  description: 'Bank Account Change Data',
-};
+  title: "Bank Account Change",
+  description: "Bank Account Change Data",
+}
 interface BankAccountChangeLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 const BankAccountChangeLayout = ({
   children,
@@ -16,7 +16,7 @@ const BankAccountChangeLayout = ({
       <BankAccountData />
       <section>{children}</section>
     </>
-  );
-};
+  )
+}
 
-export default BankAccountChangeLayout;
+export default BankAccountChangeLayout

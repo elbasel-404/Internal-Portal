@@ -1,44 +1,44 @@
-'use server';
+"use server"
 
-import type { PressFileDetails } from "@types";
-import { getFetchHeaders } from "./getFetchHeaders";
-import { NewsElementSchema, ResponseSchema } from "@api/schemas";
-import { getDemo } from "../db/actions/getDemo";
-import {formatDate} from "@utils"
+import type { PressFileDetails } from "@types"
+import { getFetchHeaders } from "./getFetchHeaders"
+import { NewsElementSchema, ResponseSchema } from "@api/schemas"
+import { getDemo } from "../db/actions/getDemo"
+import { formatDate } from "@utils"
 
 export const getPressFileDetails = async (
-  id: string
+  id: string,
 ): Promise<PressFileDetails | void> => {
-  const isDemo = await getDemo();
-  if (isDemo) return dummyData;
+  const isDemo = await getDemo()
+  if (isDemo) return dummyData
 
   // ! VARIBLES
   // ! ==================================
-  const url = "api/po/read/portal-news";
-  const apiRootUrl = process.env.API_ROOT_URL as string;
-  const { headers } = await getFetchHeaders();
+  const url = "api/po/read/portal-news"
+  const apiRootUrl = process.env.API_ROOT_URL as string
+  const { headers } = await getFetchHeaders()
   const requestBody = {
-    news_type: 'news',
+    news_type: "news",
     news_id: id,
-  };
-  const requestBodyString = JSON.stringify(requestBody);
-  const requestUrl = `${apiRootUrl}/${url}`;
+  }
+  const requestBodyString = JSON.stringify(requestBody)
+  const requestUrl = `${apiRootUrl}/${url}`
 
   // ! FETCH
   // ! ==================================
   const apiResponse = await fetch(requestUrl, {
     headers,
-    method: 'POST',
+    method: "POST",
     body: requestBodyString,
-  });
-  const responseJson = await apiResponse.json();
+  })
+  const responseJson = await apiResponse.json()
 
   // ! VALIDATION
   // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson);
-  const { result } = validatedResponse;
-  const { data } = result;
-  const validatedData = NewsElementSchema.parse(data[0]);
+  const validatedResponse = ResponseSchema.parse(responseJson)
+  const { result } = validatedResponse
+  const { data } = result
+  const validatedData = NewsElementSchema.parse(data[0])
 
   // ! PARSING
   // ! ==================================
@@ -49,14 +49,14 @@ export const getPressFileDetails = async (
     date: formatDate(validatedData.create_date),
     description: validatedData.description,
     imageUrl: `data:image/gif;base64,${validatedData.image}`,
-  };
-  return returnedData;
-};
+  }
+  return returnedData
+}
 
 const dummyData: PressFileDetails = {
-  id: '602',
-  date: '01.06.2024 - 07:54 صباحاً',
-  imageUrl: '/article.svg',
+  id: "602",
+  date: "01.06.2024 - 07:54 صباحاً",
+  imageUrl: "/article.svg",
   title:
     '"منشآت" تختتم أسبوع القانون بمناقشة أهم الفرص الداعمة لرواد الأعمال في قطاع القانون"',
   description: ` اختتمت الهيئة العامة للمنشآت الصغيرة والمتوسطة "منشآت" جولة الامتياز
@@ -104,4 +104,4 @@ const dummyData: PressFileDetails = {
         مبادرات وبرامج متخصصة، وذلك لأهميتها ودورها الفاعل في دعم قطاع المنشآت
         الصغيرة والمتوسطة، ويمكن للمهتمين التسجيل لحضور الجولة، عبر الرابط:
         `,
-};
+}

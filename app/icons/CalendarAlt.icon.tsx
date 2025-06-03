@@ -12,5 +12,5 @@ export const CalendarAltIcon = () => {
         fill="#466386"
       />
     </svg>
-  );
-};
+  )
+}

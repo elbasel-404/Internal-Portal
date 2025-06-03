@@ -1,4 +1,4 @@
-import { IconProps } from "@types";
+import { IconProps } from "@types"
 
 export const NoteCheckIcon = ({ width, height }: IconProps) => {
   return (
@@ -15,5 +15,5 @@ export const NoteCheckIcon = ({ width, height }: IconProps) => {
         fill="#007C9E"
       />
     </svg>
-  );
-};
+  )
+}

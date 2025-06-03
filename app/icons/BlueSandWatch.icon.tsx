@@ -13,5 +13,5 @@ export const BlueSandWatchIcon = () => {
         fill="white"
       />
     </svg>
-  );
-};
+  )
+}

@@ -1,12 +1,12 @@
-import type { ReactNode } from 'react';
-import { JobApplicationsData } from './components';
+import type { ReactNode } from "react"
+import { JobApplicationsData } from "./components"
 
 export const metadata = {
-  title: 'Job Applications',
-  description: 'Job Applications Data',
-};
+  title: "Job Applications",
+  description: "Job Applications Data",
+}
 interface JobApplicationsLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 const JobApplicationsLayout = ({ children }: JobApplicationsLayoutProps) => {
   return (
@@ -14,7 +14,7 @@ const JobApplicationsLayout = ({ children }: JobApplicationsLayoutProps) => {
       <JobApplicationsData />
       <section>{children}</section>
     </>
-  );
-};
+  )
+}
 
-export default JobApplicationsLayout;
+export default JobApplicationsLayout

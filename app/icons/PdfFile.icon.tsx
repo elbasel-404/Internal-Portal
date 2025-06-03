@@ -1,4 +1,4 @@
-import { IconProps } from "@types";
+import { IconProps } from "@types"
 
 export const PdfFileIcon = ({ className }: IconProps) => {
   return (
@@ -15,5 +15,5 @@ export const PdfFileIcon = ({ className }: IconProps) => {
         fill="#B86B00"
       />
     </svg>
-  );
-};
+  )
+}

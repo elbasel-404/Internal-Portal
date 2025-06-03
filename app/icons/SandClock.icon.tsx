@@ -51,5 +51,5 @@ export const SandClockIcon = () => {
         </clipPath>
       </defs>
     </svg>
-  );
-};
+  )
+}

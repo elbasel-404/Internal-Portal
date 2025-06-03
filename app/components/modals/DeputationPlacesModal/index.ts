@@ -1,1 +1,1 @@
-export { DeputationPlacesModal } from './DeputationPlacesModal';
+export { DeputationPlacesModal } from "./DeputationPlacesModal"

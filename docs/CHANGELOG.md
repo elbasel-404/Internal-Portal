@@ -3,6 +3,7 @@
 ## Changes
 
 1. Removed the following files:
+
    - `app/api/config/index.ts`
    - `app/api/error/ApiValidationErrorMessage.tsx`
    - `app/api/error/page.tsx`
@@ -30,6 +31,7 @@
    - `script.ts`
 
 2. Added the following files:
+
    - `app/api/getFormAction.ts`
    - `app/api/post.ts`
    - `app/api/test/layout.tsx`
@@ -64,10 +66,10 @@ The `getFormAction` function is used to create a form action for a specific API 
 #### Usage
 
 ```typescript
-import { getFormAction } from "@api/getFormAction";
+import { getFormAction } from "@api/getFormAction"
 
-const formAction = getFormAction("vacations", "list");
-const response = await formAction(formData);
+const formAction = getFormAction("vacations", "list")
+const response = await formAction(formData)
 ```
 
 ### `post`
@@ -77,12 +79,12 @@ The `post` function is used to send a POST request to a specified URL with a req
 #### Usage
 
 ```typescript
-import { post } from "@api/post";
+import { post } from "@api/post"
 
 const response = await post({
   url: "/api/vacations",
   body: { employee_id: 1711 },
-});
+})
 ```
 
 ### `apiErrorAtom`
@@ -92,11 +94,11 @@ The `apiErrorAtom` is a Jotai atom used to store API errors.
 #### Usage
 
 ```typescript
-import { useAtomValue, useSetAtom } from "jotai";
-import { apiErrorAtom } from "../atoms/apiErrorAtom";
+import { useAtomValue, useSetAtom } from "jotai"
+import { apiErrorAtom } from "../atoms/apiErrorAtom"
 
-const isApiError = useAtomValue(apiErrorAtom);
-const setApiError = useSetAtom(apiErrorAtom);
+const isApiError = useAtomValue(apiErrorAtom)
+const setApiError = useSetAtom(apiErrorAtom)
 ```
 
 ### `demoAtom`
@@ -106,10 +108,10 @@ The `demoAtom` is a Jotai atom used to store the demo state.
 #### Usage
 
 ```typescript
-import { useAtomValue } from "jotai";
-import { demoAtom } from "../atoms/demoAtom";
+import { useAtomValue } from "jotai"
+import { demoAtom } from "../atoms/demoAtom"
 
-const isDemo = useAtomValue(demoAtom);
+const isDemo = useAtomValue(demoAtom)
 ```
 
 ### `shouldRefreshAtom`
@@ -119,10 +121,10 @@ The `shouldRefreshAtom` is a Jotai atom used to store the refresh state.
 #### Usage
 
 ```typescript
-import { useAtomValue } from "jotai";
-import { shouldRefreshAtom } from "../atoms/shouldRefreshAtom";
+import { useAtomValue } from "jotai"
+import { shouldRefreshAtom } from "../atoms/shouldRefreshAtom"
 
-const shouldRefresh = useAtomValue(shouldRefreshAtom);
+const shouldRefresh = useAtomValue(shouldRefreshAtom)
 ```
 
 ## Implementation Details

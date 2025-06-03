@@ -1,26 +1,26 @@
-'use server';
+"use server"
 
-import { db } from '@db';
-import { getUserIndex } from '@db/actions';
-import { getUserId } from '@server';
+import { db } from "@db"
+import { getUserIndex } from "@db/actions"
+import { getUserId } from "@server"
 
 export const removeTrainingCourse = async (index: number) => {
   try {
-    await db.read();
-    const userId = await getUserId();
-    if (!userId) throw new Error('Invalid User ID');
+    await db.read()
+    const userId = await getUserId()
+    if (!userId) throw new Error("Invalid User ID")
 
-    const userIndex = await getUserIndex(userId);
+    const userIndex = await getUserIndex(userId)
 
-    const userData = db.data.users[userIndex];
+    const userData = db.data.users[userIndex]
     if (!userData?.trainingCourses) {
-      throw new Error('Training Course entry not found');
+      throw new Error("Training Course entry not found")
     }
 
-    userData.trainingCourses.splice(index, 1);
+    userData.trainingCourses.splice(index, 1)
 
-    await db.write();
+    await db.write()
   } catch (error) {
-    console.error('Failed to remove batch:', error);
+    console.error("Failed to remove batch:", error)
   }
-};
+}

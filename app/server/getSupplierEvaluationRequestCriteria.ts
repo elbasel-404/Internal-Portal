@@ -1,12 +1,12 @@
-"use server";
+"use server"
 
-import { SupplierEvaluationCriterion } from "@types";
+import { SupplierEvaluationCriterion } from "@types"
 
 export const getSupplierEvaluationRequestCriteria = async (
-  id: string
+  id: string,
 ): Promise<SupplierEvaluationCriterion[] | void> => {
-  return SupplierEvaluationData;
-};
+  return SupplierEvaluationData
+}
 const SupplierEvaluationData: SupplierEvaluationCriterion[] = [
   {
     id: "1",
@@ -159,7 +159,8 @@ const SupplierEvaluationData: SupplierEvaluationCriterion[] = [
       {
         id: "50004",
         name: "التعامل مع اصحاب العلاقة",
-        measurement: "نسبة الاستجابة لطلبات التعاون مع اصحاب العلاقة او مقاولين اخرين",
+        measurement:
+          "نسبة الاستجابة لطلبات التعاون مع اصحاب العلاقة او مقاولين اخرين",
         pointsValue: "30",
         evaluationPoints: ["89 % <", "89 % - 70 %", "70 %"],
         notes: "لا يوجد",
@@ -191,4 +192,4 @@ const SupplierEvaluationData: SupplierEvaluationCriterion[] = [
       },
     ],
   },
-];
+]

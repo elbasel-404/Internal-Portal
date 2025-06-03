@@ -1,7 +1,7 @@
-import { Endpoint } from "@types";
-import { getRootBackendUrl } from "./getRooBackendUrl";
+import { Endpoint } from "@types"
+import { getRootBackendUrl } from "./getRooBackendUrl"
 
 export const getFetchUrl = (url: Endpoint) => {
-  const rootBackgroundUrl = getRootBackendUrl();
-  return `${rootBackgroundUrl}/api/${url}`;
-};
+  const rootBackgroundUrl = getRootBackendUrl()
+  return `${rootBackgroundUrl}/api/${url}`
+}

@@ -1,1 +1,1 @@
-export { HomePageSliders } from './HomePageSliders';
+export { HomePageSliders } from "./HomePageSliders"

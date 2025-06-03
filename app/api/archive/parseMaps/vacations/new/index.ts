@@ -7,4 +7,4 @@ export const vacationsNewMap = {
   approvalDate: "done_date",
   durationInDays: "duration",
   status: "state",
-};
+}
