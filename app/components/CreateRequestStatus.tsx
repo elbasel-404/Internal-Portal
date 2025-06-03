@@ -45,7 +45,7 @@ export const CreateRequestStatus = ({
                     </div>
                   </div>
                   <h2
-                    className={`text-sm w-max mr-20 lg:mr-0 mt-4 text-primary`}
+                    className={`text-sm mr-20 lg:mx-auto mt-4 text-center text-primary max-w-20`}
                   >
                     {status}
                   </h2>

@@ -55,7 +55,8 @@ export {
 export {
   SalaryIdentificationElementSchema,
   type SalaryIdentificationElement,
-} from "./salary-identification/schema"
+} from "./salary-identification/schema";
+export { OvertimeAssignmentElementSchema } from "./overtime-assignment/schema";
 export { EmployeeDepartmentElementSchema } from "./employee-department/schema"
 export { TrainingElementSchema, type TrainingElement } from "./training/schema"
 export { TransactionListElementSchema } from "./transaction-list/schema"

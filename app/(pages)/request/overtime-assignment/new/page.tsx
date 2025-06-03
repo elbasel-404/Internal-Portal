@@ -1,6 +1,6 @@
 import { Instructions, RequestStatus } from "@components"
-import { getRequestStatus } from "@server"
 import { OvertimeAssignmentForm } from "../components"
+import { getRequestStatus } from "@server"
 
 const NewOvertimeAssignmentPage = async () => {
   const requestStatus = await getRequestStatus()
