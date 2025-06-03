@@ -4,6 +4,7 @@ import type { PermissionRequest } from '@types';
 // import { PermissionElementSchema, ResponseSchema } from '../../api-schemas';
 import { getDemo } from '../db/actions/getDemo';
 import { getFetchHeaders } from './getFetchHeaders';
+import { getStoredEmployeeId } from '@auth';
 
 export const getPermissionRequests = async (): Promise<PermissionRequest[]> => {
   const isDemo = await getDemo();
@@ -11,10 +12,11 @@ export const getPermissionRequests = async (): Promise<PermissionRequest[]> => {
 
   // ! VARIABLES
   // ! ==================================
+  const employeeId = await getStoredEmployeeId();
   const url = 'api/po/hr/authorization';
   const apiRootUrl = process.env.API_ROOT_URL as string;
   const { headers } = await getFetchHeaders();
-  const requestBody = { employee_id: 1722 };
+  const requestBody = { employee_id: employeeId };
   const requestBodyString = JSON.stringify(requestBody);
   const requestUrl = `${apiRootUrl}/${url}`;
 
@@ -26,6 +28,7 @@ export const getPermissionRequests = async (): Promise<PermissionRequest[]> => {
     body: requestBodyString,
   });
   const responseJson = await apiResponse.json();
+  console.log({ responseJson })
 
   // ! VALIDATION
   // ! ==================================
@@ -56,7 +59,7 @@ export const getPermissionRequests = async (): Promise<PermissionRequest[]> => {
 
 const PermissionDummyData: PermissionRequest[] = [
   {
-    id: '#55465',
+    id: '#dummy',
     date: '2024-05-05',
     description: 'استئذان عمل',
 
