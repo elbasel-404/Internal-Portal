@@ -1,20 +1,20 @@
-import { Instructions, RequestDetails, RequestStatus } from '@components';
-import { getRecommendationDetails, getRequestStatus } from '@server';
-import { RequestHeader } from '@types';
+import { Instructions, RequestDetails, RequestStatus } from "@components"
+import { getRecommendationDetails, getRequestStatus } from "@server"
+import { RequestHeader } from "@types"
 
-type Params = Promise<{ id: string }>;
+type Params = Promise<{ id: string }>
 
 interface RecommendationDetailsPageProps {
-  params: Params;
+  params: Params
 }
 
 const RecommendationDetailsPage = async ({
   params,
 }: RecommendationDetailsPageProps) => {
-  const { id } = await params;
-  const requestStatus = await getRequestStatus();
+  const { id } = await params
+  const requestStatus = await getRequestStatus()
   const requestCaption =
-    'انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر';
+    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const {
     recommendationDate,
     employee,
@@ -30,80 +30,80 @@ const RecommendationDetailsPage = async ({
     cycleProgram,
     city,
     trainingCenter,
-  } = (await getRecommendationDetails(id)) || {};
+  } = (await getRecommendationDetails(id)) || {}
 
   const requestHeaders: RequestHeader[] = [
     {
-      label: 'رقم الترشيح',
+      label: "رقم الترشيح",
       value: id,
     },
     {
-      label: 'تاريخ الترشيح',
+      label: "تاريخ الترشيح",
       value: recommendationDate,
     },
     {
-      label: 'الموظف',
+      label: "الموظف",
       value: employee,
     },
     {
-      label: 'الرقم الوظيفى',
+      label: "الرقم الوظيفى",
       value: jobNumber,
     },
     {
-      label: 'المسمى الوظيفى',
+      label: "المسمى الوظيفى",
       value: jobTitle,
     },
     {
-      label: 'الإدارة',
+      label: "الإدارة",
       value: management,
     },
     {
-      label: 'الدرجة',
+      label: "الدرجة",
       value: degree,
     },
     {
-      label: 'الدورة',
+      label: "الدورة",
       value: cycle,
     },
     {
-      label: 'تاريخ الدورة',
+      label: "تاريخ الدورة",
       value: cycleDate,
     },
     {
-      label: 'المدة',
+      label: "المدة",
       value: duration,
     },
     {
-      label: 'النوع',
+      label: "النوع",
       value: type,
     },
     {
-      label: 'المدينة',
+      label: "المدينة",
       value: city,
     },
     {
-      label: 'مركز التدريب',
+      label: "مركز التدريب",
       value: trainingCenter,
     },
     {
-      label: 'برنامج الدورة',
+      label: "برنامج الدورة",
       value: cycleProgram,
     },
     {
-      label: 'قيمة الدورة',
+      label: "قيمة الدورة",
       value: cycleCost,
     },
-  ];
+  ]
   return (
-    <main className='space-y-4'>
+    <main className="space-y-4">
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails headers={requestHeaders} />
       <Instructions
-        title='توضيحات حول الخدمة'
-        description='تتيح هذه الخدمة عرض تفاصيل الترشيحات الخاصة به للدورات الداخلية'
+        title="توضيحات حول الخدمة"
+        description="تتيح هذه الخدمة عرض تفاصيل الترشيحات الخاصة به للدورات الداخلية"
       />
     </main>
-  );
-};
+  )
+}
 
-export default RecommendationDetailsPage;
+export default RecommendationDetailsPage

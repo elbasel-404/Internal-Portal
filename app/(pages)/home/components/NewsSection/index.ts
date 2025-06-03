@@ -1,1 +1,1 @@
-export { NewsSection } from './NewsSection';
+export { NewsSection } from "./NewsSection"

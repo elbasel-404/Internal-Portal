@@ -1,24 +1,24 @@
 import {
   BankDetailSchema,
   type BankDetail,
-} from "@api/schemas/bank-details/schema";
-import { ResponseSchema } from "@api/schemas/responseSchema";
-import { getDemo } from "../db/actions/getDemo";
-import { getFetchHeaders } from "./getFetchHeaders";
-import { da } from "date-fns/locale";
+} from "@api/schemas/bank-details/schema"
+import { ResponseSchema } from "@api/schemas/responseSchema"
+import { getDemo } from "../db/actions/getDemo"
+import { getFetchHeaders } from "./getFetchHeaders"
+import { da } from "date-fns/locale"
 
 export const getBankDetails = async (): Promise<BankDetail[]> => {
-  const isDemo = await getDemo();
-  if (isDemo) return dummyData;
+  const isDemo = await getDemo()
+  if (isDemo) return dummyData
 
   // ! VARIBLES
   // ! ==================================
-  const url = "api/po/hr/new-bank";
-  const apiRootUrl = process.env.API_ROOT_URL as string;
-  const { headers } = await getFetchHeaders();
-  const requestBody = {};
-  const requestBodyString = JSON.stringify(requestBody);
-  const requestUrl = `${apiRootUrl}/${url}`;
+  const url = "api/po/hr/new-bank"
+  const apiRootUrl = process.env.API_ROOT_URL as string
+  const { headers } = await getFetchHeaders()
+  const requestBody = {}
+  const requestBodyString = JSON.stringify(requestBody)
+  const requestUrl = `${apiRootUrl}/${url}`
 
   // ! FETCH
   // ! ==================================
@@ -26,16 +26,16 @@ export const getBankDetails = async (): Promise<BankDetail[]> => {
     headers,
     method: "POST",
     body: requestBodyString,
-  });
-  const responseJson = await apiResponse.json();
-  console.log({ responseJson });
+  })
+  const responseJson = await apiResponse.json()
+  console.log({ responseJson })
 
   // ! VALIDATION
   // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson);
-  const { result } = validatedResponse;
-  const { data } = result;
-  const validatedData = BankDetailSchema.array().parse(data);
+  const validatedResponse = ResponseSchema.parse(responseJson)
+  const { result } = validatedResponse
+  const { data } = result
+  const validatedData = BankDetailSchema.array().parse(data)
 
   // ! PARSING
   // ! ==================================
@@ -60,13 +60,12 @@ export const getBankDetails = async (): Promise<BankDetail[]> => {
       __last_update: data.__last_update,
       create_date: data.create_date,
       write_uid: data.write_uid,
+    }
+    return bankItem
+  })
 
-    };
-    return bankItem;
-  });
-
-  return returnedData;
-};
+  return returnedData
+}
 
 const dummyData: BankDetail[] = [
   {
@@ -109,4 +108,4 @@ const dummyData: BankDetail[] = [
     display_name: "Dummy Bank 2 - DUMMY2",
     __last_update: new Date("2023-02-03"),
   },
-];
+]

@@ -1,16 +1,14 @@
-'use server';
+"use server"
 
-import type { DeputationRequest } from '@types';
+import type { DeputationRequest } from "@types"
 
-export const getDeputationRequests = async (): Promise<
-  DeputationRequest[]
-> => {
-  return DeputationRequestsDummyData;
-};
+export const getDeputationRequests = async (): Promise<DeputationRequest[]> => {
+  return DeputationRequestsDummyData
+}
 
 const DeputationRequestsDummyData: DeputationRequest[] = [
   {
-    id: '#10011',
+    id: "#10011",
     requestDate: "2024-05-05 - 04.30.00",
     deputation: "داخلي",
     startDate: "2024-05-05 - 04.30.00",
@@ -19,7 +17,7 @@ const DeputationRequestsDummyData: DeputationRequest[] = [
     status: "طلب",
   },
   {
-    id: '#10012',
+    id: "#10012",
     requestDate: "2024-05-05 - 04.30.00",
     deputation: "داخلي",
     startDate: "2024-05-05 - 04.30.00",
@@ -28,7 +26,7 @@ const DeputationRequestsDummyData: DeputationRequest[] = [
     status: "المدير المباشر",
   },
   {
-    id: '#10013',
+    id: "#10013",
     requestDate: "2024-05-05 - 04.30.00",
     deputation: "خارجي",
     startDate: "2024-05-05 - 04.30.00",
@@ -37,7 +35,7 @@ const DeputationRequestsDummyData: DeputationRequest[] = [
     status: "مدير القطاع",
   },
   {
-    id: '#10014',
+    id: "#10014",
     requestDate: "2024-05-05 - 04.30.00",
     deputation: "خارجي",
     startDate: "2024-05-05 - 04.30.00",
@@ -46,7 +44,7 @@ const DeputationRequestsDummyData: DeputationRequest[] = [
     status: "عمليات الموارد البشرية",
   },
   {
-    id: '#10015',
+    id: "#10015",
     requestDate: "2024-05-05 - 04.30.00",
     deputation: "خارجي",
     startDate: "2024-05-05 - 04.30.00",
@@ -55,7 +53,7 @@ const DeputationRequestsDummyData: DeputationRequest[] = [
     status: "مدير عام الموارد البشرية",
   },
   {
-    id: '#10016',
+    id: "#10016",
     requestDate: "2024-05-05 - 04.30.00",
     deputation: "داخلي",
     startDate: "2024-05-05 - 04.30.00",
@@ -64,7 +62,7 @@ const DeputationRequestsDummyData: DeputationRequest[] = [
     status: "معتمد وتم الصرف",
   },
   {
-    id: '#10017',
+    id: "#10017",
     requestDate: "2024-05-05 - 04.30.00",
     deputation: "داخلي",
     startDate: "2024-05-05 - 04.30.00",
@@ -73,7 +71,7 @@ const DeputationRequestsDummyData: DeputationRequest[] = [
     status: "معتمد",
   },
   {
-    id: '#10018',
+    id: "#10018",
     requestDate: "2024-05-05 - 04.30.00",
     deputation: "داخلي",
     startDate: "2024-05-05 - 04.30.00",
@@ -82,7 +80,7 @@ const DeputationRequestsDummyData: DeputationRequest[] = [
     status: "مرفوض",
   },
   {
-    id: '#10019',
+    id: "#10019",
     requestDate: "2024-05-05 - 04.30.00",
     deputation: "داخلي",
     startDate: "2024-05-05 - 04.30.00",
@@ -91,12 +89,12 @@ const DeputationRequestsDummyData: DeputationRequest[] = [
     status: "طلب",
   },
   {
-    id: '#10020',
+    id: "#10020",
     requestDate: "2024-05-05 - 04.30.00",
     deputation: "داخلي",
     startDate: "2024-05-05 - 04.30.00",
     endDate: "2024-05-15 - 04.30.00",
     duration: "10",
     status: "طلب",
-  }
-];
+  },
+]

@@ -1,2 +1,1 @@
-export { EmployeeDepartment } from './EmployeeDepartment';
-
+export { EmployeeDepartment } from "./EmployeeDepartment"

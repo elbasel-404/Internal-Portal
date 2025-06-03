@@ -1,42 +1,42 @@
-"use client";
+"use client"
 
 // import { useAtomValue, useSetAtom } from "jotai";
 // import { getDemo } from "../db/actions/getDemo";
-import { toggleDemo } from "../db/actions/toggleDemo";
+import { toggleDemo } from "../db/actions/toggleDemo"
 // import { demoAtom } from "../atoms/demoAtom";
-import { apiErrorAtom } from "../atoms/apiErrorAtom";
-import { useAtomValue, useSetAtom } from "jotai";
-import { useEffect, useState } from "react";
-import { getDemo } from "../db/actions/getDemo";
-import { cn } from "@utils";
+import { apiErrorAtom } from "../atoms/apiErrorAtom"
+import { useAtomValue, useSetAtom } from "jotai"
+import { useEffect, useState } from "react"
+import { getDemo } from "../db/actions/getDemo"
+import { cn } from "@utils"
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic"
 
 export const ToggleDemo = () => {
-  const isApiError = useAtomValue(apiErrorAtom);
-  const setApiError = useSetAtom(apiErrorAtom);
-  const [isDemo, setIsDemo] = useState<null | boolean>(null);
+  const isApiError = useAtomValue(apiErrorAtom)
+  const setApiError = useSetAtom(apiErrorAtom)
+  const [isDemo, setIsDemo] = useState<null | boolean>(null)
 
   const onSubmit = () => {
-    console.log({ isApiError });
+    console.log({ isApiError })
     if (isApiError) {
       setTimeout(() => {
-        setApiError(null);
-        window.location.reload();
-      }, 1000);
+        setApiError(null)
+        window.location.reload()
+      }, 1000)
       // const is      console.log("API Error");Demo = await getDemo();
       // setDemoAtom(isDemo);
     }
-  };
+  }
 
   const initDemo = async () => {
-    const isDemo = await getDemo();
-    setIsDemo(isDemo);
-  };
+    const isDemo = await getDemo()
+    setIsDemo(isDemo)
+  }
 
   useEffect(() => {
-    initDemo();
-  });
+    initDemo()
+  })
 
   return (
     <div
@@ -55,7 +55,7 @@ export const ToggleDemo = () => {
               isDemo === null &&
                 "animate-spin bg-gradient-to-r from-red-700 to-lime-500",
               isDemo === false && "bg-red-400",
-              isDemo && "bg-green-400"
+              isDemo && "bg-green-400",
             )}
           />
         </button>
@@ -65,7 +65,7 @@ export const ToggleDemo = () => {
         <div
           className={cn(
             "text-sm flex gap-1 justify-center w-full px-2 py-2",
-            isDemo ? "bg-green-400" : "bg-red-400"
+            isDemo ? "bg-green-400" : "bg-red-400",
           )}
         >
           <span className="text-black">demo:</span>
@@ -75,5 +75,5 @@ export const ToggleDemo = () => {
         <div>Loading...</div>
       )}
     </div>
-  );
-};
+  )
+}

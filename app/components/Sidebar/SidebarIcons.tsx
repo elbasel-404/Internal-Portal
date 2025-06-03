@@ -63,7 +63,7 @@ import {
   UserWithChartIcon,
   UserWithClockIcon,
   UserWithShieldIcon,
-} from '@icons';
+} from "@icons"
 
 export const SidebarIcons = {
   Home: <HomeIcon />,
@@ -79,7 +79,7 @@ export const SidebarIcons = {
   ClockTime: <ClockTimeIcon width={30} height={30} />,
   File: <FileIcon />,
   Mobile: <MobileIcon />,
-  User: <UserIcon className='fill-[#88D0EC]' />,
+  User: <UserIcon className="fill-[#88D0EC]" />,
   Info: <InfoIcon width={30} height={30} />,
   Board: <BoardIcon width={30} height={30} />,
   Buckle: <BuckleIcon />,
@@ -91,7 +91,7 @@ export const SidebarIcons = {
   Key: <KeyIcon width={30} height={30} />,
   List: <ListIcon width={30} height={30} />,
   Phone: <PhoneIcon width={30} height={30} />,
-  Printer: <PrinterIcon width={30} height={30} className='fill-primary' />,
+  Printer: <PrinterIcon width={30} height={30} className="fill-primary" />,
   Shield: <ShieldIcon width={30} height={30} />,
   UserFolder: <UserFolderIcon />,
   Users: <UsersIcon width={30} height={30} />,
@@ -131,4 +131,4 @@ export const SidebarIcons = {
   Lamp: <LampIcon width={30} height={30} />,
   Grid: <GridIcon width={30} height={30} />,
   DownloadApp: <DownloadAppIcon width={30} height={30} />,
-} as const;
+} as const

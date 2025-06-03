@@ -1,5 +1,5 @@
-import { vacationsMaps } from "./vacations";
+import { vacationsMaps } from "./vacations"
 
 export const parseMaps = {
   vacations: vacationsMaps,
-};
+}

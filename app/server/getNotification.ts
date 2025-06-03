@@ -1,10 +1,10 @@
-"use server";
+"use server"
 
-import type { NotificationItem } from "@types";
+import type { NotificationItem } from "@types"
 
 export const getNotifications = async (): Promise<NotificationItem[]> => {
-  return notifications;
-};
+  return notifications
+}
 const notifications: NotificationItem[] = [
   {
     date: "2024-05-05",
@@ -27,4 +27,4 @@ const notifications: NotificationItem[] = [
     icon: "PaperPlane",
     unread: true,
   },
-];
+]

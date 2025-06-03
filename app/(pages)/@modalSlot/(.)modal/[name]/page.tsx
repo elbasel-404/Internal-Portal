@@ -1,31 +1,31 @@
-import { modalNameSchema } from '@zodSchemas';
-import { ModalName } from '@types';
-import { ComponentType } from 'react';
-import { notFound } from 'next/navigation';
+import { modalNameSchema } from "@zodSchemas"
+import { ModalName } from "@types"
+import { ComponentType } from "react"
+import { notFound } from "next/navigation"
 
 interface ModalSlotPageProps {
-  params: Promise<{ name: string }>;
+  params: Promise<{ name: string }>
 }
 
 const loadModal = async (name: ModalName) => {
   const modal = await import(`../../../../components/modals/${name}`).then(
-    (module) => module[name]
-  );
-  return modal as ComponentType;
-};
+    (module) => module[name],
+  )
+  return modal as ComponentType
+}
 
 const ModalSlotPage = async ({ params }: ModalSlotPageProps) => {
-  const { name } = await params;
+  const { name } = await params
 
-  if (!name) return;
-  const parsedName = modalNameSchema.safeParse(name);
+  if (!name) return
+  const parsedName = modalNameSchema.safeParse(name)
   if (!parsedName.success) {
-    notFound();
+    notFound()
     // throw new Error('Invalid modal name');
   }
 
-  const Modal = await loadModal(parsedName.data);
-  return <Modal />;
-};
+  const Modal = await loadModal(parsedName.data)
+  return <Modal />
+}
 
-export default ModalSlotPage;
+export default ModalSlotPage

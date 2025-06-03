@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import { paths } from "@lib";
-import { useState } from "react";
+import { paths } from "@lib"
+import { useState } from "react"
 import {
   AttachmentsField,
   DateField,
@@ -11,7 +11,7 @@ import {
   SubmitButton,
   TextareaField,
   RadioField,
-} from "@components/form";
+} from "@components/form"
 import {
   TransportationTypes,
   RequestTypes,
@@ -21,86 +21,86 @@ import {
   Tasks,
   ReplacementEmployees,
   DeputationPlaces,
-} from "../config";
-import { DeputationPlace } from "@types";
-import { PlacesTable } from "./PlacesTable";
+} from "../config"
+import { DeputationPlace } from "@types"
+import { PlacesTable } from "./PlacesTable"
 
 export const DeputationForm = () => {
-  const [files, setFiles] = useState<File[]>([]);
-  const [requestType, setRequestType] = useState<string>("external");
-  const [requestTypeCaption, setRequestTypeCaption] = useState<string>("خارج");
-  const [transportationType, setTransportationType] = useState<string>("ByAir");
-  const [showKilometers, setShowKilometers] = useState<boolean>(false);
-  const [deputationType, setDeputationType] = useState<string>("task");
+  const [files, setFiles] = useState<File[]>([])
+  const [requestType, setRequestType] = useState<string>("external")
+  const [requestTypeCaption, setRequestTypeCaption] = useState<string>("خارج")
+  const [transportationType, setTransportationType] = useState<string>("ByAir")
+  const [showKilometers, setShowKilometers] = useState<boolean>(false)
+  const [deputationType, setDeputationType] = useState<string>("task")
   const [showTrainingRequestNumber, setTrainingRequestNumber] =
-    useState<boolean>(false);
-  const [deputationStartDate, setDeputationStartDate] = useState(new Date());
-  const [deputationEndDate, setDeputationEndDate] = useState(new Date());
-  const [duration, setDeputationDuration] = useState<number>(0);
-  const [isInternal, setIsInternal] = useState<boolean>(false);
-  const [issueVisa, setIssueVisa] = useState<boolean>(false);
-  const [places, updatePlaces] = useState<DeputationPlace[]>(DeputationPlaces);
+    useState<boolean>(false)
+  const [deputationStartDate, setDeputationStartDate] = useState(new Date())
+  const [deputationEndDate, setDeputationEndDate] = useState(new Date())
+  const [duration, setDeputationDuration] = useState<number>(0)
+  const [isInternal, setIsInternal] = useState<boolean>(false)
+  const [issueVisa, setIssueVisa] = useState<boolean>(false)
+  const [places, updatePlaces] = useState<DeputationPlace[]>(DeputationPlaces)
 
   const handleRequestTypeChange = (value: string) => {
-    setRequestType(value);
-    setRequestTypeCaption(value === "internal" ? "داخل" : "خارج");
-    setIsInternal(value === "internal");
-  };
+    setRequestType(value)
+    setRequestTypeCaption(value === "internal" ? "داخل" : "خارج")
+    setIsInternal(value === "internal")
+  }
 
   const handleTransportationTypeChange = (value: string) => {
-    setTransportationType(value);
-    setShowKilometers(value === "Overland");
-  };
+    setTransportationType(value)
+    setShowKilometers(value === "Overland")
+  }
 
   const handleDeputationTypeChange = (value: string) => {
-    setDeputationType(value);
-    setTrainingRequestNumber(value === "training");
-  };
+    setDeputationType(value)
+    setTrainingRequestNumber(value === "training")
+  }
 
   const handleDeputationStartDateChange = (value: Date | undefined) => {
-    setDeputationStartDate(value || new Date());
-  };
+    setDeputationStartDate(value || new Date())
+  }
 
   const handleDeputationEndDateChange = (value: Date | undefined) => {
-    setDeputationEndDate(value || new Date());
+    setDeputationEndDate(value || new Date())
     // Calculate the difference in days between the two dates
-    const startDate = new Date(deputationStartDate);
+    const startDate = new Date(deputationStartDate)
     if (value) {
-      const endDate = new Date(value);
-      const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      setDeputationDuration(diffDays);
+      const endDate = new Date(value)
+      const diffTime = Math.abs(endDate.getTime() - startDate.getTime())
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+      setDeputationDuration(diffDays)
     } else {
-      setDeputationDuration(0);
+      setDeputationDuration(0)
     }
-  };
+  }
 
   const handleRemovePlace = (id: string) => {
-    const updatedPlaces = places.filter((place) => place.id !== id);
-    updatePlaces(updatedPlaces);
-  };
+    const updatedPlaces = places.filter((place) => place.id !== id)
+    updatePlaces(updatedPlaces)
+  }
   const handleAddPlace = (newPlace: {
-    id: string;
-    name: string;
-    city: string;
+    id: string
+    name: string
+    city: string
   }) => {
-    const updatedPlaces = [...places, newPlace];
-    updatePlaces(updatedPlaces);
-  };
+    const updatedPlaces = [...places, newPlace]
+    updatePlaces(updatedPlaces)
+  }
 
   const handleFileUpload = (uploadedFiles: FileList | null) => {
     if (uploadedFiles) {
       const newFiles = Array.from(uploadedFiles).map(
-        (file) => new File([file], file.name)
-      );
-      setFiles([...files, ...newFiles]);
+        (file) => new File([file], file.name),
+      )
+      setFiles([...files, ...newFiles])
     }
-  };
+  }
 
   const handleRemoveFile = (index: number) => {
-    const updatedFiles = files.filter((_, i) => i !== index);
-    setFiles(updatedFiles);
-  };
+    const updatedFiles = files.filter((_, i) => i !== index)
+    setFiles(updatedFiles)
+  }
 
   return (
     <form className="bg-white rounded-md">
@@ -167,7 +167,7 @@ export const DeputationForm = () => {
             date={deputationStartDate}
             onChange={
               handleDeputationStartDateChange as (
-                date: Date | null | undefined
+                date: Date | null | undefined,
               ) => void
             }
           />
@@ -178,7 +178,7 @@ export const DeputationForm = () => {
             date={deputationEndDate}
             onChange={
               handleDeputationEndDateChange as (
-                date: Date | null | undefined
+                date: Date | null | undefined,
               ) => void
             }
           />
@@ -240,5 +240,5 @@ export const DeputationForm = () => {
         <SubmitButton />
       </div>
     </form>
-  );
-};
+  )
+}

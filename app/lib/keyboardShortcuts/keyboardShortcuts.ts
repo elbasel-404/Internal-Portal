@@ -1,7 +1,7 @@
 export const keyboardShortcuts = [
   {
-    key: 'k',
+    key: "k",
     withCommandKey: true,
     callback: () => {},
   },
-];
+]

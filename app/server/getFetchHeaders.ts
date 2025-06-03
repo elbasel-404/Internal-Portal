@@ -1,20 +1,20 @@
-"use server";
+"use server"
 
-import { getSession } from "@auth";
+import { getSession } from "@auth"
 
 export const getFetchHeaders = async () => {
-  const API_KEY = process.env.API_KEY as string;
-  const API_KEY_HEADER_NAME = process.env.API_KEY_HEADER_NAME as string;
-  const SESSION_ID = process.env.SESSION_ID as string;
+  const API_KEY = process.env.API_KEY as string
+  const API_KEY_HEADER_NAME = process.env.API_KEY_HEADER_NAME as string
+  const SESSION_ID = process.env.SESSION_ID as string
 
-  const session = await getSession();
+  const session = await getSession()
   if (!session) {
-    console.error("No session found");
+    console.error("No session found")
     console.log({ session })
-    throw new Error("No session found");
+    throw new Error("No session found")
   }
-  const { access_token } = session;
-  const BEARER_TOKEN = access_token;
+  const { access_token } = session
+  const BEARER_TOKEN = access_token
 
   if (!API_KEY || !API_KEY_HEADER_NAME || !BEARER_TOKEN || !SESSION_ID) {
     console.log({
@@ -22,8 +22,8 @@ export const getFetchHeaders = async () => {
       API_KEY_HEADER_NAME,
       BEARER_TOKEN,
       SESSION_ID,
-    });
-    throw new Error("Missing env variables");
+    })
+    throw new Error("Missing env variables")
   }
 
   const headers = {
@@ -32,6 +32,6 @@ export const getFetchHeaders = async () => {
     "Content-Type": "application/json",
     Cookie: `session_id=${SESSION_ID}`,
     "Accept-Encoding": "identity",
-  };
-  return { headers };
-};
+  }
+  return { headers }
+}

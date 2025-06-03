@@ -1,12 +1,12 @@
-import { EditIcon } from '@icons';
-import { LogOutIcon } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { paths } from '../../lib/paths';
-import { Button } from '../../ui/button';
+import { EditIcon } from "@icons"
+import { LogOutIcon } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
+import { paths } from "../../lib/paths"
+import { Button } from "../../ui/button"
 
 interface SideBarHeaderProps {
-  isOpen: boolean;
+  isOpen: boolean
 }
 
 export const SidebarProfileInfo = ({ isOpen }: SideBarHeaderProps) => {
@@ -14,63 +14,63 @@ export const SidebarProfileInfo = ({ isOpen }: SideBarHeaderProps) => {
     <>
       <div
         className={`flex flex-col justify-center items-center gap-4 ${
-          isOpen && 'hidden'
+          isOpen && "hidden"
         }`}
       >
         <Image
           className={`w-12 h-12 rounded-full mt-32`}
           width={100}
           height={100}
-          src='/demo-img.png'
-          alt='profile-picture'
+          src="/demo-img.png"
+          alt="profile-picture"
         />
         <Link
           href={paths.userProfile.href}
-          className='min-h-14 p-4 text-white font-medium bg-primary-opacity hover:bg-primary rounded-xl shadow-none'
+          className="min-h-14 p-4 text-white font-medium bg-primary-opacity hover:bg-primary rounded-xl shadow-none"
         >
           <EditIcon />
         </Link>
 
-        <Button className='min-h-14 p-4 text-white font-medium bg-primary-opacity hover:bg-primary rounded-xl shadow-none rotate-180'>
+        <Button className="min-h-14 p-4 text-white font-medium bg-primary-opacity hover:bg-primary rounded-xl shadow-none rotate-180">
           <LogOutIcon />
         </Button>
       </div>
 
       <div
         className={`flex flex-col items-center justify-center w-full ${
-          !isOpen && 'hidden'
+          !isOpen && "hidden"
         }`}
       >
         <Link
           href={paths.userProfile.href}
-          className='flex flex-col items-center justify-center'
+          className="flex flex-col items-center justify-center"
         >
           <Image
-            className='w-20 h-20 rounded-full'
+            className="w-20 h-20 rounded-full"
             width={100}
             height={100}
-            src='/demo-img.png'
-            alt='profile-picture'
+            src="/demo-img.png"
+            alt="profile-picture"
           />
-          <h1 className='text-2xl font-medium text-white text-center'>
+          <h1 className="text-2xl font-medium text-white text-center">
             عساف بن رشود الصاعدي
           </h1>
-          <p className='font-light text-white text-base'>
+          <p className="font-light text-white text-base">
             مدير الأنظمة الداخلية (مكلف)
           </p>
         </Link>
-        <div className='flex gap-3 mt-2'>
+        <div className="flex gap-3 mt-2">
           <Link
             href={paths.userProfile.href}
-            className='w-full min-h-12 px-11 flex items-center text-white font-medium bg-primary-opacity hover:bg-primary rounded-xl shadow-none'
+            className="w-full min-h-12 px-11 flex items-center text-white font-medium bg-primary-opacity hover:bg-primary rounded-xl shadow-none"
           >
             بياناتي
           </Link>
-          <Button className='w-full min-h-12 text-white font-medium bg-primary-opacity hover:bg-primary rounded-xl shadow-none rotate-180'>
+          <Button className="w-full min-h-12 text-white font-medium bg-primary-opacity hover:bg-primary rounded-xl shadow-none rotate-180">
             <LogOutIcon />
           </Button>
         </div>
       </div>
     </>
-  );
-};
+  )
+}

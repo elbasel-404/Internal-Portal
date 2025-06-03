@@ -1,33 +1,40 @@
-import { FormHeader, SubmitButton } from "@components/form";
-import { paths } from "@lib";
-import { SupplierEvaluationCriterionResult, SupplierKPI } from "@types";
-import { RequestDetailsForm } from "./RequestDetailsForm";
-import { getSupplierEvaluationRequestCriteria } from "@server";
+import { FormHeader, SubmitButton } from "@components/form"
+import { paths } from "@lib"
+import { SupplierEvaluationCriterionResult, SupplierKPI } from "@types"
+import { RequestDetailsForm } from "./RequestDetailsForm"
+import { getSupplierEvaluationRequestCriteria } from "@server"
 import {
   EvaluationCriteriaTable,
   EvaluationResultTable,
-} from "../../components";
+} from "../../components"
 
 export const EvaluationForm = async () => {
   //TODO: this is a temporary solution, we need to get the data from the server from a different endpoint
   const evaluationCriteriaData =
-    (await getSupplierEvaluationRequestCriteria("1")) || [];
+    (await getSupplierEvaluationRequestCriteria("1")) || []
 
   const evaluationResultData: SupplierEvaluationCriterionResult[] =
     evaluationCriteriaData?.map((item) => {
       const totalPointsValue = item.kpis.reduce((sum, kpi) => {
-        return sum + parseFloat(kpi.pointsValue);
-      }, 0);
-      const evaluationPoints = (totalPointsValue / item.kpis.length).toFixed(2).toString();
-      const totalPoints = ((parseFloat(item.weight) * parseFloat(evaluationPoints)) / 100).toFixed(2).toString();
+        return sum + parseFloat(kpi.pointsValue)
+      }, 0)
+      const evaluationPoints = (totalPointsValue / item.kpis.length)
+        .toFixed(2)
+        .toString()
+      const totalPoints = (
+        (parseFloat(item.weight) * parseFloat(evaluationPoints)) /
+        100
+      )
+        .toFixed(2)
+        .toString()
       return {
         id: item.id,
         name: item.name,
         weight: item.weight,
         evaluationPoints,
         totalPoints,
-      };
-    }) || [];
+      }
+    }) || []
 
   const CriteriaStatistics: SupplierKPI = {
     id: "0000",
@@ -36,12 +43,15 @@ export const EvaluationForm = async () => {
     pointsValue: "",
     evaluationPoints: ["90-100", "70-89", "50-69"],
     notes: "لا يوجد",
-  };
+  }
 
   return (
     <main>
       <div className="bg-white rounded-md">
-        <FormHeader label="نموذج طلب الوثيقة" path={paths.supplierEvaluation.href} />
+        <FormHeader
+          label="نموذج طلب الوثيقة"
+          path={paths.supplierEvaluation.href}
+        />
         <RequestDetailsForm />
       </div>
 
@@ -50,10 +60,9 @@ export const EvaluationForm = async () => {
         evaluationCriteriaData={evaluationCriteriaData}
         isForm
       />
-      <EvaluationResultTable data={evaluationResultData} isForm/>
+      <EvaluationResultTable data={evaluationResultData} isForm />
 
       <SubmitButton />
     </main>
-  );
-};
-
+  )
+}

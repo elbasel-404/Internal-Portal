@@ -1,12 +1,12 @@
-import { ReactNode } from 'react';
-import { EvaluationGoalsData } from './components';
+import { ReactNode } from "react"
+import { EvaluationGoalsData } from "./components"
 
 export const metadata = {
-  title: 'Evaluation Goals',
-  description: 'Evaluation Goals Data',
-};
+  title: "Evaluation Goals",
+  description: "Evaluation Goals Data",
+}
 interface EvaluationGoalsLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 const EvaluationGoalsLayout = ({ children }: EvaluationGoalsLayoutProps) => {
   return (
@@ -14,7 +14,7 @@ const EvaluationGoalsLayout = ({ children }: EvaluationGoalsLayoutProps) => {
       <EvaluationGoalsData />
       <section>{children}</section>
     </>
-  );
-};
+  )
+}
 
-export default EvaluationGoalsLayout;
+export default EvaluationGoalsLayout

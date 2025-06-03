@@ -1,9 +1,9 @@
-"use server";
+"use server"
 
-import { DeputationRequestDetails } from "@types";
+import { DeputationRequestDetails } from "@types"
 
 export const getDeputationRequestDetails = async (
-  id: string
+  id: string,
 ): Promise<DeputationRequestDetails | void> => {
   try {
     const details: DeputationRequestDetails = {
@@ -50,10 +50,10 @@ export const getDeputationRequestDetails = async (
         new File([""], "نموذج طلب .pdf"),
         new File([""], "نموذج طلب 2 .pdf"),
       ],
-    };
-    return details;
+    }
+    return details
   } catch (error) {
-    console.error("Error in getWorkDocumentDetails:", error);
-    return;
+    console.error("Error in getWorkDocumentDetails:", error)
+    return
   }
-};
+}

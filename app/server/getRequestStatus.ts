@@ -1,12 +1,12 @@
-import type { RequestStatus } from '@types';
-import { getDemo } from '../db/actions/getDemo';
+import type { RequestStatus } from "@types"
+import { getDemo } from "../db/actions/getDemo"
 
 export const getRequestStatus = async (
   id?: string,
-  model?: string
+  model?: string,
 ): Promise<RequestStatus[]> => {
-  const isDemo = await getDemo();
-  if (isDemo) return dummyData;
+  const isDemo = await getDemo()
+  if (isDemo) return dummyData
 
   // // ! VARIBLES
   // // ! ==================================
@@ -47,36 +47,36 @@ export const getRequestStatus = async (
   //   return vacationItem;
   // });
 
-  return dummyData;
-};
+  return dummyData
+}
 
 const dummyData: RequestStatus[] = [
   {
-    id: '1',
-    title: 'مقدم الطلب',
-    subtitle: 'عساف بن رشود الصاعدي',
-    icon: 'person',
-    status: 'completed',
+    id: "1",
+    title: "مقدم الطلب",
+    subtitle: "عساف بن رشود الصاعدي",
+    icon: "person",
+    status: "completed",
   },
   {
-    id: '2',
-    title: 'المدير المباشر',
-    subtitle: 'حمد بن يوسف القشيميط',
-    icon: 'person',
-    status: 'in-progress',
+    id: "2",
+    title: "المدير المباشر",
+    subtitle: "حمد بن يوسف القشيميط",
+    icon: "person",
+    status: "in-progress",
   },
   {
-    id: '3',
-    title: 'عمليات الموارد البشرية',
-    subtitle: 'حمد بن يوسف القشيميط',
-    icon: 'person',
-    status: 'pending',
+    id: "3",
+    title: "عمليات الموارد البشرية",
+    subtitle: "حمد بن يوسف القشيميط",
+    icon: "person",
+    status: "pending",
   },
   {
-    id: '4',
-    title: 'أُعتمد',
-    subtitle: 'حمد بن يوسف القشيميط',
-    icon: 'personConfirmed',
-    status: 'pending',
+    id: "4",
+    title: "أُعتمد",
+    subtitle: "حمد بن يوسف القشيميط",
+    icon: "personConfirmed",
+    status: "pending",
   },
-];
+]

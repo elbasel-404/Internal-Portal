@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import { SupplierKPI } from "@types";
-import { PrinterIcon } from "@icons";
+import { SupplierKPI } from "@types"
+import { PrinterIcon } from "@icons"
 import {
   Button,
   TableBody,
@@ -10,12 +10,12 @@ import {
   TableHeader,
   TableRow,
   Table as UITable,
-} from "@ui";
+} from "@ui"
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState } from "react"
 
 interface SupplierEvaluationCriterionResultProps {
-  data: SupplierKPI;
+  data: SupplierKPI
 }
 
 const tableHeaders = [
@@ -24,7 +24,7 @@ const tableHeaders = [
   { label: "نقاط المورد" },
   { label: "نقاط التقييم" },
   { label: "ملاحظات" },
-];
+]
 
 export const EvaluationCriteriaTableStatistics = ({
   data,
@@ -70,5 +70,5 @@ export const EvaluationCriteriaTableStatistics = ({
         </UITable>
       </div>
     </>
-  );
-};
+  )
+}

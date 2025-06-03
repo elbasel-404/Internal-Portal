@@ -1,28 +1,28 @@
-"use client";
+"use client"
 
-import { FilterSection, Table } from "@components";
-import { FilterIcon, SearchIcon } from "@icons";
-import { paths } from "@lib";
-import type { TransactionRequest } from "@types";
-import { Input } from "@ui";
-import { useState, type ChangeEvent } from "react";
-import { requests, tableHeaders } from "./config";
+import { FilterSection, Table } from "@components"
+import { FilterIcon, SearchIcon } from "@icons"
+import { paths } from "@lib"
+import type { TransactionRequest } from "@types"
+import { Input } from "@ui"
+import { useState, type ChangeEvent } from "react"
+import { requests, tableHeaders } from "./config"
 
 interface TransactionListRequestProps {
-  data: TransactionRequest[];
+  data: TransactionRequest[]
 }
 
 export const TransactionListTable = ({ data }: TransactionListRequestProps) => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("")
 
   const filteredRequests = data.filter((request) => {
-    if (typeof request.name !== "string") return;
-    return request.name.toLowerCase().includes(searchTerm.toLowerCase());
-  });
+    if (typeof request.name !== "string") return
+    return request.name.toLowerCase().includes(searchTerm.toLowerCase())
+  })
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
+    setSearchTerm(event.target.value)
+  }
   return (
     <>
       <div className="bg-white rounded-lg">
@@ -59,5 +59,5 @@ export const TransactionListTable = ({ data }: TransactionListRequestProps) => {
         />
       </div>
     </>
-  );
-};
+  )
+}

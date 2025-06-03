@@ -1,4 +1,4 @@
 export type BatchItem = {
-  batchNumber: string;
-  batchName: string;
-};
+  batchNumber: string
+  batchName: string
+}

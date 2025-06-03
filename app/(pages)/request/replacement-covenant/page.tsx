@@ -1,18 +1,18 @@
-import { Instructions } from '@components';
-import { getReplacementCovenantRequests } from '@server';
-import { ReplacementCovenantTable } from './components';
+import { Instructions } from "@components"
+import { getReplacementCovenantRequests } from "@server"
+import { ReplacementCovenantTable } from "./components"
 
 const ReplacementCovenantListPage = async () => {
-  const replacementCovenantData = await getReplacementCovenantRequests();
+  const replacementCovenantData = await getReplacementCovenantRequests()
   return (
-    <div className='space-y-4 mb-12'>
+    <div className="space-y-4 mb-12">
       <ReplacementCovenantTable data={replacementCovenantData} />
       <Instructions
-        title='توضيحات حول الخدمة'
-        description='تتيح هذه الخدمة للموظف إمكانية تقديم طلب العهدة، يتم تعبئة الطلب بالبيانات الأساسية ويجب على الموظف التأكد من معطيات طلب العهدة.'
+        title="توضيحات حول الخدمة"
+        description="تتيح هذه الخدمة للموظف إمكانية تقديم طلب العهدة، يتم تعبئة الطلب بالبيانات الأساسية ويجب على الموظف التأكد من معطيات طلب العهدة."
       />
     </div>
-  );
-};
+  )
+}
 
-export default ReplacementCovenantListPage;
+export default ReplacementCovenantListPage

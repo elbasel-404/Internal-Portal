@@ -1,6 +1,6 @@
 export const newsTabsKeys = [
-  'pressTab',
-  'newsTab',
-  'monshaatFamilyTab',
-  'internalTab',
-] as const;
+  "pressTab",
+  "newsTab",
+  "monshaatFamilyTab",
+  "internalTab",
+] as const

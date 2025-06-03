@@ -1,15 +1,15 @@
-import { OutboxIcon, TrashIcon } from "@icons";
-import { Button } from "@ui";
-import { FileText } from "lucide-react";
+import { OutboxIcon, TrashIcon } from "@icons"
+import { Button } from "@ui"
+import { FileText } from "lucide-react"
 
 interface AttachmentsFieldProps {
-  handleFileUpload: (files: FileList | null) => void;
-  handleRemoveFile: (index: number) => void;
-  label?: string;
-  subLabel?: string;
-  required?: boolean;
-  files: File[];
-  name?: string;
+  handleFileUpload: (files: FileList | null) => void
+  handleRemoveFile: (index: number) => void
+  label?: string
+  subLabel?: string
+  required?: boolean
+  files: File[]
+  name?: string
 }
 
 export const AttachmentsField = ({
@@ -75,5 +75,5 @@ export const AttachmentsField = ({
         ))}
       </div>
     </div>
-  );
-};
+  )
+}

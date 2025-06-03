@@ -111,7 +111,7 @@ import {
   SandClockIcon,
   CalendarIcon,
   BalanceIcon,
-} from '@icons';
+} from "@icons"
 
 export const icons = {
   MemoCircleCheckIcon,
@@ -226,4 +226,4 @@ export const icons = {
   SandClockIcon,
   CalendarIcon,
   BalanceIcon,
-};
+}

@@ -1,25 +1,25 @@
-"use client";
+"use client"
 
-import { useSetAtom } from "jotai";
+import { useSetAtom } from "jotai"
 // import { useEffect, useState } from "react";
 // import { getDemo } from "../../db/actions/getDemo";
 // import { useAtomValue, useSetAtom } from "jotai";
 // import { demoAtom } from "../../atoms/demoAtom";
 // import { shouldRefreshAtom } from "../../atoms/shouldRefreshAtom";
-import { apiErrorAtom } from "../../atoms/apiErrorAtom";
-import { useEffect } from "react";
+import { apiErrorAtom } from "../../atoms/apiErrorAtom"
+import { useEffect } from "react"
 
 interface ErrorProps {
-  error: Error;
+  error: Error
 }
 
 const ApiError = ({ error }: ErrorProps) => {
-  const setApiErrorAtom = useSetAtom(apiErrorAtom);
+  const setApiErrorAtom = useSetAtom(apiErrorAtom)
 
   useEffect(() => {
-    setApiErrorAtom(error);
+    setApiErrorAtom(error)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [error]);
+  }, [error])
 
   return (
     <div>
@@ -39,7 +39,7 @@ const ApiError = ({ error }: ErrorProps) => {
           : "No stack trace available"}
       </pre>
     </div>
-  );
-};
+  )
+}
 
-export default ApiError;
+export default ApiError

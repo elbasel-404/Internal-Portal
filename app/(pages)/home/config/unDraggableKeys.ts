@@ -1,6 +1,6 @@
-import { HomePageSlotKey } from '@types';
+import { HomePageSlotKey } from "@types"
 
 export const unDraggableKeys: HomePageSlotKey[] = [
-  'completeProfile',
-  'generalInfo',
-] as const;
+  "completeProfile",
+  "generalInfo",
+] as const

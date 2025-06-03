@@ -1,14 +1,14 @@
-"use server";
-import { SignJWT } from "jose";
+"use server"
+import { SignJWT } from "jose"
 
 export const encrypt = async (payload: any) => {
-  const key = new TextEncoder().encode(process.env.AUTH_SECRET);
+  const key = new TextEncoder().encode(process.env.AUTH_SECRET)
 
   const encryptedJWT = await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime("1 day from now")
-    .sign(key);
+    .sign(key)
 
-  return encryptedJWT;
-};
+  return encryptedJWT
+}

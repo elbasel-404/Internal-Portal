@@ -1,18 +1,18 @@
-"use client";
+"use client"
 
-import { InputField } from "@components/form";
-import { SupplierKPI } from "@types";
+import { InputField } from "@components/form"
+import { SupplierKPI } from "@types"
 
 interface SupplierKPIProps {
-  data: SupplierKPI[];
-  isForm?: boolean;
+  data: SupplierKPI[]
+  isForm?: boolean
 }
 
 export const KPIsTable = ({ data, isForm }: SupplierKPIProps) => {
-  const tableData = data || [];
+  const tableData = data || []
 
   const isDisabledField = (key: string) =>
-    key !== "pointsValue" && key !== "notes";
+    key !== "pointsValue" && key !== "notes"
 
   return (
     <>
@@ -62,7 +62,10 @@ export const KPIsTable = ({ data, isForm }: SupplierKPIProps) => {
                           key={`${key}-row`}
                         >
                           {value.map((item, index) => (
-                            <div key={`${kpi.id}-${key}-${index}`} className="w-1/3">
+                            <div
+                              key={`${kpi.id}-${key}-${index}`}
+                              className="w-1/3"
+                            >
                               <InputField
                                 label={`${kpi.id}-${key}-${index}`}
                                 name={`${kpi.id}-${key}-${index}`}
@@ -76,12 +79,12 @@ export const KPIsTable = ({ data, isForm }: SupplierKPIProps) => {
                         </div>
                       )}
                     </div>
-                  )
+                  ),
                 )}
             </div>
           ))}
         </div>
       </div>
     </>
-  );
-};
+  )
+}
