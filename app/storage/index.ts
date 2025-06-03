@@ -1,11 +1,11 @@
-import { createStorage } from "unstorage";
-import fsDriver from "unstorage/drivers/fs";
+import { createStorage } from "unstorage"
+import fsDriver from "unstorage/drivers/fs"
 
 export const environmentStorage = createStorage({
   driver: fsDriver({
     base: "./app/storage/environment",
   }),
-});
+})
 
 // ! Check for existence
 // await storage.hasItem("foo:bar");

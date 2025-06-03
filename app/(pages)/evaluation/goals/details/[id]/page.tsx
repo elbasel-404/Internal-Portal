@@ -1,23 +1,23 @@
-import { RequestDetails, RequestStatus } from "@components";
-import { getRequestStatus, getDeputationRequestDetails } from "@server";
-import { RequestHeader } from "@types";
-import { ReactNode } from "react";
-import { AnglesLeftIcon } from "@icons";
-import { ModalLink } from "@components/modals/ModalLink";
+import { RequestDetails, RequestStatus } from "@components"
+import { getRequestStatus, getDeputationRequestDetails } from "@server"
+import { RequestHeader } from "@types"
+import { ReactNode } from "react"
+import { AnglesLeftIcon } from "@icons"
+import { ModalLink } from "@components/modals/ModalLink"
 
-type Params = Promise<{ id: string }>;
+type Params = Promise<{ id: string }>
 
 interface EvaluationGoalDetailsPageProps {
-  params: Params;
+  params: Params
 }
 
 const EvaluationGoalDetailsPage = async ({
   params,
 }: EvaluationGoalDetailsPageProps) => {
-  const { id } = await params;
-  const requestStatus = await getRequestStatus();
+  const { id } = await params
+  const requestStatus = await getRequestStatus()
   const requestCaption =
-    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر";
+    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const {
     requestDate,
     deputation,
@@ -45,12 +45,12 @@ const EvaluationGoalDetailsPage = async ({
     notes,
     attachments,
     deputationPlaces,
-  } = (await getDeputationRequestDetails(id)) || {};
+  } = (await getDeputationRequestDetails(id)) || {}
 
-  const isInternal = deputation === "داخلي";
-  const displayReason = status === "مرفوض";
-  const displayTrainingRequestNumber = deputationType === "رحلة تدريب";
-  const displayKilometers = transportation === "برا";
+  const isInternal = deputation === "داخلي"
+  const displayReason = status === "مرفوض"
+  const displayTrainingRequestNumber = deputationType === "رحلة تدريب"
+  const displayKilometers = transportation === "برا"
 
   const requestHeaders: RequestHeader[] = [
     {
@@ -184,7 +184,7 @@ const EvaluationGoalDetailsPage = async ({
       label: "المرفقات" as RequestHeader["label"],
       value: attachments,
     },
-  ];
+  ]
 
   return (
     <main className="space-y-4">
@@ -195,10 +195,14 @@ const EvaluationGoalDetailsPage = async ({
         className="w-full flex group text-sm text-center justify-center font-medium items-center gap-2 bg-primary text-white px-4 py-5 rounded-md hover:bg-primary-opacity hover:text-primary border-2 border-primary"
       >
         تأكيد الانتداب
-        <AnglesLeftIcon width={18} height={18} className='fill-white group-hover:fill-primary' />
+        <AnglesLeftIcon
+          width={18}
+          height={18}
+          className="fill-white group-hover:fill-primary"
+        />
       </ModalLink>
     </main>
-  );
-};
+  )
+}
 
-export default EvaluationGoalDetailsPage;
+export default EvaluationGoalDetailsPage

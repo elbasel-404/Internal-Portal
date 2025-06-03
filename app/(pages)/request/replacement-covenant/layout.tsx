@@ -1,12 +1,12 @@
-import type { ReactNode } from 'react';
-import { ReplacementCovenantData } from './components';
+import type { ReactNode } from "react"
+import { ReplacementCovenantData } from "./components"
 
 export const metadata = {
-  title: 'Replacement Covenant',
-  description: 'Replacement Covenant Data',
-};
+  title: "Replacement Covenant",
+  description: "Replacement Covenant Data",
+}
 interface ReplacementCovenantLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 const ReplacementCovenantLayout = ({
   children,
@@ -16,7 +16,7 @@ const ReplacementCovenantLayout = ({
       <ReplacementCovenantData />
       <section>{children}</section>
     </>
-  );
-};
+  )
+}
 
-export default ReplacementCovenantLayout;
+export default ReplacementCovenantLayout

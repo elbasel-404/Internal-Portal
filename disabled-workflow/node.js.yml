@@ -1,0 +1,69 @@
+name: Node.js CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - "*"
+
+env:
+  PNPM_CONFIG_CACHE: ${{ github.workspace }}/.pnpm-store
+  GROUP: default
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - name: Checkout repository with submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Rename submodule folder to api-schemas
+        run: |
+          for folder in api-schemas@*; do
+            if [ -d "$folder" ]; then
+              echo "Renaming $folder to api-schemas"
+              rm -rf api-schemas || true
+              mv "$folder" api-schemas
+            fi
+          done
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install corepack and pnpm
+        run: |
+          echo "Before: corepack version => $(corepack --version || echo 'not installed')"
+          npm install -g corepack@latest
+          echo "After : corepack version => $(corepack --version)"
+          corepack enable
+          corepack prepare pnpm@latest-10 --activate
+          pnpm config set store-dir $PNPM_CONFIG_CACHE
+          pnpm --version
+
+      - name: Cache .next/cache
+        uses: actions/cache@v3
+        with:
+          path: .next/cache
+          key: next-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Cache pnpm store
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.PNPM_CONFIG_CACHE }}
+          key: pnpm-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: pnpm install and build
+        run: |
+          pnpm install
+          pnpm run build

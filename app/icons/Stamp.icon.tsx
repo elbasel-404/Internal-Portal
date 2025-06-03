@@ -12,5 +12,5 @@ export const StampIcon = () => {
         fill="#007C9E"
       />
     </svg>
-  );
-};
+  )
+}

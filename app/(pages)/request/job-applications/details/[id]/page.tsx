@@ -1,20 +1,20 @@
-import { Instructions, RequestDetails, RequestStatus } from '@components';
-import { getJobApplicationsDetails, getRequestStatus } from '@server';
-import type { RequestHeader } from '@types';
+import { Instructions, RequestDetails, RequestStatus } from "@components"
+import { getJobApplicationsDetails, getRequestStatus } from "@server"
+import type { RequestHeader } from "@types"
 
-type Params = Promise<{ id: string }>;
+type Params = Promise<{ id: string }>
 
 interface JobApplicationsDetailsPageProps {
-  params: Params;
+  params: Params
 }
 
 const JobApplicationsDetailsPage = async ({
   params,
 }: JobApplicationsDetailsPageProps) => {
-  const { id } = await params;
-  const requestStatus = await getRequestStatus();
+  const { id } = await params
+  const requestStatus = await getRequestStatus()
   const requestCaption =
-    'انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر';
+    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const {
     requestDate,
     requestType,
@@ -23,52 +23,52 @@ const JobApplicationsDetailsPage = async ({
     generalAdministration,
     management,
     sector,
-  } = (await getJobApplicationsDetails(id)) || {};
+  } = (await getJobApplicationsDetails(id)) || {}
 
   const requestHeaders: RequestHeader[] = [
     {
-      label: 'رقم الطلب',
+      label: "رقم الطلب",
       value: id,
     },
     {
-      label: 'مقدم الطلب',
+      label: "مقدم الطلب",
       value: applicant,
     },
     {
-      label: 'تاريخ الطلب',
+      label: "تاريخ الطلب",
       value: requestDate,
     },
     {
-      label: 'نوع الطلب',
+      label: "نوع الطلب",
       value: requestType,
     },
     {
-      label: 'القطاع',
+      label: "القطاع",
       value: sector,
     },
     {
-      label: 'الإدارة العامة',
+      label: "الإدارة العامة",
       value: generalAdministration,
     },
     {
-      label: 'القسم',
+      label: "القسم",
       value: department,
     },
     {
-      label: 'الإدارة',
+      label: "الإدارة",
       value: management,
     },
-  ];
+  ]
   return (
     <main>
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails headers={requestHeaders} />
       <Instructions
-        title='توضيحات حول الخدمة'
-        description='تتيح هذه الخدمة للموظف إمكانية الإطلاع علي تفاصيل التوظيف '
+        title="توضيحات حول الخدمة"
+        description="تتيح هذه الخدمة للموظف إمكانية الإطلاع علي تفاصيل التوظيف "
       />
     </main>
-  );
-};
+  )
+}
 
-export default JobApplicationsDetailsPage;
+export default JobApplicationsDetailsPage

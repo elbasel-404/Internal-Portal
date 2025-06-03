@@ -1,1 +1,1 @@
-export { IndicatorModal } from './IndicatorModal';
+export { IndicatorModal } from "./IndicatorModal"

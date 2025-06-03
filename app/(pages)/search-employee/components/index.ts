@@ -1,2 +1,1 @@
-export { SearchEmployees } from './SearchEmployees';
-
+export { SearchEmployees } from "./SearchEmployees"

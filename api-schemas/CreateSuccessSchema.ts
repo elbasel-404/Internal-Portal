@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod"
 
 export const CreateSuccessSchema = z.object({
   status: z.string(),
@@ -6,4 +6,4 @@ export const CreateSuccessSchema = z.object({
   data: z.object({
     id: z.number(),
   }),
-});
+})

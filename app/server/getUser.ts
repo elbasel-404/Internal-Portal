@@ -1,10 +1,10 @@
-"use server";
+"use server"
 
-import type { User } from "@types";
+import type { User } from "@types"
 
 export const getUser = async (): Promise<User> => {
-  return user;
-};
+  return user
+}
 
 const user = {
   name: "عساف بن رشود الصاعدي",
@@ -14,4 +14,4 @@ const user = {
   duration: "1 سنة و6 شهر و 13 يوم",
   employeeId: "1762",
   image: "/demo-img.png",
-};
+}

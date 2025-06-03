@@ -1,6 +1,6 @@
-import { SelectField, TextareaField } from '@components/form';
-import { SubstituteEmployees } from '../config';
-import { AdditionalInfoSectionProps } from '../FormTypes/types';
+import { SelectField, TextareaField } from "@components/form"
+import { SubstituteEmployees } from "../config"
+import { AdditionalInfoSectionProps } from "../FormTypes/types"
 
 export const AdditionalInfoSection = ({
   substituteEmployee,
@@ -8,23 +8,23 @@ export const AdditionalInfoSection = ({
   trainingProgram,
   handleTrainingProgramChangeValue,
 }: AdditionalInfoSectionProps) => (
-  <div className='space-y-6'>
+  <div className="space-y-6">
     <SelectField
-      label='الموظف البديل'
-      name='substitute_employee_id'
+      label="الموظف البديل"
+      name="substitute_employee_id"
       types={SubstituteEmployees}
-      placeholder='___'
+      placeholder="___"
       value={substituteEmployee}
       onChange={(value) => setSubstituteEmployee(value)}
     />
 
     <TextareaField
-      label='برنامج الدورة'
-      name='trainingProgram'
-      placeholder=''
+      label="برنامج الدورة"
+      name="trainingProgram"
+      placeholder=""
       required
       value={trainingProgram}
       onChange={handleTrainingProgramChangeValue}
     />
   </div>
-);
+)

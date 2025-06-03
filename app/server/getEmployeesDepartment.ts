@@ -1,21 +1,21 @@
-"use server";
+"use server"
 
-import type { Employee } from "@types";
-import { getDemo } from "../db/actions/getDemo";
-import { getFetchHeaders } from "./getFetchHeaders";
-import { EmployeeDepartmentElementSchema, ResponseSchema } from "@api/schemas";
+import type { Employee } from "@types"
+import { getDemo } from "../db/actions/getDemo"
+import { getFetchHeaders } from "./getFetchHeaders"
+import { EmployeeDepartmentElementSchema, ResponseSchema } from "@api/schemas"
 export const getEmployeeDepartmentRequests = async (): Promise<Employee[]> => {
-  const isDemo = await getDemo();
-  if (isDemo) return dummyData;
+  const isDemo = await getDemo()
+  if (isDemo) return dummyData
 
   // ! VARIBLES
   // ! ==================================
-  const url = "api/po/read/relative-employees";
-  const apiRootUrl = process.env.API_ROOT_URL as string;
-  const { headers } = await getFetchHeaders();
-  const requestBody = { employee_id: 305 };
-  const requestBodyString = JSON.stringify(requestBody);
-  const requestUrl = `${apiRootUrl}/${url}`;
+  const url = "api/po/read/relative-employees"
+  const apiRootUrl = process.env.API_ROOT_URL as string
+  const { headers } = await getFetchHeaders()
+  const requestBody = { employee_id: 305 }
+  const requestBodyString = JSON.stringify(requestBody)
+  const requestUrl = `${apiRootUrl}/${url}`
 
   // ! FETCH
   // ! ==================================
@@ -23,15 +23,15 @@ export const getEmployeeDepartmentRequests = async (): Promise<Employee[]> => {
     headers,
     method: "POST",
     body: requestBodyString,
-  });
-  const responseJson = await apiResponse.json();
+  })
+  const responseJson = await apiResponse.json()
 
   // ! VALIDATION
   // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson);
-  const { result } = validatedResponse;
-  const { data } = result;
-  const validatedData = EmployeeDepartmentElementSchema.array().parse(data);
+  const validatedResponse = ResponseSchema.parse(responseJson)
+  const { result } = validatedResponse
+  const { data } = result
+  const validatedData = EmployeeDepartmentElementSchema.array().parse(data)
 
   // ! PARSING
   // ! ==================================
@@ -50,11 +50,11 @@ export const getEmployeeDepartmentRequests = async (): Promise<Employee[]> => {
       management: data.department_global_id[1].toString(),
       department: data.department_id[1].toString(),
       generalManager: data.sector_manager_id[1].toString(),
-    };
-    return newsItem;
-  });
-  return returnedData;
-};
+    }
+    return newsItem
+  })
+  return returnedData
+}
 
 const dummyData: Employee[] = [
   {
@@ -147,4 +147,4 @@ const dummyData: Employee[] = [
     department: "المرافق والخدمات الادراية",
     generalManager: "مي بنت سعد البدراني",
   },
-];
+]

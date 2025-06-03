@@ -1,7 +1,7 @@
-import { cn } from "@utils";
+import { cn } from "@utils"
 
 interface DataTableProps {
-  data: object[];
+  data: object[]
 }
 export const DataTable = ({ data }: DataTableProps) => {
   return (
@@ -27,5 +27,5 @@ export const DataTable = ({ data }: DataTableProps) => {
         ))}
       </tbody>
     </table>
-  );
-};
+  )
+}

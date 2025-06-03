@@ -1,16 +1,16 @@
-"use client";
+"use client"
 
-import { useSetAtom } from "jotai";
-import { Columns2 as ColumnsIcon} from "lucide-react";
-import { isSideBarOpenAtom } from "@atoms";
-import { useIsMobile } from "@hooks";
-import { Button } from "@ui";
+import { useSetAtom } from "jotai"
+import { Columns2 as ColumnsIcon } from "lucide-react"
+import { isSideBarOpenAtom } from "@atoms"
+import { useIsMobile } from "@hooks"
+import { Button } from "@ui"
 
 export const SideBarToggle = () => {
-  const setIsOpen = useSetAtom(isSideBarOpenAtom);
-  const isMobile = useIsMobile();
+  const setIsOpen = useSetAtom(isSideBarOpenAtom)
+  const isMobile = useIsMobile()
 
-  if (!isMobile) return null;
+  if (!isMobile) return null
 
   return (
     <Button
@@ -21,5 +21,5 @@ export const SideBarToggle = () => {
     >
       <ColumnsIcon className="text-white" />
     </Button>
-  );
-};
+  )
+}

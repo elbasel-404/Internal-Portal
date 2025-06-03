@@ -60,52 +60,52 @@ export type { PurchaseDetails } from './pages/request/PurchaseDetails';
 export type { PurchaseProduct } from './pages/request/PurchaseProduct';
 export type { PurchaseRequest } from './pages/request/PurchaseRequest';
 export type {
-    AttachmentType,
-    FileHandler,
-    FileWithId,
-    PlanData,
-    ProgramData,
-    ProjectData,
-    PurchaseType,
-    YesNoOption
-} from './pages/request/PurchaseTypes';
-export type { RecommendationDetails } from './pages/request/RecommendationDetails';
-export type { RecommendationRequest } from './pages/request/RecommendationRequest';
-export type { RemoteWorkDetails } from './pages/request/RemoteWorkDetails';
-export type { RemoteWorkRequest } from './pages/request/RemoteWorkRequest';
-export type { ReplacementCovenantDetails } from './pages/request/ReplacementCovenantDetails';
-export type { ReplacementCovenantRequest } from './pages/request/ReplacementCovenantRequest';
-export type { ResignationDetails } from './pages/request/ResignationDetails';
-export type { ResignationRequest } from './pages/request/ResignationRequest';
-export type { SupplierEvaluationCriterion } from './pages/request/SupplierEvaluationCriterion';
-export type { SupplierEvaluationCriterionResult } from './pages/request/SupplierEvaluationCriterionResult';
-export type { SupplierEvaluationRequest } from './pages/request/SupplierEvaluationRequest';
-export type { SupplierEvaluationRequestDetails } from './pages/request/SupplierEvaluationRequestDetails';
-export type { SupplierKPI } from './pages/request/SupplierKPI';
-export type { TicketDetails } from './pages/request/TicketDetails';
-export type { TicketRequest } from './pages/request/TicketRequest';
-export type { TrainingCourse } from './pages/request/TrainingCourse';
-export type { TrainingDetails } from './pages/request/TrainingDetails';
-export type { TrainingRequest } from './pages/request/TrainingRequest';
-export type { TransactionRequest } from './pages/request/TransactionRequets';
-export type { VacationDetails } from './pages/request/VacationDetails';
-export type { VacationRequest } from './pages/request/VacationRequest';
-export type { WorkDocumentDetails } from './pages/request/WorkDocumentDetails';
-export type { WorkDocumentRequest } from './pages/request/WorkDocumentRequest';
-export type { RequestHeader } from './pages/RequestHeader';
-export type { RequestLabel } from './pages/RequestLabel';
-export type { RequestStatus } from './pages/RequestStatus';
-export type { VacationTypes } from './pages/VacationTypes';
-export type { Employee } from './shared/Employee';
-export type { IconKey } from './shared/IconKey';
-export type { IconProps } from './shared/IconProps';
-export type { Indicator } from './shared/Indicator';
-export type { KeyboardAlphaNumericKey } from './shared/KeyboardAlphaNumericKey';
-export type { MenuItem } from './shared/MenuItem';
-export type { NotificationItem } from './shared/Notification';
-export type { PositiveInt } from './shared/PositiveInt';
-export type { Row } from './shared/Row';
-export type { Rules } from './shared/Rules';
-export type { TabType } from './shared/TabType';
-export type { User } from './shared/User';
+  AttachmentType,
+  FileHandler,
+  FileWithId,
+  PlanData,
+  ProgramData,
+  ProjectData,
+  PurchaseType,
+  YesNoOption
+} from "./pages/request/PurchaseTypes";
+export type { RecommendationDetails } from "./pages/request/RecommendationDetails";
+export type { RecommendationRequest } from "./pages/request/RecommendationRequest";
+export type { RemoteWorkDetails } from "./pages/request/RemoteWorkDetails";
+export type { RemoteWorkRequest } from "./pages/request/RemoteWorkRequest";
+export type { ReplacementCovenantDetails } from "./pages/request/ReplacementCovenantDetails";
+export type { ReplacementCovenantRequest } from "./pages/request/ReplacementCovenantRequest";
+export type { ResignationDetails } from "./pages/request/ResignationDetails";
+export type { ResignationRequest } from "./pages/request/ResignationRequest";
+export type { SupplierEvaluationCriterion } from "./pages/request/SupplierEvaluationCriterion";
+export type { SupplierEvaluationCriterionResult } from "./pages/request/SupplierEvaluationCriterionResult";
+export type { SupplierEvaluationRequest } from "./pages/request/SupplierEvaluationRequest";
+export type { SupplierEvaluationRequestDetails } from "./pages/request/SupplierEvaluationRequestDetails";
+export type { SupplierKPI } from "./pages/request/SupplierKPI";
+export type { TicketDetails } from "./pages/request/TicketDetails";
+export type { TicketRequest } from "./pages/request/TicketRequest";
+export type { TrainingCourse } from "./pages/request/TrainingCourse";
+export type { TrainingDetails } from "./pages/request/TrainingDetails";
+export type { TrainingRequest } from "./pages/request/TrainingRequest";
+export type { TransactionRequest } from "./pages/request/TransactionRequets";
+export type { VacationDetails } from "./pages/request/VacationDetails";
+export type { VacationRequest } from "./pages/request/VacationRequest";
+export type { WorkDocumentDetails } from "./pages/request/WorkDocumentDetails";
+export type { WorkDocumentRequest } from "./pages/request/WorkDocumentRequest";
+export type { RequestHeader } from "./pages/RequestHeader";
+export type { RequestLabel } from "./pages/RequestLabel";
+export type { RequestStatus } from "./pages/RequestStatus";
+export type { VacationTypes } from "./pages/VacationTypes";
+export type { Employee } from "./shared/Employee";
+export type { IconKey } from "./shared/IconKey";
+export type { IconProps } from "./shared/IconProps";
+export type { Indicator } from "./shared/Indicator";
+export type { KeyboardAlphaNumericKey } from "./shared/KeyboardAlphaNumericKey";
+export type { MenuItem } from "./shared/MenuItem";
+export type { NotificationItem } from "./shared/Notification";
+export type { PositiveInt } from "./shared/PositiveInt";
+export type { Row } from "./shared/Row";
+export type { Rules } from "./shared/Rules";
+export type { TabType } from "./shared/TabType";
+export type { User } from "./shared/User";
 

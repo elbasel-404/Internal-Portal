@@ -1,16 +1,16 @@
-import { Body } from "@components";
-import { fonts } from "@lib";
-import type { Metadata } from "next";
-import type { ReactNode } from "react";
-import "./globals.css";
+import { Body } from "@components"
+import { fonts } from "@lib"
+import type { Metadata } from "next"
+import type { ReactNode } from "react"
+import "./globals.css"
 
 export const metadata: Metadata = {
   title: "منشآت",
-};
+}
 
 interface RootLayoutProps {
-  children: ReactNode;
-  modalSlot: ReactNode;
+  children: ReactNode
+  modalSlot: ReactNode
 }
 
 const RootLayout = ({ children, modalSlot }: Readonly<RootLayoutProps>) => {
@@ -28,7 +28,7 @@ const RootLayout = ({ children, modalSlot }: Readonly<RootLayoutProps>) => {
         {children}
       </Body>
     </html>
-  );
-};
+  )
+}
 
-export default RootLayout;
+export default RootLayout

@@ -1,1 +1,1 @@
-export { BatchTableSection } from './BatchTableSection';
+export { BatchTableSection } from "./BatchTableSection"

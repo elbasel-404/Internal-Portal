@@ -1,28 +1,28 @@
-import type { NewsTab } from '@types';
+import type { NewsTab } from "@types"
 
 export const defaultNewsTabs: NewsTab[] = [
   {
     id: -80,
-    key: 'pressTab',
+    key: "pressTab",
     active: true,
-    label: 'الملف الصحفى',
+    label: "الملف الصحفى",
   },
   {
     id: -81,
-    key: 'newsTab',
+    key: "newsTab",
     active: true,
-    label: 'الأخبار',
+    label: "الأخبار",
   },
   {
     id: -82,
-    key: 'monshaatFamilyTab',
+    key: "monshaatFamilyTab",
     active: true,
-    label: 'عائلة منشآت',
+    label: "عائلة منشآت",
   },
   {
     id: -83,
-    key: 'internalTab',
+    key: "internalTab",
     active: true,
-    label: 'إعلانات داخلية',
+    label: "إعلانات داخلية",
   },
-] as const;
+] as const

@@ -1,5 +1,5 @@
 export type ApprovalRequest = {
-  id: string;
-  description: string;
+  id: string
+  description: string
   date: string
-};
+}

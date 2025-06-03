@@ -1,62 +1,62 @@
-"use server";
+"use server"
 
-const DEFAULT_TIMEOUT = 5000;
+const DEFAULT_TIMEOUT = 5000
 
 type Args = {
-  url: string;
-  body: unknown;
-  timeout?: number;
-};
+  url: string
+  body: unknown
+  timeout?: number
+}
 
 export type PostResponse = {
   request: {
-    timeoutInMs: number;
-    endpointUrl: string;
-    requestBody: unknown;
-    requestHeaders: Record<string, string>;
-    requestHref: string;
-  };
+    timeoutInMs: number
+    endpointUrl: string
+    requestBody: unknown
+    requestHeaders: Record<string, string>
+    requestHref: string
+  }
   response: {
     responseStatus: {
-      ok: boolean | null;
-      responseStatusCode: number | null;
-      responseStatusText: string | null;
-    };
-    error: string | null;
-    responseData: unknown;
-  };
-};
+      ok: boolean | null
+      responseStatusCode: number | null
+      responseStatusText: string | null
+    }
+    error: string | null
+    responseData: unknown
+  }
+}
 
 export const post = async (args: Args): Promise<PostResponse> => {
-  const timeoutInMs = args.timeout ?? DEFAULT_TIMEOUT;
+  const timeoutInMs = args.timeout ?? DEFAULT_TIMEOUT
 
   // !===============================================================
   // !START - ENV
   // !===============================================================
-  const API_ROOT_URL = process.env.API_ROOT_URL as string;
-  const API_KEY = process.env.API_KEY as string;
-  const API_KEY_HEADER_NAME = process.env.API_KEY_HEADER_NAME as string;
-  const BEARER_TOKEN = process.env.BEARER_TOKEN as string;
-  const SESSION_ID = process.env.SESSION_ID as string;
+  const API_ROOT_URL = process.env.API_ROOT_URL as string
+  const API_KEY = process.env.API_KEY as string
+  const API_KEY_HEADER_NAME = process.env.API_KEY_HEADER_NAME as string
+  const BEARER_TOKEN = process.env.BEARER_TOKEN as string
+  const SESSION_ID = process.env.SESSION_ID as string
 
   if (!API_ROOT_URL) {
-    throw new Error("API_ROOT_URL is not defined, check your .env file");
+    throw new Error("API_ROOT_URL is not defined, check your .env file")
   }
 
   if (!API_KEY) {
-    throw new Error("API_KEY is not defined, check your .env file");
+    throw new Error("API_KEY is not defined, check your .env file")
   }
 
   if (!API_KEY_HEADER_NAME) {
-    throw new Error("API_KEY_HEADER_NAME is not defined, check your .env file");
+    throw new Error("API_KEY_HEADER_NAME is not defined, check your .env file")
   }
 
   if (!BEARER_TOKEN) {
-    throw new Error("BEARER_TOKEN is not defined, check your .env file");
+    throw new Error("BEARER_TOKEN is not defined, check your .env file")
   }
 
   if (!SESSION_ID) {
-    throw new Error("SESSION_ID is not defined, check your .env file");
+    throw new Error("SESSION_ID is not defined, check your .env file")
   }
 
   // !===============================================================
@@ -68,25 +68,25 @@ export const post = async (args: Args): Promise<PostResponse> => {
   // !===============================================================
   // !START - SETUP
   // !===============================================================
-  const fetchHref = `${API_ROOT_URL}${args.url}`;
+  const fetchHref = `${API_ROOT_URL}${args.url}`
 
   const HEADERS = {
     [API_KEY_HEADER_NAME]: API_KEY,
     Authorization: `Bearer ${BEARER_TOKEN}`,
     "Content-Type": "application/json",
     Cookie: `session_id=${SESSION_ID}`,
-  };
+  }
 
-  const requestBody = JSON.stringify(args.body);
+  const requestBody = JSON.stringify(args.body)
 
   const callback = async () => {
     const response = await fetch(fetchHref, {
       method: "POST",
       headers: HEADERS,
       body: requestBody,
-    });
-    return response;
-  };
+    })
+    return response
+  }
   // !===============================================================
   // !END - SETUP
   // !===============================================================
@@ -100,22 +100,22 @@ export const post = async (args: Args): Promise<PostResponse> => {
   // console.log("INFO: Request body", args.body);
   // console.log("INFO: HEADERS", HEADERS);
   // console.log("\x1b[31m", "--------------------------------------------");
-  const response = await callback();
-  const json = await response.json();
-  console.log({ json });
-  console.log({ requestBody: args.body });
+  const response = await callback()
+  const json = await response.json()
+  console.log({ json })
+  console.log({ requestBody: args.body })
 
   // ! Result
   // const jsonId = json.id;
   // const jsonJsonrpc = json.jsonrpc;
-  const jsonResult = json.result;
-  const jsonError = json?.error;
+  const jsonResult = json.result
+  const jsonError = json?.error
 
   // ! Data
   // console.log({ json });
-  const jsonResultData = jsonResult?.data;
-  const jsonResultStatus = jsonResult?.status;
-  const jsonResultStatusCode = jsonResult?.statusCode;
+  const jsonResultData = jsonResult?.data
+  const jsonResultStatus = jsonResult?.status
+  const jsonResultStatusCode = jsonResult?.statusCode
   // console.log(_, __);
   // const { data, status, statusCode } = result;
   // console.log("INFO: STATUS", jsonResultStatus);
@@ -153,8 +153,8 @@ export const post = async (args: Args): Promise<PostResponse> => {
       error: jsonError,
       responseData: jsonResultData,
     },
-  };
-  return postResponse;
+  }
+  return postResponse
   // !===============================================================
   // ! END - RESPONSE
   // !===============================================================
@@ -245,4 +245,4 @@ export const post = async (args: Args): Promise<PostResponse> => {
   //     responseJson: json,
   //   },
   // };
-};
+}

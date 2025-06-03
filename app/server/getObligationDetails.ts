@@ -1,6 +1,6 @@
-'use server';
+"use server"
 
-import type { ObligationDetails } from '@types';
+import type { ObligationDetails } from "@types"
 
 export const getObligationDetails =
   async (): Promise<ObligationDetails | void> => {
@@ -41,10 +41,10 @@ export const getObligationDetails =
           بأخلاقيات الوظيفة، وأي إفصاح سيعامل بسرية تامة، وسيتم البث في مدى وجود
           تضارب للمصالح من عدمه من خلال الهيئة.
           `,
-      };
-      return obligationDetails;
+      }
+      return obligationDetails
     } catch (error) {
-      console.error('Error in getPermissionDetails:', error);
-      return;
+      console.error("Error in getPermissionDetails:", error)
+      return
     }
-  };
+  }

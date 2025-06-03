@@ -12,5 +12,5 @@ export const CircleCheckIcon = () => {
         fill="#007C9E"
       />
     </svg>
-  );
-};
+  )
+}

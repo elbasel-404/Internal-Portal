@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import { DeputationPlace  } from "@types";
+import { DeputationPlace } from "@types"
 import {
   TableBody,
   TableCell,
@@ -9,25 +9,25 @@ import {
   TableRow,
   Table as UITable,
   Button,
-} from "@ui";
-import { CirclePlusIcon, TrashIcon } from "@icons";
-import { CheckboxField } from "@components/form";
-import { ModalLink } from "@components/modals/ModalLink";
+} from "@ui"
+import { CirclePlusIcon, TrashIcon } from "@icons"
+import { CheckboxField } from "@components/form"
+import { ModalLink } from "@components/modals/ModalLink"
 
 interface DeputationPlacesProps {
   //TODO: DeputationPlace Type
-  data: DeputationPlace[];
-  issueVisa: boolean;
-  onChangeIssueVisa: (value: boolean) => void;
-  onRemove?: (id: string) => void;
-  onAdd?: () => void;
+  data: DeputationPlace[]
+  issueVisa: boolean
+  onChangeIssueVisa: (value: boolean) => void
+  onRemove?: (id: string) => void
+  onAdd?: () => void
 }
 
 const tableHeaders = [
   { label: "البلاد" },
   { label: "المدينة" },
   { label: "الاجراءات" },
-];
+]
 
 export const PlacesTable = ({
   data,
@@ -36,7 +36,7 @@ export const PlacesTable = ({
   onRemove,
 }: DeputationPlacesProps) => {
   function changeIssueVisa(value: boolean): void {
-    throw new Error("Function not implemented.");
+    throw new Error("Function not implemented.")
   }
 
   return (
@@ -88,8 +88,8 @@ export const PlacesTable = ({
                   <Button
                     className="flex group gap-1 items-center shadow-none hover:bg-red-600 hover:text-white justify-end text-destructive-foreground bg-destructive-opacity rounded-xl px-4 py-2.5"
                     onClick={(e) => {
-                      e.preventDefault();
-                      onRemove && onRemove(item.id);
+                      e.preventDefault()
+                      onRemove && onRemove(item.id)
                     }}
                   >
                     <TrashIcon className="fill-destructive-foreground group-hover:fill-white" />
@@ -113,5 +113,5 @@ export const PlacesTable = ({
         </div>
       </div>
     </>
-  );
-};
+  )
+}

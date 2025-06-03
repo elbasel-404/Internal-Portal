@@ -1,12 +1,12 @@
-import { ReactNode } from 'react';
-import { ResignationData } from './components';
+import { ReactNode } from "react"
+import { ResignationData } from "./components"
 
 export const metadata = {
-  title: 'Resignation',
-  description: 'Resignation data',
-};
+  title: "Resignation",
+  description: "Resignation data",
+}
 interface ResignationLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 const ResignationLayout = ({ children }: ResignationLayoutProps) => {
   return (
@@ -14,7 +14,7 @@ const ResignationLayout = ({ children }: ResignationLayoutProps) => {
       <ResignationData />
       <section>{children}</section>
     </>
-  );
-};
+  )
+}
 
-export default ResignationLayout;
+export default ResignationLayout

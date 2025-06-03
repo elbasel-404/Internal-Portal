@@ -17,60 +17,60 @@ export const NewsIcon = () => {
     //   />
     // </svg>
     <svg
-      width='31'
-      height='24'
-      viewBox='0 0 31 24'
-      fill='none'
-      xmlns='http://www.w3.org/2000/svg'
+      width="31"
+      height="24"
+      viewBox="0 0 31 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <g clipPath='url(#clip0_6852_119308)'>
+      <g clipPath="url(#clip0_6852_119308)">
         <path
-          d='M24.1437 23.5197V0.469727H1.09375V23.5197H27.0337L29.9137 20.4397V6.23973H24.1437'
-          stroke='white'
-          strokeWidth='0.91'
-          strokeMiterlimit='10'
+          d="M24.1437 23.5197V0.469727H1.09375V23.5197H27.0337L29.9137 20.4397V6.23973H24.1437"
+          stroke="white"
+          strokeWidth="0.91"
+          strokeMiterlimit="10"
         />
         <path
-          d='M10.6975 6.23926H4.9375V10.0793H10.6975V6.23926Z'
-          stroke='white'
-          strokeWidth='0.91'
-          strokeMiterlimit='10'
+          d="M10.6975 6.23926H4.9375V10.0793H10.6975V6.23926Z"
+          stroke="white"
+          strokeWidth="0.91"
+          strokeMiterlimit="10"
         />
         <path
-          d='M3.98438 17.7598H21.2644'
-          stroke='white'
-          strokeWidth='0.91'
-          strokeMiterlimit='10'
+          d="M3.98438 17.7598H21.2644"
+          stroke="white"
+          strokeWidth="0.91"
+          strokeMiterlimit="10"
         />
         <path
-          d='M13.5781 6.23926H21.2581'
-          stroke='white'
-          strokeWidth='0.91'
-          strokeMiterlimit='10'
+          d="M13.5781 6.23926H21.2581"
+          stroke="white"
+          strokeWidth="0.91"
+          strokeMiterlimit="10"
         />
         <path
-          d='M13.5781 10.0791H21.2581'
-          stroke='white'
-          strokeWidth='0.91'
-          strokeMiterlimit='10'
+          d="M13.5781 10.0791H21.2581"
+          stroke="white"
+          strokeWidth="0.91"
+          strokeMiterlimit="10"
         />
         <path
-          d='M3.98438 13.9199H21.2644'
-          stroke='white'
-          strokeWidth='0.91'
-          strokeMiterlimit='10'
+          d="M3.98438 13.9199H21.2644"
+          stroke="white"
+          strokeWidth="0.91"
+          strokeMiterlimit="10"
         />
       </g>
       <defs>
-        <clipPath id='clip0_6852_119308'>
+        <clipPath id="clip0_6852_119308">
           <rect
-            width='29.72'
-            height='23.96'
-            fill='white'
-            transform='translate(0.640625 0.0195312)'
+            width="29.72"
+            height="23.96"
+            fill="white"
+            transform="translate(0.640625 0.0195312)"
           />
         </clipPath>
       </defs>
     </svg>
-  );
-};
+  )
+}

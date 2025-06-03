@@ -1,0 +1,51 @@
+name: next
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - "*"
+
+env:
+  PNPM_CONFIG_CACHE: ${{ github.workspace }}/.pnpm-store
+  NODE_VERSION: 20.x
+  GROUP: default
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: nodejs && corepack
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.PNPM_CONFIG_CACHE }}
+          key: pnpm-store-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-store-${{ runner.os }}-
+
+      - name: Cache .next/cache
+        uses: actions/cache@v3
+        with:
+          path: .next/cache
+          key: next-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            next-${{ runner.os }}-
+
+      - name: Install dependencies and build
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+          pnpm config set store-dir $PNPM_CONFIG_CACHE
+          pnpm install --frozen-lockfile
+          pnpm run build

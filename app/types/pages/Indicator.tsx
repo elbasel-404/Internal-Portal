@@ -1,6 +1,6 @@
-import type { GeneralInfoKey } from '@types';
+import type { GeneralInfoKey } from "@types"
 
 export type GeneralInfoMap = {
-  key: GeneralInfoKey;
-  label: string;
-};
+  key: GeneralInfoKey
+  label: string
+}

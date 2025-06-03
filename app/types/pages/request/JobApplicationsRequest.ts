@@ -1,7 +1,7 @@
 export type JobApplicationsRequest = {
-  id: string;
-  description: string;
-  date: string;
-  jobTitle: string;
-  status: string;
-};
+  id: string
+  description: string
+  date: string
+  jobTitle: string
+  status: string
+}

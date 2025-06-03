@@ -1,42 +1,42 @@
-'use server';
+"use server"
 
-import { ProbationEvaluationElementSchema } from '@api/schemas/index';
-import { ResponseSchema } from '@api/schemas/responseSchema';
-import { getDemo } from '@db/actions';
-import type { ProbationPeriodDetails } from '@types';
-import { getFetchHeaders } from './getFetchHeaders';
+import { ProbationEvaluationElementSchema } from "@api/schemas/index"
+import { ResponseSchema } from "@api/schemas/responseSchema"
+import { getDemo } from "@db/actions"
+import type { ProbationPeriodDetails } from "@types"
+import { getFetchHeaders } from "./getFetchHeaders"
 
 export const getProbationPeriodDetails = async (
   // !It will be used for integration
-  id: string
+  id: string,
 ): Promise<ProbationPeriodDetails | void> => {
-  const isDemo = await getDemo();
-  if (isDemo) return probationPeriodDetails;
+  const isDemo = await getDemo()
+  if (isDemo) return probationPeriodDetails
 
   // ! VARIBLES
   // ! ==================================
-  const url = 'api/po/hr/probation-evaluation';
-  const apiRootUrl = process.env.API_ROOT_URL as string;
-  const { headers } = await getFetchHeaders();
-  const requestBody = { id: id };
-  const requestBodyString = JSON.stringify(requestBody);
-  const requestUrl = `${apiRootUrl}/${url}`;
+  const url = "api/po/hr/probation-evaluation"
+  const apiRootUrl = process.env.API_ROOT_URL as string
+  const { headers } = await getFetchHeaders()
+  const requestBody = { id: id }
+  const requestBodyString = JSON.stringify(requestBody)
+  const requestUrl = `${apiRootUrl}/${url}`
 
   // ! FETCH
   // ! ==================================
   const apiResponse = await fetch(requestUrl, {
     headers,
-    method: 'POST',
+    method: "POST",
     body: requestBodyString,
-  });
-  const responseJson = await apiResponse.json();
+  })
+  const responseJson = await apiResponse.json()
 
   // ! VALIDATION
   // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson);
-  const { result } = validatedResponse;
-  const { data } = result;
-  const validatedData = ProbationEvaluationElementSchema.parse(data[0]);
+  const validatedResponse = ResponseSchema.parse(responseJson)
+  const { result } = validatedResponse
+  const { data } = result
+  const validatedData = ProbationEvaluationElementSchema.parse(data[0])
 
   // ! PARSING
   // ! ==================================
@@ -55,25 +55,25 @@ export const getProbationPeriodDetails = async (
       answer: line.answer,
     })),
     attachments: validatedData.attachment_ids.map(
-      (file) => new File([''], file.toString())
+      (file) => new File([""], file.toString()),
     ),
-  };
+  }
 
-  return returnedData;
-};
+  return returnedData
+}
 
 const probationPeriodDetails: ProbationPeriodDetails = {
-  employeeName: '[1651] عبدالله بن حسين الجفري',
-  jobNumber: '[1651]',
-  jobTitle: 'أخصائي تطوير تنظيمي أول',
+  employeeName: "[1651] عبدالله بن حسين الجفري",
+  jobNumber: "[1651]",
+  jobTitle: "أخصائي تطوير تنظيمي أول",
   management:
-    'الخدمات المشتركة/الموارد البشرية/تطوير الموارد البشرية/التطوير التنظيمي',
-  appointmentDate: '02-08-2023',
-  endProbationPeriodDate: '02-08-2025',
-  recommendation: 'اجتياز فترة التجربة',
-  notes: 'ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ',
+    "الخدمات المشتركة/الموارد البشرية/تطوير الموارد البشرية/التطوير التنظيمي",
+  appointmentDate: "02-08-2023",
+  endProbationPeriodDate: "02-08-2025",
+  recommendation: "اجتياز فترة التجربة",
+  notes: "ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ",
   attachments: [
-    new File([''], 'نموذج طلب 2 .pdf'),
-    new File([''], 'نموذج طلب .pdf'),
+    new File([""], "نموذج طلب 2 .pdf"),
+    new File([""], "نموذج طلب .pdf"),
   ],
-};
+}

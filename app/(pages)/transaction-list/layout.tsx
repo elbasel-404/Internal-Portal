@@ -1,12 +1,12 @@
-import type { ReactNode } from 'react';
-import { TransactionListData } from './components';
+import type { ReactNode } from "react"
+import { TransactionListData } from "./components"
 
 export const metadata = {
-  title: 'Transaction List',
-  description: 'Transaction List Data',
-};
+  title: "Transaction List",
+  description: "Transaction List Data",
+}
 interface TransactionListLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 const TransactionLayout = ({ children }: TransactionListLayoutProps) => {
   return (
@@ -14,7 +14,7 @@ const TransactionLayout = ({ children }: TransactionListLayoutProps) => {
       <TransactionListData />
       <section>{children}</section>
     </>
-  );
-};
+  )
+}
 
-export default TransactionLayout;
+export default TransactionLayout
