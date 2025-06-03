@@ -15,5 +15,5 @@ export const GreenCheckMarkIcon = () => {
         fill="white"
       />
     </svg>
-  );
-};
+  )
+}

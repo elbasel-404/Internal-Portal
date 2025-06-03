@@ -1,63 +1,60 @@
-import { RequestDetails, RequestStatus } from '@components';
-import {
-    getRequestStatus,
-    getResignationDetails
-} from '@server';
-import { RequestHeader } from '@types';
+import { RequestDetails, RequestStatus } from "@components"
+import { getRequestStatus, getResignationDetails } from "@server"
+import { RequestHeader } from "@types"
 
-type Params = Promise<{ id: string }>;
+type Params = Promise<{ id: string }>
 
 interface ResignationDetailsPageProps {
-  params: Params;
+  params: Params
 }
 
 const ResignationDetailsPage = async ({
   params,
 }: ResignationDetailsPageProps) => {
-  const { id } = await params;
-  const requestStatus = await getRequestStatus(id);
+  const { id } = await params
+  const requestStatus = await getRequestStatus(id)
   const requestCaption =
-    'انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر';
+    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const {
     requestDate,
     lastWorkingDate,
     requestType,
     resignationReason,
     attachments,
-  } = (await getResignationDetails(id)) || {};
+  } = (await getResignationDetails(id)) || {}
 
   const requestHeaders: RequestHeader[] = [
     {
-      label: 'رقم الطلب',
+      label: "رقم الطلب",
       value: id,
     },
     {
-      label: 'نوع الطلب',
+      label: "نوع الطلب",
       value: requestType,
     },
     {
-      label: 'تاريخ الطلب',
+      label: "تاريخ الطلب",
       value: requestDate,
     },
     {
-      label: 'تاريخ اخر يوم عمل',
+      label: "تاريخ اخر يوم عمل",
       value: lastWorkingDate,
     },
     {
-      label: 'سبب انهاء الخدمة',
+      label: "سبب انهاء الخدمة",
       value: resignationReason,
     },
     {
-      label: 'المرفقات',
+      label: "المرفقات",
       value: attachments,
     },
-  ];
+  ]
   return (
     <main>
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails headers={requestHeaders} />
     </main>
-  );
-};
+  )
+}
 
-export default ResignationDetailsPage;
+export default ResignationDetailsPage

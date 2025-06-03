@@ -1,9 +1,9 @@
-import { PressFileCarousel } from './PressFileCarosuel';
+import { PressFileCarousel } from "./PressFileCarosuel"
 
 export const PressFile = () => {
   return (
     <div>
       <PressFileCarousel />
     </div>
-  );
-};
+  )
+}

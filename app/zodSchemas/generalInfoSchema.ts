@@ -1,5 +1,5 @@
-import { z } from 'zod';
-import { generalInfoKeyEnum } from './generalInfoKeyEnum';
+import { z } from "zod"
+import { generalInfoKeyEnum } from "./generalInfoKeyEnum"
 
 export const generalInfoSchema = z.array(
   z.object({
@@ -8,6 +8,6 @@ export const generalInfoSchema = z.array(
     key: generalInfoKeyEnum,
     active: z.boolean(),
     index: z.number(),
-    slotType: z.literal('generalInfo'),
-  })
-);
+    slotType: z.literal("generalInfo"),
+  }),
+)

@@ -2,75 +2,75 @@
   "folders": [
     {
       "path": "./api-schemas",
-      "name": "api-schemas"
+      "name": "api-schemas",
     },
     {
       "path": "./.env",
-      "name": ".env"
+      "name": ".env",
     },
     {
       "path": "./app/(pages)",
-      "name": "pages"
+      "name": "pages",
     },
     {
       "path": "./app/api",
-      "name": "api"
+      "name": "api",
     },
     {
       "path": "./app/atoms",
-      "name": "atoms"
+      "name": "atoms",
     },
     {
       "path": "./app/components",
-      "name": "components"
+      "name": "components",
     },
     {
       "path": "./app/db",
-      "name": "db"
+      "name": "db",
     },
     {
       "path": "./app/hooks",
-      "name": "hooks"
+      "name": "hooks",
     },
     {
       "path": "./app/icons",
-      "name": "icons"
+      "name": "icons",
     },
     {
       "path": "./app/lib",
-      "name": "lib"
+      "name": "lib",
     },
     {
       "path": "./app/server",
-      "name": "server"
+      "name": "server",
     },
     {
       "path": "./app/storage",
-      "name": "storage"
+      "name": "storage",
     },
     {
       "path": "./app/test",
-      "name": "test"
+      "name": "test",
     },
     {
       "path": "./app/types",
-      "name": "types"
+      "name": "types",
     },
     {
       "path": "./app/ui",
-      "name": "ui"
+      "name": "ui",
     },
     {
       "path": "./app/utils",
-      "name": "utils"
+      "name": "utils",
     },
     {
       "path": "./app/zodSchemas",
-      "name": "zodSchemas"
-    }
+      "name": "zodSchemas",
+    },
   ],
   "settings": {
     "typescript.tsdk": "node_modules/typescript/lib",
-    "git.openRepositoryInParentFolders": "always"
-  }
+    "git.openRepositoryInParentFolders": "always",
+  },
 }

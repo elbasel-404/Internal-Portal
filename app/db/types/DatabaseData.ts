@@ -1,6 +1,6 @@
-import type { User } from '@db/types';
+import type { User } from "@db/types"
 
 export type DatabaseData = {
-  users: User[];
-  userCount: number;
-};
+  users: User[]
+  userCount: number
+}

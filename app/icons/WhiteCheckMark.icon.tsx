@@ -24,5 +24,5 @@ export const WhiteCheckMarkIcon = () => {
         fill="#007C9E"
       />
     </svg>
-  );
-};
+  )
+}

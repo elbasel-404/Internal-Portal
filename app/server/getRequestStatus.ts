@@ -1,12 +1,12 @@
-import type { RequestStatus } from "@types";
-import { getDemo } from "../db/actions/getDemo";
+import type { RequestStatus } from "@types"
+import { getDemo } from "../db/actions/getDemo"
 
 export const getRequestStatus = async (
   id?: string,
-  model?: string
+  model?: string,
 ): Promise<RequestStatus[]> => {
-  const isDemo = await getDemo();
-  if (isDemo) return dummyData;
+  const isDemo = await getDemo()
+  if (isDemo) return dummyData
 
   // // ! VARIBLES
   // // ! ==================================
@@ -47,8 +47,8 @@ export const getRequestStatus = async (
   //   return vacationItem;
   // });
 
-  return dummyData;
-};
+  return dummyData
+}
 
 const dummyData: RequestStatus[] = [
   {
@@ -79,4 +79,4 @@ const dummyData: RequestStatus[] = [
     icon: "personConfirmed",
     status: "pending",
   },
-];
+]

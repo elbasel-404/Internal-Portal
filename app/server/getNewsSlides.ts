@@ -1,8 +1,8 @@
-import type { NewsCardSlide } from "@types";
+import type { NewsCardSlide } from "@types"
 
 export const getNewsSlides = async (): Promise<NewsCardSlide[]> => {
-  return slides;
-};
+  return slides
+}
 
 const slides = [
   {
@@ -32,4 +32,4 @@ const slides = [
     day: 14,
     month: "مايو",
   },
-];
+]

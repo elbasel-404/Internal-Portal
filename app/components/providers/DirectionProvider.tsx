@@ -1,5 +1,5 @@
-'use client';
+"use client"
 
-import { DirectionProvider as RadixDirectionProvider } from '@radix-ui/react-direction';
+import { DirectionProvider as RadixDirectionProvider } from "@radix-ui/react-direction"
 
-export const DirectionProvider = RadixDirectionProvider;
+export const DirectionProvider = RadixDirectionProvider

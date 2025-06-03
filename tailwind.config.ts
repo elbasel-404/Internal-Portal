@@ -1,7 +1,7 @@
 // TODO: maintenance
-import type { Config } from "tailwindcss";
-import tailwindAnimate from "tailwindcss-animate";
-import plugin from "tailwindcss/plugin";
+import type { Config } from "tailwindcss"
+import tailwindAnimate from "tailwindcss-animate"
+import plugin from "tailwindcss/plugin"
 
 const config: Config = {
   safelist: [
@@ -160,7 +160,7 @@ const config: Config = {
       matchVariant(
         "nth",
         (value) => {
-          return `&:nth-child(${value})`;
+          return `&:nth-child(${value})`
         },
         {
           // values: {
@@ -168,9 +168,9 @@ const config: Config = {
           //   2: '2',
           //   3: '3',
           // },
-        }
-      );
+        },
+      )
     }),
   ],
-};
-export default config;
+}
+export default config

@@ -1,7 +1,6 @@
-export { AddNewGoalButton } from './AddNewGoalButton';
-export { FormActions } from './FormActions';
-export { GoalDetailsSection } from './GoalDetailsSection';
-export { GoalsFormHeader } from './GoalsFormHeader';
-export { IndividualGoalSection } from './IndividualGoalSection';
-export { OrganizationalGoalsSection } from './OrganizationalGoalsSection';
-
+export { AddNewGoalButton } from "./AddNewGoalButton"
+export { FormActions } from "./FormActions"
+export { GoalDetailsSection } from "./GoalDetailsSection"
+export { GoalsFormHeader } from "./GoalsFormHeader"
+export { IndividualGoalSection } from "./IndividualGoalSection"
+export { OrganizationalGoalsSection } from "./OrganizationalGoalsSection"

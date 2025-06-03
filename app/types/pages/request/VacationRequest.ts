@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod"
 
 export const VacationRequestSchema = z.object({
   id: z.string(),
@@ -9,6 +9,6 @@ export const VacationRequestSchema = z.object({
   endDate: z.string(),
   approvalDate: z.string(),
   durationInDays: z.number(),
-});
+})
 
-export type VacationRequest = z.infer<typeof VacationRequestSchema>;
+export type VacationRequest = z.infer<typeof VacationRequestSchema>

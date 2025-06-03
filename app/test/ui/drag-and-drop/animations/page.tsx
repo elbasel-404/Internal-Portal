@@ -1,31 +1,31 @@
-'use client';
+"use client"
 
-import { animations } from '@formkit/drag-and-drop';
-import { useDragAndDrop } from '@formkit/drag-and-drop/react';
+import { animations } from "@formkit/drag-and-drop"
+import { useDragAndDrop } from "@formkit/drag-and-drop/react"
 
 const DragAndDropAnimationsTestPage = () => {
   const [parent, tapes] = useDragAndDrop<HTMLUListElement, string>(
     [
-      'Depeche Mode',
-      'Duran Duran',
-      'Pet Shop Boys',
-      'Kraftwerk',
-      'Tears for Fears',
-      'Spandau Ballet',
+      "Depeche Mode",
+      "Duran Duran",
+      "Pet Shop Boys",
+      "Kraftwerk",
+      "Tears for Fears",
+      "Spandau Ballet",
     ],
     {
       plugins: [animations()],
-    }
-  );
+    },
+  )
   return (
     <ul ref={parent}>
       {tapes.map((tape) => (
-        <li className='cassette' data-label={tape} key={tape}>
+        <li className="cassette" data-label={tape} key={tape}>
           {tape}
         </li>
       ))}
     </ul>
-  );
-};
+  )
+}
 
-export default DragAndDropAnimationsTestPage;
+export default DragAndDropAnimationsTestPage

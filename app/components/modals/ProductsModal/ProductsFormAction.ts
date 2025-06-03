@@ -1,44 +1,44 @@
-'use server';
+"use server"
 
-import { db } from '@db'; // Database instance
-import { getUserIndex } from '@db/actions';
-import { getUserId } from '@server';
-import { ProductSchema } from '@zodSchemas';
+import { db } from "@db" // Database instance
+import { getUserIndex } from "@db/actions"
+import { getUserId } from "@server"
+import { ProductSchema } from "@zodSchemas"
 
 export const productsFormAction = async (formData: FormData) => {
   try {
-    const formEntries = formData.entries();
-    const rawData = Object.fromEntries(formEntries);
+    const formEntries = formData.entries()
+    const rawData = Object.fromEntries(formEntries)
 
-    const responseData = { ...rawData };
+    const responseData = { ...rawData }
 
     const {
       success,
       data: validatedData,
       error,
-    } = ProductSchema.safeParse(responseData);
+    } = ProductSchema.safeParse(responseData)
 
-    await db.read();
+    await db.read()
 
-    console.log(success, validatedData, error);
+    console.log(success, validatedData, error)
 
-    const userId = await getUserId();
+    const userId = await getUserId()
     if (!userId) {
       throw new Error(
-        'Invalid User Id (app/components/modals/ProductsModal/ProductsFormActions.ts)'
-      );
+        "Invalid User Id (app/components/modals/ProductsModal/ProductsFormActions.ts)",
+      )
     }
     if (!success) {
       throw new Error(
-        'Validation Error (app/components/modals/ProductsModal/ProductsFormActions.ts)',
-        error
-      );
+        "Validation Error (app/components/modals/ProductsModal/ProductsFormActions.ts)",
+        error,
+      )
     }
-    const userIndex = await getUserIndex(userId);
-    db.data.users[userIndex].products.push(validatedData);
+    const userIndex = await getUserIndex(userId)
+    db.data.users[userIndex].products.push(validatedData)
 
-    await db.write();
+    await db.write()
   } catch (error) {
-    console.error(error);
+    console.error(error)
   }
-};
+}

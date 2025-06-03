@@ -59,5 +59,5 @@ export const CalenderSpecialIcon = () => {
         </clipPath>
       </defs>
     </svg>
-  );
-};
+  )
+}

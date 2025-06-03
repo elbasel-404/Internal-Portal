@@ -1,1 +1,1 @@
-export { ObligationForm } from './ObligationForm';
+export { ObligationForm } from "./ObligationForm"

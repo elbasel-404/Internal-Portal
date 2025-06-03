@@ -1,4 +1,4 @@
-'use client';
+"use client"
 
 import {
   createFileHandler,
@@ -8,49 +8,49 @@ import {
   instFilesAtom,
   institutionalDiscriminationAtom,
   securityFilesAtom,
-} from '@atoms';
-import { AttachmentsField, RadioField } from '@components/form';
-import { YesNoOption } from '@types';
-import { useAtom } from 'jotai';
+} from "@atoms"
+import { AttachmentsField, RadioField } from "@components/form"
+import { YesNoOption } from "@types"
+import { useAtom } from "jotai"
 
 export const RequirementsSection = () => {
   return (
-    <div className='space-y-6'>
+    <div className="space-y-6">
       <InstitutionalRequirements />
       <SecurityRequirements />
       <DataGovernanceRequirements />
     </div>
-  );
-};
+  )
+}
 
 const InstitutionalRequirements = () => {
-  const [value, setValue] = useAtom(institutionalDiscriminationAtom);
-  const [files, setFiles] = useAtom(instFilesAtom);
+  const [value, setValue] = useAtom(institutionalDiscriminationAtom)
+  const [files, setFiles] = useAtom(instFilesAtom)
 
   const fileHandler = createFileHandler(
     () => files,
-    (newFiles) => setFiles(newFiles)
-  );
+    (newFiles) => setFiles(newFiles),
+  )
 
   return (
-    <div className='space-y-4'>
+    <div className="space-y-4">
       <RadioField
-        label='هل يوجد متطلبات متعلقة بالتميز المؤسسي؟'
-        name='institutional_discrimination'
+        label="هل يوجد متطلبات متعلقة بالتميز المؤسسي؟"
+        name="institutional_discrimination"
         options={[
-          { value: 'yes', label: 'نعم' },
-          { value: 'no', label: 'لا' },
+          { value: "yes", label: "نعم" },
+          { value: "no", label: "لا" },
         ]}
         required={true}
-        labelStyle='font-medium text-base'
-        radioStyle='flex flex-col sm:flex-row'
-        className='flex-col border-t border-cloudGray pt-2'
+        labelStyle="font-medium text-base"
+        radioStyle="flex flex-col sm:flex-row"
+        className="flex-col border-t border-cloudGray pt-2"
         selectedValue={value}
         onChange={(selected) => setValue(selected as YesNoOption)}
       />
-      {value === 'yes' && (
+      {value === "yes" && (
         <AttachmentsField
-          name='inst_attachment_ids'
+          name="inst_attachment_ids"
           files={files}
           handleFileUpload={fileHandler.upload}
           handleRemoveFile={(index: number) =>
@@ -60,37 +60,37 @@ const InstitutionalRequirements = () => {
         />
       )}
     </div>
-  );
-};
+  )
+}
 
 const SecurityRequirements = () => {
-  const [value, setValue] = useAtom(cyberSecurityAtom);
-  const [files, setFiles] = useAtom(securityFilesAtom);
+  const [value, setValue] = useAtom(cyberSecurityAtom)
+  const [files, setFiles] = useAtom(securityFilesAtom)
 
   const fileHandler = createFileHandler(
     () => files,
-    (newFiles) => setFiles(newFiles)
-  );
+    (newFiles) => setFiles(newFiles),
+  )
 
   return (
-    <div className='space-y-4'>
+    <div className="space-y-4">
       <RadioField
-        label='هل يوجد متطلبات متعلقة بالامن السيبراني؟'
-        name='cyber_security'
+        label="هل يوجد متطلبات متعلقة بالامن السيبراني؟"
+        name="cyber_security"
         options={[
-          { value: 'yes', label: 'نعم' },
-          { value: 'no', label: 'لا' },
+          { value: "yes", label: "نعم" },
+          { value: "no", label: "لا" },
         ]}
         required={true}
-        labelStyle='font-medium text-base'
-        radioStyle='flex flex-col sm:flex-row'
-        className='flex-col border-t border-cloudGray pt-2'
+        labelStyle="font-medium text-base"
+        radioStyle="flex flex-col sm:flex-row"
+        className="flex-col border-t border-cloudGray pt-2"
         selectedValue={value}
         onChange={(selected) => setValue(selected as YesNoOption)}
       />
-      {value === 'yes' && (
+      {value === "yes" && (
         <AttachmentsField
-          name='security_attachment_ids'
+          name="security_attachment_ids"
           files={files}
           handleFileUpload={fileHandler.upload}
           handleRemoveFile={(index: number) =>
@@ -100,37 +100,37 @@ const SecurityRequirements = () => {
         />
       )}
     </div>
-  );
-};
+  )
+}
 
 const DataGovernanceRequirements = () => {
-  const [value, setValue] = useAtom(dataGovernanceAtom);
-  const [files, setFiles] = useAtom(dataFilesAtom);
+  const [value, setValue] = useAtom(dataGovernanceAtom)
+  const [files, setFiles] = useAtom(dataFilesAtom)
 
   const fileHandler = createFileHandler(
     () => files,
-    (newFiles) => setFiles(newFiles)
-  );
+    (newFiles) => setFiles(newFiles),
+  )
 
   return (
-    <div className='space-y-4'>
+    <div className="space-y-4">
       <RadioField
-        label='هل يوجد متطلبات متعلقة بحوكمة البيانات؟'
-        name='data_governance'
+        label="هل يوجد متطلبات متعلقة بحوكمة البيانات؟"
+        name="data_governance"
         options={[
-          { value: 'yes', label: 'نعم' },
-          { value: 'no', label: 'لا' },
+          { value: "yes", label: "نعم" },
+          { value: "no", label: "لا" },
         ]}
         required={true}
-        labelStyle='font-medium text-base'
-        radioStyle='flex flex-col sm:flex-row'
-        className='flex-col border-t border-cloudGray pt-2'
+        labelStyle="font-medium text-base"
+        radioStyle="flex flex-col sm:flex-row"
+        className="flex-col border-t border-cloudGray pt-2"
         selectedValue={value}
         onChange={(selected) => setValue(selected as YesNoOption)}
       />
-      {value === 'yes' && (
+      {value === "yes" && (
         <AttachmentsField
-          name='data_governance_ids'
+          name="data_governance_ids"
           files={files}
           handleFileUpload={fileHandler.upload}
           handleRemoveFile={(index: number) =>
@@ -140,5 +140,5 @@ const DataGovernanceRequirements = () => {
         />
       )}
     </div>
-  );
-};
+  )
+}

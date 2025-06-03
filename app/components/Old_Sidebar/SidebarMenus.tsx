@@ -1,13 +1,13 @@
-import { MenuItem } from './MenuItem';
-import { MenuItems } from './config';
+import { MenuItem } from "./MenuItem"
+import { MenuItems } from "./config"
 
 interface SideBarMenusProps {
-  isOpen: boolean;
+  isOpen: boolean
 }
 
 export const SidebarMenus = ({ isOpen }: SideBarMenusProps) => {
   return (
-    <div className='flex flex-col space-y-4 w-full px-2 mb-4'>
+    <div className="flex flex-col space-y-4 w-full px-2 mb-4">
       {MenuItems.map((menuItem, index) => (
         <MenuItem
           key={index}
@@ -20,5 +20,5 @@ export const SidebarMenus = ({ isOpen }: SideBarMenusProps) => {
         />
       ))}
     </div>
-  );
-};
+  )
+}

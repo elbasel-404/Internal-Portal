@@ -1,1 +1,1 @@
-export { RelatedUsersCarousel } from './RelatedUsersCarousel';
+export { RelatedUsersCarousel } from "./RelatedUsersCarousel"

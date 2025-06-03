@@ -1,14 +1,14 @@
-"use client";
+"use client"
 
-import type { ReactNode } from "react";
-import { KPIsTable } from "./KPIsTable";
-import { KPIsCollapse } from "./KPIsCollapse";
-import { SupplierEvaluationCriterion } from "@types";
-import { filterSlots } from "./helpers/filterSlots";
+import type { ReactNode } from "react"
+import { KPIsTable } from "./KPIsTable"
+import { KPIsCollapse } from "./KPIsCollapse"
+import { SupplierEvaluationCriterion } from "@types"
+import { filterSlots } from "./helpers/filterSlots"
 
 interface SupplierEvaluationCriterionProps {
-  data: SupplierEvaluationCriterion[];
-  isForm?: boolean;
+  data: SupplierEvaluationCriterion[]
+  isForm?: boolean
 }
 
 export const EvaluationCriteriaItems = ({
@@ -19,18 +19,18 @@ export const EvaluationCriteriaItems = ({
     data.map((criterion, index) => {
       const node: ReactNode = (
         <KPIsTable data={criterion.kpis} isForm={isForm} />
-      );
+      )
       return {
         key: `${index}-${criterion.id}`,
         title: criterion.name,
         node,
-      };
-    }) || [];
+      }
+    }) || []
 
   const activeSlotKeys =
-    data.map((criterion, index) => `${index}-${criterion.id}`) || [];
-  const slotsToRender = filterSlots(slots(), activeSlotKeys);
-  const visuallyHiddenKeys: string[] = [];
+    data.map((criterion, index) => `${index}-${criterion.id}`) || []
+  const slotsToRender = filterSlots(slots(), activeSlotKeys)
+  const visuallyHiddenKeys: string[] = []
 
   return (
     <>
@@ -41,5 +41,5 @@ export const EvaluationCriteriaItems = ({
         />
       }
     </>
-  );
-};
+  )
+}

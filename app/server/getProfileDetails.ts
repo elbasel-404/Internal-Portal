@@ -1,23 +1,23 @@
-"use server";
+"use server"
 
-import type { ProfileDetails } from "@types";
-import { getFetchHeaders } from "./getFetchHeaders";
-import { getDemo } from "@db/actions";
-import { ResponseSchema } from "@api/schemas/responseSchema";
-import { ProfileElementSchema } from "@api/schemas";
+import type { ProfileDetails } from "@types"
+import { getFetchHeaders } from "./getFetchHeaders"
+import { getDemo } from "@db/actions"
+import { ResponseSchema } from "@api/schemas/responseSchema"
+import { ProfileElementSchema } from "@api/schemas"
 
 export const getProfileDetails = async (): Promise<ProfileDetails> => {
-  const isDemo = await getDemo();
-  if (isDemo) return dummyData;
+  const isDemo = await getDemo()
+  if (isDemo) return dummyData
 
   // ! VARIABLES
   // ! ==================================
-  const url = "api/po/read/profile";
-  const apiRootUrl = process.env.API_ROOT_URL as string;
-  const { headers } = await getFetchHeaders();
-  const requestBody = {};
-  const requestBodyString = JSON.stringify(requestBody);
-  const requestUrl = `${apiRootUrl}/${url}`;
+  const url = "api/po/read/profile"
+  const apiRootUrl = process.env.API_ROOT_URL as string
+  const { headers } = await getFetchHeaders()
+  const requestBody = {}
+  const requestBodyString = JSON.stringify(requestBody)
+  const requestUrl = `${apiRootUrl}/${url}`
 
   // ! FETCH
   // ! ==================================
@@ -25,15 +25,15 @@ export const getProfileDetails = async (): Promise<ProfileDetails> => {
     headers,
     method: "POST",
     body: requestBodyString,
-  });
-  const responseJson = await apiResponse.json();
+  })
+  const responseJson = await apiResponse.json()
 
   // ! VALIDATION
   // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson);
-  const { result } = validatedResponse;
-  const { data } = result;
-  const validatedData = ProfileElementSchema.parse(data[0]);
+  const validatedResponse = ResponseSchema.parse(responseJson)
+  const { result } = validatedResponse
+  const { data } = result
+  const validatedData = ProfileElementSchema.parse(data[0])
 
   // ! PARSING
   // ! ==================================
@@ -42,43 +42,43 @@ export const getProfileDetails = async (): Promise<ProfileDetails> => {
   const mobilePhone =
     typeof validatedData.mobile_number === "boolean"
       ? ""
-      : validatedData.mobile_number;
-  const personalEmail = validatedData.work_email;
+      : validatedData.mobile_number
+  const personalEmail = validatedData.work_email
   const secondMobile =
     typeof validatedData.mobile_phone2 === "boolean"
       ? "none"
-      : validatedData.mobile_phone2;
+      : validatedData.mobile_phone2
 
   //* placeholder
-  const workExtension = "work Extension";
+  const workExtension = "work Extension"
   const workplaceLocation =
     typeof validatedData.work_location === "boolean"
       ? ""
-      : validatedData.work_location;
-  const workEmail = validatedData.work_email2;
+      : validatedData.work_location
+  const workEmail = validatedData.work_email2
 
   // * ======== personal data ========
-  const birthDate = validatedData.birthday;
-  const bloodType = validatedData.blood_type;
-  const gender = validatedData.gender;
-  const id = validatedData.id.toFixed();
-  const maritalStatus = validatedData.marital;
-  const nameEN = validatedData.english_name;
+  const birthDate = validatedData.birthday
+  const bloodType = validatedData.blood_type
+  const gender = validatedData.gender
+  const id = validatedData.id.toFixed()
+  const maritalStatus = validatedData.marital
+  const nameEN = validatedData.english_name
   const nationality =
     typeof validatedData.birthday_location === "boolean"
       ? ""
-      : validatedData.birthday_location;
-  const passportNumber = validatedData.passport_number;
+      : validatedData.birthday_location
+  const passportNumber = validatedData.passport_number
 
   // * ======== work data ========
   const appointmentDate =
     typeof validatedData.contract_date_from === "boolean"
       ? ""
-      : validatedData.contract_date_from;
-  const department = validatedData.department_global_id[0].toString();
+      : validatedData.contract_date_from
+  const department = validatedData.department_global_id[0].toString()
   const directManager =
-    typeof validatedData.manager === "boolean" ? "" : validatedData.manager;
-  const governmentWorkStartDate = validatedData.begin_work_date;
+    typeof validatedData.manager === "boolean" ? "" : validatedData.manager
+  const governmentWorkStartDate = validatedData.begin_work_date
 
   const returnedData: ProfileDetails = {
     contactInformation: {
@@ -105,10 +105,10 @@ export const getProfileDetails = async (): Promise<ProfileDetails> => {
       directManager,
       governmentWorkStartDate,
     },
-  };
+  }
 
-  return returnedData;
-};
+  return returnedData
+}
 
 const dummyData: ProfileDetails = {
   personalData: {
@@ -136,4 +136,4 @@ const dummyData: ProfileDetails = {
     workplaceLocation: "",
     workExtension: "4268",
   },
-};
+}

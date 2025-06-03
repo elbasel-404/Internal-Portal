@@ -63,4 +63,4 @@ export const modalPaths = {
     title: "إضافة مؤشر الأداء",
     href: "/modal/IndicatorModal",
   },
-} as const;
+} as const

@@ -1,13 +1,13 @@
-import { BookmarkIcon, ClockIcon } from "@icons";
-import { Card } from "@ui";
-import Image from "next/image";
+import { BookmarkIcon, ClockIcon } from "@icons"
+import { Card } from "@ui"
+import Image from "next/image"
 // import { newsData } from './config';
-import { getNewsListRequests } from "@server";
+import { getNewsListRequests } from "@server"
 
 export const NewsCardSection = async () => {
-  const newsData = await getNewsListRequests();
+  const newsData = await getNewsListRequests()
 
-  const sideNews = newsData.slice(1, 4);
+  const sideNews = newsData.slice(1, 4)
 
   return (
     <div className="col-span-1 flex flex-col w-full">
@@ -39,5 +39,5 @@ export const NewsCardSection = async () => {
         </Card>
       ))}
     </div>
-  );
-};
+  )
+}
