@@ -1,4 +1,4 @@
-'use client';
+"use client"
 
 import {
   createFileHandler,
@@ -6,12 +6,12 @@ import {
   dateToAtom,
   durationAtom,
   trainingMethodAtom,
-} from '@atoms';
-import { FormHeader, SubmitButton } from '@components/form';
-import { paths } from '@lib';
-import { FileWithId, TrainingCourse } from '@types';
-import { useAtom } from 'jotai';
-import { ChangeEvent, useState } from 'react';
+} from "@atoms"
+import { FormHeader, SubmitButton } from "@components/form"
+import { paths } from "@lib"
+import { FileWithId, TrainingCourse } from "@types"
+import { useAtom } from "jotai"
+import { ChangeEvent, useState } from "react"
 import {
   AdditionalInfoSection,
   AttachmentsSection,
@@ -21,64 +21,64 @@ import {
   TrainingDetailsSection,
   TrainingLocationSection,
   TrainingTypeSection,
-} from './FormSections';
-import { FileHandlerType, SectionProps } from './FormTypes/types';
+} from "./FormSections"
+import { FileHandlerType, SectionProps } from "./FormTypes/types"
 
 interface TrainingFormProps {
-  trainingCourses: TrainingCourse[];
+  trainingCourses: TrainingCourse[]
 }
 
 export const TrainingForm = ({ trainingCourses }: TrainingFormProps) => {
   // State definitions
-  const [files, setFiles] = useState<FileWithId[]>([]);
-  const [trainingName, setTrainingName] = useState<string>('');
-  const [trainingType, setTrainingType] = useState<string>('');
-  const [trainingCenter, setTrainingCenter] = useState<string>('');
+  const [files, setFiles] = useState<FileWithId[]>([])
+  const [trainingName, setTrainingName] = useState<string>("")
+  const [trainingType, setTrainingType] = useState<string>("")
+  const [trainingCenter, setTrainingCenter] = useState<string>("")
   const [isOtherTrainingCenter, setIsOtherTrainingCenter] =
-    useState<boolean>(false);
-  const [extendedTraining, setExtendedTraining] = useState<boolean>(false);
-  const [trainingCenterName, setTrainingCenterName] = useState<string>('');
-  const [trainingNature, setTrainingNature] = useState<string[]>([]);
-  const [trainingProgram, setTrainingProgram] = useState<string>('');
-  const [trainingCountry, setTrainingCountry] = useState<string>('');
-  const [trainingCity, setTrainingCity] = useState<string>('');
-  const [travelDays, setTravelDays] = useState<string>('1');
-  const [trainingAssignment, setTrainingAssignment] = useState<string>('');
-  const [substituteEmployee, setSubstituteEmployee] = useState<string>('');
-  const [dateFrom, setDateFrom] = useAtom(dateFromAtom);
-  const [dateTo, setDateTo] = useAtom(dateToAtom);
-  const [duration] = useAtom(durationAtom);
-  const [trainingMethod, setTrainingMethod] = useAtom(trainingMethodAtom);
+    useState<boolean>(false)
+  const [extendedTraining, setExtendedTraining] = useState<boolean>(false)
+  const [trainingCenterName, setTrainingCenterName] = useState<string>("")
+  const [trainingNature, setTrainingNature] = useState<string[]>([])
+  const [trainingProgram, setTrainingProgram] = useState<string>("")
+  const [trainingCountry, setTrainingCountry] = useState<string>("")
+  const [trainingCity, setTrainingCity] = useState<string>("")
+  const [travelDays, setTravelDays] = useState<string>("1")
+  const [trainingAssignment, setTrainingAssignment] = useState<string>("")
+  const [substituteEmployee, setSubstituteEmployee] = useState<string>("")
+  const [dateFrom, setDateFrom] = useAtom(dateFromAtom)
+  const [dateTo, setDateTo] = useAtom(dateToAtom)
+  const [duration] = useAtom(durationAtom)
+  const [trainingMethod, setTrainingMethod] = useAtom(trainingMethodAtom)
 
   // Handlers
   const fileHandler: FileHandlerType = createFileHandler(
     () => files,
-    (newFiles: FileWithId[]) => setFiles(newFiles)
-  );
+    (newFiles: FileWithId[]) => setFiles(newFiles),
+  )
 
   const handleTrainingNameChangeValue = (
-    event: ChangeEvent<HTMLInputElement>
+    event: ChangeEvent<HTMLInputElement>,
   ): void => {
-    setTrainingName(event.target.value);
-  };
+    setTrainingName(event.target.value)
+  }
 
   const handleTrainingCenterNameChangeValue = (
-    event: ChangeEvent<HTMLInputElement>
+    event: ChangeEvent<HTMLInputElement>,
   ): void => {
-    setTrainingCenterName(event.target.value);
-  };
+    setTrainingCenterName(event.target.value)
+  }
 
   const handleTrainingProgramChangeValue = (
-    event: ChangeEvent<HTMLTextAreaElement>
+    event: ChangeEvent<HTMLTextAreaElement>,
   ): void => {
-    setTrainingProgram(event.target.value);
-  };
+    setTrainingProgram(event.target.value)
+  }
 
   const handleTravelDaysChangeValue = (
-    event: ChangeEvent<HTMLInputElement>
+    event: ChangeEvent<HTMLInputElement>,
   ): void => {
-    setTravelDays(event.target.value);
-  };
+    setTravelDays(event.target.value)
+  }
 
   // Form sections
   const sections: SectionProps[] = [
@@ -168,19 +168,19 @@ export const TrainingForm = ({ trainingCourses }: TrainingFormProps) => {
         />
       ),
     },
-  ];
+  ]
 
   return (
-    <form className='bg-white rounded-lg text-black text-lg p-4 space-y-4'>
-      <FormHeader label='نموذج طلب دورة تدريبية' path={paths.training.href} />
+    <form className="bg-white rounded-lg text-black text-lg p-4 space-y-4">
+      <FormHeader label="نموذج طلب دورة تدريبية" path={paths.training.href} />
 
       {sections.map((section, index) => (
-        <div key={index} className='mb-8'>
+        <div key={index} className="mb-8">
           {section.component}
         </div>
       ))}
 
       <SubmitButton />
     </form>
-  );
-};
+  )
+}

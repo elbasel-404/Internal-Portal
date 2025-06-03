@@ -1,14 +1,14 @@
-import Link from 'next/link';
-import { ArrowLeftIcon } from '@icons';
-import { Button } from '@ui';
-import type { Route } from 'next';
+import Link from "next/link"
+import { ArrowLeftIcon } from "@icons"
+import { Button } from "@ui"
+import type { Route } from "next"
 
 interface ArrowButtonProps {
-  title: string;
-  link?: Route;
-  bgButtonColor?: string;
-  titleWeight?: string;
-  className?: string;
+  title: string
+  link?: Route
+  bgButtonColor?: string
+  titleWeight?: string
+  className?: string
 }
 
 export const ArrowButton = ({
@@ -19,12 +19,12 @@ export const ArrowButton = ({
   className,
 }: ArrowButtonProps) => {
   return (
-    <Link href={link || '#'} className={className}>
+    <Link href={link || "#"} className={className}>
       <Button
-        size='sm'
+        size="sm"
         icon={
-          <span className='bg-white rounded-full w-6 h-6 flex items-center justify-center'>
-            <ArrowLeftIcon width={11} height={11} className='fill-foreground' />
+          <span className="bg-white rounded-full w-6 h-6 flex items-center justify-center">
+            <ArrowLeftIcon width={11} height={11} className="fill-foreground" />
           </span>
         }
         iconRight={false}
@@ -35,5 +35,5 @@ export const ArrowButton = ({
         </span>
       </Button>
     </Link>
-  );
-};
+  )
+}

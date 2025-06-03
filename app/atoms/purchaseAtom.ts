@@ -1,71 +1,71 @@
-'use client';
+"use client"
 
-import { AttachmentType, FileWithId, PurchaseType, YesNoOption } from '@types';
-import { atom } from 'jotai';
-import { atomWithStorage } from 'jotai/utils';
+import { AttachmentType, FileWithId, PurchaseType, YesNoOption } from "@types"
+import { atom } from "jotai"
+import { atomWithStorage } from "jotai/utils"
 
 // Basic information atoms
 export const purchaseTypeAtom = atomWithStorage<PurchaseType>(
-  'purchaseType',
-  'operational'
-);
-export const addressRequestAtom = atomWithStorage<string>('addressRequest', '');
-export const descriptionAtom = atomWithStorage<string>('description', '');
-export const requestOutputsAtom = atomWithStorage<string>('requestOutputs', '');
+  "purchaseType",
+  "operational",
+)
+export const addressRequestAtom = atomWithStorage<string>("addressRequest", "")
+export const descriptionAtom = atomWithStorage<string>("description", "")
+export const requestOutputsAtom = atomWithStorage<string>("requestOutputs", "")
 
 // Attachments atoms
 export const selectedAttachmentTypesAtom = atomWithStorage<AttachmentType[]>(
-  'selectedAttachmentTypes',
-  []
-);
-export const filesAtom = atomWithStorage<FileWithId[]>('files', []);
+  "selectedAttachmentTypes",
+  [],
+)
+export const filesAtom = atomWithStorage<FileWithId[]>("files", [])
 
 // Project details atoms
-export const planTypeAtom = atomWithStorage<string>('planType', '');
-export const programNameAtom = atomWithStorage<string>('programName', '');
-export const projectNameAtom = atomWithStorage<string>('projectName', '');
-export const costsAtom = atom<number>(0);
-export const batchAmount = atomWithStorage<number>('batchAmount', 0);
+export const planTypeAtom = atomWithStorage<string>("planType", "")
+export const programNameAtom = atomWithStorage<string>("programName", "")
+export const projectNameAtom = atomWithStorage<string>("projectName", "")
+export const costsAtom = atom<number>(0)
+export const batchAmount = atomWithStorage<number>("batchAmount", 0)
 
 // Requirements atoms
 export const institutionalDiscriminationAtom = atomWithStorage<YesNoOption>(
-  'institutionalDiscrimination',
-  ''
-);
-export const instFilesAtom = atomWithStorage<FileWithId[]>('instFiles', []);
+  "institutionalDiscrimination",
+  "",
+)
+export const instFilesAtom = atomWithStorage<FileWithId[]>("instFiles", [])
 
 export const cyberSecurityAtom = atomWithStorage<YesNoOption>(
-  'cyberSecurity',
-  ''
-);
+  "cyberSecurity",
+  "",
+)
 export const securityFilesAtom = atomWithStorage<FileWithId[]>(
-  'securityFiles',
-  []
-);
+  "securityFiles",
+  [],
+)
 
 export const dataGovernanceAtom = atomWithStorage<YesNoOption>(
-  'dataGovernance',
-  ''
-);
+  "dataGovernance",
+  "",
+)
 export const finalSettlementValueAtom = atomWithStorage<YesNoOption>(
-  'finalSettlementValue',
-  ''
-);
-export const dataFilesAtom = atomWithStorage<FileWithId[]>('dataFiles', []);
+  "finalSettlementValue",
+  "",
+)
+export const dataFilesAtom = atomWithStorage<FileWithId[]>("dataFiles", [])
 
-export const invoiceAtom = atomWithStorage<FileWithId[]>('invoice', []);
-export const extractAtom = atomWithStorage<FileWithId[]>('extract', []);
+export const invoiceAtom = atomWithStorage<FileWithId[]>("invoice", [])
+export const extractAtom = atomWithStorage<FileWithId[]>("extract", [])
 export const wageProtectionAtom = atomWithStorage<FileWithId[]>(
-  'wageProtection',
-  []
-);
+  "wageProtection",
+  [],
+)
 export const regularCertificatesAtom = atomWithStorage<FileWithId[]>(
-  'regularCertificates',
-  []
-);
+  "regularCertificates",
+  [],
+)
 export const finalSettlementAtom = atomWithStorage<FileWithId[]>(
-  'finalSettlement',
-  []
-);
+  "finalSettlement",
+  [],
+)
 
-export const completionRequestAtom = atom<boolean>(false);
+export const completionRequestAtom = atom<boolean>(false)

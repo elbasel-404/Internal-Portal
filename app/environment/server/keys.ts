@@ -9,4 +9,4 @@ export const environmentVariablesKeys = [
   "AUTH_GOOGLE_SECRET",
   "EMAIL_SERVER",
   "EMAIL_FROM",
-];
+]

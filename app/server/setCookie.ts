@@ -1,8 +1,8 @@
-"use server";
+"use server"
 
-import { cookies } from "next/headers";
+import { cookies } from "next/headers"
 
 export const setCookie = async (name: string, value: string) => {
-  const cookieStore = await cookies();
-  cookieStore.set(name, value);
-};
+  const cookieStore = await cookies()
+  cookieStore.set(name, value)
+}

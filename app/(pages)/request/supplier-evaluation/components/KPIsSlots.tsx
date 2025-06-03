@@ -1,30 +1,28 @@
-"use client";
+"use client"
 
-import { KPIsTable } from "./KPIsTable";
-import { SupplierEvaluationCriterion } from "@types";
-import type { ReactNode } from "react";
-import { filterSlots } from "./helpers/filterSlots";
+import { KPIsTable } from "./KPIsTable"
+import { SupplierEvaluationCriterion } from "@types"
+import type { ReactNode } from "react"
+import { filterSlots } from "./helpers/filterSlots"
 
 interface SupplierEvaluationCriterionProps {
-  data: SupplierEvaluationCriterion[];
+  data: SupplierEvaluationCriterion[]
 }
 
-export const KPIsSlots = ({
-  data,
-}: SupplierEvaluationCriterionProps) => {
+export const KPIsSlots = ({ data }: SupplierEvaluationCriterionProps) => {
   const slots = (): { key: string; title: string; node: React.ReactNode }[] =>
     data.map((criterion, index) => {
-      const node: ReactNode = <KPIsTable data={criterion.kpis} />;
+      const node: ReactNode = <KPIsTable data={criterion.kpis} />
       return {
         key: `${index}-${criterion.id}`,
         title: criterion.name,
         node,
-      };
-    }) || [];
+      }
+    }) || []
 
   const activeSlotKeys =
-    data.map((criterion, index) => `${index}-${criterion.id}`) || [];
-  const slotsToRender = filterSlots(slots(), activeSlotKeys);
+    data.map((criterion, index) => `${index}-${criterion.id}`) || []
+  const slotsToRender = filterSlots(slots(), activeSlotKeys)
 
-  return <>{slotsToRender}</>;
-};
+  return <>{slotsToRender}</>
+}

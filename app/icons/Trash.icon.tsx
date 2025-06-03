@@ -1,4 +1,4 @@
-import { IconProps } from "@types";
+import { IconProps } from "@types"
 
 export const TrashIcon = ({ width, height, className, fill }: IconProps) => {
   return (
@@ -16,5 +16,5 @@ export const TrashIcon = ({ width, height, className, fill }: IconProps) => {
         className={className}
       />
     </svg>
-  );
-};
+  )
+}

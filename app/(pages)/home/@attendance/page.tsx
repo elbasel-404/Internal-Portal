@@ -1,7 +1,7 @@
-import { Attendance } from '../components';
+import { Attendance } from "../components"
 
 const AttendanceSlot = () => {
-  return <Attendance />;
-};
+  return <Attendance />
+}
 
-export default AttendanceSlot;
+export default AttendanceSlot

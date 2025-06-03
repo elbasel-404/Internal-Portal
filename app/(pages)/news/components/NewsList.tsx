@@ -1,43 +1,43 @@
-"use client";
+"use client"
 
-import { SearchIcon } from "@icons";
-import { NewsFamily } from "@types";
-import { Input, Pagination } from "@ui";
-import { ChangeEvent, useState } from "react";
-import { GlobalNewsCard } from ".";
+import { SearchIcon } from "@icons"
+import { NewsFamily } from "@types"
+import { Input, Pagination } from "@ui"
+import { ChangeEvent, useState } from "react"
+import { GlobalNewsCard } from "."
 
 interface NewsListProps {
-  title: string;
-  path: string;
-  newsData: NewsFamily[];
+  title: string
+  path: string
+  newsData: NewsFamily[]
 }
 
 export const NewsList = ({ title, path, newsData }: NewsListProps) => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const cardsPerPage = 9;
+  const [searchTerm, setSearchTerm] = useState("")
+  const [currentPage, setCurrentPage] = useState(1)
+  const cardsPerPage = 9
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value.trim());
-    setCurrentPage(1);
-  };
+    setSearchTerm(event.target.value.trim())
+    setCurrentPage(1)
+  }
 
   const filteredData = newsData.filter(
     (data) =>
       data.date.toLowerCase().includes(searchTerm.toLowerCase()) ||
       data.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      data.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+      data.title.toLowerCase().includes(searchTerm.toLowerCase()),
+  )
 
-  const indexOfLastCard = currentPage * cardsPerPage;
-  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-  const currentData = filteredData.slice(indexOfFirstCard, indexOfLastCard);
+  const indexOfLastCard = currentPage * cardsPerPage
+  const indexOfFirstCard = indexOfLastCard - cardsPerPage
+  const currentData = filteredData.slice(indexOfFirstCard, indexOfLastCard)
 
-  const totalPages = Math.ceil(filteredData.length / cardsPerPage);
+  const totalPages = Math.ceil(filteredData.length / cardsPerPage)
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
+    setCurrentPage(page)
+  }
 
   return (
     <div className="space-y-4 bg-white rounded-xl py-4">
@@ -66,5 +66,5 @@ export const NewsList = ({ title, path, newsData }: NewsListProps) => {
         />
       </div>
     </div>
-  );
-};
+  )
+}

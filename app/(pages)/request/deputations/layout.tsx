@@ -1,12 +1,12 @@
-import { ReactNode } from 'react';
-import { DeputationData } from './components';
+import { ReactNode } from "react"
+import { DeputationData } from "./components"
 
 export const metadata = {
-  title: 'Deputations',
-  description: 'Deputation data',
-};
+  title: "Deputations",
+  description: "Deputation data",
+}
 interface DeputationLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 const DeputationLayout = ({ children }: DeputationLayoutProps) => {
   return (
@@ -14,7 +14,7 @@ const DeputationLayout = ({ children }: DeputationLayoutProps) => {
       <DeputationData />
       <section>{children}</section>
     </>
-  );
-};
+  )
+}
 
-export default DeputationLayout;
+export default DeputationLayout

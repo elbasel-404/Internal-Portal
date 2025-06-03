@@ -1,29 +1,29 @@
-"use client";
+"use client"
 
-import { format } from "date-fns";
-import { useState } from "react";
-import { DayPicker, NavProps } from "react-day-picker";
-import { ar } from "date-fns/locale";
-import "react-day-picker/dist/style.css";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "../../../ui/button";
+import { format } from "date-fns"
+import { useState } from "react"
+import { DayPicker, NavProps } from "react-day-picker"
+import { ar } from "date-fns/locale"
+import "react-day-picker/dist/style.css"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+import { Button } from "../../../ui/button"
 
 const CalendarTestPage = () => {
-  const [selected, setSelected] = useState<Date>();
-  const [month, setMonth] = useState<Date>(new Date()); // Initialize with a default date to avoid undefined
+  const [selected, setSelected] = useState<Date>()
+  const [month, setMonth] = useState<Date>(new Date()) // Initialize with a default date to avoid undefined
 
   const handleMonthChange = (newMonth: Date) => {
-    setMonth(newMonth);
-  };
+    setMonth(newMonth)
+  }
 
   const CustomNavbar = ({ onPreviousClick, onNextClick }: NavProps) => {
     const months = Array.from({ length: 12 }, (_, i) =>
-      format(new Date(1, i), "MMMM", { locale: ar })
-    );
+      format(new Date(1, i), "MMMM", { locale: ar }),
+    )
     const years = Array.from(
       { length: 101 },
-      (_, i) => i + 1950 // Year range from 1950 to 2050
-    );
+      (_, i) => i + 1950, // Year range from 1950 to 2050
+    )
 
     return (
       <div className="flex items-center justify-between ">
@@ -48,8 +48,8 @@ const CalendarTestPage = () => {
                 new Date(
                   month?.getFullYear() ?? new Date().getFullYear(),
                   parseInt(e.target.value),
-                  1
-                )
+                  1,
+                ),
               )
             }
             className="text-xl font-bold bg-cloudGray text-strom-gray hover:bg-primary hover:text-white rounded-lg p-2"
@@ -69,8 +69,8 @@ const CalendarTestPage = () => {
                 new Date(
                   parseInt(e.target.value),
                   month?.getMonth() ?? new Date().getMonth(),
-                  1
-                )
+                  1,
+                ),
               )
             }
             className="text-xl font-bold bg-cloudGray text-strom-gray hover:bg-primary hover:text-white rounded-lg p-2"
@@ -92,8 +92,8 @@ const CalendarTestPage = () => {
           </Button>
         </div>
       </div>
-    );
-  };
+    )
+  }
 
   return (
     <div className="flex items-center justify-center bg-white rounded-lg px-4 py-2.5">
@@ -125,7 +125,7 @@ const CalendarTestPage = () => {
         }}
       />
     </div>
-  );
-};
+  )
+}
 
-export default CalendarTestPage;
+export default CalendarTestPage

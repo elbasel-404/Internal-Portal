@@ -1,19 +1,19 @@
-import { RequestDetails, RequestStatus } from '@components';
-import { getHrLetterDetails, getRequestStatus } from '@server';
-import { RequestHeader } from '@types';
+import { RequestDetails, RequestStatus } from "@components"
+import { getHrLetterDetails, getRequestStatus } from "@server"
+import { RequestHeader } from "@types"
 
-type Params = Promise<{ id: string }>;
+type Params = Promise<{ id: string }>
 
 interface HrLetterDetailsPageProps {
-  params: Params;
+  params: Params
 }
 
 const HrLetterDetailsPage = async ({ params }: HrLetterDetailsPageProps) => {
-  const { id } = await params;
-  const model = 'salary.identification.request';
-  const requestStatus = await getRequestStatus(id, model);
+  const { id } = await params
+  const model = "salary.identification.request"
+  const requestStatus = await getRequestStatus(id, model)
   const requestCaption =
-    'انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر';
+    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const {
     requestDate,
     type,
@@ -21,44 +21,44 @@ const HrLetterDetailsPage = async ({ params }: HrLetterDetailsPageProps) => {
     destinationEn,
     notes,
     attachments,
-  } = (await getHrLetterDetails(id)) || {};
+  } = (await getHrLetterDetails(id)) || {}
 
   const requestHeaders: RequestHeader[] = [
     {
-      label: 'رقم الطلب',
+      label: "رقم الطلب",
       value: id,
     },
     {
-      label: 'تاريخ الطلب',
+      label: "تاريخ الطلب",
       value: requestDate,
     },
     {
-      label: 'مسمى الجهة الموجه لها',
+      label: "مسمى الجهة الموجه لها",
       value: destinationAr,
     },
     {
-      label: 'مسمى الجهة الموجه لها بالانجليزية',
+      label: "مسمى الجهة الموجه لها بالانجليزية",
       value: destinationEn,
     },
     {
-      label: 'ملاحظات',
+      label: "ملاحظات",
       value: notes,
     },
     {
-      label: 'النموذج',
+      label: "النموذج",
       value: type,
     },
     {
-      label: 'المرفقات',
+      label: "المرفقات",
       value: attachments,
     },
-  ];
+  ]
   return (
     <main>
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails headers={requestHeaders} />
     </main>
-  );
-};
+  )
+}
 
-export default HrLetterDetailsPage;
+export default HrLetterDetailsPage

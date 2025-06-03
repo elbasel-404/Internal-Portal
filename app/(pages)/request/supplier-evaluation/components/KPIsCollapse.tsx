@@ -1,23 +1,23 @@
-"use client";
+"use client"
 
-import { Animate } from "@components";
-import { animations, type ParentConfig } from "@formkit/drag-and-drop";
-import { CircleMinusIcon } from "@icons";
-import { cn } from "@utils";
-import { RefObject, useRef, useState, type ReactNode } from "react";
+import { Animate } from "@components"
+import { animations, type ParentConfig } from "@formkit/drag-and-drop"
+import { CircleMinusIcon } from "@icons"
+import { cn } from "@utils"
+import { RefObject, useRef, useState, type ReactNode } from "react"
 
 type Slot = {
-  node: ReactNode;
-  key: string;
-  title?: string;
-};
+  node: ReactNode
+  key: string
+  title?: string
+}
 interface KPIsCollapseProps {
-  slots: Slot[];
-  className?: string;
-  visuallyHiddenKeys?: string[];
+  slots: Slot[]
+  className?: string
+  visuallyHiddenKeys?: string[]
 }
 
-const defaultClassName = "";
+const defaultClassName = ""
 
 export const KPIsCollapse = ({
   slots,
@@ -29,19 +29,19 @@ export const KPIsCollapse = ({
   // ! ===============================================================
   const config: Partial<ParentConfig<{ node: ReactNode; key: string }>> = {
     plugins: [animations()],
-  };
+  }
 
   // ! ===============================================================
   // ! State
   // ! ===============================================================
-  const [collapsedSlots, setCollapsedSlots] = useState<string[]>([]);
-  const parent = useRef<HTMLDivElement>(null);
+  const [collapsedSlots, setCollapsedSlots] = useState<string[]>([])
+  const parent = useRef<HTMLDivElement>(null)
 
   // ! ===============================================================
   // ! Rendering
   // ! ===============================================================
   const renderSlot = ({ key, node, title }: Slot, className?: string) => {
-    const isCollapsed = collapsedSlots.includes(key);
+    const isCollapsed = collapsedSlots.includes(key)
     return (
       <Animate
         key={key}
@@ -51,8 +51,8 @@ export const KPIsCollapse = ({
         {renderTitle({ key, title: title || "" })}
         {!isCollapsed && node}
       </Animate>
-    );
-  };
+    )
+  }
 
   const renderTitle = ({ key, title }: { key: string; title: string }) => {
     return (
@@ -65,17 +65,17 @@ export const KPIsCollapse = ({
           onClick={() => {
             setCollapsedSlots((prev) => {
               if (prev.includes(key)) {
-                return prev.filter((k) => k !== key);
+                return prev.filter((k) => k !== key)
               }
-              return [...prev, key];
-            });
+              return [...prev, key]
+            })
           }}
         >
           <CircleMinusIcon />
         </button>
       </div>
-    );
-  };
+    )
+  }
 
   return (
     <div
@@ -88,15 +88,15 @@ export const KPIsCollapse = ({
           node,
           title,
         }: {
-          key: any;
-          node?: ReactNode;
-          title?: string | undefined;
+          key: any
+          node?: ReactNode
+          title?: string | undefined
         }) => {
-          const hidden = visuallyHiddenKeys?.includes(key);
-          if (!node) return null; // Ensure node is defined
-          return renderSlot({ key, node, title }, hidden ? "hidden" : "");
-        }
+          const hidden = visuallyHiddenKeys?.includes(key)
+          if (!node) return null // Ensure node is defined
+          return renderSlot({ key, node, title }, hidden ? "hidden" : "")
+        },
       )}
     </div>
-  );
-};
+  )
+}

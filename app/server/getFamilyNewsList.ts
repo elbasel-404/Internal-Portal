@@ -1,40 +1,40 @@
-'use server';
+"use server"
 
-import { FamilyNewSchema, ResponseSchema } from '@api/schemas';
-import type { NewsFamily } from '@types';
-import { formatNewsDate } from '@utils';
-import { getDemo } from "../db/actions/getDemo";
-import { getFetchHeaders } from "./getFetchHeaders";
-import { formatDate } from "@utils";
+import { FamilyNewSchema, ResponseSchema } from "@api/schemas"
+import type { NewsFamily } from "@types"
+import { formatNewsDate } from "@utils"
+import { getDemo } from "../db/actions/getDemo"
+import { getFetchHeaders } from "./getFetchHeaders"
+import { formatDate } from "@utils"
 
 export const getFamilyNewsList = async (): Promise<NewsFamily[]> => {
-  const isDemo = await getDemo();
-  if (isDemo) return dummyData;
+  const isDemo = await getDemo()
+  if (isDemo) return dummyData
 
   // ! VARIBLES
   // ! ==================================
-  const url = 'api/po/read/portal-news';
-  const apiRootUrl = process.env.API_ROOT_URL as string;
-  const { headers } = await getFetchHeaders();
-  const requestBody = { news_type: 'family_news' };
-  const requestBodyString = JSON.stringify(requestBody);
-  const requestUrl = `${apiRootUrl}/${url}`;
+  const url = "api/po/read/portal-news"
+  const apiRootUrl = process.env.API_ROOT_URL as string
+  const { headers } = await getFetchHeaders()
+  const requestBody = { news_type: "family_news" }
+  const requestBodyString = JSON.stringify(requestBody)
+  const requestUrl = `${apiRootUrl}/${url}`
 
   // ! FETCH
   // ! ==================================
   const apiResponse = await fetch(requestUrl, {
     headers,
-    method: 'POST',
+    method: "POST",
     body: requestBodyString,
-  });
-  const responseJson = await apiResponse.json();
+  })
+  const responseJson = await apiResponse.json()
 
   // ! VALIDATION
   // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson);
-  const { result } = validatedResponse;
-  const { data } = result;
-  const validatedData = FamilyNewSchema.array().parse(data);
+  const validatedResponse = ResponseSchema.parse(responseJson)
+  const { result } = validatedResponse
+  const { data } = result
+  const validatedData = FamilyNewSchema.array().parse(data)
 
   // ! PARSING
   // ! ==================================
@@ -47,20 +47,20 @@ export const getFamilyNewsList = async (): Promise<NewsFamily[]> => {
         ? `data:image/gif;base64,${data.image}`
         : "/monshaatFamily-1.svg",
       description: data.resume,
-    };
-    return newsItem;
-  });
-  return returnedData;
-};
+    }
+    return newsItem
+  })
+  return returnedData
+}
 
 const dummyData: NewsFamily[] = [
   {
     id: 1,
     title:
-      'رزقت الزميلة: لمياء بنت عبدالله الربيعان بأحمد جعله الله من مواليد ال...',
-    date: '01.06.2024 - 07:54 صباحاً',
-    image: '/monshaatFamily-1.svg',
-    description: '',
+      "رزقت الزميلة: لمياء بنت عبدالله الربيعان بأحمد جعله الله من مواليد ال...",
+    date: "01.06.2024 - 07:54 صباحاً",
+    image: "/monshaatFamily-1.svg",
+    description: "",
   },
   {
     id: 2,
@@ -84,6 +84,6 @@ const dummyData: NewsFamily[] = [
       "رزقت الزميلة: لمياء بنت عبدالله الربيعان بأحمد جعله الله من مواليد ال...",
     date: "01.06.2024 - 07:54 صباحا",
     image: "/MonshaatFamily-4.svg",
-    description:"",
+    description: "",
   },
-];
+]

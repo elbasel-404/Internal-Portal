@@ -1,24 +1,24 @@
-"use server";
+"use server"
 
-import type { PassportRequest } from "@types";
-import { getDemo } from "../db/actions/getDemo";
-import { getFetchHeaders } from "./getFetchHeaders";
-import { PassportRequestSchema, ResponseSchema } from "@api/schemas";
+import type { PassportRequest } from "@types"
+import { getDemo } from "../db/actions/getDemo"
+import { getFetchHeaders } from "./getFetchHeaders"
+import { PassportRequestSchema, ResponseSchema } from "@api/schemas"
 
 export const getPassportRequests = async (): Promise<PassportRequest[]> => {
-  const isDemo = await getDemo();
-  if (isDemo) return dummyData;
+  const isDemo = await getDemo()
+  if (isDemo) return dummyData
 
   // ! VARIBLES
   // ! ==================================
-  const url = "api/po/hr/passport-request";
-  const apiRootUrl = process.env.API_ROOT_URL as string;
-  const { headers } = await getFetchHeaders();
+  const url = "api/po/hr/passport-request"
+  const apiRootUrl = process.env.API_ROOT_URL as string
+  const { headers } = await getFetchHeaders()
   const requestBody = {
     employee_id: 1722,
-  };
-  const requestBodyString = JSON.stringify(requestBody);
-  const requestUrl = `${apiRootUrl}/${url}`;
+  }
+  const requestBodyString = JSON.stringify(requestBody)
+  const requestUrl = `${apiRootUrl}/${url}`
 
   // ! FETCH
   // ! ==================================
@@ -26,21 +26,21 @@ export const getPassportRequests = async (): Promise<PassportRequest[]> => {
     headers,
     method: "POST",
     body: requestBodyString,
-  });
-  const responseJson = await apiResponse.json();
+  })
+  const responseJson = await apiResponse.json()
 
   // ! VALIDATION
   // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson);
-  const { result } = validatedResponse;
-  const { data } = result;
-  const validatedData = PassportRequestSchema.array().parse(data);
+  const validatedResponse = ResponseSchema.parse(responseJson)
+  const { result } = validatedResponse
+  const { data } = result
+  const validatedData = PassportRequestSchema.array().parse(data)
 
   // ! PARSING
   // ! ==================================
 
   const getStringValue = (field: unknown): string =>
-    typeof field === "string" ? field : "";
+    typeof field === "string" ? field : ""
 
   const returnedData: PassportRequest[] = validatedData.map((data) => {
     const newsItem: PassportRequest = {
@@ -49,12 +49,12 @@ export const getPassportRequests = async (): Promise<PassportRequest[]> => {
       passportNumber: getStringValue(data.new_passport),
       passportExpireDate: getStringValue(data.passport_end_date),
       status: getStringValue(data.state),
-    };
-    return newsItem;
-  });
+    }
+    return newsItem
+  })
 
-  return returnedData;
-};
+  return returnedData
+}
 
 const dummyData: PassportRequest[] = [
   {
@@ -113,4 +113,4 @@ const dummyData: PassportRequest[] = [
     passportExpireDate: "2025-5-15",
     status: "عمليات الموارد البشرية",
   },
-];
+]

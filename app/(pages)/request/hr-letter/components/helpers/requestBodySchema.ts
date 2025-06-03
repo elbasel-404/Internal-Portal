@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod"
 
 export const requestBodySchema = z.object({
   employee_id: z.string(),
@@ -6,4 +6,4 @@ export const requestBodySchema = z.object({
   destination_id: z.string(),
   notes: z.string().optional(),
   type: z.string(),
-});
+})

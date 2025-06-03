@@ -40,5 +40,5 @@ export const CapaIcon = () => {
         </clipPath>
       </defs>
     </svg>
-  );
-};
+  )
+}

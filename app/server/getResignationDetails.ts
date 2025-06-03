@@ -1,25 +1,25 @@
-'use server';
+"use server"
 
-import { ResignationDetails } from '@types';
+import { ResignationDetails } from "@types"
 
 export const getResignationDetails = async (
-  id: string
+  id: string,
 ): Promise<ResignationDetails | void> => {
   try {
     const details: ResignationDetails = {
       id,
-      requestType: 'استقالة',
-      requestDate: '2024-11-03',
-      lastWorkingDate: '2025-06-01',
-      resignationReason: 'فرصة وظيفة أفضل',
+      requestType: "استقالة",
+      requestDate: "2024-11-03",
+      lastWorkingDate: "2025-06-01",
+      resignationReason: "فرصة وظيفة أفضل",
       attachments: [
-        new File([''], 'نموذج طلب 2 .pdf'),
-        new File([''], 'نموذج طلب .pdf'),
+        new File([""], "نموذج طلب 2 .pdf"),
+        new File([""], "نموذج طلب .pdf"),
       ],
-    };
-    return details;
+    }
+    return details
   } catch (error) {
-    console.error('Error in getWorkDocumentDetails:', error);
-    return;
+    console.error("Error in getWorkDocumentDetails:", error)
+    return
   }
-};
+}

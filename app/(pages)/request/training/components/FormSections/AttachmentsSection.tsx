@@ -1,11 +1,11 @@
-import { AttachmentsField } from '@components/form';
-import { AttachmentsSectionProps } from '../FormTypes/types';
+import { AttachmentsField } from "@components/form"
+import { AttachmentsSectionProps } from "../FormTypes/types"
 
 export const AttachmentsSection = ({
   files,
   fileHandler,
 }: AttachmentsSectionProps) => (
-  <div className='space-y-6'>
+  <div className="space-y-6">
     <AttachmentsField
       files={files}
       handleFileUpload={fileHandler.upload}
@@ -13,4 +13,4 @@ export const AttachmentsSection = ({
       required
     />
   </div>
-);
+)

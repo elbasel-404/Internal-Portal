@@ -1,12 +1,12 @@
-import { DownloadIcon, LockIcon, User2Icon } from "@icons";
-import { signIn } from "@server";
-import { Button } from "@ui";
-import Image from "next/image";
-import Link from "next/link";
+import { DownloadIcon, LockIcon, User2Icon } from "@icons"
+import { signIn } from "@server"
+import { Button } from "@ui"
+import Image from "next/image"
+import Link from "next/link"
 
-export const rememberMeInputName = "rememberMe";
-export const usernameInputName = "username";
-export const passwordInputName = "password";
+export const rememberMeInputName = "rememberMe"
+export const usernameInputName = "username"
+export const passwordInputName = "password"
 
 export const Login = () => {
   return (
@@ -144,5 +144,5 @@ export const Login = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

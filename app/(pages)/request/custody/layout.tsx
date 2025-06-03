@@ -1,12 +1,12 @@
-import type { ReactNode } from 'react';
-import { CustodyData } from './components';
+import type { ReactNode } from "react"
+import { CustodyData } from "./components"
 
 export const metadata = {
-  title: 'Custody',
-  description: 'Custody Data',
-};
+  title: "Custody",
+  description: "Custody Data",
+}
 interface CustodyLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 const ReplacementCovenantLayout = ({ children }: CustodyLayoutProps) => {
   return (
@@ -14,7 +14,7 @@ const ReplacementCovenantLayout = ({ children }: CustodyLayoutProps) => {
       <CustodyData />
       <section>{children}</section>
     </>
-  );
-};
+  )
+}
 
-export default ReplacementCovenantLayout;
+export default ReplacementCovenantLayout

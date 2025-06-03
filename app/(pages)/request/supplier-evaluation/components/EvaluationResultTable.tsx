@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import { SupplierEvaluationCriterionResult } from "@types";
+import { SupplierEvaluationCriterionResult } from "@types"
 import {
   TableBody,
   TableCell,
@@ -8,12 +8,12 @@ import {
   TableHeader,
   TableRow,
   Table as UITable,
-} from "@ui";
-import { InputField } from "@components/form";
+} from "@ui"
+import { InputField } from "@components/form"
 
 interface SupplierEvaluationCriterionResultProps {
-  data: SupplierEvaluationCriterionResult[];
-  isForm?: boolean;
+  data: SupplierEvaluationCriterionResult[]
+  isForm?: boolean
 }
 
 const tableHeaders = [
@@ -21,7 +21,7 @@ const tableHeaders = [
   { label: "الوزن %" },
   { label: "تقييم المورد" },
   { label: "مجموعة نقاط الموردين %" },
-];
+]
 
 export const EvaluationResultTable = ({
   data,
@@ -29,12 +29,12 @@ export const EvaluationResultTable = ({
 }: SupplierEvaluationCriterionResultProps) => {
   const totalsRow = data.reduce(
     (acc, item) => {
-      acc.id = (data.length + 1).toString();
-      acc.name = "المجموع";
-      acc.weight += Number(item.weight);
-      acc.evaluationPoints += parseFloat(item.evaluationPoints);
-      acc.totalPoints += parseFloat(item.totalPoints);
-      return acc;
+      acc.id = (data.length + 1).toString()
+      acc.name = "المجموع"
+      acc.weight += Number(item.weight)
+      acc.evaluationPoints += parseFloat(item.evaluationPoints)
+      acc.totalPoints += parseFloat(item.totalPoints)
+      return acc
     },
     {
       id: "1000",
@@ -42,16 +42,16 @@ export const EvaluationResultTable = ({
       weight: 0,
       evaluationPoints: 0,
       totalPoints: 0,
-    }
-  );
+    },
+  )
   // Format totalsRow values for display
   const formattedTotalsRow = {
     ...totalsRow,
     weight: totalsRow.weight.toFixed(2),
     evaluationPoints: totalsRow.evaluationPoints.toFixed(2),
     totalPoints: totalsRow.totalPoints.toFixed(2),
-  };
-  const tableData = [...data, formattedTotalsRow];
+  }
+  const tableData = [...data, formattedTotalsRow]
 
   return (
     <>
@@ -65,7 +65,11 @@ export const EvaluationResultTable = ({
               {tableHeaders.map((col, index) => (
                 <TableHead
                   key={index}
-                  className={isForm ? "text-right bg-[#007C9E24] p-4 border-r-4 border-[#007497]" : "text-right text-darkBlue text-lg w-1/12"}
+                  className={
+                    isForm
+                      ? "text-right bg-[#007C9E24] p-4 border-r-4 border-[#007497]"
+                      : "text-right text-darkBlue text-lg w-1/12"
+                  }
                 >
                   {col.label}
                 </TableHead>
@@ -97,7 +101,7 @@ export const EvaluationResultTable = ({
                           hideLabel
                         />
                       </TableCell>
-                    )
+                    ),
                   )}
               </TableRow>
             ))}
@@ -105,5 +109,5 @@ export const EvaluationResultTable = ({
         </UITable>
       </div>
     </>
-  );
-};
+  )
+}

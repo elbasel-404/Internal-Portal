@@ -1,69 +1,69 @@
-'use client';
+"use client"
 
-import { Indicator } from '@types';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { Indicator } from "@types"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
 import {
   FormActions,
   GoalDetailsSection,
   GoalsFormHeader,
   IndividualGoalSection,
   OrganizationalGoalsSection,
-} from './components';
-import PerformanceIndicatorsTable from './components/PerformanceIndicatorTable';
+} from "./components"
+import PerformanceIndicatorsTable from "./components/PerformanceIndicatorTable"
 
 interface FormData {
-  organizationalGoalLevel1: string;
-  strategicGoalLevel2: string;
-  strategicGoalLevel3: string;
-  individualGoal: string;
-  measurementPeriod: string;
-  goalWeight: string;
-  startDate: Date;
-  endDate: Date;
+  organizationalGoalLevel1: string
+  strategicGoalLevel2: string
+  strategicGoalLevel3: string
+  individualGoal: string
+  measurementPeriod: string
+  goalWeight: string
+  startDate: Date
+  endDate: Date
 }
 
 interface GoalFormProps {
-  indicatorData: Indicator[];
+  indicatorData: Indicator[]
 }
 
 export const GoalsForm = ({ indicatorData }: GoalFormProps) => {
-  const router = useRouter();
+  const router = useRouter()
 
   const [formData, setFormData] = useState<FormData>({
-    organizationalGoalLevel1: '',
-    strategicGoalLevel2: '',
-    strategicGoalLevel3: '',
-    individualGoal: '',
-    measurementPeriod: '',
-    goalWeight: '',
+    organizationalGoalLevel1: "",
+    strategicGoalLevel2: "",
+    strategicGoalLevel3: "",
+    individualGoal: "",
+    measurementPeriod: "",
+    goalWeight: "",
     startDate: new Date(),
     endDate: new Date(),
-  });
+  })
 
   const closeModal = () => {
-    router.back();
-  };
+    router.back()
+  }
 
   const handleInputChange = (
     name: string,
-    value: string | Date | null | undefined
+    value: string | Date | null | undefined,
   ) => {
     setFormData((prev) => ({
       ...prev,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
   const handleSubmit = () => {
-    closeModal();
-  };
+    closeModal()
+  }
 
   return (
-    <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-      <GoalsFormHeader title='إنشاء هدف جديد' />
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <GoalsFormHeader title="إنشاء هدف جديد" />
 
-      <div className='px-4 space-y-4'>
+      <div className="px-4 space-y-4">
         <OrganizationalGoalsSection
           formData={{
             organizationalGoalLevel1: formData.organizationalGoalLevel1,
@@ -93,5 +93,5 @@ export const GoalsForm = ({ indicatorData }: GoalFormProps) => {
 
       <FormActions onClose={closeModal} onSubmit={handleSubmit} />
     </form>
-  );
-};
+  )
+}

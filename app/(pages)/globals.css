@@ -118,7 +118,6 @@
   }
 }
 
-
 /* This should be outside @layer base otherwise it is overwritten by radixUI Select component */
 /* ! This ensure that scrollbar isn't hidden when a select is triggered causing layout shifts */
 html body[data-scroll-locked] {

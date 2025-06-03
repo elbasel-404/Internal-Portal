@@ -1,9 +1,9 @@
-import NewsSection from './NewsSection';
+import NewsSection from "./NewsSection"
 
 export const News = () => {
   return (
     <div>
       <NewsSection />
     </div>
-  );
-};
+  )
+}

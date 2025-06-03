@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { InfoCard } from '../app/components/InfoGrid/InfoCard';
-import { infoIcons } from '../app/components/InfoGrid/config';
+import type { Meta, StoryObj } from "@storybook/react"
+import { InfoCard } from "../app/components/InfoGrid/InfoCard"
+import { infoIcons } from "../app/components/InfoGrid/config"
 const meta: Meta<typeof InfoCard> = {
-  title: 'InfoCard',
+  title: "InfoCard",
   component: InfoCard,
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   //   parameters: {
@@ -27,29 +27,29 @@ export const Default: Story = {
     },
     iconName: {
       options: Object.keys(infoIcons),
-      control: { type: 'select' },
+      control: { type: "select" },
     },
     rootBgColor: {
-      control: { type: 'color' },
+      control: { type: "color" },
     },
   },
   args: {
     info: {
-      icon: 'ApprovalsIcon',
+      icon: "ApprovalsIcon",
       active: true,
-      title: 'Title',
-      backgroundColor: '#fff',
+      title: "Title",
+      backgroundColor: "#fff",
       count: 0,
       id: 1,
-      link: '/',
+      link: "/",
       index: 0,
-      key: 'approvalRequests',
-      buttonName: 'View All',
-      iconTextColor: '#fff',
+      key: "approvalRequests",
+      buttonName: "View All",
+      iconTextColor: "#fff",
       userId: 1,
     },
     isSideBarOpen: true,
-    iconName: 'PaperIcon',
-    rootBgColor: '#fff',
+    iconName: "PaperIcon",
+    rootBgColor: "#fff",
   },
-};
+}

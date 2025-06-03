@@ -12,5 +12,5 @@ export const BuckleIcon = () => {
         fill="#88D0EC"
       />
     </svg>
-  );
-};
+  )
+}

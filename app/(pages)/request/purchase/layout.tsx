@@ -1,12 +1,12 @@
-import { ReactNode } from 'react';
-import { PurchaseData } from './components';
+import { ReactNode } from "react"
+import { PurchaseData } from "./components"
 
 export const metadata = {
-  title: 'Purchase',
-  description: 'Purchase Data',
-};
+  title: "Purchase",
+  description: "Purchase Data",
+}
 interface PurchaseLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 const PurchaseLayout = ({ children }: PurchaseLayoutProps) => {
   return (
@@ -14,7 +14,7 @@ const PurchaseLayout = ({ children }: PurchaseLayoutProps) => {
       <PurchaseData />
       <section>{children}</section>
     </>
-  );
-};
+  )
+}
 
-export default PurchaseLayout;
+export default PurchaseLayout

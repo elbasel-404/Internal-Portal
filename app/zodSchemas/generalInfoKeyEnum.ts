@@ -1,4 +1,4 @@
-import { z } from 'zod';
-import { generalInfoKeys } from '@lib';
+import { z } from "zod"
+import { generalInfoKeys } from "@lib"
 
-export const generalInfoKeyEnum = z.enum(generalInfoKeys);
+export const generalInfoKeyEnum = z.enum(generalInfoKeys)

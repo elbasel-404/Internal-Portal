@@ -1,24 +1,24 @@
-"use server";
+"use server"
 
-import type { VacationRequest } from "@types";
-import { HolidayElementSchema, ResponseSchema } from "../../api-schemas";
-import { getDemo } from "../db/actions/getDemo";
-import { getFetchHeaders } from "./getFetchHeaders";
-import { getStoredEmployeeId } from "@auth";
+import type { VacationRequest } from "@types"
+import { HolidayElementSchema, ResponseSchema } from "../../api-schemas"
+import { getDemo } from "../db/actions/getDemo"
+import { getFetchHeaders } from "./getFetchHeaders"
+import { getStoredEmployeeId } from "@auth"
 
 export const getVacationRequests = async (): Promise<VacationRequest[]> => {
-  const isDemo = await getDemo();
-  if (isDemo) return dummyData;
+  const isDemo = await getDemo()
+  if (isDemo) return dummyData
 
   // ! VARIABLES
   // ! ==================================
-  const employeeId = await getStoredEmployeeId();
-  const url = "api/po/hr/holidays/request";
-  const apiRootUrl = process.env.API_ROOT_URL as string;
-  const { headers } = await getFetchHeaders();
-  const requestBody = { employee_id: employeeId };
-  const requestBodyString = JSON.stringify(requestBody);
-  const requestUrl = `${apiRootUrl}/${url}`;
+  const employeeId = await getStoredEmployeeId()
+  const url = "api/po/hr/holidays/request"
+  const apiRootUrl = process.env.API_ROOT_URL as string
+  const { headers } = await getFetchHeaders()
+  const requestBody = { employee_id: employeeId }
+  const requestBodyString = JSON.stringify(requestBody)
+  const requestUrl = `${apiRootUrl}/${url}`
 
   // ! FETCH
   // ! ==================================
@@ -26,38 +26,38 @@ export const getVacationRequests = async (): Promise<VacationRequest[]> => {
     headers,
     method: "POST",
     body: requestBodyString,
-  });
-  const responseJson = await apiResponse.json();
+  })
+  const responseJson = await apiResponse.json()
 
   // ! VALIDATION
   // ! ==================================
-  const validatedResponse = ResponseSchema.safeParse(responseJson);
+  const validatedResponse = ResponseSchema.safeParse(responseJson)
   // const { result } = validatedResponse;
-  const result = validatedResponse.data?.result;
-  const data = result?.data;
-  const validatedData = HolidayElementSchema.array().safeParse(data);
+  const result = validatedResponse.data?.result
+  const data = result?.data
+  const validatedData = HolidayElementSchema.array().safeParse(data)
   const holidaysData = validatedData.data
 
   // ! PARSING
   // ! ==================================
   const returnedData: VacationRequest[] = holidaysData
     ? holidaysData.map((data) => {
-      const vacationItem: VacationRequest = {
-        id: data.id.toString(),
-        date: data.date,
-        description: data.holiday_status_id[1].toString(),
-        startDate: data.date_from,
-        endDate: data.date_to,
-        durationInDays: data.duration,
-        approvalDate: data.done_date.split(" ")[0],
-        status: data.state,
-      };
-      return vacationItem;
-    })
-    : [];
+        const vacationItem: VacationRequest = {
+          id: data.id.toString(),
+          date: data.date,
+          description: data.holiday_status_id[1].toString(),
+          startDate: data.date_from,
+          endDate: data.date_to,
+          durationInDays: data.duration,
+          approvalDate: data.done_date.split(" ")[0],
+          status: data.state,
+        }
+        return vacationItem
+      })
+    : []
 
-  return returnedData;
-};
+  return returnedData
+}
 const dummyData: VacationRequest[] = [
   {
     id: "#dummy",
@@ -66,7 +66,7 @@ const dummyData: VacationRequest[] = [
     startDate: "2024-05-01",
     endDate: "2024-05-03",
     durationInDays: 3,
-    approvalDate: '',
+    approvalDate: "",
     status: "طلب",
   },
   {
@@ -76,7 +76,7 @@ const dummyData: VacationRequest[] = [
     startDate: "2024-05-02",
     endDate: "2024-05-04",
     durationInDays: 3,
-    approvalDate: '',
+    approvalDate: "",
     status: "المدير المباشر",
   },
   {
@@ -86,7 +86,7 @@ const dummyData: VacationRequest[] = [
     startDate: "2024-05-01",
     endDate: "2024-05-03",
     durationInDays: 3,
-    approvalDate: '',
+    approvalDate: "",
     status: "عمليات الموارد البشرية",
   },
   {
@@ -96,7 +96,7 @@ const dummyData: VacationRequest[] = [
     startDate: "2024-05-02",
     endDate: "2024-05-04",
     durationInDays: 3,
-    approvalDate: '',
+    approvalDate: "",
     status: "اعتمد",
   },
   {
@@ -106,7 +106,7 @@ const dummyData: VacationRequest[] = [
     startDate: "2024-05-01",
     endDate: "2024-05-03",
     durationInDays: 3,
-    approvalDate: '',
+    approvalDate: "",
     status: "طلب",
   },
   {
@@ -116,7 +116,7 @@ const dummyData: VacationRequest[] = [
     startDate: "2024-04-10",
     endDate: "2024-05-03",
     durationInDays: 24,
-    approvalDate: '',
+    approvalDate: "",
     status: "المدير المباشر",
   },
   {
@@ -126,7 +126,7 @@ const dummyData: VacationRequest[] = [
     startDate: "2024-05-01",
     endDate: "2024-05-03",
     durationInDays: 3,
-    approvalDate: '',
+    approvalDate: "",
     status: "عمليات الموارد البشرية",
   },
   {
@@ -136,7 +136,7 @@ const dummyData: VacationRequest[] = [
     startDate: "2024-05-02",
     endDate: "2024-05-03",
     durationInDays: 2,
-    approvalDate: '',
+    approvalDate: "",
     status: "طلب",
   },
   {
@@ -146,7 +146,7 @@ const dummyData: VacationRequest[] = [
     startDate: "2024-05-01",
     endDate: "2024-05-02",
     durationInDays: 2,
-    approvalDate: '',
+    approvalDate: "",
     status: "اعتمد",
   },
   {
@@ -156,10 +156,10 @@ const dummyData: VacationRequest[] = [
     startDate: "2024-04-29",
     endDate: "2024-05-01",
     durationInDays: 3,
-    approvalDate: '',
+    approvalDate: "",
     status: "عمليات الموارد البشرية",
   },
-];
+]
 
 // let approvalDate = j.done_date as string;
 // const typeOfApprovalData = typeof approvalDate;
