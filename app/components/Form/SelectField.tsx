@@ -1,33 +1,33 @@
-'use client';
+"use client"
 
-import { Select } from '@components';
+import { Select } from "@components"
 
 interface SelectProps {
-  types: { id: number | string; name: string; display_name?: string }[];
-  label: string;
-  name: string;
-  placeholder?: string;
-  className?: string;
-  required?: boolean;
-  value?: string;
-  onChange?: (value: string) => void;
+  types: { id: number | string; name: string; display_name?: string }[]
+  label: string
+  name: string
+  placeholder?: string
+  className?: string
+  required?: boolean
+  value?: string
+  onChange?: (value: string) => void
 }
 
 export const SelectField = ({
   types,
   label,
   name,
-  placeholder = 'اختر النوع',
+  placeholder = "اختر النوع",
   required = false,
   className,
   value,
   onChange,
 }: SelectProps) => {
   return (
-    <div className='flex flex-col gap-1 w-full'>
-      <label className='font-medium text-foreground'>
+    <div className="flex flex-col gap-1 w-full">
+      <label className="font-medium text-foreground">
         {label}
-        {required && <span className='text-red-500'>*</span>}
+        {required && <span className="text-red-500">*</span>}
       </label>
       <Select
         name={name}
@@ -38,5 +38,5 @@ export const SelectField = ({
         className={className}
       />
     </div>
-  );
-};
+  )
+}

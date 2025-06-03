@@ -1,12 +1,12 @@
-import { ReactNode } from 'react';
-import { VacationData } from './components';
+import { ReactNode } from "react"
+import { VacationData } from "./components"
 
 export const metadata = {
-  title: 'Vacations',
-  description: 'Vacations data',
-};
+  title: "Vacations",
+  description: "Vacations data",
+}
 interface VacationsLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 const VacationsLayout = ({ children }: VacationsLayoutProps) => {
   return (
@@ -14,7 +14,7 @@ const VacationsLayout = ({ children }: VacationsLayoutProps) => {
       <VacationData />
       {children}
     </>
-  );
-};
+  )
+}
 
-export default VacationsLayout;
+export default VacationsLayout

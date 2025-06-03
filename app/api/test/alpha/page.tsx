@@ -6,7 +6,7 @@ const TestAlphaPage = async () => {
     <main>
       <h1>Test Alpha Page</h1>
     </main>
-  );
-};
+  )
+}
 
-export default TestAlphaPage;
+export default TestAlphaPage

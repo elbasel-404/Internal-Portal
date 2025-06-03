@@ -1,2 +1,2 @@
-export type { User } from './User';
-export type { DatabaseData } from './DatabaseData';
+export type { User } from "./User"
+export type { DatabaseData } from "./DatabaseData"

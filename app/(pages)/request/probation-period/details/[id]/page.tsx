@@ -1,23 +1,23 @@
-import { RequestDetails, RequestStatus } from '@components';
-import { getProbationPeriodDetails, getRequestStatus } from '@server';
-import { RequestHeader } from '@types';
-import { ProbationPeriodCriteria } from '../../components';
+import { RequestDetails, RequestStatus } from "@components"
+import { getProbationPeriodDetails, getRequestStatus } from "@server"
+import { RequestHeader } from "@types"
+import { ProbationPeriodCriteria } from "../../components"
 
 // !  // !It will be used when id passed to endpoint for integration
-type Params = Promise<{ id: string }>;
+type Params = Promise<{ id: string }>
 
 interface ProbationPeriodDetailsPageProps {
-  params: Params;
+  params: Params
 }
 
 const ProbationPeriodDetailsPage = async ({
   params,
 }: ProbationPeriodDetailsPageProps) => {
   // !  // !It will be used when id passed to endpoint for integration
-  const { id } = await params;
-  const requestStatus = await getRequestStatus();
+  const { id } = await params
+  const requestStatus = await getRequestStatus()
   const requestCaption =
-    'انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر';
+    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const {
     employeeName,
     jobNumber,
@@ -29,55 +29,59 @@ const ProbationPeriodDetailsPage = async ({
     notes,
     attachments,
     probationLineIds,
-  } = (await getProbationPeriodDetails(id)) || {};
+  } = (await getProbationPeriodDetails(id)) || {}
 
   const requestHeaders: RequestHeader[] = [
     {
-      label: 'اسم الموظف',
+      label: "اسم الموظف",
       value: employeeName,
     },
     {
-      label: 'الرقم الوظيفى',
+      label: "الرقم الوظيفى",
       value: jobNumber,
     },
     {
-      label: 'المسمى الوظيفى',
+      label: "المسمى الوظيفى",
       value: jobTitle,
     },
     {
-      label: 'الإدارة/القطاع',
+      label: "الإدارة/القطاع",
       value: management,
     },
     {
-      label: 'تاريخ التعيين',
+      label: "تاريخ التعيين",
       value: appointmentDate,
     },
     {
-      label: 'تاريخ إنتهاء فترة التجربة',
+      label: "تاريخ إنتهاء فترة التجربة",
       value: endProbationPeriodDate,
     },
     {
-      label: 'التوصية',
+      label: "التوصية",
       value: recommendation,
     },
     {
-      label: 'ملاحظات',
+      label: "ملاحظات",
       value: notes,
     },
     {
-      label: 'المرفقات',
+      label: "المرفقات",
       value: attachments,
     },
-  ];
+  ]
   return (
     <main>
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails
         headers={requestHeaders}
-        evaluationCriteria={<ProbationPeriodCriteria probationCriteriaData={probationLineIds ?? []} />}
+        evaluationCriteria={
+          <ProbationPeriodCriteria
+            probationCriteriaData={probationLineIds ?? []}
+          />
+        }
       />
     </main>
-  );
-};
+  )
+}
 
-export default ProbationPeriodDetailsPage;
+export default ProbationPeriodDetailsPage

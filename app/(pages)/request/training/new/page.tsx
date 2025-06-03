@@ -1,25 +1,25 @@
-import { RequestStatus } from '@components';
-import { getUser } from '@db/actions';
-import { getRequestStatus, getUserId } from '@server';
-import { TrainingForm } from '../components';
+import { RequestStatus } from "@components"
+import { getUser } from "@db/actions"
+import { getRequestStatus, getUserId } from "@server"
+import { TrainingForm } from "../components"
 
 const NewTrainingPage = async () => {
-  const userId = await getUserId();
+  const userId = await getUserId()
   if (!userId) {
     throw new Error(
-      'Invalid User Id (app/(pages)/request/training/new/page.tsx)'
-    );
+      "Invalid User Id (app/(pages)/request/training/new/page.tsx)",
+    )
   }
-  const { trainingCourses } = await getUser(userId);
-  const requestStatus = await getRequestStatus();
+  const { trainingCourses } = await getUser(userId)
+  const requestStatus = await getRequestStatus()
   const requestCaption =
-    'انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر';
+    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   return (
-    <div className='space-y-4 mb-16'>
+    <div className="space-y-4 mb-16">
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <TrainingForm trainingCourses={trainingCourses} />
     </div>
-  );
-};
+  )
+}
 
-export default NewTrainingPage;
+export default NewTrainingPage

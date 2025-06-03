@@ -1,4 +1,4 @@
-'use client';
+"use client"
 
 import {
   costsAtom,
@@ -7,22 +7,22 @@ import {
   durationAtom,
   purchaseTypeAtom,
   requestOutputsAtom,
-} from '@atoms';
+} from "@atoms"
 import {
   DateField,
   InputField,
   SelectField,
   TextareaField,
-} from '@components/form';
-import { RiyalCurrencyIcon } from '@icons';
-import { useAtom } from 'jotai';
-import { ChangeEvent, useEffect } from 'react';
+} from "@components/form"
+import { RiyalCurrencyIcon } from "@icons"
+import { useAtom } from "jotai"
+import { ChangeEvent, useEffect } from "react"
 
 export const ProjectDetailsSection = () => {
-  const [purchaseType] = useAtom(purchaseTypeAtom);
+  const [purchaseType] = useAtom(purchaseTypeAtom)
   return (
-    <div className='space-y-6'>
-      {purchaseType !== 'directPayment' ? (
+    <div className="space-y-6">
+      {purchaseType !== "directPayment" ? (
         <>
           <RequestOutputsField />
           <PlanSelectionGroup />
@@ -33,132 +33,132 @@ export const ProjectDetailsSection = () => {
       )}
       <CostsField />
     </div>
-  );
-};
+  )
+}
 
 const RequestOutputsField = () => {
-  const [requestOutputs, setRequestOutputs] = useAtom(requestOutputsAtom);
+  const [requestOutputs, setRequestOutputs] = useAtom(requestOutputsAtom)
 
   return (
     <TextareaField
-      label='مخرجات الطلب'
-      name='request_outputs'
-      placeholder='مخرجات الطلب'
+      label="مخرجات الطلب"
+      name="request_outputs"
+      placeholder="مخرجات الطلب"
       value={requestOutputs}
       onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
         setRequestOutputs(e.target.value)
       }
       required
     />
-  );
-};
+  )
+}
 
 const PlanSelectionGroup = () => {
   return (
     <>
-      <div className='grid grid-cols-1 sm:grid-cols-2 gap-2'>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
         <SelectField
-          label='نوع الخطة'
-          name='planType'
-          placeholder='اختر نوع الخطة'
+          label="نوع الخطة"
+          name="planType"
+          placeholder="اختر نوع الخطة"
           types={[]}
         />
         <SelectField
-          label='اسم (المبادرة/البرنامج)'
-          name='programName'
-          placeholder='اختر اسم المبادرة/البرنامج'
+          label="اسم (المبادرة/البرنامج)"
+          name="programName"
+          placeholder="اختر اسم المبادرة/البرنامج"
           types={[]}
         />
       </div>
 
       <SelectField
-        label='اسم المشروع'
-        name='projectName'
-        placeholder='اختر اسم المشروع'
+        label="اسم المشروع"
+        name="projectName"
+        placeholder="اختر اسم المشروع"
         types={[]}
       />
     </>
-  );
-};
+  )
+}
 
 const ProjectDatesGroup = () => {
-  const [dateFrom, setDateFrom] = useAtom(dateFromAtom);
-  const [dateTo, setDateTo] = useAtom(dateToAtom);
-  const [duration] = useAtom(durationAtom);
+  const [dateFrom, setDateFrom] = useAtom(dateFromAtom)
+  const [dateTo, setDateTo] = useAtom(dateToAtom)
+  const [duration] = useAtom(durationAtom)
 
   return (
-    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-0'>
-      <div className='space-y-2'>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-0">
+      <div className="space-y-2">
         <DateField
           required
-          label='تاريخ بداية المشروع المتوقع'
-          name='date_from'
+          label="تاريخ بداية المشروع المتوقع"
+          name="date_from"
           date={dateFrom}
           onChange={(date) => setDateFrom(date || new Date())}
         />
       </div>
-      <div className='space-y-2'>
+      <div className="space-y-2">
         <DateField
           required
-          label='تاريخ نهاية المشروع المتوقع'
-          name='date_to'
+          label="تاريخ نهاية المشروع المتوقع"
+          name="date_to"
           date={dateTo}
           onChange={(date) => setDateTo(date || new Date())}
         />
       </div>
-      <div className='space-y-2'>
+      <div className="space-y-2">
         <InputField
-          label='مدة المشروع'
-          name='duration'
+          label="مدة المشروع"
+          name="duration"
           disabled
           value={duration}
-          placeholder=''
+          placeholder=""
         />
       </div>
     </div>
-  );
-};
+  )
+}
 const BatchGroup = () => {
   return (
     <>
       <SelectField
-        label='نوع الدفعة'
-        name='BatchType'
-        placeholder='اختر نوع الدفعة'
+        label="نوع الدفعة"
+        name="BatchType"
+        placeholder="اختر نوع الدفعة"
         types={[]}
       />
       <SelectField
-        label='اسم المورد'
-        name='resourceName'
-        placeholder='اختر اسم المورد'
+        label="اسم المورد"
+        name="resourceName"
+        placeholder="اختر اسم المورد"
         types={[]}
       />
     </>
-  );
-};
+  )
+}
 
 const CostsField = () => {
-  const [costs, setCosts] = useAtom(costsAtom);
-  const [purchaseType] = useAtom(purchaseTypeAtom);
+  const [costs, setCosts] = useAtom(costsAtom)
+  const [purchaseType] = useAtom(purchaseTypeAtom)
 
   useEffect(() => {
-    if (purchaseType !== 'directPayment') {
-      setCosts(0);
+    if (purchaseType !== "directPayment") {
+      setCosts(0)
     }
-  }, [purchaseType]);
+  }, [purchaseType])
 
   return (
     <InputField
-      label='التكاليف'
-      name='costs'
-      placeholder=''
+      label="التكاليف"
+      name="costs"
+      placeholder=""
       value={costs}
       onChange={(e: ChangeEvent<HTMLInputElement>) =>
         setCosts(Number(e.target.value))
       }
       required
-      disabled={purchaseType === 'directPayment'}
+      disabled={purchaseType === "directPayment"}
       icon={<RiyalCurrencyIcon />}
     />
-  );
-};
+  )
+}

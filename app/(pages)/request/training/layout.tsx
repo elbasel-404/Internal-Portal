@@ -1,12 +1,12 @@
-import { ReactNode } from 'react';
-import { TrainingData } from './components';
+import { ReactNode } from "react"
+import { TrainingData } from "./components"
 
 export const metadata = {
-  title: 'Training',
-  description: 'Training Data',
-};
+  title: "Training",
+  description: "Training Data",
+}
 interface TrainingLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 const TrainingLayout = ({ children }: TrainingLayoutProps) => {
   return (
@@ -14,7 +14,7 @@ const TrainingLayout = ({ children }: TrainingLayoutProps) => {
       <TrainingData />
       <section>{children}</section>
     </>
-  );
-};
+  )
+}
 
-export default TrainingLayout;
+export default TrainingLayout

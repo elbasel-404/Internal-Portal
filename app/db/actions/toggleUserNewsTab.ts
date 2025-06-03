@@ -7,40 +7,40 @@
  * @param {boolean} [args.active] - The desired active state of the news tab. If not provided, the active state will be toggled.
  * @returns {Promise<{ success: boolean; errors: null }>} - An object indicating the success of the operation and any errors.
  */
-import { NewsTabsKey } from '@types';
-import { getUserIndex } from './getUserIndex';
-import { db } from '../db';
-import { getAllUsers } from './getAllUsers';
+import { NewsTabsKey } from "@types"
+import { getUserIndex } from "./getUserIndex"
+import { db } from "../db"
+import { getAllUsers } from "./getAllUsers"
 
 type Args = {
-  key: NewsTabsKey;
-  userId: number;
-  active?: boolean;
-};
+  key: NewsTabsKey
+  userId: number
+  active?: boolean
+}
 
 export const toggleUserNewsTab = async ({ key, userId, active }: Args) => {
-  const userIndex = await getUserIndex(userId);
-  const allUsers = await getAllUsers();
-  const user = allUsers[userIndex];
-  const currentActiveNewsTabsKeys = user.activeNewsTabsKeys;
-  const isAlreadyActive = currentActiveNewsTabsKeys.includes(key);
+  const userIndex = await getUserIndex(userId)
+  const allUsers = await getAllUsers()
+  const user = allUsers[userIndex]
+  const currentActiveNewsTabsKeys = user.activeNewsTabsKeys
+  const isAlreadyActive = currentActiveNewsTabsKeys.includes(key)
 
   if (active === undefined) {
-    active = !isAlreadyActive;
+    active = !isAlreadyActive
   }
 
   if (active && !isAlreadyActive) {
-    currentActiveNewsTabsKeys.push(key);
+    currentActiveNewsTabsKeys.push(key)
   } else if (!active && isAlreadyActive) {
     const newActiveNewsTabsKeys = currentActiveNewsTabsKeys.filter(
-      (k) => k !== key
-    );
-    db.data.users[userIndex].activeNewsTabsKeys = newActiveNewsTabsKeys;
+      (k) => k !== key,
+    )
+    db.data.users[userIndex].activeNewsTabsKeys = newActiveNewsTabsKeys
   }
 
-  await db.write();
+  await db.write()
   return {
     success: true,
     errors: null,
-  };
-};
+  }
+}

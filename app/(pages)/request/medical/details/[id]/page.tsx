@@ -1,21 +1,21 @@
-import { RequestDetails, RequestStatus } from '@components';
-import { getMedicalInsuranceDetails, getRequestStatus } from '@server';
-import { RequestHeader } from '@types';
+import { RequestDetails, RequestStatus } from "@components"
+import { getMedicalInsuranceDetails, getRequestStatus } from "@server"
+import { RequestHeader } from "@types"
 
-type Params = Promise<{ id: string }>;
+type Params = Promise<{ id: string }>
 
 interface MedicalInsuranceDetailsPageProps {
-  params: Params;
+  params: Params
 }
 
 const MedicalInsuranceDetailsPage = async ({
   params,
 }: MedicalInsuranceDetailsPageProps) => {
-  const { id } = await params;
-  const model = 'hr.medical.insurance';
-  const requestStatus = await getRequestStatus(id, model);
+  const { id } = await params
+  const model = "hr.medical.insurance"
+  const requestStatus = await getRequestStatus(id, model)
   const requestCaption =
-    'انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر';
+    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const {
     requestDate,
     requestType,
@@ -29,68 +29,68 @@ const MedicalInsuranceDetailsPage = async ({
     insuranceStartDate,
     insuranceEndDate,
     attachments,
-  } = (await getMedicalInsuranceDetails(id)) || {};
+  } = (await getMedicalInsuranceDetails(id)) || {}
 
   const requestHeaders: RequestHeader[] = [
     {
-      label: 'رقم الطلب',
+      label: "رقم الطلب",
       value: id,
     },
     {
-      label: 'تاريخ الطلب',
+      label: "تاريخ الطلب",
       value: requestDate,
     },
     {
-      label: 'نوع الطلب',
+      label: "نوع الطلب",
       value: requestType,
     },
     {
-      label: 'صلة القرابة',
+      label: "صلة القرابة",
       value: relationType,
     },
     {
-      label: 'الاسم الكامل للفرد بالعربية',
+      label: "الاسم الكامل للفرد بالعربية",
       value: nameAR,
     },
     {
-      label: 'الاسم الكامل للفرد بالانجليزية',
+      label: "الاسم الكامل للفرد بالانجليزية",
       value: nameEN,
     },
     {
-      label: 'بوليصة التأمين',
+      label: "بوليصة التأمين",
       value: insurancePolicy,
     },
     {
-      label: 'فئة التأمين',
+      label: "فئة التأمين",
       value: insuranceCategory,
     },
     {
-      label: 'قيمة التأمين',
+      label: "قيمة التأمين",
       value: insuranceValue,
     },
     {
-      label: 'التغطية',
+      label: "التغطية",
       value: coverage,
     },
     {
-      label: 'تاريخ بداية التأمين',
+      label: "تاريخ بداية التأمين",
       value: insuranceStartDate,
     },
     {
-      label: 'تاريخ انتهاء التأمين',
+      label: "تاريخ انتهاء التأمين",
       value: insuranceEndDate,
     },
     {
-      label: 'المرفقات',
+      label: "المرفقات",
       value: attachments,
     },
-  ];
+  ]
   return (
     <main>
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails headers={requestHeaders} />
     </main>
-  );
-};
+  )
+}
 
-export default MedicalInsuranceDetailsPage;
+export default MedicalInsuranceDetailsPage

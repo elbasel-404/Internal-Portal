@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod"
 
 export const BatchSchema = z.object({
   batchNumber: z.string(),
@@ -6,4 +6,4 @@ export const BatchSchema = z.object({
   // paymentDate: z.string().optional(),
   // notes: z.string().optional(),
   // attachments: z.array(z.number()).optional(),
-});
+})

@@ -1,12 +1,12 @@
-'use server';
+"use server"
 
-import { generalInfoKeyEnum } from '@zodSchemas';
+import { generalInfoKeyEnum } from "@zodSchemas"
 
 export const validateGeneralInfoKey = async (key: string) => {
-  const keyValidation = generalInfoKeyEnum.safeParse(key);
+  const keyValidation = generalInfoKeyEnum.safeParse(key)
   if (!keyValidation.success) {
-    console.error('Invalid general info key: ', key);
-    return null;
+    console.error("Invalid general info key: ", key)
+    return null
   }
-  return keyValidation.data;
-};
+  return keyValidation.data
+}

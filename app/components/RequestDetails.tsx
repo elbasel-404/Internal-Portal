@@ -1,7 +1,7 @@
-import { PdfFileIcon, PrinterIcon, TrashIcon } from "@icons";
-import { CheckboxField } from "@components/form";
-import { colors } from "@lib";
-import type { RequestHeader } from "@types";
+import { PdfFileIcon, PrinterIcon, TrashIcon } from "@icons"
+import { CheckboxField } from "@components/form"
+import { colors } from "@lib"
+import type { RequestHeader } from "@types"
 import {
   Button,
   TableBody,
@@ -10,36 +10,36 @@ import {
   TableHeader,
   TableRow,
   Table as UITable,
-} from "@ui";
-import { cn } from "@utils";
-import { ReactNode } from "react";
+} from "@ui"
+import { cn } from "@utils"
+import { ReactNode } from "react"
 
 interface RequestDetailsProps {
-  headers: RequestHeader[];
-  evaluationCriteria?: ReactNode;
-  requestDetailsLabel?: string;
+  headers: RequestHeader[]
+  evaluationCriteria?: ReactNode
+  requestDetailsLabel?: string
 }
 
 type AttachmentList = {
-  label: "المرفقات";
-  value: File[];
-};
+  label: "المرفقات"
+  value: File[]
+}
 
 export const RequestDetails = ({
   headers,
   evaluationCriteria,
   requestDetailsLabel = "تفاصيل الطلب",
 }: RequestDetailsProps) => {
-  const attachmentHeader = headers.find(({ label }) => label === "المرفقات");
+  const attachmentHeader = headers.find(({ label }) => label === "المرفقات")
   const covenantRequestNumber = headers.find(
-    ({ label }) => label === "رقم طلب العهدة"
-  );
+    ({ label }) => label === "رقم طلب العهدة",
+  )
   const attachmentList: AttachmentList | undefined =
     attachmentHeader && Array.isArray(attachmentHeader.value)
       ? { label: "المرفقات", value: attachmentHeader.value }
-      : undefined;
+      : undefined
 
-  const notesHeaders = ["ملاحظات", "المهام التي سيتم العمل عليها"];
+  const notesHeaders = ["ملاحظات", "المهام التي سيتم العمل عليها"]
 
   const labelValue = (value: ReactNode | boolean, key?: string) => {
     if (typeof value === "string") {
@@ -48,8 +48,8 @@ export const RequestDetails = ({
           className="font-medium mx-3 text-darkBlue"
           dangerouslySetInnerHTML={{ __html: value }}
         />
-      );
-    }  else if (typeof value === "boolean") {
+      )
+    } else if (typeof value === "boolean") {
       return (
         <div className="font-medium mx-3 text-darkBlue">
           <CheckboxField
@@ -60,9 +60,9 @@ export const RequestDetails = ({
             disabled
           />
         </div>
-      );
+      )
     }
-  };
+  }
 
   return (
     <section className="bg-white rounded-lg py-8 px-4 mt-6">
@@ -72,10 +72,11 @@ export const RequestDetails = ({
           : requestDetailsLabel}
       </h1>
       <div>
-        {headers .filter(({ value }) => !Array.isArray(value)).map(
-          ({ label, value, key, tableHeaders }: RequestHeader, index) => {
-            const isEven = index % 2 === 0;
-            const isNotes = notesHeaders.includes(label);
+        {headers
+          .filter(({ value }) => !Array.isArray(value))
+          .map(({ label, value, key, tableHeaders }: RequestHeader, index) => {
+            const isEven = index % 2 === 0
+            const isNotes = notesHeaders.includes(label)
 
             return (
               <div key={index}>
@@ -89,7 +90,7 @@ export const RequestDetails = ({
                   className={cn(
                     "py-[22px] flex flex-col md:flex-row items-center",
                     isEven && "bg-grey-50",
-                    isNotes && "flex-col"
+                    isNotes && "flex-col",
                   )}
                 >
                   <div className="mx-3 md:basis-1/4 md:flex-1 md:max-w-[15%]">
@@ -98,9 +99,8 @@ export const RequestDetails = ({
                   {labelValue(value as ReactNode | boolean, key)}
                 </div>
               </div>
-            );
-          }
-        )}
+            )
+          })}
       </div>
       <div>{evaluationCriteria}</div>
       {headers
@@ -109,7 +109,7 @@ export const RequestDetails = ({
             Array.isArray(value) &&
             value.every((v) => v instanceof Object) &&
             !value.every((v) => v instanceof File)
-          );
+          )
         })
         .map(({ label, value, tableHeaders }: RequestHeader) => (
           <RequestDetailsHeader
@@ -123,11 +123,11 @@ export const RequestDetails = ({
         <AttachmentList attachmentList={attachmentList.value} />
       )}
     </section>
-  );
-};
+  )
+}
 
 interface AttachmentListProps {
-  attachmentList: File[];
+  attachmentList: File[]
 }
 const AttachmentList = ({ attachmentList }: AttachmentListProps) => {
   return (
@@ -140,8 +140,8 @@ const AttachmentList = ({ attachmentList }: AttachmentListProps) => {
           ))}
       </div>
     </>
-  );
-};
+  )
+}
 
 const FileAttachment = ({ file }: { file: File }) => {
   return (
@@ -175,18 +175,18 @@ const FileAttachment = ({ file }: { file: File }) => {
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}
 
 interface ResultItem {
-  id: string | number;
-  [key: string]: any;
+  id: string | number
+  [key: string]: any
 }
 
 interface RequestDetailsHeaderProps {
-  label: string;
-  data: ResultItem[] | ReactNode;
-  tableHeaders: { label: string; key: string }[];
+  label: string
+  data: ResultItem[] | ReactNode
+  tableHeaders: { label: string; key: string }[]
 }
 
 const RequestDetailsHeader = ({
@@ -235,5 +235,5 @@ const RequestDetailsHeader = ({
         </UITable>
       </div>
     </>
-  );
-};
+  )
+}

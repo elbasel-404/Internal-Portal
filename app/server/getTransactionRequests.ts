@@ -1,26 +1,26 @@
-"use server";
+"use server"
 
-import { ResponseSchema, TransactionListElementSchema } from "@api/schemas";
-import { getDemo } from "@db/actions";
-import type { TransactionRequest } from "@types";
-import { getFetchHeaders } from "./getFetchHeaders";
-import { getStoredEmployeeId } from "@auth";
+import { ResponseSchema, TransactionListElementSchema } from "@api/schemas"
+import { getDemo } from "@db/actions"
+import type { TransactionRequest } from "@types"
+import { getFetchHeaders } from "./getFetchHeaders"
+import { getStoredEmployeeId } from "@auth"
 
 export const getTransactionRequests = async (): Promise<
   TransactionRequest[]
 > => {
-  const isDemo = await getDemo();
-  if (isDemo) return dummyData;
+  const isDemo = await getDemo()
+  if (isDemo) return dummyData
 
   // ! VARIABLES
   // ! ======>============================
-  const employeeId = await getStoredEmployeeId();
-  const url = "api/po/read/retrieve-my-requests";
-  const apiRootUrl = process.env.API_ROOT_URL as string;
-  const { headers } = await getFetchHeaders();
-  const requestBody = { employee_id: employeeId };
-  const requestBodyString = JSON.stringify(requestBody);
-  const requestUrl = `${apiRootUrl}/${url}`;
+  const employeeId = await getStoredEmployeeId()
+  const url = "api/po/read/retrieve-my-requests"
+  const apiRootUrl = process.env.API_ROOT_URL as string
+  const { headers } = await getFetchHeaders()
+  const requestBody = { employee_id: employeeId }
+  const requestBodyString = JSON.stringify(requestBody)
+  const requestUrl = `${apiRootUrl}/${url}`
 
   // ! FETCH
   // ! ==================================
@@ -28,32 +28,34 @@ export const getTransactionRequests = async (): Promise<
     headers,
     method: "POST",
     body: requestBodyString,
-  });
-  const responseJson = await apiResponse.json();
+  })
+  const responseJson = await apiResponse.json()
 
   // ! VALIDATION
   // ! ==================================
-  const validatedResponse = ResponseSchema.safeParse(responseJson);
+  const validatedResponse = ResponseSchema.safeParse(responseJson)
   // const { result } = validatedResponse;
-  const result = validatedResponse.data?.result;
-  const data = result?.data;
+  const result = validatedResponse.data?.result
+  const data = result?.data
   console.log("typeof ", typeof data?.[0].name)
-  const validatedData = TransactionListElementSchema.array().safeParse(data);
-  const transactionData = validatedData.data;
+  const validatedData = TransactionListElementSchema.array().safeParse(data)
+  const transactionData = validatedData.data
 
   // ! PARSING
   // ! ==================================
-  const returnedData: TransactionRequest[] = (transactionData ?? []).map((data) => {
-    const transactionItem: TransactionRequest = {
-      id: data.id.toString(),
-      date: data.date ?? "",
-      name: data.name ?? "",
-      status: data.state ?? "",
-    };
-    return transactionItem;
-  });
-  return returnedData;
-};
+  const returnedData: TransactionRequest[] = (transactionData ?? []).map(
+    (data) => {
+      const transactionItem: TransactionRequest = {
+        id: data.id.toString(),
+        date: data.date ?? "",
+        name: data.name ?? "",
+        status: data.state ?? "",
+      }
+      return transactionItem
+    },
+  )
+  return returnedData
+}
 
 const dummyData: TransactionRequest[] = [
   {
@@ -176,4 +178,4 @@ const dummyData: TransactionRequest[] = [
     date: "2024-05-03",
     status: "مرفوض",
   },
-];
+]

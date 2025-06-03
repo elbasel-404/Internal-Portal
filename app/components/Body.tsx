@@ -6,17 +6,17 @@ import {
   Main,
   NavBar,
   RegisterChartJSPlugins,
-} from "@components";
-import { AppProvider } from "@components/providers";
-import { Toaster } from "@ui";
-import { type ReactNode } from "react";
-import { Preferences } from "./Preferences";
-import { ValidatePath } from "./ValidatePath";
-import { ToggleDemo } from "./ToggleDemo";
+} from "@components"
+import { AppProvider } from "@components/providers"
+import { Toaster } from "@ui"
+import { type ReactNode } from "react"
+import { Preferences } from "./Preferences"
+import { ValidatePath } from "./ValidatePath"
+import { ToggleDemo } from "./ToggleDemo"
 
 interface BodyProps {
-  children: ReactNode;
-  className?: string;
+  children: ReactNode
+  className?: string
 }
 
 export const Body = ({ children, className }: BodyProps) => {
@@ -36,5 +36,5 @@ export const Body = ({ children, className }: BodyProps) => {
         <ToggleDemo />
       </AppProvider>
     </body>
-  );
-};
+  )
+}

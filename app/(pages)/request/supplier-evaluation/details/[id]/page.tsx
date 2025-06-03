@@ -1,32 +1,32 @@
 import {
   EvaluationCriteriaTable,
   EvaluationResultTable,
-} from "../../components";
-import { RequestDetails, RequestStatus, Instructions } from "@components";
+} from "../../components"
+import { RequestDetails, RequestStatus, Instructions } from "@components"
 import {
   getRequestStatus,
   getSupplierEvaluationRequestDetails,
   getSupplierEvaluationRequestCriteria,
-} from "@server";
+} from "@server"
 import {
   RequestHeader,
   SupplierEvaluationCriterionResult,
   SupplierKPI,
-} from "@types";
+} from "@types"
 
-type Params = Promise<{ id: string }>;
+type Params = Promise<{ id: string }>
 
 interface SupplierEvaluationDetailsPageProps {
-  params: Params;
+  params: Params
 }
 
 const SupplierEvaluationDetailsPage = async ({
   params,
 }: SupplierEvaluationDetailsPageProps) => {
-  const { id } = await params;
-  const requestStatus = await getRequestStatus();
+  const { id } = await params
+  const requestStatus = await getRequestStatus()
   const requestCaption =
-    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر";
+    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const {
     requestDate,
     contract,
@@ -43,13 +43,13 @@ const SupplierEvaluationDetailsPage = async ({
     confirmationContractNumber,
     status,
     reason,
-  } = (await getSupplierEvaluationRequestDetails(id)) || {};
+  } = (await getSupplierEvaluationRequestDetails(id)) || {}
 
   const evaluationCriteriaData =
-    (await getSupplierEvaluationRequestCriteria(id)) || [];
+    (await getSupplierEvaluationRequestCriteria(id)) || []
 
   const displayReason =
-    status === "مرفوض" || status === "إعتماد" ? reason : null;
+    status === "مرفوض" || status === "إعتماد" ? reason : null
 
   const requestHeaders: RequestHeader[] = [
     {
@@ -108,31 +108,40 @@ const SupplierEvaluationDetailsPage = async ({
       label: "رقم العقد من الاعتماد",
       value: confirmationContractNumber,
     },
-     ...(displayReason
+    ...(displayReason
       ? [
           {
-            label: (status === "مرفوض" ? "سبب الرفض" : "إعتماد") as RequestHeader["label"],
+            label: (status === "مرفوض"
+              ? "سبب الرفض"
+              : "إعتماد") as RequestHeader["label"],
             value: reason,
           },
         ]
       : []),
-  ];
+  ]
 
   const evaluationResultData: SupplierEvaluationCriterionResult[] =
     evaluationCriteriaData?.map((item) => {
       const totalPointsValue = item.kpis.reduce((sum, kpi) => {
-        return sum + parseFloat(kpi.pointsValue);
-      }, 0);
-      const evaluationPoints = (totalPointsValue / item.kpis.length).toFixed(2).toString();
-      const totalPoints = ((parseFloat(item.weight) * parseFloat(evaluationPoints)) / 100).toFixed(2).toString();
+        return sum + parseFloat(kpi.pointsValue)
+      }, 0)
+      const evaluationPoints = (totalPointsValue / item.kpis.length)
+        .toFixed(2)
+        .toString()
+      const totalPoints = (
+        (parseFloat(item.weight) * parseFloat(evaluationPoints)) /
+        100
+      )
+        .toFixed(2)
+        .toString()
       return {
         id: item.id,
         name: item.name,
         weight: item.weight,
         evaluationPoints,
         totalPoints,
-      };
-    }) || [];
+      }
+    }) || []
 
   const CriteriaStatistics: SupplierKPI = {
     id: "0000",
@@ -141,7 +150,7 @@ const SupplierEvaluationDetailsPage = async ({
     pointsValue: "",
     evaluationPoints: ["90-100", "70-89", "50-69"],
     notes: "لا يوجد",
-  };
+  }
 
   return (
     <main>
@@ -157,7 +166,7 @@ const SupplierEvaluationDetailsPage = async ({
         description="تتيح هذه الخدمة للموظف امكانية الاطلاع علي تفاصيل طلب تقييم أداء المتعاقدين.."
       />
     </main>
-  );
-};
+  )
+}
 
-export default SupplierEvaluationDetailsPage;
+export default SupplierEvaluationDetailsPage

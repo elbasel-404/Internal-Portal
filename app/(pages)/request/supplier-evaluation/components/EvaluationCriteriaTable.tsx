@@ -1,18 +1,15 @@
-"use client";
+"use client"
 
-import { SupplierKPI, SupplierEvaluationCriterion } from "@types";
-import { PrinterIcon } from "@icons";
-import {
-  Button,
-  PieChartElem,
-} from "@ui";
-import { colors } from "@lib";
-import { EvaluationCriteriaItems } from "./EvaluationCriteriaItems";
+import { SupplierKPI, SupplierEvaluationCriterion } from "@types"
+import { PrinterIcon } from "@icons"
+import { Button, PieChartElem } from "@ui"
+import { colors } from "@lib"
+import { EvaluationCriteriaItems } from "./EvaluationCriteriaItems"
 
 interface SupplierEvaluationCriterionResultProps {
-  data: SupplierKPI;
-  evaluationCriteriaData: SupplierEvaluationCriterion[];
-  isForm?: boolean;
+  data: SupplierKPI
+  evaluationCriteriaData: SupplierEvaluationCriterion[]
+  isForm?: boolean
 }
 
 const tableHeaders = [
@@ -21,15 +18,16 @@ const tableHeaders = [
   { label: "نقاط المورد" },
   { label: "نقاط التقييم" },
   { label: "ملاحظات" },
-];
+]
 
 export const EvaluationCriteriaTable = ({
   data,
   evaluationCriteriaData,
   isForm,
 }: SupplierEvaluationCriterionResultProps) => {
-
-  const evaluationPoints = data.evaluationPoints.map((item) => parseInt(item.split("-")[0]));
+  const evaluationPoints = data.evaluationPoints.map((item) =>
+    parseInt(item.split("-")[0]),
+  )
 
   const chartContainers = [
     {
@@ -98,7 +96,7 @@ export const EvaluationCriteriaTable = ({
         },
       },
     },
-  ];
+  ]
 
   return (
     <>
@@ -113,16 +111,16 @@ export const EvaluationCriteriaTable = ({
           </div>
         </div>
         <div>
-            <div className="bg-cloudGray flex">
-              {tableHeaders.map((col, index) => (
-                <div
-                  key={index}
-                  className="text-darkBlue text-lg w-1/5 py-4 text-center"
-                >
-                  {col.label}
-                </div>
-              ))}
-            </div>
+          <div className="bg-cloudGray flex">
+            {tableHeaders.map((col, index) => (
+              <div
+                key={index}
+                className="text-darkBlue text-lg w-1/5 py-4 text-center"
+              >
+                {col.label}
+              </div>
+            ))}
+          </div>
           <div>
             {
               <div className={"bg-white flex text-center items-center"}>
@@ -137,7 +135,10 @@ export const EvaluationCriteriaTable = ({
                       <div key={key} className="w-1/5">
                         <div className="flex">
                           {chartContainers.map((item, index) => (
-                            <div className={`${item.className} w-1/3 flex items-center justify-center`} key={`${key}-${index}`}>
+                            <div
+                              className={`${item.className} w-1/3 flex items-center justify-center`}
+                              key={`${key}-${index}`}
+                            >
                               <PieChartElem
                                 size={2}
                                 thickness={8}
@@ -154,14 +155,17 @@ export const EvaluationCriteriaTable = ({
                           ))}
                         </div>
                       </div>
-                    )
+                    ),
                   )}
               </div>
             }
           </div>
         </div>
-        <EvaluationCriteriaItems data={evaluationCriteriaData} isForm={isForm}/>
+        <EvaluationCriteriaItems
+          data={evaluationCriteriaData}
+          isForm={isForm}
+        />
       </div>
     </>
-  );
-};
+  )
+}

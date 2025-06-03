@@ -1,7 +1,7 @@
 export type NewsFamily = {
-  id: number;
-  title: string;
-  date: string;
-  image: string;
-  description: string;
-};
+  id: number
+  title: string
+  date: string
+  image: string
+  description: string
+}

@@ -1,19 +1,19 @@
-import { BookmarkIcon, ClockIcon } from "@icons";
-import Image from "next/image";
+import { BookmarkIcon, ClockIcon } from "@icons"
+import Image from "next/image"
 
 type MonshaatItem = {
-  id: number;
-  title: string;
-  date: string;
-  image: string;
-};
+  id: number
+  title: string
+  date: string
+  image: string
+}
 
 type MonshaatDataProps = {
-  monshaatData: MonshaatItem[];
-};
+  monshaatData: MonshaatItem[]
+}
 
 export const MonshaatGrid = ({ monshaatData }: MonshaatDataProps) => {
-  const neededData = monshaatData.slice(0, 3);
+  const neededData = monshaatData.slice(0, 3)
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-4">
       {neededData.map((n) => (
@@ -56,5 +56,5 @@ export const MonshaatGrid = ({ monshaatData }: MonshaatDataProps) => {
         </div>
       ))}
     </div>
-  );
-};
+  )
+}

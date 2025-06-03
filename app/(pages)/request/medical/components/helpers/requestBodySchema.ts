@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod"
 
 export const requestBodySchema = z.object({
   employee_id: z.string(),
@@ -7,4 +7,4 @@ export const requestBodySchema = z.object({
   relative_relation: z.string(),
   individual_english_name: z.string().optional(),
   attachment_ids: z.instanceof(File).or(z.string()),
-});
+})

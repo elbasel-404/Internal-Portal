@@ -1,16 +1,16 @@
-import { Checkbox } from '@ui';
+import { Checkbox } from "@ui"
 
 interface CheckboxFieldProps {
-  label?: string;
-  name: string;
-  className?: string;
-  labelStyle?: string;
-  checkboxStyle?: string;
-  required?: boolean;
-  checked?: boolean;
-  onChange?: (checked: boolean) => void;
-  hideLabel?: boolean;
-  disabled?: boolean;
+  label?: string
+  name: string
+  className?: string
+  labelStyle?: string
+  checkboxStyle?: string
+  required?: boolean
+  checked?: boolean
+  onChange?: (checked: boolean) => void
+  hideLabel?: boolean
+  disabled?: boolean
 }
 
 export const CheckboxField = ({
@@ -30,7 +30,7 @@ export const CheckboxField = ({
       {!hideLabel && (
         <label className={`${labelStyle}`}>
           {label}
-          {required && <span className='text-red-500'>*</span>}
+          {required && <span className="text-red-500">*</span>}
         </label>
       )}
       <Checkbox
@@ -41,5 +41,5 @@ export const CheckboxField = ({
         disabled={disabled}
       />
     </div>
-  );
-};
+  )
+}

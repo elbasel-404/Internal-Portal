@@ -1,7 +1,7 @@
 import "../../(pages)/globals.css"
 
 interface RootLayoutProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 const RootLayout = ({ children }: RootLayoutProps) => {
@@ -9,7 +9,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
     <html lang="en">
       <body className="p-4 min-h-screen bg-black text-white">{children}</body>
     </html>
-  );
-};
+  )
+}
 
-export default RootLayout;
+export default RootLayout

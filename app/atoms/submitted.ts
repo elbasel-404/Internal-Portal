@@ -1,3 +1,3 @@
-import { atom } from 'jotai';
+import { atom } from "jotai"
 
-export const isSubmitted = atom(false);
+export const isSubmitted = atom(false)

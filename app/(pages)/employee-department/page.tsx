@@ -1,9 +1,9 @@
-import { getEmployeeDepartmentRequests } from '@server';
-import { EmployeeDepartment } from './components';
+import { getEmployeeDepartmentRequests } from "@server"
+import { EmployeeDepartment } from "./components"
 
 const EmployeeDepartmentPage = async () => {
-  const employeeData = await getEmployeeDepartmentRequests();
-  return <EmployeeDepartment employees={employeeData} />;
-};
+  const employeeData = await getEmployeeDepartmentRequests()
+  return <EmployeeDepartment employees={employeeData} />
+}
 
-export default EmployeeDepartmentPage;
+export default EmployeeDepartmentPage

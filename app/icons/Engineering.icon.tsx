@@ -24,5 +24,5 @@ export const EngineeringIcon = () => {
         </clipPath>
       </defs>
     </svg>
-  );
-};
+  )
+}

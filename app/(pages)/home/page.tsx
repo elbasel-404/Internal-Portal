@@ -2,7 +2,7 @@
 // See ./app/(pages)/home/layout.tsx for the actual homepage file://./layout.tsx
 
 const HomePage = async () => {
-  return null;
-};
+  return null
+}
 
-export default HomePage;
+export default HomePage

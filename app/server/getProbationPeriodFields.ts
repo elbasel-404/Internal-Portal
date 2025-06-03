@@ -1,39 +1,39 @@
-import { ProbationEvaluationFieldsSchema } from '@api/schemas/index';
-import { ResponseSchema } from '@api/schemas/responseSchema';
-import type { ProbationPeriodFields } from '@types';
-import { getDemo } from '../db/actions/getDemo';
-import { getFetchHeaders } from './getFetchHeaders';
+import { ProbationEvaluationFieldsSchema } from "@api/schemas/index"
+import { ResponseSchema } from "@api/schemas/responseSchema"
+import type { ProbationPeriodFields } from "@types"
+import { getDemo } from "../db/actions/getDemo"
+import { getFetchHeaders } from "./getFetchHeaders"
 
 export const getProbationPeriodFields = async (
-  name: string
+  name: string,
 ): Promise<ProbationPeriodFields[]> => {
-  const isDemo = await getDemo();
-  if (isDemo) return dummyData;
+  const isDemo = await getDemo()
+  if (isDemo) return dummyData
 
   // ! VARIBLES
   // ! ==================================
-  const url = 'api/po/hr/probation-evaluation/fields';
-  const apiRootUrl = process.env.API_ROOT_URL as string;
-  const { headers } = await getFetchHeaders();
-  const requestBody = { field_name: name };
-  const requestBodyString = JSON.stringify(requestBody);
-  const requestUrl = `${apiRootUrl}/${url}`;
+  const url = "api/po/hr/probation-evaluation/fields"
+  const apiRootUrl = process.env.API_ROOT_URL as string
+  const { headers } = await getFetchHeaders()
+  const requestBody = { field_name: name }
+  const requestBodyString = JSON.stringify(requestBody)
+  const requestUrl = `${apiRootUrl}/${url}`
 
   // ! FETCH
   // ! ==================================
   const apiResponse = await fetch(requestUrl, {
     headers,
-    method: 'POST',
+    method: "POST",
     body: requestBodyString,
-  });
-  const responseJson = await apiResponse.json();
+  })
+  const responseJson = await apiResponse.json()
 
   // ! VALIDATION
   // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson);
-  const { result } = validatedResponse;
-  const { data } = result;
-  const validatedData = ProbationEvaluationFieldsSchema.array().parse(data);
+  const validatedResponse = ResponseSchema.parse(responseJson)
+  const { result } = validatedResponse
+  const { data } = result
+  const validatedData = ProbationEvaluationFieldsSchema.array().parse(data)
 
   // ! PARSING
   // ! ==================================
@@ -43,37 +43,37 @@ export const getProbationPeriodFields = async (
       id: data.id?.toString(),
       name: data.name,
       display_name: data.display_name?.toString(),
-    };
-    return probationPeriodFieldItem;
-  });
+    }
+    return probationPeriodFieldItem
+  })
 
-  return returnedData;
-};
+  return returnedData
+}
 
 const dummyData: ProbationPeriodFields[] = [
   {
-    id: '1',
-    name: 'الموظفين',
-    display_name: 'الموظفين',
+    id: "1",
+    name: "الموظفين",
+    display_name: "الموظفين",
   },
   {
-    id: '2',
-    name: 'الوظائف',
-    display_name: 'الوظائف',
+    id: "2",
+    name: "الوظائف",
+    display_name: "الوظائف",
   },
   {
-    id: '3',
-    name: 'الإدارات',
-    display_name: 'الإدارات',
+    id: "3",
+    name: "الإدارات",
+    display_name: "الإدارات",
   },
   {
-    id: '4',
-    name: 'المشرفين',
-    display_name: 'المشرفين',
+    id: "4",
+    name: "المشرفين",
+    display_name: "المشرفين",
   },
   {
-    id: '5',
-    name: 'التقييمات',
-    display_name: 'التقييمات',
+    id: "5",
+    name: "التقييمات",
+    display_name: "التقييمات",
   },
-];
+]

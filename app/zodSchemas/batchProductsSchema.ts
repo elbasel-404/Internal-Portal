@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod"
 
 export const BatchProductSchema = z.object({
   product: z.string(),
@@ -13,4 +13,4 @@ export const BatchProductSchema = z.object({
   unitPrice: z.string(),
   unitPriceWithTax: z.string(),
   subtotal: z.string(),
-});
+})

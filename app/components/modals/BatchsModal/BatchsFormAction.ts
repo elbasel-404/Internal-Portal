@@ -1,44 +1,44 @@
-'use server';
+"use server"
 
-import { db } from '@db'; // Database instance
-import { getUserIndex } from '@db/actions';
-import { getUserId } from '@server';
-import { BatchSchema } from '@zodSchemas';
+import { db } from "@db" // Database instance
+import { getUserIndex } from "@db/actions"
+import { getUserId } from "@server"
+import { BatchSchema } from "@zodSchemas"
 
 export const batchsFormAction = async (formData: FormData) => {
   try {
-    const formEntries = formData.entries();
-    const rawData = Object.fromEntries(formEntries);
+    const formEntries = formData.entries()
+    const rawData = Object.fromEntries(formEntries)
 
-    const responseData = { ...rawData };
+    const responseData = { ...rawData }
 
     const {
       success,
       data: validatedData,
       error,
-    } = BatchSchema.safeParse(responseData);
+    } = BatchSchema.safeParse(responseData)
 
-    await db.read();
+    await db.read()
 
-    console.log(success, validatedData, error);
+    console.log(success, validatedData, error)
 
-    const userId = await getUserId();
+    const userId = await getUserId()
     if (!userId) {
       throw new Error(
-        'Invalid User Id (app/components/modals/BatchsModal/BatchsFormActions.ts)'
-      );
+        "Invalid User Id (app/components/modals/BatchsModal/BatchsFormActions.ts)",
+      )
     }
     if (!success) {
       throw new Error(
-        'Validation Error (app/components/modals/BatchsModal/BatchsFormActions.ts)',
-        error
-      );
+        "Validation Error (app/components/modals/BatchsModal/BatchsFormActions.ts)",
+        error,
+      )
     }
-    const userIndex = await getUserIndex(userId);
-    db.data.users[userIndex].batchs.push(validatedData);
+    const userIndex = await getUserIndex(userId)
+    db.data.users[userIndex].batchs.push(validatedData)
 
-    await db.write();
+    await db.write()
   } catch (error) {
-    console.error(error);
+    console.error(error)
   }
-};
+}

@@ -1,21 +1,21 @@
-import { RequestDetails, RequestStatus } from '@components';
-import { getPermissionDetails, getRequestStatus } from '@server';
-import { RequestHeader } from '@types';
+import { RequestDetails, RequestStatus } from "@components"
+import { getPermissionDetails, getRequestStatus } from "@server"
+import { RequestHeader } from "@types"
 
-type Params = Promise<{ id: string }>;
+type Params = Promise<{ id: string }>
 
 interface PermissionDetailsPageProps {
-  params: Params;
+  params: Params
 }
 
 const PermissionsDetailsPage = async ({
   params,
 }: PermissionDetailsPageProps) => {
-  const { id } = await params;
-  const model = 'hr.authorization';
-  const requestStatus = await getRequestStatus(id, model);
+  const { id } = await params
+  const model = "hr.authorization"
+  const requestStatus = await getRequestStatus(id, model)
   const requestCaption =
-    'انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر';
+    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const {
     requestDate,
     type,
@@ -25,52 +25,52 @@ const PermissionsDetailsPage = async ({
     dateTo,
     duration,
     time,
-  } = (await getPermissionDetails(id)) || {};
+  } = (await getPermissionDetails(id)) || {}
 
   const requestHeaders: RequestHeader[] = [
     {
-      label: 'رقم الطلب',
+      label: "رقم الطلب",
       value: id,
     },
     {
-      label: 'تاريخ الطلب',
+      label: "تاريخ الطلب",
       value: requestDate,
     },
     {
-      label: 'نوع الاستئذان',
+      label: "نوع الاستئذان",
       value: type,
     },
     {
-      label: 'سبب الاستئذان',
+      label: "سبب الاستئذان",
       value: reason,
     },
     {
-      label: 'التوقيت',
+      label: "التوقيت",
       value: time,
     },
     {
-      label: 'المدة',
+      label: "المدة",
       value: duration,
     },
     {
-      label: 'من تاريخ',
+      label: "من تاريخ",
       value: dateFrom,
     },
     {
-      label: 'إلى تاريخ',
+      label: "إلى تاريخ",
       value: dateTo,
     },
     {
-      label: 'المرفقات',
+      label: "المرفقات",
       value: attachments,
     },
-  ];
+  ]
   return (
     <main>
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails headers={requestHeaders} />
     </main>
-  );
-};
+  )
+}
 
-export default PermissionsDetailsPage;
+export default PermissionsDetailsPage

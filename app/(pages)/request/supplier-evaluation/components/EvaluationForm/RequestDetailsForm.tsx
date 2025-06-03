@@ -1,20 +1,20 @@
-"use client";
+"use client"
 
-import { DateField, InputField, SelectField } from "@components/form";
-import { useState } from "react";
-import { Contracts, Stages } from "../helpers/config";
+import { DateField, InputField, SelectField } from "@components/form"
+import { useState } from "react"
+import { Contracts, Stages } from "../helpers/config"
 
 export const RequestDetailsForm = () => {
-  const [dateTo, setDateTo] = useState(new Date());
-  const [dateFrom, setDateFrom] = useState(new Date());
+  const [dateTo, setDateTo] = useState(new Date())
+  const [dateFrom, setDateFrom] = useState(new Date())
 
   const handleDatToChange = (value: Date | undefined) => {
-    setDateTo(value || new Date());
-  };
+    setDateTo(value || new Date())
+  }
 
   const handleDateFromChange = (value: Date | undefined) => {
-    setDateFrom(value || new Date());
-  };
+    setDateFrom(value || new Date())
+  }
 
   return (
     <form>
@@ -106,5 +106,5 @@ export const RequestDetailsForm = () => {
         </div>
       </div>
     </form>
-  );
-};
+  )
+}

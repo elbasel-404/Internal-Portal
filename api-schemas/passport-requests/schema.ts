@@ -1,4 +1,4 @@
-import * as z from "zod";
+import * as z from "zod"
 
 export const PassportRequestSchema = z.object({
   id: z.number(),
@@ -28,5 +28,5 @@ export const PassportRequestSchema = z.object({
   message_needaction_counter: z.number(),
   display_name: z.string(),
   __last_update: z.coerce.date(),
-});
-export type PassportRequest = z.infer<typeof PassportRequestSchema>;
+})
+export type PassportRequest = z.infer<typeof PassportRequestSchema>

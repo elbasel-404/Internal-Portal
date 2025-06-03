@@ -1,4 +1,4 @@
-import * as z from "zod";
+import * as z from "zod"
 
 export const ProfileElementSchema = z.object({
   id: z.number(),
@@ -190,5 +190,5 @@ export const ProfileElementSchema = z.object({
   message_needaction_counter: z.number(),
   display_name: z.string(),
   __last_update: z.coerce.date(),
-});
-export type ProfileElement = z.infer<typeof ProfileElementSchema>;
+})
+export type ProfileElement = z.infer<typeof ProfileElementSchema>

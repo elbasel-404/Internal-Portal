@@ -1,14 +1,14 @@
-'use client';
+"use client"
 
 // import { useState } from 'react';
-import { useDragAndDrop } from '@formkit/drag-and-drop/react';
+import { useDragAndDrop } from "@formkit/drag-and-drop/react"
 
 const DragAndDropEventsTestPage = () => {
   //   const [dragStatus, setDragStatus] = useState('Not dragging');
   //   const [valuesChanged, setValuesChanged] = useState('Not sorting');
 
   const [parent, items] = useDragAndDrop<HTMLUListElement, string>(
-    ['🍦 vanilla', '🍫 chocolate', '🍓 strawberry'],
+    ["🍦 vanilla", "🍫 chocolate", "🍓 strawberry"],
     {
       onDragstart: () => {
         // setDragStatus('Dragging');
@@ -24,7 +24,7 @@ const DragAndDropEventsTestPage = () => {
 
       onSort: (event) => {
         // setValuesChanged(`${event.previousValues} -> ${event.values}`);
-        console.log('sorting');
+        console.log("sorting")
         console.log({
           previousValues: event.previousValues,
           values: event.values,
@@ -34,10 +34,10 @@ const DragAndDropEventsTestPage = () => {
           previousPosition: event.previousPosition,
           previousNode: event.previousNodes,
           parent: event.parent,
-        });
+        })
       },
-    }
-  );
+    },
+  )
 
   return (
     <div>
@@ -48,11 +48,11 @@ const DragAndDropEventsTestPage = () => {
       <br />
       <ul ref={parent}>
         {items.map((item) => {
-          return <li key={item}>{item}</li>;
+          return <li key={item}>{item}</li>
         })}
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default DragAndDropEventsTestPage;
+export default DragAndDropEventsTestPage

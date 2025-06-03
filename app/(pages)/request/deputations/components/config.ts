@@ -1,17 +1,17 @@
 export const RequestTypes = [
   { label: "داخلي", value: "internal" },
   { label: "خارجى", value: "external" },
-];
+]
 
 export const TransportationTypes = [
   { label: "جواً", value: "ByAir" },
   { label: "براً", value: "Overland" },
-];
+]
 
 export const DeputationsTypes = [
   { id: "task", name: "مهمة عمل" },
   { id: "training", name: "رحلة تدريب" },
-];
+]
 
 export const TrainingRequests = [
   { id: 1, name: "10001" },
@@ -24,7 +24,7 @@ export const TrainingRequests = [
   { id: 8, name: "10008" },
   { id: 9, name: "10009" },
   { id: 10, name: "10010" },
-];
+]
 
 export const Cities = [
   { id: 1, name: "الرياض" },
@@ -39,7 +39,7 @@ export const Cities = [
   { id: 10, name: "حائل" },
   { id: 11, name: "الطائف" },
   { id: 12, name: "الخرج" },
-];
+]
 
 export const Tasks = [
   { id: 1, name: "task 1" },
@@ -51,8 +51,8 @@ export const Tasks = [
   { id: 7, name: "task 7" },
   { id: 8, name: "task 8" },
   { id: 9, name: "task 9" },
-  { id: 10, name: "task 10" }
-];
+  { id: 10, name: "task 10" },
+]
 
 export const ReplacementEmployees = [
   { id: 1, name: "employee 1" },
@@ -64,8 +64,8 @@ export const ReplacementEmployees = [
   { id: 7, name: "employee 7" },
   { id: 8, name: "employee 8" },
   { id: 9, name: "employee 9" },
-  { id: 10, name: "employee 10" }
-];
+  { id: 10, name: "employee 10" },
+]
 
 export const DeputationPlaces = [
   { id: "1", name: "السعودية", city: "الرياض" }, // Saudi Arabia
@@ -78,4 +78,4 @@ export const DeputationPlaces = [
   { id: "8", name: "السودان", city: "الخرطوم" }, // Sudan
   { id: "9", name: "عُمان", city: "مسقط" }, // Oman
   { id: "10", name: "قطر", city: "الدوحة" },
-] 
+]

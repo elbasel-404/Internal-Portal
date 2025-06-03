@@ -12,5 +12,5 @@ export const BookAltIcon = () => {
         fill="#88D0EC"
       />
     </svg>
-  );
-};
+  )
+}

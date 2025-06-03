@@ -1,41 +1,41 @@
-"use client";
+"use client"
 
-import { costsAtom, dateFromAtom, dateToAtom } from "@atoms";
-import { AttachmentsField } from "@components/form";
-import { CheckIcon, RiyalCurrencyIcon, XMarkIcon } from "@icons";
-import { Button } from "@ui";
-import { useLocalStorage } from "@uidotdev/usehooks";
-import { useAtom } from "jotai";
-import { useRouter } from "next/navigation";
-import { ChangeEvent, useEffect, useState } from "react";
-import { toast } from "sonner";
-import { deputationConfirmationFormAction } from "./DeputationConfirmationFormAction";
+import { costsAtom, dateFromAtom, dateToAtom } from "@atoms"
+import { AttachmentsField } from "@components/form"
+import { CheckIcon, RiyalCurrencyIcon, XMarkIcon } from "@icons"
+import { Button } from "@ui"
+import { useLocalStorage } from "@uidotdev/usehooks"
+import { useAtom } from "jotai"
+import { useRouter } from "next/navigation"
+import { ChangeEvent, useEffect, useState } from "react"
+import { toast } from "sonner"
+import { deputationConfirmationFormAction } from "./DeputationConfirmationFormAction"
 
 export const DeputationConfirmationForm = () => {
-  const router = useRouter();
-  const [files, setFiles] = useState<File[]>([]);
+  const router = useRouter()
+  const [files, setFiles] = useState<File[]>([])
 
   const closeModal = () => {
-    router.back();
-  };
+    router.back()
+  }
 
   const handleFileUpload = (uploadedFiles: FileList | null) => {
     if (uploadedFiles) {
       const newFiles = Array.from(uploadedFiles).map(
-        (file) => new File([file], file.name)
-      );
-      setFiles([...files, ...newFiles]);
+        (file) => new File([file], file.name),
+      )
+      setFiles([...files, ...newFiles])
     }
-  };
+  }
 
   const handleRemoveFile = (index: number) => {
-    const updatedFiles = files.filter((_, i) => i !== index);
-    setFiles(updatedFiles);
-  };
+    const updatedFiles = files.filter((_, i) => i !== index)
+    setFiles(updatedFiles)
+  }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    closeModal();
-  };
+    closeModal()
+  }
 
   return (
     <form
@@ -69,5 +69,5 @@ export const DeputationConfirmationForm = () => {
         </Button>
       </div>
     </form>
-  );
-};
+  )
+}

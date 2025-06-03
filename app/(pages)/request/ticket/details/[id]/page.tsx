@@ -1,19 +1,19 @@
-import { Instructions, RequestDetails, RequestStatus } from '@components';
-import { getRequestStatus, getTicketDetails } from '@server';
-import { RequestHeader } from '@types';
-import { CommentSection } from '../../components';
+import { Instructions, RequestDetails, RequestStatus } from "@components"
+import { getRequestStatus, getTicketDetails } from "@server"
+import { RequestHeader } from "@types"
+import { CommentSection } from "../../components"
 
-type Params = Promise<{ id: string }>;
+type Params = Promise<{ id: string }>
 
 interface TicketDetailsPageProps {
-  params: Params;
+  params: Params
 }
 
 const TicketDetailsPage = async ({ params }: TicketDetailsPageProps) => {
-  const { id } = await params;
-  const requestStatus = await getRequestStatus();
+  const { id } = await params
+  const requestStatus = await getRequestStatus()
   const requestCaption =
-    'انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر';
+    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const {
     requestDate,
     subject,
@@ -26,69 +26,69 @@ const TicketDetailsPage = async ({ params }: TicketDetailsPageProps) => {
     description,
     descriptionSolution,
     attachments,
-  } = (await getTicketDetails(id)) || {};
+  } = (await getTicketDetails(id)) || {}
 
   const requestHeaders: RequestHeader[] = [
     {
-      label: 'رقم الطلب',
+      label: "رقم الطلب",
       value: id,
     },
     {
-      label: 'تاريخ الطلب',
+      label: "تاريخ الطلب",
       value: requestDate,
     },
     {
-      label: 'الموضوع',
+      label: "الموضوع",
       value: subject,
     },
     {
-      label: 'فريق الدعم الفني',
+      label: "فريق الدعم الفني",
       value: technicalTeam,
     },
     {
-      label: 'مسند إلي',
+      label: "مسند إلي",
       value: predicate,
     },
     {
-      label: 'الأولوية',
+      label: "الأولوية",
       value: priority,
     },
     {
-      label: 'الفئة',
+      label: "الفئة",
       value: category,
     },
     {
-      label: 'الموقع',
+      label: "الموقع",
       value: location,
     },
     {
-      label: 'الحالة',
+      label: "الحالة",
       value: state,
     },
     {
-      label: 'الوصف',
+      label: "الوصف",
       value: description,
     },
     {
-      label: 'وصف حل المشكلة',
+      label: "وصف حل المشكلة",
       value: descriptionSolution,
     },
     {
-      label: 'المرفقات',
+      label: "المرفقات",
       value: attachments,
     },
-  ];
+  ]
   return (
-    <main className='space-y-4'>
+    <main className="space-y-4">
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails headers={requestHeaders} />
       <CommentSection />
       <Instructions
-        title='توضيحات حول الخدمة'
-        description='تتيح لك هذه الخدمة إرسال تذكرة طلب خدمة أو دعم فني للموظف المختصص على النظام. يمكن لك تتبع حالة التذكرة بعد الارسال وأيضاً يتاح لك التعليق في حالة الرد على التذكرة.'
+        title="توضيحات حول الخدمة"
+        description="تتيح لك هذه الخدمة إرسال تذكرة طلب خدمة أو دعم فني للموظف المختصص على النظام. يمكن لك تتبع حالة التذكرة بعد الارسال وأيضاً يتاح لك التعليق في حالة الرد على التذكرة."
       />
     </main>
-  );
-};
+  )
+}
 
-export default TicketDetailsPage;
+export default TicketDetailsPage
