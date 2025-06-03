@@ -51,6 +51,7 @@ stages:
                 .
             env:
               DOCKER_BUILDKIT: 1
+              COREPACK_INTEGRITY_KEYS: 0
             displayName: "Build Docker image (no push)"
 
           # Optional: replace old cache
