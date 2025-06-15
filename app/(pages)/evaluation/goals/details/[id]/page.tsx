@@ -1,9 +1,17 @@
-import { RequestDetails, RequestStatus } from "@components"
-import { getRequestStatus, getDeputationRequestDetails } from "@server"
+import { Instructions, RequestDetails, RequestStatus } from "@components"
+import { PencilIcon } from "@icons"
+import {
+  getArtisticCompetenciesRequests,
+  getBasicCompetenciesRequests,
+  getEvaluationGoalDetails,
+  getGoalsRequests,
+  getLeadershipCompetenciesRequests,
+  getRequestStatus,
+} from "@server"
 import { RequestHeader } from "@types"
-import { ReactNode } from "react"
-import { AnglesLeftIcon } from "@icons"
-import { ModalLink } from "@components/modals/ModalLink"
+import { Button } from "@ui"
+import { CompetenciesSection } from "../../components/CompetenciesSection"
+import { GoalDetails } from "../../components/GoalDetails"
 
 type Params = Promise<{ id: string }>
 
@@ -18,39 +26,11 @@ const EvaluationGoalDetailsPage = async ({
   const requestStatus = await getRequestStatus()
   const requestCaption =
     "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
-  const {
-    requestDate,
-    deputation,
-    transportation,
-    startDate,
-    endDate,
-    duration,
-    trainingRequestNumber,
-    kilometers,
-    issueVisa,
-    replacementEmployee,
-    city,
-    deputationType,
-    task,
-    taskDetails,
-    departureDatesStatus,
-    travelDuration,
-    travelStartDate,
-    travelEndDate,
-    deputationAmount,
-    transferDate,
-    reserved,
-    status,
-    reason,
-    notes,
-    attachments,
-    deputationPlaces,
-  } = (await getDeputationRequestDetails(id)) || {}
-
-  const isInternal = deputation === "داخلي"
-  const displayReason = status === "مرفوض"
-  const displayTrainingRequestNumber = deputationType === "رحلة تدريب"
-  const displayKilometers = transportation === "برا"
+  const { employee, year } = (await getEvaluationGoalDetails(id)) || {}
+  const goalsData = await getGoalsRequests()
+  const leadershipData = await getLeadershipCompetenciesRequests()
+  const basicData = await getBasicCompetenciesRequests()
+  const artisticData = await getArtisticCompetenciesRequests()
 
   const requestHeaders: RequestHeader[] = [
     {
@@ -58,131 +38,12 @@ const EvaluationGoalDetailsPage = async ({
       value: id,
     },
     {
-      label: "انتداب",
-      value: deputation,
+      label: "الموظف",
+      value: employee,
     },
     {
-      label: "نوع الانتداب",
-      value: deputationType,
-    },
-    {
-      label: "تاريخ الطلب",
-      value: requestDate,
-    },
-    {
-      label: "وسيلة النقل",
-      value: transportation,
-    },
-    {
-      label: "تاريخ بداية الانتداب",
-      value: startDate,
-    },
-    {
-      label: "تاريخ نهاية الانتداب",
-      value: endDate,
-    },
-    {
-      label: "المدة",
-      value: duration,
-    },
-    ...(displayTrainingRequestNumber
-      ? [
-          {
-            label: "رقم طلب التدريب" as RequestHeader["label"],
-            value: trainingRequestNumber,
-          },
-        ]
-      : []),
-    ...(displayKilometers
-      ? [
-          {
-            label: "عدد الكيلومترات" as RequestHeader["label"],
-            value: kilometers,
-          },
-        ]
-      : []),
-    {
-      label: "المهمة",
-      value: task,
-    },
-    {
-      label: "تفاصيل المهمة",
-      value: taskDetails,
-    },
-    {
-      label: "اعداد تواريخ السفر",
-      value: departureDatesStatus,
-    },
-    {
-      label: "أيام السفر",
-      value: travelDuration,
-    },
-    {
-      label: "تم حجز تذكرة السفر",
-      value: reserved,
-      key: "reserved",
-    },
-    ...(isInternal
-      ? [
-          {
-            label: "المدينة" as RequestHeader["label"],
-            value: city,
-          },
-        ]
-      : [
-          {
-            label: "إصدار تأشيرة" as RequestHeader["label"],
-            value: issueVisa,
-            key: "issueVisa",
-          },
-          {
-            label: "الموظف البديل" as RequestHeader["label"],
-            value: replacementEmployee,
-          },
-        ]),
-    {
-      label: "تاريخ السفر للانتداب",
-      value: travelStartDate,
-    },
-    {
-      label: "تاريخ العودة للانتداب",
-      value: travelEndDate,
-    },
-    {
-      label: "بدل الانتداب (بالريال)",
-      value: deputationAmount,
-    },
-    {
-      label: "تاريخ التحويل",
-      value: transferDate,
-    },
-    ...(displayReason
-      ? [
-          {
-            label: "سبب الرفض" as RequestHeader["label"],
-            value: reason,
-          },
-        ]
-      : []),
-    {
-      label: "ملاحظات" as RequestHeader["label"],
-      value: notes,
-    },
-    ...(isInternal
-      ? []
-      : [
-          {
-            label: "مكان الانتداب" as RequestHeader["label"],
-            value: deputationPlaces as ReactNode,
-            tableHeaders: [
-              { label: "الدولة", key: "name" },
-              { label: "المدينة", key: "city" },
-            ],
-          },
-        ]),
-    {
-      label: "المرفقات" as RequestHeader["label"],
-      value: attachments,
+      label: "السنة",
+      value: year,
     },
   ]
 
@@ -190,17 +51,41 @@ const EvaluationGoalDetailsPage = async ({
     <main className="space-y-4">
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails headers={requestHeaders} />
-      <ModalLink
-        name="DeputationConfirmationModal"
-        className="w-full flex group text-sm text-center justify-center font-medium items-center gap-2 bg-primary text-white px-4 py-5 rounded-md hover:bg-primary-opacity hover:text-primary border-2 border-primary"
-      >
-        تأكيد الانتداب
-        <AnglesLeftIcon
-          width={18}
-          height={18}
-          className="fill-white group-hover:fill-primary"
+      <GoalDetails goalsData={goalsData} />
+      <div>
+        <CompetenciesSection
+          title="الجدارات السلوكية"
+          subsections={[
+            {
+              title: "الجدارات القيادية",
+              data: leadershipData,
+            },
+            {
+              title: "الجدارات الاساسية",
+              data: basicData,
+            },
+          ]}
+          defaultExpanded={true}
         />
-      </ModalLink>
+        <CompetenciesSection
+          title="الجدارات الفنية"
+          data={artisticData}
+          defaultExpanded={true}
+        />
+      </div>
+      <div className="flex justify-end mb-2 gap-2 px-4">
+        <Button
+          className="flex items-center gap-1 bg-primary-opacity group text-primary shadow-none hover:bg-primary hover:text-white rounded-xl p-4"
+          type="submit"
+        >
+          <PencilIcon className="fill-primary group-hover:fill-white" />
+          تعديل على تخطيط الأداء
+        </Button>
+      </div>
+      <Instructions
+        title="توضيحات حول الخدمة"
+        description="تتيح هذه الخدمة للموظف امكانية الإطلاع على تفاصيل طلبات تخطيط الأداء"
+      />
     </main>
   )
 }

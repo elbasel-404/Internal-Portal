@@ -1,5 +1,5 @@
-import { PdfFileIcon, PrinterIcon, TrashIcon } from "@icons"
 import { CheckboxField } from "@components/form"
+import { PdfFileIcon, PrinterIcon, TrashIcon } from "@icons"
 import { colors } from "@lib"
 import type { RequestHeader } from "@types"
 import {
@@ -15,7 +15,7 @@ import { cn } from "@utils"
 import { ReactNode } from "react"
 
 interface RequestDetailsProps {
-  headers: RequestHeader[]
+  headers?: RequestHeader[]
   evaluationCriteria?: ReactNode
   requestDetailsLabel?: string
 }
@@ -30,8 +30,8 @@ export const RequestDetails = ({
   evaluationCriteria,
   requestDetailsLabel = "تفاصيل الطلب",
 }: RequestDetailsProps) => {
-  const attachmentHeader = headers.find(({ label }) => label === "المرفقات")
-  const covenantRequestNumber = headers.find(
+  const attachmentHeader = headers?.find(({ label }) => label === "المرفقات")
+  const covenantRequestNumber = headers?.find(
     ({ label }) => label === "رقم طلب العهدة",
   )
   const attachmentList: AttachmentList | undefined =
@@ -73,7 +73,7 @@ export const RequestDetails = ({
       </h1>
       <div>
         {headers
-          .filter(({ value }) => !Array.isArray(value))
+          ?.filter(({ value }) => !Array.isArray(value))
           .map(({ label, value, key, tableHeaders }: RequestHeader, index) => {
             const isEven = index % 2 === 0
             const isNotes = notesHeaders.includes(label)
@@ -104,7 +104,7 @@ export const RequestDetails = ({
       </div>
       <div>{evaluationCriteria}</div>
       {headers
-        .filter(({ value }) => {
+        ?.filter(({ value }) => {
           return (
             Array.isArray(value) &&
             value.every((v) => v instanceof Object) &&

@@ -4,7 +4,7 @@ import { SelectField } from "@components/form"
 import { ModalLink } from "@components/modals/ModalLink"
 import { CirclePlusIcon, FloppyDiskIcon, PaperPlaneIcon } from "@icons"
 import { paths } from "@lib"
-import { GoalRequest } from "@types"
+import { Competencies, GoalRequest } from "@types"
 import { Button } from "@ui"
 import { RotateCcw } from "lucide-react"
 import Link from "next/link"
@@ -19,10 +19,16 @@ const YearsList = Array.from({ length: 51 }, (_, i) => {
 
 interface EvaluationGoalsFormProps {
   goalsData: GoalRequest[]
+  leadershipData: Competencies[]
+  basicData: Competencies[]
+  artisticData: Competencies[]
 }
 
 export const EvaluationGoalsForm = ({
   goalsData,
+  leadershipData,
+  basicData,
+  artisticData,
 }: EvaluationGoalsFormProps) => {
   const totalGoalWeight = goalsData.reduce(
     (sum, goal) => sum + Number(goal.goalWeight || 0),
@@ -73,66 +79,18 @@ export const EvaluationGoalsForm = ({
           subsections={[
             {
               title: "الجدارات القيادية",
-              data: [
-                {
-                  id: "1",
-                  competencyName: "القيادة الاستراتيجية",
-                  agreementLevel: "المستوى الأول القيادة (Leading)",
-                },
-                {
-                  id: "2",
-                  competencyName: "اتخاذ القرار",
-                  agreementLevel: "المستوى الثاني القيادة (Leading)",
-                },
-                {
-                  id: "3",
-                  competencyName: "إدارة الفريق",
-                  agreementLevel: "المستوى الثالث القيادة (Leading)",
-                },
-              ],
+              data: leadershipData,
             },
             {
               title: "الجدارات الاساسية",
-              data: [
-                {
-                  id: "4",
-                  competencyName: "التواصل الفعال",
-                  agreementLevel: "المستوى الثالث القيادة (Leading)",
-                },
-                {
-                  id: "5",
-                  competencyName: "إدارة الوقت",
-                  agreementLevel: "المستوى الثاني القيادة (Leading)",
-                },
-                {
-                  id: "6",
-                  competencyName: "العمل الجماعي",
-                  agreementLevel: "المستوى الأول القيادة (Leading)",
-                },
-              ],
+              data: basicData,
             },
           ]}
           defaultExpanded={true}
         />
         <CompetenciesSection
           title="الجدارات الفنية"
-          data={[
-            {
-              id: "7",
-              competencyName: "البرمجة",
-              agreementLevel: "المستوى الثاني القيادة (Leading)",
-            },
-            {
-              id: "8",
-              competencyName: "تحليل البيانات",
-              agreementLevel: "المستوى الثالث القيادة (Leading)",
-            },
-            {
-              id: "9",
-              competencyName: "إدارة قواعد البيانات",
-              agreementLevel: "المستوى الأول القيادة (Leading)",
-            },
-          ]}
+          data={artisticData}
           defaultExpanded={true}
         />
       </div>
