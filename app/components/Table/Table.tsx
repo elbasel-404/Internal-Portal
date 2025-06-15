@@ -14,6 +14,7 @@ import {
   TrashIcon,
   XMarkIcon,
 } from "@icons"
+import { paths } from "@lib"
 import type { Row } from "@types"
 import {
   Button,
@@ -217,6 +218,8 @@ export const Table = ({
         {value === "add" && "إضافة"}
         {value === "update" && "تحديث"}
         {value === "delete" && "حذف"}
+        {value === "local" && "محلي"}
+        {value === "internal" && "دولي"}
       </div>
     )
   }
@@ -243,7 +246,8 @@ export const Table = ({
     if (key === "courseName") return renderCourseNameCell(value, row)
     if (key === "batchNumber") return renderBatchNumberCell(value, row)
     if (key === "attachments") return renderAttachmentsCell()
-    if (key === "requestType") return renderRequestTypeCell(value)
+    if (key === "requestType" || key === "type")
+      return renderRequestTypeCell(value)
     if (key === "relation") return renderRelativeRelationTypeCell(value)
     if (key === "achievementCertificate")
       return renderAchievementCertificateCell()
@@ -375,7 +379,7 @@ export const Table = ({
 
                 {isAssignmentRequest && (
                   <TableCell className="flex items-center gap-3">
-                    <Link href={""}>
+                    <Link href={paths.deputationNew.href}>
                       <Button className="flex group gap-2 items-center shadow-none hover:bg-primary-opacity hover:text-primary justify-end text-white bg-primary rounded-xl px-4 py-2.5">
                         <ArrowSquareIcon className="fill-white group-hover:fill-primary" />
                         إنشاء طلب انتداب
