@@ -5,19 +5,21 @@ import { ResponseSchema } from "@api/schemas/responseSchema"
 import type { InternalCoursesRequest } from "@types"
 import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
+import { getStoredEmployeeId } from "@auth"
 
 export const getInternalCoursesRequests = async (): Promise<
   InternalCoursesRequest[]
 > => {
   const isDemo = await getDemo()
   if (isDemo) return InternalCoursesDummyData
+  const employeeId = await getStoredEmployeeId()
 
   // ! VARIABLES
   // ! ==================================
   const url = "api/po/hr/training"
   const apiRootUrl = process.env.API_ROOT_URL as string
   const { headers } = await getFetchHeaders()
-  const requestBody = { create_employee_id: 1722 }
+  const requestBody = { create_employee_id: employeeId }
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`
 
