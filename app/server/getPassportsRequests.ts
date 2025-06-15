@@ -4,10 +4,12 @@ import type { PassportRequest } from "@types"
 import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
 import { PassportRequestSchema, ResponseSchema } from "@api/schemas"
+import { getStoredEmployeeId } from "@auth"
 
 export const getPassportRequests = async (): Promise<PassportRequest[]> => {
   const isDemo = await getDemo()
   if (isDemo) return dummyData
+  const employeeId = await getStoredEmployeeId()
 
   // ! VARIBLES
   // ! ==================================
@@ -15,7 +17,7 @@ export const getPassportRequests = async (): Promise<PassportRequest[]> => {
   const apiRootUrl = process.env.API_ROOT_URL as string
   const { headers } = await getFetchHeaders()
   const requestBody = {
-    employee_id: 1722,
+    employee_id: employeeId,
   }
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`
