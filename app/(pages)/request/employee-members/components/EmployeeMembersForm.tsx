@@ -1,157 +1,102 @@
 "use client"
 
+import { EmployeeMembersField } from "@api/schemas/index"
 import {
   AttachmentsField,
-  DateField,
   FormHeader,
-  InputField,
-  SelectField,
   SubmitButton,
 } from "@components/form"
 import { paths } from "@lib"
-import { useState } from "react"
-// import { RequestTypes, members, relations } from './config';
-import { createFileHandler } from "@atoms"
-import { FileWithId } from "@types"
-import { RequestTypes, relations } from "./config"
+import { AdditionalInfoSection } from "./FormSections/AdditionalInfoSection"
+import { PersonalInfoSection } from "./FormSections/PersonalInfoSection"
+import { RequestTypeSection } from "./FormSections/RequestTypeSection"
+import { SuccessMessage } from "./FormSections/SuccessMessage"
+import { useEmployeeMembersForm } from "./hooks/useEmployeeMembersForm"
 
-export const EmployeeMembersForm = () => {
-  const [files, setFiles] = useState<FileWithId[]>([])
-  // const [requestTypeValue, setRequestTypeValue] = useState<string>('');
-  // const [relationTypeValue, setRelationTypeValue] = useState<string>('');
-  // const [member, setMember] = useState<string>('');
-  const [birthDate, setBirthDate] = useState<Date>(new Date())
+interface EmployeeMembersFormProps {
+  employeeId: string | undefined
+  memberField: EmployeeMembersField[]
+  requestTypeField: EmployeeMembersField[]
+  relativeRelationField: EmployeeMembersField[]
+}
 
-  const fileHandler = createFileHandler(
-    () => files,
-    (newFiles) => setFiles(newFiles),
-  )
+export const EmployeeMembersForm = ({
+  employeeId,
+  memberField,
+  relativeRelationField,
+  requestTypeField,
+}: EmployeeMembersFormProps) => {
+  const {
+    files,
+    state,
+    requestTypeValue,
+    relationTypeValue,
+    member,
+    birthDate,
+    formData,
+    action,
+    fileHandler,
+    handleRequestTypeChange,
+    handleRelationTypeChange,
+    handleMemberChange,
+    handleInputChange,
+    setBirthDate,
+  } = useEmployeeMembersForm(memberField)
 
-  // const handleRequestTypeChange = (value: string) => {
-  //   setRequestTypeValue(value);
-  // };
-
-  // const handleRelationTypeChange = (value: string) => {
-  //   setRelationTypeValue(value);
-  // };
-
-  // const handleMemberChange = (value: string) => {
-  //   setMember(value);
-  // };
-
-  // console.log(relationTypeValue);
+  if (state.success) {
+    return <SuccessMessage requestId={state.id} />
+  }
 
   return (
-    <form className="bg-white rounded-md">
+    <form action={action} className="bg-white rounded-md">
       <FormHeader
         label="نموذج طلب تحديث أفراد الأسرة"
         path={paths.employeeMembers.href}
       />
+      <input
+        type="text"
+        name="employee_id"
+        id="employee_id"
+        hidden
+        aria-hidden
+        readOnly
+        value={employeeId}
+        className="hidden"
+      />
       <div className="p-4 space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <SelectField
-            name="requestType"
-            label="نوع الطلب"
-            types={RequestTypes}
-            // value={requestTypeValue}
-            // onChange={handleRequestTypeChange}
+          <RequestTypeSection
+            requestTypeField={requestTypeField}
+            memberField={memberField}
+            requestTypeValue={requestTypeValue}
+            member={member}
+            onRequestTypeChange={handleRequestTypeChange}
+            onMemberChange={handleMemberChange}
           />
-          {/* {requestTypeValue !== '1'  && (
-              <SelectField
-                name='member'
-                label='اختيار الفرد'
-                types={members}
-                // value={member}
-                placeholder='__'
-                // onChange={handleMemberChange}
-              />
-            )} */}
-          <InputField
-            label="الاسم الأول"
-            name="firstName"
-            placeholder=""
-            required
-            // disabled={requestTypeValue === '3'}
+          
+          <PersonalInfoSection
+            formData={formData}
+            requestTypeValue={requestTypeValue}
+            onInputChange={handleInputChange}
           />
-          <InputField
-            label="الاسم الأب"
-            name="parentName"
-            placeholder=""
-            required
-            // disabled={requestTypeValue === '3'}
-          />
-          <InputField
-            label="اسم الجد"
-            name="grandFatherName"
-            placeholder=""
-            required
-            // disabled={requestTypeValue === '3'}
-          />
-          <InputField
-            label="اسم العائلة"
-            name="familyName"
-            placeholder=""
-            required
-            // disabled={requestTypeValue === '3'}
-          />
-          <InputField
-            label="First Name"
-            name="firstName"
-            placeholder=""
-            required
-            // disabled={requestTypeValue === '3'}
-          />
-          <InputField
-            label="Father's name"
-            name="parentName"
-            placeholder=""
-            required
-            // disabled={requestTypeValue === '3'}
-          />
-          <InputField
-            label="Grandfather's Name"
-            name="grandFatherName"
-            placeholder=""
-            required
-            // disabled={requestTypeValue === '3'}
-          />
-          <InputField
-            label="Family Name"
-            name="familyName"
-            placeholder=""
-            required
-            // disabled={requestTypeValue === '3'}
-          />
-          <InputField
-            label="رقم الهوية"
-            name="idNumber"
-            placeholder=""
-            required
-            // disabled={requestTypeValue === '3'}
-          />
-          <DateField
-            date={birthDate}
-            onChange={(value) => setBirthDate(value || new Date())}
-            label="تاريخ الميلاد"
-            name="birthDate"
-            required
-          />
-          <SelectField
-            name="relationType"
-            label="صلة القرابة"
-            types={relations}
-            // value={relationTypeValue}
-            placeholder=""
-            // onChange={handleRelationTypeChange}
+          
+          <AdditionalInfoSection
+            birthDate={birthDate}
+            relationTypeValue={relationTypeValue}
+            relativeRelationField={relativeRelationField}
+            onBirthDateChange={setBirthDate}
+            onRelationTypeChange={handleRelationTypeChange}
           />
         </div>
 
         <AttachmentsField
           files={files}
+          name="attachment_ids"
           handleFileUpload={fileHandler.upload}
           handleRemoveFile={(index: number) =>
             fileHandler.remove(files[index].id)
           }
+          required
         />
 
         <SubmitButton />
