@@ -7,19 +7,21 @@ import {
 } from "../../api-schemas"
 import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
+import { getStoredEmployeeId } from "@auth"
 
 export const getBankAccountRequests = async (): Promise<
   BankAccountRequest[]
 > => {
   const isDemo = await getDemo()
   if (isDemo) return BankAccountDummyData
+  const employeeId = await getStoredEmployeeId()
 
   // ! VARIBLES
   // ! ==================================
   const url = "api/po/hr/change-bank-request"
   const apiRootUrl = process.env.API_ROOT_URL as string
   const { headers } = await getFetchHeaders()
-  const requestBody = { employee_id: 1722 }
+  const requestBody = { employee_id: employeeId }
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`
 

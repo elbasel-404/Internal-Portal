@@ -5,17 +5,20 @@ import { ResponseSchema } from "@api/schemas/responseSchema"
 import type { CustodyRequest } from "@types"
 import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
+import { getStoredEmployeeId } from "@auth"
 
 export const getCustodyRequests = async (): Promise<CustodyRequest[]> => {
   const isDemo = await getDemo()
   if (isDemo) return CustodyDummyData
+  const employeeId = await getStoredEmployeeId()
 
   // ! VARIABLES
   // ! ==================================
   const url = "api/po/hr/custody"
   const apiRootUrl = process.env.API_ROOT_URL as string
   const { headers } = await getFetchHeaders()
-  const requestBody = { employee_id: 21 }
+  // const requestBody = { employee_id: 21 }
+  const requestBody = { employee_id: employeeId }
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`
 

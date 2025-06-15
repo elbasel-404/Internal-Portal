@@ -5,19 +5,22 @@ import { ResponseSchema } from "@api/schemas/responseSchema"
 import { getDemo } from "@db/actions"
 import type { RecommendationRequest } from "@types"
 import { getFetchHeaders } from "./getFetchHeaders"
+import { getStoredEmployeeId } from "@auth"
 
 export const getRecommendationsRequests = async (): Promise<
   RecommendationRequest[]
 > => {
   const isDemo = await getDemo()
   if (isDemo) return RecommendationsDummyData
+  const employeeId = await getStoredEmployeeId()
 
   // ! VARIABLES
   // ! ==================================
   const url = "api/po/hr/application/read"
   const apiRootUrl = process.env.API_ROOT_URL as string
   const { headers } = await getFetchHeaders()
-  const requestBody = { employee_id: 1711 }
+  // const requestBody = { employee_id: 1711 }
+  const requestBody = { employee_id: employeeId }
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`
 
