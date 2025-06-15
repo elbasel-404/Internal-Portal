@@ -5,19 +5,21 @@ import { ResponseSchema } from "@api/schemas/responseSchema"
 import { getDemo } from "@db/actions"
 import type { ProbationPeriodRequest } from "@types"
 import { getFetchHeaders } from "./getFetchHeaders"
+import { getStoredEmployeeId } from "@auth"
 
 export const getProbationPeriodRequests = async (): Promise<
   ProbationPeriodRequest[]
 > => {
   const isDemo = await getDemo()
   if (isDemo) return ProbationPeriodDummyData
+  const employeeId = await getStoredEmployeeId()
 
   // ! VARIABLES
   // ! ==================================
   const url = "api/po/hr/probation-evaluation"
   const apiRootUrl = process.env.API_ROOT_URL as string
   const { headers } = await getFetchHeaders()
-  const requestBody = { employee_id: 1722 }
+  const requestBody = { employee_id: employeeId }
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`
 

@@ -4,10 +4,12 @@ import type { Employee } from "@types"
 import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
 import { EmployeesListElementSchema, ResponseSchema } from "@api/schemas"
+import { getStoredEmployeeId } from "@auth"
 
 export const getEmployeeRequests = async (): Promise<Employee[]> => {
   const isDemo = await getDemo()
   if (isDemo) return dummyData
+  const employeeId = await getStoredEmployeeId()
 
   // ! VARIBLES
   // ! ==================================
@@ -15,7 +17,8 @@ export const getEmployeeRequests = async (): Promise<Employee[]> => {
   const apiRootUrl = process.env.API_ROOT_URL as string
   const { headers } = await getFetchHeaders()
   const requestBody = {
-    employee_id: 305,
+    // employee_id: 305,
+    employee_id: employeeId,
     employee_object: "",
     related_employees: false,
     limit: 10000,
