@@ -210,6 +210,30 @@ export const Table = ({
     )
   }
 
+  // RequestType cell renderer (employee-members-request)
+  const renderRequestTypeCell = (value: string) => {
+    return (
+      <div>
+        {value === "add" && "إضافة"}
+        {value === "update" && "تحديث"}
+        {value === "delete" && "حذف"}
+      </div>
+    )
+  }
+
+  // Relative_Relation cell renderer (employee-members-request)
+  const renderRelativeRelationTypeCell = (value: string) => {
+    return (
+      <div>
+        {value === "father" && "أب"}
+        {value === "mother" && "أم"}
+        {value === "son" && "إبن"}
+        {value === "daughter" && "إبنة"}
+        {value === "husband" && "زوج (ة)"}
+      </div>
+    )
+  }
+
   // Cell content renderer based on key
   const renderCellContent = (key: string, value: any, row: Row) => {
     if (key === "status") return renderStatusCell(value)
@@ -219,6 +243,8 @@ export const Table = ({
     if (key === "courseName") return renderCourseNameCell(value, row)
     if (key === "batchNumber") return renderBatchNumberCell(value, row)
     if (key === "attachments") return renderAttachmentsCell()
+    if (key === "requestType") return renderRequestTypeCell(value)
+    if (key === "relation") return renderRelativeRelationTypeCell(value)
     if (key === "achievementCertificate")
       return renderAchievementCertificateCell()
     return value

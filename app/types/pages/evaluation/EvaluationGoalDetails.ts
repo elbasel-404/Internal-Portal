@@ -1,31 +1,5 @@
-import { DeputationPlace } from "@types"
-
 export type EvaluationGoalDetails = {
   id: string
-  requestDate: string
-  deputation: string
-  trainingRequestNumber: string
-  transportation: string
-  kilometers: string
-  startDate: string
-  endDate: string
-  duration: string
-  city: string
-  deputationType: string
-  task: string
-  taskDetails: string
-  departureDatesStatus: string
-  travelDuration: string
-  travelStartDate: string
-  travelEndDate: string
-  deputationAmount: string
-  transferDate: string
-  reserved: boolean
-  issueVisa: boolean
-  replacementEmployee: string
-  status: string
-  reason: string
-  notes: string
-  deputationPlaces: DeputationPlace[]
-  attachments: File[]
+  employee: string
+  year: string
 }

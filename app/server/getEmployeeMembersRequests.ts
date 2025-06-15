@@ -1,9 +1,67 @@
 "use server"
 
+import { EmployeeMemberSchema } from "@api/schemas/index"
+import { ResponseSchema } from "@api/schemas/responseSchema"
+import { getStoredEmployeeId } from "@auth"
+import { getDemo } from "@db/actions"
 import type { EmployeeMembersRequest } from "@types"
+import { getFetchHeaders } from "./getFetchHeaders"
 
 export const getEmployeeMembersRequests = async () => {
-  return dummyData
+  const isDemo = await getDemo()
+  if (isDemo) return dummyData
+
+  // ! VARIABLES
+  // ! ==================================
+  const employeeId = await getStoredEmployeeId()
+  const url = "api/po/hr/employee/members/read"
+  const apiRootUrl = process.env.API_ROOT_URL as string
+  const { headers } = await getFetchHeaders()
+  const requestBody = { employee_id: Number(employeeId) }
+  const requestBodyString = JSON.stringify(requestBody)
+  const requestUrl = `${apiRootUrl}/${url}`
+
+  // ! FETCH
+  // ! ==================================
+  const apiResponse = await fetch(requestUrl, {
+    headers,
+    method: "POST",
+    body: requestBodyString,
+  })
+  const responseJson = await apiResponse.json()
+
+  // ! VALIDATION
+  // ! ==================================
+  const validatedResponse = ResponseSchema.safeParse(responseJson)
+  const result = validatedResponse.data?.result
+  const data = result?.data
+  const validatedData = EmployeeMemberSchema.array().safeParse(data)
+  const employeeMembersData = validatedData.data
+
+  // ! PARSING
+  // ! ==================================
+  const returnedData: EmployeeMembersRequest[] = employeeMembersData
+    ? employeeMembersData.map((data) => {
+        const employeeMember: EmployeeMembersRequest = {
+          id: data.id.toString(),
+          date: data.date,
+          applicant: data.employee_id[1]
+            .toString()
+            .replace(/\[\d+\]\s*/, "")
+            .split(/\s+/)[0],
+          requestType: data.type,
+          relation: data.relative_relation,
+          nameAr: data.individual_complete_name,
+          nameEn: data.individual_english_name,
+          idNumber: data.identity,
+          birthDate: data.birthday,
+          status: data.state,
+        }
+        return employeeMember
+      })
+    : []
+
+  return returnedData
 }
 
 const dummyData: EmployeeMembersRequest[] = [
