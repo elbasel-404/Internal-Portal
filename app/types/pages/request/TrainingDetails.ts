@@ -9,7 +9,7 @@ export type TrainingDetails = {
   mechanismConvening: string
   courseValue: string
   mandateAllowance: string
-  transcationDate: string
+  transcationDate: string | boolean
   trainingCenter: string
   status: string
   courseProgram: string
@@ -18,9 +18,9 @@ export type TrainingDetails = {
   trainingMethod: string[]
   trainingStartDate: string
   trainingEndDate: string
-  country: string
+  country: string | number
   city: string
-  travelDays: string
+  travelDays: string | boolean
   trainingStartBefore: string
   trainingEmployee: string
   trainingSchedule: {
