@@ -1,27 +1,29 @@
-"use server";
+"use server"
 
-import { getDemo } from "../db/actions/getDemo";
-import { getFetchHeaders } from "./getFetchHeaders";
-import { OvertimeAssignmentElementSchema, ResponseSchema } from "@api/schemas";
+import { getStoredEmployeeId } from "@auth"
+import { getDemo } from "../db/actions/getDemo"
+import { getFetchHeaders } from "./getFetchHeaders"
+import { OvertimeAssignmentElementSchema, ResponseSchema } from "@api/schemas"
 
 import type { OvertimeAssignmentRequest } from "@types"
 
 export const getOvertimeAssignmentRequests = async (): Promise<
   OvertimeAssignmentRequest[]
 > => {
-  const isDemo = await getDemo();
-  if (isDemo) return dummyData;
+  const isDemo = await getDemo()
+  if (isDemo) return dummyData
+  const employeeId = await getStoredEmployeeId()
 
   // ! VARIBLES
   // ! ==================================
-  const url = "api/po/hr/overtime_assignment";
-  const apiRootUrl = process.env.API_ROOT_URL as string;
-  const { headers } = await getFetchHeaders();
+  const url = "api/po/hr/overtime_assignment"
+  const apiRootUrl = process.env.API_ROOT_URL as string
+  const { headers } = await getFetchHeaders()
   const requestBody = {
-    employee_id: 1722,
-  };
-  const requestBodyString = JSON.stringify(requestBody);
-  const requestUrl = `${apiRootUrl}/${url}`;
+    employee_id: employeeId,
+  }
+  const requestBodyString = JSON.stringify(requestBody)
+  const requestUrl = `${apiRootUrl}/${url}`
 
   // ! FETCH
   // ! ==================================
@@ -29,23 +31,23 @@ export const getOvertimeAssignmentRequests = async (): Promise<
     headers,
     method: "POST",
     body: requestBodyString,
-  });
-  const responseJson = await apiResponse.json();
+  })
+  const responseJson = await apiResponse.json()
 
   // ! VALIDATION
   // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson);
-  const { result } = validatedResponse;
-  const { data } = result;
-  const validatedData = OvertimeAssignmentElementSchema.array().parse(data);
+  const validatedResponse = ResponseSchema.parse(responseJson)
+  const { result } = validatedResponse
+  const { data } = result
+  const validatedData = OvertimeAssignmentElementSchema.array().parse(data)
 
   // ! PARSING
   // ! ==================================
   const getArrayValue = (field: unknown, index: number = 1): string =>
-    Array.isArray(field) ? (field[index]?.toString() ?? "") : "";
+    Array.isArray(field) ? (field[index]?.toString() ?? "") : ""
 
   const getStringValue = (field: unknown): string =>
-    typeof field === "string" ? field : "";
+    typeof field === "string" ? field : ""
 
   const returnedData: OvertimeAssignmentRequest[] = validatedData.map(
     (data) => {
@@ -61,13 +63,13 @@ export const getOvertimeAssignmentRequests = async (): Promise<
         hours: data.nb_hours,
         assignmentDescription: getStringValue(data.description),
         status: getStringValue(data.state),
-      };
-      return newsItem;
-    }
-  );
+      }
+      return newsItem
+    },
+  )
 
-  return returnedData;
-};
+  return returnedData
+}
 
 const dummyData: OvertimeAssignmentRequest[] = [
   {
