@@ -145,10 +145,11 @@
 - label: "طلب تحديث أفراد الأسرة"
 - title: "قائمة طلبات تحديث أفراد الأسرة"
 - href: "/request/employee-members"
-- UI: FALSE
-- integration: -
-- dynamic: -
+- UI: true
+- integration: true
+- dynamic: FALSE => true
 - page: file://./app/(pages)/request/employee-members/page.tsx
+- formAction: file://./app/(pages)/request/employee-members/components/helpers/formAction.ts
 
 # Passports
 
