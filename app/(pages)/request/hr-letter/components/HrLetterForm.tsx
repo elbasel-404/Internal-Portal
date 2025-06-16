@@ -70,7 +70,7 @@ export const HrLetterForm = ({
         label="نموذج طلب خطاب الموارد البشرية"
         path={paths.hrLetter.href}
       />
-      <input
+      {/* <input
         type="text"
         name="employee_id"
         id="employee_id"
@@ -79,7 +79,7 @@ export const HrLetterForm = ({
         readOnly
         value="1711"
         className="hidden"
-      />
+      /> */}
       <input
         type="text"
         name="template_type_id"
