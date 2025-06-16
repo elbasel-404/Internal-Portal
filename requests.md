@@ -124,9 +124,10 @@
 - title: "قائمة طلبات التأمين الطبي"
 - href: "/request/medical"
 - UI: true
-- integration: FALSE
-- dynamic: FALSE
+- integration: true
+- dynamic: FALSE => true
 - page: file://./app/(pages)//request/medical/page.tsx
+- formAction: file://./app/(pages)/request/medical/components/helpers/formAction.ts
 
 # Bank Account Change
 

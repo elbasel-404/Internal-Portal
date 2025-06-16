@@ -1,5 +1,6 @@
 "use server"
 
+import { getStoredEmployeeId } from "@auth"
 import type { MedicalInsuranceRequest } from "@types"
 import {
   MedicalInsuranceElementSchema,
@@ -17,9 +18,10 @@ export const getMedicalInsuranceRequests = async (): Promise<
   // ! VARIBLES
   // ! ==================================
   const url = "api/po/hr/medical/insurance/read"
+  const employeeId = await getStoredEmployeeId()
   const apiRootUrl = process.env.API_ROOT_URL as string
   const { headers } = await getFetchHeaders()
-  const requestBody = { employee_id: 1722 }
+  const requestBody = { employee_id: employeeId }
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`
 
