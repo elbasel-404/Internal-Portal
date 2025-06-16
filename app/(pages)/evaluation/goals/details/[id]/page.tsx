@@ -1,4 +1,5 @@
 import { Instructions, RequestDetails, RequestStatus } from "@components"
+import { ModalLink } from "@components/modals/ModalLink"
 import { PencilIcon } from "@icons"
 import {
   getArtisticCompetenciesRequests,
@@ -74,13 +75,12 @@ const EvaluationGoalDetailsPage = async ({
         />
       </div>
       <div className="flex justify-end mb-2 gap-2 px-4">
-        <Button
-          className="flex items-center gap-1 bg-primary-opacity group text-primary shadow-none hover:bg-primary hover:text-white rounded-xl p-4"
-          type="submit"
-        >
-          <PencilIcon className="fill-primary group-hover:fill-white" />
-          تعديل على تخطيط الأداء
-        </Button>
+        <ModalLink name="EditPerformanceModal">
+          <Button className="flex items-center gap-1 bg-primary-opacity group text-primary shadow-none hover:bg-primary hover:text-white rounded-xl p-4">
+            <PencilIcon className="fill-primary group-hover:fill-white" />
+            تعديل على تخطيط الأداء
+          </Button>
+        </ModalLink>
       </div>
       <Instructions
         title="توضيحات حول الخدمة"
