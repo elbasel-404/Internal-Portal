@@ -39,6 +39,7 @@
 - integration: true
 - dynamic: true
 - page: file://./app/(pages)/request/remote-work/page.tsx
+- formAction: file://./app/(pages)/request/remote-work/components/helpers/formAction.ts
 
 # HR Letter
 
