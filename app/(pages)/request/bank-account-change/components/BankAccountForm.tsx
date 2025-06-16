@@ -77,7 +77,7 @@ export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
         label="نموذج طلب تغيير الحساب البنكي"
         path={paths.bankAccountChange.href}
       />
-      <input
+      {/* <input
         type="text"
         name="employee_id"
         id="employee_id"
@@ -86,7 +86,7 @@ export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
         readOnly
         value="1711"
         className="hidden"
-      />
+      /> */}
       <div className="p-4 space-y-6">
         <InputField
           label="الحساب الحالي للموظف"
