@@ -50,6 +50,7 @@
 - integration: true
 - dynamic: true
 - page: file://./app/(pages)/request/hr-letter/page.tsx
+- formAction: file://./app/(pages)/request/hr-letter/components/helpers/formAction.ts
 
 # Attendance
 
