@@ -138,6 +138,7 @@
 - integration: true
 - dynamic: FALSE => true
 - page: file://./app/(pages)/request/bank-account-change/page.tsx
+- formAction: file://./app/(pages)/request/bank-account-change/components/helpers/formAction.ts
 
 # Employee Members
 
