@@ -703,7 +703,51 @@
       "batchs": [],
       "batchProducts": [],
       "trainingCourses": []
+    },
+    {
+      "id": 25,
+      "activeGeneralInfoKeys": [
+        "employeeRequests",
+        "approvalRequests",
+        "totalVacationBalance",
+        "permissions",
+        "remoteWork",
+        "delegations"
+      ],
+      "activeHomePageSlotsKeys": [
+        "completeProfile",
+        "generalInfo",
+        "userInfo",
+        "attendance",
+        "approvalRequestsTable",
+        "sliders",
+        "timelineCalendar",
+        "news"
+      ],
+      "activeNewsTabsKeys": [
+        "pressTab",
+        "newsTab",
+        "monshaatFamilyTab",
+        "internalTab"
+      ],
+      "demo": true,
+      "convenantData": [
+        {
+          "product": "prod",
+          "statement": "active",
+          "amount": "10",
+          "invoiceNumber": "25",
+          "attachments": [
+            "file-name-i"
+          ]
+        }
+      ],
+      "projectCompletion": [],
+      "products": [],
+      "batchs": [],
+      "batchProducts": [],
+      "trainingCourses": []
     }
   ],
-  "userCount": 24
+  "userCount": 25
 }

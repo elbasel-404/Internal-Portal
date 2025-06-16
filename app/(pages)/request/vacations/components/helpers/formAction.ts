@@ -6,6 +6,7 @@ import { requestBodySchema } from "./requestBodySchema"
 import { State } from "./State"
 import { CreateErrorSchema } from "../../../../../../api-schemas/CreateErrorSchema"
 import { CreateSuccessSchema } from "../../../../../../api-schemas/CreateSuccessSchema"
+import { getStoredEmployeeId } from "@auth"
 
 export const formAction = async (formData: FormData): Promise<State> => {
   // ! ==================================
@@ -16,6 +17,8 @@ export const formAction = async (formData: FormData): Promise<State> => {
   const { headers: detailsHeaders } = await getFetchHeaders()
 
   const requestBody = Object.fromEntries(formData.entries())
+  const employeeId = await getStoredEmployeeId()
+  requestBody["employee_id"] = employeeId || ""
   const fetchUrl = `${rootUrl}/${endpointUrl}`
 
   const headers = new Headers()
