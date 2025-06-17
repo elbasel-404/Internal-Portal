@@ -41,14 +41,11 @@ export const getEmployeeId = async ({ username, password, accessToken }: GetEmpl
         });
 
         if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
         const employeeId = await response.text();
         return employeeId;
     } catch (error) {
-        console.error('Fetch error:', error);
-        throw error;
     }
 };
 

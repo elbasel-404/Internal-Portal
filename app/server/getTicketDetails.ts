@@ -27,7 +27,6 @@ export const getTicketDetails = async (
     }
     return details
   } catch (error) {
-    console.error("Error in getPermissionDetails:", error)
     return
   }
 }

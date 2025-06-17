@@ -3,7 +3,6 @@ import { VacationRequest } from "@types"
 import { getVacationRequests } from "../../server/getVacationRequests"
 
 const fetcher: Fetcher<VacationRequest[]> = async (url: string) => {
-  console.log({ url })
   const requests = await getVacationRequests()
   return requests
 }

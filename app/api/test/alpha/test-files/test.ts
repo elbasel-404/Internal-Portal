@@ -39,7 +39,6 @@
 
 // // Check for any property
 // if (hasProperty<VacationDetail, "state", string>(vacation, "state")) {
-//   console.log(vacation.state.toLowerCase()); // TypeScript knows state is a string
 // }
 
 // // Check for ID-name tuple

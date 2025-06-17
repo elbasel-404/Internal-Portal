@@ -71,8 +71,6 @@ export const EvaluationForm = ({ vacationElements }: VacationFormProps) => {
     setDeathPerson(event.target.value)
   }
 
-  console.log({ state, pending })
-
   useEffect(() => {
     if (dateFrom && dateTo) {
       const start = new Date(dateFrom)
@@ -137,7 +135,13 @@ export const EvaluationForm = ({ vacationElements }: VacationFormProps) => {
           <SelectField
             label="نوع الاجازة"
             name="holiday_status_id"
-            types={vacationElements}
+            types={vacationElements
+              .filter((el) => el.id !== undefined && el.name !== undefined)
+              .map((el) => ({
+                id: el.id as string | number,
+                name: el.name as string,
+                display_name: el.display_name,
+              }))}
             placeholder=""
             value={vacationType}
             onChange={handleVacationTypeChange}

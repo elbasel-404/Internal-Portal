@@ -40,23 +40,18 @@ export const post = async (args: Args): Promise<PostResponse> => {
   const SESSION_ID = process.env.SESSION_ID as string
 
   if (!API_ROOT_URL) {
-    throw new Error("API_ROOT_URL is not defined, check your .env file")
   }
 
   if (!API_KEY) {
-    throw new Error("API_KEY is not defined, check your .env file")
   }
 
   if (!API_KEY_HEADER_NAME) {
-    throw new Error("API_KEY_HEADER_NAME is not defined, check your .env file")
   }
 
   if (!BEARER_TOKEN) {
-    throw new Error("BEARER_TOKEN is not defined, check your .env file")
   }
 
   if (!SESSION_ID) {
-    throw new Error("SESSION_ID is not defined, check your .env file")
   }
 
   // !===============================================================
@@ -96,14 +91,8 @@ export const post = async (args: Args): Promise<PostResponse> => {
   // !===============================================================
   // !START - FETCH
   // !===============================================================
-  // console.log("INFO: Fetching data from", fetchHref);
-  // console.log("INFO: Request body", args.body);
-  // console.log("INFO: HEADERS", HEADERS);
-  // console.log("\x1b[31m", "--------------------------------------------");
   const response = await callback()
   const json = await response.json()
-  console.log({ json })
-  console.log({ requestBody: args.body })
 
   // ! Result
   // const jsonId = json.id;
@@ -112,21 +101,10 @@ export const post = async (args: Args): Promise<PostResponse> => {
   const jsonError = json?.error
 
   // ! Data
-  // console.log({ json });
   const jsonResultData = jsonResult?.data
   const jsonResultStatus = jsonResult?.status
   const jsonResultStatusCode = jsonResult?.statusCode
-  // console.log(_, __);
   // const { data, status, statusCode } = result;
-  // console.log("INFO: STATUS", jsonResultStatus);
-  // console.log("INFO: STATUS CODE", jsonResultStatusCode);
-  // console.log(
-  // "INFO: DATA",
-  // Array.isArray(jsonResultData)
-  // ? jsonResultData.length + " objects"
-  // : jsonResultData
-  // );
-  // console.log("\x1b[31m", "--------------------------------------------");
   // !===============================================================
   // !END - FETCH
   // !===============================================================
@@ -193,11 +171,8 @@ export const post = async (args: Args): Promise<PostResponse> => {
   // let response: Response | null = null;
   // let error: Error | null = null;
 
-  // console.log({ fetchHref, headers, body });
-
   // const testData = await callback();
   // const testJson = await testData.json();
-  // console.log(testJson);
   // return;
 
   // try {
@@ -213,19 +188,16 @@ export const post = async (args: Args): Promise<PostResponse> => {
   // const text = await race.text();
   // response = race;
   // const jsonData = await response.json();
-  // console.log({ jsonData });
   //   const result = jsonData.result;
   //   const data = result.data;
   //   json = data;
   // } catch (err) {
   //   error = err as Error;
   //   const responseCopy = await callback();
-  //   // console.log(responseCopy)response.text();;
   //   // response = await callback()data, ;
   //   const responseText = await responseCopy.text();
   //   json = responseText;
   //   // error = new Error(responseText);
-  //   // console.error(error);
   // }
   // return {
   //   request: {

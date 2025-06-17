@@ -15,6 +15,3 @@ const exports = iconFiles
   .join("\n")
 
 fs.writeFileSync(path.join(iconsDir, "index.ts"), exports)
-
-console.log("Export statements generated in index.ts")
-console.log(exports)
