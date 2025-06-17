@@ -40,7 +40,6 @@ export const formAction = async (formData: FormData): Promise<State> => {
       ) {
         const errors = value._errors
         const firstError: string = (errors as string[])[0]
-        console.log({ key, error: firstError })
         return { success: false, errors, id: null }
       }
     })
@@ -51,8 +50,6 @@ export const formAction = async (formData: FormData): Promise<State> => {
   // ! ==================================
   const fetchFormData = new FormData()
   type RequestBody = z.infer<typeof requestBodySchema>
-
-  console.log(validatedRequestBody)
 
   const validatedRequestBodyEntries = Object.entries(
     validatedRequestBody as RequestBody,
@@ -75,7 +72,6 @@ export const formAction = async (formData: FormData): Promise<State> => {
   if (isBadRequest) {
     const validatedResponseObject = CreateErrorSchema.parse(responseObject)
     const { error, status } = validatedResponseObject
-    console.log({ status })
 
     return {
       success: false,
@@ -86,7 +82,6 @@ export const formAction = async (formData: FormData): Promise<State> => {
 
   const validatedResponseObject = CreateSuccessSchema.parse(responseObject)
   const { data, message, status } = validatedResponseObject
-  console.log({ message, status })
 
   return { success: true, errors: null, id: data.id }
 }

@@ -29,7 +29,6 @@ export const getEmployeeMembersFields = async (
     body: requestBodyString,
   })
   const responseJson = await apiResponse.json()
-  console.log({ responseJson })
 
   // ! VALIDATION
   // ! ==================================

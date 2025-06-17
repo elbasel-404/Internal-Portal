@@ -117,7 +117,10 @@ export const MedicalForm = ({ relativeRelation }: MedicalFormProps) => {
             name="relative_relation"
             label="صلة القرابة"
             placeholder=""
-            types={relativeRelation}
+            types={relativeRelation.map((r) => ({
+              id: r.id ?? "",
+              name: r.name ?? "",
+            }))}
             value={relation}
             onChange={handleRelationChange}
           />

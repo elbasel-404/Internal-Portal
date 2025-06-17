@@ -49,8 +49,6 @@ export const ApprovalRequestsTable = ({
 
   const handleDialogSubmit = (reason: string) => {
     if (currentRequest) {
-      console.log("Rejected Request:", currentRequest)
-      console.log("Reason:", reason)
     }
   }
 

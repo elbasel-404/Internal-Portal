@@ -46,7 +46,6 @@ export const getNewsListRequests = async (): Promise<NewsListRequest[]> => {
     }
     return newsItem
   })
-  console.log(returnedData)
   return returnedData
 }
 

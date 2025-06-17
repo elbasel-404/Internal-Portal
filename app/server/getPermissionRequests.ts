@@ -28,7 +28,6 @@ export const getPermissionRequests = async (): Promise<PermissionRequest[]> => {
     body: requestBodyString,
   })
   const responseJson = await apiResponse.json()
-  console.log({ responseJson })
 
   // ! VALIDATION
   // ! ==================================
