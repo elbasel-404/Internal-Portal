@@ -98,7 +98,11 @@ export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
           name="new_bank_id"
           label="اسم البنك الجديد"
           placeholder="__"
-          types={bankDetails}
+          types={bankDetails.map((b) => ({
+            id: b.id ?? "",
+            name: b.name ?? "",
+            display_name: b.display_name,
+          }))}
           value={bankId}
           onChange={handleBankIdChange}
         />

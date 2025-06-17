@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
   },
   /* config options here */
   experimental: {
-    reactCompiler: true,
+    // reactCompiler: true,
     serverActions: {
       // TODO: test this more
       allowedOrigins: [
