@@ -57,9 +57,6 @@ const TrainingDetailsPage = async ({ params }: TrainingDetailsPageProps) => {
 
   const trainingScheduleData = trainingSchedule ?? []
 
-  console.log(trainingScheduleData)
-
-  // Component to render training method checkboxes
   const TrainingMethodDisplay = () => {
     if (!trainingMethod || trainingMethod.length === 0) {
       return <span className="text-gray-500">لا توجد طرق تدريب محددة</span>
