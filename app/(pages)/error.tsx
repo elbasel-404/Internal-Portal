@@ -67,7 +67,6 @@ export default function Error({
 
   useEffect(() => {
     // Log the error to an error reporting service
-    console.error(error)
     const errorMessage = error.message
     const errorStack = error.stack
     const errorCause = error.cause

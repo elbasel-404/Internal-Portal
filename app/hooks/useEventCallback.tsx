@@ -11,9 +11,7 @@ export function useEventCallback<Args extends unknown[], R>(
 export function useEventCallback<Args extends unknown[], R>(
   fn: ((...args: Args) => R) | undefined,
 ): ((...args: Args) => R) | undefined {
-  const ref = useRef<typeof fn>(() => {
-    throw new Error("Cannot call an event handler while rendering.")
-  })
+  const ref = useRef<typeof fn>(undefined)
 
   useIsomorphicLayoutEffect(() => {
     ref.current = fn

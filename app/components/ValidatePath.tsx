@@ -2,7 +2,6 @@
 "use client"
 
 // import { ErrorMessage } from '@lib';
-// import { throwError } from '@utils';
 import { usePathname } from "next/navigation"
 import { useEffect } from "react"
 import { getHrefs } from "../server/getHrefs"
@@ -19,7 +18,6 @@ export const ValidatePath = () => {
       return isMatch
     })
     if (!isPath) {
-      console.error("invalid path", { shouldValidate, regExPaths, isPath })
     }
   }
   const pathName = usePathname()

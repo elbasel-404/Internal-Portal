@@ -20,14 +20,6 @@ export const signIn = async (
   const API_ROOT_URL = process.env.API_ROOT_URL
   const SESSION_ID = process.env.SESSION_ID
 
-  if (!API_ROOT_URL) throw new Error("Invalid root api url")
-  if (!CLIENT_SECRET) throw new Error("Invalid client secret")
-  if (!CLIENT_ID) throw new Error("Invalid client ID")
-  if (!SCOPE) throw new Error("Invalid scope")
-  if (!GRANT_TYPE) throw new Error("Invalid grant type")
-  if (!API_KEY) throw new Error("Invalid api key")
-  if (!SESSION_ID) throw new Error("Invalid api key")
-
   // ! ================= FORM DATA=================
   const formUsername = formData.get("username")?.toString().trim()
   const formPassword = formData.get("password")?.toString().trim()

@@ -37,7 +37,6 @@
 //       responseSchema = listResponseSchema;
 //       break;
 //     default:
-//       throw new Error("requestSchemaInvalid operation");
 //   }
 
 //   const validateRequestBody = (body: unknown): RequestBody => {

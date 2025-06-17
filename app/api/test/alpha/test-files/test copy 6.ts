@@ -104,11 +104,9 @@
 //             formatValidationError(postResponse);
 //         }
 //       } catch (error) {
-//         console.error(error);
 //         parsedDataReturn.error = "API request failed";
 //       }
 //     } catch (error) {
-//       console.error(error);
 //       parsedDataReturn.validationError = "Invalid request body";
 //     }
 

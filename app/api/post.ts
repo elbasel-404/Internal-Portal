@@ -40,23 +40,18 @@ export const post = async (args: Args): Promise<PostResponse> => {
   const SESSION_ID = process.env.SESSION_ID as string
 
   if (!API_ROOT_URL) {
-    throw new Error("API_ROOT_URL is not defined, check your .env file")
   }
 
   if (!API_KEY) {
-    throw new Error("API_KEY is not defined, check your .env file")
   }
 
   if (!API_KEY_HEADER_NAME) {
-    throw new Error("API_KEY_HEADER_NAME is not defined, check your .env file")
   }
 
   if (!BEARER_TOKEN) {
-    throw new Error("BEARER_TOKEN is not defined, check your .env file")
   }
 
   if (!SESSION_ID) {
-    throw new Error("SESSION_ID is not defined, check your .env file")
   }
 
   // !===============================================================
@@ -203,7 +198,6 @@ export const post = async (args: Args): Promise<PostResponse> => {
   //   const responseText = await responseCopy.text();
   //   json = responseText;
   //   // error = new Error(responseText);
-  //   // console.error(error);
   // }
   // return {
   //   request: {

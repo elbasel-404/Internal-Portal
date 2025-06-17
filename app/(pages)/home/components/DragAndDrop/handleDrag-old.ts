@@ -13,7 +13,6 @@
 
 // export const handleDrag = async ({ key, index, userId }: Args) => {
 //   debugger;
-//   if (!userId) throw new Error('User ID is required');
 //   await db.read();
 //   const users = db.data.users;
 //   const userIndex = users.findIndex((user) => user.id === userId);
@@ -29,7 +28,6 @@
 //   currentSlots.splice(index - 1, 0, key);
 //   db.data.users[userIndex].activeHomePageSlotsKeys = currentSlots;
 //   await db.write();
-//   if (currentIndex === -1) throw new Error('Slot not found');
 //   // await db.update(({ users }) => {
 //   //   users[userIndex].activeHomePageSlotsKeys = currentSlots;
 //   // });

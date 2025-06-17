@@ -39,7 +39,6 @@ const Test1Page = () => {
 
       setUsers(responseJson.items || [])
     } catch (error) {
-      console.error("Error fetching users:", error)
     } finally {
       setLoading(false)
     }

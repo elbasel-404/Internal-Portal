@@ -74,7 +74,7 @@ export const toggleHomePageSetting = async (
 
   const toggleHomePageSlot = async (state: InitialState) => {
     const validatedKey = await validateHomePageSlotKey(slotKey)
-    if (!validatedKey) return console.error("Invalid key provided")
+    if (!validatedKey) return
 
     const user = await getUser(userId)
     if (!user) {
@@ -105,7 +105,7 @@ export const toggleHomePageSetting = async (
 
   const toggleGeneralInfo = async (state: InitialState) => {
     const validatedKey = await validateGeneralInfoKey(slotKey)
-    if (!validatedKey) return console.error("Invalid key provided")
+    if (!validatedKey) return
     const user = await getUser(userId)
     if (!user) {
       state.error = "User not found"

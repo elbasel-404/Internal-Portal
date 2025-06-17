@@ -69,7 +69,6 @@
 //       responseSchema = listResponseSchema;
 //       break;
 //     default:
-//       throw new Error("Invalid operation");
 //   }
 
 //   const validateRequestBody = (body: unknown): RequestBody => {
@@ -209,7 +208,6 @@
 //   const result = await callback(requestBody);
 
 //   if (result.error || result.validationError) {
-//     console.error("Error:", result.error || result.validationError);
 //     return;
 //   }
 
@@ -230,4 +228,3 @@
 // }
 
 // // Call the example function
-// fetchAndProcessLeaves().catch(console.error);
