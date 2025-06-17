@@ -10,7 +10,7 @@ import {
 } from "@components/form"
 import { paths } from "@lib"
 import { FileWithId } from "@types"
-import { useState, useEffect, useActionState } from "react"
+import { useActionState, useEffect, useState } from "react"
 import { toast } from "sonner"
 import { formAction } from "./helpers/formAction"
 import { getStateAction } from "./helpers/getStateAction"
@@ -66,7 +66,7 @@ export const PassportForm = () => {
     <form action={action} className="bg-white rounded-md">
       <FormHeader label="نموذج طلب بيانات الجواز" path={paths.passports.href} />
       <div className="p-4 space-y-6">
-        <input
+        {/* <input
           type="text"
           name="employee_id"
           id="employee_id"
@@ -75,7 +75,7 @@ export const PassportForm = () => {
           readOnly
           value="1722"
           className="hidden"
-        />
+        /> */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <InputField
             name="new_passport"
