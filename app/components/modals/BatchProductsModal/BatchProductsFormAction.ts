@@ -20,8 +20,6 @@ export const batchProductsFormAction = async (formData: FormData) => {
 
     await db.read()
 
-    console.log(success, validatedData, error)
-
     const userId = await getUserId()
     if (!userId) {
       throw new Error(

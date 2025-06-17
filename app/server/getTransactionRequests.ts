@@ -37,7 +37,6 @@ export const getTransactionRequests = async (): Promise<
   // const { result } = validatedResponse;
   const result = validatedResponse.data?.result
   const data = result?.data
-  console.log("typeof ", typeof data?.[0].name)
   const validatedData = TransactionListElementSchema.array().safeParse(data)
   const transactionData = validatedData.data
 

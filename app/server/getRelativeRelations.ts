@@ -29,7 +29,6 @@ export const getRelativeRelations = async (): Promise<
     body: requestBodyString,
   })
   const responseJson = await apiResponse.json()
-  console.log({ responseJson })
 
   // ! VALIDATION
   // ! ==================================

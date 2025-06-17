@@ -1,14 +1,28 @@
+"use client"
+
 import { DownloadIcon, LockIcon, User2Icon } from "@icons"
 import { signIn } from "@server"
 import { Button } from "@ui"
+import { LoaderIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { useActionState } from "react"
 
 export const rememberMeInputName = "rememberMe"
 export const usernameInputName = "username"
 export const passwordInputName = "password"
 
+export type InitialState = {
+  error: string | null
+}
+
+const initialState = {
+  error: null,
+}
+
 export const Login = () => {
+  const [state, formAction, pending] = useActionState(signIn, initialState)
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#11274A] bg-[url(/login-background.svg)] bg-cover bg-no-repeat bg-center px-4 lg:px-0">
       <div className="hidden lg:block relative lg:w-1/3 w-fit bg-gradient-to-t from-[#007C9E] to-[#0D3C5F] rounded-tr-[60px] rounded-bl-[60px] shadow-lg py-28 2xl:py-36 px-10 md:px-20">
@@ -79,7 +93,7 @@ export const Login = () => {
               </div>
             </div>
 
-            <form action={signIn} className="space-y-6">
+            <form action={formAction} className="space-y-6">
               <div className="relative">
                 <input
                   defaultValue="asaedi.uat"
@@ -125,6 +139,8 @@ export const Login = () => {
               </div>
 
               <Button
+                disabled={pending}
+                icon={pending && <LoaderIcon className="animate-spin" />}
                 type="submit"
                 className="w-full py-6 px-4 bg-[#007497] shadow-none hover:bg-cyan-700 text-white font-bold rounded-full transition duration-200"
               >

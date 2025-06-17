@@ -118,7 +118,6 @@
 //     try {
 //       validatedRequestBody = validateRequestBody(requestBody);
 //     } catch (error: unknown) {
-//       console.log(error);
 //       parsedDataReturn.validationError = "Invalid request body";
 //       return parsedDataReturn;
 //     }
@@ -130,7 +129,6 @@
 //       responseBody = responseJson;
 //       parsedDataReturn.metaData = postResponse;
 //     } catch (error: unknown) {
-//       console.log(error);
 //       parsedDataReturn.error = "Error in post function";
 //       return parsedDataReturn;
 //     }
@@ -150,17 +148,14 @@
 //         if (
 //           hasProperty<typeof firstItem, "state", string>(firstItem, "state")
 //         ) {
-//           console.log(`State: ${firstItem.state.toLowerCase()}`);
 //         }
 
 //         // Check for holiday_status_id tuple
 //         if (hasIdNameTuple(firstItem, "holiday_status_id")) {
 //           const [id, name] = firstItem.holiday_status_id;
-//           console.log(`Holiday status: ${name} (ID: ${id})`);
 //         }
 //       }
 //     } catch (error) {
-//       console.log(error);
 //       parsedDataReturn.error = "Validation Error";
 //       parsedDataReturn.validationError = `Invalid response body, ${JSON.stringify(
 //         postResponse.request
@@ -224,16 +219,13 @@
 
 //     result.data.forEach((item) => {
 //       if (helpers.hasState(item)) {
-//         console.log(`Leave state: ${item.state}`);
 //       }
 
 //       if (helpers.hasHolidayStatus(item)) {
 //         const [id, name] = item.holiday_status_id;
-//         console.log(`Holiday status: ${name} (ID: ${id})`);
 //       }
 //     });
 
-//     console.log(`Retrieved ${result.data.length} leaves`);
 //   }
 // }
 

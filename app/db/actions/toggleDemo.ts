@@ -1,13 +1,18 @@
 "use server"
 
-import { disableDemo } from "./disableDemo"
-import { enableDemo } from "./enableDemo"
-import { getDemo } from "./getDemo"
+// import { disableDemo } from "./disableDemo"
+// import { enableDemo } from "./enableDemo"
+// import { getDemo } from "./getDemo"
 
-export const toggleDemo = async () => {
-  const isDemo = await getDemo()
-  console.log({ isDemo })
-  if (isDemo) return await disableDemo()
+export const toggleDemo = async (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  prevState: any,
+  formData: FormData,
+) => {
+  return {}
+  // const isDemo = await getDemo()
+  // if (isDemo) return await disableDemo()
 
-  return await enableDemo()
+  // await enableDemo()
+  // return {}
 }

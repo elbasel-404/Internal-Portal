@@ -114,7 +114,6 @@ export const toggleHomePageSetting = async (
     const activeGeneralInfoKeys = user.activeGeneralInfoKeys
 
     const isAlreadyActive = activeGeneralInfoKeys.includes(validatedKey)
-    console.log({ isAlreadyActive, activeGeneralInfoKeys, user, state })
 
     if (isAlreadyActive) {
       const filteredKeys = activeGeneralInfoKeys.filter(
@@ -141,7 +140,7 @@ export const toggleHomePageSetting = async (
 
   const toggleNewsTabs = async () => {
     const validatedKey = await validateNewsTabsKey(slotKey)
-    if (!validatedKey) return console.log("Invalid key provided")
+    if (!validatedKey) return
     const user = await getUser(userId)
     const activeNewsTabsKeys = user.activeNewsTabsKeys
     const isAlreadyActive = activeNewsTabsKeys.includes(validatedKey)

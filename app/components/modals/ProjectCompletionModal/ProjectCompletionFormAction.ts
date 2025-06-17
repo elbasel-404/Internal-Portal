@@ -18,8 +18,6 @@ export const projectCompletionFormAction = async (formData: FormData) => {
       error,
     } = ProjectCompletionSchema.safeParse(responseData)
 
-    console.log(success, validatedData, error)
-
     await db.read()
 
     const userId = await getUserId()
