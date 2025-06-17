@@ -5,7 +5,8 @@ import { getFetchHeaders } from "./getFetchHeaders"
 export const cancelTraining = async (trainingId: string) => {
   const url = "api/po/hr/training/cancel-candidate"
   const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
   const requestBody = {
     training_id: trainingId,
     cancel_reason: "cancel_reason",

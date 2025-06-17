@@ -40,7 +40,8 @@ export const getEmployeeMembersDetails = async (
   // ! ==================================
   const url = "api/po/hr/employee/members/read"
   const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
   const requestBody = { id: id }
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`

@@ -14,7 +14,8 @@ export const getProfileDetails = async (): Promise<ProfileDetails> => {
   // ! ==================================
   const url = "api/po/read/profile"
   const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
   const requestBody = {}
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`

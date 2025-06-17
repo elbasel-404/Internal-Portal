@@ -2,7 +2,8 @@ import { getFetchHeaders } from "../../../../../server/getFetchHeaders"
 
 const url = "api/po/hr/holidays/status/by_gender"
 const apiRootUrl = process.env.API_ROOT_URL as string
-const { headers } = await getFetchHeaders()
+const fetchHeaders = await getFetchHeaders()
+const headers = fetchHeaders?.headers
 const requestUrl = `${apiRootUrl}/${url}`
 
 // ! FETCH
