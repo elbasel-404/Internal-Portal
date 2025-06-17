@@ -57,7 +57,7 @@ export const getMedicalInsuranceDetails = async (
     relationType: validatedData.relative_relation,
     requestType: validatedData.request_type,
     attachments: validatedData.attachment_ids.map(
-      (file) => new File([""], file.toString()),
+      (file: any) => new File([""], file.toString()),
     ),
   }
 

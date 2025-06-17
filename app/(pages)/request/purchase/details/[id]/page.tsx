@@ -23,7 +23,7 @@ interface PurchaseDetailsPageProps {
 const PurchaseDetailsPage = async ({ params }: PurchaseDetailsPageProps) => {
   const { id } = await params
   const userId = await getUserId()
-  if (!userId) throw new Error("Invalid User Id")
+  if (!userId) return
 
   const { batchs } = await getUser(userId)
   const productsData = await getPurchaseProductsByRequestId({

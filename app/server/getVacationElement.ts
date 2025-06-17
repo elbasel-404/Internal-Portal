@@ -25,8 +25,6 @@ export const getVacationElements = async (): Promise<VacationType[]> => {
     body: requestBodyString,
   })
   const responseJson = await apiResponse.json()
-  console.log({ responseJson })
-
   // ! VALIDATION
   // ! ==================================
   const validatedResponse = ResponseSchema.parse(responseJson)

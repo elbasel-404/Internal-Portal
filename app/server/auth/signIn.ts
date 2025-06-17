@@ -4,8 +4,13 @@ import { encrypt } from "@utils"
 import { cookies } from "next/headers"
 import { z } from "zod"
 import { getEmployeeId } from "./getEmployeeId"
+import { InitialState } from "../../components/Login"
 
-export const signIn = async (formData: FormData) => {
+export const signIn = async (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  prevState: any,
+  formData: FormData,
+) => {
   // ! ================= ENV =================
   const CLIENT_SECRET = process.env.CLIENT_SECRET
   const CLIENT_ID = process.env.CLIENT_ID
@@ -15,14 +20,6 @@ export const signIn = async (formData: FormData) => {
   const API_ROOT_URL = process.env.API_ROOT_URL
   const SESSION_ID = process.env.SESSION_ID
 
-  if (!API_ROOT_URL) throw new Error("Invalid root api url")
-  if (!CLIENT_SECRET) throw new Error("Invalid client secret")
-  if (!CLIENT_ID) throw new Error("Invalid client ID")
-  if (!SCOPE) throw new Error("Invalid scope")
-  if (!GRANT_TYPE) throw new Error("Invalid grant type")
-  if (!API_KEY) throw new Error("Invalid api key")
-  if (!SESSION_ID) throw new Error("Invalid api key")
-
   // ! ================= FORM DATA=================
   const formUsername = formData.get("username")?.toString().trim()
   const formPassword = formData.get("password")?.toString().trim()
@@ -31,10 +28,9 @@ export const signIn = async (formData: FormData) => {
 
   // ! ================= FORM VALIDATION =================
   if (!credsValidation.success) {
-    console.log({
-      credsValidationError: credsValidation.error.format(),
-    })
-    return
+    return {
+      error: "Invalid username or password",
+    }
   }
 
   // ! ================= FETCH SETUP =================
@@ -64,6 +60,9 @@ export const signIn = async (formData: FormData) => {
     body,
   })
 
+  // return {
+  //   error: "",
+  // }
   const responseJson = await response.json()
 
   // ! ================= RESPONSE VALIDATION =================
@@ -73,8 +72,9 @@ export const signIn = async (formData: FormData) => {
     const authResponseValidationError = JSON.stringify(
       authResponseValidation.error.format(),
     )
-    console.log({ authResponseValidationError })
-    return
+    return {
+      error: "Invalid username or password",
+    }
   }
 
   const {
@@ -98,10 +98,14 @@ export const signIn = async (formData: FormData) => {
   cookieStore.set("session", session, { expires, httpOnly: true })
 
   // ! ================= Employee ID =================
-  console.log("Getting employee id...")
   const employeeId = await getEmployeeId()
-  console.log("Logged in with", { employeeId })
   cookieStore.set("employeeId", employeeId ?? "none")
+
+  // ! ================= Return =================
+  const returnObject: InitialState = {
+    error: null,
+  }
+  return returnObject
 }
 
 // ! ================= SCHEMAS =================
