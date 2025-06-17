@@ -1,4 +1,5 @@
 import { RequestDetails, RequestStatus, Table } from "@components"
+import { CheckboxField } from "@components/form"
 import { CheckIcon, XMarkIcon } from "@icons"
 import { paths } from "@lib"
 import { getRequestStatus, getTrainingDetails } from "@server"
@@ -56,11 +57,36 @@ const TrainingDetailsPage = async ({ params }: TrainingDetailsPageProps) => {
 
   const trainingScheduleData = trainingSchedule ?? []
 
+  console.log(trainingScheduleData)
+
+  // Component to render training method checkboxes
+  const TrainingMethodDisplay = () => {
+    if (!trainingMethod || trainingMethod.length === 0) {
+      return <span className="text-gray-500">لا توجد طرق تدريب محددة</span>
+    }
+
+    return (
+      <div className="flex flex-wrap gap-4">
+        {trainingMethod.map((method, index) => (
+          <div key={index} className="flex items-center gap-2">
+            <CheckboxField
+              label={""}
+              name={""}
+              className="rounded-[3px] shadow-none space-y-0 mt-2"
+              checked={method.checked}
+            />
+            <label className="font-medium text-foreground">{method.name}</label>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
   const requestHeaders: RequestHeader[] = [
     { label: "رقم الطلب", value: id },
     { label: "تاريخ الطلب", value: requestDate },
     { label: "نوع التدريب", value: trainingType },
-    { label: "طبيعة التدريب", value: trainingMethod?.join(", ") },
+    { label: "طبيعة التدريب", value: <TrainingMethodDisplay /> },
     { label: "مسمى التدريب", value: trainingName },
     { label: "آلية الانعقاد", value: mechanismConvening },
     { label: "تاريخ بداية التدريب", value: trainingStartDate },
@@ -95,6 +121,7 @@ const TrainingDetailsPage = async ({ params }: TrainingDetailsPageProps) => {
         requestDetailsLabel="بيانات الموظف"
       />
       <RequestDetails headers={requestHeaders} />
+
       <div className="bg-white rounded-lg py-8 px-4 mt-6">
         <Table
           tableClassName="h-fit"
