@@ -12,6 +12,18 @@ export const getTrainingDetails = async (
   const isDemo = await getDemo()
   if (isDemo) return trainingDetails
 
+  const TravelDaySettingsArabic = (value: string) => {
+    if (value === "before_training") return "قبل بداية التدريب"
+    else if (value === "after_training") return "بعد نهاية التدريب"
+    else return ""
+  }
+
+  const TrainingType = (value: string) => {
+    if (value === "local") return "محلي"
+    else if (value === "internal") return "دولي"
+    else return ""
+  }
+
   // ! VARIABLES
   // ! ==================================
   const url = "api/po/hr/training-request"
@@ -37,50 +49,104 @@ export const getTrainingDetails = async (
   const { data } = result
   const validatedData = TrainingElementSchema.parse(data[0])
 
-  // ! PARSING
+  // ! TRAINING METHOD CHECKBOXES
   // ! ==================================
-
-  // Extract id from a string like "15 - أحمد محمد"
-  function extractId(str: string): string {
-    // Assumes the id is before the first space or dash
-    const match = str.match(/^(\d+)/)
-    return match ? match[1] : ""
+  const buildTrainingMethod = () => {
+    const methods = []
+    
+    if (validatedData.is_test) {
+      methods.push({ name: "اختبار", checked: true })
+    } else {
+      methods.push({ name: "اختبار", checked: false })
+    }
+    
+    if (validatedData.is_training) {
+      methods.push({ name: "تدريب", checked: true })
+    } else {
+      methods.push({ name: "تدريب", checked: false })
+    }
+    
+    if (validatedData.is_membership) {
+      methods.push({ name: "عضوية", checked: true })
+    } else {
+      methods.push({ name: "عضوية", checked: false })
+    }
+    
+    if (validatedData.is_studying_subjects) {
+      methods.push({ name: "مواد دراسية", checked: true })
+    } else {
+      methods.push({ name: "مواد دراسية", checked: false })
+    }
+    
+    return methods
   }
 
-  const employeeString = Array.isArray(validatedData.employee_id)
-    ? validatedData.employee_id[1]?.toString() || ""
-    : ""
+  // ! PARSING
+  // ! ==================================
 
   const returnedData: TrainingDetails = {
     id: validatedData.id.toString(),
     requestDate: validatedData.date,
-    city: validatedData.city,
-    country: Array.isArray(validatedData.country_id)
-      ? validatedData.country_id[1]
-      : "",
-    travelDays: validatedData.travel_days,
+    city:
+      typeof validatedData.city === "boolean"
+        ? validatedData.city.toString()
+        : "__",
+    country:
+      Array.isArray(validatedData.country_id) && validatedData.country_id[1]
+        ? validatedData.country_id[1].toString()
+        : "__",
+    travelDays: validatedData.travel_days + " " + "يوم",
     courseProgram: validatedData.programme_session,
     courseValue: validatedData.amount_training.toString(),
     duration: validatedData.duration.toString(),
-    employeeName: employeeString,
-    jobNumber: extractId(employeeString),
+    employeeName: validatedData.employee_id[1].toString(),
+    jobNumber: validatedData.employee_id[0]?.toString(),
     jobTitle: validatedData.grade_id[1]?.toString(),
     mandateAllowance: validatedData.deputation_allowance.toString(),
-    mechanismConvening: validatedData.type,
+    mechanismConvening: TrainingType(validatedData.type),
     sector: validatedData.department_id[1]?.toString(),
     status: validatedData.state,
-    trainingCenter: validatedData.training_center,
+    trainingCenter:
+      typeof validatedData.training_center === "string"
+        ? validatedData.training_center
+        : validatedData.training_center === true
+          ? "true"
+          : validatedData.training_center === false
+            ? "false"
+            : "",
     trainingEmployee: Array.isArray(validatedData.substitute_employee_id)
       ? validatedData.substitute_employee_id[1]?.toString()
-      : "",
-    trainingEndDate: validatedData.date_to_travel,
-    trainingStartDate: validatedData.date_from_travel,
-    trainingMethod: [],
+      : "__",
+    trainingEndDate:
+      typeof validatedData.date_to_travel === "boolean"
+        ? "__"
+        : validatedData.date_to_travel,
+    trainingStartDate:
+      typeof validatedData.date_from_travel === "boolean"
+        ? "__"
+        : validatedData.date_from_travel,
+    trainingMethod: buildTrainingMethod(),
     trainingName: validatedData.name,
-    trainingSchedule: [],
-    trainingStartBefore: validatedData.travel_days_setting,
-    trainingType: validatedData.type,
-    transcationDate: validatedData.expected_date,
+    trainingSchedule: Array.isArray(validatedData.hr_training_division_ids)
+      ? validatedData.hr_training_division_ids.map((item) => ({
+          id: item.id?.toString() ?? "",
+          trainingDate: item.date_from_travel + "/" + item.date_to_travel || "",
+          durationWithDays: item.duration?.toString() ?? "",
+          travelDays: item.duration?.toString() ?? "",
+          travelDateSettings:
+            TravelDaySettingsArabic(item.travel_days_setting) ?? "",
+          travelDateForTraining: item.date_from_travel ?? "",
+          travelDateForReturn: item.date_to_travel ?? "",
+        }))
+      : [],
+    trainingStartBefore:
+      typeof validatedData.travel_days_setting === "boolean"
+        ? validatedData.travel_days_setting.toString()
+        : validatedData.travel_days_setting,
+    trainingType: Array.isArray(validatedData.training_type_id)
+      ? validatedData.training_type_id[1]?.toString()
+      : "__",
+    transcationDate: validatedData.expected_date || "__",
     attachments: validatedData.attachment_ids.map(
       (file: any) => new File([""], file.toString()),
     ),
@@ -106,7 +172,12 @@ const trainingDetails: TrainingDetails = {
   courseProgram: "برنامج الدورة",
   trainingType: "شهادة احترافية",
   trainingName: "دورة في تطوير البرمجيات",
-  trainingMethod: ["اختبار", "تدريب", "محاكاة", "مواد دراسية"],
+  trainingMethod: [
+    { name: "اختبار", checked: true },
+    { name: "تدريب", checked: true },
+    { name: "عضوية", checked: false },
+    { name: "مواد دراسية", checked: true }
+  ],
   trainingStartDate: "2024-10-20",
   trainingEndDate: "2024-10-30",
   country: "الإمارات العربية المتحدة",

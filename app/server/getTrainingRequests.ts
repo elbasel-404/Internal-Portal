@@ -45,9 +45,9 @@ export const getTrainingRequests = async (): Promise<TrainingRequest[]> => {
         const employeeMember: TrainingRequest = {
           id: data.id.toString(),
           requestDate: data.date,
-          fromDate: data.date_from,
-          toDate: data.date_to,
-          duration: data.duration.toString() + "يام",
+          fromDate: data.date_from || "__",
+          toDate: data.date_to || "__",
+          duration: data.duration.toString() + " " + "أيام",
           type: data.type,
           status: data.state,
         }
