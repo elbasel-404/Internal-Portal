@@ -16,7 +16,8 @@ export const getCustodyRequests = async (): Promise<CustodyRequest[]> => {
   // ! ==================================
   const url = "api/po/hr/custody"
   const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
   // const requestBody = { employee_id: 21 }
   const requestBody = { employee_id: employeeId }
   const requestBodyString = JSON.stringify(requestBody)

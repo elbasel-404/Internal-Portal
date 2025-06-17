@@ -15,7 +15,9 @@ export const getFamilyNewsList = async (): Promise<NewsFamily[]> => {
   // ! ==================================
   const url = "api/po/read/portal-news"
   const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
+  if (!headers) return []
   const requestBody = { news_type: "family_news" }
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`

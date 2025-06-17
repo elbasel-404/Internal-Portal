@@ -18,7 +18,8 @@ export const getRecommendationsRequests = async (): Promise<
   // ! ==================================
   const url = "api/po/hr/application/read"
   const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
   // const requestBody = { employee_id: 1711 }
   const requestBody = { employee_id: employeeId }
   const requestBodyString = JSON.stringify(requestBody)

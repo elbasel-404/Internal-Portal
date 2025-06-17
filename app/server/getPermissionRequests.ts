@@ -15,7 +15,8 @@ export const getPermissionRequests = async (): Promise<PermissionRequest[]> => {
   const employeeId = await getStoredEmployeeId()
   const url = "api/po/hr/authorization"
   const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
   const requestBody = { employee_id: employeeId }
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`
