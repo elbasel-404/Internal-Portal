@@ -12,7 +12,8 @@ export const getRequestStatus = async (
   // // ! ==================================
   // const url = 'api/po/last_update';
   // const apiRootUrl = process.env.API_ROOT_URL as string;
-  // const { headers } = await getFetchHeaders();
+  // const fetchHeaders = await getFetchHeaders();
+  // const headers = fetchHeaders?.headers
   // const requestBody = { res_id: id, res_model: model };
   // const requestBodyString = JSON.stringify(requestBody);
   // const requestUrl = `${apiRootUrl}/${url}`;

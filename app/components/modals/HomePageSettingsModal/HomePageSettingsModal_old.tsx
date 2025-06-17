@@ -14,12 +14,8 @@
 // export const HomePageSettingsModal = async () => {
 //   const userId = await getUserId();
 
-//   if (!userId) return console.error('No userId!');
 //   const homePageSlots = await getHomePageSlots(userId);
 //   const generalInfo = await getGeneralInfo(userId);
-
-//   if (!homePageSlots) return console.error('No homePageSlots!');
-//   if (!generalInfo) return console.error('No generalInfo!');
 
 //   // ! Caution: assumes the order of the slots
 //   const generalInfoSlot = homePageSlots.at(1);

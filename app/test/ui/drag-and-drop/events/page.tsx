@@ -12,29 +12,15 @@ const DragAndDropEventsTestPage = () => {
     {
       onDragstart: () => {
         // setDragStatus('Dragging');
-        // console.log('dragging');
       },
 
       onDragend: () => {
         // setDragStatus('Not dragging');
-        // console.log('not dragging');
         // setValuesChanged('Not sorting');
-        // console.log('not sorting');
       },
 
       onSort: (event) => {
         // setValuesChanged(`${event.previousValues} -> ${event.values}`);
-        console.log("sorting")
-        console.log({
-          previousValues: event.previousValues,
-          values: event.values,
-          draggedNode: event.draggedNode,
-          nodes: event.nodes,
-          position: event.position,
-          previousPosition: event.previousPosition,
-          previousNode: event.previousNodes,
-          parent: event.parent,
-        })
       },
     },
   )

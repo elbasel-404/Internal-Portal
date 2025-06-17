@@ -33,7 +33,7 @@ export const Body = ({ children, className }: BodyProps) => {
         <Main>{children}</Main>
         <Footer />
         <Preferences />
-        <ToggleDemo />
+        {/* <ToggleDemo /> */}
       </AppProvider>
     </body>
   )

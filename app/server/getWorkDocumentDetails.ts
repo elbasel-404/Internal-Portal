@@ -25,7 +25,6 @@ export const getWorkDocumentDetails = async (
     }
     return details
   } catch (error) {
-    console.error("Error in getWorkDocumentDetails:", error)
     return
   }
 }

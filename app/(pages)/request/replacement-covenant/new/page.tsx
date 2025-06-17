@@ -7,11 +7,8 @@ export const dynamic = "force-dynamic"
 
 const NewReplacementCovenantPage = async () => {
   const userId = await getUserId()
-  if (!userId) {
-    throw new Error(
-      "Invalid User Id (app/(pages)/request/replacement-covenant/new/page.tsx)",
-    )
-  }
+  if (!userId) return
+
   const { convenantData } = await getUser(userId)
   const requestStatus = await getRequestStatus()
   const requestCaption =

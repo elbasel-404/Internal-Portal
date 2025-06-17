@@ -16,7 +16,8 @@ export const getEmployeeMembersFields = async (
   // ! ==================================
   const url = "api/po/hr/employee/members/fields"
   const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
   const requestBody = { field_name: fieldName }
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`
@@ -29,7 +30,6 @@ export const getEmployeeMembersFields = async (
     body: requestBodyString,
   })
   const responseJson = await apiResponse.json()
-  console.log({ responseJson })
 
   // ! VALIDATION
   // ! ==================================

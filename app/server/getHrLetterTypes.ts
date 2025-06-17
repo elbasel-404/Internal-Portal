@@ -14,7 +14,8 @@ export const getHrLetterTypes = async (): Promise<HrLetterType[]> => {
   // ! ==================================
   const url = "api/po/salary/identification/request/type/read"
   const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
   const requestBody = {}
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`
@@ -27,7 +28,6 @@ export const getHrLetterTypes = async (): Promise<HrLetterType[]> => {
     body: requestBodyString,
   })
   const responseJson = await apiResponse.json()
-  console.log({ responseJson })
 
   // ! VALIDATION
   // ! ==================================

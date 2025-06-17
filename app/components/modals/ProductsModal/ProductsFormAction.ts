@@ -20,25 +20,13 @@ export const productsFormAction = async (formData: FormData) => {
 
     await db.read()
 
-    console.log(success, validatedData, error)
-
     const userId = await getUserId()
-    if (!userId) {
-      throw new Error(
-        "Invalid User Id (app/components/modals/ProductsModal/ProductsFormActions.ts)",
-      )
-    }
-    if (!success) {
-      throw new Error(
-        "Validation Error (app/components/modals/ProductsModal/ProductsFormActions.ts)",
-        error,
-      )
-    }
+    if (!userId) return
+    if (!success) return
+
     const userIndex = await getUserIndex(userId)
     db.data.users[userIndex].products.push(validatedData)
 
     await db.write()
-  } catch (error) {
-    console.error(error)
-  }
+  } catch (error) {}
 }

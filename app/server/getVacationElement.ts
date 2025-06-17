@@ -12,7 +12,8 @@ export const getVacationElements = async (): Promise<VacationType[]> => {
   // ! ==================================
   const url = "api/po/hr/holidays/status/by_gender"
   const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
   const requestBody = {}
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`
@@ -25,8 +26,6 @@ export const getVacationElements = async (): Promise<VacationType[]> => {
     body: requestBodyString,
   })
   const responseJson = await apiResponse.json()
-  console.log({ responseJson })
-
   // ! VALIDATION
   // ! ==================================
   const validatedResponse = ResponseSchema.parse(responseJson)
