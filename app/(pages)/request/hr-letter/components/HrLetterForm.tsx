@@ -96,14 +96,20 @@ export const HrLetterForm = ({
             name="destination_id"
             label="مسمى الجهة الموجه لها"
             placeholder="اختر الجهة"
-            types={destinationElement}
+            types={destinationElement.map((el) => ({
+              id: el.id ?? "",
+              name: el.name ?? "",
+            }))}
             value={destinationId}
             onChange={handleDestinationChange}
           />
           <SelectField
             name="type"
             label="النوع"
-            types={hrLetterTypes}
+            types={hrLetterTypes.map((el) => ({
+              id: el.id ?? "",
+              name: el.name ?? "",
+            }))}
             value={typeId}
             onChange={handleTypeChange}
           />
