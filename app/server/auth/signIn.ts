@@ -5,6 +5,7 @@ import { cookies } from "next/headers"
 import { z } from "zod"
 import { getEmployeeId } from "./getEmployeeId"
 import { InitialState } from "../../components/Login"
+import { revalidatePath } from "next/cache"
 
 export const signIn = async (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -101,6 +102,7 @@ export const signIn = async (
   const employeeId = await getEmployeeId()
   cookieStore.set("employeeId", employeeId ?? "none")
 
+  revalidatePath("/", "layout")
   // ! ================= Return =================
   const returnObject: InitialState = {
     error: null,
