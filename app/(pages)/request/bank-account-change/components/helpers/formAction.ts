@@ -1,5 +1,6 @@
 "use server"
 
+import { getStoredEmployeeId } from "@auth"
 import { z } from "zod"
 import { CreateErrorSchema } from "../../../../../../api-schemas/CreateErrorSchema"
 import { CreateSuccessSchema } from "../../../../../../api-schemas/CreateSuccessSchema"
@@ -16,6 +17,8 @@ export const formAction = async (formData: FormData): Promise<State> => {
   const { headers: detailsHeaders } = await getFetchHeaders()
 
   const requestBody = Object.fromEntries(formData.entries())
+  const employeeId = await getStoredEmployeeId()
+  requestBody["employee-id"] = employeeId ?? ""
   const fetchUrl = `${rootUrl}/${endpointUrl}`
 
   const headers = new Headers()
