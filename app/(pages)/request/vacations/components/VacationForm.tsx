@@ -116,7 +116,7 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
       className="bg-white rounded-lg text-black text-lg p-4 space-y-4"
     >
       <FormHeader label="نموذج طلب إجازة" path={paths.vacations.href} />
-      <input
+      {/* <input
         type="text"
         name="employee_id"
         id="employee_id"
@@ -125,7 +125,7 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
         readOnly
         value="1711"
         className="hidden"
-      />
+      /> */}
       <div
         className={`grid grid-cols-1 ${
           vacationType === "16" || vacationType === "18"
