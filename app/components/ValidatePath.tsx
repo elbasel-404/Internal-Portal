@@ -16,11 +16,9 @@ export const ValidatePath = () => {
     const isPath = regExPaths.some((href) => {
       const pattern = getRegExFromHref(href)
       const isMatch = pattern.test(pathName)
-      // console.log({ pattern, isMatch, pathName });
       return isMatch
     })
     if (!isPath) {
-      console.log({ errorPath: pathName })
       console.error("invalid path", { shouldValidate, regExPaths, isPath })
     }
   }

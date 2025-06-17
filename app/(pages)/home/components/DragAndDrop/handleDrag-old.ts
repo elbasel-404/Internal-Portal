@@ -13,7 +13,6 @@
 
 // export const handleDrag = async ({ key, index, userId }: Args) => {
 //   debugger;
-//   console.log('handleDrag', key, index, userId);
 //   if (!userId) throw new Error('User ID is required');
 //   await db.read();
 //   const users = db.data.users;
@@ -41,6 +40,5 @@
 //     originalIndex: currentIndex,
 //     newIndex: index,
 //   };
-//   console.log({ result });
 //   return result;
 // };

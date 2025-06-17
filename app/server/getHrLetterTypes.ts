@@ -27,7 +27,6 @@ export const getHrLetterTypes = async (): Promise<HrLetterType[]> => {
     body: requestBodyString,
   })
   const responseJson = await apiResponse.json()
-  console.log({ responseJson })
 
   // ! VALIDATION
   // ! ==================================

@@ -6,25 +6,28 @@ import { toggleDemo } from "../db/actions/toggleDemo"
 // import { demoAtom } from "../atoms/demoAtom";
 import { apiErrorAtom } from "../atoms/apiErrorAtom"
 import { useAtomValue, useSetAtom } from "jotai"
-import { useEffect, useState } from "react"
+import { useActionState, useEffect, useState } from "react"
 import { getDemo } from "../db/actions/getDemo"
 import { cn } from "@utils"
 
 export const dynamic = "force-dynamic"
+
+export type InitialState = {}
+const initialState: InitialState = {}
 
 export const ToggleDemo = () => {
   const isApiError = useAtomValue(apiErrorAtom)
   const setApiError = useSetAtom(apiErrorAtom)
   const [isDemo, setIsDemo] = useState<null | boolean>(null)
 
+  const [state, formAction, pending] = useActionState(toggleDemo, initialState)
+
   const onSubmit = () => {
-    console.log({ isApiError })
     if (isApiError) {
       setTimeout(() => {
         setApiError(null)
         window.location.reload()
       }, 1000)
-      // const is      console.log("API Error");Demo = await getDemo();
       // setDemoAtom(isDemo);
     }
   }
@@ -36,14 +39,14 @@ export const ToggleDemo = () => {
 
   useEffect(() => {
     initDemo()
-  })
+  }, [])
 
   return (
     <div
       dir="ltr"
       className="flex w-max flex-col items-center fixed bottom-[20px] left-[20px] rounded-xl overflow-hidden text-white"
     >
-      <form className="bg-black w-full" action={toggleDemo} onSubmit={onSubmit}>
+      <form className="bg-black w-full" action={formAction} onSubmit={onSubmit}>
         <button
           className="flex justify-center items-center gap-2 flex-1 py-2 px-2"
           type="submit"
@@ -52,7 +55,7 @@ export const ToggleDemo = () => {
           <div
             className={cn(
               "w-[30px] aspect-square rounded-full border",
-              isDemo === null &&
+              (isDemo === null || pending) &&
                 "animate-spin bg-gradient-to-r from-red-700 to-lime-500",
               isDemo === false && "bg-red-400",
               isDemo && "bg-green-400",

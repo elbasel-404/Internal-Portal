@@ -12,15 +12,11 @@ export const trainingCoursesFormAction = async (formData: FormData) => {
 
     const responseData = { ...rawData }
 
-    console.log(responseData)
-
     const {
       success,
       data: validatedData,
       error,
     } = TrainingCoursesSchema.safeParse(responseData)
-
-    console.log(success, validatedData, error)
 
     await db.read()
 

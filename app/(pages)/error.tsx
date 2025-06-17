@@ -82,13 +82,6 @@ export default function Error({
         setCallback(handler)
       }
     }
-    console.log({
-      errorMessage,
-      errorStack,
-      errorCause,
-      errorDigest,
-      errorName,
-    })
   }, [error])
 
   const handleClick = async () => {

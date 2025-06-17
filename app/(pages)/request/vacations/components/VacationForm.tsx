@@ -71,8 +71,6 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
     setDeathPerson(event.target.value)
   }
 
-  console.log({ state, pending })
-
   useEffect(() => {
     if (dateFrom && dateTo) {
       const start = new Date(dateFrom)
