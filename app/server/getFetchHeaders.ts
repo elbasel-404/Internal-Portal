@@ -8,9 +8,7 @@ export const getFetchHeaders = async () => {
   const SESSION_ID = process.env.SESSION_ID as string
 
   const session = await getSession()
-  if (!session) {
-    throw new Error("No session found. Please log in.")
-  }
+  if (!session) return
 
   const { access_token } = session
   const BEARER_TOKEN = access_token

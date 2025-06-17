@@ -15,7 +15,8 @@ export const getEmployeeRequests = async (): Promise<Employee[]> => {
   // ! ==================================
   const url = "api/po/read/employee-search-request"
   const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
   const requestBody = {
     // employee_id: 305,
     employee_id: employeeId,

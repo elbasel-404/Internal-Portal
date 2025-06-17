@@ -14,7 +14,15 @@ export const formAction = async (formData: FormData): Promise<State> => {
   // ! ==================================
   const endpointUrl = "api/po/hr/medical/insurance/create"
   const rootUrl = process.env.API_ROOT_URL
-  const { headers: detailsHeaders } = await getFetchHeaders()
+  const fetchHeaders = await getFetchHeaders()
+  const detailsHeaders = fetchHeaders?.headers
+  if (!detailsHeaders) {
+    return {
+      success: false,
+      errors: ["Failed to get fetchHeaders"],
+      id: null,
+    }
+  }
 
   const requestBody = Object.fromEntries(formData.entries())
   const employeeId = await getStoredEmployeeId()
