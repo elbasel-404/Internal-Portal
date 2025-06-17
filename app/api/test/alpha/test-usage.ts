@@ -13,7 +13,6 @@
 //   const result = await callback(requestBody);
 
 //   if (result.error || result.validationError) {
-//     console.error("Error:", result.error || result.validationError);
 //     return;
 //   }
 
@@ -33,4 +32,3 @@
 // }
 
 // // Call the example function
-// // fetchAndProcessVacations().catch(console.error);

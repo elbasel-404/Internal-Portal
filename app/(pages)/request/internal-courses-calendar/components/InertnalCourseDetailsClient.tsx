@@ -35,7 +35,6 @@ export const InternalCourseDetailsClient = ({
         toast.error(response.message)
       }
     } catch (error) {
-      console.error(error)
       toast.error("حدث خطأ. الرجاء المحاولة لاحقًا.")
     } finally {
       setSubmitted(false)
@@ -52,7 +51,6 @@ export const InternalCourseDetailsClient = ({
         toast.error(response.message)
       }
     } catch (error) {
-      console.error(error)
       toast.error("حدث خطأ. الرجاء المحاولة لاحقًا.")
     } finally {
       setSubmitted(false)

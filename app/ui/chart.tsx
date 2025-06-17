@@ -33,9 +33,7 @@ const ChartContext = React.createContext<ChartContextProps | null>(null)
 function useChart() {
   const context = React.useContext(ChartContext)
 
-  if (!context) {
-    throw new Error("useChart must be used within a <ChartContainer />")
-  }
+  if (!context) return
 
   return context
 }
@@ -137,7 +135,9 @@ const ChartTooltipContent = React.forwardRef<
     },
     ref,
   ) => {
-    const { config } = useChart()
+    const chartContext = useChart()
+    if (!chartContext) return null
+    const { config } = chartContext
 
     const tooltipLabel = React.useMemo(() => {
       if (hideLabel || !payload?.length) {
@@ -276,7 +276,11 @@ const ChartLegendContent = React.forwardRef<
     { className, hideIcon = false, payload, verticalAlign = "bottom", nameKey },
     ref,
   ) => {
-    const { config } = useChart()
+    const chartContext = useChart()
+    if (!chartContext) {
+      return null
+    }
+    const { config } = chartContext
 
     if (!payload?.length) {
       return null

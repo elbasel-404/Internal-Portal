@@ -9,15 +9,11 @@ export const getFetchHeaders = async () => {
 
   const session = await getSession()
   if (!session) {
-    console.error("No session found")
-    throw new Error("No session found")
+    throw new Error("No session found. Please log in.")
   }
+
   const { access_token } = session
   const BEARER_TOKEN = access_token
-
-  if (!API_KEY || !API_KEY_HEADER_NAME || !BEARER_TOKEN || !SESSION_ID) {
-    throw new Error("Missing env variables")
-  }
 
   const headers = {
     [API_KEY_HEADER_NAME]: API_KEY,

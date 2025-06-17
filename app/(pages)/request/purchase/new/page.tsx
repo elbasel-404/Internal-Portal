@@ -5,11 +5,8 @@ import { PurchaseForm } from "../components"
 
 const NewPurchasePage = async () => {
   const userId = await getUserId()
-  if (!userId) {
-    throw new Error(
-      "Invalid User Id (app/(pages)/request/purchase/new/page.tsx)",
-    )
-  }
+  if (!userId) return
+
   const { projectCompletion, products } = await getUser(userId)
   const requestStatus = await getRequestStatus()
   const requestCaption =

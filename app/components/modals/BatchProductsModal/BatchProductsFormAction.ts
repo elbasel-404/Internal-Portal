@@ -21,22 +21,12 @@ export const batchProductsFormAction = async (formData: FormData) => {
     await db.read()
 
     const userId = await getUserId()
-    if (!userId) {
-      throw new Error(
-        "Invalid User Id (app/components/modals/BatchProductsModal/BatchProductsFormActions.ts)",
-      )
-    }
-    if (!success) {
-      throw new Error(
-        "Validation Error (app/components/modals/BatchProductsModal/BatchProductsFormActions.ts)",
-        error,
-      )
-    }
+    if (!userId) return
+    if (!success) return
+
     const userIndex = await getUserIndex(userId)
     db.data.users[userIndex].batchProducts.push(validatedData)
 
     await db.write()
-  } catch (error) {
-    console.error(error)
-  }
+  } catch (error) {}
 }

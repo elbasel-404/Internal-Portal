@@ -69,7 +69,6 @@
 //       responseSchema = listResponseSchema;
 //       break;
 //     default:
-//       throw new Error("Invalid operation");
 //   }
 
 //   const validateRequestBody = (body: unknown): RequestBody => {

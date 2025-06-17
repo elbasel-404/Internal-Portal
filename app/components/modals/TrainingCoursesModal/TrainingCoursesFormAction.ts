@@ -21,22 +21,12 @@ export const trainingCoursesFormAction = async (formData: FormData) => {
     await db.read()
 
     const userId = await getUserId()
-    if (!userId) {
-      throw new Error(
-        "Invalid User Id (app/components/modals/TrainingCoursesModal/TrainingCoursesFormActions.ts)",
-      )
-    }
-    if (!success) {
-      throw new Error(
-        "Validation Error (app/components/modals/TrainingCoursesModal/TrainingCoursesFormActions.ts)",
-        error,
-      )
-    }
+    if (!userId) return
+    if (!success) return
+
     const userIndex = await getUserIndex(userId)
     db.data.users[userIndex].trainingCourses.push(validatedData)
 
     await db.write()
-  } catch (error) {
-    console.error(error)
-  }
+  } catch (error) {}
 }
