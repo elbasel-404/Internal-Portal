@@ -3,6 +3,7 @@ import { getSession } from "@server"
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
 import "./(pages)/globals.css"
+import { Toaster } from "sonner"
 
 export const dynamic = "force-dynamic"
 
@@ -20,6 +21,13 @@ const RootLayout = async ({ children }: Readonly<RootLayoutProps>) => {
     return (
       <html>
         <body>
+          <Toaster
+            richColors
+            expand={true}
+            position="top-center"
+            closeButton={true}
+            visibleToasts={10}
+          />
           <InitUser />
           <Login />
         </body>
