@@ -1,5 +1,6 @@
 "use client"
 
+import { TrainingField } from "@api/schemas/index"
 import {
   createFileHandler,
   dateFromAtom,
@@ -11,7 +12,8 @@ import { FormHeader, SubmitButton } from "@components/form"
 import { paths } from "@lib"
 import { FileWithId, TrainingCourse } from "@types"
 import { useAtom } from "jotai"
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, useActionState, useEffect, useState } from "react"
+import { toast } from "sonner"
 import {
   AdditionalInfoSection,
   AttachmentsSection,
@@ -23,13 +25,32 @@ import {
   TrainingTypeSection,
 } from "./FormSections"
 import { FileHandlerType, SectionProps } from "./FormTypes/types"
+import { formAction } from "./helpers/formAction"
+import { getStateAction } from "./helpers/getStateAction"
+import { initialState } from "./helpers/initialState"
+import { State } from "./helpers/State"
 
 interface TrainingFormProps {
   trainingCourses: TrainingCourse[]
+  trainingCenterFields: TrainingField[]
+  trainingTravelDaysSettingsFields: TrainingField[]
+  trainingTypeFields: TrainingField[]
+  trainingCountryFields: TrainingField[]
+  trainingCityFields: TrainingField[]
 }
 
-export const TrainingForm = ({ trainingCourses }: TrainingFormProps) => {
+const stateAction = getStateAction<State>(formAction)
+
+export const TrainingForm = ({
+  trainingCourses,
+  trainingCenterFields,
+  trainingCityFields,
+  trainingCountryFields,
+  trainingTravelDaysSettingsFields,
+  trainingTypeFields,
+}: TrainingFormProps) => {
   // State definitions
+  const [state, action, pending] = useActionState(stateAction, initialState)
   const [files, setFiles] = useState<FileWithId[]>([])
   const [trainingName, setTrainingName] = useState<string>("")
   const [trainingType, setTrainingType] = useState<string>("")
@@ -42,6 +63,7 @@ export const TrainingForm = ({ trainingCourses }: TrainingFormProps) => {
   const [trainingProgram, setTrainingProgram] = useState<string>("")
   const [trainingCountry, setTrainingCountry] = useState<string>("")
   const [trainingCity, setTrainingCity] = useState<string>("")
+  const [trainingCityId, setTrainingCityId] = useState<string>("")
   const [travelDays, setTravelDays] = useState<string>("1")
   const [trainingAssignment, setTrainingAssignment] = useState<string>("")
   const [substituteEmployee, setSubstituteEmployee] = useState<string>("")
@@ -89,6 +111,7 @@ export const TrainingForm = ({ trainingCourses }: TrainingFormProps) => {
           setTrainingType={setTrainingType}
           trainingNature={trainingNature}
           setTrainingNature={setTrainingNature}
+          trainingTypeFields={trainingTypeFields}
         />
       ),
     },
@@ -128,6 +151,7 @@ export const TrainingForm = ({ trainingCourses }: TrainingFormProps) => {
           handleTrainingCenterNameChangeValue={
             handleTrainingCenterNameChangeValue
           }
+          trainingCentersField={trainingCenterFields}
         />
       ),
     },
@@ -138,11 +162,16 @@ export const TrainingForm = ({ trainingCourses }: TrainingFormProps) => {
           setTrainingCountry={setTrainingCountry}
           trainingCity={trainingCity}
           setTrainingCity={setTrainingCity}
+          trainingCityId={trainingCityId}
+          setTrainingCityId={setTrainingCityId}
           travelDays={travelDays}
           trainingAssignment={trainingAssignment}
           setTrainingAssignment={setTrainingAssignment}
           trainingMethod={trainingMethod}
           handleTravelDaysChangeValue={handleTravelDaysChangeValue}
+          trainingCitiesField={trainingCityFields}
+          trainingCountriesField={trainingCountryFields}
+          trainingTravelDaysSettingsFields={trainingTravelDaysSettingsFields}
         />
       ),
     },
@@ -170,10 +199,47 @@ export const TrainingForm = ({ trainingCourses }: TrainingFormProps) => {
     },
   ]
 
-  return (
-    <form className="bg-white rounded-lg text-black text-lg p-4 space-y-4">
-      <FormHeader label="نموذج طلب دورة تدريبية" path={paths.training.href} />
+  useEffect(() => {
+    const { success, errors } = state
+    if (success) toast.success("تم انشاء الطلب بنجاح")
+    if (errors) toast.error(errors)
+  }, [state])
 
+  useEffect(() => {
+    if (pending) {
+      toast.loading("جاري انشاء الطلب", {
+        id: "vacation-form-loading-toast",
+      })
+    } else {
+      toast.dismiss("vacation-form-loading-toast")
+    }
+  }, [pending])
+
+  if (state.success) {
+    return (
+      <div className="bg-white text-black text-lg p-4 space-y-4">
+        <p className="text-center">تم انشاء الطلب بنجاح</p>
+        <p className="text-center">رقم الطلب: {state.id}</p>
+      </div>
+    )
+  }
+
+  return (
+    <form
+      action={action}
+      className="bg-white rounded-lg text-black text-lg p-4 space-y-4"
+    >
+      <FormHeader label="نموذج طلب دورة تدريبية" path={paths.training.href} />
+      <input
+        type="text"
+        name="employee_id"
+        id="employee_id"
+        hidden
+        aria-hidden
+        readOnly
+        value="1722"
+        className="hidden"
+      />
       {sections.map((section, index) => (
         <div key={index} className="mb-8">
           {section.component}
