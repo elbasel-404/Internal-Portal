@@ -66,7 +66,7 @@ export const TrainingCoursesForm = () => {
           />
         )}
       </div>
-      {(trainingMethod === "local" || trainingMethod === "international") && (
+      {(trainingMethod === "local") && (
         <SelectField
           label="إعدادات تواريخ السفر"
           name="travelDateSettings"
