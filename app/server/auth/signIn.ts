@@ -94,7 +94,10 @@ export const signIn = async (
 
   // ! ================= Employee ID =================
   const employeeId = await getEmployeeId()
-  cookieStore.set("employeeId", employeeId ?? "none")
+  cookieStore.set("employeeId", employeeId ?? "none", {
+    expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+    httpOnly: true,
+  })
 
   revalidatePath("/", "layout")
   // ! ================= Return =================
