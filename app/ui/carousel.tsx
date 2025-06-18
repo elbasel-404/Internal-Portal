@@ -35,9 +35,7 @@ const CarouselContext = React.createContext<CarouselContextProps | null>(null)
 function useCarousel() {
   const context = React.useContext(CarouselContext)
 
-  if (!context) {
-    throw new Error("useCarousel must be used within a <Carousel />")
-  }
+  if (!context) return
 
   return context
 }
@@ -155,7 +153,9 @@ const CarouselContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
-  const { carouselRef, orientation } = useCarousel()
+  const carouselContext = useCarousel()
+  const carouselRef = carouselContext?.carouselRef
+  const orientation = carouselContext?.orientation ?? "horizontal"
 
   return (
     <div ref={carouselRef} className="overflow-hidden">
@@ -177,7 +177,8 @@ const CarouselItem = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
-  const { orientation } = useCarousel()
+  const carouselContext = useCarousel()
+  const orientation = carouselContext?.orientation ?? "horizontal"
 
   return (
     <div
@@ -199,7 +200,10 @@ const CarouselPrevious = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
 >(({ className, variant = "outline", size = "icon", ...props }, ref) => {
-  const { orientation, scrollPrev, canScrollPrev } = useCarousel()
+  const carouselContext = useCarousel()
+  const orientation = carouselContext?.orientation ?? "horizontal"
+  const scrollPrev = carouselContext?.scrollPrev
+  const canScrollPrev = carouselContext?.canScrollPrev
 
   return (
     <Button
@@ -228,7 +232,10 @@ const CarouselNext = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
 >(({ className, variant = "outline", size = "icon", ...props }, ref) => {
-  const { orientation, scrollNext, canScrollNext } = useCarousel()
+  const carouselContext = useCarousel()
+  const orientation = carouselContext?.orientation ?? "horizontal"
+  const scrollNext = carouselContext?.scrollNext
+  const canScrollNext = carouselContext?.canScrollNext
 
   return (
     <Button

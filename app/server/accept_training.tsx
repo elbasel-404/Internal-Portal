@@ -5,7 +5,8 @@ import { getFetchHeaders } from "./getFetchHeaders"
 export const acceptTraining = async (trainingId: string) => {
   const url = "api/po/hr/training/action-candidate"
   const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
   const requestBody = { training_id: trainingId }
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`

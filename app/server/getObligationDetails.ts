@@ -44,7 +44,6 @@ export const getObligationDetails =
       }
       return obligationDetails
     } catch (error) {
-      console.error("Error in getPermissionDetails:", error)
       return
     }
   }

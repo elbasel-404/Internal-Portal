@@ -1,9 +1,12 @@
+"use client"
+
 import { EditIcon } from "@icons"
 import { LogOutIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { paths } from "../../lib/paths"
 import { Button } from "../../ui/button"
+import { logout } from "@auth"
 
 interface SideBarHeaderProps {
   isOpen: boolean
@@ -31,9 +34,14 @@ export const SidebarProfileInfo = ({ isOpen }: SideBarHeaderProps) => {
           <EditIcon />
         </Link>
 
-        <Button className="min-h-14 p-4 text-white font-medium bg-primary-opacity hover:bg-primary rounded-xl shadow-none rotate-180">
-          <LogOutIcon />
-        </Button>
+        <form action={logout}>
+          <Button
+            type="submit"
+            className="min-h-14 p-4 text-white font-medium bg-primary-opacity hover:bg-primary rounded-xl shadow-none rotate-180"
+          >
+            <LogOutIcon />
+          </Button>
+        </form>
       </div>
 
       <div
@@ -66,9 +74,11 @@ export const SidebarProfileInfo = ({ isOpen }: SideBarHeaderProps) => {
           >
             بياناتي
           </Link>
-          <Button className="w-full min-h-12 text-white font-medium bg-primary-opacity hover:bg-primary rounded-xl shadow-none rotate-180">
-            <LogOutIcon />
-          </Button>
+          <form action={logout}>
+            <Button className="w-full min-h-12 text-white font-medium bg-primary-opacity hover:bg-primary rounded-xl shadow-none rotate-180">
+              <LogOutIcon />
+            </Button>
+          </form>
         </div>
       </div>
     </>

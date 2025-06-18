@@ -27,7 +27,6 @@
 //     const action = getFormAction(endpointName, operation);
 //     const response = await action(formData);
 //     setData(response);
-//     console.log({ response });
 //   };
 
 //   useEffect(() => {

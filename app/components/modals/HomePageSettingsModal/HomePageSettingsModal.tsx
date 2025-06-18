@@ -1,7 +1,7 @@
 import { generalInfoKeys, homePageSlotsKeys, newsTabsKeys } from "@lib"
 import { getUserId } from "@server"
 import { GeneralInfoKey, HomePageSlotKey, NewsTabsKey } from "@types"
-import { getSlotTitle, throwError } from "@utils"
+import { getSlotTitle } from "@utils"
 import { Modal } from "../Modal"
 import { ToggleForm } from "./ToggleForm"
 import { ErrorMessage } from "@lib"
@@ -12,7 +12,7 @@ export const dynamic = "force-dynamic"
 
 export const HomePageSettingsModal = async () => {
   const userId = await getUserId()
-  if (!userId) return throwError(ErrorMessage.invalidUserId)
+  if (!userId) return
 
   const user = await getUser(userId)
   const activeHomePageSlotsKeys = user.activeHomePageSlotsKeys
@@ -20,7 +20,7 @@ export const HomePageSettingsModal = async () => {
   const activeNewsTabsKeys = user.activeNewsTabsKeys
 
   if (!activeHomePageSlotsKeys || !activeGeneralInfoKeys || !activeNewsTabsKeys)
-    return throwError(ErrorMessage.invalidSlots)
+    return
 
   const excludedHomePageSlotsKeys: HomePageSlotKey[] = [
     "completeProfile",

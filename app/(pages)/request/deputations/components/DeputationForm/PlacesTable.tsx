@@ -35,9 +35,7 @@ export const PlacesTable = ({
   onChangeIssueVisa,
   onRemove,
 }: DeputationPlacesProps) => {
-  function changeIssueVisa(value: boolean): void {
-    throw new Error("Function not implemented.")
-  }
+  function changeIssueVisa(value: boolean): void {}
 
   return (
     <>

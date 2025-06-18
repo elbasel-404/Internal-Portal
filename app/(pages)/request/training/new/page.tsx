@@ -5,11 +5,8 @@ import { TrainingForm } from "../components"
 
 const NewTrainingPage = async () => {
   const userId = await getUserId()
-  if (!userId) {
-    throw new Error(
-      "Invalid User Id (app/(pages)/request/training/new/page.tsx)",
-    )
-  }
+  if (!userId) return
+
   const { trainingCourses } = await getUser(userId)
   const requestStatus = await getRequestStatus()
   const requestCaption =

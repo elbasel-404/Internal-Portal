@@ -34,7 +34,6 @@
 //       responseSchema = listResponseSchema;
 //       break;
 //     default:
-//       throw new Error("requestSchemaInvalid operation");
 //   }
 
 //   type RequestBody = z.infer<typeof requestSchema>;

@@ -37,16 +37,12 @@
 //     return parsedData;
 //     // const itemProps = Object.getOwnPropertyNames(dataItem);
 //   }
-//   // console.log(typeof data, data);
-//   // console.log(typeof data[0])
 //   // return typeof data;
 //   // const keys = Object.keys(data);
 //   // const values = Object.values(data);
 //   // const enteries = Object.entries(data);
-//   // console.log({ keys, values });
 //   // for (const entry in enteries) {
 //   //   const [key, value] = entry;
-//   //   console.log({ key, value });
 //   // }
 //   // get api data from the api (raw data)
 //   // loop over the vacationsListMap enteries [appKey, apiDataKey]

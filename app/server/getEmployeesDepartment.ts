@@ -4,6 +4,7 @@ import type { Employee } from "@types"
 import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
 import { EmployeeDepartmentElementSchema, ResponseSchema } from "@api/schemas"
+
 export const getEmployeeDepartmentRequests = async (): Promise<Employee[]> => {
   const isDemo = await getDemo()
   if (isDemo) return dummyData
@@ -12,7 +13,9 @@ export const getEmployeeDepartmentRequests = async (): Promise<Employee[]> => {
   // ! ==================================
   const url = "api/po/read/relative-employees"
   const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
+  if (!headers) return []
   const requestBody = { employee_id: 305 }
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`

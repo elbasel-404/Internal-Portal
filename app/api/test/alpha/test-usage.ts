@@ -13,7 +13,6 @@
 //   const result = await callback(requestBody);
 
 //   if (result.error || result.validationError) {
-//     console.error("Error:", result.error || result.validationError);
 //     return;
 //   }
 
@@ -22,18 +21,14 @@
 
 //     result.data.forEach((item) => {
 //       if (helpers.hasState(item)) {
-//         console.log(`Vacation state: ${item.state}`);
 //       }
 
 //       if (helpers.hasHolidayStatus(item)) {
 //         const [id, name] = item.holiday_status_id;
-//         console.log(`Holiday status: ${name} (ID: ${id})`);
 //       }
 //     });
 
-//     console.log(`Retrieved ${result.data.length} vacations`);
 //   }
 // }
 
 // // Call the example function
-// // fetchAndProcessVacations().catch(console.error);

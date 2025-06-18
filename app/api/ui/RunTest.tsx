@@ -97,7 +97,6 @@
 //   const [rawData, setRawData] = useState<any[] | null>(null);
 
 //   const transformData = async () => {
-//     console.log({ state });
 //     if (state.data) {
 //       const parsedData = state.data.map(
 //         ({
@@ -134,7 +133,6 @@
 //   }, [state]);
 
 //   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-//     console.log({ e });
 //     setEndpointName(e.target.value as Endpoint);
 //   };
 
