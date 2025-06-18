@@ -31,7 +31,6 @@ export const getTrainingFields = async (
   })
   const responseJson = await apiResponse.json()
 
-  console.log(responseJson)
 
   // ! VALIDATION
   // ! ==================================
