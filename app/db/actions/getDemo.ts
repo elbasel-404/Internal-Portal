@@ -1,7 +1,7 @@
 "use server"
 
-import { getUserId } from "@server"
-import { getUser } from "."
+// import { getUserId } from "@server"
+// import { getUser } from "."
 import { cookies } from "next/headers"
 
 export const getDemo = async (): Promise<boolean> => {

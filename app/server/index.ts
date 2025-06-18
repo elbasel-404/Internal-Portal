@@ -80,6 +80,8 @@ export { getSupplierEvaluationRequestDetails } from "./getSupplierEvaluationRequ
 export { getSupplierEvaluationRequests } from "./getSupplierEvaluationRequests"
 export { getTicketDetails } from "./getTicketDetails"
 export { getTicketRequests } from "./getTicketRequests"
+export { getTraineeRequestDetails } from "./getTraineeRequestDetails"
+export { getTraineeRequests } from "./getTraineeRequests"
 export { getTrainingDetails } from "./getTrainingDetails"
 export { getTrainingFields } from "./getTrainingFields"
 export { getTrainingRequests } from "./getTrainingRequests"

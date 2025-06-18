@@ -1,3 +1,5 @@
+"use client"
+
 import { CheckboxField } from "@components/form"
 import { PdfFileIcon, PrinterIcon, TrashIcon } from "@icons"
 import { colors } from "@lib"
@@ -13,7 +15,7 @@ import {
 } from "@ui"
 import { cn } from "@utils"
 import { ReactNode, isValidElement } from "react"
-
+import { renderStatusCell } from "./Table/Table"
 interface RequestDetailsProps {
   headers?: RequestHeader[]
   evaluationCriteria?: ReactNode
@@ -117,7 +119,9 @@ export const RequestDetails = ({
                   <div className="mx-3 md:basis-1/4 md:flex-1 md:max-w-[15%]">
                     {label}
                   </div>
-                  {labelValue(value as ReactNode | boolean, key)}
+                  {label === "الحالة"
+                    ? renderStatusCell(value as string)
+                    : labelValue(value as ReactNode | boolean, key)}
                 </div>
               </div>
             )
@@ -150,6 +154,7 @@ export const RequestDetails = ({
 interface AttachmentListProps {
   attachmentList: File[]
 }
+
 const AttachmentList = ({ attachmentList }: AttachmentListProps) => {
   return (
     <>
@@ -165,6 +170,8 @@ const AttachmentList = ({ attachmentList }: AttachmentListProps) => {
 }
 
 const FileAttachment = ({ file }: { file: File }) => {
+  // Build download URL using the attachment ID (file.name)
+  const downloadUrl = `https://publicapis.monshaat.gov.sa/ERP/TaskService/api/attachment/download/${file.name}`
   return (
     <div className="rounded-lg gap-3 px-4 flex items-center bg-grey-50 py-3 hover:bg-black/10 transition-colors cursor-pointer">
       <div className="w-10 h-10 flex bg-[#FFF4CF] items-center rounded-md justify-center">
@@ -174,7 +181,8 @@ const FileAttachment = ({ file }: { file: File }) => {
       <div className="mr-auto flex gap-4">
         <Button
           className="bg-primary-opacity rounded-sm w-6 h-6 p-0"
-          title="Print"
+          title="Download"
+          onClick={() => window.open(downloadUrl, "_blank")}
         >
           <PrinterIcon
             className="w-3 h-3"

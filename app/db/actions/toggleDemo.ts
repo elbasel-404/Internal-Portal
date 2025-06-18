@@ -11,6 +11,7 @@ export const toggleDemo = async (
   prevState: any,
   formData: FormData,
 ) => {
+  // return { isDemo: false }
   const isDemo = await getDemo()
   const cookieStore = await cookies()
   if (isDemo) {

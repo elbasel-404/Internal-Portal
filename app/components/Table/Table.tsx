@@ -55,6 +55,35 @@ interface TableProps {
   onRemove?: (id: number) => void
 }
 
+export const renderStatusCell = (value: string) => {
+  const config = STATUS_CONFIG[value as keyof typeof STATUS_CONFIG] || {
+    label: value,
+    icon: ProjectorIcon,
+    className: "bg-primary-opacity text-primary",
+  }
+
+  const Icon = config.icon
+
+  return (
+    <div
+      className={`flex items-center truncate gap-1 py-2 px-4 text-sm rounded-xl font-medium w-fit ${config.className}`}
+    >
+      {Icon && (
+        <Icon
+          className={
+            value === "اعتمد" || value === "done" || value === "confirm"
+              ? "fill-success-foreground"
+              : value === "مرفوض" || value === "refuse"
+                ? "fill-destructive-foreground"
+                : "fill-primary"
+          }
+        />
+      )}
+      {config.label}
+    </div>
+  )
+}
+
 export const Table = ({
   columns,
   rows,
@@ -107,34 +136,6 @@ export const Table = ({
   }
 
   // Status cell renderer
-  const renderStatusCell = (value: string) => {
-    const config = STATUS_CONFIG[value as keyof typeof STATUS_CONFIG] || {
-      label: value,
-      icon: ProjectorIcon,
-      className: "bg-primary-opacity text-primary",
-    }
-
-    const Icon = config.icon
-
-    return (
-      <div
-        className={`flex items-center truncate gap-1 py-2 px-4 text-sm rounded-xl font-medium w-fit ${config.className}`}
-      >
-        {Icon && (
-          <Icon
-            className={
-              value === "اعتمد" || value === "done" || value === "confirm"
-                ? "fill-success-foreground"
-                : value === "مرفوض" || value === "refuse"
-                  ? "fill-destructive-foreground"
-                  : "fill-primary"
-            }
-          />
-        )}
-        {config.label}
-      </div>
-    )
-  }
 
   // Employee name cell renderer
   const renderEmployeeNameCell = (value: string) => (

@@ -1,0 +1,1 @@
+export { CardIdAcountModal } from "./CardIdAcountModal"
