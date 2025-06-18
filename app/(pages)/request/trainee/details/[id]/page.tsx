@@ -2,6 +2,7 @@ import { RequestDetails, RequestStatus } from "@components"
 import { getTraineeRequestDetails, getRequestStatus } from "@server"
 import { RequestHeader } from "@types"
 import { notFound } from "next/navigation"
+import { RequestTypeSection } from "./components/RequestTypeSection"
 
 type Params = Promise<{ id: string }>
 interface VacationDetailsPageProps {
@@ -54,6 +55,7 @@ const RemoteWorkDetailsPage = async ({ params }: VacationDetailsPageProps) => {
     <>
       <RequestStatus status={requestStatus} caption={requestCaption} />
       <RequestDetails headers={requestHeaders} />
+      <RequestTypeSection />
     </>
   )
 }
