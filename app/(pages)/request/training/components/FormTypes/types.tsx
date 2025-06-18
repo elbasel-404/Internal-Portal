@@ -1,4 +1,4 @@
-import { TrainingField } from "@api/schemas/index"
+import { SubstituteEmployees, TrainingField } from "@api/schemas/index"
 import { FileWithId, TrainingCourse } from "@types"
 import { ChangeEvent, ReactNode } from "react"
 
@@ -58,6 +58,7 @@ export interface AdditionalInfoSectionProps {
   handleTrainingProgramChangeValue: (
     event: ChangeEvent<HTMLTextAreaElement>,
   ) => void
+  substituteEmployees: SubstituteEmployees[]
 }
 
 export interface TrainingLocationSectionProps {
