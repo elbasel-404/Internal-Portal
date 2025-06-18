@@ -1,3 +1,5 @@
+"use client"
+
 import { CheckboxField } from "@components/form"
 import { PdfFileIcon, PrinterIcon, TrashIcon } from "@icons"
 import { colors } from "@lib"
@@ -13,7 +15,7 @@ import {
 } from "@ui"
 import { cn } from "@utils"
 import { ReactNode } from "react"
-
+import { renderStatusCell } from "./Table/Table"
 interface RequestDetailsProps {
   headers?: RequestHeader[]
   evaluationCriteria?: ReactNode
@@ -96,7 +98,9 @@ export const RequestDetails = ({
                   <div className="mx-3 md:basis-1/4 md:flex-1 md:max-w-[15%]">
                     {label}
                   </div>
-                  {labelValue(value as ReactNode | boolean, key)}
+                  {label === "الحالة"
+                    ? renderStatusCell(value as string)
+                    : labelValue(value as ReactNode | boolean, key)}
                 </div>
               </div>
             )

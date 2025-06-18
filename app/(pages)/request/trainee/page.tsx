@@ -1,7 +1,7 @@
 import { TraineeTable } from "./components"
 import { getTraineeRequests } from "@server"
 
-const RemoteWorkListPage = async () => {
+const TraineeListPage = async () => {
   const traineeList = await getTraineeRequests()
   return (
     <div className="space-y-4 mb-12">
@@ -10,4 +10,4 @@ const RemoteWorkListPage = async () => {
   )
 }
 
-export default RemoteWorkListPage
+export default TraineeListPage

@@ -8,7 +8,7 @@ export const metadata = {
 interface TraineeLayoutProps {
   children: ReactNode
 }
-const RemoteWorksLayout = ({ children }: TraineeLayoutProps) => {
+const TraineeLayout = ({ children }: TraineeLayoutProps) => {
   return (
     <>
       <TraineeData />
@@ -17,4 +17,4 @@ const RemoteWorksLayout = ({ children }: TraineeLayoutProps) => {
   )
 }
 
-export default RemoteWorksLayout
+export default TraineeLayout
