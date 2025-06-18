@@ -66,8 +66,6 @@ export const formAction = async (formData: FormData): Promise<State> => {
     validatedRequestBody as RequestBody,
   )
 
-   console.log(validatedRequestBodyEntries)
-
   validatedRequestBodyEntries.forEach(([key, value]) => {
     fetchFormData.append(key, value as string | File)
   })
