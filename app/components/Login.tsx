@@ -26,13 +26,14 @@ export const Login = () => {
 
   useEffect(() => {
     const { error } = state
-
     if (error) {
-      toast.error(error)
+      toast.error(error, { id: "login-error" })
     } else {
-      toast.dismiss()
+      setTimeout(() => {
+        toast.dismiss("login-error")
+      }, 3000)
     }
-  }, [state])
+  }, [pending, state])
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#11274A] bg-[url(/login-background.svg)] bg-cover bg-no-repeat bg-center px-4 lg:px-0">

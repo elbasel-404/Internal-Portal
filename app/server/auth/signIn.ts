@@ -55,24 +55,18 @@ export const signIn = async (
   })
 
   // ! ================= FETCH =================
+  console.log("fetchung auth endpoint")
   const response = await fetch(AUTH_ENDPOINT_URL, {
     method,
     headers,
     body,
   })
 
-  // return {
-  //   error: "",
-  // }
   const responseJson = await response.json()
-
   // ! ================= RESPONSE VALIDATION =================
   const authResponseValidation = authResponseSchema.safeParse(responseJson)
 
-  if (!authResponseValidation.success) {
-    const authResponseValidationError = JSON.stringify(
-      authResponseValidation.error.format(),
-    )
+  if (!authResponseValidation.data) {
     return {
       error: "Invalid username or password",
     }
