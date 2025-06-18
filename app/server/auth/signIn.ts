@@ -55,24 +55,18 @@ export const signIn = async (
   })
 
   // ! ================= FETCH =================
+  console.log("fetchung auth endpoint")
   const response = await fetch(AUTH_ENDPOINT_URL, {
     method,
     headers,
     body,
   })
 
-  // return {
-  //   error: "",
-  // }
   const responseJson = await response.json()
-
   // ! ================= RESPONSE VALIDATION =================
   const authResponseValidation = authResponseSchema.safeParse(responseJson)
 
-  if (!authResponseValidation.success) {
-    const authResponseValidationError = JSON.stringify(
-      authResponseValidation.error.format(),
-    )
+  if (!authResponseValidation.data) {
     return {
       error: "Invalid username or password",
     }
@@ -100,7 +94,10 @@ export const signIn = async (
 
   // ! ================= Employee ID =================
   const employeeId = await getEmployeeId()
-  cookieStore.set("employeeId", employeeId ?? "none")
+  cookieStore.set("employeeId", employeeId ?? "none", {
+    expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+    httpOnly: true,
+  })
 
   revalidatePath("/", "layout")
   // ! ================= Return =================
