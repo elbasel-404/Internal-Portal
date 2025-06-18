@@ -16,7 +16,7 @@ export type InitialState = {
   isDemo: boolean
 }
 const initialState: InitialState = {
-  isDemo: false,
+  isDemo: true,
 }
 
 export const ToggleDemo = () => {
