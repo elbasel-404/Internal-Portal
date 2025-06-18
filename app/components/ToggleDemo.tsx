@@ -12,8 +12,12 @@ import { cn } from "@utils"
 
 export const dynamic = "force-dynamic"
 
-export type InitialState = {}
-const initialState: InitialState = {}
+export type InitialState = {
+  isDemo: boolean
+}
+const initialState: InitialState = {
+  isDemo: true,
+}
 
 export const ToggleDemo = () => {
   const isApiError = useAtomValue(apiErrorAtom)
@@ -21,6 +25,11 @@ export const ToggleDemo = () => {
   const [isDemo, setIsDemo] = useState<null | boolean>(null)
 
   const [state, formAction, pending] = useActionState(toggleDemo, initialState)
+
+  useEffect(() => {
+    const { isDemo } = state
+    setIsDemo(isDemo)
+  }, [state])
 
   const onSubmit = () => {
     if (isApiError) {
