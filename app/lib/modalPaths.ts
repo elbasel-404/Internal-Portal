@@ -63,4 +63,20 @@ export const modalPaths = {
     title: "إضافة مؤشر الأداء",
     href: "/modal/IndicatorModal",
   },
+  VpnAcountModal: {
+    title: "انشاء طلب حساب vpn",
+    href: "/modal/VpnAcountModal",
+  },
+  EmailAcountModal: {
+    title: "انشاء طلب بريد الكتروني للمتدرب",
+    href: "/modal/EmailAcountModal",
+  },
+  OfficeAcountModal: {
+    title: "انشاء طلب مكتب",
+    href: "/modal/OfficeAcountModal",
+  },
+  CardIdAcountModal: {
+    title: "انشاء طلب بطاقة",
+    href: "/modal/CardIdAcountModal",
+  },
 } as const
