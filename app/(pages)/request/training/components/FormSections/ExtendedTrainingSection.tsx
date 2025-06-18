@@ -33,7 +33,7 @@ export const ExtendedTrainingSection = ({
     <>
       <CheckboxField
         label="تدريب ممتد"
-        name="extendedTraining"
+        name="extended_training"
         required={false}
         checked={extendedTraining}
         onChange={(value) => setExtendedTraining(value)}

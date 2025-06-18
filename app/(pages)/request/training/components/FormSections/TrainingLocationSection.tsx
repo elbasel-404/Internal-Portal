@@ -1,14 +1,11 @@
 import { InputField, SelectField } from "@components/form"
-import {
-  TrainingAssignment,
-  TrainingCities,
-  TrainingCountries,
-} from "../config"
 import { TrainingLocationSectionProps } from "../FormTypes/types"
 
 export const TrainingLocationSection = ({
   trainingCity,
   setTrainingCity,
+  trainingCityId,
+  setTrainingCityId,
   trainingCountry,
   setTrainingCountry,
   travelDays,
@@ -16,14 +13,20 @@ export const TrainingLocationSection = ({
   setTrainingAssignment,
   trainingMethod,
   handleTravelDaysChangeValue,
+  trainingCitiesField,
+  trainingCountriesField,
+  trainingTravelDaysSettingsFields,
 }: TrainingLocationSectionProps) => (
   <div className="space-y-6">
     {trainingMethod === "international" && (
       <SelectField
         label="الدولة"
-        name="country"
+        name="country_id"
         placeholder="___"
-        types={TrainingCountries}
+        types={trainingCountriesField.map(({ id, name }) => ({
+          id: id ?? "",
+          name: name ?? "",
+        }))}
         value={trainingCountry}
         onChange={(value) => setTrainingCountry(value)}
       />
@@ -37,17 +40,31 @@ export const TrainingLocationSection = ({
             : "md:grid-cols-2"
         } gap-3`}
       >
-        <SelectField
-          label="المدينة"
-          name="city"
-          placeholder="___"
-          types={TrainingCities}
-          value={trainingCity}
-          onChange={(value) => setTrainingCity(value)}
-        />
+        {trainingMethod === "local" && (
+          <SelectField
+            label="المدينة"
+            name="city_id"
+            placeholder="___"
+            types={trainingCitiesField.map(({ id, name }) => ({
+              id: id ?? "",
+              name: name ?? "",
+            }))}
+            value={trainingCityId}
+            onChange={(value) => setTrainingCityId(value)}
+          />
+        )}
+        {trainingMethod === "international" && (
+          <InputField
+            label="المدينة"
+            name="city"
+            value={trainingCity}
+            onChange={(e) => setTrainingCity(e.target.value)}
+            required
+          />
+        )}
         <InputField
           label="ايام السفر"
-          name="travelDays"
+          name="travel_days"
           value={travelDays}
           onChange={handleTravelDaysChangeValue}
           required
@@ -56,9 +73,12 @@ export const TrainingLocationSection = ({
         {trainingMethod !== "international" && (
           <SelectField
             label="بداية انتداب التدريب"
-            name="trainingAssignment"
+            name="travel_days_settings"
             placeholder="___"
-            types={TrainingAssignment}
+            types={trainingTravelDaysSettingsFields.map(({ id, name }) => ({
+              id: id ?? "",
+              name: name ?? "",
+            }))}
             value={trainingAssignment}
             onChange={(value) => setTrainingAssignment(value)}
           />

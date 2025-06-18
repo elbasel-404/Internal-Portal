@@ -1,5 +1,4 @@
 import { CheckboxField, InputField, SelectField } from "@components/form"
-import { TrainingCenters } from "../config"
 import { TrainingCenterSectionProps } from "../FormTypes/types"
 
 export const TrainingCenterSection = ({
@@ -9,14 +8,18 @@ export const TrainingCenterSection = ({
   setTrainingCenter,
   trainingCenterName,
   handleTrainingCenterNameChangeValue,
+  trainingCentersField,
 }: TrainingCenterSectionProps) => (
   <div className="space-y-6">
     {!isOtherTrainingCenter && (
       <SelectField
         label="مراكز التدريب"
-        name="trainingCenters"
+        name="training_center_id"
         placeholder="___"
-        types={TrainingCenters}
+        types={trainingCentersField.map(({ id, name }) => ({
+          id: id,
+          name: name,
+        }))}
         value={trainingCenter}
         onChange={(value) => setTrainingCenter(value)}
       />
@@ -24,7 +27,7 @@ export const TrainingCenterSection = ({
 
     <CheckboxField
       label="مركز تدريب اخر"
-      name="otherTrainingCenter"
+      name="is_other_centers"
       required={false}
       checked={isOtherTrainingCenter}
       onChange={(value) => setIsOtherTrainingCenter(value)}
@@ -36,7 +39,7 @@ export const TrainingCenterSection = ({
     {isOtherTrainingCenter && (
       <InputField
         label="اسم مركز التدريب"
-        name="trainingCenterName"
+        name="training_center_name"
         placeholder="..."
         value={trainingCenterName}
         onChange={handleTrainingCenterNameChangeValue}

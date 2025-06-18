@@ -20,7 +20,7 @@ export const AdditionalInfoSection = ({
 
     <TextareaField
       label="برنامج الدورة"
-      name="trainingProgram"
+      name="programme_session"
       placeholder=""
       required
       value={trainingProgram}
