@@ -1,6 +1,6 @@
 "use client"
 
-import { TrainingField } from "@api/schemas/index"
+import { SubstituteEmployees, TrainingField } from "@api/schemas/index"
 import {
   createFileHandler,
   dateFromAtom,
@@ -37,6 +37,7 @@ interface TrainingFormProps {
   trainingTypeFields: TrainingField[]
   trainingCountryFields: TrainingField[]
   trainingCityFields: TrainingField[]
+  substituteEmployees: SubstituteEmployees[]
 }
 
 const stateAction = getStateAction<State>(formAction)
@@ -48,6 +49,7 @@ export const TrainingForm = ({
   trainingCountryFields,
   trainingTravelDaysSettingsFields,
   trainingTypeFields,
+  substituteEmployees
 }: TrainingFormProps) => {
   // State definitions
   const [state, action, pending] = useActionState(stateAction, initialState)
@@ -182,6 +184,7 @@ export const TrainingForm = ({
           setSubstituteEmployee={setSubstituteEmployee}
           trainingProgram={trainingProgram}
           handleTrainingProgramChangeValue={handleTrainingProgramChangeValue}
+          substituteEmployees={substituteEmployees}
         />
       ),
     },
