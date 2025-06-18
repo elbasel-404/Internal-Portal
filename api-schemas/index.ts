@@ -70,6 +70,10 @@ export {
   type SalaryIdentificationElement
 } from "./salary-identification/schema"
 export {
+  SubstituteEmployeesSchema,
+  type SubstituteEmployees
+} from "./substitute-employees/schema"
+export {
   TrainingFieldSchema,
   type TrainingField
 } from "./training-fields/schema"
