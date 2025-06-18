@@ -43,37 +43,39 @@ export const Login = () => {
   }, [state])
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center bg-[#11274A] bg-[url(/login-background.svg)] bg-cover bg-center bg-no-repeat px-4 lg:flex-row lg:px-0">
+    <div className="flex h-screen overflow-hidden flex-col items-center justify-center bg-[#11274A] bg-[url(/login-background.svg)] bg-cover bg-center bg-no-repeat px-4 lg:flex-row lg:px-0">
       {/* Left Section: App promotion and download links */}
       <div className="hidden h-full w-full flex-col items-center justify-center rounded-bl-[60px] rounded-tr-[60px] bg-gradient-to-t from-[#007C9E] to-[#0D3C5F] p-10 shadow-lg lg:flex lg:w-2/5">
-        <div className="flex flex-col items-center justify-center">
-          <Image
-            src="/app-login.svg"
-            alt="login-app"
-            width={300}
-            height={300}
-            className="h-auto w-full max-w-xs"
-          />
-          <div className="mt-8">
+        <div className="flex h-full flex-col items-center">
+          <div className="flex flex-col items-center justify-center">
             <Image
-              src="/app-download-section.svg"
-              alt="app-download-section"
-              width={250}
-              height={100}
-              className="h-auto w-full"
+              src="/app-login.svg"
+              alt="login-app"
+              width={300}
+              height={300}
+              className="h-auto w-full max-w-xs"
             />
-            <div className="mt-4 flex items-center justify-center gap-3">
-              <Button
-                className="bg-[#88D0EC] shadow-none hover:bg-[#88D0EC]"
-                size="icon"
-                icon={<Download />}
+            <div className="mt-8">
+              <Image
+                src="/app-download-section.svg"
+                alt="app-download-section"
+                width={250}
+                height={100}
+                className="h-auto w-full"
               />
-              <p className="text-center text-sm font-light leading-6 text-white">
-                حمل التطبيق الآن
-              </p>
+              <div className="mt-4 flex items-center justify-center gap-3">
+                <Button
+                  className="bg-[#88D0EC] shadow-none hover:bg-[#88D0EC]"
+                  size="icon"
+                  icon={<Download />}
+                />
+                <p className="text-center text-sm font-light leading-6 text-white">
+                  حمل التطبيق الآن
+                </p>
+              </div>
             </div>
           </div>
-          <div className="mt-10 flex items-center justify-center gap-3">
+          <div className="mt-auto relative bottom-[200px] flex items-center justify-center gap-3">
             <Image
               src="/googleplay.svg"
               alt="googleplay button"
