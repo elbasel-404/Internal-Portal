@@ -69,6 +69,10 @@ export {
   SalaryIdentificationElementSchema,
   type SalaryIdentificationElement
 } from "./salary-identification/schema"
+export {
+  TrainingFieldSchema,
+  type TrainingField
+} from "./training-fields/schema"
 export { TrainingElementSchema, type TrainingElement } from "./training/schema"
 export { TransactionListElementSchema } from "./transaction-list/schema"
 export { VacationTypeSchema, type VacationType } from "./vacation-types/schema"
