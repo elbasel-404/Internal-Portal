@@ -8,5 +8,6 @@ export const logout = async () => {
   cookieStore.delete("session")
   cookieStore.delete("userId")
   cookieStore.delete("employeeId")
+  cookieStore.set("demo", "true")
   revalidatePath("/", "layout")
 }
