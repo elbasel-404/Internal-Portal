@@ -76,7 +76,7 @@ export const RemoteWorkForm = () => {
       className="bg-white rounded-lg text-black text-lg p-4 space-y-4"
     >
       <FormHeader label="نموذج طلب العمل عن بعد" path={paths.remoteWork.href} />
-      <input
+      {/* <input
         type="text"
         name="employee_id"
         id="employee_id"
@@ -85,7 +85,7 @@ export const RemoteWorkForm = () => {
         readOnly
         value="1711"
         className="hidden"
-      />
+      /> */}
       <div className="py-4 space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <DateField

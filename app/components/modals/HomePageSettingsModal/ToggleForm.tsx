@@ -57,13 +57,10 @@ ToggleFormProps) => {
   const [checked, setChecked] = useState(active)
 
   useEffect(() => {
-    return () => {
-      console.log("form unmounted")
-    }
+    return () => {}
   }, [])
 
   useEffect(() => {
-    // console.log({ state, pending });
     if (!router) return
     const errorMessage = state.error
     if (errorMessage) {

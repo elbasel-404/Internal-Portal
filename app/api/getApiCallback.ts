@@ -37,7 +37,6 @@
 //       responseSchema = listResponseSchema;
 //       break;
 //     default:
-//       throw new Error("requestSchemaInvalid operation");
 //   }
 
 //   const validateRequestBody = (body: unknown): RequestBody => {
@@ -85,7 +84,6 @@
 //     try {
 //       validatedRequestBody = validateRequestBody(requestBody);
 //     } catch (error: unknown) {
-//       console.log(error);
 //       parsedDataReturn.validationError = "Invalid request body";
 //       return parsedDataReturn;
 //     }
@@ -97,7 +95,6 @@
 //       responseBody = responseJson;
 //       parsedDataReturn.metaData = postResponse;
 //     } catch (error: unknown) {
-//       console.log(error);
 //       parsedDataReturn.error = "Error in post function";
 //       return parsedDataReturn;
 //     }
@@ -108,7 +105,6 @@
 //       // const firtItem = validatedResponseBody[0];
 //       // const {} = firtItem;
 //     } catch (error) {
-//       console.log(error);
 //       parsedDataReturn.error = "Validation Error";
 //       parsedDataReturn.validationError = `Invalid response body, ${JSON.stringify(
 //         postResponse.request

@@ -1,5 +1,51 @@
 import * as z from "zod"
 
+export const TransactionListElementSchema = z.object({
+  id: z.any(),
+  create_date: z.any(),
+  duration: z.any(),
+  holiday_status_id: z.any(),
+  date_from: z.any(),
+  date_to: z.any(),
+  notes: z.any(),
+  attachment_ids: z.any(),
+  death_person: z.any(),
+  substitute_employee_id: z.any(),
+  refuse_reason: z.any(),
+  childbirth_date: z.any(),
+  res_model: z.any(),
+  name: z.any(),
+  date: z.any(),
+  state: z.any(),
+  employee_id: z.any(),
+  cancel_reason: z.any(),
+  department_global_id: z.any(),
+  sector_id: z.any(),
+  request_type_ar: z.any(),
+  request_type_en: z.any(),
+  description: z.any(),
+  reason: z.any(),
+  write_date: z.any(),
+  priority: z.any(),
+  ticket_type_id: z.any(),
+  class_id: z.any(),
+  location_id: z.any(),
+  team_id: z.any(),
+  category_id: z.any(),
+  open_date: z.any(),
+  stage_id: z.any(),
+  number: z.any(),
+  order_date: z.any(),
+  destination_id: z.any(),
+  type: z.any(),
+  download_link: z.any(),
+  open_link: z.any(),
+  template_id: z.any(),
+})
+export type TransactionListElement = z.infer<
+  typeof TransactionListElementSchema
+>
+
 // export const DepartmentGlobalIdEnumSchema = z.enum([
 //     "مكتب المحافظ / مكتب المحافظ",
 // ]);
@@ -110,49 +156,3 @@ import * as z from "zod"
 //     "template_id": z.union([z.array(z.union([z.number(), z.string()])), z.boolean()]).optional(),
 // });
 // export type TransactionListElement = z.infer<typeof TransactionListElementSchema>;
-
-export const TransactionListElementSchema = z.object({
-  id: z.any(),
-  create_date: z.any(),
-  duration: z.any(),
-  holiday_status_id: z.any(),
-  date_from: z.any(),
-  date_to: z.any(),
-  notes: z.any(),
-  attachment_ids: z.any(),
-  death_person: z.any(),
-  substitute_employee_id: z.any(),
-  refuse_reason: z.any(),
-  childbirth_date: z.any(),
-  res_model: z.any(),
-  name: z.any(),
-  date: z.any(),
-  state: z.any(),
-  employee_id: z.any(),
-  cancel_reason: z.any(),
-  department_global_id: z.any(),
-  sector_id: z.any(),
-  request_type_ar: z.any(),
-  request_type_en: z.any(),
-  description: z.any(),
-  reason: z.any(),
-  write_date: z.any(),
-  priority: z.any(),
-  ticket_type_id: z.any(),
-  class_id: z.any(),
-  location_id: z.any(),
-  team_id: z.any(),
-  category_id: z.any(),
-  open_date: z.any(),
-  stage_id: z.any(),
-  number: z.any(),
-  order_date: z.any(),
-  destination_id: z.any(),
-  type: z.any(),
-  download_link: z.any(),
-  open_link: z.any(),
-  template_id: z.any(),
-})
-export type TransactionListElement = z.infer<
-  typeof TransactionListElementSchema
->

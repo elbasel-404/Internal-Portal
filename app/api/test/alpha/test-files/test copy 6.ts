@@ -99,17 +99,14 @@
 //         try {
 //           parsedDataReturn.data = validateResponseBody(responseJson);
 //         } catch (error) {
-//           console.log(error);
 //           parsedDataReturn.error = "Validation Error";
 //           parsedDataReturn.validationError =
 //             formatValidationError(postResponse);
 //         }
 //       } catch (error) {
-//         console.error(error);
 //         parsedDataReturn.error = "API request failed";
 //       }
 //     } catch (error) {
-//       console.error(error);
 //       parsedDataReturn.validationError = "Invalid request body";
 //     }
 

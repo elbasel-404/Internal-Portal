@@ -439,4 +439,16 @@ export const paths: Record<string, AppPath> = {
     title: "طلب أهداف",
     href: "/evaluation/goals/new",
   },
+  trainee: {
+    title: "قائمة المتدربين",
+    href: "/request/trainee",
+  },
+  traineeDetails: {
+    title: "تفاصيل طلب المتدرب",
+    href: "/request/trainee/details/:id",
+  },
+  traineeNew: {
+    title: "طلب متدرب",
+    href: "/request/trainee/new",
+  },
 }

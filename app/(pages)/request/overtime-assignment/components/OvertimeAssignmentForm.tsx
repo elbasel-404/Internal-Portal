@@ -64,7 +64,7 @@ export const OvertimeAssignmentForm = () => {
           path={paths.overtimeAssignment.href}
         />
         <div className="p-4 space-y-6">
-          <input
+          {/* <input
             type="text"
             name="employee_id"
             id="employee_id"
@@ -73,7 +73,7 @@ export const OvertimeAssignmentForm = () => {
             readOnly
             value="1722"
             className="hidden"
-          />
+          /> */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <SelectField
               label="السنة"

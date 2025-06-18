@@ -70,7 +70,7 @@ export const HrLetterForm = ({
         label="نموذج طلب خطاب الموارد البشرية"
         path={paths.hrLetter.href}
       />
-      <input
+      {/* <input
         type="text"
         name="employee_id"
         id="employee_id"
@@ -79,7 +79,7 @@ export const HrLetterForm = ({
         readOnly
         value="1711"
         className="hidden"
-      />
+      /> */}
       <input
         type="text"
         name="template_type_id"
@@ -96,14 +96,20 @@ export const HrLetterForm = ({
             name="destination_id"
             label="مسمى الجهة الموجه لها"
             placeholder="اختر الجهة"
-            types={destinationElement}
+            types={destinationElement.map((el) => ({
+              id: el.id ?? "",
+              name: el.name ?? "",
+            }))}
             value={destinationId}
             onChange={handleDestinationChange}
           />
           <SelectField
             name="type"
             label="النوع"
-            types={hrLetterTypes}
+            types={hrLetterTypes.map((el) => ({
+              id: el.id ?? "",
+              name: el.name ?? "",
+            }))}
             value={typeId}
             onChange={handleTypeChange}
           />

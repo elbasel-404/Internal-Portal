@@ -19,8 +19,7 @@ export const handleDrag = async ({
   userId,
   indexOffset,
 }: Args) => {
-  console.log("handleDrag:", { key, originIndex, destinationIndex, userId })
-  if (!userId) throw new Error("handleDrag: User ID is required")
+  if (!userId) return
   const userIndex = await getUserIndex(userId)
   db.data.users[userIndex].activeHomePageSlotsKeys.splice(
     originIndex + indexOffset,

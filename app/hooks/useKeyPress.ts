@@ -52,7 +52,6 @@
 // //     key: "k",
 // //     withCommandKey: true,
 // //     callback: () => {
-// //       console.log("Ctrl+K was pressed!");
 // //     },
 // //   });
 // //

@@ -17,7 +17,8 @@ export const getTransactionRequests = async (): Promise<
   const employeeId = await getStoredEmployeeId()
   const url = "api/po/read/retrieve-my-requests"
   const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
   const requestBody = { employee_id: employeeId }
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`
@@ -37,7 +38,6 @@ export const getTransactionRequests = async (): Promise<
   // const { result } = validatedResponse;
   const result = validatedResponse.data?.result
   const data = result?.data
-  console.log("typeof ", typeof data?.[0].name)
   const validatedData = TransactionListElementSchema.array().safeParse(data)
   const transactionData = validatedData.data
 

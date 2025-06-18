@@ -7,6 +7,7 @@
 - integration: true
 - dynamic: true
 - page: file://./app/(pages)/transaction-list/page.tsx
+- formAction: -
 
 # Vacations
 
@@ -17,6 +18,7 @@
 - integration: true
 - dynamic: true
 - page: file://./app/(pages)/request/vacations/page.tsx
+- formAction: file://./app/(pages)/request/vacations/components/helpers/formAction.ts
 
 # Permissions
 
@@ -27,6 +29,7 @@
 - integration: true
 - dynamic: true
 - page: file://./app/(pages)/request/permissions/page.tsx
+- formAction: file://./app/(pages)/request/permissions/components/helpers/formAction.ts
 
 # Remote Work
 
@@ -37,6 +40,7 @@
 - integration: true
 - dynamic: true
 - page: file://./app/(pages)/request/remote-work/page.tsx
+- formAction: file://./app/(pages)/request/remote-work/components/helpers/formAction.ts
 
 # HR Letter
 
@@ -47,6 +51,7 @@
 - integration: true
 - dynamic: true
 - page: file://./app/(pages)/request/hr-letter/page.tsx
+- formAction: file://./app/(pages)/request/hr-letter/components/helpers/formAction.ts
 
 # Attendance
 
@@ -57,6 +62,7 @@
 - integration: FALSE
 - dynamic: -
 - page: file://./app/(pages)/request/attendance/attendance-list/page.tsx
+- formAction: -
 
 # Employee Attendance
 
@@ -67,6 +73,7 @@
 - integration: FALSE
 - dynamic: -
 - page: file://./app/(pages)/request/attendance/employee-attendance/page.tsx
+- formAction: -
 
 # Depudations
 
@@ -77,6 +84,7 @@
 - integration: FALSE
 - dynamic: -
 - page: file://./app/(pages)/request/deputations/page.tsx
+- formAction: -
 
 # HR Services
 
@@ -86,6 +94,7 @@
 - integration: FALSE
 - dynamic: -
 - page: ?
+- formAction: -
 
 # Overtime Assignment
 
@@ -94,8 +103,9 @@
 - href: "/request/overtime-assignment"
 - UI: true
 - integration: true
-- dynamic: FALSE
+- dynamic: FALSE => true
 - page: file://./app/(pages)//request/overtime-assignment/page.tsx
+- formAction: file://./app/(pages)/request/overtime-assignment/components/helpers/formAction.ts
 
 # Overtime Confirm
 
@@ -106,6 +116,7 @@
 - integration: FALSE
 - dynamic: FALSE
 - page: file://./app/(pages)//request/overtime-confirm/page.tsx
+- formAction: -
 
 # Medical Insurance
 
@@ -113,9 +124,10 @@
 - title: "قائمة طلبات التأمين الطبي"
 - href: "/request/medical"
 - UI: true
-- integration: FALSE
-- dynamic: FALSE
+- integration: true
+- dynamic: FALSE => true
 - page: file://./app/(pages)//request/medical/page.tsx
+- formAction: file://./app/(pages)/request/medical/components/helpers/formAction.ts
 
 # Bank Account Change
 
@@ -124,18 +136,20 @@
 - href: "/request/bank-account-change"
 - UI: true
 - integration: true
-- dynamic: FALSE
+- dynamic: FALSE => true
 - page: file://./app/(pages)/request/bank-account-change/page.tsx
+- formAction: file://./app/(pages)/request/bank-account-change/components/helpers/formAction.ts
 
 # Employee Members
 
 - label: "طلب تحديث أفراد الأسرة"
 - title: "قائمة طلبات تحديث أفراد الأسرة"
 - href: "/request/employee-members"
-- UI: FALSE
-- integration: -
-- dynamic: -
+- UI: true
+- integration: true
+- dynamic: FALSE => true
 - page: file://./app/(pages)/request/employee-members/page.tsx
+- formAction: file://./app/(pages)/request/employee-members/components/helpers/formAction.ts
 
 # Passports
 
@@ -144,8 +158,9 @@
 - href: "/request/passport"
 - UI: true
 - integration: true
-- dynamic: FALSE
+- dynamic: FALSE => true
 - page: file://./app/(pages)/request/passport/page.tsx
+- formAction: file://./app/(pages)/request/passport/components/helpers/formAction.ts
 
 # Probation Period
 
@@ -154,7 +169,7 @@
 - href: "/request/probation-period"
 - UI: true
 - integration: true
-- dynamic: FALSE
+- dynamic: FALSE => true
 - page: file://./app/(pages)/request/probation-period/page.tsx
 
 # Resignation
@@ -166,6 +181,7 @@
 - integration: FALSE
 - dynamic: -
 - page: file://./app/(pages)/request/resignation/page.tsx
+- formAction: -
 
 # Job Applications
 
@@ -176,6 +192,7 @@
 - integration: FALSE
 - dynamic: -
 - page: file://./app/(pages)/request/job-applications/page.tsx
+- formAction: -
 
 # Training
 
@@ -186,6 +203,7 @@
 - integration: FALSE
 - dynamic: -
 - page: file://./app/(pages)/request/training/page.tsx
+- formAction: -
 
 # Internal Courses List
 
@@ -194,8 +212,9 @@
 - href: "/request/internal-courses-calendar"
 - UI: true
 - integration: true
-- dynamic: FALSE
+- dynamic: FALSE => true
 - page: file://./app/(pages)/request/internal-courses-calendar/page.tsx
+- formAction: -
 
 # Reccommendation
 
@@ -204,8 +223,9 @@
 - href: "/request/recommendations"
 - UI: true
 - integration: true
-- dynamic: FALSE
+- dynamic: FALSE => true
 - page: file://./app/(pages)/request/recommendations/page.tsx
+- formAction: -
 
 # Goals
 
@@ -216,6 +236,7 @@
 - integration: FALSE
 - dynamic: -
 - page: file://./app/(pages)/evaluation/goals/page.tsx
+- formAction: -
 
 # ?
 
@@ -226,6 +247,7 @@
 - integration: -
 - dynamic: -
 - page: -
+- formAction: -
 
 # ?
 
@@ -236,6 +258,7 @@
 - integration: -
 - dynamic: -
 - page: -
+- formAction: -
 
 # ?
 
@@ -246,6 +269,7 @@
 - integration: -
 - dynamic: -
 - page: -
+- formAction: -
 
 # ?
 
@@ -256,6 +280,7 @@
 - integration: -
 - dynamic: -
 - page: -
+- formAction: -
 
 # ?
 
@@ -266,6 +291,7 @@
 - integration: -
 - dynamic: -
 - page: -
+- formAction: -
 
 # Replacement Covenant
 
@@ -276,6 +302,7 @@
 - integration: FALSE
 - dynamic: -
 - page: file://./app/(pages)/request/replacement-covenant/page.tsx
+- formAction: -
 
 # Custody
 
@@ -284,8 +311,9 @@
 - href: "/request/custody"
 - UI: true
 - integration: true
-- dynamic: FALSE
+- dynamic: FALSE => true
 - page: file://./app/(pages)/request/custody/page.tsx
+- formAction: file://./app/(pages)/request/custody/components/helpers/formAction.ts
 
 # Supplier Evaluation
 
@@ -296,6 +324,7 @@
 - integration: FALSE
 - dynamic: -
 - page: file://./app/(pages)/request/supplier-evaluation/page.tsx
+- formAction: -
 
 # Purchase
 
@@ -306,6 +335,7 @@
 - integration: FALSE
 - dynamic: -
 - page: file://./app/(pages)/request/purchase/page.tsx
+- formAction: -
 
 # ?
 
@@ -338,6 +368,7 @@
 - integration: FALSE
 - dynamic: -
 - page: file://./app/(pages)/request/work-document/page.tsx
+- formAction: -
 
 # Tickets
 
@@ -348,6 +379,7 @@
 - integration: FALSE
 - dynamic: -
 - page: file://./app/(pages)/request/ticket/page.tsx
+- formAction: -
 
 # CRM
 
@@ -486,7 +518,7 @@
 - href: "/search-employee"
 - UI: true
 - integration: true
-- dynamic: FALSE
+- dynamic: FALSE => true
 - page: file://./app/(pages)/search-employee/page.tsx
 
 # Surveys
