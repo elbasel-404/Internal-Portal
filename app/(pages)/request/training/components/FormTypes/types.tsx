@@ -1,3 +1,4 @@
+import { TrainingField } from "@api/schemas/index"
 import { FileWithId, TrainingCourse } from "@types"
 import { ChangeEvent, ReactNode } from "react"
 
@@ -20,6 +21,7 @@ export interface TrainingTypeSectionProps {
   setTrainingType: (value: string) => void
   trainingNature: string[]
   setTrainingNature: (values: string[]) => void
+  trainingTypeFields: TrainingField[]
 }
 
 export interface TrainingDetailsSectionProps {
@@ -46,6 +48,7 @@ export interface TrainingCenterSectionProps {
   handleTrainingCenterNameChangeValue: (
     event: ChangeEvent<HTMLInputElement>,
   ) => void
+  trainingCentersField: TrainingField[]
 }
 
 export interface AdditionalInfoSectionProps {
@@ -60,6 +63,8 @@ export interface AdditionalInfoSectionProps {
 export interface TrainingLocationSectionProps {
   trainingCity: string
   setTrainingCity: (value: string) => void
+  trainingCityId: string
+  setTrainingCityId: (value: string) => void
   trainingCountry: string
   setTrainingCountry: (value: string) => void
   travelDays: string
@@ -67,6 +72,9 @@ export interface TrainingLocationSectionProps {
   setTrainingAssignment: (value: string) => void
   trainingMethod: string
   handleTravelDaysChangeValue: (event: ChangeEvent<HTMLInputElement>) => void
+  trainingCitiesField: TrainingField[]
+  trainingCountriesField: TrainingField[]
+  trainingTravelDaysSettingsFields: TrainingField[]
 }
 
 export interface ExtendedTrainingSectionProps {
