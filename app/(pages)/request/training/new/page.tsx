@@ -1,6 +1,6 @@
 import { RequestStatus } from "@components"
 import { getUser } from "@db/actions"
-import { getRequestStatus, getTrainingFields, getUserId } from "@server"
+import { getRequestStatus, getSubstituteEmployees, getTrainingFields, getUserId } from "@server"
 import { TrainingForm } from "../components"
 
 const NewTrainingPage = async () => {
@@ -14,6 +14,8 @@ const NewTrainingPage = async () => {
   const trainingCountryFields = await getTrainingFields("country_id")
   const trainingCityFields = await getTrainingFields("city_id")
   const requestStatus = await getRequestStatus()
+  const substituteEmployees = await getSubstituteEmployees()
+
   const requestCaption =
     "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   return (
@@ -26,6 +28,7 @@ const NewTrainingPage = async () => {
         trainingTypeFields={trainingTypeFields}
         trainingCountryFields={trainingCountryFields}
         trainingCityFields={trainingCityFields}
+        substituteEmployees={substituteEmployees}
       />
     </div>
   )

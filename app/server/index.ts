@@ -74,6 +74,7 @@ export { getRequestStatus } from "./getRequestStatus"
 export { getResignationDetails } from "./getResignationDetails"
 export { getResignationRequests } from "./getResignationRequests"
 export { getRulesRequests } from "./getRules"
+export { getSubstituteEmployees } from './getSubstituteEmployees'
 export { getSupplierEvaluationRequestCriteria } from "./getSupplierEvaluationRequestCriteria"
 export { getSupplierEvaluationRequestDetails } from "./getSupplierEvaluationRequestDetails"
 export { getSupplierEvaluationRequests } from "./getSupplierEvaluationRequests"
