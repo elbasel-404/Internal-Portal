@@ -6,7 +6,8 @@ import { Button } from "@ui"
 import { LoaderIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { useActionState } from "react"
+import { useActionState, useEffect } from "react"
+import { toast } from "sonner"
 
 export const rememberMeInputName = "rememberMe"
 export const usernameInputName = "username"
@@ -22,6 +23,16 @@ const initialState = {
 
 export const Login = () => {
   const [state, formAction, pending] = useActionState(signIn, initialState)
+
+  useEffect(() => {
+    const { error } = state
+
+    if (error) {
+      toast.error(error)
+    } else {
+      toast.dismiss()
+    }
+  }, [state])
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#11274A] bg-[url(/login-background.svg)] bg-cover bg-no-repeat bg-center px-4 lg:px-0">
