@@ -12,7 +12,7 @@ const OverTimeConfirmDetailsPage = async ({
   params,
 }: OverTimeConfirmDetailsPageProps) => {
   const { id } = await params
-  const requestStatus = await getRequestStatus()
+  const requestStatus = await getRequestStatus(id, "hr.overtime.request")
   const requestCaption =
     "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const { applicant, assignmentNumber, overTimeDuration, management } =

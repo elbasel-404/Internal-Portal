@@ -3,7 +3,6 @@
 import { GreenCheckMarkIcon, PersonIcon, XMarkIcon2 } from "@icons"
 import type { CreateRequestStatus as RequestType } from "@types"
 import { Button } from "@ui"
-import { cn } from "@utils"
 import { Fragment, useState } from "react"
 
 interface RequestStatusProps {
@@ -26,10 +25,7 @@ export const CreateRequestStatus = ({
             return (
               <Fragment key={index}>
                 <div
-                  className={cn(
-                    "relative h-32 flex lg:block w-full lg:w-auto",
-                    isLast && "lg:ml-16",
-                  )}
+                  className="relative h-32 flex lg:block w-full lg:w-auto"
                   key={index}
                 >
                   <div
@@ -44,9 +40,7 @@ export const CreateRequestStatus = ({
                       )}
                     </div>
                   </div>
-                  <h2
-                    className={`text-sm mr-20 lg:mx-auto mt-4 text-center text-primary max-w-20`}
-                  >
+                  <h2 className="text-sm mr-20 lg:mx-auto mt-4 text-center text-primary max-w-20">
                     {status}
                   </h2>
                 </div>
