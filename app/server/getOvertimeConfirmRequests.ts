@@ -2,7 +2,7 @@
 
 import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
-import { OvertimeAssignmentElementSchema, ResponseSchema } from "@api/schemas"
+import { OvertimeConfirmElementSchema, ResponseSchema } from "@api/schemas"
 import type { OvertimeConfirmRequest } from "@types"
 import { getStoredEmployeeId } from "@auth"
 
@@ -39,7 +39,7 @@ export const getOvertimeConfirmRequests = async (): Promise<
   const validatedResponse = ResponseSchema.parse(responseJson)
   const { result } = validatedResponse
   const { data } = result
-  const validatedData = OvertimeAssignmentElementSchema.array().parse(data)
+  const validatedData = OvertimeConfirmElementSchema.array().parse(data)
 
   // ! PARSING
   // ! ==================================
@@ -57,8 +57,8 @@ export const getOvertimeConfirmRequests = async (): Promise<
       management: getArrayValue(data.department_id),
       job: getArrayValue(data.job_id),
       category: getArrayValue(data.type_job_id),
-      overTimeDuration: "5.0",
-      assignmentNumber: "7080",
+      overTimeDuration: data.nb_extras_time.toString(),
+      assignmentNumber: getArrayValue(data.overtime_assignment_id),
       status: getStringValue(data.state),
     }
     return newsItem

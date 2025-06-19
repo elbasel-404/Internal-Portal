@@ -14,20 +14,15 @@ import { initialState } from "./helpers/initialState"
 import { State } from "./helpers/State"
 import { useEffect, useActionState, useState } from "react"
 
-const assignmentNumbers = [
-  { id: 1, name: "5256" },
-  { id: 2, name: "5445" },
-  { id: 3, name: "7865" },
-  { id: 4, name: "9452" },
-  { id: 5, name: "2125" },
-]
 const stateAction = getStateAction<State>(formAction)
 interface OvertimeConfirmFormProps {
   employeeId: string | undefined
+  assignmentNumbers: { id: number; name: string }[]
 }
 
 export const OvertimeConfirmForm = ({
   employeeId,
+  assignmentNumbers,
 }: OvertimeConfirmFormProps) => {
   const [state, action, pending] = useActionState(stateAction, initialState)
   const [form, setForm] = useState({
@@ -66,7 +61,7 @@ export const OvertimeConfirmForm = ({
         path={paths.overtimeConfirm.href}
       />
       <div className="p-4 space-y-6">
-        <input
+        {/* <input
           type="text"
           name="employee_id"
           id="employee_id"
@@ -75,7 +70,7 @@ export const OvertimeConfirmForm = ({
           readOnly
           value={employeeId}
           className="hidden"
-        />
+        /> */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <SelectField
             label="رقم طلب التكليف"
