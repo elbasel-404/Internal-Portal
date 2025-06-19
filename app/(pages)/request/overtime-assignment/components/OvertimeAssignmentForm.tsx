@@ -58,13 +58,12 @@ export const OvertimeAssignmentForm = () => {
 
   return (
     <form action={action} className="bg-white rounded-md">
-      <form className="bg-white rounded-md">
-        <FormHeader
-          label="نموذج طلب تكليف لعمل اضافي"
-          path={paths.overtimeAssignment.href}
-        />
-        <div className="p-4 space-y-6">
-          {/* <input
+      <FormHeader
+        label="نموذج طلب تكليف لعمل اضافي"
+        path={paths.overtimeAssignment.href}
+      />
+      <div className="p-4 space-y-6">
+        {/* <input
             type="text"
             name="employee_id"
             id="employee_id"
@@ -74,60 +73,59 @@ export const OvertimeAssignmentForm = () => {
             value="1722"
             className="hidden"
           /> */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <SelectField
-              label="السنة"
-              name="year"
-              placeholder=""
-              types={defaultYears}
-              value={form.year}
-              onChange={(value) => setForm({ ...form, year: value })}
-            />
-            <SelectField
-              label="الشهر"
-              name="month"
-              placeholder=""
-              types={defaultMonths}
-              value={form.month}
-              onChange={(value) => setForm({ ...form, month: value })}
-            />
-            <SelectField
-              label="من يوم"
-              name="day_from"
-              placeholder=""
-              types={defaultDays}
-              value={form.day_from}
-              onChange={(value) => setForm({ ...form, day_from: value })}
-            />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <SelectField
-              label="إلى يوم"
-              name="day_to"
-              placeholder=""
-              types={defaultDays}
-              value={form.day_to}
-              onChange={(value) => setForm({ ...form, day_to: value })}
-            />
-            <InputField
-              label="عدد الساعات"
-              name="nb_hours"
-              placeholder=""
-              required
-              value={form.nb_hours}
-              onChange={(e) => setForm({ ...form, nb_hours: e.target.value })}
-            />
-          </div>
-          <TextareaField
-            label="وصف التكليف"
-            name="description"
-            required
-            value={form.description}
-            onChange={(e) => setForm({ ...form, description: e.target.value })}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <SelectField
+            label="السنة"
+            name="year"
+            placeholder=""
+            types={defaultYears}
+            value={form.year}
+            onChange={(value) => setForm({ ...form, year: value })}
           />
-          <SubmitButton />
+          <SelectField
+            label="الشهر"
+            name="month"
+            placeholder=""
+            types={defaultMonths}
+            value={form.month}
+            onChange={(value) => setForm({ ...form, month: value })}
+          />
+          <SelectField
+            label="من يوم"
+            name="day_from"
+            placeholder=""
+            types={defaultDays}
+            value={form.day_from}
+            onChange={(value) => setForm({ ...form, day_from: value })}
+          />
         </div>
-      </form>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <SelectField
+            label="إلى يوم"
+            name="day_to"
+            placeholder=""
+            types={defaultDays}
+            value={form.day_to}
+            onChange={(value) => setForm({ ...form, day_to: value })}
+          />
+          <InputField
+            label="عدد الساعات"
+            name="nb_hours"
+            placeholder=""
+            required
+            value={form.nb_hours}
+            onChange={(e) => setForm({ ...form, nb_hours: e.target.value })}
+          />
+        </div>
+        <TextareaField
+          label="وصف التكليف"
+          name="description"
+          required
+          value={form.description}
+          onChange={(e) => setForm({ ...form, description: e.target.value })}
+        />
+        <SubmitButton />
+      </div>
     </form>
   )
 }
