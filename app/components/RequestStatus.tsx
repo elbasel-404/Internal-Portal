@@ -9,7 +9,6 @@ import {
 } from "@icons"
 import type { RequestStatus as RequestType } from "@types"
 import { Button } from "@ui"
-import { cn } from "@utils"
 import { Fragment, useEffect, useState } from "react"
 
 interface RequestStatusProps {
@@ -43,14 +42,8 @@ export const RequestStatus = ({ status, caption }: RequestStatusProps) => {
             const isLast = index === length
             const requestIcon = icons[icon as keyof typeof icons]
             return (
-              <Fragment key={Number(id) + index}>
-                <div
-                  className={cn(
-                    "relative h-32 flex lg:block w-full lg:w-auto",
-                    isLast && "lg:ml-16",
-                  )}
-                  key={id}
-                >
+              <Fragment key={index}>
+                <div className="relative h-32 flex lg:block w-full lg:w-auto">
                   <div
                     className={`relative h-16 w-16 flex flex-col justify-center items-center ${
                       icon === "personConfirmed"
@@ -63,21 +56,17 @@ export const RequestStatus = ({ status, caption }: RequestStatusProps) => {
                       {subIcons[status]}
                     </div>
                   </div>
-                  <h2
-                    className={`text-sm w-max mr-20 lg:mr-0 mt-4 absolute ${
+                  <p
+                    className={`text-sm mr-20 lg:mx-auto mt-4 text-center max-w-20 ${
                       status === "in-progress" && "text-grey-400"
                     }`}
                   >
                     {title}
-                  </h2>
-                  <p
-                    className={`${
-                      status === "in-progress"
-                        ? "text-blue-300"
-                        : "text-primary"
-                    } mt-8 mr-20 lg:mr-0 absolute w-max`}
-                  >
-                    {subtitle}
+                    {status === "completed" && (
+                      <span className="block text-primary mt-2 mr-20 lg:mr-0 w-36">
+                        {subtitle}
+                      </span>
+                    )}
                   </p>
                 </div>
                 <Separator isLast={isLast} />
