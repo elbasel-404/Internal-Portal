@@ -1,58 +1,32 @@
 "use server"
 
 import type { AdsListRequst } from "@types"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
 import { AdNewSchema, ResponseSchema } from "@api/schemas"
+import { getData } from "./getData"
+
 export const getAdsNewsList = async (): Promise<AdsListRequst[]> => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
-
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/read/portal-news"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  if (!headers) return []
-  const requestBody = { news_type: "ads" }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
-
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+  return getData<AdsListRequst>({
+    url: "api/po/read/portal-news",
+    includeEmployeeId: false,
+    additionalBody: { news_type: "ads" },
+    responseSchema: ResponseSchema,
+    dataSchema: AdNewSchema,
+    parseData: (data) => {
+      return data.map((item: any) => ({
+        id: item.id,
+        title: item.title,
+        date: new Date(item.create_date).toLocaleDateString("ar-EG", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }),
+        description: item.resume,
+        image: `data:image/gif;base64,${item.image}`,
+      }))
+    },
+    dummyData,
   })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = AdNewSchema.array().parse(data)
-
-  // ! PARSING
-  // ! ==================================
-  const returnedData: AdsListRequst[] = validatedData.map((data) => {
-    const newsItem: AdsListRequst = {
-      id: data.id,
-      title: data.title,
-      date: new Date(data.create_date).toLocaleDateString("ar-EG", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      }),
-      description: data.resume,
-      image: `data:image/gif;base64,${data.image}`,
-    }
-    return newsItem
-  })
-  return returnedData
 }
 
 const dummyData: AdsListRequst[] = [
