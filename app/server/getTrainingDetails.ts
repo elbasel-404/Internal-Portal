@@ -28,7 +28,8 @@ export const getTrainingDetails = async (
   // ! ==================================
   const url = "api/po/hr/training-request"
   const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
   const requestBody = { id: id }
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`
@@ -53,31 +54,31 @@ export const getTrainingDetails = async (
   // ! ==================================
   const buildTrainingMethod = () => {
     const methods = []
-    
+
     if (validatedData.is_test) {
       methods.push({ name: "اختبار", checked: true })
     } else {
       methods.push({ name: "اختبار", checked: false })
     }
-    
+
     if (validatedData.is_training) {
       methods.push({ name: "تدريب", checked: true })
     } else {
       methods.push({ name: "تدريب", checked: false })
     }
-    
+
     if (validatedData.is_membership) {
       methods.push({ name: "عضوية", checked: true })
     } else {
       methods.push({ name: "عضوية", checked: false })
     }
-    
+
     if (validatedData.is_studying_subjects) {
       methods.push({ name: "مواد دراسية", checked: true })
     } else {
       methods.push({ name: "مواد دراسية", checked: false })
     }
-    
+
     return methods
   }
 
@@ -88,8 +89,8 @@ export const getTrainingDetails = async (
     id: validatedData.id.toString(),
     requestDate: validatedData.date,
     city:
-      typeof validatedData.city === "boolean"
-        ? validatedData.city.toString()
+      Array.isArray(validatedData.city_id) && validatedData.city_id[1]
+        ? validatedData.city_id[1].toString()
         : "__",
     country:
       Array.isArray(validatedData.country_id) && validatedData.country_id[1]
@@ -176,7 +177,7 @@ const trainingDetails: TrainingDetails = {
     { name: "اختبار", checked: true },
     { name: "تدريب", checked: true },
     { name: "عضوية", checked: false },
-    { name: "مواد دراسية", checked: true }
+    { name: "مواد دراسية", checked: true },
   ],
   trainingStartDate: "2024-10-20",
   trainingEndDate: "2024-10-30",

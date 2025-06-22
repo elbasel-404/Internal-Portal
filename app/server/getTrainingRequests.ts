@@ -16,7 +16,8 @@ export const getTrainingRequests = async (): Promise<TrainingRequest[]> => {
   const employeeId = await getStoredEmployeeId()
   const url = "api/po/hr/training-request"
   const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
   const requestBody = { employee_id: employeeId }
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`
@@ -35,8 +36,8 @@ export const getTrainingRequests = async (): Promise<TrainingRequest[]> => {
   const validatedResponse = ResponseSchema.safeParse(responseJson)
   const result = validatedResponse.data?.result
   const data = result?.data
-  const validatedData = TrainingElementSchema.array().safeParse(data)
-  const employeeMembersData = validatedData.data
+  const validatedData = TrainingElementSchema.array().parse(data)
+  const employeeMembersData = validatedData
 
   // ! PARSING
   // ! ==================================
