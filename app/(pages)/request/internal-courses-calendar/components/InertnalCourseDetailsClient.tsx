@@ -11,7 +11,6 @@ import { toast } from "sonner"
 interface Props {
   courseId: string
   headers: RequestHeader[]
-  caption: string
   status: InternalStatus[]
   trainingButton: boolean | undefined
 }
@@ -19,7 +18,6 @@ interface Props {
 export const InternalCourseDetailsClient = ({
   courseId,
   headers,
-  caption,
   status,
   trainingButton,
 }: Props) => {
@@ -61,7 +59,7 @@ export const InternalCourseDetailsClient = ({
     <>
       {!submitted && (
         <>
-          <RequestStatus status={status} caption={caption} />
+          <RequestStatus status={status} />
           <RequestDetails headers={headers} />
         </>
       )}

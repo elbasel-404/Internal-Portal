@@ -15,9 +15,7 @@ const ProbationPeriodDetailsPage = async ({
 }: ProbationPeriodDetailsPageProps) => {
   // !  // !It will be used when id passed to endpoint for integration
   const { id } = await params
-  const requestStatus = await getRequestStatus()
-  const requestCaption =
-    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
+  const requestStatus = await getRequestStatus(id, "hr.probation.evaluation")
   const {
     employeeName,
     jobNumber,
@@ -71,7 +69,7 @@ const ProbationPeriodDetailsPage = async ({
   ]
   return (
     <main>
-      <RequestStatus status={requestStatus} caption={requestCaption} />
+      <RequestStatus status={requestStatus} />
       <RequestDetails
         headers={requestHeaders}
         evaluationCriteria={

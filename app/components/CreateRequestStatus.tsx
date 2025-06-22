@@ -17,7 +17,7 @@ export const CreateRequestStatus = ({
   const length = status.length - 1
   return (
     <div className="bg-white pt-4 pb-4 px-4 rounded-lg space-y-4">
-      <div className="bg-[#FAFCFE] flex flex-col lg:flex-row items-center px-2 lg:px-8 p-6">
+      <div className="bg-[#FAFCFE] flex flex-col lg:flex-row items-center px-2 lg:px-8 p-6 lg:overflow-x-auto">
         {status.map(
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           ({ status }, index) => {
@@ -40,7 +40,7 @@ export const CreateRequestStatus = ({
                       )}
                     </div>
                   </div>
-                  <h2 className="text-sm mr-20 lg:mx-auto mt-4 text-center text-primary max-w-20">
+                  <h2 className="text-sm mr-20 lg:-mr-5 mt-4 text-center text-primary min-w-24">
                     {status}
                   </h2>
                 </div>
@@ -67,7 +67,7 @@ interface SeparatorProps {
 const Separator = ({ isLast, dataKey }: SeparatorProps) => {
   if (isLast) return null
   return (
-    <div className="h-16 flex-1 mr-2 ml-4">
+    <div className="h-16 flex-1 mr-2 ml-4 lg:min-w-32">
       <div data-key={dataKey} className="h-1 bg-grey-200 flex-1" />
     </div>
   )
