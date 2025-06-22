@@ -3,9 +3,9 @@ import { z } from "zod"
 export const requestBodySchema = z.object({
   employee_id: z.string(),
   name: z.string().optional(),
-  type: z.string(),
-  date_from: z.string(),
-  date_to: z.string(),
+  type: z.string().optional(),
+  date_from: z.string().optional(),
+  date_to: z.string().optional(),
   training_center_id: z.string().optional(),
   training_type: z.string().optional(),
   city_id: z.string().optional(),
@@ -13,5 +13,6 @@ export const requestBodySchema = z.object({
   programme_session: z.string().optional(),
   substitute_employee_id: z.string().optional(),
   travel_days_setting: z.string().optional(),
+  extended_training: z.string().optional(),
   attachment_ids: z.instanceof(File).or(z.string()).optional(),
 })
