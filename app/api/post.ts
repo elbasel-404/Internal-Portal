@@ -39,19 +39,26 @@ export const post = async (args: Args): Promise<PostResponse> => {
   const BEARER_TOKEN = process.env.BEARER_TOKEN as string
   const SESSION_ID = process.env.SESSION_ID as string
 
+  // These environment variables are being validated, but no action is taken if they're missing
+  // Since they're critical configuration values, the application might fail later if they're not present
   if (!API_ROOT_URL) {
+    console.warn("API_ROOT_URL is missing")
   }
 
   if (!API_KEY) {
+    console.warn("API_KEY is missing")
   }
 
   if (!API_KEY_HEADER_NAME) {
+    console.warn("API_KEY_HEADER_NAME is missing")
   }
 
   if (!BEARER_TOKEN) {
+    console.warn("BEARER_TOKEN is missing")
   }
 
   if (!SESSION_ID) {
+    console.warn("SESSION_ID is missing")
   }
 
   // !===============================================================

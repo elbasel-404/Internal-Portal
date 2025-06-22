@@ -28,12 +28,13 @@ interface Props {
 }
 
 export const BatchTableSection = ({ requestStatus, batchs }: Props) => {
-  if (!requestStatus.some((step) => step.id === "6")) return null
-
   const [completionRequest] = useAtom(completionRequestAtom)
   const [totalBatchAmount] = useAtom(batchAmount)
   const [showSuccess, setShowSuccess] = useState<boolean>(false)
   const [countdown, setCountdown] = useState<number>(5)
+
+  // Early return after hooks are defined
+  if (!requestStatus.some((step) => step.id === "6")) return null
 
   useEffect(() => {
     if (completionRequest) {

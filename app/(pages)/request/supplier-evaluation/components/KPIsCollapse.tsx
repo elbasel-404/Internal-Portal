@@ -27,9 +27,10 @@ export const KPIsCollapse = ({
   // ! ===============================================================
   // ! Config
   // ! ===============================================================
-  const config: Partial<ParentConfig<{ node: ReactNode; key: string }>> = {
-    plugins: [animations()],
-  }
+  // Commented out unused variable
+  // const config: Partial<ParentConfig<{ node: ReactNode; key: string }>> = {
+  //   plugins: [animations()],
+  // }
 
   // ! ===============================================================
   // ! State
@@ -88,7 +89,7 @@ export const KPIsCollapse = ({
           node,
           title,
         }: {
-          key: any
+          key: string
           node?: ReactNode
           title?: string | undefined
         }) => {

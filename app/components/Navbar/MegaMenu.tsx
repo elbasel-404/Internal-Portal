@@ -80,6 +80,12 @@ export const MegaMenu = () => {
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40"
           onClick={toggleModal}
+          onKeyDown={(e) => {
+            if (e.key === "Escape") toggleModal()
+          }}
+          role="button"
+          tabIndex={0}
+          aria-label="Close menu"
         ></div>
       )}
 

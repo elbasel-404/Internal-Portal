@@ -364,7 +364,9 @@ export const Table = ({
                     <Button
                       onClick={(e) => {
                         e.preventDefault()
-                        onRemove && onRemove(Number(request.id))
+                        if (onRemove) {
+                          onRemove(Number(request.id))
+                        }
                       }}
                       className="flex group gap-1 items-center shadow-none hover:bg-red-600 hover:text-white justify-end text-destructive-foreground bg-destructive-opacity rounded-xl px-4 py-2.5"
                     >

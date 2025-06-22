@@ -19,10 +19,12 @@ const initialState: State = {
 }
 interface OvertimeConfirmFormProps {
   assignmentNumbers: { id: number; name: string }[]
+  employeeId: string | undefined
 }
 
 export const OvertimeConfirmForm = ({
   assignmentNumbers,
+  employeeId,
 }: OvertimeConfirmFormProps) => {
   const [state, setState] = useState<State>(initialState)
   const [pending, setPending] = useState(false)
