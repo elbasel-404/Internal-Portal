@@ -50,7 +50,7 @@ export const getVacationRequests = async (): Promise<VacationRequest[]> => {
           startDate: data.date_from,
           endDate: data.date_to,
           durationInDays: data.duration,
-          approvalDate: data.done_date.split(" ")[0],
+          approvalDate: data.done_date?.split(" ")[0],
           status: data.state,
         }
         return vacationItem
