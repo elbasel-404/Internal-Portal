@@ -1,54 +1,28 @@
 "use server"
 
 import type { NewsListRequest } from "@types"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
 import { NewsElementSchema, ResponseSchema } from "@api/schemas"
 import { formatDate } from "@utils"
+import { getData } from "./getData"
+
 export const getNewsListRequests = async (): Promise<NewsListRequest[]> => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
-
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/read/portal-news"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  if (!headers) return []
-  const requestBody = { news_type: "news" }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
-
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+  return getData<NewsListRequest>({
+    url: "api/po/read/portal-news",
+    includeEmployeeId: false,
+    additionalBody: { news_type: "news" },
+    responseSchema: ResponseSchema,
+    dataSchema: NewsElementSchema,
+    parseData: (data) => {
+      return data.map((item: any) => ({
+        id: item.id,
+        title: item.title,
+        date: formatDate(item.create_date),
+        description: item.resume,
+        image: `data:image/gif;base64,${item.image}`,
+      }))
+    },
+    dummyData,
   })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = NewsElementSchema.array().parse(data)
-
-  // ! PARSING
-  // ! ==================================
-  const returnedData: NewsListRequest[] = validatedData.map((data) => {
-    const newsItem: NewsListRequest = {
-      id: data.id,
-      title: data.title,
-      date: formatDate(data.create_date),
-      description: data.resume,
-      image: `data:image/gif;base64,${data.image}`,
-    }
-    return newsItem
-  })
-  return returnedData
 }
 
 const dummyData: NewsListRequest[] = [
