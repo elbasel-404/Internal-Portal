@@ -12,18 +12,26 @@ export const getAdsNewsList = async (): Promise<AdsListRequst[]> => {
     responseSchema: ResponseSchema,
     dataSchema: AdNewSchema,
     parseData: (data) => {
-      return data.map((item: any) => ({
-        id: item.id,
-        title: item.title,
-        date: new Date(item.create_date).toLocaleDateString("ar-EG", {
-          weekday: "long",
-          year: "numeric",
-          month: "long",
-          day: "numeric",
+      return data.map(
+        (item: {
+          id: number
+          title: string
+          create_date: string
+          resume: string
+          image: string
+        }) => ({
+          id: item.id,
+          title: item.title,
+          date: new Date(item.create_date).toLocaleDateString("ar-EG", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          }),
+          description: item.resume,
+          image: `data:image/gif;base64,${item.image}`,
         }),
-        description: item.resume,
-        image: `data:image/gif;base64,${item.image}`,
-      }))
+      )
     },
     dummyData,
   })

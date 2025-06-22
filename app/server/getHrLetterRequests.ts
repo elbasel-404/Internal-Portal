@@ -13,13 +13,16 @@ export const getHrLetterRequests = async (): Promise<HrLetterRequest[]> => {
     responseSchema: ResponseSchema,
     dataSchema: SalaryIdentificationElementSchema,
     parseData: (data) => {
-      return data.map((item: any) => ({
-        id: item.id.toString(),
-        date: item.order_date,
-        description: item.template_name || "__",
-        destination: item.destination_id[1]?.toString() || "__",
-        status: item.state,
-      }))
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, any>
+        return {
+          id: typedItem.id.toString(),
+          date: typedItem.order_date,
+          description: typedItem.template_name || "__",
+          destination: typedItem.destination_id[1]?.toString() || "__",
+          status: typedItem.state,
+        }
+      })
     },
     dummyData: HrLetterDummyData,
   })

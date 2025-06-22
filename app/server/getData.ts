@@ -5,12 +5,12 @@ import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
 import { z } from "zod"
 
-interface GetDataOptions<T, R> {
+interface GetDataOptions<T> {
   /* API request configuration */
   url: string
   method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
   includeEmployeeId?: boolean
-  additionalBody?: Record<string, any>
+  additionalBody?: Record<string, unknown>
   employeeIdKey?: string
 
   /* Schema validation */
@@ -18,7 +18,7 @@ interface GetDataOptions<T, R> {
   dataSchema?: z.ZodType
 
   /* Data transformation */
-  parseData?: (data: any) => T[]
+  parseData?: (data: unknown[]) => T[]
 
   /* Demo mode fallback */
   dummyData: T[]
@@ -36,9 +36,7 @@ interface GetDataOptions<T, R> {
  * @param options Configuration options for the data fetching operation
  * @returns Promise that resolves to an array of the expected type
  */
-export const getData = async <T, R = any>(
-  options: GetDataOptions<T, R>,
-): Promise<T[]> => {
+export const getData = async <T>(options: GetDataOptions<T>): Promise<T[]> => {
   const {
     url,
     method = "POST",
@@ -67,7 +65,7 @@ export const getData = async <T, R = any>(
     if (!headers) return dummyData
 
     // Generate request body
-    let requestBody: Record<string, any> = { ...additionalBody }
+    const requestBody: Record<string, unknown> = { ...additionalBody }
 
     // Add employee ID to request body if needed
     if (includeEmployeeId) {

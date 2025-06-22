@@ -31,7 +31,8 @@ const PermissionTypes = [
 
 export const PermissionForm = () => {
   const [state, setState] = useState<State>(initialState)
-  const [pending, setPending] = useState(false)
+  // pending is declared but never used
+  const [, /* pending removed to fix unused var */ setPending] = useState(false)
   const [files, setFiles] = useState<FileWithId[]>([])
   const [isMultipleDays, setIsMultipleDays] = useState(false)
   const [permissionTypeValue, setPermissionTypeValue] = useState<string>("")

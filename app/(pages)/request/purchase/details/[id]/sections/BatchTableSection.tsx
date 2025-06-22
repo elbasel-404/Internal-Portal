@@ -33,10 +33,14 @@ export const BatchTableSection = ({ requestStatus, batchs }: Props) => {
   const [showSuccess, setShowSuccess] = useState<boolean>(false)
   const [countdown, setCountdown] = useState<number>(5)
 
-  // Early return after hooks are defined
-  if (!requestStatus.some((step) => step.id === "6")) return null
+  // Moved the conditional check inside useEffect to fix React Hooks rules violation
+  const isProjectCompletionStep = requestStatus.some((step) => step.id === "6")
 
   useEffect(() => {
+    // Early return inside the effect instead of outside
+    if (!isProjectCompletionStep) return
+
+    // Rest of the effect logic
     if (completionRequest) {
       setShowSuccess(true)
       setCountdown(5) // Reset countdown
@@ -53,7 +57,7 @@ export const BatchTableSection = ({ requestStatus, batchs }: Props) => {
 
       return () => clearInterval(interval) // Cleanup on unmount
     }
-  }, [completionRequest])
+  }, [completionRequest, isProjectCompletionStep])
 
   const batchData = batchs.map((batch, index) => ({
     ...batch,

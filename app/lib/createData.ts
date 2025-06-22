@@ -12,11 +12,13 @@ export interface State {
   id: number | null
 }
 
-export async function createData(
+export async function createData<T extends Record<string, unknown>>(
   endpointUrl: string,
-  requestBodySchema: z.ZodType<any, any>,
+  requestBodySchema: z.ZodType<T, z.ZodTypeDef>,
   formData: FormData,
-  massageBody?: (body: Record<string, any>) => Record<string, any>,
+  massageBody?: (
+    body: Record<string, FormDataEntryValue>,
+  ) => Record<string, FormDataEntryValue>,
 ): Promise<State> {
   // ! ==================================
   // ! VARIABLES

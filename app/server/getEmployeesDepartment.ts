@@ -10,21 +10,24 @@ export const getEmployeeDepartmentRequests = async (): Promise<Employee[]> => {
     responseSchema: ResponseSchema,
     dataSchema: EmployeeDepartmentElementSchema,
     parseData: (data) => {
-      return data.map((item: any) => ({
-        id: item.id.toString(),
-        name: item.complete_name,
-        image: `data:image/gif;base64,${item.image}`,
-        position: item.job_id[1].toString(),
-        phone: item.mobile_phone,
-        recycleWork: `تحويلة العمل ${item.work_phone}`,
-        address: item.work_location,
-        email: item.work_email,
-        sector: item.sector_id[1].toString(),
-        generalAdministration: item.administration_id[1].toString(),
-        management: item.department_global_id[1].toString(),
-        department: item.department_id[1].toString(),
-        generalManager: item.sector_manager_id[1].toString(),
-      }))
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, any>
+        return {
+          id: typedItem.id.toString(),
+          name: typedItem.complete_name,
+          image: `data:image/gif;base64,${typedItem.image}`,
+          position: typedItem.job_id[1].toString(),
+          phone: typedItem.mobile_phone,
+          recycleWork: `تحويلة العمل ${typedItem.work_phone}`,
+          address: typedItem.work_location,
+          email: typedItem.work_email,
+          sector: typedItem.sector_id[1].toString(),
+          generalAdministration: typedItem.administration_id[1].toString(),
+          management: typedItem.department_global_id[1].toString(),
+          department: typedItem.department_id[1].toString(),
+          generalManager: typedItem.sector_manager_id[1].toString(),
+        }
+      })
     },
     dummyData,
   })

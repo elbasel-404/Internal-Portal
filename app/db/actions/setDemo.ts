@@ -5,11 +5,8 @@
 // import { getUserIndex } from "./getUserIndex"
 // import { paths } from "@lib"
 
-type Args = {
-  demo: boolean
-  userId: number
-}
-export const setDemo = async ({ demo, userId }: Args) => {
+// Removed unused type
+export const setDemo = async () => {
   return
   // const userIndex = await getUserIndex(userId)
   // await db.read()

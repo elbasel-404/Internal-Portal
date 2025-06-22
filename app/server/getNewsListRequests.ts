@@ -13,13 +13,16 @@ export const getNewsListRequests = async (): Promise<NewsListRequest[]> => {
     responseSchema: ResponseSchema,
     dataSchema: NewsElementSchema,
     parseData: (data) => {
-      return data.map((item: any) => ({
-        id: item.id,
-        title: item.title,
-        date: formatDate(item.create_date),
-        description: item.resume,
-        image: `data:image/gif;base64,${item.image}`,
-      }))
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, any>
+        return {
+          id: typedItem.id,
+          title: typedItem.title,
+          date: formatDate(typedItem.create_date),
+          description: typedItem.resume,
+          image: `data:image/gif;base64,${typedItem.image}`,
+        }
+      })
     },
     dummyData,
   })

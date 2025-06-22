@@ -13,7 +13,7 @@ import { paths } from "@lib"
 import { ChangeEvent, useEffect, useState } from "react"
 import { toast } from "sonner"
 import { formAction } from "./helpers/formAction"
-import { getStateAction } from "./helpers/getStateAction"
+// import { getStateAction } from "./helpers/getStateAction" - removed unused import
 
 import type { VacationType } from "@api/schemas/vacation-types/schema"
 import { createFileHandler } from "@atoms"
@@ -36,7 +36,8 @@ interface VacationFormProps {
 }
 export const VacationForm = ({ vacationElements }: VacationFormProps) => {
   const [state, setState] = useState<State>(initialState)
-  const [pending, setPending] = useState(false)
+  // const pending removed as unused
+  const [, setPending] = useState(false)
   const [files, setFiles] = useState<FileWithId[]>([])
   const [dateFrom, setDateFrom] = useState(new Date())
   const [dateTo, setDateTo] = useState(new Date())

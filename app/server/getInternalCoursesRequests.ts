@@ -14,16 +14,19 @@ export const getInternalCoursesRequests = async (): Promise<
     responseSchema: ResponseSchema,
     dataSchema: TrainingElementSchema,
     parseData: (data) => {
-      return data.map((item: any) => ({
-        id: item.id.toString(),
-        courseName: item.name,
-        fromDate: item.date_from,
-        toDate: item.date_to,
-        duration: item.number_of_days.toString(),
-        type: item.type,
-        trainingCenter: item.training_center,
-        status: item.state,
-      }))
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, any>
+        return {
+          id: typedItem.id.toString(),
+          courseName: typedItem.name,
+          fromDate: typedItem.date_from,
+          toDate: typedItem.date_to,
+          duration: typedItem.number_of_days.toString(),
+          type: typedItem.type,
+          trainingCenter: typedItem.training_center,
+          status: typedItem.state,
+        }
+      })
     },
     dummyData: InternalCoursesDummyData,
   })

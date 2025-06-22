@@ -43,18 +43,20 @@ export const formAction = async (formData: FormData): Promise<State> => {
     const validationErrors = error.format()
 
     const validationErrorsEntries = Object.entries(validationErrors)
-    validationErrorsEntries.forEach(([/*key*/ _, value]) => {
-      if (
-        typeof value === "object" &&
-        value !== null &&
-        "_errors" in value &&
-        Array.isArray((value as { _errors: unknown })._errors)
-      ) {
-        const errors = value._errors
-        // const firstError: string = (errors as string[])[0]
-        return { success: false, errors, id: null }
-      }
-    })
+    validationErrorsEntries.forEach(
+      ([, /* key removed to fix unused var */ value]) => {
+        if (
+          typeof value === "object" &&
+          value !== null &&
+          "_errors" in value &&
+          Array.isArray((value as { _errors: unknown })._errors)
+        ) {
+          const errors = value._errors
+          // const firstError: string = (errors as string[])[0]
+          return { success: false, errors, id: null }
+        }
+      },
+    )
   }
 
   // ! ==================================

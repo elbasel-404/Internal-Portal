@@ -1,6 +1,6 @@
 "use client"
 
-import { costsAtom, dateFromAtom, dateToAtom } from "@atoms"
+import { costsAtom, dateToAtom } from "@atoms"
 import { InputField } from "@components/form"
 import { CheckIcon, RiyalCurrencyIcon, XMarkIcon } from "@icons"
 import { Button } from "@ui"
@@ -18,9 +18,10 @@ export const ProjectCompletionForm = () => {
   const [amount, setAmount] = useState(0)
   const [costs] = useAtom(costsAtom)
   const [dateToProject] = useAtom(dateToAtom)
-  const [dateFromProject] = useAtom(dateFromAtom)
+  // const [dateFromProject] = useAtom(dateFromAtom) - Removed unused variable
 
-  const projectStartDate = new Date(dateFromProject).getFullYear()
+  // Not using projectStartDate currently - removing to fix lint error
+  // const projectStartDate = new Date(dateFromProject).getFullYear()
   const projectEndDate = new Date(dateToProject).getFullYear()
 
   // I will change it later
@@ -46,7 +47,7 @@ export const ProjectCompletionForm = () => {
     if (localCosts) {
       setLocalCosts(costs)
     }
-  }, [costs])
+  }, [costs, localCosts, setLocalCosts])
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     if (amount > localCosts) {

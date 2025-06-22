@@ -15,11 +15,13 @@ export const getBankAccountRequests = async (): Promise<
     responseSchema: ResponseSchema,
     dataSchema: ChangeBankAccountElementSchema,
     parseData: (data) => {
-      return data.map((item: any) => ({
-        id: item.id.toString(),
-        date: new Date(item.create_date).toISOString().split("T")[0],
-        status: item.state,
-      }))
+      return data.map(
+        (item: { id: number; create_date: string; state: string }) => ({
+          id: item.id.toString(),
+          date: new Date(item.create_date).toISOString().split("T")[0],
+          status: item.state,
+        }),
+      )
     },
     dummyData: BankAccountDummyData,
   })

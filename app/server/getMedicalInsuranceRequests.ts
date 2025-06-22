@@ -15,15 +15,18 @@ export const getMedicalInsuranceRequests = async (): Promise<
     responseSchema: ResponseSchema,
     dataSchema: MedicalInsuranceElementSchema,
     parseData: (data) => {
-      return data.map((item: any) => ({
-        id: item.id.toString(),
-        date: item.date,
-        description: item.request_type,
-        relation: item.relative_relation,
-        nameAR: item.individual_complete_name,
-        nameEN: item.individual_english_name,
-        status: item.state,
-      }))
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, any>
+        return {
+          id: typedItem.id.toString(),
+          date: typedItem.date,
+          description: typedItem.request_type,
+          relation: typedItem.relative_relation,
+          nameAR: typedItem.individual_complete_name,
+          nameEN: typedItem.individual_english_name,
+          status: typedItem.state,
+        }
+      })
     },
     dummyData: MedicalInsuranceDummyData,
   })

@@ -13,15 +13,18 @@ export const getFamilyNewsList = async (): Promise<NewsFamily[]> => {
     responseSchema: ResponseSchema,
     dataSchema: FamilyNewSchema,
     parseData: (data) => {
-      return data.map((item: any) => ({
-        id: item.id,
-        title: item.title,
-        date: formatDate(item.create_date),
-        image: item.image
-          ? `data:image/gif;base64,${item.image}`
-          : "/monshaatFamily-1.svg",
-        description: item.resume,
-      }))
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, any>
+        return {
+          id: typedItem.id,
+          title: typedItem.title,
+          date: formatDate(typedItem.create_date),
+          image: typedItem.image
+            ? `data:image/gif;base64,${typedItem.image}`
+            : "/monshaatFamily-1.svg",
+          description: typedItem.resume,
+        }
+      })
     },
     dummyData,
   })

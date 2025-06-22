@@ -75,7 +75,7 @@ export const getEmployeeMembersDetails = async (
     idNumber: validatedData.identity,
     birthDate: validatedData.birthday,
     attachments: validatedData.attachment_ids.map(
-      (file: any) => new File([""], file.toString()),
+      (file: string | number) => new File([""], file.toString()),
     ),
   }
 

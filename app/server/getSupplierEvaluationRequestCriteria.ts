@@ -2,11 +2,11 @@
 
 import { SupplierEvaluationCriterion } from "@types"
 
-export const getSupplierEvaluationRequestCriteria = async (
-  id: string,
-): Promise<SupplierEvaluationCriterion[] | void> => {
-  return SupplierEvaluationData
-}
+export const getSupplierEvaluationRequestCriteria =
+  async () /* _id: string */ // Parameter not used
+  : Promise<SupplierEvaluationCriterion[] | void> => {
+    return SupplierEvaluationData
+  }
 const SupplierEvaluationData: SupplierEvaluationCriterion[] = [
   {
     id: "1",

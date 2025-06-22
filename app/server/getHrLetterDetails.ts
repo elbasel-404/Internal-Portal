@@ -51,7 +51,7 @@ export const getHrLetterDetails = async (
     type: validatedData.template_name || "__",
     notes: validatedData.notes.toString() || "__",
     attachments: validatedData.message_ids.map(
-      (file: any) => new File([""], file.toString()),
+      (file: string | number) => new File([""], file.toString()),
     ),
   }
 

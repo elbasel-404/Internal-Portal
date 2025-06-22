@@ -12,10 +12,13 @@ export const getHrLetterTypes = async (): Promise<HrLetterType[]> => {
     responseSchema: ResponseSchema,
     dataSchema: HrLetterTypeSchema,
     parseData: (data) => {
-      return data.map((item: any) => ({
-        id: item.id.toString(),
-        name: item.name,
-      }))
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, any>
+        return {
+          id: typedItem.id.toString(),
+          name: typedItem.name,
+        }
+      })
     },
     dummyData,
   })
