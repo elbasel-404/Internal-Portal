@@ -2,15 +2,10 @@
 
 import type { PurchaseProduct } from "@types"
 
-interface getPurchaseProductsAgrs {
-  purchaseRequestId: string
-}
+// Removed unused interface
 
-export const getPurchaseProductsByRequestId = async (
-  {
-    // purchaseRequestId,
-  }: getPurchaseProductsAgrs,
-): Promise<PurchaseProduct[]> => {
+export const getPurchaseProductsByRequestId = async () // Parameter not used
+: Promise<PurchaseProduct[]> => {
   return dummyData
 }
 

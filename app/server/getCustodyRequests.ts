@@ -11,13 +11,21 @@ export const getCustodyRequests = async (): Promise<CustodyRequest[]> => {
     responseSchema: ResponseSchema,
     dataSchema: CustodyElementSchema,
     parseData: (data) => {
-      return data.map((item: any) => ({
-        id: item.id.toString(),
-        date: new Date(item.create_date).toISOString().split("T")[0],
-        custodyAmount: item.custody_amount,
-        custodyType: item.custody_type,
-        status: item.state,
-      }))
+      return data.map(
+        (item: {
+          id: number
+          create_date: string
+          custody_amount: number
+          custody_type: string
+          state: string
+        }) => ({
+          id: item.id.toString(),
+          date: new Date(item.create_date).toISOString().split("T")[0],
+          custodyAmount: item.custody_amount,
+          custodyType: item.custody_type,
+          status: item.state,
+        }),
+      )
     },
     dummyData: CustodyDummyData,
   })

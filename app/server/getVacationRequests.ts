@@ -11,16 +11,19 @@ export const getVacationRequests = async (): Promise<VacationRequest[]> => {
     responseSchema: ResponseSchema,
     dataSchema: HolidayElementSchema,
     parseData: (data) => {
-      return data.map((item: any) => ({
-        id: item.id.toString(),
-        date: item.date,
-        description: item.holiday_status_id[1].toString(),
-        startDate: item.date_from,
-        endDate: item.date_to,
-        durationInDays: item.duration,
-        approvalDate: item.done_date?.split(" ")[0],
-        status: item.state,
-      }))
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, any>
+        return {
+          id: typedItem.id.toString(),
+          date: typedItem.date,
+          description: typedItem.holiday_status_id[1].toString(),
+          startDate: typedItem.date_from,
+          endDate: typedItem.date_to,
+          durationInDays: typedItem.duration,
+          approvalDate: typedItem.done_date?.split(" ")[0],
+          status: typedItem.state,
+        }
+      })
     },
     dummyData,
   })

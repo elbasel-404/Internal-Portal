@@ -28,7 +28,7 @@ export const getPermissionDetails = async (
     method: "POST",
     body: requestBodyString,
   })
-  const responseJson = await apiResponse.json()
+  await apiResponse.json() // responseJson not used, but keeping the await
 
   // ! VALIDATION
   // ! ==================================

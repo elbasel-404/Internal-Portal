@@ -12,13 +12,15 @@ export const ValidatePath = () => {
     if (!shouldValidate) return
     const regExPaths = await getHrefs()
 
-    const isPath = regExPaths.some((href) => {
+    // Removed unused 'isPath' variable
+    regExPaths.some((href) => {
       const pattern = getRegExFromHref(href)
       const isMatch = pattern.test(pathName)
       return isMatch
     })
-    if (!isPath) {
-    }
+    // if (!isPath) {
+    //   // Handle invalid path if needed in the future
+    // }
   }
   const pathName = usePathname()
 

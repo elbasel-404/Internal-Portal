@@ -10,7 +10,11 @@ import { paths } from "@lib"
 import { toast } from "sonner"
 import { formAction } from "./helpers/formAction"
 import { State } from "../../../../lib/createData"
-import { ChangeEvent, useEffect, useActionState, useState } from "react"
+import {
+  ChangeEvent,
+  useEffect,
+  /* useActionState - removed unused import */ useState,
+} from "react"
 
 const initialState: State = {
   success: false,
@@ -19,12 +23,13 @@ const initialState: State = {
 }
 interface OvertimeConfirmFormProps {
   assignmentNumbers: { id: number; name: string }[]
-  employeeId: string | undefined
+  // employeeId removed from props as it was unused
+  employeeId?: string | undefined
 }
 
 export const OvertimeConfirmForm = ({
   assignmentNumbers,
-  employeeId,
+  // employeeId parameter removed as it was unused
 }: OvertimeConfirmFormProps) => {
   const [state, setState] = useState<State>(initialState)
   const [pending, setPending] = useState(false)

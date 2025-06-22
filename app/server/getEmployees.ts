@@ -22,23 +22,26 @@ export const getEmployeeRequests = async (): Promise<Employee[]> => {
       page: 1,
     },
     parseData: (data) => {
-      return data.map((item: any) => ({
-        id: item.id.toString(),
-        name: getStringValue(item.complete_name),
-        image: getStringValue(item.image)
-          ? `data:image/gif;base64,${item.image}`
-          : "/default-image.svg",
-        position: getArrayValue(item.job_id),
-        phone: getStringValue(item.mobile_phone),
-        recycleWork: `تحويلة العمل ${getStringValue(item.work_phone)}`,
-        address: getStringValue(item.work_location),
-        email: getStringValue(item.work_email),
-        sector: getArrayValue(item.sector_id),
-        generalAdministration: getArrayValue(item.administration_id),
-        management: getArrayValue(item.department_global_id),
-        department: getArrayValue(item.department_id),
-        generalManager: getArrayValue(item.sector_manager_id),
-      }))
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, any>
+        return {
+          id: typedItem.id.toString(),
+          name: getStringValue(typedItem.complete_name),
+          image: getStringValue(typedItem.image)
+            ? `data:image/gif;base64,${typedItem.image}`
+            : "/default-image.svg",
+          position: getArrayValue(typedItem.job_id),
+          phone: getStringValue(typedItem.mobile_phone),
+          recycleWork: `تحويلة العمل ${getStringValue(typedItem.work_phone)}`,
+          address: getStringValue(typedItem.work_location),
+          email: getStringValue(typedItem.work_email),
+          sector: getArrayValue(typedItem.sector_id),
+          generalAdministration: getArrayValue(typedItem.administration_id),
+          management: getArrayValue(typedItem.department_global_id),
+          department: getArrayValue(typedItem.department_id),
+          generalManager: getArrayValue(typedItem.sector_manager_id),
+        }
+      })
     },
     dummyData,
   })

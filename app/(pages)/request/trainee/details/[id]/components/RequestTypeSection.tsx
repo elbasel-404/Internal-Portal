@@ -1,6 +1,6 @@
 "use client"
 
-import { NewsTabsKey, type NewsTab, type Row } from "@types"
+import { NewsTabsKey, type Row } from "@types"
 import { useEffect, useState } from "react"
 import { NewsTabs } from "../../../../../home/components/NewsSection/NewsTabs"
 import { defaultTraineeTabs } from "../../../../../../lib/defaultTraineeTabs"

@@ -46,7 +46,7 @@ export function useLocalStorage<T>(
       let parsed: unknown
       try {
         parsed = JSON.parse(value)
-      } catch (error) {
+      } catch {
         return defaultValue // Return initialValue if parsing fails
       }
 
@@ -69,7 +69,7 @@ export function useLocalStorage<T>(
     try {
       const raw = window.localStorage.getItem(key)
       return raw ? deserializer(raw) : initialValueToUse
-    } catch (error) {
+    } catch {
       return initialValueToUse
     }
   }, [initialValue, key, deserializer])
@@ -87,6 +87,8 @@ export function useLocalStorage<T>(
   const setValue: Dispatch<SetStateAction<T>> = useEventCallback((value) => {
     // Prevent build error "window is undefined" but keeps working
     if (IS_SERVER) {
+      // Can't use localStorage on server
+      return
     }
 
     try {
@@ -101,12 +103,16 @@ export function useLocalStorage<T>(
 
       // We dispatch a custom event so every similar useLocalStorage hook is notified
       window.dispatchEvent(new StorageEvent("local-storage", { key }))
-    } catch (error) {}
+    } catch {
+      // Handle error silently
+    }
   })
 
   const removeValue = useEventCallback(() => {
     // Prevent build error "window is undefined" but keeps working
     if (IS_SERVER) {
+      // Can't use localStorage on server
+      return
     }
 
     const defaultValue =

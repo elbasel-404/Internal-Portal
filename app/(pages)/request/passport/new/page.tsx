@@ -1,11 +1,13 @@
-import { Instructions, RequestStatus } from "@components"
-import { getRequestStatus } from "@server"
+import {
+  Instructions /* RequestStatus removed to fix unused import */,
+} from "@components"
+import {} from /* getRequestStatus removed as its result isn't used */ "@server"
 import { PassportForm } from "../components"
 
 const NewPassportPage = async () => {
-  const requestStatus = await getRequestStatus()
-  const requestCaption =
-    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
+  // Removed unused variables
+  // const requestStatus = await getRequestStatus()
+  // const requestCaption = "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   return (
     <div className="space-y-4 mb-16">
       {/* <RequestStatus status={requestStatus} caption={requestCaption} /> */}

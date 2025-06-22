@@ -39,18 +39,20 @@ export const formAction = async (formData: FormData): Promise<State> => {
     const validationErrors = error.format()
 
     const validationErrorsEntries = Object.entries(validationErrors)
-    validationErrorsEntries.forEach(([key, value]) => {
-      if (
-        typeof value === "object" &&
-        value !== null &&
-        "_errors" in value &&
-        Array.isArray((value as { _errors: unknown })._errors)
-      ) {
-        const errors = value._errors
-        const firstError: string = (errors as string[])[0]
-        return { success: false, errors, id: null }
-      }
-    })
+    validationErrorsEntries.forEach(
+      ([, /* key removed to fix unused var */ value]) => {
+        if (
+          typeof value === "object" &&
+          value !== null &&
+          "_errors" in value &&
+          Array.isArray((value as { _errors: unknown })._errors)
+        ) {
+          const errors = value._errors
+          // const firstError: string = (errors as string[])[0] - removed unused variable
+          return { success: false, errors, id: null }
+        }
+      },
+    )
   }
 
   // ! ==================================
@@ -79,7 +81,8 @@ export const formAction = async (formData: FormData): Promise<State> => {
   const isBadRequest = response.status === 400
   if (isBadRequest) {
     const validatedResponseObject = CreateErrorSchema.parse(responseObject)
-    const { error, status } = validatedResponseObject
+    const { error /* status removed to fix unused var */ } =
+      validatedResponseObject
 
     return {
       success: false,
@@ -89,7 +92,8 @@ export const formAction = async (formData: FormData): Promise<State> => {
   }
 
   const validatedResponseObject = CreateSuccessSchema.parse(responseObject)
-  const { data, message, status } = validatedResponseObject
+  const { data /* message and status removed to fix unused vars */ } =
+    validatedResponseObject
 
   return { success: true, errors: null, id: data.id }
 }

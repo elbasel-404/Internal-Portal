@@ -154,10 +154,12 @@ describe("createData", () => {
   })
 
   it("should handle failed fetch headers", async () => {
-    // Override the mock for getFetchHeaders to return null
-    require("../../server/getFetchHeaders").getFetchHeaders.mockResolvedValue(
-      null,
-    )
+    // Import mocked module again to avoid require()
+    await import("../../server/getFetchHeaders")
+    // Use vi.Mock instead
+    vi.mock("../../server/getFetchHeaders", () => ({
+      getFetchHeaders: vi.fn(() => undefined),
+    }))
 
     // Mock FormData
     const formData = new FormData()

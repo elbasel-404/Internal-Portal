@@ -1,7 +1,8 @@
 "use client"
 
 import { Animate } from "@components"
-import { animations, type ParentConfig } from "@formkit/drag-and-drop"
+// Removed unused imports: animations, ParentConfig
+import {} from "@formkit/drag-and-drop"
 import { CircleMinusIcon } from "@icons"
 import { cn } from "@utils"
 import { RefObject, useRef, useState, type ReactNode } from "react"
