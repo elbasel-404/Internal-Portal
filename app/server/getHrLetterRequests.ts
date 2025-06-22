@@ -5,53 +5,24 @@ import {
   ResponseSchema,
   SalaryIdentificationElementSchema,
 } from "../../api-schemas"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
+import { getData } from "./getData"
 
 export const getHrLetterRequests = async (): Promise<HrLetterRequest[]> => {
-  const isDemo = await getDemo()
-  if (isDemo) return HrLetterDummyData
-
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/salary/identification/request/read"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  const requestBody = { employee_id: 447 }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
-
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+  return getData<HrLetterRequest>({
+    url: "api/po/salary/identification/request/read",
+    responseSchema: ResponseSchema,
+    dataSchema: SalaryIdentificationElementSchema,
+    parseData: (data) => {
+      return data.map((item: any) => ({
+        id: item.id.toString(),
+        date: item.order_date,
+        description: item.template_name || "__",
+        destination: item.destination_id[1]?.toString() || "__",
+        status: item.state,
+      }))
+    },
+    dummyData: HrLetterDummyData,
   })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = SalaryIdentificationElementSchema.array().parse(data)
-
-  // ! PARSING
-  // ! ==================================
-  const returnedData: HrLetterRequest[] = validatedData.map((data) => {
-    const vacationItem: HrLetterRequest = {
-      id: data.id.toString(),
-      date: data.order_date,
-      description: data.template_name || "__",
-      destination: data.destination_id[1]?.toString() || "__",
-      status: data.state,
-    }
-    return vacationItem
-  })
-
-  return returnedData
 }
 
 const HrLetterDummyData: HrLetterRequest[] = [

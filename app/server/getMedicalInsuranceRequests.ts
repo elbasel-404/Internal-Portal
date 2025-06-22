@@ -1,63 +1,32 @@
 "use server"
 
-import { getStoredEmployeeId } from "@auth"
 import type { MedicalInsuranceRequest } from "@types"
 import {
   MedicalInsuranceElementSchema,
   ResponseSchema,
 } from "../../api-schemas"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
+import { getData } from "./getData"
 
 export const getMedicalInsuranceRequests = async (): Promise<
   MedicalInsuranceRequest[]
 > => {
-  const isDemo = await getDemo()
-  if (isDemo) return MedicalInsuranceDummyData
-
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/hr/medical/insurance/read"
-  const employeeId = await getStoredEmployeeId()
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  const requestBody = { employee_id: employeeId }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
-
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+  return getData<MedicalInsuranceRequest>({
+    url: "api/po/hr/medical/insurance/read",
+    responseSchema: ResponseSchema,
+    dataSchema: MedicalInsuranceElementSchema,
+    parseData: (data) => {
+      return data.map((item: any) => ({
+        id: item.id.toString(),
+        date: item.date,
+        description: item.request_type,
+        relation: item.relative_relation,
+        nameAR: item.individual_complete_name,
+        nameEN: item.individual_english_name,
+        status: item.state,
+      }))
+    },
+    dummyData: MedicalInsuranceDummyData,
   })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = MedicalInsuranceElementSchema.array().parse(data)
-
-  // ! PARSING
-  // ! ==================================
-  const returnedData: MedicalInsuranceRequest[] = validatedData.map((data) => {
-    const vacationItem: MedicalInsuranceRequest = {
-      id: data.id.toString(),
-      date: data.date,
-      description: data.request_type,
-      relation: data.relative_relation,
-      nameAR: data.individual_complete_name,
-      nameEN: data.individual_english_name,
-      status: data.state,
-    }
-    return vacationItem
-  })
-
-  return returnedData
 }
 
 const MedicalInsuranceDummyData: MedicalInsuranceRequest[] = [

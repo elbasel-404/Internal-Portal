@@ -5,55 +5,24 @@ import {
   ChangeBankAccountElementSchema,
   ResponseSchema,
 } from "../../api-schemas"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
-import { getStoredEmployeeId } from "@auth"
+import { getData } from "./getData"
 
 export const getBankAccountRequests = async (): Promise<
   BankAccountRequest[]
 > => {
-  const isDemo = await getDemo()
-  if (isDemo) return BankAccountDummyData
-  const employeeId = await getStoredEmployeeId()
-
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/hr/change-bank-request"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  const requestBody = { employee_id: employeeId }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
-
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+  return getData<BankAccountRequest>({
+    url: "api/po/hr/change-bank-request",
+    responseSchema: ResponseSchema,
+    dataSchema: ChangeBankAccountElementSchema,
+    parseData: (data) => {
+      return data.map((item: any) => ({
+        id: item.id.toString(),
+        date: new Date(item.create_date).toISOString().split("T")[0],
+        status: item.state,
+      }))
+    },
+    dummyData: BankAccountDummyData,
   })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = ChangeBankAccountElementSchema.array().parse(data)
-
-  // ! PARSING
-  // ! ==================================
-  const returnedData: BankAccountRequest[] = validatedData.map((data) => {
-    const bankAccountItem: BankAccountRequest = {
-      id: data.id.toString(),
-      date: data.create_date.toISOString().split("T")[0],
-      status: data.state,
-    }
-    return bankAccountItem
-  })
-
-  return returnedData
 }
 
 const BankAccountDummyData: BankAccountRequest[] = [
