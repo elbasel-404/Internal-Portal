@@ -9,17 +9,20 @@ import {
   TextareaField,
 } from "@components/form"
 import { paths } from "@lib"
-import { ChangeEvent, useActionState, useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import { toast } from "sonner"
 import { formAction } from "./helpers/formAction"
-import { getStateAction } from "./helpers/getStateAction"
-import { initialState } from "./helpers/initialState"
-import { State } from "./helpers/State"
+import { State } from "../../../../lib/createData"
 
-const stateAction = getStateAction<State>(formAction)
+const initialState: State = {
+  success: false,
+  errors: null,
+  id: null,
+}
 
 export const CustodyForm = () => {
-  const [state, action, pending] = useActionState(stateAction, initialState)
+  const [state, setState] = useState<State>(initialState)
+  const [pending, setPending] = useState(false)
   const [custodyType, setCustodyType] = useState<string>("temporary")
   const [custodyAmount, setCustodyAmount] = useState("")
   const [custodyReason, setCustodyReason] = useState("")
@@ -41,7 +44,7 @@ export const CustodyForm = () => {
   useEffect(() => {
     const { success, errors } = state
     if (success) toast.success("تم انشاء الطلب بنجاح")
-    if (errors) toast.error(errors)
+    if (errors) toast.error(errors?.[0])
   }, [state])
 
   useEffect(() => {
@@ -53,6 +56,13 @@ export const CustodyForm = () => {
       toast.dismiss("permission-form-loading-toast")
     }
   }, [pending])
+
+  const action = async (formData: FormData) => {
+    setPending(true)
+    const result = await formAction(formData)
+    setState(result)
+    setPending(false)
+  }
 
   if (state.success) {
     return (
