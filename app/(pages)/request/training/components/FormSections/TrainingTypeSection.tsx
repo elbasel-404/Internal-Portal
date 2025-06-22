@@ -18,6 +18,7 @@ export const TrainingTypeSection = ({
         name: training_type ?? "",
       }))}
       value={trainingType}
+      required
       onChange={(value) => setTrainingType(value)}
     />
 
