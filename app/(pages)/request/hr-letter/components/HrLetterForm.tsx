@@ -8,14 +8,16 @@ import {
   TextareaField,
 } from "@components/form"
 import { paths } from "@lib"
-import { useActionState, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { toast } from "sonner"
 import { formAction } from "./helpers/formAction"
-import { getStateAction } from "./helpers/getStateAction"
-import { initialState } from "./helpers/initialState"
-import { State } from "./helpers/State"
+import { State } from "../../../../lib/createData"
 
-const stateAction = getStateAction<State>(formAction)
+const initialState: State = {
+  success: false,
+  errors: null,
+  id: null,
+}
 
 interface HrLetterFormProps {
   destinationElement: DestinationElement[]
@@ -26,7 +28,8 @@ export const HrLetterForm = ({
   destinationElement,
   hrLetterTypes,
 }: HrLetterFormProps) => {
-  const [state, action, pending] = useActionState(stateAction, initialState)
+  const [state, setState] = useState<State>(initialState)
+  const [pending, setPending] = useState(false)
   const [destinationId, setDestinationId] = useState<string>()
   const [typeId, setTypeId] = useState<string>()
   const [notes, setNotes] = useState("")
@@ -42,7 +45,7 @@ export const HrLetterForm = ({
   useEffect(() => {
     const { success, errors } = state
     if (success) toast.success("تم انشاء الطلب بنجاح")
-    if (errors) toast.error(errors)
+    if (errors) toast.error(errors?.[0])
   }, [state])
 
   useEffect(() => {
@@ -54,6 +57,13 @@ export const HrLetterForm = ({
       toast.dismiss("hr-letter-form-loading-toast")
     }
   }, [pending])
+
+  const action = async (formData: FormData) => {
+    setPending(true)
+    const result = await formAction(formData)
+    setState(result)
+    setPending(false)
+  }
 
   if (state.success) {
     return (

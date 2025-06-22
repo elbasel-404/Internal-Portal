@@ -1,5 +1,4 @@
 "use client"
-"use client"
 
 import {
   FormHeader,
@@ -10,18 +9,22 @@ import {
 } from "@components/form"
 import { toast } from "sonner"
 import { formAction } from "./helpers/formAction"
-import { getStateAction } from "./helpers/getStateAction"
-import { initialState } from "./helpers/initialState"
-import { State } from "./helpers/State"
-import { useEffect, useActionState, useState } from "react"
+import { State } from "../../../../lib/createData"
+import { useEffect, useState } from "react"
 
-const stateAction = getStateAction<State>(formAction)
 import { paths } from "@lib"
 import { defaultMonths } from "../../config"
 import { defaultDays, defaultYears } from "./config"
 
+const initialState: State = {
+  success: false,
+  errors: null,
+  id: null,
+}
+
 export const OvertimeAssignmentForm = () => {
-  const [state, action, pending] = useActionState(stateAction, initialState)
+  const [state, setState] = useState<State>(initialState)
+  const [pending, setPending] = useState(false)
   const [form, setForm] = useState({
     year: "",
     month: "",
@@ -34,7 +37,7 @@ export const OvertimeAssignmentForm = () => {
   useEffect(() => {
     const { success, errors } = state
     if (success) toast.success("تم انشاء الطلب بنجاح")
-    if (errors) toast.error(errors)
+    if (errors) toast.error(errors?.[0])
   }, [state])
 
   useEffect(() => {
@@ -46,6 +49,13 @@ export const OvertimeAssignmentForm = () => {
       toast.dismiss("vacation-form-loading-toast")
     }
   }, [pending])
+
+  const action = async (formData: FormData) => {
+    setPending(true)
+    const result = await formAction(formData)
+    setState(result)
+    setPending(false)
+  }
 
   if (state.success) {
     return (
@@ -63,16 +73,6 @@ export const OvertimeAssignmentForm = () => {
         path={paths.overtimeAssignment.href}
       />
       <div className="p-4 space-y-6">
-        {/* <input
-            type="text"
-            name="employee_id"
-            id="employee_id"
-            hidden
-            aria-hidden
-            readOnly
-            value="1722"
-            className="hidden"
-          /> */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <SelectField
             label="السنة"
@@ -98,10 +98,8 @@ export const OvertimeAssignmentForm = () => {
             value={form.day_from}
             onChange={(value) => setForm({ ...form, day_from: value })}
           />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <SelectField
-            label="إلى يوم"
+            label="الى يوم"
             name="day_to"
             placeholder=""
             types={defaultDays}
@@ -112,14 +110,14 @@ export const OvertimeAssignmentForm = () => {
             label="عدد الساعات"
             name="nb_hours"
             placeholder=""
-            required
             value={form.nb_hours}
             onChange={(e) => setForm({ ...form, nb_hours: e.target.value })}
           />
         </div>
         <TextareaField
-          label="وصف التكليف"
+          label="بيان الاعمال"
           name="description"
+          placeholder=""
           required
           value={form.description}
           onChange={(e) => setForm({ ...form, description: e.target.value })}

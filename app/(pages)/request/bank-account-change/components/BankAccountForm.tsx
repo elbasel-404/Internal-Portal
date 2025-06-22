@@ -11,21 +11,24 @@ import {
 } from "@components/form"
 import { paths } from "@lib"
 import { FileWithId } from "@types"
-import { useActionState, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { toast } from "sonner"
 import { formAction } from "./helpers/formAction"
-import { getStateAction } from "./helpers/getStateAction"
-import { initialState } from "./helpers/initialState"
-import { State } from "./helpers/State"
+import { State } from "../../../../lib/createData"
 
-const stateAction = getStateAction<State>(formAction)
+const initialState: State = {
+  success: false,
+  errors: null,
+  id: null,
+}
 
 interface BankAccountFormProps {
   bankDetails: BankDetail[]
 }
 
 export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
-  const [state, action, pending] = useActionState(stateAction, initialState)
+  const [state, setState] = useState<State>(initialState)
+  const [pending, setPending] = useState(false)
   const [files, setFiles] = useState<FileWithId[]>([])
   const [iban, setIban] = useState("")
   const [bankId, setBankId] = useState("")
@@ -46,7 +49,7 @@ export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
   useEffect(() => {
     const { success, errors } = state
     if (success) toast.success("تم انشاء الطلب بنجاح")
-    if (errors) toast.error(errors)
+    if (errors) toast.error(errors?.[0])
   }, [state])
 
   useEffect(() => {
@@ -58,6 +61,13 @@ export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
       toast.dismiss("vacation-form-loading-toast")
     }
   }, [pending])
+
+  const action = async (formData: FormData) => {
+    setPending(true)
+    const result = await formAction(formData)
+    setState(result)
+    setPending(false)
+  }
 
   if (state.success) {
     return (
@@ -77,16 +87,6 @@ export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
         label="نموذج طلب تغيير الحساب البنكي"
         path={paths.bankAccountChange.href}
       />
-      {/* <input
-        type="text"
-        name="employee_id"
-        id="employee_id"
-        hidden
-        aria-hidden
-        readOnly
-        value="1711"
-        className="hidden"
-      /> */}
       <div className="p-4 space-y-6">
         <InputField
           label="الحساب الحالي للموظف"
@@ -98,27 +98,16 @@ export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
           name="new_bank_id"
           label="اسم البنك الجديد"
           placeholder="__"
-          types={bankDetails.map((b) => ({
-            id: b.id ?? "",
-            name: b.name ?? "",
-            display_name: b.display_name,
-          }))}
-          value={bankId}
+          types={bankDetails.map((bank) => ({ id: bank.id, name: bank.name }))}
           onChange={handleBankIdChange}
+          value={bankId}
         />
         <InputField
+          label="رقم الحساب الجديد IBAN"
           name="iban"
-          label="رقم الآيبان (IBAN)"
-          placeholder="____________________SA03"
-          required
+          placeholder="SA__________________"
           value={iban}
           onChange={handleIbanChange}
-        />
-        <InputField
-          name="accountStatus"
-          label="حالة الحساب البنكي"
-          placeholder="مثبت"
-          disabled
         />
         <AttachmentsField
           files={files}
@@ -126,7 +115,11 @@ export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
           handleRemoveFile={(index: number) =>
             fileHandler.remove(files[index].id)
           }
-          required
+          errors={
+            state.errors?.filter((error) =>
+              error.toLowerCase().includes("attachment"),
+            ) || []
+          }
         />
         <SubmitButton />
       </div>

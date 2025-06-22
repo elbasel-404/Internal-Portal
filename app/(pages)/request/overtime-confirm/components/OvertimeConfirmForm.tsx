@@ -9,41 +9,52 @@ import {
 import { paths } from "@lib"
 import { toast } from "sonner"
 import { formAction } from "./helpers/formAction"
-import { getStateAction } from "./helpers/getStateAction"
-import { initialState } from "./helpers/initialState"
-import { State } from "./helpers/State"
-import { useEffect, useActionState, useState } from "react"
+import { State } from "../../../../lib/createData"
+import { ChangeEvent, useEffect, useActionState, useState } from "react"
 
-const stateAction = getStateAction<State>(formAction)
+const initialState: State = {
+  success: false,
+  errors: null,
+  id: null,
+}
 interface OvertimeConfirmFormProps {
-  employeeId: string | undefined
   assignmentNumbers: { id: number; name: string }[]
 }
 
 export const OvertimeConfirmForm = ({
-  employeeId,
   assignmentNumbers,
 }: OvertimeConfirmFormProps) => {
-  const [state, action, pending] = useActionState(stateAction, initialState)
+  const [state, setState] = useState<State>(initialState)
+  const [pending, setPending] = useState(false)
   const [form, setForm] = useState({
     overtime_assignment_id: "",
     nb_extras_time: "",
   })
   useEffect(() => {
-    const { success, errors } = state
-    if (success) toast.success("تم انشاء الطلب بنجاح")
-    if (errors) toast.error(errors)
+    if (state.success) {
+      toast.success("تم انشاء الطلب بنجاح")
+    }
+    if (state.errors && state.errors.length > 0) {
+      state.errors.forEach((message) => toast.error(message))
+    }
   }, [state])
 
   useEffect(() => {
     if (pending) {
       toast.loading("جاري انشاء الطلب", {
-        id: "vacation-form-loading-toast",
+        id: "overtime-confirm-form-loading-toast",
       })
     } else {
-      toast.dismiss("vacation-form-loading-toast")
+      toast.dismiss("overtime-confirm-form-loading-toast")
     }
   }, [pending])
+
+  const action = async (formData: FormData) => {
+    setPending(true)
+    const result = await formAction(formData)
+    setState(result)
+    setPending(false)
+  }
 
   if (state.success) {
     return (
@@ -57,20 +68,10 @@ export const OvertimeConfirmForm = ({
   return (
     <form action={action} className="bg-white rounded-md">
       <FormHeader
-        label="نموذج طلب تكليف لعمل اضافي"
+        label="نموذج طلب تأكيد تكليف لعمل اضافي"
         path={paths.overtimeConfirm.href}
       />
       <div className="p-4 space-y-6">
-        {/* <input
-          type="text"
-          name="employee_id"
-          id="employee_id"
-          hidden
-          aria-hidden
-          readOnly
-          value={employeeId}
-          className="hidden"
-        /> */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <SelectField
             label="رقم طلب التكليف"
@@ -78,7 +79,7 @@ export const OvertimeConfirmForm = ({
             placeholder=""
             types={assignmentNumbers}
             value={form.overtime_assignment_id}
-            onChange={(value) =>
+            onChange={(value: string) =>
               setForm({ ...form, overtime_assignment_id: value })
             }
           />
@@ -88,7 +89,7 @@ export const OvertimeConfirmForm = ({
             placeholder=""
             required
             value={form.nb_extras_time}
-            onChange={(e) =>
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
               setForm({ ...form, nb_extras_time: e.target.value })
             }
           />
