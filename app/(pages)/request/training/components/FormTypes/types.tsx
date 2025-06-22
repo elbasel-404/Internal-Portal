@@ -76,6 +76,7 @@ export interface TrainingLocationSectionProps {
   trainingCitiesField: TrainingField[]
   trainingCountriesField: TrainingField[]
   trainingTravelDaysSettingsFields: TrainingField[]
+  extendedTraining: boolean
 }
 
 export interface ExtendedTrainingSectionProps {
