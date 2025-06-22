@@ -2,24 +2,22 @@
 
 import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
-import { OvertimeConfirmElementSchema, ResponseSchema } from "@api/schemas"
+import { OvertimeListElementSchema, ResponseSchema } from "@api/schemas"
 
-import { OvertimeConfirmDetails } from "@types"
+import type { OvertimeList } from "@types"
 
-export const getOvertimeConfirmDetails = async (
-  id: string,
-): Promise<OvertimeConfirmDetails | void> => {
+export const getOvertimeList = async (): Promise<OvertimeList[]> => {
   const isDemo = await getDemo()
   if (isDemo) return dummyData
 
   // ! VARIBLES
   // ! ==================================
-  const url = "api/po/hr/overtime_request"
+  const url = "api/po/hr/overtime_request/fields"
   const apiRootUrl = process.env.API_ROOT_URL as string
   const fetchHeaders = await getFetchHeaders()
   const headers = fetchHeaders?.headers
   const requestBody = {
-    id: id,
+    field_name: "assignment_ids",
   }
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`
@@ -38,29 +36,28 @@ export const getOvertimeConfirmDetails = async (
   const validatedResponse = ResponseSchema.parse(responseJson)
   const { result } = validatedResponse
   const { data } = result
-  const validatedData = OvertimeConfirmElementSchema.parse(data[0])
+  const validatedData = OvertimeListElementSchema.array().parse(data)
 
   // ! PARSING
   // ! ==================================
-  const getArrayValue = (field: unknown, index: number = 1): string =>
-    Array.isArray(field) ? (field[index]?.toString() ?? "") : ""
-
   const getStringValue = (field: unknown): string =>
     typeof field === "string" ? field : ""
 
-  const returnedData: OvertimeConfirmDetails = {
-    id: getStringValue(validatedData.name),
-    applicant: getArrayValue(validatedData.employee_id),
-    management: getArrayValue(validatedData.department_id),
-    overTimeDuration: validatedData.nb_extras_time.toString(),
-    assignmentNumber: getArrayValue(validatedData.overtime_assignment_id),
-  }
+  const returnedData: OvertimeList[] = validatedData.map((data) => {
+    const newsItem: OvertimeList = {
+      id: data.id,
+      name: getStringValue(data.name),
+    }
+    return newsItem
+  })
+
   return returnedData
 }
-const dummyData: OvertimeConfirmDetails = {
-  id: "#55470",
-  applicant: "خالد إبراهيم",
-  management: "إدارة تقنية المعلومات",
-  overTimeDuration: "5.0",
-  assignmentNumber: "7080",
-}
+
+const dummyData: OvertimeList[] = [
+  { id: 1, name: "5256" },
+  { id: 2, name: "5445" },
+  { id: 3, name: "7865" },
+  { id: 4, name: "9452" },
+  { id: 5, name: "2125" },
+]
