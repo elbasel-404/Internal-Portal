@@ -14,21 +14,30 @@ export const getEmployeeMembersRequests = async (): Promise<
     responseSchema: ResponseSchema,
     dataSchema: EmployeeMemberSchema,
     parseData: (data) => {
-      return data.map((item: any) => ({
-        id: item.id.toString(),
-        date: item.date,
-        applicant: item.employee_id[1]
-          .toString()
-          .replace(/\[\d+\]\s*/, "")
-          .split(/\s+/)[0],
-        requestType: item.type,
-        relation: item.relative_relation,
-        nameAr: item.individual_complete_name,
-        nameEn: item.individual_english_name,
-        idNumber: item.identity,
-        birthDate: item.birthday,
-        status: item.state,
-      }))
+      return data.map((rawItem: unknown) => {
+        const item = rawItem as Record<string, unknown>
+        const employeeId = Array.isArray(item.employee_id)
+          ? item.employee_id[1]
+          : ""
+        let applicantName = ""
+
+        if (employeeId && typeof employeeId === "string") {
+          applicantName = employeeId.replace(/\[\d+\]\s*/, "").split(/\s+/)[0]
+        }
+
+        return {
+          id: String(item.id || ""),
+          date: String(item.date || ""),
+          applicant: applicantName,
+          requestType: String(item.type || ""),
+          relation: String(item.relative_relation || ""),
+          nameAr: String(item.individual_complete_name || ""),
+          nameEn: String(item.individual_english_name || ""),
+          idNumber: String(item.identity || ""),
+          birthDate: String(item.birthday || ""),
+          status: String(item.state || ""),
+        }
+      })
     },
     dummyData,
   })

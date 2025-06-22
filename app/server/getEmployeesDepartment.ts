@@ -5,27 +5,45 @@ import { EmployeeDepartmentElementSchema, ResponseSchema } from "@api/schemas"
 import { getData } from "./getData"
 
 export const getEmployeeDepartmentRequests = async (): Promise<Employee[]> => {
+  const getArrayValue = (field: unknown, index: number = 1): string => {
+    if (Array.isArray(field) && field[index] !== undefined) {
+      return String(field[index])
+    }
+    return ""
+  }
+
+  const getStringValue = (field: unknown): string => {
+    return typeof field === "string" ? field : ""
+  }
+
   return getData<Employee>({
     url: "api/po/read/relative-employees",
     responseSchema: ResponseSchema,
     dataSchema: EmployeeDepartmentElementSchema,
     parseData: (data) => {
       return data.map((item: unknown) => {
-        const typedItem = item as Record<string, any>
+        const typedItem = item as Record<string, unknown>
+
+        // Get image with fallback
+        const imageBase64 = getStringValue(typedItem.image)
+        const imageSrc = imageBase64
+          ? `data:image/gif;base64,${imageBase64}`
+          : ""
+
         return {
-          id: typedItem.id.toString(),
-          name: typedItem.complete_name,
-          image: `data:image/gif;base64,${typedItem.image}`,
-          position: typedItem.job_id[1].toString(),
-          phone: typedItem.mobile_phone,
-          recycleWork: `تحويلة العمل ${typedItem.work_phone}`,
-          address: typedItem.work_location,
-          email: typedItem.work_email,
-          sector: typedItem.sector_id[1].toString(),
-          generalAdministration: typedItem.administration_id[1].toString(),
-          management: typedItem.department_global_id[1].toString(),
-          department: typedItem.department_id[1].toString(),
-          generalManager: typedItem.sector_manager_id[1].toString(),
+          id: String(typedItem.id || ""),
+          name: getStringValue(typedItem.complete_name),
+          image: imageSrc,
+          position: getArrayValue(typedItem.job_id),
+          phone: getStringValue(typedItem.mobile_phone),
+          recycleWork: `تحويلة العمل ${getStringValue(typedItem.work_phone)}`,
+          address: getStringValue(typedItem.work_location),
+          email: getStringValue(typedItem.work_email),
+          sector: getArrayValue(typedItem.sector_id),
+          generalAdministration: getArrayValue(typedItem.administration_id),
+          management: getArrayValue(typedItem.department_global_id),
+          department: getArrayValue(typedItem.department_id),
+          generalManager: getArrayValue(typedItem.sector_manager_id),
         }
       })
     },

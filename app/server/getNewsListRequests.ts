@@ -14,13 +14,26 @@ export const getNewsListRequests = async (): Promise<NewsListRequest[]> => {
     dataSchema: NewsElementSchema,
     parseData: (data) => {
       return data.map((item: unknown) => {
-        const typedItem = item as Record<string, any>
+        const typedItem = item as Record<string, unknown>
+
+        // Safely handle date formatting
+        const createDate =
+          typedItem.create_date instanceof Date
+            ? typedItem.create_date
+            : typedItem.create_date
+              ? new Date(String(typedItem.create_date))
+              : new Date()
+
+        // Handle image safely
+        const imageBase64 =
+          typeof typedItem.image === "string" ? typedItem.image : ""
+
         return {
-          id: typedItem.id,
-          title: typedItem.title,
-          date: formatDate(typedItem.create_date),
-          description: typedItem.resume,
-          image: `data:image/gif;base64,${typedItem.image}`,
+          id: Number(typedItem.id || 0),
+          title: String(typedItem.title || ""),
+          date: formatDate(createDate),
+          description: String(typedItem.resume || ""),
+          image: `data:image/gif;base64,${imageBase64}`,
         }
       })
     },

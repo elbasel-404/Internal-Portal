@@ -15,16 +15,16 @@ export const getInternalCoursesRequests = async (): Promise<
     dataSchema: TrainingElementSchema,
     parseData: (data) => {
       return data.map((item: unknown) => {
-        const typedItem = item as Record<string, any>
+        const typedItem = item as Record<string, unknown>
         return {
-          id: typedItem.id.toString(),
-          courseName: typedItem.name,
-          fromDate: typedItem.date_from,
-          toDate: typedItem.date_to,
-          duration: typedItem.number_of_days.toString(),
-          type: typedItem.type,
-          trainingCenter: typedItem.training_center,
-          status: typedItem.state,
+          id: String(typedItem.id || ""),
+          courseName: String(typedItem.name || ""),
+          fromDate: String(typedItem.date_from || ""),
+          toDate: String(typedItem.date_to || ""),
+          duration: String(typedItem.number_of_days || ""),
+          type: String(typedItem.type || ""),
+          trainingCenter: String(typedItem.training_center || ""),
+          status: String(typedItem.state || ""),
         }
       })
     },

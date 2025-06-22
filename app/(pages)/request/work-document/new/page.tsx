@@ -3,7 +3,7 @@ import { getRequestStatus } from "@server"
 import { WorkDocumentForm } from "../components"
 
 const NewWorkDocumentPage = async () => {
-  const requestStatus = await getRequestStatus()
+  const requestStatus = await getRequestStatus("", "")
   const requestCaption =
     "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   return (

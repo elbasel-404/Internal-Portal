@@ -12,7 +12,7 @@ const JobApplicationsDetailsPage = async ({
   params,
 }: JobApplicationsDetailsPageProps) => {
   const { id } = await params
-  const requestStatus = await getRequestStatus()
+  const requestStatus = await getRequestStatus("", "")
   const requestCaption =
     "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const {

@@ -14,13 +14,21 @@ export const getHrLetterRequests = async (): Promise<HrLetterRequest[]> => {
     dataSchema: SalaryIdentificationElementSchema,
     parseData: (data) => {
       return data.map((item: unknown) => {
-        const typedItem = item as Record<string, any>
+        const typedItem = item as Record<string, unknown>
+
+        // Safely handle array access
+        const destinationId =
+          Array.isArray(typedItem.destination_id) &&
+          typedItem.destination_id.length > 1
+            ? String(typedItem.destination_id[1] || "")
+            : "__"
+
         return {
-          id: typedItem.id.toString(),
-          date: typedItem.order_date,
-          description: typedItem.template_name || "__",
-          destination: typedItem.destination_id[1]?.toString() || "__",
-          status: typedItem.state,
+          id: String(typedItem.id || ""),
+          date: String(typedItem.order_date || ""),
+          description: String(typedItem.template_name || "__"),
+          destination: destinationId,
+          status: String(typedItem.state || ""),
         }
       })
     },

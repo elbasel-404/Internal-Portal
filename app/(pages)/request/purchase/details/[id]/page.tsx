@@ -26,9 +26,7 @@ const PurchaseDetailsPage = async ({ params }: PurchaseDetailsPageProps) => {
   if (!userId) return
 
   const { batchs } = await getUser(userId)
-  const productsData = await getPurchaseProductsByRequestId({
-    purchaseRequestId: id,
-  })
+  const productsData = await getPurchaseProductsByRequestId(id)
 
   const {
     requestDate,
