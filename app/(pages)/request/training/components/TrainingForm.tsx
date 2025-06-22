@@ -49,7 +49,7 @@ export const TrainingForm = ({
   trainingCountryFields,
   trainingTravelDaysSettingsFields,
   trainingTypeFields,
-  substituteEmployees
+  substituteEmployees,
 }: TrainingFormProps) => {
   // State definitions
   const [state, action, pending] = useActionState(stateAction, initialState)
@@ -174,6 +174,7 @@ export const TrainingForm = ({
           trainingCitiesField={trainingCityFields}
           trainingCountriesField={trainingCountryFields}
           trainingTravelDaysSettingsFields={trainingTravelDaysSettingsFields}
+          extendedTraining={extendedTraining}
         />
       ),
     },
@@ -233,16 +234,16 @@ export const TrainingForm = ({
       className="bg-white rounded-lg text-black text-lg p-4 space-y-4"
     >
       <FormHeader label="نموذج طلب دورة تدريبية" path={paths.training.href} />
-      <input
+      {/* <input
         type="text"
         name="employee_id"
         id="employee_id"
         hidden
         aria-hidden
         readOnly
-        value="1722"
+        value="1351"
         className="hidden"
-      />
+      /> */}
       {sections.map((section, index) => (
         <div key={index} className="mb-8">
           {section.component}
