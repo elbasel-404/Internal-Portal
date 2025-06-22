@@ -1,12 +1,12 @@
 "use server"
 
+import { getStoredEmployeeId } from "@auth"
 import { z } from "zod"
+import { CreateErrorSchema } from "../../../../../../api-schemas/CreateErrorSchema"
+import { CreateSuccessSchema } from "../../../../../../api-schemas/CreateSuccessSchema"
 import { getFetchHeaders } from "../../../../../server/getFetchHeaders"
 import { requestBodySchema } from "./requestBodySchema"
 import { State } from "./State"
-import { CreateErrorSchema } from "../../../../../../api-schemas/CreateErrorSchema"
-import { CreateSuccessSchema } from "../../../../../../api-schemas/CreateSuccessSchema"
-import { getStoredEmployeeId } from "@auth"
 
 export const formAction = async (formData: FormData): Promise<State> => {
   // ! ==================================
@@ -26,7 +26,14 @@ export const formAction = async (formData: FormData): Promise<State> => {
 
   const requestBody = Object.fromEntries(formData.entries())
   const employeeId = await getStoredEmployeeId()
-  requestBody["employee_id"] = employeeId || ""
+  if (!employeeId) {
+    return {
+      success: false,
+      errors: ["Failed to get employee ID"],
+      id: null,
+    }
+  }
+  requestBody["employee_id"] = employeeId
   const fetchUrl = `${rootUrl}/${endpointUrl}`
 
   const headers = new Headers()
@@ -79,7 +86,7 @@ export const formAction = async (formData: FormData): Promise<State> => {
   const responseJson = await response.json()
   const responseObject = responseJson.at(0)
 
-  const isBadRequest = response.status === 400
+  const isBadRequest = response.status >= 400 && response.status < 500
   if (isBadRequest) {
     const validatedResponseObject = CreateErrorSchema.parse(responseObject)
     const { error, status } = validatedResponseObject

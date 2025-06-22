@@ -26,7 +26,19 @@ export const formAction = async (formData: FormData): Promise<State> => {
 
   const requestBody = Object.fromEntries(formData.entries())
   const employeeId = await getStoredEmployeeId()
-  requestBody["employee_id"] = employeeId || ""
+  if (!employeeId) {
+    return {
+      success: false,
+      errors: ["Failed to get employee ID"],
+      id: null,
+    }
+  }
+  requestBody["employee_id"] = employeeId
+  if (requestBody["extended_training"] === "on") {
+    requestBody["extended_training"] = "true"
+  } else {
+    requestBody["extended_training"] = "false"
+  }
   const fetchUrl = `${rootUrl}/${endpointUrl}`
 
   const headers = new Headers()
@@ -37,24 +49,33 @@ export const formAction = async (formData: FormData): Promise<State> => {
   // ! VALIDATION
   // ! ==================================
   const validation = requestBodySchema.safeParse(requestBody)
-  const { success, data: validatedRequestBody, error } = validation
-  if (!success) {
-    const validationErrors = error.format()
 
-    const validationErrorsEntries = Object.entries(validationErrors)
-    validationErrorsEntries.forEach(([key, value]) => {
+  if (!validation.success) {
+    const validationErrors = validation.error.format()
+    const errors: string[] = []
+
+    for (const [key, value] of Object.entries(validationErrors)) {
       if (
         typeof value === "object" &&
         value !== null &&
         "_errors" in value &&
-        Array.isArray((value as { _errors: unknown })._errors)
+        Array.isArray(value._errors)
       ) {
-        const errors = value._errors
-        const firstError: string = (errors as string[])[0]
-        return { success: false, errors, id: null }
+        const firstError: string | undefined = value._errors[0]
+        if (firstError) {
+          errors.push(firstError)
+        }
       }
-    })
+    }
+
+    return {
+      success: false,
+      errors,
+      id: null,
+    }
   }
+
+  const validatedRequestBody = validation.data
 
   // ! ==================================
   // ! FETCH
@@ -77,9 +98,12 @@ export const formAction = async (formData: FormData): Promise<State> => {
   })
 
   const responseJson = await response.json()
+  if (!Array.isArray(responseJson) || responseJson.length === 0) {
+    // handle the case where the response is not an array or is empty
+  }
   const responseObject = responseJson.at(0)
 
-  const isBadRequest = response.status === 400
+  const isBadRequest = response.status >= 400 && response.status < 500
   if (isBadRequest) {
     const validatedResponseObject = CreateErrorSchema.parse(responseObject)
     const { error, status } = validatedResponseObject
