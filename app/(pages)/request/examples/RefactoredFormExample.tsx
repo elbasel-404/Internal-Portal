@@ -14,7 +14,6 @@ import { useFormAction } from "@hooks"
 import { paths } from "@lib"
 import { FileWithId } from "@types"
 import { ChangeEvent, useEffect, useState } from "react"
-// @ts-ignore - Path will resolve at runtime
 import { formAction } from "./helpers/formAction"
 
 // Example options for the form
@@ -25,7 +24,7 @@ const selectOptions = [
 
 export const RefactoredFormExample = () => {
   // Use the unified form hook
-  const { state, action, pending } = useFormAction(
+  const { state, action /* pending */ } = useFormAction(
     formAction,
     "example-form-toast",
   )
