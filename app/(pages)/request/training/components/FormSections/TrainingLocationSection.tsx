@@ -16,6 +16,7 @@ export const TrainingLocationSection = ({
   trainingCitiesField,
   trainingCountriesField,
   trainingTravelDaysSettingsFields,
+  extendedTraining,
 }: TrainingLocationSectionProps) => (
   <div className="space-y-6">
     {trainingMethod === "international" && (
@@ -62,15 +63,18 @@ export const TrainingLocationSection = ({
             required
           />
         )}
-        <InputField
-          label="ايام السفر"
-          name="travel_days"
-          value={travelDays}
-          onChange={handleTravelDaysChangeValue}
-          required
-          disabled
-        />
-        {trainingMethod !== "international" && (
+        {!extendedTraining && (
+          <InputField
+            label="ايام السفر"
+            name="travel_days"
+            value={travelDays}
+            onChange={handleTravelDaysChangeValue}
+            required
+            disabled
+          />
+        )}
+
+        {trainingMethod !== "international" && !extendedTraining && (
           <SelectField
             label="بداية انتداب التدريب"
             name="travel_days_settings"
