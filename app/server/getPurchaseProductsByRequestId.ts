@@ -1,11 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use server"
 
 import type { PurchaseProduct } from "@types"
 
-// Removed unused interface
-
-export const getPurchaseProductsByRequestId = async () // Parameter not used
-: Promise<PurchaseProduct[]> => {
+export const getPurchaseProductsByRequestId = async (
+  id: string,
+): Promise<PurchaseProduct[]> => {
   return dummyData
 }
 

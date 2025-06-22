@@ -1,12 +1,12 @@
 import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
-  // eslint: {
-  //   ignoreDuringBuilds: true,
-  // },
-  /* config options here */
+  eslint: {
+    dirs: ["app"],
+    ignoreDuringBuilds: true,
+  },
   experimental: {
-    // reactCompiler: true,
+    reactCompiler: true,
     serverActions: {
       // TODO: test this more
       allowedOrigins: [

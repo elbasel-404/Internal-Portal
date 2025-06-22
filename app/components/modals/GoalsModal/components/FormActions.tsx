@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { PaperPlaneIcon, XMarkIcon } from "@icons"
 import { Button } from "@ui"
 
 interface FormActionsProps {
   onClose: () => void
-  // onSubmit is not used in this component
+  onSubmit?: () => void
 }
 
 export const FormActions = ({ onClose }: FormActionsProps) => {

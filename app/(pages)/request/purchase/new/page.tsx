@@ -8,7 +8,7 @@ const NewPurchasePage = async () => {
   if (!userId) return
 
   const { projectCompletion, products } = await getUser(userId)
-  const requestStatus = await getRequestStatus()
+  const requestStatus = await getRequestStatus("", "")
   const requestCaption =
     "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   return (

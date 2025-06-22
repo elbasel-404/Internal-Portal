@@ -15,7 +15,7 @@ const ProbationPeriodDetailsPage = async ({
 }: ProbationPeriodDetailsPageProps) => {
   // !  // !It will be used when id passed to endpoint for integration
   const { id } = await params
-  const requestStatus = await getRequestStatus()
+  const requestStatus = await getRequestStatus("", "")
   const requestCaption =
     "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const {

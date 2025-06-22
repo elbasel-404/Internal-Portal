@@ -3,7 +3,7 @@ import { getRequestStatus } from "@server"
 import { ResignationForm } from "../components"
 
 const NewResignationPage = async () => {
-  const requestStatus = await getRequestStatus()
+  const requestStatus = await getRequestStatus("", "")
   const requestCaption =
     "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   return (

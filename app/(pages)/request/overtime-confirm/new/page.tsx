@@ -4,7 +4,7 @@ import { OvertimeConfirmForm } from "../components"
 import { getStoredEmployeeId } from "@auth"
 
 const NewOvertimeConfirmPage = async () => {
-  const requestStatus = await getRequestStatus()
+  const requestStatus = await getRequestStatus("", "OvertimeConfirm")
   const employeeId = await getStoredEmployeeId()
   const assignmentNumbers = await getOvertimeList()
 

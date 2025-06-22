@@ -13,7 +13,7 @@ const NewEvaluationGoals = async () => {
   const leadershipCompetenciesData = await getLeadershipCompetenciesRequests()
   const basicCompetenciesData = await getBasicCompetenciesRequests()
   const ArtisticCompetenciesData = await getArtisticCompetenciesRequests()
-  const requestStatus = await getRequestStatus()
+  const requestStatus = await getRequestStatus("", "EvaluationGoal")
   const requestCaption =
     "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   return (

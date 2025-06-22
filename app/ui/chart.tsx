@@ -136,12 +136,13 @@ const ChartTooltipContent = React.forwardRef<
     ref,
   ) => {
     const chartContext = useChart()
-    if (!chartContext) return null
-    const { config } = chartContext
+    // Declare config outside with a default empty object to avoid conditional hook issues
+    const config = chartContext?.config || {}
 
-    // Move the useMemo outside the conditional
+    // Use useMemo unconditionally
     const tooltipLabelMemo = React.useMemo(() => {
-      if (hideLabel || !payload?.length) {
+      // Early return if no context, hideLabel is true, or no payload
+      if (!chartContext || hideLabel || !payload?.length) {
         return null
       }
 

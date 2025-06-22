@@ -3,7 +3,7 @@ import { getRequestStatus } from "@server"
 import { JobApplicationsForm } from "../components"
 
 const NewJobApplicationPage = async () => {
-  const requestStatus = await getRequestStatus()
+  const requestStatus = await getRequestStatus("", "")
   // ! TODO: Add server action:
   const requestCaption =
     "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"

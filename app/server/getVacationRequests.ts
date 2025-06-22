@@ -12,16 +12,30 @@ export const getVacationRequests = async (): Promise<VacationRequest[]> => {
     dataSchema: HolidayElementSchema,
     parseData: (data) => {
       return data.map((item: unknown) => {
-        const typedItem = item as Record<string, any>
+        const typedItem = item as Record<string, unknown>
+
+        // Safely extract holiday status
+        const holidayStatus =
+          Array.isArray(typedItem.holiday_status_id) &&
+          typedItem.holiday_status_id.length > 1
+            ? String(typedItem.holiday_status_id[1])
+            : ""
+
+        // Safely handle date splitting
+        const doneDate =
+          typeof typedItem.done_date === "string"
+            ? typedItem.done_date.split(" ")[0]
+            : undefined
+
         return {
-          id: typedItem.id.toString(),
-          date: typedItem.date,
-          description: typedItem.holiday_status_id[1].toString(),
-          startDate: typedItem.date_from,
-          endDate: typedItem.date_to,
-          durationInDays: typedItem.duration,
-          approvalDate: typedItem.done_date?.split(" ")[0],
-          status: typedItem.state,
+          id: String(typedItem.id || ""),
+          date: String(typedItem.date || ""),
+          description: holidayStatus,
+          startDate: String(typedItem.date_from || ""),
+          endDate: String(typedItem.date_to || ""),
+          durationInDays: Number(typedItem.duration || 0),
+          approvalDate: doneDate || "",
+          status: String(typedItem.state || ""),
         }
       })
     },

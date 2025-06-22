@@ -16,15 +16,15 @@ export const getMedicalInsuranceRequests = async (): Promise<
     dataSchema: MedicalInsuranceElementSchema,
     parseData: (data) => {
       return data.map((item: unknown) => {
-        const typedItem = item as Record<string, any>
+        const typedItem = item as Record<string, unknown>
         return {
-          id: typedItem.id.toString(),
-          date: typedItem.date,
-          description: typedItem.request_type,
-          relation: typedItem.relative_relation,
-          nameAR: typedItem.individual_complete_name,
-          nameEN: typedItem.individual_english_name,
-          status: typedItem.state,
+          id: String(typedItem.id || ""),
+          date: String(typedItem.date || ""),
+          description: String(typedItem.request_type || ""),
+          relation: String(typedItem.relative_relation || ""),
+          nameAR: String(typedItem.individual_complete_name || ""),
+          nameEN: String(typedItem.individual_english_name || ""),
+          status: String(typedItem.state || ""),
         }
       })
     },

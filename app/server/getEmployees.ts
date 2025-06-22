@@ -23,9 +23,9 @@ export const getEmployeeRequests = async (): Promise<Employee[]> => {
     },
     parseData: (data) => {
       return data.map((item: unknown) => {
-        const typedItem = item as Record<string, any>
+        const typedItem = item as Record<string, unknown>
         return {
-          id: typedItem.id.toString(),
+          id: String(typedItem.id || ""),
           name: getStringValue(typedItem.complete_name),
           image: getStringValue(typedItem.image)
             ? `data:image/gif;base64,${typedItem.image}`

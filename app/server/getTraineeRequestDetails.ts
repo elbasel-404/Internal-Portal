@@ -1,12 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use server"
 
 import type { TraineeRequestDetails } from "@types"
 
-export const getTraineeRequestDetails =
-  async () /* _id: string */ // Parameter not used
-  : Promise<TraineeRequestDetails | void> => {
-    return dummyData
-  }
+export const getTraineeRequestDetails = async (
+  id: string,
+): Promise<TraineeRequestDetails | void> => {
+  return dummyData
+}
 
 const dummyData: TraineeRequestDetails = {
   id: "00001",

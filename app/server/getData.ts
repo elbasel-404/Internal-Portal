@@ -80,8 +80,8 @@ export const getData = async <T>(options: GetDataOptions<T>): Promise<T[]> => {
     const requestUrl = `${apiRootUrl}/${url}`
 
     if (debug) {
-      console.log("Request URL:", requestUrl)
-      console.log("Request Body:", requestBodyString)
+      // log("Request URL:", requestUrl)
+      // log("Request Body:", requestBodyString)
     }
 
     // FETCH
@@ -95,7 +95,7 @@ export const getData = async <T>(options: GetDataOptions<T>): Promise<T[]> => {
     const responseJson = await apiResponse.json()
 
     if (debug) {
-      console.log("API Response:", responseJson)
+      // log("API Response:", responseJson)
     }
 
     // VALIDATION

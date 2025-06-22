@@ -14,15 +14,27 @@ export const getFamilyNewsList = async (): Promise<NewsFamily[]> => {
     dataSchema: FamilyNewSchema,
     parseData: (data) => {
       return data.map((item: unknown) => {
-        const typedItem = item as Record<string, any>
+        const typedItem = item as Record<string, unknown>
+
+        // Safe type handling
+        const id = typeof typedItem.id === "number" ? typedItem.id : 0
+        const imageData =
+          typeof typedItem.image === "string" ? typedItem.image : ""
+        const createDate =
+          typedItem.create_date instanceof Date
+            ? typedItem.create_date
+            : typedItem.create_date
+              ? new Date(String(typedItem.create_date))
+              : new Date()
+
         return {
-          id: typedItem.id,
-          title: typedItem.title,
-          date: formatDate(typedItem.create_date),
-          image: typedItem.image
-            ? `data:image/gif;base64,${typedItem.image}`
+          id: id,
+          title: String(typedItem.title || ""),
+          date: formatDate(createDate),
+          image: imageData
+            ? `data:image/gif;base64,${imageData}`
             : "/monshaatFamily-1.svg",
-          description: typedItem.resume,
+          description: String(typedItem.resume || ""),
         }
       })
     },

@@ -6,7 +6,7 @@ import { PassportForm } from "../components"
 
 const NewPassportPage = async () => {
   // Removed unused variables
-  // const requestStatus = await getRequestStatus()
+  // const requestStatus = await getRequestStatus("", "")
   // const requestCaption = "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   return (
     <div className="space-y-4 mb-16">

@@ -15,13 +15,16 @@ export const getBankAccountRequests = async (): Promise<
     responseSchema: ResponseSchema,
     dataSchema: ChangeBankAccountElementSchema,
     parseData: (data) => {
-      return data.map(
-        (item: { id: number; create_date: string; state: string }) => ({
-          id: item.id.toString(),
-          date: new Date(item.create_date).toISOString().split("T")[0],
-          status: item.state,
-        }),
-      )
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, unknown>
+        return {
+          id: String(typedItem.id || ""),
+          date: new Date(String(typedItem.create_date || ""))
+            .toISOString()
+            .split("T")[0],
+          status: String(typedItem.state || ""),
+        }
+      })
     },
     dummyData: BankAccountDummyData,
   })
