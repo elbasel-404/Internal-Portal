@@ -1,3 +1,4 @@
+
 export const modalPaths = {
   HomePageSettingsModal: {
     title: "الإعدادات",
@@ -65,6 +66,10 @@ export const modalPaths = {
   },
   EditPerformanceModal: {
     title: "تعديل تخطيط الأداء",
+    href: "/modal/EditPerformanceModal",
+  },
+  EditPerformanceModal: {
+    title: "إنشاء طلب تعديل تخطيط الأداء",
     href: "/modal/EditPerformanceModal",
   },
 } as const
