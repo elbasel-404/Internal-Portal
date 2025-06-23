@@ -1,11 +1,11 @@
 import { CirclePlusIcon } from "@icons"
 import { Table } from "@components"
 import { ModalLink } from "@components/modals/ModalLink"
-import { ModalName } from "@types"
+import { ModalName, type Row } from "@types"
 
 interface traineeInterface {
   title: string
-  data: Array<any>
+  data: Array<Row>
   tableHeaders: Array<{ label: string }>
   modalname: ModalName
 }
