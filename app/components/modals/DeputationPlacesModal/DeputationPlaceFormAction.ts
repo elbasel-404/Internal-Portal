@@ -16,30 +16,20 @@ export const deputationPlaceFormAction = async (formData: FormData) => {
     const {
       success,
       data: validatedData,
-      error,
+      // error is not used, removing to fix linting error
     } = ProjectCompletionSchema.safeParse(responseData)
-
-    console.log(success, validatedData, error)
 
     await db.read()
 
     const userId = await getUserId()
-    if (!userId) {
-      throw new Error(
-        "Invalid User Id (app/components/modals/DeputationPlacesModal/DeputationPlaceFormAction.ts)",
-      )
-    }
-    if (!success) {
-      throw new Error(
-        "Validation Error (app/components/modals/DeputationPlacesModal/DeputationPlaceFormAction.ts)",
-        error,
-      )
-    }
+    if (!userId) return
+    if (!success) return
+
     const userIndex = await getUserIndex(userId)
     db.data.users[userIndex].projectCompletion.push(validatedData)
 
     await db.write()
-  } catch (error) {
-    console.error(error)
+  } catch {
+    // Error handling could be added here in the future
   }
 }

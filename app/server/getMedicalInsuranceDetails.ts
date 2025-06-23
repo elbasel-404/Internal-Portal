@@ -18,7 +18,8 @@ export const getMedicalInsuranceDetails = async (
   // ! ==================================
   const url = "api/po/hr/medical/insurance/read"
   const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
   const requestBody = { id: id }
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`
@@ -57,7 +58,7 @@ export const getMedicalInsuranceDetails = async (
     relationType: validatedData.relative_relation,
     requestType: validatedData.request_type,
     attachments: validatedData.attachment_ids.map(
-      (file) => new File([""], file.toString()),
+      (file: string | number) => new File([""], file.toString()),
     ),
   }
 

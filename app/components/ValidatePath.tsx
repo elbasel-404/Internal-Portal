@@ -2,7 +2,6 @@
 "use client"
 
 // import { ErrorMessage } from '@lib';
-// import { throwError } from '@utils';
 import { usePathname } from "next/navigation"
 import { useEffect } from "react"
 import { getHrefs } from "../server/getHrefs"
@@ -13,16 +12,15 @@ export const ValidatePath = () => {
     if (!shouldValidate) return
     const regExPaths = await getHrefs()
 
-    const isPath = regExPaths.some((href) => {
+    // Removed unused 'isPath' variable
+    regExPaths.some((href) => {
       const pattern = getRegExFromHref(href)
       const isMatch = pattern.test(pathName)
-      // console.log({ pattern, isMatch, pathName });
       return isMatch
     })
-    if (!isPath) {
-      console.log({ errorPath: pathName })
-      console.error("invalid path", { shouldValidate, regExPaths, isPath })
-    }
+    // if (!isPath) {
+    //   // Handle invalid path if needed in the future
+    // }
   }
   const pathName = usePathname()
 

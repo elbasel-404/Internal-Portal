@@ -113,9 +113,8 @@ export const Modal = ({
     setModalOpen(false)
 
     // if (handleClickInternally) await sleep(2);
-    if (typeof window === undefined) return
+    if (typeof window === "undefined") return
     const path = window.location.href
-    console.log({ path })
     if (path.includes("modal")) router.back()
   }
 
@@ -134,7 +133,6 @@ export const Modal = ({
     const target = event.target
     const tagName = (target as HTMLElement).tagName
 
-    console.log({ tagName })
     if (tagName === "BUTTON") return
     event.preventDefault()
     let linkElement
@@ -160,7 +158,6 @@ export const Modal = ({
         linkElement = target
       }
       const pushHref = (linkElement as HTMLElement)?.getAttribute("href")
-      console.log({ pushHref })
       router.back()
       await sleep(0.1)
       router.push(pushHref as Route)

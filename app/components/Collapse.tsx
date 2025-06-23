@@ -33,7 +33,6 @@
 //   const [isOpen, setIsOpen] = useState(true);
 //   const toggleTriggerRef = useDoubleClick({
 //     onDoubleClick: () => {
-//       console.log('double clicked')
 //       setIsOpen((prev) => !prev);
 //     },
 //     delay: 100,

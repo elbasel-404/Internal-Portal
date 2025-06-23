@@ -2,9 +2,9 @@ import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
   eslint: {
-    ignoreDuringBuilds: true,
+    // dirs: ["app"],
+    // ignoreDuringBuilds: true,
   },
-  /* config options here */
   experimental: {
     reactCompiler: true,
     serverActions: {

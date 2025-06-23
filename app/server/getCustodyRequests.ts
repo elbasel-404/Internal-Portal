@@ -3,55 +3,33 @@
 import { CustodyElementSchema } from "@api/schemas/index"
 import { ResponseSchema } from "@api/schemas/responseSchema"
 import type { CustodyRequest } from "@types"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
-import { getStoredEmployeeId } from "@auth"
+import { getData } from "./getData"
 
 export const getCustodyRequests = async (): Promise<CustodyRequest[]> => {
-  const isDemo = await getDemo()
-  if (isDemo) return CustodyDummyData
-  const employeeId = await getStoredEmployeeId()
-
-  // ! VARIABLES
-  // ! ==================================
-  const url = "api/po/hr/custody"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
-  // const requestBody = { employee_id: 21 }
-  const requestBody = { employee_id: employeeId }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
-
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+  return getData<CustodyRequest>({
+    url: "api/po/hr/custody",
+    responseSchema: ResponseSchema,
+    dataSchema: CustodyElementSchema,
+    parseData: (data) => {
+      return data.map((item: unknown) => {
+        const typedItem = item as {
+          id: number
+          create_date: string
+          custody_amount: number
+          custody_type: string
+          state: string
+        }
+        return {
+          id: typedItem.id.toString(),
+          date: new Date(typedItem.create_date).toISOString().split("T")[0],
+          custodyAmount: typedItem.custody_amount,
+          custodyType: typedItem.custody_type,
+          status: typedItem.state,
+        }
+      })
+    },
+    dummyData: CustodyDummyData,
   })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = CustodyElementSchema.array().parse(data)
-
-  // ! PARSING
-  // ! ==================================
-  const returnedData: CustodyRequest[] = validatedData.map((data) => {
-    const custodyItem: CustodyRequest = {
-      id: data.id.toString(),
-      date: data.create_date.toISOString().split("T")[0],
-      custodyAmount: data.custody_amount,
-      custodyType: data.custody_type,
-      status: data.state,
-    }
-    return custodyItem
-  })
-
-  return returnedData
 }
 
 const CustodyDummyData: CustodyRequest[] = [
@@ -96,19 +74,5 @@ const CustodyDummyData: CustodyRequest[] = [
     custodyAmount: 1000,
     custodyType: "عهدة مؤقتة",
     status: "عمليات الموارد البشرية",
-  },
-  {
-    id: "#55471",
-    date: "2024-05-11",
-    custodyAmount: 1000,
-    custodyType: "عهدة مؤقتة",
-    status: "نائب المحافظ",
-  },
-  {
-    id: "#55472",
-    date: "2024-05-11",
-    custodyAmount: 1000,
-    custodyType: "عهدة مؤقتة",
-    status: "اعتمد",
   },
 ]

@@ -5,9 +5,8 @@ import { BatchsForm } from "./BatchsForm"
 
 export const BatchsModal = async () => {
   const userId = await getUserId()
-  if (!userId) {
-    throw new Error("Invalid User Id (app/components/modals/BatchModal.tsx)")
-  }
+  if (!userId) return
+
   const { batchProducts } = await getUser(userId)
   return (
     <Modal

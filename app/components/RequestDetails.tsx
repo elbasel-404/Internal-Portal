@@ -1,3 +1,5 @@
+"use client"
+
 import { CheckboxField } from "@components/form"
 import { PdfFileIcon, PrinterIcon, TrashIcon } from "@icons"
 import { colors } from "@lib"
@@ -13,7 +15,7 @@ import {
 } from "@ui"
 import { cn } from "@utils"
 import { ReactNode } from "react"
-
+import { renderStatusCell } from "./Table/Table"
 interface RequestDetailsProps {
   headers?: RequestHeader[]
   evaluationCriteria?: ReactNode
@@ -74,33 +76,44 @@ export const RequestDetails = ({
       <div>
         {headers
           ?.filter(({ value }) => !Array.isArray(value))
-          .map(({ label, value, key, tableHeaders }: RequestHeader, index) => {
-            const isEven = index % 2 === 0
-            const isNotes = notesHeaders.includes(label)
+          .map(
+            (
+              {
+                label,
+                value,
+                key /* tableHeaders removed to fix unused var */,
+              }: RequestHeader,
+              index,
+            ) => {
+              const isEven = index % 2 === 0
+              const isNotes = notesHeaders.includes(label)
 
-            return (
-              <div key={index}>
-                {label === "رقم طلب العهدة" && (
-                  <div className="text-foreground text-2xl font-bold my-3">
-                    بيانات العهدة
-                  </div>
-                )}
-                <div
-                  key={label}
-                  className={cn(
-                    "py-[22px] flex flex-col md:flex-row items-center",
-                    isEven && "bg-grey-50",
-                    isNotes && "flex-col",
+              return (
+                <div key={index}>
+                  {label === "رقم طلب العهدة" && (
+                    <div className="text-foreground text-2xl font-bold my-3">
+                      بيانات العهدة
+                    </div>
                   )}
-                >
-                  <div className="mx-3 md:basis-1/4 md:flex-1 md:max-w-[15%]">
-                    {label}
+                  <div
+                    key={label}
+                    className={cn(
+                      "py-[22px] flex flex-col md:flex-row items-center",
+                      isEven && "bg-grey-50",
+                      isNotes && "flex-col",
+                    )}
+                  >
+                    <div className="mx-3 md:basis-1/4 md:flex-1 md:max-w-[15%]">
+                      {label}
+                    </div>
+                    {label === "الحالة"
+                      ? renderStatusCell(value as string)
+                      : labelValue(value as ReactNode | boolean, key)}
                   </div>
-                  {labelValue(value as ReactNode | boolean, key)}
                 </div>
-              </div>
-            )
-          })}
+              )
+            },
+          )}
       </div>
       <div>{evaluationCriteria}</div>
       {headers
@@ -129,6 +142,7 @@ export const RequestDetails = ({
 interface AttachmentListProps {
   attachmentList: File[]
 }
+
 const AttachmentList = ({ attachmentList }: AttachmentListProps) => {
   return (
     <>
@@ -144,6 +158,8 @@ const AttachmentList = ({ attachmentList }: AttachmentListProps) => {
 }
 
 const FileAttachment = ({ file }: { file: File }) => {
+  // Build download URL using the attachment ID (file.name)
+  const downloadUrl = `https://publicapis.monshaat.gov.sa/ERP/TaskService/api/attachment/download/${file.name}`
   return (
     <div className="rounded-lg gap-3 px-4 flex items-center bg-grey-50 py-3 hover:bg-black/10 transition-colors cursor-pointer">
       <div className="w-10 h-10 flex bg-[#FFF4CF] items-center rounded-md justify-center">
@@ -153,7 +169,8 @@ const FileAttachment = ({ file }: { file: File }) => {
       <div className="mr-auto flex gap-4">
         <Button
           className="bg-primary-opacity rounded-sm w-6 h-6 p-0"
-          title="Print"
+          title="Download"
+          onClick={() => window.open(downloadUrl, "_blank")}
         >
           <PrinterIcon
             className="w-3 h-3"
@@ -180,7 +197,7 @@ const FileAttachment = ({ file }: { file: File }) => {
 
 interface ResultItem {
   id: string | number
-  [key: string]: any
+  [key: string]: string | number | boolean | null | undefined
 }
 
 interface RequestDetailsHeaderProps {

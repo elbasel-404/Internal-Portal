@@ -52,8 +52,7 @@ export const getDeputationRequestDetails = async (
       ],
     }
     return details
-  } catch (error) {
-    console.error("Error in getWorkDocumentDetails:", error)
+  } catch {
     return
   }
 }

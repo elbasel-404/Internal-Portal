@@ -17,8 +17,8 @@ const VacationDetailsPage = async ({ params }: VacationDetailsPageProps) => {
   const requestDetails = await getVacationDetails(id)
   if (!requestDetails) notFound()
   // ! TODO: add server action instead:
-  const requestCaption =
-    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
+  // const requestCaption =
+  //   "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
 
   const requestHeaders: RequestHeader[] = [
     {
@@ -57,7 +57,7 @@ const VacationDetailsPage = async ({ params }: VacationDetailsPageProps) => {
 
   return (
     <>
-      <RequestStatus status={requestStatus} caption={requestCaption} />
+      <RequestStatus status={requestStatus} />
       <RequestDetails headers={requestHeaders} />
     </>
   )

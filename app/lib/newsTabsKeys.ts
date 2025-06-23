@@ -3,4 +3,8 @@ export const newsTabsKeys = [
   "newsTab",
   "monshaatFamilyTab",
   "internalTab",
+  "vpn",
+  "nationalId",
+  "office",
+  "email",
 ] as const

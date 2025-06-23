@@ -1,10 +1,10 @@
-import { Instructions, RequestStatus } from "@components"
+import { Instructions, CreateRequestStatus } from "@components"
 import {
   getArtisticCompetenciesRequests,
   getBasicCompetenciesRequests,
   getGoalsRequests,
   getLeadershipCompetenciesRequests,
-  getRequestStatus,
+  getCreateRequestStatus,
 } from "@server"
 import { EvaluationGoalsForm } from "../components"
 
@@ -13,12 +13,13 @@ const NewEvaluationGoals = async () => {
   const leadershipCompetenciesData = await getLeadershipCompetenciesRequests()
   const basicCompetenciesData = await getBasicCompetenciesRequests()
   const ArtisticCompetenciesData = await getArtisticCompetenciesRequests()
-  const requestStatus = await getRequestStatus()
+  // const requestStatus = await getRequestStatus("", "EvaluationGoal")
+  const requestStatus = await getCreateRequestStatus("hr.performance.planning")
   const requestCaption =
     "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   return (
     <div className="space-y-4 mb-16">
-      <RequestStatus status={requestStatus} caption={requestCaption} />
+      <CreateRequestStatus status={requestStatus} caption={requestCaption} />
       <EvaluationGoalsForm
         goalsData={goalsData}
         leadershipData={leadershipCompetenciesData}

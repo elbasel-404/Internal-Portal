@@ -1,62 +1,56 @@
 "use server"
 
 import { PermissionDetails } from "@types"
-// import { PermissionElementSchema, ResponseSchema } from '../../api-schemas';
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
+import { ResponseSchema } from "../../api-schemas"
+import { getData } from "./getData"
 
 export const getPermissionDetails = async (
   id: string,
-): Promise<PermissionDetails | void> => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
+): Promise<PermissionDetails> => {
+  const result = await getData<PermissionDetails>({
+    url: "api/po/hr/authorization",
+    responseSchema: ResponseSchema,
+    parseData: (data) => {
+      if (!data || data.length === 0) {
+        return [dummyData]
+      }
 
-  // ! VARIABLES
-  // ! ==================================
-  const url = "api/po/hr/authorization"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
-  const requestBody = { id: id }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
+      const typedData = data[0] as Record<string, unknown>
 
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+      return [
+        {
+          id: String(typedData.id || ""),
+          requestDate: String(typedData.date || ""),
+          dateFrom: String(typedData.date_from || ""),
+          dateTo: String(typedData.date_to || ""),
+          reason: String(typedData.reason || ""),
+          duration: String(
+            typedData.hour_number
+              ? Number(typedData.hour_number).toFixed(2)
+              : "",
+          ),
+          type:
+            Array.isArray(typedData.type_id) && typedData.type_id.length > 1
+              ? String(typedData.type_id[1])
+              : "",
+          time: `من ${
+            typedData.hour_from ? Number(typedData.hour_from).toFixed(2) : ""
+          } الي ${
+            typedData.hour_to ? Number(typedData.hour_to).toFixed(2) : ""
+          }`,
+          attachments: Array.isArray(typedData.attachment_ids)
+            ? typedData.attachment_ids.map(
+                (file) => new File([""], String(file)),
+              )
+            : [],
+        },
+      ]
+    },
+    additionalBody: { id },
+    dummyData: [dummyData],
   })
-  const responseJson = await apiResponse.json()
 
-  // ! VALIDATION
-  // ! ==================================
-  // const validatedResponse = ResponseSchema.parse(responseJson);
-  // const { result } = validatedResponse;
-  // const { data } = result;
-  // const validatedData = PermissionElementSchema.parse(data[0]);
-
-  // ! PARSING
-  // ! ==================================
-
-  // const returnedData: PermissionDetails = {
-  //   id: validatedData.id.toString(),
-  //   requestDate: validatedData.date,
-  //   dateFrom: validatedData.date_from,
-  //   dateTo: validatedData.date_to,
-  //   reason: validatedData.reason,
-  //   duration: validatedData.hour_number.toFixed(2),
-  //   type: validatedData.type_id[1].toString(),
-  //   time: `من ${validatedData.hour_from.toFixed(
-  //     2
-  //   )} الي  ${validatedData.hour_to.toFixed(2)}`,
-  //   attachments: validatedData.attachment_ids.map(
-  //     (file) => new File([''], file.toString())
-  //   ),
-  // };
-
-  // return returnedData;
-  return dummyData
+  return result[0]
 }
 
 const dummyData: PermissionDetails = {

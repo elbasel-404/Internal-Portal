@@ -74,7 +74,7 @@ export const toggleHomePageSetting = async (
 
   const toggleHomePageSlot = async (state: InitialState) => {
     const validatedKey = await validateHomePageSlotKey(slotKey)
-    if (!validatedKey) return console.error("Invalid key provided")
+    if (!validatedKey) return
 
     const user = await getUser(userId)
     if (!user) {
@@ -105,7 +105,7 @@ export const toggleHomePageSetting = async (
 
   const toggleGeneralInfo = async (state: InitialState) => {
     const validatedKey = await validateGeneralInfoKey(slotKey)
-    if (!validatedKey) return console.error("Invalid key provided")
+    if (!validatedKey) return
     const user = await getUser(userId)
     if (!user) {
       state.error = "User not found"
@@ -114,7 +114,6 @@ export const toggleHomePageSetting = async (
     const activeGeneralInfoKeys = user.activeGeneralInfoKeys
 
     const isAlreadyActive = activeGeneralInfoKeys.includes(validatedKey)
-    console.log({ isAlreadyActive, activeGeneralInfoKeys, user, state })
 
     if (isAlreadyActive) {
       const filteredKeys = activeGeneralInfoKeys.filter(
@@ -141,7 +140,7 @@ export const toggleHomePageSetting = async (
 
   const toggleNewsTabs = async () => {
     const validatedKey = await validateNewsTabsKey(slotKey)
-    if (!validatedKey) return console.log("Invalid key provided")
+    if (!validatedKey) return
     const user = await getUser(userId)
     const activeNewsTabsKeys = user.activeNewsTabsKeys
     const isAlreadyActive = activeNewsTabsKeys.includes(validatedKey)

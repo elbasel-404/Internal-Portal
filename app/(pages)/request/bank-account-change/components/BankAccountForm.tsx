@@ -11,21 +11,26 @@ import {
 } from "@components/form"
 import { paths } from "@lib"
 import { FileWithId } from "@types"
-import { useActionState, useEffect, useState } from "react"
+import { useEffect, useState, useTransition } from "react"
 import { toast } from "sonner"
 import { formAction } from "./helpers/formAction"
-import { getStateAction } from "./helpers/getStateAction"
-import { initialState } from "./helpers/initialState"
-import { State } from "./helpers/State"
+import { State } from "../../../../lib/createData"
 
-const stateAction = getStateAction<State>(formAction)
+const initialState: State = {
+  success: false,
+  errors: null,
+  id: null,
+}
 
 interface BankAccountFormProps {
   bankDetails: BankDetail[]
 }
 
 export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
-  const [state, action, pending] = useActionState(stateAction, initialState)
+  const [state, setState] = useState<State>(initialState)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isPending, startTransition] = useTransition()
+  const pending = isPending || isSubmitting
   const [files, setFiles] = useState<FileWithId[]>([])
   const [iban, setIban] = useState("")
   const [bankId, setBankId] = useState("")
@@ -46,18 +51,20 @@ export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
   useEffect(() => {
     const { success, errors } = state
     if (success) toast.success("تم انشاء الطلب بنجاح")
-    if (errors) toast.error(errors)
+    if (errors) toast.error(errors?.[0])
   }, [state])
 
-  useEffect(() => {
-    if (pending) {
-      toast.loading("جاري انشاء الطلب", {
-        id: "vacation-form-loading-toast",
-      })
-    } else {
-      toast.dismiss("vacation-form-loading-toast")
-    }
-  }, [pending])
+  const action = async (formData: FormData) => {
+    setIsSubmitting(true)
+    toast.loading("جاري انشاء الطلب", { id: "bank-account-form-pending" })
+
+    startTransition(async () => {
+      const result = await formAction(formData)
+      setState(result)
+      setIsSubmitting(false)
+      toast.dismiss("bank-account-form-pending")
+    })
+  }
 
   if (state.success) {
     return (
@@ -77,16 +84,6 @@ export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
         label="نموذج طلب تغيير الحساب البنكي"
         path={paths.bankAccountChange.href}
       />
-      <input
-        type="text"
-        name="employee_id"
-        id="employee_id"
-        hidden
-        aria-hidden
-        readOnly
-        value="1711"
-        className="hidden"
-      />
       <div className="p-4 space-y-6">
         <InputField
           label="الحساب الحالي للموظف"
@@ -98,23 +95,16 @@ export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
           name="new_bank_id"
           label="اسم البنك الجديد"
           placeholder="__"
-          types={bankDetails}
-          value={bankId}
+          types={bankDetails.map((bank) => ({ id: bank.id, name: bank.name }))}
           onChange={handleBankIdChange}
+          value={bankId}
         />
         <InputField
+          label="رقم الحساب الجديد IBAN"
           name="iban"
-          label="رقم الآيبان (IBAN)"
-          placeholder="____________________SA03"
-          required
+          placeholder="SA__________________"
           value={iban}
           onChange={handleIbanChange}
-        />
-        <InputField
-          name="accountStatus"
-          label="حالة الحساب البنكي"
-          placeholder="مثبت"
-          disabled
         />
         <AttachmentsField
           files={files}
@@ -122,9 +112,13 @@ export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
           handleRemoveFile={(index: number) =>
             fileHandler.remove(files[index].id)
           }
-          required
+          errors={
+            state.errors?.filter((error) =>
+              error.toLowerCase().includes("attachment"),
+            ) || []
+          }
         />
-        <SubmitButton />
+        <SubmitButton disabled={pending} loading={pending} />
       </div>
     </form>
   )

@@ -2,61 +2,45 @@
 
 import type { VacationRequest } from "@types"
 import { HolidayElementSchema, ResponseSchema } from "../../api-schemas"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
-import { getStoredEmployeeId } from "@auth"
+import { getData } from "./getData"
 
 export const getVacationRequests = async (): Promise<VacationRequest[]> => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
+  return getData<VacationRequest>({
+    url: "api/po/hr/holidays/request",
+    includeEmployeeId: true,
+    responseSchema: ResponseSchema,
+    dataSchema: HolidayElementSchema,
+    parseData: (data) => {
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, unknown>
 
-  // ! VARIABLES
-  // ! ==================================
-  const employeeId = await getStoredEmployeeId()
-  const url = "api/po/hr/holidays/request"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
-  const requestBody = { employee_id: employeeId }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
+        // Safely extract holiday status
+        const holidayStatus =
+          Array.isArray(typedItem.holiday_status_id) &&
+          typedItem.holiday_status_id.length > 1
+            ? String(typedItem.holiday_status_id[1])
+            : ""
 
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
-  })
-  const responseJson = await apiResponse.json()
+        // Safely handle date splitting
+        const doneDate =
+          typeof typedItem.done_date === "string"
+            ? typedItem.done_date.split(" ")[0]
+            : undefined
 
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.safeParse(responseJson)
-  // const { result } = validatedResponse;
-  const result = validatedResponse.data?.result
-  const data = result?.data
-  const validatedData = HolidayElementSchema.array().safeParse(data)
-  const holidaysData = validatedData.data
-
-  // ! PARSING
-  // ! ==================================
-  const returnedData: VacationRequest[] = holidaysData
-    ? holidaysData.map((data) => {
-        const vacationItem: VacationRequest = {
-          id: data.id.toString(),
-          date: data.date,
-          description: data.holiday_status_id[1].toString(),
-          startDate: data.date_from,
-          endDate: data.date_to,
-          durationInDays: data.duration,
-          approvalDate: data.done_date.split(" ")[0],
-          status: data.state,
+        return {
+          id: String(typedItem.id || ""),
+          date: String(typedItem.date || ""),
+          description: holidayStatus,
+          startDate: String(typedItem.date_from || ""),
+          endDate: String(typedItem.date_to || ""),
+          durationInDays: Number(typedItem.duration || 0),
+          approvalDate: doneDate || "",
+          status: String(typedItem.state || ""),
         }
-        return vacationItem
       })
-    : []
-
-  return returnedData
+    },
+    dummyData,
+  })
 }
 const dummyData: VacationRequest[] = [
   {

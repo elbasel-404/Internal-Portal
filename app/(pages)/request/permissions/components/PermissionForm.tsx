@@ -13,14 +13,16 @@ import {
 } from "@components/form"
 import { paths } from "@lib"
 import { FileWithId } from "@types"
-import { useActionState, useEffect, useState } from "react"
+import { useEffect, useState, useTransition } from "react"
 import { toast } from "sonner"
 import { formAction } from "./helpers/formAction"
-import { getStateAction } from "./helpers/getStateAction"
-import { initialState } from "./helpers/initialState"
-import { State } from "./helpers/State"
+import { State } from "../../../../lib/createData"
 
-const stateAction = getStateAction<State>(formAction)
+const initialState: State = {
+  success: false,
+  errors: null,
+  id: null,
+}
 
 const PermissionTypes = [
   { id: 1, name: "الاستئذان لعمل" },
@@ -28,7 +30,10 @@ const PermissionTypes = [
 ]
 
 export const PermissionForm = () => {
-  const [state, action, pending] = useActionState(stateAction, initialState)
+  const [state, setState] = useState<State>(initialState)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isPending, startTransition] = useTransition()
+  const pending = isPending || isSubmitting
   const [files, setFiles] = useState<FileWithId[]>([])
   const [isMultipleDays, setIsMultipleDays] = useState(false)
   const [permissionTypeValue, setPermissionTypeValue] = useState<string>("")
@@ -49,18 +54,20 @@ export const PermissionForm = () => {
   useEffect(() => {
     const { success, errors } = state
     if (success) toast.success("تم انشاء الطلب بنجاح")
-    if (errors) toast.error(errors)
+    if (errors) toast.error(errors[0])
   }, [state])
 
-  useEffect(() => {
-    if (pending) {
-      toast.loading("جاري انشاء الطلب", {
-        id: "permission-form-loading-toast",
-      })
-    } else {
-      toast.dismiss("permission-form-loading-toast")
-    }
-  }, [pending])
+  const action = async (formData: FormData) => {
+    setIsSubmitting(true)
+    toast.loading("جاري انشاء الطلب", { id: "permission-form-pending" })
+
+    startTransition(async () => {
+      const result = await formAction(formData)
+      setState(result)
+      setIsSubmitting(false)
+      toast.dismiss("permission-form-pending")
+    })
+  }
 
   if (state.success) {
     return (
@@ -77,7 +84,7 @@ export const PermissionForm = () => {
       className="bg-white rounded-lg text-black text-lg p-4 space-y-4"
     >
       <FormHeader label="نموذج طلب استئذان" path={paths.permissions.href} />
-      <input
+      {/* <input
         type="text"
         name="employee_id"
         id="employee_id"
@@ -86,7 +93,7 @@ export const PermissionForm = () => {
         readOnly
         value="1722"
         className="hidden"
-      />
+      /> */}
       <div className="py-4 space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <SelectField
@@ -169,9 +176,14 @@ export const PermissionForm = () => {
             handleRemoveFile={(index: number) =>
               fileHandler.remove(files[index].id)
             }
+            errors={
+              state.errors?.filter((error) =>
+                error.toLowerCase().includes("attachment"),
+              ) || []
+            }
           />
         )}
-        <SubmitButton />
+        <SubmitButton disabled={pending} loading={pending} />
       </div>
     </form>
   )

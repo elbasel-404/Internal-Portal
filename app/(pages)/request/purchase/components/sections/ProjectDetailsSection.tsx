@@ -145,7 +145,7 @@ const CostsField = () => {
     if (purchaseType !== "directPayment") {
       setCosts(0)
     }
-  }, [purchaseType])
+  }, [purchaseType, setCosts])
 
   return (
     <InputField

@@ -4,6 +4,8 @@ import type { Metadata } from "next"
 import type { ReactNode } from "react"
 import "./globals.css"
 
+export const dynamic = "force-dynamic"
+
 export const metadata: Metadata = {
   title: "منشآت",
 }
@@ -13,7 +15,10 @@ interface RootLayoutProps {
   modalSlot: ReactNode
 }
 
-const RootLayout = ({ children, modalSlot }: Readonly<RootLayoutProps>) => {
+const RootLayout = async ({
+  children,
+  modalSlot,
+}: Readonly<RootLayoutProps>) => {
   return (
     <html
       lang="en"

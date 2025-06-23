@@ -1,13 +1,18 @@
 "use server"
 
-import { disableDemo } from "./disableDemo"
-import { enableDemo } from "./enableDemo"
+import { cookies } from "next/headers"
 import { getDemo } from "./getDemo"
+import { revalidatePath } from "next/cache"
 
 export const toggleDemo = async () => {
+  // return { isDemo: false }
   const isDemo = await getDemo()
-  console.log({ isDemo })
-  if (isDemo) return await disableDemo()
-
-  return await enableDemo()
+  const cookieStore = await cookies()
+  if (isDemo) {
+    cookieStore.set("demo", "false")
+  } else {
+    cookieStore.set("demo", "true")
+  }
+  revalidatePath("/", "layout")
+  return { isDemo: !isDemo }
 }

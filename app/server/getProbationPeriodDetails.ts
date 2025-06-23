@@ -17,7 +17,8 @@ export const getProbationPeriodDetails = async (
   // ! ==================================
   const url = "api/po/hr/probation-evaluation"
   const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
   const requestBody = { id: id }
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`
@@ -50,12 +51,14 @@ export const getProbationPeriodDetails = async (
     endProbationPeriodDate: validatedData.date_probation_end,
     recommendation: validatedData.recommendation,
     notes: validatedData.notes.toString(),
-    probationLineIds: validatedData.probation_line_ids.map((line) => ({
-      question: line.question,
-      answer: line.answer,
-    })),
+    probationLineIds: validatedData.probation_line_ids.map(
+      (line: { question: string; answer: string }) => ({
+        question: line.question,
+        answer: line.answer,
+      }),
+    ),
     attachments: validatedData.attachment_ids.map(
-      (file) => new File([""], file.toString()),
+      (file: { toString: () => string }) => new File([""], file.toString()),
     ),
   }
 

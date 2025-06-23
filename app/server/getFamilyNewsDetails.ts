@@ -2,7 +2,7 @@
 
 import { FamilyNewSchema, ResponseSchema } from "@api/schemas"
 import type { NewsFamily } from "@types"
-import { formatNewsDate } from "@utils"
+// Removed unused import: import { formatNewsDate } from "@utils"
 import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
 import { formatDate } from "@utils"
@@ -17,7 +17,8 @@ export const getFamilyNewsDetails = async (
   // ! ==================================
   const url = "api/po/read/portal-news"
   const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
   const requestBody = {
     news_type: "family_news",
     news_id: id,

@@ -29,7 +29,7 @@ import {
 import { useAtom } from "jotai"
 import Image from "next/image"
 import Link from "next/link"
-import { useMemo, useState } from "react"
+import { ReactNode, useMemo, useState } from "react"
 import { STATUS_CONFIG } from "./config"
 import { getRowLink, isCurrencyField } from "./utils"
 
@@ -52,6 +52,35 @@ interface TableProps {
   onApprove?: (id: string) => void
   onReject?: (request: Row) => void
   onRemove?: (id: number) => void
+}
+
+export const renderStatusCell = (value: string) => {
+  const config = STATUS_CONFIG[value as keyof typeof STATUS_CONFIG] || {
+    label: value,
+    icon: ProjectorIcon,
+    className: "bg-primary-opacity text-primary",
+  }
+
+  const Icon = config.icon
+
+  return (
+    <div
+      className={`flex items-center truncate gap-1 py-2 px-4 text-sm rounded-xl font-medium w-fit ${config.className}`}
+    >
+      {Icon && (
+        <Icon
+          className={
+            value === "اعتمد" || value === "done" || value === "confirm"
+              ? "fill-success-foreground"
+              : value === "مرفوض" || value === "refuse"
+                ? "fill-destructive-foreground"
+                : "fill-primary"
+          }
+        />
+      )}
+      {config.label}
+    </div>
+  )
 }
 
 export const Table = ({
@@ -106,34 +135,6 @@ export const Table = ({
   }
 
   // Status cell renderer
-  const renderStatusCell = (value: string) => {
-    const config = STATUS_CONFIG[value as keyof typeof STATUS_CONFIG] || {
-      label: value,
-      icon: ProjectorIcon,
-      className: "bg-primary-opacity text-primary",
-    }
-
-    const Icon = config.icon
-
-    return (
-      <div
-        className={`flex items-center truncate gap-1 py-2 px-4 text-sm rounded-xl font-medium w-fit ${config.className}`}
-      >
-        {Icon && (
-          <Icon
-            className={
-              value === "اعتمد" || value === "done" || value === "confirm"
-                ? "fill-success-foreground"
-                : value === "مرفوض" || value === "refuse"
-                  ? "fill-destructive-foreground"
-                  : "fill-primary"
-            }
-          />
-        )}
-        {config.label}
-      </div>
-    )
-  }
 
   // Employee name cell renderer
   const renderEmployeeNameCell = (value: string) => (
@@ -150,10 +151,12 @@ export const Table = ({
   )
 
   // Currency cell renderer
-  const renderCurrencyCell = (value: any) => (
+  const renderCurrencyCell = (
+    value: string | number | ReactNode | null | undefined,
+  ) => (
     <div className="flex items-center gap-3">
       <p className="truncate">{value}</p>
-      {typeof value !== "string" && <RiyalCurrencyIcon />}
+      {typeof value === "number" && <RiyalCurrencyIcon />}
     </div>
   )
 
@@ -200,12 +203,16 @@ export const Table = ({
     )
 
   // Recommendation cell renderer
-  const renderRecommendationCell = (value: string) => {
+  const renderRecommendationCell = (
+    value: string | number | boolean | ReactNode | null | undefined,
+  ) => {
+    const stringValue =
+      value !== undefined && value !== null ? String(value) : ""
     return (
       <div>
-        {value === "pass" && "اجتياز فترة التجربة"}
-        {value === "continue" && "تمديد فترة التجربة"}
-        {value === "fail" && "إنهاء خدمات الموظف"}
+        {stringValue === "pass" && "اجتياز فترة التجربة"}
+        {stringValue === "continue" && "تمديد فترة التجربة"}
+        {stringValue === "fail" && "إنهاء خدمات الموظف"}
       </div>
     )
   }
@@ -235,16 +242,37 @@ export const Table = ({
   }
 
   // Cell content renderer based on key
-  const renderCellContent = (key: string, value: any, row: Row) => {
-    if (key === "status") return renderStatusCell(value)
+  const renderCellContent = (
+    key: string,
+    value: string | number | boolean | ReactNode | null | undefined,
+    row: Row,
+  ) => {
+    if (key === "status") return renderStatusCell(String(value))
     if (key === "recommendation") return renderRecommendationCell(value)
-    if (key === "employeeName") return renderEmployeeNameCell(value)
+    if (key === "employeeName")
+      return renderEmployeeNameCell(
+        value !== undefined && value !== null ? String(value) : "",
+      )
     if (isCurrencyField(key)) return renderCurrencyCell(value)
-    if (key === "courseName") return renderCourseNameCell(value, row)
-    if (key === "batchNumber") return renderBatchNumberCell(value, row)
+    if (key === "courseName")
+      return renderCourseNameCell(
+        value !== undefined && value !== null ? String(value) : "",
+        row,
+      )
+    if (key === "batchNumber")
+      return renderBatchNumberCell(
+        value !== undefined && value !== null ? String(value) : "",
+        row,
+      )
     if (key === "attachments") return renderAttachmentsCell()
-    if (key === "requestType") return renderRequestTypeCell(value)
-    if (key === "relation") return renderRelativeRelationTypeCell(value)
+    if (key === "requestType")
+      return renderRequestTypeCell(
+        value !== undefined && value !== null ? String(value) : "",
+      )
+    if (key === "relation")
+      return renderRelativeRelationTypeCell(
+        value !== undefined && value !== null ? String(value) : "",
+      )
     if (key === "achievementCertificate")
       return renderAchievementCertificateCell()
     return value
@@ -363,7 +391,9 @@ export const Table = ({
                     <Button
                       onClick={(e) => {
                         e.preventDefault()
-                        onRemove && onRemove(Number(request.id))
+                        if (onRemove) {
+                          onRemove(Number(request.id))
+                        }
                       }}
                       className="flex group gap-1 items-center shadow-none hover:bg-red-600 hover:text-white justify-end text-destructive-foreground bg-destructive-opacity rounded-xl px-4 py-2.5"
                     >

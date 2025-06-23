@@ -1,4 +1,3 @@
-
 export const modalPaths = {
   HomePageSettingsModal: {
     title: "الإعدادات",
@@ -68,8 +67,20 @@ export const modalPaths = {
     title: "تعديل تخطيط الأداء",
     href: "/modal/EditPerformanceModal",
   },
-  EditPerformanceModal: {
-    title: "إنشاء طلب تعديل تخطيط الأداء",
-    href: "/modal/EditPerformanceModal",
+  VpnAcountModal: {
+    title: "انشاء طلب حساب vpn",
+    href: "/modal/VpnAcountModal",
+  },
+  EmailAcountModal: {
+    title: "انشاء طلب بريد الكتروني للمتدرب",
+    href: "/modal/EmailAcountModal",
+  },
+  OfficeAcountModal: {
+    title: "انشاء طلب مكتب",
+    href: "/modal/OfficeAcountModal",
+  },
+  CardIdAcountModal: {
+    title: "انشاء طلب بطاقة",
+    href: "/modal/CardIdAcountModal",
   },
 } as const

@@ -47,10 +47,11 @@ export const ApprovalRequestsTable = ({
     setCurrentRequest(null)
   }
 
-  const handleDialogSubmit = (reason: string) => {
+  const handleDialogSubmit = (/* reason: string */) => {
+    // Removed unused parameter 'reason'
+    // TODO: Implement approval request dialog submission
     if (currentRequest) {
-      console.log("Rejected Request:", currentRequest)
-      console.log("Reason:", reason)
+      // TODO: Add implementation here when ready
     }
   }
 

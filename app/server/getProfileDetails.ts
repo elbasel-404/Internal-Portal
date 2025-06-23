@@ -1,139 +1,117 @@
 "use server"
 
 import type { ProfileDetails } from "@types"
-import { getFetchHeaders } from "./getFetchHeaders"
-import { getDemo } from "@db/actions"
 import { ResponseSchema } from "@api/schemas/responseSchema"
 import { ProfileElementSchema } from "@api/schemas"
+import { getData } from "./getData"
 
 export const getProfileDetails = async (): Promise<ProfileDetails> => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
+  const result = await getData<ProfileDetails>({
+    url: "api/po/read/profile",
+    responseSchema: ResponseSchema,
+    dataSchema: ProfileElementSchema,
+    parseData: (data) => {
+      if (!data || data.length === 0) {
+        return [dummyData]
+      }
 
-  // ! VARIABLES
-  // ! ==================================
-  const url = "api/po/read/profile"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
-  const requestBody = {}
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
+      const typedData = data[0] as Record<string, unknown>
 
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+      // * ======== contact information ========
+      const mobilePhone =
+        typeof typedData.mobile_number === "boolean"
+          ? ""
+          : String(typedData.mobile_number || "")
+      const personalEmail = String(typedData.work_email || "")
+      const secondMobile =
+        typeof typedData.mobile_phone2 === "boolean"
+          ? "none"
+          : String(typedData.mobile_phone2 || "")
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const workPhone =
+        typeof typedData.work_phone === "boolean"
+          ? "none"
+          : String(typedData.work_phone || "")
+      const workExt =
+        typeof typedData.work_mobile === "boolean"
+          ? "none"
+          : String(typedData.work_mobile || "")
+
+      // * ======== date information ========
+      const date = typedData.joining_date ? String(typedData.joining_date) : ""
+
+      const nameEN = String(typedData.name_english || "")
+
+      return [
+        {
+          personalData: {
+            id: String(typedData.id || ""),
+            nameEN,
+            nationality: String(typedData.nationality || ""),
+            maritalStatus: String(typedData.marital_status || ""),
+            gender: String(typedData.gender || ""),
+            passportNumber: String(typedData.passport_number || ""),
+            bloodType: String(typedData.blood_type || ""),
+            birthDate: String(typedData.birthday || ""),
+          },
+          workData: {
+            department:
+              typeof typedData.department_id === "object" &&
+              Array.isArray(typedData.department_id) &&
+              typedData.department_id.length > 1
+                ? String(typedData.department_id[1])
+                : "",
+            directManager:
+              typeof typedData.parent_id === "object" &&
+              Array.isArray(typedData.parent_id) &&
+              typedData.parent_id.length > 1
+                ? String(typedData.parent_id[1])
+                : "",
+            appointmentDate: date,
+            governmentWorkStartDate: String(
+              typedData.government_work_date || "",
+            ),
+          },
+          contactInformation: {
+            mobilePhone,
+            secondMobile,
+            workEmail: String(typedData.work_email || ""),
+            personalEmail,
+            workplaceLocation: String(typedData.workplace_location || ""),
+            workExtension: workExt,
+          },
+        },
+      ]
+    },
+    dummyData: [dummyData],
   })
-  const responseJson = await apiResponse.json()
 
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = ProfileElementSchema.parse(data[0])
-
-  // ! PARSING
-  // ! ==================================
-
-  // * ======== contact information ========
-  const mobilePhone =
-    typeof validatedData.mobile_number === "boolean"
-      ? ""
-      : validatedData.mobile_number
-  const personalEmail = validatedData.work_email
-  const secondMobile =
-    typeof validatedData.mobile_phone2 === "boolean"
-      ? "none"
-      : validatedData.mobile_phone2
-
-  //* placeholder
-  const workExtension = "work Extension"
-  const workplaceLocation =
-    typeof validatedData.work_location === "boolean"
-      ? ""
-      : validatedData.work_location
-  const workEmail = validatedData.work_email2
-
-  // * ======== personal data ========
-  const birthDate = validatedData.birthday
-  const bloodType = validatedData.blood_type
-  const gender = validatedData.gender
-  const id = validatedData.id.toFixed()
-  const maritalStatus = validatedData.marital
-  const nameEN = validatedData.english_name
-  const nationality =
-    typeof validatedData.birthday_location === "boolean"
-      ? ""
-      : validatedData.birthday_location
-  const passportNumber = validatedData.passport_number
-
-  // * ======== work data ========
-  const appointmentDate =
-    typeof validatedData.contract_date_from === "boolean"
-      ? ""
-      : validatedData.contract_date_from
-  const department = validatedData.department_global_id[0].toString()
-  const directManager =
-    typeof validatedData.manager === "boolean" ? "" : validatedData.manager
-  const governmentWorkStartDate = validatedData.begin_work_date
-
-  const returnedData: ProfileDetails = {
-    contactInformation: {
-      mobilePhone,
-      personalEmail,
-      secondMobile,
-      workEmail,
-      workExtension,
-      workplaceLocation,
-    },
-    personalData: {
-      birthDate,
-      bloodType,
-      gender,
-      id,
-      maritalStatus,
-      nameEN,
-      nationality,
-      passportNumber,
-    },
-    workData: {
-      appointmentDate,
-      department,
-      directManager,
-      governmentWorkStartDate,
-    },
-  }
-
-  return returnedData
+  return result[0]
 }
 
 const dummyData: ProfileDetails = {
   personalData: {
-    id: "1100549805",
-    nameEN: "Assaf Rushud Alsaedi",
-    nationality: "المملكة العربية السعودية",
-    maritalStatus: "متزوج",
-    gender: "ذكر",
-    passportNumber: "w491150",
-    bloodType: "A+",
-    birthDate: "1992-07-14",
+    id: "1",
+    nameEN: "Youssef Hamad Abdullah Alqushaymit",
+    nationality: "Saudi",
+    maritalStatus: "Single",
+    gender: "Male",
+    passportNumber: "A123456",
+    bloodType: "O+",
+    birthDate: "1990-01-01",
   },
   workData: {
-    department:
-      "خدمات المنشآت / التقنية والحلول الرقمية / تقنية المعلومات / الأنظمة الداخلية",
-    directManager: "معاذ بن محمد الغرباوي",
-    appointmentDate: "2023-02-12",
-    governmentWorkStartDate: "2023-02-12",
+    department: "المركز السعودي للتعليم الإلكتروني",
+    directManager: "يوسف بن حسين الجفري",
+    appointmentDate: "15-05-2023",
+    governmentWorkStartDate: "15-05-2022",
   },
   contactInformation: {
-    mobilePhone: "0535249447",
-    secondMobile: "",
-    workEmail: "mohamedshafey53@gmail.com",
-    personalEmail: "iassaf.cs@gmail.com",
-    workplaceLocation: "",
-    workExtension: "4268",
+    mobilePhone: "966511122334",
+    secondMobile: "966511122333",
+    workEmail: "youssef@work.sa",
+    personalEmail: "youssef@algoriza.sa",
+    workplaceLocation: "Riyadh",
+    workExtension: "1307",
   },
 }

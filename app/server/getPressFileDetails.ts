@@ -16,7 +16,8 @@ export const getPressFileDetails = async (
   // ! ==================================
   const url = "api/po/read/portal-news"
   const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
   const requestBody = {
     news_type: "news",
     news_id: id,
