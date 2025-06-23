@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { PaperPlaneIcon, XMarkIcon } from "@icons"
 import { Button } from "@ui"
 
