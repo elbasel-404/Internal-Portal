@@ -10,11 +10,7 @@ import { paths } from "@lib"
 import { toast } from "sonner"
 import { formAction } from "./helpers/formAction"
 import { State } from "../../../../lib/createData"
-import {
-  ChangeEvent,
-  useEffect,
-  /* useActionState - removed unused import */ useState,
-} from "react"
+import { ChangeEvent, useEffect, useState, useTransition } from "react"
 
 const initialState: State = {
   success: false,
@@ -23,16 +19,15 @@ const initialState: State = {
 }
 interface OvertimeConfirmFormProps {
   assignmentNumbers: { id: number; name: string }[]
-  // employeeId removed from props as it was unused
-  employeeId?: string | undefined
 }
 
 export const OvertimeConfirmForm = ({
   assignmentNumbers,
-  // employeeId parameter removed as it was unused
 }: OvertimeConfirmFormProps) => {
   const [state, setState] = useState<State>(initialState)
-  const [pending, setPending] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isPending, startTransition] = useTransition()
+  const pending = isPending || isSubmitting
   const [form, setForm] = useState({
     overtime_assignment_id: "",
     nb_extras_time: "",
@@ -46,21 +41,16 @@ export const OvertimeConfirmForm = ({
     }
   }, [state])
 
-  useEffect(() => {
-    if (pending) {
-      toast.loading("جاري انشاء الطلب", {
-        id: "overtime-confirm-form-loading-toast",
-      })
-    } else {
-      toast.dismiss("overtime-confirm-form-loading-toast")
-    }
-  }, [pending])
-
   const action = async (formData: FormData) => {
-    setPending(true)
-    const result = await formAction(formData)
-    setState(result)
-    setPending(false)
+    setIsSubmitting(true)
+    toast.loading("جاري انشاء الطلب", { id: "overtime-confirm-form-pending" })
+
+    startTransition(async () => {
+      const result = await formAction(formData)
+      setState(result)
+      setIsSubmitting(false)
+      toast.dismiss("overtime-confirm-form-pending")
+    })
   }
 
   if (state.success) {
@@ -101,7 +91,7 @@ export const OvertimeConfirmForm = ({
             }
           />
         </div>
-        <SubmitButton />
+        <SubmitButton disabled={pending} loading={pending} />
       </div>
     </form>
   )

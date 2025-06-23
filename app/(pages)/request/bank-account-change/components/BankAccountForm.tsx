@@ -11,7 +11,7 @@ import {
 } from "@components/form"
 import { paths } from "@lib"
 import { FileWithId } from "@types"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useTransition } from "react"
 import { toast } from "sonner"
 import { formAction } from "./helpers/formAction"
 import { State } from "../../../../lib/createData"
@@ -28,7 +28,9 @@ interface BankAccountFormProps {
 
 export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
   const [state, setState] = useState<State>(initialState)
-  const [pending, setPending] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isPending, startTransition] = useTransition()
+  const pending = isPending || isSubmitting
   const [files, setFiles] = useState<FileWithId[]>([])
   const [iban, setIban] = useState("")
   const [bankId, setBankId] = useState("")
@@ -52,21 +54,16 @@ export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
     if (errors) toast.error(errors?.[0])
   }, [state])
 
-  useEffect(() => {
-    if (pending) {
-      toast.loading("جاري انشاء الطلب", {
-        id: "vacation-form-loading-toast",
-      })
-    } else {
-      toast.dismiss("vacation-form-loading-toast")
-    }
-  }, [pending])
-
   const action = async (formData: FormData) => {
-    setPending(true)
-    const result = await formAction(formData)
-    setState(result)
-    setPending(false)
+    setIsSubmitting(true)
+    toast.loading("جاري انشاء الطلب", { id: "bank-account-form-pending" })
+
+    startTransition(async () => {
+      const result = await formAction(formData)
+      setState(result)
+      setIsSubmitting(false)
+      toast.dismiss("bank-account-form-pending")
+    })
   }
 
   if (state.success) {
@@ -121,7 +118,7 @@ export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
             ) || []
           }
         />
-        <SubmitButton />
+        <SubmitButton disabled={pending} loading={pending} />
       </div>
     </form>
   )

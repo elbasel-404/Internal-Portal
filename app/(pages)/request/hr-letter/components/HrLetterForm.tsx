@@ -8,7 +8,7 @@ import {
   TextareaField,
 } from "@components/form"
 import { paths } from "@lib"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useTransition } from "react"
 import { toast } from "sonner"
 import { formAction } from "./helpers/formAction"
 import { State } from "../../../../lib/createData"
@@ -29,7 +29,9 @@ export const HrLetterForm = ({
   hrLetterTypes,
 }: HrLetterFormProps) => {
   const [state, setState] = useState<State>(initialState)
-  const [pending, setPending] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isPending, startTransition] = useTransition()
+  const pending = isPending || isSubmitting
   const [destinationId, setDestinationId] = useState<string>()
   const [typeId, setTypeId] = useState<string>()
   const [notes, setNotes] = useState("")
@@ -48,21 +50,16 @@ export const HrLetterForm = ({
     if (errors) toast.error(errors?.[0])
   }, [state])
 
-  useEffect(() => {
-    if (pending) {
-      toast.loading("جاري انشاء الطلب", {
-        id: "hr-letter-form-loading-toast",
-      })
-    } else {
-      toast.dismiss("hr-letter-form-loading-toast")
-    }
-  }, [pending])
-
   const action = async (formData: FormData) => {
-    setPending(true)
-    const result = await formAction(formData)
-    setState(result)
-    setPending(false)
+    setIsSubmitting(true)
+    toast.loading("جاري انشاء الطلب", { id: "hr-letter-form-pending" })
+
+    startTransition(async () => {
+      const result = await formAction(formData)
+      setState(result)
+      setIsSubmitting(false)
+      toast.dismiss("hr-letter-form-pending")
+    })
   }
 
   if (state.success) {
@@ -132,7 +129,7 @@ export const HrLetterForm = ({
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
         />
-        <SubmitButton />
+        <SubmitButton disabled={pending} loading={pending} />
       </div>
     </form>
   )
