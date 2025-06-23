@@ -1,6 +1,6 @@
 "use client"
 
-import { NewsTabsKey, type NewsTab } from "@types"
+import { NewsTabsKey, type Row } from "@types"
 import { useEffect, useState } from "react"
 import { NewsTabs } from "../../../../../home/components/NewsSection/NewsTabs"
 import { defaultTraineeTabs } from "../../../../../../lib/defaultTraineeTabs"
@@ -13,7 +13,7 @@ import { emailHeaders } from "./config"
 // import { NewsHeader } from './NewsHeader';
 
 export const RequestTypeSection = () => {
-  let tabs = defaultTraineeTabs
+  const tabs = defaultTraineeTabs
   const firstTab = tabs[0]
   const [activeTab, setActiveTab] = useState<NewsTabsKey>(firstTab?.key)
   useEffect(() => {
@@ -22,8 +22,9 @@ export const RequestTypeSection = () => {
     })
     if (isActiveTabPresent) return
     setActiveTab(tabs[0]?.key)
-  }, [tabs])
-  const ads: NewsTab[] = []
+  }, [tabs, activeTab])
+  // Use Row type instead of NewsTab for compatibility with TraineeTypeContent
+  const ads: Row[] = []
   const renderContent = () => {
     switch (activeTab) {
       case "vpn":

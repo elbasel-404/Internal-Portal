@@ -3,8 +3,8 @@ import { fonts } from "@lib"
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
 import "./globals.css"
-import { getSession, logout } from "@auth"
-import { redirect } from "next/navigation"
+
+export const dynamic = "force-dynamic"
 
 export const metadata: Metadata = {
   title: "منشآت",
@@ -19,12 +19,6 @@ const RootLayout = async ({
   children,
   modalSlot,
 }: Readonly<RootLayoutProps>) => {
-  const session = await getSession()
-  if (!session) {
-    await logout()
-    redirect("/home")
-  }
-
   return (
     <html
       lang="en"

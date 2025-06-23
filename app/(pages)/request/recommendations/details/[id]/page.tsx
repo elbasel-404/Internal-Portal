@@ -12,6 +12,8 @@ const RecommendationDetailsPage = async ({
   params,
 }: RecommendationDetailsPageProps) => {
   const { id } = await params
+  const requestCaption =
+    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const requestStatus = await getRequestStatus(id, "hr.application")
   const {
     recommendationDate,

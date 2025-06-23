@@ -7,6 +7,7 @@ import {
 import { ProbationPeriodForm } from "../components"
 
 const NewProbationPeriodPage = async () => {
+  // const requestStatus = await getRequestStatus("", "")
   const requestStatus = await getCreateRequestStatus("hr.probation.evaluation")
   const probationPeriodEmployees = await getProbationPeriodEmployees()
   const probationPeriodQuestions = await getProbationPeriodFields("questions")

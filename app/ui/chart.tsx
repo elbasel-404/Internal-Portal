@@ -136,11 +136,13 @@ const ChartTooltipContent = React.forwardRef<
     ref,
   ) => {
     const chartContext = useChart()
-    if (!chartContext) return null
-    const { config } = chartContext
+    // Declare config outside with a default empty object to avoid conditional hook issues
+    const config = chartContext?.config || {}
 
-    const tooltipLabel = React.useMemo(() => {
-      if (hideLabel || !payload?.length) {
+    // Use useMemo unconditionally
+    const tooltipLabelMemo = React.useMemo(() => {
+      // Early return if no context, hideLabel is true, or no payload
+      if (!chartContext || hideLabel || !payload?.length) {
         return null
       }
 
@@ -189,7 +191,7 @@ const ChartTooltipContent = React.forwardRef<
           className,
         )}
       >
-        {!nestLabel ? tooltipLabel : null}
+        {!nestLabel ? tooltipLabelMemo : null}
         <div className="grid gap-1.5">
           {payload.map((item, index) => {
             const key = `${nameKey || item.name || item.dataKey || "value"}`
@@ -239,7 +241,7 @@ const ChartTooltipContent = React.forwardRef<
                       )}
                     >
                       <div className="grid gap-1.5">
-                        {nestLabel ? tooltipLabel : null}
+                        {nestLabel ? tooltipLabelMemo : null}
                         <span className="text-muted-foreground">
                           {itemConfig?.label || item.name}
                         </span>

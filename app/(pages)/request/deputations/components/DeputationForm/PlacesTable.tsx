@@ -35,7 +35,8 @@ export const PlacesTable = ({
   onChangeIssueVisa,
   onRemove,
 }: DeputationPlacesProps) => {
-  function changeIssueVisa(value: boolean): void {}
+  // Removed unused function
+  // function changeIssueVisa(value: boolean): void {}
 
   return (
     <>
@@ -87,7 +88,9 @@ export const PlacesTable = ({
                     className="flex group gap-1 items-center shadow-none hover:bg-red-600 hover:text-white justify-end text-destructive-foreground bg-destructive-opacity rounded-xl px-4 py-2.5"
                     onClick={(e) => {
                       e.preventDefault()
-                      onRemove && onRemove(item.id)
+                      if (onRemove) {
+                        onRemove(item.id)
+                      }
                     }}
                   >
                     <TrashIcon className="fill-destructive-foreground group-hover:fill-white" />

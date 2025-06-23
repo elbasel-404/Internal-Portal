@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { RequestStatus } from "@types"
 import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
@@ -7,8 +8,8 @@ import {
 } from "@api/schemas"
 
 export const getRequestStatus = async (
-  id?: string,
-  model?: string,
+  id: string,
+  model: string, // id: string,
 ): Promise<RequestStatus[]> => {
   const isDemo = await getDemo()
   if (isDemo) return dummyData

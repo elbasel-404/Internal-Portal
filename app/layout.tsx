@@ -4,6 +4,7 @@ import type { Metadata } from "next"
 import type { ReactNode } from "react"
 import "./(pages)/globals.css"
 import { Toaster } from "sonner"
+import { redirect } from "next/navigation"
 
 export const dynamic = "force-dynamic"
 
@@ -17,9 +18,9 @@ interface RootLayoutProps {
 
 const RootLayout = async ({ children }: Readonly<RootLayoutProps>) => {
   const session = await getSession()
-  if (!session)
+  if (!session) {
     return (
-      <html>
+      <html lang="ar">
         <body>
           <Toaster
             richColors
@@ -33,6 +34,7 @@ const RootLayout = async ({ children }: Readonly<RootLayoutProps>) => {
         </body>
       </html>
     )
+  }
 
   return <>{children}</>
 }

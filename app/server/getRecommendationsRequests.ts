@@ -2,61 +2,36 @@
 
 import { RecommendationSchema } from "@api/schemas/index"
 import { ResponseSchema } from "@api/schemas/responseSchema"
-import { getDemo } from "@db/actions"
 import type { RecommendationRequest } from "@types"
-import { getFetchHeaders } from "./getFetchHeaders"
-import { getStoredEmployeeId } from "@auth"
+import { getData } from "./getData"
 
 export const getRecommendationsRequests = async (): Promise<
   RecommendationRequest[]
 > => {
-  const isDemo = await getDemo()
-  if (isDemo) return RecommendationsDummyData
-  const employeeId = await getStoredEmployeeId()
-
-  // ! VARIABLES
-  // ! ==================================
-  const url = "api/po/hr/application/read"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  // const requestBody = { employee_id: 1711 }
-  const requestBody = { employee_id: employeeId }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
-
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+  return getData<RecommendationRequest>({
+    url: "api/po/hr/application/read",
+    responseSchema: ResponseSchema,
+    dataSchema: RecommendationSchema,
+    parseData: (data) => {
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, unknown>
+        return {
+          id: String(typedItem.id || ""),
+          date: String(typedItem.date || ""),
+          type: String(typedItem.type || ""),
+          cycle:
+            Array.isArray(typedItem.training_id) &&
+            typedItem.training_id.length > 1
+              ? String(typedItem.training_id[1])
+              : "",
+          startDate: String(typedItem.date_from || ""),
+          endDate: String(typedItem.date_to || ""),
+          status: String(typedItem.state || ""),
+        }
+      })
+    },
+    dummyData: RecommendationsDummyData,
   })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = RecommendationSchema.array().parse(data)
-
-  // ! PARSING
-  // ! ==================================
-  const returnedData: RecommendationRequest[] = validatedData.map((data) => {
-    const vacationItem: RecommendationRequest = {
-      id: data.id.toString(),
-      date: data.date,
-      type: data.type,
-      cycle: data.training_id[1].toString(),
-      startDate: data.date_from,
-      endDate: data.date_to,
-      status: data.state,
-    }
-    return vacationItem
-  })
-
-  return returnedData
 }
 
 const RecommendationsDummyData: RecommendationRequest[] = [
@@ -94,42 +69,6 @@ const RecommendationsDummyData: RecommendationRequest[] = [
     cycle: "طلب تطوير مهارات",
     startDate: "2024-06-15",
     endDate: "2024-06-30",
-    status: "اعتمد",
-  },
-  {
-    id: "#55469",
-    date: "2024-05-09",
-    type: "دولي",
-    cycle: "مؤتمر خارجي",
-    startDate: "2024-07-01",
-    endDate: "2024-07-10",
-    status: "المدير المباشر",
-  },
-  {
-    id: "#55470",
-    date: "2024-05-10",
-    type: "محلي",
-    cycle: "دورة داخلية",
-    startDate: "2024-07-05",
-    endDate: "2024-07-15",
-    status: "اعتمد",
-  },
-  {
-    id: "#55471",
-    date: "2024-05-11",
-    type: "محلي",
-    cycle: "تدريب ميداني",
-    startDate: "2024-07-10",
-    endDate: "2024-07-25",
-    status: "المدير المباشر",
-  },
-  {
-    id: "#55472",
-    date: "2024-05-11",
-    type: "دولي",
-    cycle: "ورشة عمل دولية",
-    startDate: "2024-07-20",
-    endDate: "2024-08-05",
     status: "اعتمد",
   },
 ]
