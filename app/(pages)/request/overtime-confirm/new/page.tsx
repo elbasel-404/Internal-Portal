@@ -1,11 +1,11 @@
 import { Instructions, RequestStatus } from "@components"
 import { getRequestStatus, getOvertimeList } from "@server"
 import { OvertimeConfirmForm } from "../components"
-import { getStoredEmployeeId } from "@auth"
+// import { getStoredEmployeeId } from "@auth"
 
 const NewOvertimeConfirmPage = async () => {
   const requestStatus = await getRequestStatus("", "OvertimeConfirm")
-  const employeeId = await getStoredEmployeeId()
+  // const employeeId = await getStoredEmployeeId()
   const assignmentNumbers = await getOvertimeList()
 
   const requestCaption =
@@ -13,10 +13,7 @@ const NewOvertimeConfirmPage = async () => {
   return (
     <div className="space-y-4 mb-16">
       <RequestStatus status={requestStatus} caption={requestCaption} />
-      <OvertimeConfirmForm
-        employeeId={employeeId}
-        assignmentNumbers={assignmentNumbers}
-      />
+      <OvertimeConfirmForm assignmentNumbers={assignmentNumbers} />
       <Instructions
         title="توضيحات حول الخدمة"
         description="تتيح هذه الخدمة للموظف امكانية تقديم طلب تأكيد للعمل الاضافي علي النظام لاخد الموافقات اللازمة لاعتماد الوقت الاضافي بعد تنفيذ التكليف. يتم تعبئة الطلب بالبيانات الاساسية ويجب علي الموظف التأكيد من تأكيد العمل الاضافي."
