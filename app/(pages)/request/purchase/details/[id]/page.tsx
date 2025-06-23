@@ -64,7 +64,7 @@ const PurchaseDetailsPage = async ({ params }: PurchaseDetailsPageProps) => {
 
   return (
     <main className="space-y-4">
-      <RequestStatus status={requestStatus} caption={requestCaption} />
+      <RequestStatus status={requestStatus} />
       <RequestDetails headers={requestHeaders} />
       <ProductsTableSection
         requestStatus={requestStatus}

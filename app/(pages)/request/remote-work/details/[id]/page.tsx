@@ -48,7 +48,7 @@ const RemoteWorkDetailsPage = async ({ params }: VacationDetailsPageProps) => {
 
   return (
     <>
-      <RequestStatus status={requestStatus} caption={requestCaption} />
+      <RequestStatus status={requestStatus} />
       <RequestDetails headers={requestHeaders} />
     </>
   )

@@ -14,8 +14,6 @@ const InternalCoursesDetailsPage = async ({
   const { id } = await params
   const model = "hr.training"
   const requestStatus = await getRequestStatus(id, model)
-  const requestCaption =
-    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
 
   const {
     courseName,
@@ -47,7 +45,6 @@ const InternalCoursesDetailsPage = async ({
       <InternalCourseDetailsClient
         trainingButton={displayButton}
         headers={requestHeaders}
-        caption={requestCaption}
         status={requestStatus}
         courseId={id}
       />

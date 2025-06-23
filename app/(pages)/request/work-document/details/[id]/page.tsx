@@ -12,9 +12,9 @@ const WorkDocumentDetailsPage = async ({
   params,
 }: WorkDocumentDetailsPageProps) => {
   const { id } = await params
-  const requestStatus = await getRequestStatus("", "")
   const requestCaption =
     "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
+  const requestStatus = await getRequestStatus(id, "base.issue.document")
   const {
     requestType,
     requestDate,
@@ -76,7 +76,7 @@ const WorkDocumentDetailsPage = async ({
   ]
   return (
     <main className="space-y-4">
-      <RequestStatus status={requestStatus} caption={requestCaption} />
+      <RequestStatus status={requestStatus} />
       <RequestDetails headers={requestHeaders} />
     </main>
   )

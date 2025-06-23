@@ -9,20 +9,20 @@ import {
 } from "@icons"
 import type { RequestStatus as RequestType } from "@types"
 import { Button } from "@ui"
-import { cn } from "@utils"
 import { Fragment, useEffect, useState } from "react"
 
 interface RequestStatusProps {
   status: RequestType[]
-  caption?: string
 }
-export const RequestStatus = ({ status, caption }: RequestStatusProps) => {
+export const RequestStatus = ({ status }: RequestStatusProps) => {
   const [showCaption, setShowCaption] = useState(true)
   const [accepted, setAccepted] = useState(false)
   const [rejected, setRejected] = useState(false)
   const length = status.length - 1
   const stat = status[length]?.status
-  const currentStatus = status[status.length - 2].title
+  const currentStatus = status.find(
+    ({ status }) => status === "in-progress",
+  )?.title
 
   useEffect(() => {
     if (stat === "") {
@@ -36,21 +36,15 @@ export const RequestStatus = ({ status, caption }: RequestStatusProps) => {
 
   return (
     <div className="bg-white pt-4 pb-4 px-4 rounded-lg space-y-4">
-      <div className="bg-[#FAFCFE] flex flex-col lg:flex-row items-center px-2 lg:px-8 p-6">
+      <div className="bg-[#FAFCFE] flex flex-col lg:flex-row items-center px-2 lg:px-8 p-6 overflow-x-auto">
         {status.map(
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           ({ id, title, subtitle, status, icon }, index) => {
             const isLast = index === length
             const requestIcon = icons[icon as keyof typeof icons]
             return (
-              <Fragment key={Number(id) + index}>
-                <div
-                  className={cn(
-                    "relative h-32 flex lg:block w-full lg:w-auto",
-                    isLast && "lg:ml-16",
-                  )}
-                  key={id}
-                >
+              <Fragment key={index}>
+                <div className="relative h-32 flex lg:block w-full lg:w-auto">
                   <div
                     className={`relative h-16 w-16 flex flex-col justify-center items-center ${
                       icon === "personConfirmed"
@@ -63,22 +57,18 @@ export const RequestStatus = ({ status, caption }: RequestStatusProps) => {
                       {subIcons[status]}
                     </div>
                   </div>
-                  <h2
-                    className={`text-sm w-max mr-20 lg:mr-0 mt-4 absolute ${
+                  <p
+                    className={`text-sm mr-20 lg:-mr-6 mt-4 text-center min-w-24 ${
                       status === "in-progress" && "text-grey-400"
                     }`}
                   >
                     {title}
-                  </h2>
-                  <p
-                    className={`${
-                      status === "in-progress"
-                        ? "text-blue-300"
-                        : "text-primary"
-                    } mt-8 mr-20 lg:mr-0 absolute w-max`}
-                  >
-                    {subtitle}
                   </p>
+                  {status === "completed" && (
+                    <p className="text-sm text-primary mt-2 mr-20 lg:-mr-5 w-24 text-nowrap">
+                      {subtitle}
+                    </p>
+                  )}
                 </div>
                 <Separator isLast={isLast} />
               </Fragment>
@@ -100,7 +90,6 @@ export const RequestStatus = ({ status, caption }: RequestStatusProps) => {
             rejected={rejected}
             accepted={accepted}
           />
-          <p className="hidden">{caption}</p>
         </>
       )}
     </div>
@@ -114,7 +103,7 @@ interface SeparatorProps {
 const Separator = ({ isLast, dataKey }: SeparatorProps) => {
   if (isLast) return null
   return (
-    <div className="h-16 flex-1 mr-2 ml-4">
+    <div className="h-16 flex-1 mr-2 ml-4 lg:min-w-32">
       <div data-key={dataKey} className="h-1 bg-grey-200 flex-1" />
     </div>
   )

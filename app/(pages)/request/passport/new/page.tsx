@@ -1,16 +1,14 @@
-import {
-  Instructions /* RequestStatus removed to fix unused import */,
-} from "@components"
-import {} from /* getRequestStatus removed as its result isn't used */ "@server"
+import { Instructions, CreateRequestStatus } from "@components"
+import { getCreateRequestStatus } from "@server"
 import { PassportForm } from "../components"
 
 const NewPassportPage = async () => {
-  // Removed unused variables
-  // const requestStatus = await getRequestStatus("", "")
-  // const requestCaption = "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
+  const requestStatus = await getCreateRequestStatus("hr.passport.request")
+  const requestCaption =
+    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   return (
     <div className="space-y-4 mb-16">
-      {/* <RequestStatus status={requestStatus} caption={requestCaption} /> */}
+      <CreateRequestStatus status={requestStatus} caption={requestCaption} />
       <PassportForm />
       <Instructions
         title="توضيحات حول الخدمة"
