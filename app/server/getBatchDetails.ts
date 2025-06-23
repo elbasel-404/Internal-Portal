@@ -3,7 +3,7 @@
 import { BatchDetails } from "@types"
 
 export const getBatchDetails = async (
-  id: string,
+  id: string /* _id: string, */, // Parameter not used
 ): Promise<BatchDetails | void> => {
   return { ...dummyData }
 }

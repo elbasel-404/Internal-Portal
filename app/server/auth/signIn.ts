@@ -55,7 +55,6 @@ export const signIn = async (
   })
 
   // ! ================= FETCH =================
-  console.log("fetchung auth endpoint")
   const response = await fetch(AUTH_ENDPOINT_URL, {
     method,
     headers,

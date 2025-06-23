@@ -24,7 +24,7 @@ export const getWorkDocumentDetails = async (
       ],
     }
     return details
-  } catch (error) {
+  } catch {
     return
   }
 }

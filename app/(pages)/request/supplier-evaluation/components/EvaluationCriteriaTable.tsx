@@ -126,36 +126,37 @@ export const EvaluationCriteriaTable = ({
               <div className={"bg-white flex text-center items-center"}>
                 {Object.entries(data)
                   .filter(([key]) => key !== "id")
-                  .map(([key, value], keyIndex) =>
-                    key !== "evaluationPoints" ? (
-                      <div key={key} className="w-1/5">
-                        <span>{value}</span>
-                      </div>
-                    ) : (
-                      <div key={key} className="w-1/5">
-                        <div className="flex">
-                          {chartContainers.map((item, index) => (
-                            <div
-                              className={`${item.className} w-1/3 flex items-center justify-center`}
-                              key={`${key}-${index}`}
-                            >
-                              <PieChartElem
-                                size={2}
-                                thickness={8}
-                                percentage={evaluationPoints[index]}
-                                percentageSize="text-base"
-                                percentageColor="fill-white"
-                                nameKey="stat"
-                                dataKey="percentage"
-                                chartConfig={item.pieChartConfig}
-                                chartData={item.pieChartData}
-                                pieChartHeight="57"
-                              />
-                            </div>
-                          ))}
+                  .map(
+                    ([key, value] /* keyIndex removed to fix unused var */) =>
+                      key !== "evaluationPoints" ? (
+                        <div key={key} className="w-1/5">
+                          <span>{value}</span>
                         </div>
-                      </div>
-                    ),
+                      ) : (
+                        <div key={key} className="w-1/5">
+                          <div className="flex">
+                            {chartContainers.map((item, index) => (
+                              <div
+                                className={`${item.className} w-1/3 flex items-center justify-center`}
+                                key={`${key}-${index}`}
+                              >
+                                <PieChartElem
+                                  size={2}
+                                  thickness={8}
+                                  percentage={evaluationPoints[index]}
+                                  percentageSize="text-base"
+                                  percentageColor="fill-white"
+                                  nameKey="stat"
+                                  dataKey="percentage"
+                                  chartConfig={item.pieChartConfig}
+                                  chartData={item.pieChartData}
+                                  pieChartHeight="57"
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ),
                   )}
               </div>
             }

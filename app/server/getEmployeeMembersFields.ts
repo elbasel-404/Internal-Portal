@@ -1,67 +1,48 @@
+"use server"
+
 import {
   EmployeeMembersField,
   EmployeeMembersFieldSchema,
 } from "@api/schemas/index"
 import { ResponseSchema } from "@api/schemas/responseSchema"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
+import { getData } from "./getData"
 
 export const getEmployeeMembersFields = async (
   fieldName: string,
 ): Promise<EmployeeMembersField[]> => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
-
-  // ! VARIABLES
-  // ! ==================================
-  const url = "api/po/hr/employee/members/fields"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  const requestBody = { field_name: fieldName }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
-
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+  return getData<EmployeeMembersField>({
+    url: "api/po/hr/employee/members/fields",
+    responseSchema: ResponseSchema,
+    dataSchema: EmployeeMembersFieldSchema.array(),
+    parseData: (data) => {
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, unknown>
+        return {
+          id: Number(typedItem.id || 0),
+          name: String(typedItem.name || ""),
+          birthday: typedItem.birthday as string | undefined,
+          family_name_ar: typedItem.family_name_ar as string | undefined,
+          family_name_en: typedItem.family_name_en as string | undefined,
+          father_name_ar: typedItem.father_name_ar as string | undefined,
+          father_name_en: typedItem.father_name_en as string | undefined,
+          first_name_ar: typedItem.first_name_ar as string | undefined,
+          first_name_en: typedItem.first_name_en as string | undefined,
+          grandfather_name_ar: typedItem.grandfather_name_ar as
+            | string
+            | undefined,
+          grandfather_name_en: typedItem.grandfather_name_en as
+            | string
+            | undefined,
+          identity: typedItem.identity as string | undefined,
+          relative_relation: typedItem.relative_relation as string | undefined,
+          individual_complete_name: typedItem.individual_complete_name as
+            | string
+            | undefined,
+        }
+      })
+    },
+    dummyData: dummyData,
   })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = EmployeeMembersFieldSchema.array().parse(data)
-
-  // ! PARSING
-  // ! ==================================
-
-  const returnedData: EmployeeMembersField[] = validatedData.map((data) => {
-    const employeeMemberFieldItem: EmployeeMembersField = {
-      id: data.id,
-      name: data.name,
-      birthday: data.birthday,
-      family_name_ar: data.family_name_ar,
-      family_name_en: data.family_name_en,
-      father_name_ar: data.family_name_ar,
-      father_name_en: data.father_name_en,
-      first_name_ar: data.first_name_ar,
-      first_name_en: data.first_name_en,
-      grandfather_name_ar: data.grandfather_name_ar,
-      grandfather_name_en: data.grandfather_name_en,
-      identity: data.identity,
-      relative_relation: data.relative_relation,
-      individual_complete_name: data.individual_complete_name,
-    }
-    return employeeMemberFieldItem
-  })
-
-  return returnedData
 }
 
 const dummyData: EmployeeMembersField[] = [

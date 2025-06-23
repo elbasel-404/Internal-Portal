@@ -3,6 +3,7 @@ import { getCreateRequestStatus } from "@server"
 import { JobApplicationsForm } from "../components"
 
 const NewJobApplicationPage = async () => {
+  // const requestStatus = await getRequestStatus("", "")
   const requestStatus = await getCreateRequestStatus("hr.job.request")
   // ! TODO: Add server action:
   const requestCaption =

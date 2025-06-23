@@ -17,7 +17,7 @@ export const deputationConfirmationFormAction = async (formData: FormData) => {
     const {
       success,
       data: validatedData,
-      error,
+      // error is not used, removing to fix linting error
     } = ProjectCompletionSchema.safeParse(responseData)
 
     await db.read()
@@ -30,5 +30,7 @@ export const deputationConfirmationFormAction = async (formData: FormData) => {
     db.data.users[userIndex].projectCompletion.push(validatedData)
 
     await db.write()
-  } catch (error) {}
+  } catch {
+    // Error handling could be added here in the future
+  }
 }

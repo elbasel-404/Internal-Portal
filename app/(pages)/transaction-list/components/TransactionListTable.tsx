@@ -14,7 +14,7 @@ import {
 } from "@ui"
 import { FilterIcon, SearchIcon, FolderWithSearchIcon } from "@icons"
 import type { TransactionRequest } from "@types"
-import { paths } from "@lib"
+// import { paths } from "@lib" - removed unused import
 
 const requests = [
   { id: "1", description: "العمل عن بعد" },
