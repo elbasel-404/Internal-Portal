@@ -24,9 +24,9 @@ const ReplacementCovenantDetailsPage = async ({
   params,
 }: ReplacementCovenantDetailsPageProps) => {
   const { id } = await params
-  const requestStatus = await getRequestStatus("", "")
-  const requestCaption =
-    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
+  // const requestCaption =
+  //   "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
+  const requestStatus = await getRequestStatus(id, "manage.financial.custody")
   const {
     date,
     pledgeAmount,
@@ -81,7 +81,7 @@ const ReplacementCovenantDetailsPage = async ({
   ]
   return (
     <main className="space-y-4">
-      <RequestStatus status={requestStatus} caption={requestCaption} />
+      <RequestStatus status={requestStatus} />
       <RequestDetails headers={requestHeaders} />
       <div className="bg-primary-opacity py-6 px-[18px] border-r-4 border-r-primary">
         <h2 className="text-primary font-bold text-xl">

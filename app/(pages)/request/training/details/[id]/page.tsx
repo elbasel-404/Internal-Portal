@@ -20,9 +20,9 @@ const tableHeaders = [
 
 const TrainingDetailsPage = async ({ params }: TrainingDetailsPageProps) => {
   const { id } = await params
-  const requestStatus = await getRequestStatus("", "")
-  const requestCaption =
-    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
+  // const requestCaption =
+  //   "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
+  const requestStatus = await getRequestStatus(id, "hr.training.request")
   const {
     duration,
     courseProgram,
@@ -86,7 +86,7 @@ const TrainingDetailsPage = async ({ params }: TrainingDetailsPageProps) => {
 
   return (
     <>
-      <RequestStatus status={requestStatus} caption={requestCaption} />
+      <RequestStatus status={requestStatus} />
       <RequestDetails
         headers={employeeHeaders}
         requestDetailsLabel="بيانات الموظف"

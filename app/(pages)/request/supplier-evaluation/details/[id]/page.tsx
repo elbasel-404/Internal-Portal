@@ -24,9 +24,12 @@ const SupplierEvaluationDetailsPage = async ({
   params,
 }: SupplierEvaluationDetailsPageProps) => {
   const { id } = await params
-  const requestStatus = await getRequestStatus("", "")
-  const requestCaption =
-    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
+  // const requestCaption =
+  //   "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
+  const requestStatus = await getRequestStatus(
+    id,
+    "hr.relation.supplier.evaluation",
+  )
   const {
     requestDate,
     contract,
@@ -154,7 +157,7 @@ const SupplierEvaluationDetailsPage = async ({
 
   return (
     <main>
-      <RequestStatus status={requestStatus} caption={requestCaption} />
+      <RequestStatus status={requestStatus} />
       <RequestDetails headers={requestHeaders} />
       <EvaluationCriteriaTable
         data={CriteriaStatistics}
