@@ -6,7 +6,6 @@ import { ErrorCode } from "./lib/ErrorCode"
 import { clearUser } from "@server"
 import { Modal } from "@components/modals/Modal"
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 const resetUser = async () => {
   await clearUser()
 }
@@ -68,10 +67,11 @@ export default function Error({
   useEffect(() => {
     // Log the error to an error reporting service
     const errorMessage = error.message
-    const errorStack = error.stack
-    const errorCause = error.cause
-    const errorDigest = error.digest
-    const errorName = error.name
+    // Not using these properties currently
+    // const errorStack = error.stack
+    // const errorCause = error.cause
+    // const errorDigest = error.digest
+    // const errorName = error.name
 
     const validatedErrorMessage =
       errorMessageSchema.safeParse(errorMessage).data

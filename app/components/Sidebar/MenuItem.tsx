@@ -47,6 +47,15 @@ export const MenuItem = ({
         <div
           className={`flex items-center justify-center w-full text-white p-2 cursor-pointer`}
           onClick={toggleSubMenu}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              toggleSubMenu()
+              e.preventDefault()
+            }
+          }}
+          tabIndex={0}
+          role="button"
+          aria-expanded={isSubMenuOpen}
         >
           <div className="flex flex-col gap-2 items-center justify-center">
             <div

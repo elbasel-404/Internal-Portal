@@ -7,8 +7,8 @@ import {
 } from "@api/schemas"
 
 export const getRequestStatus = async (
-  id?: string,
-  model?: string,
+  id: string,
+  model: string, // id: string,
 ): Promise<RequestStatus[]> => {
   const isDemo = await getDemo()
   if (isDemo) return dummyData

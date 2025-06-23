@@ -17,5 +17,7 @@ export const removeProduct = async (index: number) => {
     userData.products.splice(index, 1)
 
     await db.write()
-  } catch (error) {}
+  } catch {
+    // Error handling could be added here in the future
+  }
 }

@@ -12,6 +12,8 @@ const ResignationDetailsPage = async ({
   params,
 }: ResignationDetailsPageProps) => {
   const { id } = await params
+  // const requestCaption =
+  //   "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const requestStatus = await getRequestStatus(id, "hr.resignation")
   const {
     requestDate,

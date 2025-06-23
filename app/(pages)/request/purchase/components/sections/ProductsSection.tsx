@@ -28,7 +28,7 @@ interface ProductsProps {
 }
 
 export const ProductsSection = ({ data }: ProductsProps) => {
-  const [costs, setCosts] = useAtom(costsAtom)
+  const [, /* costs removed to fix unused var */ setCosts] = useAtom(costsAtom)
 
   const extractNumberUsingRegex = (str: string) => {
     const matches = str.match(/\d+/g)

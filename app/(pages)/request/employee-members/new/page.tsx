@@ -5,6 +5,7 @@ import { EmployeeMembersForm } from "../components"
 
 const NewEmployeeMembersPage = async () => {
   const employeeId = await getStoredEmployeeId()
+  // const requestStatus = await getRequestStatus("", "")
   const requestStatus = await getCreateRequestStatus("hr.employee.members")
   const requestTypeField = await getEmployeeMembersFields("type")
   const memberField = await getEmployeeMembersFields("members")
