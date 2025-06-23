@@ -14,8 +14,6 @@ const BankAccountDetailsPage = async ({
   const { id } = await params
   const model = "change.bank.account.request"
   const requestStatus = await getRequestStatus(id, model)
-  const requestCaption =
-    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const {
     requestDate,
     employeeCurrentAccount,
@@ -52,7 +50,7 @@ const BankAccountDetailsPage = async ({
   ]
   return (
     <main className="space-y-6">
-      <RequestStatus status={requestStatus} caption={requestCaption} />
+      <RequestStatus status={requestStatus} />
       <RequestDetails headers={requestHeaders} />
       <Instructions
         title="توضيحات حول الخدمة"

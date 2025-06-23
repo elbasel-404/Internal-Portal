@@ -14,8 +14,6 @@ const PermissionsDetailsPage = async ({
   const { id } = await params
   const model = "hr.authorization"
   const requestStatus = await getRequestStatus(id, model)
-  const requestCaption =
-    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const {
     requestDate,
     type,
@@ -67,7 +65,7 @@ const PermissionsDetailsPage = async ({
   ]
   return (
     <main>
-      <RequestStatus status={requestStatus} caption={requestCaption} />
+      <RequestStatus status={requestStatus} />
       <RequestDetails headers={requestHeaders} />
     </main>
   )
