@@ -16,7 +16,7 @@ export async function createData<T extends Record<string, unknown>>(
   endpointUrl: string,
   requestBodySchema: z.ZodType<T, z.ZodTypeDef>,
   formData: FormData,
-  massageBody?: (
+  messageBody?: (
     body: Record<string, FormDataEntryValue>,
   ) => Record<string, FormDataEntryValue>,
 ): Promise<State> {
@@ -35,11 +35,9 @@ export async function createData<T extends Record<string, unknown>>(
   }
 
   let requestBody = Object.fromEntries(formData.entries())
-  const employeeId = await getStoredEmployeeId()
-  requestBody["employee_id"] = employeeId || ""
 
-  if (massageBody) {
-    requestBody = massageBody(requestBody)
+  if (messageBody) {
+    requestBody = messageBody(requestBody)
   }
 
   const fetchUrl = `${rootUrl}/${endpointUrl}`
@@ -72,7 +70,11 @@ export async function createData<T extends Record<string, unknown>>(
   // ! ==================================
   // ! FETCH
   // ! ==================================
+  const employeeId = await getStoredEmployeeId()
+
   const fetchFormData = new FormData()
+  fetchFormData.append("employee_id", employeeId ?? "")
+  // requestBody["employee_id"] = employeeId || ""
   const validatedRequestBodyEntries = Object.entries(validatedRequestBody)
 
   validatedRequestBodyEntries.forEach(([key, value]) => {
