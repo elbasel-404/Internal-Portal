@@ -13,7 +13,7 @@ import {
 } from "@components/form"
 import { paths } from "@lib"
 import { FileWithId } from "@types"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useTransition } from "react"
 import { toast } from "sonner"
 import { formAction } from "./helpers/formAction"
 import { State } from "../../../../lib/createData"
@@ -31,8 +31,9 @@ const PermissionTypes = [
 
 export const PermissionForm = () => {
   const [state, setState] = useState<State>(initialState)
-  // pending is declared but never used
-  const [, /* pending removed to fix unused var */ setPending] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isPending, startTransition] = useTransition()
+  const pending = isPending || isSubmitting
   const [files, setFiles] = useState<FileWithId[]>([])
   const [isMultipleDays, setIsMultipleDays] = useState(false)
   const [permissionTypeValue, setPermissionTypeValue] = useState<string>("")
@@ -57,10 +58,15 @@ export const PermissionForm = () => {
   }, [state])
 
   const action = async (formData: FormData) => {
-    setPending(true)
-    const result = await formAction(formData)
-    setState(result)
-    setPending(false)
+    setIsSubmitting(true)
+    toast.loading("جاري انشاء الطلب", { id: "permission-form-pending" })
+
+    startTransition(async () => {
+      const result = await formAction(formData)
+      setState(result)
+      setIsSubmitting(false)
+      toast.dismiss("permission-form-pending")
+    })
   }
 
   if (state.success) {
@@ -177,7 +183,7 @@ export const PermissionForm = () => {
             }
           />
         )}
-        <SubmitButton />
+        <SubmitButton disabled={pending} loading={pending} />
       </div>
     </form>
   )

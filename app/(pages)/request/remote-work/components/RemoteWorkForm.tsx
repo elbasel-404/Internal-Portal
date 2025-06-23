@@ -9,7 +9,7 @@ import {
   TextareaField,
 } from "@components/form"
 import { paths } from "@lib"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useTransition } from "react"
 import { toast } from "sonner"
 import { formAction } from "./helpers/formAction"
 import { State } from "../../../../lib/createData"
@@ -22,7 +22,9 @@ const initialState: State = {
 
 export const RemoteWorkForm = () => {
   const [state, setState] = useState<State>(initialState)
-  const [pending, setPending] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isPending, startTransition] = useTransition()
+  const pending = isPending || isSubmitting
   const [dateFrom, setDateFrom] = useState(new Date())
   const [dateTo, setDateTo] = useState(new Date())
   const [duration, setDuration] = useState("1")
@@ -54,21 +56,16 @@ export const RemoteWorkForm = () => {
     if (errors) toast.error(errors?.[0])
   }, [state])
 
-  useEffect(() => {
-    if (pending) {
-      toast.loading("جاري انشاء الطلب", {
-        id: "remote-work-form-loading-toast",
-      })
-    } else {
-      toast.dismiss("remote-work-form-loading-toast")
-    }
-  }, [pending])
-
   const action = async (formData: FormData) => {
-    setPending(true)
-    const result = await formAction(formData)
-    setState(result)
-    setPending(false)
+    setIsSubmitting(true)
+    toast.loading("جاري انشاء الطلب", { id: "remote-work-form-pending" })
+
+    startTransition(async () => {
+      const result = await formAction(formData)
+      setState(result)
+      setIsSubmitting(false)
+      toast.dismiss("remote-work-form-pending")
+    })
   }
 
   if (state.success) {
@@ -158,7 +155,7 @@ export const RemoteWorkForm = () => {
             required
           />
         </div>
-        <SubmitButton />
+        <SubmitButton disabled={pending} loading={pending} />
       </div>
     </form>
   )
