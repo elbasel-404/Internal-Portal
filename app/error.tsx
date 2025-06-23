@@ -6,7 +6,6 @@ import { ErrorCode } from "./lib/ErrorCode"
 import { clearUser } from "@server"
 import { Modal } from "@components/modals/Modal"
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 const resetUser = async () => {
   await clearUser()
 }

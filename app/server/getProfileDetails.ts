@@ -27,6 +27,7 @@ export const getProfileDetails = async (): Promise<ProfileDetails> => {
         typeof typedData.mobile_phone2 === "boolean"
           ? "none"
           : String(typedData.mobile_phone2 || "")
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const workPhone =
         typeof typedData.work_phone === "boolean"
           ? "none"

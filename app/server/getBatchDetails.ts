@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use server"
 
 import { BatchDetails } from "@types"
 
 export const getBatchDetails = async (
-  id: string /* _id: string, */, // Parameter not used
+  id: string,
 ): Promise<BatchDetails | void> => {
   return { ...dummyData }
 }
