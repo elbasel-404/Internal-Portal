@@ -12,8 +12,8 @@ const NewOvertimeConfirmPage = async () => {
   // const employeeId = await getStoredEmployeeId()
   const assignmentNumbers = await getOvertimeList()
 
-  const requestCaption =
-    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
+  // const requestCaption =
+  // "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   return (
     <div className="space-y-4 mb-16">
       {/* <RequestStatus status={requestStatus} caption={requestCaption} /> */}

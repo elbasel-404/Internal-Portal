@@ -7,6 +7,7 @@ import type { CreateRequestStatus } from "@types"
 // import { getFetchHeaders } from "./getFetchHeaders"
 
 export const getCreateRequestStatus = async (
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   model?: string,
 ): Promise<CreateRequestStatus[]> => {
   return dummyData
