@@ -10,29 +10,35 @@ import {
   TextareaField,
 } from "@components/form"
 import { paths } from "@lib"
-import { ChangeEvent, useActionState, useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState, useTransition } from "react"
 import { toast } from "sonner"
 import { formAction } from "./helpers/formAction"
-import { getStateAction } from "./helpers/getStateAction"
+// import { getStateAction } from "./helpers/getStateAction" - removed unused import
 
 import type { VacationType } from "@api/schemas/vacation-types/schema"
 import { createFileHandler } from "@atoms"
 import { FileWithId } from "@types"
-import { initialState } from "./helpers/initialState"
-import type { State } from "./helpers/State"
+import type { State } from "../../../../lib/createData"
 
 const substituteEmployees = [
   { id: 1, name: "عاصم بن رشود العصيمي" },
   { id: 2, name: "محمد بن علي الرفاعي" },
 ]
 
-const stateAction = getStateAction<State>(formAction)
+const initialState: State = {
+  success: false,
+  errors: null,
+  id: null,
+}
 
 interface VacationFormProps {
   vacationElements: VacationType[]
 }
 export const VacationForm = ({ vacationElements }: VacationFormProps) => {
-  const [state, action, pending] = useActionState(stateAction, initialState)
+  const [state, setState] = useState<State>(initialState)
+  const [isPending, startTransition] = useTransition()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const pending = isPending || isSubmitting
   const [files, setFiles] = useState<FileWithId[]>([])
   const [dateFrom, setDateFrom] = useState(new Date())
   const [dateTo, setDateTo] = useState(new Date())
@@ -71,8 +77,6 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
     setDeathPerson(event.target.value)
   }
 
-  console.log({ state, pending })
-
   useEffect(() => {
     if (dateFrom && dateTo) {
       const start = new Date(dateFrom)
@@ -88,18 +92,20 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
   useEffect(() => {
     const { success, errors } = state
     if (success) toast.success("تم انشاء الطلب بنجاح")
-    if (errors) toast.error(errors)
+    if (errors) toast.error(errors[0])
   }, [state])
 
-  useEffect(() => {
-    if (pending) {
-      toast.loading("جاري انشاء الطلب", {
-        id: "vacation-form-loading-toast",
-      })
-    } else {
-      toast.dismiss("vacation-form-loading-toast")
-    }
-  }, [pending])
+  const action = async (formData: FormData) => {
+    setIsSubmitting(true)
+    toast.loading("جاري انشاء الطلب", { id: "vacation-form-pending" })
+
+    startTransition(async () => {
+      const result = await formAction(formData)
+      setState(result)
+      setIsSubmitting(false)
+      toast.dismiss("vacation-form-pending")
+    })
+  }
 
   if (state.success) {
     return (
@@ -116,7 +122,7 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
       className="bg-white rounded-lg text-black text-lg p-4 space-y-4"
     >
       <FormHeader label="نموذج طلب إجازة" path={paths.vacations.href} />
-      <input
+      {/* <input
         type="text"
         name="employee_id"
         id="employee_id"
@@ -125,7 +131,7 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
         readOnly
         value="1711"
         className="hidden"
-      />
+      /> */}
       <div
         className={`grid grid-cols-1 ${
           vacationType === "16" || vacationType === "18"
@@ -137,7 +143,13 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
           <SelectField
             label="نوع الاجازة"
             name="holiday_status_id"
-            types={vacationElements}
+            types={vacationElements
+              .filter((el) => el.id !== undefined && el.name !== undefined)
+              .map((el) => ({
+                id: el.id as string | number,
+                name: el.name as string,
+                display_name: el.display_name,
+              }))}
             placeholder=""
             value={vacationType}
             onChange={handleVacationTypeChange}
@@ -227,9 +239,14 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
           fileHandler.remove(files[index].id)
         }
         required
+        errors={
+          state.errors?.filter((error) =>
+            error.toLowerCase().includes("attachment"),
+          ) || []
+        }
       />
 
-      <SubmitButton />
+      <SubmitButton disabled={pending} loading={pending} />
     </form>
   )
 }

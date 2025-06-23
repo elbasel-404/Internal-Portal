@@ -1,5 +1,3 @@
-export type State = {
-  success: boolean | null
-  errors: string[] | null
-  id: number | null
-}
+// Import the State type from the central createData file
+import { State } from "../../../../../lib/createData"
+export type { State }

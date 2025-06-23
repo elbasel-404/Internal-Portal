@@ -1,59 +1,54 @@
 "use server"
 
 import type { Employee } from "@types"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
 import { EmployeeDepartmentElementSchema, ResponseSchema } from "@api/schemas"
+import { getData } from "./getData"
+
 export const getEmployeeDepartmentRequests = async (): Promise<Employee[]> => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
-
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/read/relative-employees"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
-  const requestBody = { employee_id: 305 }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
-
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
-  })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = EmployeeDepartmentElementSchema.array().parse(data)
-
-  // ! PARSING
-  // ! ==================================
-  const returnedData: Employee[] = validatedData.map((data) => {
-    const newsItem: Employee = {
-      id: data.id.toString(),
-      name: data.complete_name,
-      image: `data:image/gif;base64,${data.image}`,
-      position: data.job_id[1].toString(),
-      phone: data.mobile_phone,
-      recycleWork: `تحويلة العمل ${data.work_phone}`,
-      address: data.work_location,
-      email: data.work_email,
-      sector: data.sector_id[1].toString(),
-      generalAdministration: data.administration_id[1].toString(),
-      management: data.department_global_id[1].toString(),
-      department: data.department_id[1].toString(),
-      generalManager: data.sector_manager_id[1].toString(),
+  const getArrayValue = (field: unknown, index: number = 1): string => {
+    if (Array.isArray(field) && field[index] !== undefined) {
+      return String(field[index])
     }
-    return newsItem
+    return ""
+  }
+
+  const getStringValue = (field: unknown): string => {
+    return typeof field === "string" ? field : ""
+  }
+
+  return getData<Employee>({
+    url: "api/po/read/relative-employees",
+    responseSchema: ResponseSchema,
+    dataSchema: EmployeeDepartmentElementSchema,
+    parseData: (data) => {
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, unknown>
+
+        // Get image with fallback
+        const imageBase64 = getStringValue(typedItem.image)
+        const imageSrc = imageBase64
+          ? `data:image/gif;base64,${imageBase64}`
+          : ""
+
+        return {
+          id: String(typedItem.id || ""),
+          name: getStringValue(typedItem.complete_name),
+          image: imageSrc,
+          position: getArrayValue(typedItem.job_id),
+          phone: getStringValue(typedItem.mobile_phone),
+          recycleWork: `تحويلة العمل ${getStringValue(typedItem.work_phone)}`,
+          address: getStringValue(typedItem.work_location),
+          email: getStringValue(typedItem.work_email),
+          sector: getArrayValue(typedItem.sector_id),
+          generalAdministration: getArrayValue(typedItem.administration_id),
+          management: getArrayValue(typedItem.department_global_id),
+          department: getArrayValue(typedItem.department_id),
+          generalManager: getArrayValue(typedItem.sector_manager_id),
+        }
+      })
+    },
+    dummyData,
   })
-  return returnedData
 }
 
 const dummyData: Employee[] = [

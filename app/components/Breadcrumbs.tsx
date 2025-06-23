@@ -25,8 +25,7 @@ export const Breadcrumbs = () => {
     if (isModalHref) return
     if (prevPath !== currentPath) {
       setPrevPath(currentPath as Route)
-      if (!currentTitle)
-        return console.error("No title found for path:", currentPath)
+      if (!currentTitle) return
       setCurrentPathTitle(currentTitle)
     }
 

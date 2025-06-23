@@ -21,7 +21,6 @@ const ModalSlotPage = async ({ params }: ModalSlotPageProps) => {
   const parsedName = modalNameSchema.safeParse(name)
   if (!parsedName.success) {
     notFound()
-    // throw new Error('Invalid modal name');
   }
 
   const Modal = await loadModal(parsedName.data)

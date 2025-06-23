@@ -148,9 +148,10 @@ export function getDateByType(date: Date, type: TimePickerType) {
       return getValidMinuteOrSecond(String(safeDate.getSeconds()))
     case "hours":
       return getValidHour(String(safeDate.getHours()))
-    case "12hours":
+    case "12hours": {
       const hours = display12HourValue(safeDate.getHours())
       return getValid12Hour(String(hours))
+    }
     default:
       return "00"
   }

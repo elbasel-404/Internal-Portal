@@ -67,12 +67,21 @@ const RulesPolicy = ({ rulesData }: RulesDataProps) => {
                   {title}
                 </p>
               </div>
-              <p
+              <div
                 className="text-sm text-stormGray mt-1 cursor-pointer"
                 onClick={() => toggleDescription(i)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    toggleDescription(i)
+                    e.preventDefault()
+                  }
+                }}
+                tabIndex={0}
+                role="button"
+                aria-expanded={expandedIndex === i}
               >
                 {getPreviewText(description, i)}
-              </p>
+              </div>
               <div className="flex flex-col md:flex-row items-start md:items-center gap-2 mt-1">
                 <p className="text-foreground font-medium">
                   سياسة رقم : {policyNumber}

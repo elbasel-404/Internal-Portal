@@ -81,5 +81,6 @@
     "والترقيات",
     "ونهاية",
     "ويجب"
-  ]
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

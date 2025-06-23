@@ -2,66 +2,45 @@
 
 import { EmployeeMemberSchema } from "@api/schemas/index"
 import { ResponseSchema } from "@api/schemas/responseSchema"
-import { getStoredEmployeeId } from "@auth"
-import { getDemo } from "@db/actions"
 import type { EmployeeMembersRequest } from "@types"
-import { getFetchHeaders } from "./getFetchHeaders"
+import { getData } from "./getData"
 
-export const getEmployeeMembersRequests = async () => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
+export const getEmployeeMembersRequests = async (): Promise<
+  EmployeeMembersRequest[]
+> => {
+  return getData<EmployeeMembersRequest>({
+    url: "api/po/hr/employee/members/read",
+    additionalBody: { employee_id: Number }, // Ensures employee_id is converted to number
+    responseSchema: ResponseSchema,
+    dataSchema: EmployeeMemberSchema,
+    parseData: (data) => {
+      return data.map((rawItem: unknown) => {
+        const item = rawItem as Record<string, unknown>
+        const employeeId = Array.isArray(item.employee_id)
+          ? item.employee_id[1]
+          : ""
+        let applicantName = ""
 
-  // ! VARIABLES
-  // ! ==================================
-  const employeeId = await getStoredEmployeeId()
-  const url = "api/po/hr/employee/members/read"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
-  const requestBody = { employee_id: Number(employeeId) }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
-
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
-  })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.safeParse(responseJson)
-  const result = validatedResponse.data?.result
-  const data = result?.data
-  const validatedData = EmployeeMemberSchema.array().safeParse(data)
-  const employeeMembersData = validatedData.data
-
-  // ! PARSING
-  // ! ==================================
-  const returnedData: EmployeeMembersRequest[] = employeeMembersData
-    ? employeeMembersData.map((data) => {
-        const employeeMember: EmployeeMembersRequest = {
-          id: data.id.toString(),
-          date: data.date,
-          applicant: data.employee_id[1]
-            .toString()
-            .replace(/\[\d+\]\s*/, "")
-            .split(/\s+/)[0],
-          requestType: data.type,
-          relation: data.relative_relation,
-          nameAr: data.individual_complete_name,
-          nameEn: data.individual_english_name,
-          idNumber: data.identity,
-          birthDate: data.birthday,
-          status: data.state,
+        if (employeeId && typeof employeeId === "string") {
+          applicantName = employeeId.replace(/\[\d+\]\s*/, "").split(/\s+/)[0]
         }
-        return employeeMember
-      })
-    : []
 
-  return returnedData
+        return {
+          id: String(item.id || ""),
+          date: String(item.date || ""),
+          applicant: applicantName,
+          requestType: String(item.type || ""),
+          relation: String(item.relative_relation || ""),
+          nameAr: String(item.individual_complete_name || ""),
+          nameEn: String(item.individual_english_name || ""),
+          idNumber: String(item.identity || ""),
+          birthDate: String(item.birthday || ""),
+          status: String(item.state || ""),
+        }
+      })
+    },
+    dummyData,
+  })
 }
 
 const dummyData: EmployeeMembersRequest[] = [

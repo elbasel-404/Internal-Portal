@@ -9,17 +9,22 @@ import {
   TextareaField,
 } from "@components/form"
 import { paths } from "@lib"
-import { ChangeEvent, useActionState, useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState, useTransition } from "react"
 import { toast } from "sonner"
 import { formAction } from "./helpers/formAction"
-import { getStateAction } from "./helpers/getStateAction"
-import { initialState } from "./helpers/initialState"
-import { State } from "./helpers/State"
+import { State } from "../../../../lib/createData"
 
-const stateAction = getStateAction<State>(formAction)
+const initialState: State = {
+  success: false,
+  errors: null,
+  id: null,
+}
 
 export const CustodyForm = () => {
-  const [state, action, pending] = useActionState(stateAction, initialState)
+  const [state, setState] = useState<State>(initialState)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isPending, startTransition] = useTransition()
+  const pending = isPending || isSubmitting
   const [custodyType, setCustodyType] = useState<string>("temporary")
   const [custodyAmount, setCustodyAmount] = useState("")
   const [custodyReason, setCustodyReason] = useState("")
@@ -41,18 +46,20 @@ export const CustodyForm = () => {
   useEffect(() => {
     const { success, errors } = state
     if (success) toast.success("تم انشاء الطلب بنجاح")
-    if (errors) toast.error(errors)
+    if (errors) toast.error(errors?.[0])
   }, [state])
 
-  useEffect(() => {
-    if (pending) {
-      toast.loading("جاري انشاء الطلب", {
-        id: "permission-form-loading-toast",
-      })
-    } else {
-      toast.dismiss("permission-form-loading-toast")
-    }
-  }, [pending])
+  const action = async (formData: FormData) => {
+    setIsSubmitting(true)
+    toast.loading("جاري انشاء الطلب", { id: "custody-form-pending" })
+
+    startTransition(async () => {
+      const result = await formAction(formData)
+      setState(result)
+      setIsSubmitting(false)
+      toast.dismiss("custody-form-pending")
+    })
+  }
 
   if (state.success) {
     return (
@@ -69,7 +76,7 @@ export const CustodyForm = () => {
       className="bg-white rounded-lg text-black text-lg p-4 space-y-4"
     >
       <FormHeader label="نموذج طلب عهدة" path={paths.custody.href} />
-      <input
+      {/* <input
         type="text"
         name="employee_id"
         id="employee_id"
@@ -78,7 +85,7 @@ export const CustodyForm = () => {
         readOnly
         value="21"
         className="hidden"
-      />
+      /> */}
       <div className="space-y-4">
         <RadioField
           label="نوع العهدة"
@@ -153,7 +160,7 @@ export const CustodyForm = () => {
             required
           />
         </div>
-        <SubmitButton />
+        <SubmitButton disabled={pending} loading={pending} />
       </div>
     </form>
   )

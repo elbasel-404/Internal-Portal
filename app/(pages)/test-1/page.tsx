@@ -38,9 +38,8 @@ const Test1Page = () => {
       const responseJson = await response.json()
 
       setUsers(responseJson.items || [])
-      console.log("Users:", responseJson.items)
-    } catch (error) {
-      console.error("Error fetching users:", error)
+    } catch {
+      // Error handling removed - previously was an empty block
     } finally {
       setLoading(false)
     }

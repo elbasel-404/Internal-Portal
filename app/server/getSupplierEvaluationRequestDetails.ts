@@ -25,8 +25,7 @@ export const getSupplierEvaluationRequestDetails = async (
       reason: "test reason",
     }
     return details
-  } catch (error) {
-    console.error("Error in getWorkDocumentDetails:", error)
+  } catch {
     return
   }
 }

@@ -21,7 +21,6 @@
 // }: Args) => {
 //   if (type === 'generalInfo') {
 //     const generalInfoKey = await validateGeneralInfoKey(key);
-//     if (!generalInfoKey) return console.error('Invalid general info key!');
 //     await toggleGeneralInfo({
 //       key: generalInfoKey,
 //       active,
@@ -31,7 +30,6 @@
 
 //   if (type === 'homePage') {
 //     const homePageSlotKey = await validateHomePageSlotKey(key);
-//     if (!homePageSlotKey) return console.error('Invalid home page slot key!');
 
 //     await toggleHomePageSlot({
 //       key: homePageSlotKey,

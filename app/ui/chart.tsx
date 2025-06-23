@@ -33,9 +33,7 @@ const ChartContext = React.createContext<ChartContextProps | null>(null)
 function useChart() {
   const context = React.useContext(ChartContext)
 
-  if (!context) {
-    throw new Error("useChart must be used within a <ChartContainer />")
-  }
+  if (!context) return
 
   return context
 }
@@ -137,10 +135,17 @@ const ChartTooltipContent = React.forwardRef<
     },
     ref,
   ) => {
-    const { config } = useChart()
+    const chartContext = useChart()
+    // Wrap config initialization in its own useMemo to prevent re-creating on every render
+    const config = React.useMemo(
+      () => chartContext?.config || {},
+      [chartContext],
+    )
 
-    const tooltipLabel = React.useMemo(() => {
-      if (hideLabel || !payload?.length) {
+    // Use useMemo unconditionally
+    const tooltipLabelMemo = React.useMemo(() => {
+      // Early return if no context, hideLabel is true, or no payload
+      if (!chartContext || hideLabel || !payload?.length) {
         return null
       }
 
@@ -166,13 +171,14 @@ const ChartTooltipContent = React.forwardRef<
 
       return <div className={cn("font-medium", labelClassName)}>{value}</div>
     }, [
+      chartContext,
+      hideLabel,
+      payload,
+      labelKey,
+      config,
       label,
       labelFormatter,
-      payload,
-      hideLabel,
       labelClassName,
-      config,
-      labelKey,
     ])
 
     if (!active || !payload?.length) {
@@ -189,7 +195,7 @@ const ChartTooltipContent = React.forwardRef<
           className,
         )}
       >
-        {!nestLabel ? tooltipLabel : null}
+        {!nestLabel ? tooltipLabelMemo : null}
         <div className="grid gap-1.5">
           {payload.map((item, index) => {
             const key = `${nameKey || item.name || item.dataKey || "value"}`
@@ -239,7 +245,7 @@ const ChartTooltipContent = React.forwardRef<
                       )}
                     >
                       <div className="grid gap-1.5">
-                        {nestLabel ? tooltipLabel : null}
+                        {nestLabel ? tooltipLabelMemo : null}
                         <span className="text-muted-foreground">
                           {itemConfig?.label || item.name}
                         </span>
@@ -276,7 +282,11 @@ const ChartLegendContent = React.forwardRef<
     { className, hideIcon = false, payload, verticalAlign = "bottom", nameKey },
     ref,
   ) => {
-    const { config } = useChart()
+    const chartContext = useChart()
+    if (!chartContext) {
+      return null
+    }
+    const { config } = chartContext
 
     if (!payload?.length) {
       return null

@@ -3,51 +3,25 @@ import {
   HrLetterTypeSchema,
 } from "@api/schemas/hr-letter-types/schema"
 import { ResponseSchema } from "@api/schemas/responseSchema"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
+import { getData } from "./getData"
 
 export const getHrLetterTypes = async (): Promise<HrLetterType[]> => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
-
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/salary/identification/request/type/read"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
-  const requestBody = {}
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
-
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+  return getData<HrLetterType>({
+    url: "api/po/salary/identification/request/type/read",
+    includeEmployeeId: false,
+    responseSchema: ResponseSchema,
+    dataSchema: HrLetterTypeSchema,
+    parseData: (data) => {
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, unknown>
+        return {
+          id: String(typedItem.id || ""),
+          name: String(typedItem.name || ""),
+        }
+      })
+    },
+    dummyData,
   })
-  const responseJson = await apiResponse.json()
-  console.log({ responseJson })
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = HrLetterTypeSchema.array().parse(data)
-
-  // ! PARSING
-  // ! ==================================
-
-  const returnedData: HrLetterType[] = validatedData.map((data) => {
-    const destinationItem: HrLetterType = {
-      id: data.id.toString(),
-      name: data.name,
-    }
-    return destinationItem
-  })
-
-  return returnedData
 }
 
 const dummyData: HrLetterType[] = [

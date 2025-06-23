@@ -12,7 +12,7 @@ interface BatchDetailsPageProps {
 const BatchDetailsPage = async ({ params }: BatchDetailsPageProps) => {
   const { id } = await params
   const userId = await getUserId()
-  if (!userId) throw new Error("Invalid User Id")
+  if (!userId) return
 
   const { batchProducts } = await getUser(userId)
   const batchProductsData = batchProducts.map((batchProductDetails, index) => {

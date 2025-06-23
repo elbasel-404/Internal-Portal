@@ -5,7 +5,7 @@ import {
 import { ResponseSchema } from "@api/schemas/responseSchema"
 import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
-import { da } from "date-fns/locale"
+// Removed unused import: import { da } from "date-fns/locale"
 
 export const getBankDetails = async (): Promise<BankDetail[]> => {
   const isDemo = await getDemo()
@@ -15,7 +15,8 @@ export const getBankDetails = async (): Promise<BankDetail[]> => {
   // ! ==================================
   const url = "api/po/hr/new-bank"
   const apiRootUrl = process.env.API_ROOT_URL as string
-  const { headers } = await getFetchHeaders()
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
   const requestBody = {}
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`
@@ -28,7 +29,6 @@ export const getBankDetails = async (): Promise<BankDetail[]> => {
     body: requestBodyString,
   })
   const responseJson = await apiResponse.json()
-  console.log({ responseJson })
 
   // ! VALIDATION
   // ! ==================================

@@ -51,6 +51,15 @@ export const MenuItem = ({
             isOpen ? "justify-between w-full" : "justify-center w-fit"
           } text-white hover:bg-primary hover:border-r-[3px] hover:border-[#88D0EC] p-3 cursor-pointer`}
           onClick={toggleSubMenu}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              toggleSubMenu()
+              e.preventDefault()
+            }
+          }}
+          tabIndex={0}
+          role="button"
+          aria-expanded={isSubMenuOpen}
         >
           <div className="flex items-center space-x-4 rtl:space-x-reverse">
             {Icon}

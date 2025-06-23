@@ -84,7 +84,6 @@
 //   const [rawData, setRawData] = useState<any[] | null>(null);
 
 //   const parseData = async () => {
-//     console.log({ state });
 //     if (state.data) {
 //       const parsedData = state.data.map(
 //         ({
@@ -117,7 +116,6 @@
 //   }, [state]);
 
 //   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-//     console.log({ e });
 //     setEndpointName(e.target.value as Endpoint);
 //   };
 
@@ -125,9 +123,7 @@
 //   //   e.preventDefault();
 //   //   const formData = new FormData(e.currentTarget);
 //   //   const employee_id = formData.get(inputName) as string;
-//   //   console.log({ employee_id });
 //   //   const response = await formAction(formData);
-//   //   console.log({ response });
 //   // };
 
 //   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

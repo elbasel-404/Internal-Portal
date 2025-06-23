@@ -94,7 +94,7 @@ export const MedicalForm = ({ relativeRelation }: MedicalFormProps) => {
         label="نموذج طلب تأمين طبي"
         path={paths.medicalInsurance.href}
       />
-      <input
+      {/* <input
         type="text"
         name="employee_id"
         id="employee_id"
@@ -103,7 +103,7 @@ export const MedicalForm = ({ relativeRelation }: MedicalFormProps) => {
         readOnly
         value="1711"
         className="hidden"
-      />
+      /> */}
       <div className="p-4 space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <SelectField
@@ -117,7 +117,10 @@ export const MedicalForm = ({ relativeRelation }: MedicalFormProps) => {
             name="relative_relation"
             label="صلة القرابة"
             placeholder=""
-            types={relativeRelation}
+            types={relativeRelation.map((r) => ({
+              id: r.id ?? "",
+              name: r.name ?? "",
+            }))}
             value={relation}
             onChange={handleRelationChange}
           />
