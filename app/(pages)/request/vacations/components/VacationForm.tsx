@@ -10,7 +10,7 @@ import {
   TextareaField,
 } from "@components/form"
 import { paths } from "@lib"
-import { ChangeEvent, useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState, useTransition } from "react"
 import { toast } from "sonner"
 import { formAction } from "./helpers/formAction"
 // import { getStateAction } from "./helpers/getStateAction" - removed unused import
@@ -36,8 +36,9 @@ interface VacationFormProps {
 }
 export const VacationForm = ({ vacationElements }: VacationFormProps) => {
   const [state, setState] = useState<State>(initialState)
-  // const pending removed as unused
-  const [, setPending] = useState(false)
+  const [isPending, startTransition] = useTransition()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const pending = isPending || isSubmitting
   const [files, setFiles] = useState<FileWithId[]>([])
   const [dateFrom, setDateFrom] = useState(new Date())
   const [dateTo, setDateTo] = useState(new Date())
@@ -95,10 +96,15 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
   }, [state])
 
   const action = async (formData: FormData) => {
-    setPending(true)
-    const result = await formAction(formData)
-    setState(result)
-    setPending(false)
+    setIsSubmitting(true)
+    toast.loading("جاري انشاء الطلب", { id: "vacation-form-pending" })
+
+    startTransition(async () => {
+      const result = await formAction(formData)
+      setState(result)
+      setIsSubmitting(false)
+      toast.dismiss("vacation-form-pending")
+    })
   }
 
   if (state.success) {
@@ -240,7 +246,7 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
         }
       />
 
-      <SubmitButton />
+      <SubmitButton disabled={pending} loading={pending} />
     </form>
   )
 }

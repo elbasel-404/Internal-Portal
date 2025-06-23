@@ -1,28 +1,36 @@
 "use server"
 
 import { ProfileElementSchema, ResponseSchema } from "@api/schemas"
-import { getData } from "../getData"
+import { getFetchHeaders } from "../getFetchHeaders"
 
 export const getEmployeeId = async () => {
-  const result = await getData<{ id: string }>({
-    url: "api/po/read/profile",
-    responseSchema: ResponseSchema,
-    dataSchema: ProfileElementSchema,
-    parseData: (data) => {
-      if (!data || data.length === 0) {
-        return [{ id: "1" }]
-      }
+  // ! VARIABLES
+  // ! ==================================
+  const url = "api/po/read/profile"
+  const apiRootUrl = process.env.API_ROOT_URL as string
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
+  const requestBody = {}
+  const requestBodyString = JSON.stringify(requestBody)
+  const requestUrl = `${apiRootUrl}/${url}`
 
-      const typedData = data[0] as Record<string, unknown>
-
-      return [
-        {
-          id: String(typedData.id || ""),
-        },
-      ]
-    },
-    dummyData: [{ id: "1" }],
+  // ! FETCH
+  // ! ==================================
+  const apiResponse = await fetch(requestUrl, {
+    headers,
+    method: "POST",
+    body: requestBodyString,
   })
+  const responseJson = await apiResponse.json()
 
-  return result[0].id
+  // ! VALIDATION
+  // ! ==================================
+  const validatedResponse = ResponseSchema.parse(responseJson)
+  const { result } = validatedResponse
+  const { data } = result
+  const validatedData = ProfileElementSchema.parse(data[0])
+
+  // ! PARSING
+  const employeeId = validatedData.id.toString()
+  return employeeId
 }
