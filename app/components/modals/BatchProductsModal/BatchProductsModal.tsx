@@ -12,9 +12,7 @@ export const BatchProductsModal = async ({
   params,
 }: PurchaseDetailsPageProps) => {
   const id = await params
-  const productsRequestById = await getPurchaseProductsByRequestId({
-    purchaseRequestId: id,
-  })
+  const productsRequestById = await getPurchaseProductsByRequestId(id)
   return (
     <Modal
       refreshOnClose={true}

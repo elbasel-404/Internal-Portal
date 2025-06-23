@@ -1,3 +1,4 @@
+export { getData } from "./getData"
 export { acceptTraining } from "./accept_training"
 export { getSession, signIn } from "./auth"
 export { cancelTraining } from "./cancel_training"

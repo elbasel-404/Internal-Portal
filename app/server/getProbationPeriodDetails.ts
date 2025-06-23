@@ -52,7 +52,7 @@ export const getProbationPeriodDetails = async (
     recommendation: validatedData.recommendation,
     notes: validatedData.notes.toString(),
     probationLineIds: validatedData.probation_line_ids.map(
-      (line: { question: any; answer: any }) => ({
+      (line: { question: string; answer: string }) => ({
         question: line.question,
         answer: line.answer,
       }),

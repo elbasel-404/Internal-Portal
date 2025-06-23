@@ -1,7 +1,6 @@
 import { z } from "zod"
 
 export const requestBodySchema = z.object({
-  employee_id: z.string(),
   type_id: z.string(),
   more_one_day: z.string().optional(),
   date_from: z.string(),

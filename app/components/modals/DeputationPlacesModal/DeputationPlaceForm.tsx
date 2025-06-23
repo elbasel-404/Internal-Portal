@@ -1,14 +1,11 @@
 "use client"
 
-import { costsAtom, dateFromAtom, dateToAtom } from "@atoms"
+// Removed unused imports
 import { InputField, SelectField } from "@components/form"
-import { CheckIcon, RiyalCurrencyIcon, XMarkIcon } from "@icons"
+import { CheckIcon, XMarkIcon } from "@icons"
 import { Button } from "@ui"
-import { useLocalStorage } from "@uidotdev/usehooks"
-import { useAtom } from "jotai"
 import { useRouter } from "next/navigation"
-import { ChangeEvent, useEffect, useState } from "react"
-import { toast } from "sonner"
+import { useState } from "react"
 import { deputationPlaceFormAction } from "./DeputationPlaceFormAction"
 
 export const DeputationPlaceForm = () => {
@@ -24,7 +21,7 @@ export const DeputationPlaceForm = () => {
     setCity("")
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = () => {
     closeModal()
   }
 

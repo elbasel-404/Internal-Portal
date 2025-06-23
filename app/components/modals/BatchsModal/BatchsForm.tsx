@@ -86,7 +86,7 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
 
   useEffect(() => {
     setTotalBatchAmount(totalAmount)
-  }, [totalAmount])
+  }, [totalAmount, setTotalBatchAmount])
 
   return (
     <form

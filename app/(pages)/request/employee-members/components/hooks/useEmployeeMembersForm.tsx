@@ -58,8 +58,10 @@ export const useEmployeeMembersForm = (memberField: EmployeeMembersField[]) => {
 
   const handleMemberChange = (value: string) => {
     setMember(value)
-    
-    const selectedMember = memberField.find(member => member.id.toString() === value)
+
+    const selectedMember = memberField.find(
+      (member) => member.id.toString() === value,
+    )
     if (selectedMember) {
       setFormData({
         first_name_ar: selectedMember.first_name_ar || "",
@@ -72,11 +74,11 @@ export const useEmployeeMembersForm = (memberField: EmployeeMembersField[]) => {
         family_name_en: selectedMember.family_name_en || "",
         identity: selectedMember.identity || "",
       })
-      
+
       if (selectedMember.birthday) {
         setBirthDate(new Date(selectedMember.birthday))
       }
-      
+
       if (selectedMember.relative_relation) {
         setRelationTypeValue(selectedMember.relative_relation)
       }
@@ -84,9 +86,9 @@ export const useEmployeeMembersForm = (memberField: EmployeeMembersField[]) => {
   }
 
   const handleInputChange = (name: keyof FormData, value: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }))
   }
 
@@ -125,7 +127,7 @@ export const useEmployeeMembersForm = (memberField: EmployeeMembersField[]) => {
     member,
     birthDate,
     formData,
-    
+
     // Actions
     action,
     fileHandler,

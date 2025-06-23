@@ -52,7 +52,7 @@ export const getDeputationRequestDetails = async (
       ],
     }
     return details
-  } catch (error) {
+  } catch {
     return
   }
 }
