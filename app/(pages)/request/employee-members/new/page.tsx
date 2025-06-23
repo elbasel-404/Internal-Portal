@@ -1,11 +1,11 @@
 import { getStoredEmployeeId } from "@auth"
-import { Instructions, RequestStatus } from "@components"
-import { getEmployeeMembersFields, getRequestStatus } from "@server"
+import { Instructions, CreateRequestStatus } from "@components"
+import { getEmployeeMembersFields, getCreateRequestStatus } from "@server"
 import { EmployeeMembersForm } from "../components"
 
 const NewEmployeeMembersPage = async () => {
   const employeeId = await getStoredEmployeeId()
-  const requestStatus = await getRequestStatus()
+  const requestStatus = await getCreateRequestStatus("hr.employee.members")
   const requestTypeField = await getEmployeeMembersFields("type")
   const memberField = await getEmployeeMembersFields("members")
   const relativeRelationField =
@@ -15,7 +15,7 @@ const NewEmployeeMembersPage = async () => {
     "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   return (
     <div className="space-y-4 mb-16">
-      <RequestStatus status={requestStatus} caption={requestCaption} />
+      <CreateRequestStatus status={requestStatus} caption={requestCaption} />
       <EmployeeMembersForm
         employeeId={employeeId}
         memberField={memberField}

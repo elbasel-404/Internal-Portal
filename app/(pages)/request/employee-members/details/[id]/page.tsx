@@ -12,9 +12,7 @@ const EmployeeMembersDetailsPage = async ({
   params,
 }: EmployeeMembersDetailsPageProps) => {
   const { id } = await params
-  const requestStatus = await getRequestStatus()
-  const requestCaption =
-    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
+  const requestStatus = await getRequestStatus(id, "hr.employee.members")
   const {
     date,
     requestType,
@@ -66,7 +64,7 @@ const EmployeeMembersDetailsPage = async ({
   ]
   return (
     <main>
-      <RequestStatus status={requestStatus} caption={requestCaption} />
+      <RequestStatus status={requestStatus} />
       <RequestDetails headers={requestHeaders} />
     </main>
   )
