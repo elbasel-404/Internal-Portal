@@ -136,8 +136,11 @@ const ChartTooltipContent = React.forwardRef<
     ref,
   ) => {
     const chartContext = useChart()
-    // Declare config outside with a default empty object to avoid conditional hook issues
-    const config = chartContext?.config || {}
+    // Wrap config initialization in its own useMemo to prevent re-creating on every render
+    const config = React.useMemo(
+      () => chartContext?.config || {},
+      [chartContext],
+    )
 
     // Use useMemo unconditionally
     const tooltipLabelMemo = React.useMemo(() => {
@@ -168,13 +171,14 @@ const ChartTooltipContent = React.forwardRef<
 
       return <div className={cn("font-medium", labelClassName)}>{value}</div>
     }, [
+      chartContext,
+      hideLabel,
+      payload,
+      labelKey,
+      config,
       label,
       labelFormatter,
-      payload,
-      hideLabel,
       labelClassName,
-      config,
-      labelKey,
     ])
 
     if (!active || !payload?.length) {

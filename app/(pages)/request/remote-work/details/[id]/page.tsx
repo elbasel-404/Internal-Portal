@@ -16,8 +16,8 @@ const RemoteWorkDetailsPage = async ({ params }: VacationDetailsPageProps) => {
   const requestDetails = await getRemoteWorkDetails(id)
   if (!requestDetails) notFound()
   // ! TODO: add server action instead:
-  const requestCaption =
-    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
+  // const requestCaption =
+  //   "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
 
   const requestHeaders: RequestHeader[] = [
     {

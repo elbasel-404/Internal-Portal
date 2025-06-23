@@ -1,45 +1,18 @@
-// import tsParser from "@typescript-eslint/parser"
-// import tsPlugin from "@typescript-eslint/eslint-plugin"
-// import reactHooksPlugin from "eslint-plugin-react-hooks"
-// import prettierPlugin from "eslint-plugin-prettier"
-// import nextPlugin from "@next/eslint-plugin-next"
-// import jsxA11yPlugin from "eslint-plugin-jsx-a11y"
-// import prettierConfig from "eslint-config-prettier"
+import { FlatCompat } from "@eslint/eslintrc"
 
-export default [
-  {
-    ignores: [],
-  },
-  {
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: {
-        ecmaVersion: "latest",
-        sourceType: "module",
-        project: "./tsconfig.json",
-      },
-    },
-    plugins: {
-      // "@typescript-eslint": tsPlugin,
-      // "react-hooks": reactHooksPlugin,
-      // prettier: prettierPlugin,
-      // "jsx-a11y": jsxA11yPlugin,
-      // "@next/next": nextPlugin,
-    },
-    extends: [
-      // ...tsPlugin.configs.recommended,
-      // ...reactHooksPlugin.configs.recommended,
-      // ...jsxA11yPlugin.configs.recommended,
-      // ...prettierConfig.extends,
-    ],
+const compat = new FlatCompat({
+  // import.meta.dirname is available after Node.js v20.11.0
+  baseDirectory: import.meta.dirname,
+})
+
+const eslintConfig = [
+  ...compat.config({
+    extends: ["next/typescript", "next/core-web-vitals", "prettier"],
     rules: {
-      // "prettier/prettier": "error",
-      "react/react-in-jsx-scope": "off",
+      "react/no-unescaped-entities": "off",
+      "@next/next/no-page-custom-font": "off",
     },
-    settings: {
-      react: {
-        version: "detect",
-      },
-    },
-  },
+  }),
 ]
+
+export default eslintConfig

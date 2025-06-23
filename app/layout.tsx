@@ -4,7 +4,6 @@ import type { Metadata } from "next"
 import type { ReactNode } from "react"
 import "./(pages)/globals.css"
 import { Toaster } from "sonner"
-import { redirect } from "next/navigation"
 
 export const dynamic = "force-dynamic"
 

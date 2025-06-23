@@ -2,8 +2,8 @@ import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
   eslint: {
-    dirs: ["app"],
-    ignoreDuringBuilds: true,
+    // dirs: ["app"],
+    // ignoreDuringBuilds: true,
   },
   experimental: {
     reactCompiler: true,
