@@ -5,7 +5,7 @@ import {
 import { ResponseSchema } from "@api/schemas/responseSchema"
 import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
-import { da } from "date-fns/locale"
+// Removed unused import: import { da } from "date-fns/locale"
 
 export const getBankDetails = async (): Promise<BankDetail[]> => {
   const isDemo = await getDemo()

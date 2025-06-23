@@ -1,7 +1,7 @@
 "use server"
 import { SignJWT } from "jose"
 
-export const encrypt = async (payload: any) => {
+export const encrypt = async (payload: Record<string, unknown>) => {
   const key = new TextEncoder().encode(process.env.AUTH_SECRET)
 
   const encryptedJWT = await new SignJWT(payload)

@@ -18,7 +18,7 @@ export const getResignationDetails = async (
       ],
     }
     return details
-  } catch (error) {
+  } catch {
     return
   }
 }

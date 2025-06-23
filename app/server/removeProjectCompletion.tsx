@@ -17,5 +17,7 @@ export const removeProjectCompletion = async (index: number) => {
     userData.projectCompletion.splice(index, 1)
 
     await db.write()
-  } catch (error) {}
+  } catch {
+    // Error handling could be added here in the future
+  }
 }

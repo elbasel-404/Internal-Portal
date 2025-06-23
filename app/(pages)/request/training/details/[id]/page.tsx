@@ -24,6 +24,8 @@ const tableHeaders = [
 
 const TrainingDetailsPage = async ({ params }: TrainingDetailsPageProps) => {
   const { id } = await params
+  // const requestCaption =
+  //   "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const requestStatus = await getRequestStatus(id, "hr.training.request")
   const {
     duration,

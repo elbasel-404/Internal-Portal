@@ -1,15 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use server"
 
 import type { PurchaseProduct } from "@types"
 
-interface getPurchaseProductsAgrs {
-  purchaseRequestId: string
-}
-
 export const getPurchaseProductsByRequestId = async (
-  {
-    // purchaseRequestId,
-  }: getPurchaseProductsAgrs,
+  id: string,
 ): Promise<PurchaseProduct[]> => {
   return dummyData
 }

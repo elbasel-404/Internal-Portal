@@ -1,79 +1,50 @@
 "use server"
 
 import type { Employee } from "@types"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
 import { EmployeesListElementSchema, ResponseSchema } from "@api/schemas"
-import { getStoredEmployeeId } from "@auth"
+import { getData } from "./getData"
 
 export const getEmployeeRequests = async (): Promise<Employee[]> => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
-  const employeeId = await getStoredEmployeeId()
-
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/read/employee-search-request"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  const requestBody = {
-    // employee_id: 305,
-    employee_id: employeeId,
-    employee_object: "",
-    related_employees: false,
-    limit: 10000,
-    page: 1,
-  }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
-
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
-  })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = EmployeesListElementSchema.array().parse(data)
-
-  // ! PARSING
-  // ! ==================================
   const getArrayValue = (field: unknown, index: number = 1): string =>
     Array.isArray(field) ? (field[index]?.toString() ?? "") : ""
 
   const getStringValue = (field: unknown): string =>
     typeof field === "string" ? field : ""
 
-  const returnedData: Employee[] = validatedData.map((data) => {
-    const newsItem: Employee = {
-      id: data.id.toString(),
-      name: getStringValue(data.complete_name),
-      image: getStringValue(data.image)
-        ? `data:image/gif;base64,${data.image}`
-        : "/default-image.svg",
-      position: getArrayValue(data.job_id),
-      phone: getStringValue(data.mobile_phone),
-      recycleWork: `تحويلة العمل ${getStringValue(data.work_phone)}`,
-      address: getStringValue(data.work_location),
-      email: getStringValue(data.work_email),
-      sector: getArrayValue(data.sector_id),
-      generalAdministration: getArrayValue(data.administration_id),
-      management: getArrayValue(data.department_global_id),
-      department: getArrayValue(data.department_id),
-      generalManager: getArrayValue(data.sector_manager_id),
-    }
-    return newsItem
+  return getData<Employee>({
+    url: "api/po/read/employee-search-request",
+    responseSchema: ResponseSchema,
+    dataSchema: EmployeesListElementSchema,
+    additionalBody: {
+      employee_object: "",
+      related_employees: false,
+      limit: 10000,
+      page: 1,
+    },
+    parseData: (data) => {
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, unknown>
+        return {
+          id: String(typedItem.id || ""),
+          name: getStringValue(typedItem.complete_name),
+          image: getStringValue(typedItem.image)
+            ? `data:image/gif;base64,${typedItem.image}`
+            : "/default-image.svg",
+          position: getArrayValue(typedItem.job_id),
+          phone: getStringValue(typedItem.mobile_phone),
+          recycleWork: `تحويلة العمل ${getStringValue(typedItem.work_phone)}`,
+          address: getStringValue(typedItem.work_location),
+          email: getStringValue(typedItem.work_email),
+          sector: getArrayValue(typedItem.sector_id),
+          generalAdministration: getArrayValue(typedItem.administration_id),
+          management: getArrayValue(typedItem.department_global_id),
+          department: getArrayValue(typedItem.department_id),
+          generalManager: getArrayValue(typedItem.sector_manager_id),
+        }
+      })
+    },
+    dummyData,
   })
-
-  return returnedData
 }
 
 const dummyData: Employee[] = [

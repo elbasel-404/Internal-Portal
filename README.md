@@ -1,5 +1,14 @@
 ## [![Docker CI/CD](https://github.com/elbasel42/temp-portal-repo-github/actions/workflows/docker.yml/badge.svg)](https://github.com/elbasel42/temp-portal-repo-github/actions/workflows/docker.yml)
 
+## Documentation
+
+- [Form Submission Guide](./docs/form-submission-guide.md) - Guide for using the unified form submission logic
+- [Migration Guide](./docs/migration-guide.md) - Guide for migrating existing forms to the unified submission logic
+- [Form Unification Changelog](./docs/form-unification-changelog.md) - Summary of changes made during form submission unification
+- [Form Test Plan](./docs/form-test-plan.md) - Test plan for verifying form submission functionality
+- [Testing](./docs/testing.md) - Information about running unit tests
+- [Implementation Summary](./docs/implementation-summary.md) - Comprehensive summary of the form unification implementation
+
 # ! Building & running docker image:
 
 # Building
