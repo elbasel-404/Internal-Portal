@@ -451,4 +451,16 @@ export const paths: Record<string, AppPath> = {
     title: "طلب متدرب",
     href: "/request/trainee/new",
   },
+  evaluationFlow: {
+    title: "قائمة طلبات متابعة الأداء",
+    href: "/evaluation-flow",
+  },
+  evaluationFlowDetails: {
+    title: "تفاصيل طلب متابعة الأداء",
+    href: "/evaluation-flow/details/:id",
+  },
+  evaluationFlowNew: {
+    title: "طلب متابعة الأداء",
+    href: "/evaluation-flow/new",
+  },
 }
