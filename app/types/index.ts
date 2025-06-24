@@ -34,6 +34,7 @@ export type { DeputationRequestDetails } from "./pages/request/DeputationRequest
 export type { EmployeeAttendanceRequest } from "./pages/request/EmployeeAttendanceRequest"
 export type { EmployeeMembersDetails } from "./pages/request/EmployeeMembersDetails"
 export type { EmployeeMembersRequest } from "./pages/request/EmployeeMembersRequest"
+export type { GoalFlowRequest } from "./pages/request/GoalFlowRequest"
 export type { GoalRequest } from "./pages/request/GoalRequest"
 export type { HrLetterDetails } from "./pages/request/HrLetterDetails"
 export type { HrLetterRequest } from "./pages/request/HrLetterRequest"
@@ -114,3 +115,4 @@ export type { Rules } from "./shared/Rules"
 export type { TabType } from "./shared/TabType"
 export type { User } from "./shared/User"
 export type { TypedRecord } from "./TypedRecord"
+
