@@ -45,7 +45,7 @@ export const Login = () => {
   return (
     <div className="flex h-screen overflow-hidden flex-col items-center justify-center bg-[#11274A] bg-[url(/login-background.svg)] bg-cover bg-center bg-no-repeat px-4 lg:flex-row lg:px-0">
       {/* Left Section: App promotion and download links */}
-      <div className="hidden h-full w-full flex-col items-center justify-center rounded-bl-[60px] rounded-tr-[60px] bg-gradient-to-t from-[#007C9E] to-[#0D3C5F] p-10 shadow-lg lg:flex lg:w-2/5">
+      <div className="hidden flex-col items-center justify-center rounded-bl-[60px] rounded-tr-[60px] bg-gradient-to-t from-[#007C9E] to-[#0D3C5F] p-10 shadow-lg lg:flex lg:w-1/3 lg:-mr-4 z-50 min-h-[650px] min-w[600px] h-fit">
         <div className="flex h-full flex-col items-center">
           <div className="flex flex-col items-center justify-center">
             <Image
@@ -53,9 +53,9 @@ export const Login = () => {
               alt="login-app"
               width={300}
               height={300}
-              className="h-auto w-full max-w-xs"
+              className="h-4/5 min-h-[500px] min-w-[300px] w-4/5 max-w-lg"
             />
-            <div className="mt-8">
+            <div className="-mt-44">
               <Image
                 src="/app-download-section.svg"
                 alt="app-download-section"
@@ -63,7 +63,7 @@ export const Login = () => {
                 height={100}
                 className="h-auto w-full"
               />
-              <div className="mt-4 flex items-center justify-center gap-3">
+              <div className="mt-8 flex items-center justify-center gap-3">
                 <Button
                   className="bg-[#88D0EC] shadow-none hover:bg-[#88D0EC]"
                   size="icon"
@@ -75,17 +75,17 @@ export const Login = () => {
               </div>
             </div>
           </div>
-          <div className="mt-auto relative bottom-[200px] flex items-center justify-center gap-3">
+          <div className="mt-12 relative flex items-center justify-center gap-3">
             <Image
-              src="/googleplay.svg"
-              alt="googleplay button"
+              src="/appstore.svg"
+              alt="appstore button"
               width={150}
               height={60}
               className="h-auto w-full"
             />
             <Image
-              src="/appstore.svg"
-              alt="appstore button"
+              src="/googleplay.svg"
+              alt="googleplay button"
               width={150}
               height={60}
               className="h-auto w-full"
@@ -95,8 +95,8 @@ export const Login = () => {
       </div>
 
       {/* Right Section: Login form */}
-      <div className="flex w-full flex-col items-center justify-center px-4 py-8 lg:w-3/5 lg:px-14">
-        <div className="w-full max-w-md rounded-lg bg-transparent px-6 py-8 md:bg-[#0F3256]">
+      <div className="flex flex-col items-center justify-center py-8 w-11/12 max-w-md lg:w-1/3 h-[65dvh]">
+        <div className="w-full max-w-md lg:max-w-xl rounded-lg bg-transparent px-6 lg:px-20 py-8 md:bg-[#0F3256]">
           <div className="mb-8 text-center">
             <Image
               src="/monshaat-logo.png"
