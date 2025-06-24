@@ -6,18 +6,15 @@ import React, { useState } from "react"
 import { GoalsTable } from "../../../components/GoalsTable"
 import { StrategicGoals } from "../../../components/StrategicGoals"
 
-const tableHeaders = [
-  { label: "الهدف الفردي" },
-  { label: "وزن الهدف" },
-  { label: "مستوى حالة التقدم" },
-  { label: "الملاحظات" },
-]
-
 interface GoalFlowTableProps {
   goalsData: GoalFlowRequest[]
+  evaluationFlowType?: string
 }
 
-export const GoalFlowTable = ({ goalsData }: GoalFlowTableProps) => {
+export const GoalFlowTable = ({
+  goalsData,
+  evaluationFlowType,
+}: GoalFlowTableProps) => {
   // Track expanded state for each goal by ID
   const [expandedGoals, setExpandedGoals] = useState<Record<string, boolean>>(
     {},
@@ -38,6 +35,27 @@ export const GoalFlowTable = ({ goalsData }: GoalFlowTableProps) => {
       color: colors.light.white,
     },
   }
+
+  // Determine table headers based on evaluation flow type
+  const isOfficialFollowUp = evaluationFlowType === "المتابعة الشخصية"
+
+  const baseHeaders = [
+    { label: "الهدف الفردي" },
+    { label: "وزن الهدف" },
+    { label: "مستوى حالة التقدم" },
+  ]
+
+  const additionalHeaders = [
+    { label: "الانشطة" },
+    { label: "تاريخ النشاط" },
+    { label: "حالة النشاط" },
+  ]
+
+  const notesHeader = [{ label: "الملاحظات" }]
+
+  const tableHeaders = isOfficialFollowUp
+    ? [...baseHeaders, ...additionalHeaders, ...notesHeader]
+    : [...baseHeaders, ...notesHeader]
 
   return (
     <div className="overflow-x-auto app-scrollbar">
@@ -119,6 +137,21 @@ export const GoalFlowTable = ({ goalsData }: GoalFlowTableProps) => {
                     {goal.progressStatus}
                   </td>
 
+                  {/* Additional columns for official follow-up */}
+                  {isOfficialFollowUp && (
+                    <>
+                      <td className="p-4 border border-gray-200 align-middle text-center">
+                        {goal.activities || "لا توجد أنشطة"}
+                      </td>
+                      <td className="p-4 border border-gray-200 align-middle text-center">
+                        {goal.activityDate || "غير محدد"}
+                      </td>
+                      <td className="p-4 border border-gray-200 align-middle text-center">
+                        {goal.activityStatus || "غير محدد"}
+                      </td>
+                    </>
+                  )}
+
                   <td className="p-4 border border-gray-200 align-middle text-center">
                     {goal.notes || "لا توجد ملاحظات"}
                   </td>
@@ -126,7 +159,10 @@ export const GoalFlowTable = ({ goalsData }: GoalFlowTableProps) => {
 
                 {/* Show strategic goals for this specific goal if expanded */}
                 <tr>
-                  <td colSpan={4} className="p-0 border-none">
+                  <td
+                    colSpan={isOfficialFollowUp ? 7 : 4}
+                    className="p-0 border-none"
+                  >
                     <div
                       className={`overflow-hidden transition-all duration-300 ease-in-out ${
                         isExpanded
