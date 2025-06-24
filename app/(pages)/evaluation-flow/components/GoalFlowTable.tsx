@@ -1,9 +1,10 @@
 import { colors } from "@lib"
-import { GoalRequest } from "@types"
+import { GoalFlowRequest } from "@types"
 import { Button, PieChartElem } from "@ui"
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react"
-import { useState } from "react"
-import { StrategicGoals } from "./StrategicGoals"
+import React, { useState } from "react"
+import { GoalsTable } from "../../../components/GoalsTable"
+import { StrategicGoals } from "../../../components/StrategicGoals"
 
 const tableHeaders = [
   { label: "الهدف الفردي" },
@@ -13,11 +14,21 @@ const tableHeaders = [
 ]
 
 interface GoalFlowTableProps {
-  goalsData: GoalRequest[]
+  goalsData: GoalFlowRequest[]
 }
 
 export const GoalFlowTable = ({ goalsData }: GoalFlowTableProps) => {
-  const [isStrtegicGoals, setIsStrategicGoals] = useState(false)
+  // Track expanded state for each goal by ID
+  const [expandedGoals, setExpandedGoals] = useState<Record<string, boolean>>(
+    {},
+  )
+
+  const toggleStrategicGoals = (goalId: string) => {
+    setExpandedGoals((prev) => ({
+      ...prev,
+      [goalId]: !prev[goalId],
+    }))
+  }
 
   const pieChartConfig = {
     completed: {
@@ -27,6 +38,7 @@ export const GoalFlowTable = ({ goalsData }: GoalFlowTableProps) => {
       color: colors.light.white,
     },
   }
+
   return (
     <div className="overflow-x-auto app-scrollbar">
       <table className="w-full border-collapse">
@@ -46,6 +58,7 @@ export const GoalFlowTable = ({ goalsData }: GoalFlowTableProps) => {
         <tbody>
           {goalsData.map((goal) => {
             const totalGoalWeight = Number(goal.goalWeight)
+            const isExpanded = expandedGoals[goal.id] || false
 
             const goalWeightChartData = [
               {
@@ -60,41 +73,36 @@ export const GoalFlowTable = ({ goalsData }: GoalFlowTableProps) => {
               },
             ]
 
-            return goal.indicators.map((indicator, indicatorIndex) => (
-              <tr key={`${goal.id}-${indicatorIndex}`} className="bg-white">
-                {indicatorIndex === 0 && (
-                  <td
-                    rowSpan={goal.indicators.length}
-                    className="p-4 border border-gray-200 align-middle bg-grey-100"
-                  >
+            return (
+              <React.Fragment key={goal.id}>
+                <tr className="bg-white">
+                  <td className="p-4 border border-gray-200 align-middle bg-grey-100">
                     <p>{goal.individualGoal}</p>
                     <div className="flex items-center">
                       <Button
                         onClick={(e) => {
                           e.preventDefault()
-                          setIsStrategicGoals(!isStrtegicGoals)
+                          toggleStrategicGoals(goal.id)
                         }}
-                        className="bg-transparent shadow-none hover:bg-transparent text-sm underline text-primary p-0"
+                        className="bg-transparent shadow-none hover:bg-transparent text-sm underline text-primary p-0 transition-colors duration-200"
                       >
                         التفاصيل
                       </Button>
-                      {isStrtegicGoals ? (
-                        <ChevronUpIcon size={18} className="text-primary" />
-                      ) : (
-                        <ChevronDownIcon size={18} className="text-primary" />
-                      )}
+                      <div className="transition-transform duration-200 ease-in-out">
+                        {isExpanded ? (
+                          <ChevronUpIcon size={18} className="text-primary" />
+                        ) : (
+                          <ChevronDownIcon size={18} className="text-primary" />
+                        )}
+                      </div>
                     </div>
                   </td>
-                )}
-                {indicatorIndex === 0 && (
-                  <td
-                    rowSpan={goal.indicators.length}
-                    className="border border-gray-200 align-middle bg-primary-opacity"
-                  >
+
+                  <td className="border border-gray-200 align-middle bg-primary-opacity">
                     <div className="flex items-center justify-center">
                       <PieChartElem
-                        size={4}
-                        thickness={10}
+                        size={3}
+                        thickness={8}
                         percentage={totalGoalWeight}
                         percentageSize="text-base"
                         percentageColor="fill-foreground"
@@ -106,23 +114,42 @@ export const GoalFlowTable = ({ goalsData }: GoalFlowTableProps) => {
                       />
                     </div>
                   </td>
-                )}
-                {indicatorIndex === 0 && (
+
                   <td className="p-4 border border-gray-200 align-middle text-center">
-                    {"متأخر"}
+                    {goal.progressStatus}
                   </td>
-                )}
-                {indicatorIndex === 0 && (
+
                   <td className="p-4 border border-gray-200 align-middle text-center">
-                    {"ملاحظات من قبل المستخدم"}
+                    {goal.notes || "لا توجد ملاحظات"}
                   </td>
-                )}
-              </tr>
-            ))
+                </tr>
+
+                {/* Show strategic goals for this specific goal if expanded */}
+                <tr>
+                  <td colSpan={4} className="p-0 border-none">
+                    <div
+                      className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                        isExpanded
+                          ? "max-h-96 opacity-100"
+                          : "max-h-0 opacity-0"
+                      }`}
+                    >
+                      <div className="transform transition-transform duration-300 ease-in-out">
+                        <GoalsTable
+                          goalsData={[goal]}
+                          hideIndividualGoal={true}
+                          hideActions={true}
+                        />
+                        <StrategicGoals goalsData={[goal]} />
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </React.Fragment>
+            )
           })}
         </tbody>
       </table>
-      {isStrtegicGoals && <StrategicGoals goalsData={goalsData} />}
     </div>
   )
 }
