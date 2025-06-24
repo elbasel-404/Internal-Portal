@@ -1,6 +1,6 @@
 "use server"
 
-import { TrainingElementSchema } from "@api/schemas/index"
+import { HrTrainingSchema } from "@api/schemas/index"
 import { ResponseSchema } from "@api/schemas/responseSchema"
 import type { InternalCoursesDetails } from "@types"
 import { getDemo } from "../db/actions/getDemo"
@@ -36,14 +36,14 @@ export const getInternalCoursesDetails = async (
   const validatedResponse = ResponseSchema.parse(responseJson)
   const { result } = validatedResponse
   const { data } = result
-  const validatedData = TrainingElementSchema.parse(data[0])
+  const validatedData = HrTrainingSchema.parse(data[0])
 
   // ! PARSING
   // ! ==================================
 
   const returnedData: InternalCoursesDetails = {
     id: validatedData.id.toString(),
-    courseDate: validatedData.date,
+    courseDate: validatedData.create_date,
     courseName: validatedData.name,
     duration: validatedData.number_of_days.toString(),
     type: validatedData.type,

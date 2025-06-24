@@ -148,9 +148,9 @@ export const getTrainingDetails = async (
       ? validatedData.training_type_id[1]?.toString()
       : "__",
     transcationDate: validatedData.expected_date || "__",
-    attachments: validatedData.attachment_ids.map(
-      (file: any) => new File([""], file.toString()),
-    ),
+    attachments: Array.isArray(validatedData.attachment_ids)
+      ? validatedData.attachment_ids.map((file) => new File([""], String(file)))
+      : [],
   }
 
   return returnedData

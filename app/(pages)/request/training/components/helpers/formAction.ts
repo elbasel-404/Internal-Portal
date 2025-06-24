@@ -54,7 +54,7 @@ export const formAction = async (formData: FormData): Promise<State> => {
     const validationErrors = validation.error.format()
     const errors: string[] = []
 
-    for (const [key, value] of Object.entries(validationErrors)) {
+    for (const [, value] of Object.entries(validationErrors)) {
       if (
         typeof value === "object" &&
         value !== null &&
@@ -106,7 +106,7 @@ export const formAction = async (formData: FormData): Promise<State> => {
   const isBadRequest = response.status >= 400 && response.status < 500
   if (isBadRequest) {
     const validatedResponseObject = CreateErrorSchema.parse(responseObject)
-    const { error, status } = validatedResponseObject
+    const { error } = validatedResponseObject
 
     return {
       success: false,
@@ -116,7 +116,7 @@ export const formAction = async (formData: FormData): Promise<State> => {
   }
 
   const validatedResponseObject = CreateSuccessSchema.parse(responseObject)
-  const { data, message, status } = validatedResponseObject
+  const { data } = validatedResponseObject
 
   return { success: true, errors: null, id: data.id }
 }
