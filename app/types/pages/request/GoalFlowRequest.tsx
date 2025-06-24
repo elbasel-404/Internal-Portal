@@ -7,6 +7,9 @@ export interface GoalFlowRequest {
   firstCorporateGoal: string
   secondStrategicGoal: string
   thirdStrategicGoal: string
+  activities: string
+  activityStatus: string
+  activityDate: string
   indicators: {
     indicatorPerformance: string
     targetType: string
