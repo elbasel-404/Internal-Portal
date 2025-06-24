@@ -4,7 +4,7 @@ import {
   getArtisticCompetenciesRequests,
   getBasicCompetenciesRequests,
   getEvaluationGoalDetails,
-  getGoalsRequests,
+  getFlowGoalsRequests,
   getLeadershipCompetenciesRequests,
   getRequestStatus,
 } from "@server"
@@ -16,20 +16,20 @@ import { GoalLists } from "../../components/GoalLists"
 
 type Params = Promise<{ id: string }>
 
-interface EvaluationGoalDetailsPageProps {
+interface EvaluationFlowGoalDetailsPageProps {
   params: Params
 }
 
-const EvaluationGoalDetailsPage = async ({
+const EvaluationFlowGoalDetailsPage = async ({
   params,
-}: EvaluationGoalDetailsPageProps) => {
+}: EvaluationFlowGoalDetailsPageProps) => {
   const { id } = await params
   // const requestStatus = await getRequestStatus(id, "EvaluationGoal")
   // const requestCaption =
   // "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const requestStatus = await getRequestStatus(id, "hr.performance.planning")
   const { employee, year } = (await getEvaluationGoalDetails(id)) || {}
-  const goalsData = await getGoalsRequests()
+  const goalFlowData = await getFlowGoalsRequests()
   const leadershipData = await getLeadershipCompetenciesRequests()
   const basicData = await getBasicCompetenciesRequests()
   const artisticData = await getArtisticCompetenciesRequests()
@@ -53,7 +53,7 @@ const EvaluationGoalDetailsPage = async ({
     <main className="space-y-4">
       <RequestStatus status={requestStatus} />
       <RequestDetails headers={requestHeaders} />
-      <GoalLists goalsData={goalsData} />
+      <GoalLists goalsData={goalFlowData} />
       <div>
         <CompetenciesSection
           title="الجدارات السلوكية"
@@ -92,4 +92,4 @@ const EvaluationGoalDetailsPage = async ({
   )
 }
 
-export default EvaluationGoalDetailsPage
+export default EvaluationFlowGoalDetailsPage
