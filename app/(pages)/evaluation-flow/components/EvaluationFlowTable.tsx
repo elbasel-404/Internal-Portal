@@ -46,7 +46,9 @@ export const EvaluationFlowTable = ({ data }: EvaluationFlowProps) => {
     <>
       <div className="bg-white rounded-lg">
         <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between border-b border-border-[#ECF0F480] p-4">
-          <h2 className="text-foreground font-bold text-2xl">قائمة الطلبات</h2>
+          <h2 className="text-foreground font-bold text-2xl">
+            قائمة طلبات متابعة الأداء
+          </h2>
           <div className="flex gap-4 items-center">
             <Input
               placeholder="البحث في الطلبات"
