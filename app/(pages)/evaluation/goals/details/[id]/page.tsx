@@ -26,8 +26,6 @@ const EvaluationGoalDetailsPage = async ({
   params,
 }: EvaluationGoalDetailsPageProps) => {
   const { id } = await params
-  const requestCaption =
-    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const requestStatus = await getRequestStatus(id, "hr.performance.planning")
   const { employee, year, acceptEditRequest } =
     (await getEvaluationGoalDetails(id)) || {}
