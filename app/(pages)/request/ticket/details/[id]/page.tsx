@@ -1,5 +1,5 @@
-import { Instructions, RequestDetails, RequestStatus } from "@components"
-import { getRequestStatus, getTicketDetails } from "@server"
+import { Instructions, RequestDetails } from "@components"
+import { getTicketDetails } from "@server"
 import { RequestHeader } from "@types"
 import { CommentSection } from "../../components"
 
