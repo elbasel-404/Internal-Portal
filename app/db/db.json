@@ -4737,8 +4737,6 @@
         "news"
       ],
       "activeNewsTabsKeys": [
-        "pressTab",
-        "newsTab",
         "monshaatFamilyTab",
         "internalTab",
         "vpn",
@@ -4763,7 +4761,55 @@
       "batchs": [],
       "batchProducts": [],
       "trainingCourses": []
+    },
+    {
+      "id": 112,
+      "activeGeneralInfoKeys": [
+        "employeeRequests",
+        "approvalRequests",
+        "totalVacationBalance",
+        "permissions",
+        "remoteWork",
+        "delegations"
+      ],
+      "activeHomePageSlotsKeys": [
+        "completeProfile",
+        "generalInfo",
+        "userInfo",
+        "attendance",
+        "approvalRequestsTable",
+        "sliders",
+        "timelineCalendar",
+        "news"
+      ],
+      "activeNewsTabsKeys": [
+        "pressTab",
+        "internalTab",
+        "vpn",
+        "nationalId",
+        "office",
+        "email",
+        "newsTab",
+        "monshaatFamilyTab"
+      ],
+      "demo": true,
+      "convenantData": [
+        {
+          "product": "prod",
+          "statement": "active",
+          "amount": "10",
+          "invoiceNumber": "25",
+          "attachments": [
+            "file-name-i"
+          ]
+        }
+      ],
+      "projectCompletion": [],
+      "products": [],
+      "batchs": [],
+      "batchProducts": [],
+      "trainingCourses": []
     }
   ],
-  "userCount": 111
+  "userCount": 112
 }
