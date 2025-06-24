@@ -8,8 +8,8 @@ import { Competencies, GoalRequest } from "@types"
 import { Button } from "@ui"
 import { RotateCcw } from "lucide-react"
 import Link from "next/link"
+import { GoalsTable } from "../../../../../components/GoalsTable"
 import { CompetenciesSection } from "../CompetenciesSection"
-import { GoalsTable } from "./GoalsTable"
 
 const YearsList = Array.from({ length: 51 }, (_, i) => {
   const currentYear = new Date().getFullYear()
