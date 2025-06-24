@@ -13,7 +13,7 @@ const TicketDetailsPage = async ({ params }: TicketDetailsPageProps) => {
   const { id } = await params
   // const requestCaption =
   //   "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
-  const requestStatus = await getRequestStatus(id, "helpdesk.ticket")
+  // const requestStatus = await getRequestStatus(id, "helpdesk.ticket")
   const {
     requestDate,
     subject,
@@ -80,7 +80,7 @@ const TicketDetailsPage = async ({ params }: TicketDetailsPageProps) => {
   ]
   return (
     <main className="space-y-4">
-      <RequestStatus status={requestStatus} />
+      {/* <RequestStatus status={requestStatus} /> */}
       <RequestDetails headers={requestHeaders} />
       <CommentSection />
       <Instructions
