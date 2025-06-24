@@ -3,10 +3,10 @@ import { PencilIcon } from "@icons"
 import {
   getArtisticCompetenciesRequests,
   getBasicCompetenciesRequests,
-  getEvaluationGoalDetails,
+  getEvaluationFlowGoalDetails,
   getFlowGoalsRequests,
   getLeadershipCompetenciesRequests,
-  getRequestStatus,
+  getRequestStatus
 } from "@server"
 import { RequestHeader } from "@types"
 import { Button } from "@ui"
@@ -28,7 +28,8 @@ const EvaluationFlowGoalDetailsPage = async ({
   // const requestCaption =
   // "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const requestStatus = await getRequestStatus(id, "hr.performance.planning")
-  const { employee, year } = (await getEvaluationGoalDetails(id)) || {}
+  const { employee, year, evaluationFlowType, evaluationRequestNumber } =
+    (await getEvaluationFlowGoalDetails(id)) || {}
   const goalFlowData = await getFlowGoalsRequests()
   const leadershipData = await getLeadershipCompetenciesRequests()
   const basicData = await getBasicCompetenciesRequests()
@@ -44,16 +45,24 @@ const EvaluationFlowGoalDetailsPage = async ({
       value: employee,
     },
     {
+      label: "أنواع متابعة الأداء",
+      value: evaluationFlowType,
+    },
+    {
       label: "السنة",
       value: year,
     },
+       {
+      label: "رقم طلب تخطيط الأداء",
+      value: evaluationRequestNumber,
+    }
   ]
 
   return (
     <main className="space-y-4">
       <RequestStatus status={requestStatus} />
       <RequestDetails headers={requestHeaders} />
-      <GoalLists goalsData={goalFlowData} />
+      <GoalLists goalsData={goalFlowData} evalutaionFlowType={evaluationFlowType} />
       <div>
         <CompetenciesSection
           title="الجدارات السلوكية"
