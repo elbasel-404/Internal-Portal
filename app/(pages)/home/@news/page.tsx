@@ -1,27 +1,25 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 
 import { useIntersectionObserver } from "@hooks"
 import { useEffect, useState } from "react"
 import { NewsSection } from "../components"
 import { defaultNewsTabs } from "@lib"
-import {
-  getAdsNewsList,
-  getFamilyNewsList,
-  getNewsListRequests,
-  getUserId,
-} from "@server"
+import { getAdsNewsList, getFamilyNewsList, getNewsListRequests } from "@server"
 import { getUser } from "@db/actions"
-import { AdsListRequst, NewsFamily, NewsListRequest } from "@types"
+import { AdsListRequst, NewsFamily, NewsListRequest, NewsTab } from "@types"
 
 const NewsSlot = () => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [news, setNews] = useState<NewsListRequest[]>([])
   const [ads, setAds] = useState<AdsListRequst[]>([])
   const [familyNews, setFamilyNews] = useState<NewsFamily[]>([])
-  const [tabs, setTabs] = useState(defaultNewsTabs)
+  const [tabs, setTabs] = useState<NewsTab[]>([])
 
-  const { isIntersecting, ref } = useIntersectionObserver({ threshold: 0.5 })
+  const { isIntersecting, ref } = useIntersectionObserver({
+    // TODO: reload tabs on change
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    onChange: (state) => {},
+  })
 
   const loadTabs = async () => {
     const userId = parseInt(localStorage.getItem("userId") ?? "0")
@@ -49,7 +47,6 @@ const NewsSlot = () => {
   }
 
   useEffect(() => {
-    console.log({ isIntersecting })
     if (isIntersecting && !isLoaded) {
       loadNews()
       loadTabs()
@@ -57,6 +54,11 @@ const NewsSlot = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isIntersecting])
 
+  // useEffect(() => {
+  //   console.log({ isIntersecting })
+  // }, [isIntersecting])
+
+  if (tabs.length === 0) return null
   return (
     <div ref={ref}>
       <NewsSection news={news} ads={ads} familyNews={familyNews} tabs={tabs} />
