@@ -21,22 +21,20 @@ const NewsSlot = () => {
   const [familyNews, setFamilyNews] = useState<NewsFamily[]>([])
   const [tabs, setTabs] = useState(defaultNewsTabs)
 
-  // const tabs = defaultNewsTabs
-  //// return (
-  //   <NewsSection news={news} ads={ads} familyNews={familyNews} tabs={tabs} />
-  // )
-
   const { isIntersecting, ref } = useIntersectionObserver({ threshold: 0.5 })
 
-  // const userId = await getUserId()
-  // if (userId) {
-  //   const user = await getUser(userId)
-  //   const activeNewsTabsKeys = user.activeNewsTabsKeys
-  //   const tabs = defaultNewsTabs.filter((i) =>
-  //     activeNewsTabsKeys.includes(i.key),
-  //   )
-  //   setTabs(tabs)
-  // }
+  const loadTabs = async () => {
+    const userId = parseInt(localStorage.getItem("userId") ?? "0")
+    if (userId) {
+      const user = await getUser(userId)
+      const activeNewsTabsKeys = user.activeNewsTabsKeys
+      const tabs = defaultNewsTabs.filter((i) =>
+        activeNewsTabsKeys.includes(i.key),
+      )
+      setTabs(tabs)
+    }
+  }
+
   const loadNews = async () => {
     setTimeout(async () => {
       const ads = await getAdsNewsList()
@@ -54,6 +52,7 @@ const NewsSlot = () => {
     console.log({ isIntersecting })
     if (isIntersecting && !isLoaded) {
       loadNews()
+      loadTabs()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isIntersecting])
