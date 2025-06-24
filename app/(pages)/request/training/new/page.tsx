@@ -1,10 +1,10 @@
 import { CreateRequestStatus } from "@components"
 import { getUser } from "@db/actions"
 import {
-  getRequestStatus,
+  getCreateRequestStatus,
   getSubstituteEmployees,
   getTrainingFields,
-  getUserId,
+  getUserId
 } from "@server"
 import { TrainingForm } from "../components"
 
@@ -20,7 +20,7 @@ const NewTrainingPage = async () => {
   const trainingTypeFields = await getTrainingFields("training_type_id")
   const trainingCountryFields = await getTrainingFields("country_id")
   const trainingCityFields = await getTrainingFields("city_id")
-  const requestStatus = await getRequestStatus()
+  const requestStatus = await getCreateRequestStatus()
   const substituteEmployees = await getSubstituteEmployees()
 
   const requestCaption =
