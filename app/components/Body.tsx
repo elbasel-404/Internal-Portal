@@ -2,7 +2,7 @@ import {
   AppSideBar,
   Breadcrumbs,
   Footer,
-  InitUser,
+  // InitUser,
   Main,
   NavBar,
   RegisterChartJSPlugins,
@@ -23,7 +23,7 @@ export const Body = ({ children, className }: BodyProps) => {
   return (
     <body className={className}>
       <AppProvider>
-        <InitUser />
+        {/* <InitUser /> */}
         <Toaster richColors={true} position="top-center" />
         <RegisterChartJSPlugins />
         <AppSideBar />

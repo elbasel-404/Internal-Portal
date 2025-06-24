@@ -1,32 +1,67 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+"use client"
+
+import { useIntersectionObserver } from "@hooks"
+import { useEffect, useState } from "react"
+import { NewsSection } from "../components"
+import { defaultNewsTabs } from "@lib"
 import {
+  getAdsNewsList,
+  getFamilyNewsList,
+  getNewsListRequests,
   getUserId,
-  // getAdsNewsList,
-  // getNewsListRequests,
-  // getFamilyNewsList,
 } from "@server"
-// import { NewsSection } from "../components"
-// import { getUser } from "@db/actions"
-// Removed unused import: defaultNewsTabs
+import { getUser } from "@db/actions"
+import { AdsListRequst, NewsFamily, NewsListRequest } from "@types"
 
-const NewsSlot = async () => {
-  const userId = await getUserId()
-  // const ads = await getAdsNewsList()
-  // const news = await getNewsListRequests()
-  // const familyNews = await getFamilyNewsList()
-  // const newsData = await getAdsNewsList()
-  // Using let for tabs since we modify it below
-  // Removed unused variable warning by commenting out until it's used
-  // let tabs = defaultNewsTabs
+const NewsSlot = () => {
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [news, setNews] = useState<NewsListRequest[]>([])
+  const [ads, setAds] = useState<AdsListRequst[]>([])
+  const [familyNews, setFamilyNews] = useState<NewsFamily[]>([])
+  const [tabs, setTabs] = useState(defaultNewsTabs)
 
-  if (userId) {
-    // const user = await getUser(userId)
-    // Removing unused variable: activeNewsTabsKeys
-    // const activeNewsTabsKeys = user.activeNewsTabsKeys
-    // tabs = tabs.filter((i) => activeNewsTabsKeys.includes(i.key))
-  }
-
-  // return (
+  // const tabs = defaultNewsTabs
+  //// return (
   //   <NewsSection news={news} ads={ads} familyNews={familyNews} tabs={tabs} />
   // )
+
+  const { isIntersecting, ref } = useIntersectionObserver({ threshold: 0.5 })
+
+  // const userId = await getUserId()
+  // if (userId) {
+  //   const user = await getUser(userId)
+  //   const activeNewsTabsKeys = user.activeNewsTabsKeys
+  //   const tabs = defaultNewsTabs.filter((i) =>
+  //     activeNewsTabsKeys.includes(i.key),
+  //   )
+  //   setTabs(tabs)
+  // }
+  const loadNews = async () => {
+    setTimeout(async () => {
+      const ads = await getAdsNewsList()
+      const news = await getNewsListRequests()
+      const familyNews = await getFamilyNewsList()
+      // const newsData = await getAdsNewsList()
+      setNews(news)
+      setAds(ads)
+      setFamilyNews(familyNews)
+      setIsLoaded(true)
+    }, 0)
+  }
+
+  useEffect(() => {
+    console.log({ isIntersecting })
+    if (isIntersecting && !isLoaded) {
+      loadNews()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isIntersecting])
+
+  return (
+    <div ref={ref}>
+      <NewsSection news={news} ads={ads} familyNews={familyNews} tabs={tabs} />
+    </div>
+  )
 }
 export default NewsSlot
