@@ -1,11 +1,11 @@
 "use client"
 
 import { RequestDetails } from "@components"
-import { GoalRequest } from "@types"
+import { GoalFlowRequest } from "@types"
 import { GoalFlowTable } from "./GoalFlowTable"
 
 interface GoalDetailsProps {
-  goalsData: GoalRequest[]
+  goalsData: GoalFlowRequest[]
 }
 
 export const GoalLists = ({ goalsData }: GoalDetailsProps) => {
