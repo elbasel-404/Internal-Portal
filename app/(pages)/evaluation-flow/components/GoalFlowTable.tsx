@@ -1,30 +1,113 @@
+import { GoalsTable } from "@components"
+import {
+  DateField,
+  InputField,
+  SelectField,
+  TextareaField,
+} from "@components/form"
 import { colors } from "@lib"
 import { GoalFlowRequest } from "@types"
 import { Button, PieChartElem } from "@ui"
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react"
-import React, { useState } from "react"
-import { GoalsTable } from "../../../components/GoalsTable"
+import React, { ChangeEvent, useEffect, useState } from "react"
 import { StrategicGoals } from "../../../components/StrategicGoals"
 
 interface GoalFlowTableProps {
   goalsData: GoalFlowRequest[]
   evaluationFlowType?: string
+  editable?: boolean
+  onGoalUpdate?: (
+    goalId: string,
+    field: keyof GoalFlowRequest,
+    value: string,
+  ) => void
 }
+
+const activityStatusOptions = [
+  { id: "غير محدد", name: "غير محدد" },
+  { id: "مكتمل", name: "مكتمل" },
+  { id: "قيد التنفيذ", name: "قيد التنفيذ" },
+  { id: "متأخر", name: "متأخر" },
+  { id: "لم يبدأ", name: "لم يبدأ" },
+]
+
+const progressStatusOptions = [
+  { id: "على المسار", name: "على المسار" },
+  { id: "مؤجل", name: "مؤجل" },
+  { id: "متأخر", name: "متأخر" },
+]
 
 export const GoalFlowTable = ({
   goalsData,
   evaluationFlowType,
+  editable = false,
+  onGoalUpdate,
 }: GoalFlowTableProps) => {
   // Track expanded state for each goal by ID
   const [expandedGoals, setExpandedGoals] = useState<Record<string, boolean>>(
     {},
   )
 
+  // Local state to manage editable data
+  const [localGoalsData, setLocalGoalsData] = useState<GoalFlowRequest[]>(
+    () => {
+      if (editable) {
+        // Initialize with empty values for editable fields when editable is true
+        return goalsData.map((goal) => ({
+          ...goal,
+          progressStatus: "",
+          activities: "",
+          activityDate: "",
+          activityStatus: "",
+          notes: "",
+        }))
+      }
+      return goalsData
+    },
+  )
+
+  // Update local state when props change
+  useEffect(() => {
+    if (editable) {
+      // Initialize with empty values for editable fields when editable is true
+      setLocalGoalsData(
+        goalsData.map((goal) => ({
+          ...goal,
+          progressStatus: "",
+          activities: "",
+          activityDate: "",
+          activityStatus: "",
+          notes: "",
+        })),
+      )
+    } else {
+      setLocalGoalsData(goalsData)
+    }
+  }, [goalsData, editable])
+
   const toggleStrategicGoals = (goalId: string) => {
     setExpandedGoals((prev) => ({
       ...prev,
       [goalId]: !prev[goalId],
     }))
+  }
+
+  const handleFieldChange = (
+    goalId: string,
+    field: keyof GoalFlowRequest,
+    value: string,
+  ) => {
+    // Update local state immediately for responsive UI
+    setLocalGoalsData((prev) =>
+      prev.map((goal) =>
+        goal.id === goalId ? { ...goal, [field]: value } : goal,
+      ),
+    )
+
+    // Call parent callback if provided
+    if (onGoalUpdate) {
+      onGoalUpdate(goalId, field, value)
+    }
   }
 
   const pieChartConfig = {
@@ -37,13 +120,16 @@ export const GoalFlowTable = ({
   }
 
   // Determine table headers based on evaluation flow type
-  const isOfficialFollowUp = evaluationFlowType === "المتابعة الشخصية"
+  const isPersonalFollowUp =
+    evaluationFlowType === "personalFollowUp" ||
+    evaluationFlowType === "المتابعة الشخصية"
 
-  const baseHeaders = [
-    { label: "الهدف الفردي" },
-    { label: "وزن الهدف" },
-    { label: "مستوى حالة التقدم" },
-  ]
+  const baseHeaders = [{ label: "الهدف الفردي" }, { label: "وزن الهدف" }]
+
+  // Only add progress status header when NOT in personal follow-up mode
+  const progressStatusHeader = !isPersonalFollowUp
+    ? [{ label: "مستوى حالة التقدم" }]
+    : []
 
   const additionalHeaders = [
     { label: "الانشطة" },
@@ -53,9 +139,9 @@ export const GoalFlowTable = ({
 
   const notesHeader = [{ label: "الملاحظات" }]
 
-  const tableHeaders = isOfficialFollowUp
+  const tableHeaders = isPersonalFollowUp
     ? [...baseHeaders, ...additionalHeaders, ...notesHeader]
-    : [...baseHeaders, ...notesHeader]
+    : [...baseHeaders, ...progressStatusHeader, ...notesHeader]
 
   return (
     <div className="overflow-x-auto app-scrollbar">
@@ -74,7 +160,7 @@ export const GoalFlowTable = ({
           </tr>
         </thead>
         <tbody>
-          {goalsData.map((goal) => {
+          {localGoalsData.map((goal) => {
             const totalGoalWeight = Number(goal.goalWeight)
             const isExpanded = expandedGoals[goal.id] || false
 
@@ -133,34 +219,115 @@ export const GoalFlowTable = ({
                     </div>
                   </td>
 
-                  <td className="p-4 border border-gray-200 align-middle text-center">
-                    {goal.progressStatus}
-                  </td>
+                  {/* Only show progress status column when NOT in personal follow-up mode */}
+                  {!isPersonalFollowUp && (
+                    <td className="p-4 border border-gray-200 align-middle text-center">
+                      {editable ? (
+                        <SelectField
+                          label=""
+                          name="progressStatus"
+                          value={goal.progressStatus}
+                          onChange={(value: string) =>
+                            handleFieldChange(goal.id, "progressStatus", value)
+                          }
+                          types={progressStatusOptions}
+                          placeholder="--"
+                        />
+                      ) : (
+                        goal.progressStatus
+                      )}
+                    </td>
+                  )}
 
-                  {/* Additional columns for official follow-up */}
-                  {isOfficialFollowUp && (
+                  {/* Additional columns for personal follow-up */}
+                  {isPersonalFollowUp && (
                     <>
                       <td className="p-4 border border-gray-200 align-middle text-center">
-                        {goal.activities || "لا توجد أنشطة"}
+                        {editable ? (
+                          <InputField
+                            label=""
+                            name="activities"
+                            value={goal.activities}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                              handleFieldChange(
+                                goal.id,
+                                "activities",
+                                e.target.value,
+                              )
+                            }
+                          />
+                        ) : (
+                          goal.activities
+                        )}
                       </td>
                       <td className="p-4 border border-gray-200 align-middle text-center">
-                        {goal.activityDate || "غير محدد"}
+                        {editable ? (
+                          <DateField
+                            label=""
+                            name="activityDate"
+                            date={
+                              goal.activityDate
+                                ? new Date(goal.activityDate)
+                                : undefined
+                            }
+                            onChange={(date: Date | null | undefined) =>
+                              handleFieldChange(
+                                goal.id,
+                                "activityDate",
+                                date ? date.toISOString() : "",
+                              )
+                            }
+                            required={false}
+                          />
+                        ) : (
+                          goal.activityDate
+                        )}
                       </td>
                       <td className="p-4 border border-gray-200 align-middle text-center">
-                        {goal.activityStatus || "غير محدد"}
+                        {editable ? (
+                          <SelectField
+                            label=""
+                            name="activityStatus"
+                            value={goal.activityStatus}
+                            onChange={(value: string) =>
+                              handleFieldChange(
+                                goal.id,
+                                "activityStatus",
+                                value,
+                              )
+                            }
+                            types={activityStatusOptions}
+                            placeholder="--"
+                          />
+                        ) : (
+                          goal.activityStatus
+                        )}
                       </td>
                     </>
                   )}
 
                   <td className="p-4 border border-gray-200 align-middle text-center">
-                    {goal.notes || "لا توجد ملاحظات"}
+                    {editable ? (
+                      <TextareaField
+                        label=""
+                        name="notes"
+                        value={goal.notes || ""}
+                        onChange={(e) =>
+                          handleFieldChange(goal.id, "notes", e.target.value)
+                        }
+                        placeholder=""
+                        required={false}
+                      />
+                    ) : (
+                      goal.notes
+                    )}
                   </td>
                 </tr>
 
                 {/* Show strategic goals for this specific goal if expanded */}
                 <tr>
                   <td
-                    colSpan={isOfficialFollowUp ? 7 : 4}
+                    colSpan={isPersonalFollowUp ? 6 : 4}
                     className="p-0 border-none"
                   >
                     <div
