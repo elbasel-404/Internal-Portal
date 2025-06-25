@@ -126,7 +126,7 @@ export const RequestDetails = ({
         })
         .map(({ label, value, tableHeaders, index }: RequestHeader) => (
           <RequestDetailsHeader
-            key={label + index}
+            key={String(label) + String(index)}
             label={label}
             data={value as []}
             tableHeaders={tableHeaders || []}
@@ -150,7 +150,7 @@ const AttachmentList = ({ attachmentList }: AttachmentListProps) => {
       <div className="space-y-[10px]">
         {Array.isArray(attachmentList) &&
           attachmentList.map((file, index) => (
-            <Fragment key={file.name + index}>
+            <Fragment key={String(file.name) + String(index)}>
               <FileAttachment file={file} />
             </Fragment>
           ))}
@@ -226,7 +226,7 @@ const RequestDetailsHeader = ({
             <TableRow>
               {tableHeaders.map((col, index) => (
                 <TableHead
-                  key={col.label + index}
+                  key={String(col.label) + String(index)}
                   className={"text-right text-darkBlue text-lg w-1/12"}
                 >
                   {col.label}
@@ -238,7 +238,7 @@ const RequestDetailsHeader = ({
             {Array.isArray(data) &&
               (data as ResultItem[]).map((resultItem, index) => (
                 <TableRow
-                  key={resultItem.id + index.toFixed()}
+                  key={String(resultItem.id) + String(index)}
                   className={`${index % 2 !== 0 ? "bg-cloudGray" : "bg-white"}`}
                 >
                   {Object.entries(resultItem)

@@ -5,57 +5,49 @@ import {
   ResponseSchema,
   SalaryIdentificationElementSchema,
 } from "../../api-schemas"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
+import { getData } from "./getData"
 
 export const getHrLetterDetails = async (
   id: string,
 ): Promise<HrLetterDetails | void> => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
+  const getArrayValue = (field: unknown, index: number = 1): string =>
+    Array.isArray(field) ? (field[index]?.toString() ?? "") : ""
 
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/salary/identification/request/read"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  const requestBody = { id: id }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
+  const getStringValue = (field: unknown): string =>
+    typeof field === "string" ? field : ""
 
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+  const result = await getData<HrLetterDetails>({
+    url: "api/po/salary/identification/request/read",
+    responseSchema: ResponseSchema,
+    dataSchema: SalaryIdentificationElementSchema,
+    parseData: (data) => {
+      if (!data || data.length === 0) {
+        return [dummyData]
+      }
+
+      const typedData = data[0] as Record<string, unknown>
+
+      return [
+        {
+          id: getStringValue(typedData.id),
+          requestDate: getStringValue(typedData.order_date),
+          destinationAr: getArrayValue(typedData.destination_id),
+          destinationEn: getStringValue(typedData.eng_destination),
+          type: getStringValue(typedData.template_name),
+          notes: getStringValue(typedData.notes),
+          attachments: Array.isArray(typedData.message_ids)
+            ? typedData.message_ids.map(
+                (file: string | number) => new File([""], String(file)),
+              )
+            : [],
+        },
+      ]
+    },
+    additionalBody: { id },
+    dummyData: [dummyData],
   })
-  const responseJson = await apiResponse.json()
 
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = SalaryIdentificationElementSchema.parse(data[0])
-
-  // ! PARSING
-  // ! ==================================
-
-  const returnedData: HrLetterDetails = {
-    id: validatedData.id.toString(),
-    requestDate: validatedData.order_date,
-    destinationAr: validatedData.destination_id[1]?.toString() || "__",
-    destinationEn: validatedData.eng_destination || "__",
-    type: validatedData.template_name || "__",
-    notes: validatedData.notes.toString() || "__",
-    attachments: validatedData.message_ids.map(
-      (file: string | number) => new File([""], file.toString()),
-    ),
-  }
-
-  return returnedData
+  return result[0]
 }
 const dummyData: HrLetterDetails = {
   id: "1",
