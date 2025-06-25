@@ -4,15 +4,17 @@ import { RequestDetails } from "@components"
 import { GoalFlowRequest } from "@types"
 import { GoalFlowTable } from "./GoalFlowTable"
 
-interface GoalDetailsProps {
+interface GoalListsProps {
   goalsData: GoalFlowRequest[]
   evalutaionFlowType?: string
+  editable?: boolean
 }
 
 export const GoalLists = ({
   goalsData,
   evalutaionFlowType,
-}: GoalDetailsProps) => {
+  editable = false,
+}: GoalListsProps) => {
   // const totalGoalWeight = goalsData.reduce(
   //   (sum, goal) => sum + Number(goal.goalWeight || 0),
   //   0,
@@ -22,7 +24,11 @@ export const GoalLists = ({
       requestDetailsLabel="قائمة الأهداف"
       evaluationCriteria={
         <>
-          <GoalFlowTable goalsData={goalsData} evaluationFlowType={evalutaionFlowType} />
+          <GoalFlowTable
+            goalsData={goalsData}
+            evaluationFlowType={evalutaionFlowType}
+            editable={editable}
+          />
           {/* <div className="border-t border-[#ECF0F480]"></div>
           <div className="p-4">
             <div className="flex items-center gap-4">
