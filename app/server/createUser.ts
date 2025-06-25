@@ -25,5 +25,5 @@ export const createUser = async () => {
 
   // Set user Id in cookies
   await setUserId(userId)
-  return newUser
+  return userId
 }

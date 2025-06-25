@@ -57,10 +57,6 @@ ToggleFormProps) => {
   const [checked, setChecked] = useState(active)
 
   useEffect(() => {
-    return () => {}
-  }, [])
-
-  useEffect(() => {
     if (!router) return
     const errorMessage = state.error
     if (errorMessage) {

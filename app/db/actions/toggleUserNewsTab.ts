@@ -1,3 +1,5 @@
+"use server"
+
 /**
  * Toggles the active state of a user's news tab.
  *

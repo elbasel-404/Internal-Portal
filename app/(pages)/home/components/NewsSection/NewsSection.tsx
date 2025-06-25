@@ -37,7 +37,7 @@ export const NewsSection = ({
 
   const renderContent = () => {
     if (tabs.length === 0) {
-      return <NewsContent data={ads} />
+      return null
     }
     switch (activeTab) {
       case "internalTab":
