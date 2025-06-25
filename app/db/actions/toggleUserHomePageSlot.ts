@@ -1,3 +1,4 @@
+"use server"
 /**
  * Toggles the active state of a user's home page slot.
  *

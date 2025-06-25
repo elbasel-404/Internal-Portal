@@ -55,6 +55,9 @@ export const ToggleDemo = () => {
       dir="ltr"
       className="flex w-max flex-col items-center fixed bottom-[20px] left-[20px] rounded-xl overflow-hidden text-white"
     >
+      <p className="bg-black border-b border-white/20 text-white px-2 py-1 w-full text-center text-xl">
+        Version 1.00
+      </p>
       <form className="bg-black w-full" action={formAction} onSubmit={onSubmit}>
         <button
           className="flex justify-center items-center gap-2 flex-1 py-2 px-2"
