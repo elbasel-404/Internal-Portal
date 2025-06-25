@@ -3,10 +3,10 @@ import { Button } from "@ui"
 
 interface FormActionsProps {
   onClose: () => void
-  onSubmit: () => void
+  onSubmit?: () => void
 }
 
-export const FormActions = ({ onClose, onSubmit }: FormActionsProps) => {
+export const FormActions = ({ onClose }: FormActionsProps) => {
   return (
     <div className="flex justify-end mb-2 gap-2 px-4">
       <Button

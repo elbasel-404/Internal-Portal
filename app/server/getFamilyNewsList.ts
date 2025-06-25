@@ -2,57 +2,44 @@
 
 import { FamilyNewSchema, ResponseSchema } from "@api/schemas"
 import type { NewsFamily } from "@types"
-import { formatNewsDate } from "@utils"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
 import { formatDate } from "@utils"
+import { getData } from "./getData"
 
 export const getFamilyNewsList = async (): Promise<NewsFamily[]> => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
+  return getData<NewsFamily>({
+    url: "api/po/read/portal-news",
+    includeEmployeeId: false,
+    additionalBody: { news_type: "family_news" },
+    responseSchema: ResponseSchema,
+    dataSchema: FamilyNewSchema,
+    parseData: (data) => {
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, unknown>
 
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/read/portal-news"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  if (!headers) return []
-  const requestBody = { news_type: "family_news" }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
+        // Safe type handling
+        const id = typeof typedItem.id === "number" ? typedItem.id : 0
+        const imageData =
+          typeof typedItem.image === "string" ? typedItem.image : ""
+        const createDate =
+          typedItem.create_date instanceof Date
+            ? typedItem.create_date
+            : typedItem.create_date
+              ? new Date(String(typedItem.create_date))
+              : new Date()
 
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+        return {
+          id: id,
+          title: String(typedItem.title || ""),
+          date: formatDate(createDate),
+          image: imageData
+            ? `data:image/gif;base64,${imageData}`
+            : "/monshaatFamily-1.svg",
+          description: String(typedItem.resume || ""),
+        }
+      })
+    },
+    dummyData,
   })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = FamilyNewSchema.array().parse(data)
-
-  // ! PARSING
-  // ! ==================================
-  const returnedData: NewsFamily[] = validatedData.map((data) => {
-    const newsItem: NewsFamily = {
-      id: data.id,
-      title: data.title,
-      date: formatDate(data.create_date),
-      image: data.image
-        ? `data:image/gif;base64,${data.image}`
-        : "/monshaatFamily-1.svg",
-      description: data.resume,
-    }
-    return newsItem
-  })
-  return returnedData
 }
 
 const dummyData: NewsFamily[] = [

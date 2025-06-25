@@ -14,7 +14,7 @@ interface TraineeRequestProps {
 }
 
 export const TraineeTable = ({ data }: TraineeRequestProps) => {
-  const [currentPage, setCurrentPage] = useState(1)
+  // const currentPage removed as it was unused
   const [searchTerm, setSearchTerm] = useState("")
   const [isFilterVisible, setIsFilterVisible] = useState(false)
 
@@ -34,7 +34,7 @@ export const TraineeTable = ({ data }: TraineeRequestProps) => {
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value.trim())
-    setCurrentPage(1)
+    // setCurrentPage(1) - removed as currentPage state was removed
   }
 
   return (

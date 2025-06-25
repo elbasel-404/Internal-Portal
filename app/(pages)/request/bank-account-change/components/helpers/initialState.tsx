@@ -1,7 +1,7 @@
 import type { State } from "./State"
 
 export const initialState: State = {
-  success: null,
+  success: false,
   errors: null,
   id: null,
 }

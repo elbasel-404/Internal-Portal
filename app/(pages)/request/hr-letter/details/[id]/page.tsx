@@ -12,8 +12,6 @@ const HrLetterDetailsPage = async ({ params }: HrLetterDetailsPageProps) => {
   const { id } = await params
   const model = "salary.identification.request"
   const requestStatus = await getRequestStatus(id, model)
-  const requestCaption =
-    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   const {
     requestDate,
     type,
@@ -55,7 +53,7 @@ const HrLetterDetailsPage = async ({ params }: HrLetterDetailsPageProps) => {
   ]
   return (
     <main>
-      <RequestStatus status={requestStatus} caption={requestCaption} />
+      <RequestStatus status={requestStatus} />
       <RequestDetails headers={requestHeaders} />
     </main>
   )

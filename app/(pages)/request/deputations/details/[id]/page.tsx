@@ -15,9 +15,10 @@ const DeputationDetailsPage = async ({
   params,
 }: DeputationDetailsPageProps) => {
   const { id } = await params
-  const requestStatus = await getRequestStatus()
-  const requestCaption =
-    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
+  // const requestStatus = await getRequestStatus("", "")
+  // const requestCaption =
+  //   "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
+  const requestStatus = await getRequestStatus(id, "hr.deputation")
   const {
     requestDate,
     deputation,
@@ -164,7 +165,7 @@ const DeputationDetailsPage = async ({
 
   return (
     <main className="space-y-4">
-      <RequestStatus status={requestStatus} caption={requestCaption} />
+      <RequestStatus status={requestStatus} />
       <RequestDetails headers={requestHeaders} />
       <ModalLink
         name="DeputationConfirmationModal"

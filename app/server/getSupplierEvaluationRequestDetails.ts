@@ -25,7 +25,7 @@ export const getSupplierEvaluationRequestDetails = async (
       reason: "test reason",
     }
     return details
-  } catch (error) {
+  } catch {
     return
   }
 }

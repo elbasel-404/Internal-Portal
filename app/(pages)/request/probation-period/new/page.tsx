@@ -1,13 +1,14 @@
-import { RequestStatus } from "@components"
+import { CreateRequestStatus } from "@components"
 import {
   getProbationPeriodEmployees,
   getProbationPeriodFields,
-  getRequestStatus,
+  getCreateRequestStatus,
 } from "@server"
 import { ProbationPeriodForm } from "../components"
 
 const NewProbationPeriodPage = async () => {
-  const requestStatus = await getRequestStatus()
+  // const requestStatus = await getRequestStatus("", "")
+  const requestStatus = await getCreateRequestStatus("hr.probation.evaluation")
   const probationPeriodEmployees = await getProbationPeriodEmployees()
   const probationPeriodQuestions = await getProbationPeriodFields("questions")
   const probationPeriodAnswers = await getProbationPeriodFields("answers")
@@ -18,7 +19,7 @@ const NewProbationPeriodPage = async () => {
 
   return (
     <div className="space-y-4 mb-16">
-      <RequestStatus status={requestStatus} caption={requestCaption} />
+      <CreateRequestStatus status={requestStatus} caption={requestCaption} />
       <ProbationPeriodForm
         probationPeriodEmployees={probationPeriodEmployees}
         probationPeriodQuestions={probationPeriodQuestions}

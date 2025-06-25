@@ -1,14 +1,11 @@
 "use client"
 
-import { costsAtom, dateFromAtom, dateToAtom } from "@atoms"
+// Removed unused imports
 import { AttachmentsField } from "@components/form"
-import { CheckIcon, RiyalCurrencyIcon, XMarkIcon } from "@icons"
+import { CheckIcon, XMarkIcon } from "@icons"
 import { Button } from "@ui"
-import { useLocalStorage } from "@uidotdev/usehooks"
-import { useAtom } from "jotai"
 import { useRouter } from "next/navigation"
-import { ChangeEvent, useEffect, useState } from "react"
-import { toast } from "sonner"
+import { useState } from "react"
 import { deputationConfirmationFormAction } from "./DeputationConfirmationFormAction"
 
 export const DeputationConfirmationForm = () => {
@@ -33,7 +30,7 @@ export const DeputationConfirmationForm = () => {
     setFiles(updatedFiles)
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = () => {
     closeModal()
   }
 

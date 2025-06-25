@@ -2,7 +2,8 @@ import useSWR, { Fetcher } from "swr"
 import { VacationRequest } from "@types"
 import { getVacationRequests } from "../../server/getVacationRequests"
 
-const fetcher: Fetcher<VacationRequest[]> = async (url: string) => {
+const fetcher: Fetcher<VacationRequest[]> = async () => {
+  // url parameter not used since we're calling a direct function
   const requests = await getVacationRequests()
   return requests
 }
