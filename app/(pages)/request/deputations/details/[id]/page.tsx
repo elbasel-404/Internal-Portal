@@ -41,9 +41,7 @@ const DeputationDetailsPage = async ({
     deputationAmount,
     transferDate,
     reserved,
-    status,
     reason,
-    notes,
     attachments,
     deputationPlaces,
   } = (await getDeputationRequestDetails(id)) || {}
@@ -146,10 +144,6 @@ const DeputationDetailsPage = async ({
       value: reason,
     },
     {
-      label: "ملاحظات" as RequestHeader["label"],
-      value: notes,
-    },
-    {
       label: "مكان الانتداب" as RequestHeader["label"],
       value: deputationPlaces as ReactNode,
       tableHeaders: [
@@ -158,7 +152,7 @@ const DeputationDetailsPage = async ({
       ],
     },
     {
-      label: "المرفقات" as RequestHeader["label"],
+      label: "المرفقات",
       value: attachments,
     },
   ]
