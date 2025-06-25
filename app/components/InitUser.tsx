@@ -1,28 +1,30 @@
 "use client"
 
 import { getUserId } from "@server"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { createUser } from "../server/createUser"
 // import { createUser } from "../server/createUser";
 // import { clearUser, getPrismaUser } from "@server";
 
 export const InitUser = () => {
+  const [userId, setUserId] = useState<number>()
   const initUser = async () => {
     const userId = await getUserId()
-    if (userId) return
-    createUser()
-    // const clientSecret = localStorage.getItem("clientSecret");
-    // const user = await getPrismaUser();
-
-    // if (user?.clientSecret === clientSecret) return;
-    // await clearUser();
-    // const newUser = await createUser();
-    // localStorage.setItem("clientSecret", newUser.clientSecret);
+    if (userId) {
+      setUserId(userId)
+      return
+    }
+    const newUserId = await createUser()
+    setUserId(newUserId)
   }
 
   useEffect(() => {
     initUser()
   }, [])
+
+  useEffect(() => {
+    localStorage.setItem("userId", userId?.toString() || "")
+  }, [userId])
 
   return null
 }

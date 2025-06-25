@@ -41,5 +41,4 @@ next-env.d.ts
 .env.local
 *storybook.log
 
-db.json
 .aider*
