@@ -3,6 +3,8 @@ export type { ModalName } from "./components/ModalName"
 export type { ChartData } from "./components/PieChart"
 export type { Competencies } from "./pages/Competencies"
 export type { CreateRequestStatus } from "./pages/CreateRequestStatus"
+export type { EvaluationFlow } from "./pages/evaluation/EvaluationFlow"
+export type { EvaluationFlowGoalDetails } from "./pages/evaluation/EvaluationFlowGoalDetails"
 export type { EvaluationGoal } from "./pages/evaluation/EvaluationGoal"
 export type { EvaluationGoalDetails } from "./pages/evaluation/EvaluationGoalDetails"
 export type { GeneralInfo } from "./pages/GeneralInfo"
@@ -33,6 +35,7 @@ export type { DeputationRequestDetails } from "./pages/request/DeputationRequest
 export type { EmployeeAttendanceRequest } from "./pages/request/EmployeeAttendanceRequest"
 export type { EmployeeMembersDetails } from "./pages/request/EmployeeMembersDetails"
 export type { EmployeeMembersRequest } from "./pages/request/EmployeeMembersRequest"
+export type { GoalFlowRequest } from "./pages/request/GoalFlowRequest"
 export type { GoalRequest } from "./pages/request/GoalRequest"
 export type { HrLetterDetails } from "./pages/request/HrLetterDetails"
 export type { HrLetterRequest } from "./pages/request/HrLetterRequest"
@@ -49,6 +52,7 @@ export type { OvertimeAssignmentDetails } from "./pages/request/OvertimeAssignme
 export type { OvertimeAssignmentRequest } from "./pages/request/OvertimeAssignmentRequest"
 export type { OvertimeConfirmDetails } from "./pages/request/OvertimeConfirmDetails"
 export type { OvertimeConfirmRequest } from "./pages/request/OvertimeConfirmRequest"
+export type { OvertimeList } from "./pages/request/OvertimeList"
 export type { PassportRequest } from "./pages/request/PassportRequest"
 export type { PermissionDetails } from "./pages/request/PermissionDetails"
 export type { PermissionRequest } from "./pages/request/PermissionRequest"
@@ -68,7 +72,7 @@ export type {
   ProgramData,
   ProjectData,
   PurchaseType,
-  YesNoOption,
+  YesNoOption
 } from "./pages/request/PurchaseTypes"
 export type { RecommendationDetails } from "./pages/request/RecommendationDetails"
 export type { RecommendationRequest } from "./pages/request/RecommendationRequest"
@@ -85,6 +89,8 @@ export type { SupplierEvaluationRequestDetails } from "./pages/request/SupplierE
 export type { SupplierKPI } from "./pages/request/SupplierKPI"
 export type { TicketDetails } from "./pages/request/TicketDetails"
 export type { TicketRequest } from "./pages/request/TicketRequest"
+export type { TraineeRequest } from "./pages/request/TraineeRequest"
+export type { TraineeRequestDetails } from "./pages/request/TraineeRequestDetails"
 export type { TrainingCourse } from "./pages/request/TrainingCourse"
 export type { TrainingDetails } from "./pages/request/TrainingDetails"
 export type { TrainingRequest } from "./pages/request/TrainingRequest"
@@ -109,7 +115,5 @@ export type { Row } from "./shared/Row"
 export type { Rules } from "./shared/Rules"
 export type { TabType } from "./shared/TabType"
 export type { User } from "./shared/User"
-export type { TraineeRequest } from "./pages/request/TraineeRequest"
-export type { TraineeRequestDetails } from "./pages/request/TraineeRequestDetails"
-export type { OvertimeList } from "./pages/request/OvertimeList"
 export type { TypedRecord } from "./TypedRecord"
+

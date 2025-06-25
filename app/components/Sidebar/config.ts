@@ -143,13 +143,13 @@ export const MenuItems: MenuItem[] = [
       {
         iconKey: "DoubleSquare",
         label: "تخطيط الأداء",
-        href: "/evaluation/goals",
+        href: paths.evaluationGoals.href,
         tag: "jobPerformance",
       },
       {
         iconKey: "Telescope",
         label: "متابعة الأداء",
-        href: "/",
+        href: paths.evaluationFlow.href,
         tag: "jobPerformance",
       },
       {
