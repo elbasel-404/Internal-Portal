@@ -5,6 +5,7 @@ import { ResponseSchema } from "@api/schemas/responseSchema"
 import { getStoredEmployeeId } from "@auth"
 import { getDemo } from "@db/actions"
 import type { DeputationRequest } from "@types"
+import { getFetchHeaders } from "./getFetchHeaders"
 
 export const getDeputationRequests = async (): Promise<DeputationRequest[]> => {
   const isDemo = await getDemo()
@@ -26,25 +27,22 @@ export const getDeputationRequests = async (): Promise<DeputationRequest[]> => {
   const employeeId = await getStoredEmployeeId()
   const url = "api/po/hr/deputation"
   const apiRootUrl = process.env.API_ROOT_URL as string
-  // const fetchHeaders = await getFetchHeaders()
-  // const headers = fetchHeaders?.headers
-  const requestBody = { employee_id: 1722 }
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
+  const requestBody = { employee_id: employeeId }
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`
 
   // ! FETCH
   // ! ==================================
   const apiResponse = await fetch(requestUrl, {
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": "85ced9c9-b64b-4d76-85a5-ae3b869b044d",
-      Authorization: `Bearer HqmJsIbIiPhq8Bw34G0vgQcfaw54CR`, // Ensure BEARER_TOKEN is set in your environment
-      Cookie: `session_id=299e50186cad4718cbcbcb7767a599784865e408`, // Ensure SESSION_ID is set in your environment
-    },
+    headers,
     method: "POST",
     body: requestBodyString,
   })
   const responseJson = await apiResponse.json()
+
+  console.log("Deputation Requests Response:", responseJson)
 
   // ! VALIDATION
   // ! ==================================
@@ -52,8 +50,8 @@ export const getDeputationRequests = async (): Promise<DeputationRequest[]> => {
   // const { result } = validatedResponse;
   const result = validatedResponse.data?.result
   const data = result?.data
-  const validatedData = DeputationElementSchema.array().safeParse(data)
-  const deputationsData = validatedData.data
+  const validatedData = DeputationElementSchema.array().parse(data)
+  const deputationsData = validatedData
 
   // ! PARSING
   // ! ==================================
@@ -61,7 +59,7 @@ export const getDeputationRequests = async (): Promise<DeputationRequest[]> => {
     ? deputationsData.map((data) => {
         const deputationItem: DeputationRequest = {
           id: data.id.toString(),
-          requestDate: data.create_date.toISOString().split("T")[0],
+          requestDate: data.create_date.split(" ")[0],
           deputation: DeputationType(data.type),
           startDate: data.date_from,
           endDate: data.date_to,

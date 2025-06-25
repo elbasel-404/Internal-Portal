@@ -3,6 +3,7 @@
 import { DeputationElementSchema, ResponseSchema } from "@api/schemas/index"
 import { getDemo } from "@db/actions"
 import { DeputationRequestDetails } from "@types"
+import { getFetchHeaders } from "./getFetchHeaders"
 
 export const getDeputationRequestDetails = async (
   id: string,
@@ -25,8 +26,8 @@ export const getDeputationRequestDetails = async (
   // ! ==================================
   const url = "api/po/hr/deputation"
   const apiRootUrl = process.env.API_ROOT_URL as string
-  // const fetchHeaders = await getFetchHeaders()
-  // const headers = fetchHeaders?.headers
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
   const requestBody = { id: id }
   const requestBodyString = JSON.stringify(requestBody)
   const requestUrl = `${apiRootUrl}/${url}`
@@ -34,12 +35,7 @@ export const getDeputationRequestDetails = async (
   // ! FETCH
   // ! ==================================
   const apiResponse = await fetch(requestUrl, {
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": "85ced9c9-b64b-4d76-85a5-ae3b869b044d",
-      Authorization: `Bearer HqmJsIbIiPhq8Bw34G0vgQcfaw54CR`, // Ensure BEARER_TOKEN is set in your environment
-      Cookie: `session_id=299e50186cad4718cbcbcb7767a599784865e408`, // Ensure SESSION_ID is set in your environment
-    },
+    headers,
     method: "POST",
     body: requestBodyString,
   })
@@ -56,7 +52,7 @@ export const getDeputationRequestDetails = async (
   // ! ==================================
   const returnedData: DeputationRequestDetails = {
     id: validatedData.id.toString(),
-    requestDate: validatedData.create_date.toISOString().split("T")[0],
+    requestDate: validatedData.create_date.split(" ")[0],
     deputation: DeputationType(validatedData.type),
     transportation: validatedData.transportation_type,
     deputationType: validatedData.deputation_type[1].toString(),
@@ -67,7 +63,12 @@ export const getDeputationRequestDetails = async (
     kilometers: validatedData.distance.toString(),
     city: validatedData.city_id[1].toString(),
     task: validatedData.task_name,
-    taskDetails: "__",
+    taskDetails:
+      typeof validatedData.note === "string"
+        ? validatedData.note
+        : validatedData.note
+          ? validatedData.note.toString()
+          : "__",
     departureDatesStatus:
       validatedData.travel_days_setting === "before_deputation"
         ? "قبل بداية الانتداب"
@@ -91,13 +92,10 @@ export const getDeputationRequestDetails = async (
         : "__",
     status: validatedData.state,
     reason: validatedData.refuse_reason.toString() || "__",
-    notes:
-      typeof validatedData.note === "string"
-        ? validatedData.note
-        : validatedData.note
-          ? validatedData.note.toString()
-          : "__",
-    deputationPlaces: [],
+    deputationPlaces: [
+      { id: "1", name: "السعودية", city: "الرياض" },
+      { id: "2", name: "مصر", city: "القاهرة" },
+    ],
     attachments: validatedData.attachment_ids.map(
       (file: any) => new File([""], file.toString()),
     ),
@@ -132,8 +130,6 @@ const details: DeputationRequestDetails = {
   replacementEmployee: "محمد علي",
   status: "مرفوض",
   reason: "غير مناسب",
-  notes:
-    "ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف ملاحظة حول طلب اجازة تم فتحها من قبل الموظف",
   deputationPlaces: [
     { id: "1", name: "السعودية", city: "الرياض" }, // Saudi Arabia
     { id: "2", name: "مصر", city: "القاهرة" }, // Egypt
