@@ -53,7 +53,7 @@ export const getRequestStatus = async (
     return vacationItem
   })
 
-  return returnedData
+  return returnedData.length > 0 ? returnedData : dummyData
 }
 
 const dummyData: RequestStatus[] = [
