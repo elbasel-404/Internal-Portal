@@ -26,7 +26,7 @@ export const getTicketDetails = async (
       ],
     }
     return details
-  } catch (error) {
+  } catch {
     return
   }
 }

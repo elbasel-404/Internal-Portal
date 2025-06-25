@@ -26,9 +26,7 @@ const PurchaseDetailsPage = async ({ params }: PurchaseDetailsPageProps) => {
   if (!userId) return
 
   const { batchs } = await getUser(userId)
-  const productsData = await getPurchaseProductsByRequestId({
-    purchaseRequestId: id,
-  })
+  const productsData = await getPurchaseProductsByRequestId(id)
 
   const {
     requestDate,
@@ -61,12 +59,12 @@ const PurchaseDetailsPage = async ({ params }: PurchaseDetailsPageProps) => {
     { label: "المرفقات", value: attachments },
   ]
 
-  const requestCaption =
-    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
+  // const requestCaption =
+  //   "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
 
   return (
     <main className="space-y-4">
-      <RequestStatus status={requestStatus} caption={requestCaption} />
+      <RequestStatus status={requestStatus} />
       <RequestDetails headers={requestHeaders} />
       <ProductsTableSection
         requestStatus={requestStatus}

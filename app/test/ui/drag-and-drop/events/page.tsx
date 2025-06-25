@@ -19,7 +19,8 @@ const DragAndDropEventsTestPage = () => {
         // setValuesChanged('Not sorting');
       },
 
-      onSort: (event) => {
+      onSort: () => {
+        // Event parameter not used
         // setValuesChanged(`${event.previousValues} -> ${event.values}`);
       },
     },

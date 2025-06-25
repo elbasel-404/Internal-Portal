@@ -17,5 +17,7 @@ export const removeBatch = async (index: number) => {
     userData.batchs.splice(index, 1)
 
     await db.write()
-  } catch (error) {}
+  } catch {
+    // Error handling could be added here in the future
+  }
 }

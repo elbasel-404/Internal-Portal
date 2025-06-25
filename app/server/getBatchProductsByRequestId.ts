@@ -2,12 +2,10 @@
 
 import type { BatchProduct } from "@types"
 
-interface getBatchProductsAgrs {
-  batchRequestId: string
-}
+// Removed unused interface
 
-export const getBatchProductsByRequestId = async ({}: // batchRequestId,
-getBatchProductsAgrs): Promise<BatchProduct[]> => {
+export const getBatchProductsByRequestId = async () // Parameter not used
+: Promise<BatchProduct[]> => {
   return dummyData
 }
 

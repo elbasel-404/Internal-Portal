@@ -4,7 +4,7 @@ import { getCreateRequestStatus } from "@server"
 import { EvaluationForm } from "../components"
 
 const NewEvaluationPage = async () => {
-  const model = "hr.holidays"
+  const model = "hr.relation.supplier.evaluation"
   const requestStatus = await getCreateRequestStatus(model)
   const requestCaption = "انت الان في مرحلة انشاء الطلب"
   return (

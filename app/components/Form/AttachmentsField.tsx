@@ -10,6 +10,7 @@ interface AttachmentsFieldProps {
   required?: boolean
   files: File[]
   name?: string
+  errors?: string[]
 }
 
 export const AttachmentsField = ({
@@ -20,6 +21,7 @@ export const AttachmentsField = ({
   required,
   files,
   name = "attachment_ids",
+  errors = [],
 }: AttachmentsFieldProps) => {
   return (
     <div>
@@ -31,6 +33,13 @@ export const AttachmentsField = ({
         <p className="text-grey-400 text-sm">{subLabel}</p>
       </div>
       <div className="mt-1 flex flex-col gap-2">
+        {errors && errors.length > 0 && (
+          <div className="text-red-500 text-sm">
+            {errors.map((error, index) => (
+              <p key={index}>{error}</p>
+            ))}
+          </div>
+        )}
         <div className="flex items-center justify-center border-2 border-dashed border-gray-300 rounded-md p-6">
           <input
             type="file"

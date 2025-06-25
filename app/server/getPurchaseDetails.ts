@@ -6,9 +6,7 @@ import { getPurchaseProductsByRequestId } from "./getPurchaseProductsByRequestId
 export const getPurchaseDetails = async (
   id: string,
 ): Promise<PurchaseDetails | void> => {
-  const purchaseProducts = await getPurchaseProductsByRequestId({
-    purchaseRequestId: id,
-  })
+  const purchaseProducts = await getPurchaseProductsByRequestId(id)
   return { ...dummyData, purchaseProducts }
 }
 

@@ -1,5 +1,5 @@
-import { Instructions, RequestDetails, RequestStatus } from "@components"
-import { getRequestStatus, getTicketDetails } from "@server"
+import { Instructions, RequestDetails } from "@components"
+import { getTicketDetails } from "@server"
 import { RequestHeader } from "@types"
 import { CommentSection } from "../../components"
 
@@ -11,9 +11,9 @@ interface TicketDetailsPageProps {
 
 const TicketDetailsPage = async ({ params }: TicketDetailsPageProps) => {
   const { id } = await params
-  const requestStatus = await getRequestStatus()
-  const requestCaption =
-    "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
+  // const requestCaption =
+  //   "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
+  // const requestStatus = await getRequestStatus(id, "helpdesk.ticket")
   const {
     requestDate,
     subject,
@@ -80,7 +80,7 @@ const TicketDetailsPage = async ({ params }: TicketDetailsPageProps) => {
   ]
   return (
     <main className="space-y-4">
-      <RequestStatus status={requestStatus} caption={requestCaption} />
+      {/* <RequestStatus status={requestStatus} /> */}
       <RequestDetails headers={requestHeaders} />
       <CommentSection />
       <Instructions

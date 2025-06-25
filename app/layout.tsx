@@ -17,9 +17,9 @@ interface RootLayoutProps {
 
 const RootLayout = async ({ children }: Readonly<RootLayoutProps>) => {
   const session = await getSession()
-  if (!session)
+  if (!session) {
     return (
-      <html>
+      <html lang="ar">
         <body>
           <Toaster
             richColors
@@ -33,6 +33,7 @@ const RootLayout = async ({ children }: Readonly<RootLayoutProps>) => {
         </body>
       </html>
     )
+  }
 
   return <>{children}</>
 }

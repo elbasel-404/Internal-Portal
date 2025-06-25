@@ -17,5 +17,7 @@ export const removeTrainingCourse = async (index: number) => {
     userData.trainingCourses.splice(index, 1)
 
     await db.write()
-  } catch (error) {}
+  } catch {
+    // Error handling could be added here in the future
+  }
 }

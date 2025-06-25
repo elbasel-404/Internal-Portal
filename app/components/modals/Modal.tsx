@@ -113,7 +113,7 @@ export const Modal = ({
     setModalOpen(false)
 
     // if (handleClickInternally) await sleep(2);
-    if (typeof window === undefined) return
+    if (typeof window === "undefined") return
     const path = window.location.href
     if (path.includes("modal")) router.back()
   }

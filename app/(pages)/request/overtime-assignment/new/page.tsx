@@ -1,14 +1,15 @@
-import { Instructions, RequestStatus } from "@components"
+import { Instructions, CreateRequestStatus } from "@components"
 import { OvertimeAssignmentForm } from "../components"
-import { getRequestStatus } from "@server"
+import { getCreateRequestStatus } from "@server"
 
 const NewOvertimeAssignmentPage = async () => {
-  const requestStatus = await getRequestStatus()
+  // const requestStatus = await getRequestStatus("", "")
+  const requestStatus = await getCreateRequestStatus("hr.overtime.assignment")
   const requestCaption =
     "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   return (
     <div className="space-y-4 mb-16">
-      <RequestStatus status={requestStatus} caption={requestCaption} />
+      <CreateRequestStatus status={requestStatus} caption={requestCaption} />
       <OvertimeAssignmentForm />
       <Instructions
         title="توضيحات حول الخدمة"

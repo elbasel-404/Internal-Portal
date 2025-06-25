@@ -1,6 +1,6 @@
 import { userSchema } from "@db/schemas"
 import type { User } from "@db/types"
-import { ErrorMessage } from "@lib"
+// Removed unused import: ErrorMessage
 
 export const validateUser = async (user: User): Promise<User> => {
   const validatedUser = userSchema.parse(user)

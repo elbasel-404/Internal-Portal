@@ -1,4 +1,3 @@
-import { defaultNewsTabs } from "@lib"
 import {
   getUserId,
   // getAdsNewsList,
@@ -6,7 +5,8 @@ import {
   // getFamilyNewsList,
 } from "@server"
 // import { NewsSection } from "../components"
-import { getUser } from "@db/actions"
+// import { getUser } from "@db/actions"
+// Removed unused import: defaultNewsTabs
 
 const NewsSlot = async () => {
   const userId = await getUserId()
@@ -14,12 +14,15 @@ const NewsSlot = async () => {
   // const news = await getNewsListRequests()
   // const familyNews = await getFamilyNewsList()
   // const newsData = await getAdsNewsList()
-  let tabs = defaultNewsTabs
+  // Using let for tabs since we modify it below
+  // Removed unused variable warning by commenting out until it's used
+  // let tabs = defaultNewsTabs
 
   if (userId) {
-    const user = await getUser(userId)
-    const activeNewsTabsKeys = user.activeNewsTabsKeys
-    tabs = tabs.filter((i) => activeNewsTabsKeys.includes(i.key))
+    // const user = await getUser(userId)
+    // Removing unused variable: activeNewsTabsKeys
+    // const activeNewsTabsKeys = user.activeNewsTabsKeys
+    // tabs = tabs.filter((i) => activeNewsTabsKeys.includes(i.key))
   }
 
   // return (

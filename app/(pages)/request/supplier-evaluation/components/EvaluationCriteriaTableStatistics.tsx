@@ -12,7 +12,7 @@ import {
   Table as UITable,
 } from "@ui"
 
-import { ChangeEvent, useState } from "react"
+// Removed unused imports: ChangeEvent, useState
 
 interface SupplierEvaluationCriterionResultProps {
   data: SupplierKPI
