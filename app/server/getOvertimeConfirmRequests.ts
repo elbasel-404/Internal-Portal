@@ -1,70 +1,42 @@
 "use server"
 
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
 import { OvertimeConfirmElementSchema, ResponseSchema } from "@api/schemas"
 import type { OvertimeConfirmRequest } from "@types"
-import { getStoredEmployeeId } from "@auth"
+import { getData } from "./getData"
 
 export const getOvertimeConfirmRequests = async (): Promise<
   OvertimeConfirmRequest[]
 > => {
-  const employeeId = await getStoredEmployeeId()
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
-
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/hr/overtime_request"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  const requestBody = {
-    employee_id: employeeId,
-  }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
-
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
-  })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = OvertimeConfirmElementSchema.array().parse(data)
-
-  // ! PARSING
-  // ! ==================================
   const getArrayValue = (field: unknown, index: number = 1): string =>
     Array.isArray(field) ? (field[index]?.toString() ?? "") : ""
 
   const getStringValue = (field: unknown): string =>
     typeof field === "string" ? field : ""
 
-  const returnedData: OvertimeConfirmRequest[] = validatedData.map((data) => {
-    const newsItem: OvertimeConfirmRequest = {
-      id: getStringValue(data.name),
-      date: getStringValue(data.date),
-      applicant: getArrayValue(data.employee_id),
-      management: getArrayValue(data.department_id),
-      job: getArrayValue(data.job_id),
-      category: getArrayValue(data.type_job_id),
-      overTimeDuration: data.nb_extras_time.toString(),
-      assignmentNumber: getArrayValue(data.overtime_assignment_id),
-      status: getStringValue(data.state),
-    }
-    return newsItem
-  })
+  return getData<OvertimeConfirmRequest>({
+    url: "api/po/hr/overtime_request",
+    includeEmployeeId: true,
+    responseSchema: ResponseSchema,
+    dataSchema: OvertimeConfirmElementSchema,
+    parseData: (data) => {
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, unknown>
 
-  return returnedData
+        return {
+          id: getStringValue(typedItem.name),
+          date: getStringValue(typedItem.date),
+          applicant: getArrayValue(typedItem.employee_id),
+          management: getArrayValue(typedItem.department_id),
+          job: getArrayValue(typedItem.job_id),
+          category: getArrayValue(typedItem.type_job_id),
+          overTimeDuration: String(typedItem.nb_extras_time),
+          assignmentNumber: getArrayValue(typedItem.overtime_assignment_id),
+          status: getStringValue(typedItem.state),
+        }
+      })
+    },
+    dummyData,
+  })
 }
 
 const dummyData: OvertimeConfirmRequest[] = [
