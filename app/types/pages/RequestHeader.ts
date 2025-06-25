@@ -6,4 +6,5 @@ export type RequestHeader = {
   value: ReactNode | JSX.Element | [] | File[] | string
   key?: string
   tableHeaders?: { label: string; key: string }[]
+  index?: number
 }
