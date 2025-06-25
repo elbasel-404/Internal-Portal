@@ -1,6 +1,11 @@
 import { CreateRequestStatus } from "@components"
 import { getUser } from "@db/actions"
-import { getCreateRequestStatus, getUserId } from "@server"
+import {
+  getCreateRequestStatus,
+  getSubstituteEmployees,
+  getTrainingFields,
+  getUserId
+} from "@server"
 import { TrainingForm } from "../components"
 
 const NewTrainingPage = async () => {
@@ -8,13 +13,30 @@ const NewTrainingPage = async () => {
   if (!userId) return
 
   const { trainingCourses } = await getUser(userId)
-  const requestStatus = await getCreateRequestStatus("hr.training.request")
+  const trainingCenterFields = await getTrainingFields("training_center_id")
+  const trainingTravelDaysSettingsFields = await getTrainingFields(
+    "travel_days_setting",
+  )
+  const trainingTypeFields = await getTrainingFields("training_type_id")
+  const trainingCountryFields = await getTrainingFields("country_id")
+  const trainingCityFields = await getTrainingFields("city_id")
+  const requestStatus = await getCreateRequestStatus()
+  const substituteEmployees = await getSubstituteEmployees()
+
   const requestCaption =
     "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   return (
     <div className="space-y-4 mb-16">
       <CreateRequestStatus status={requestStatus} caption={requestCaption} />
-      <TrainingForm trainingCourses={trainingCourses} />
+      <TrainingForm
+        trainingCourses={trainingCourses}
+        trainingCenterFields={trainingCenterFields}
+        trainingTravelDaysSettingsFields={trainingTravelDaysSettingsFields}
+        trainingTypeFields={trainingTypeFields}
+        trainingCountryFields={trainingCountryFields}
+        trainingCityFields={trainingCityFields}
+        substituteEmployees={substituteEmployees}
+      />
     </div>
   )
 }

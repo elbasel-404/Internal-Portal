@@ -14,7 +14,7 @@ import {
   Table as UITable,
 } from "@ui"
 import { cn } from "@utils"
-import { ReactNode } from "react"
+import { ReactNode, isValidElement } from "react"
 import { renderStatusCell } from "./Table/Table"
 interface RequestDetailsProps {
   headers?: RequestHeader[]
@@ -57,10 +57,31 @@ export const RequestDetails = ({
           <CheckboxField
             label={""}
             name={key || ""}
-            className="rounded-[3px] shadow-none space-  y-0"
+            className="rounded-[3px] shadow-none space-y-0"
             checked={Boolean(value)}
             disabled
           />
+        </div>
+      )
+    } else if (isValidElement(value)) {
+      // Handle JSX elements (React components)
+      return (
+        <div className="font-medium mx-3 text-darkBlue">
+          {value}
+        </div>
+      )
+    } else if (value !== null && value !== undefined) {
+      // Handle other ReactNode types (numbers, etc.)
+      return (
+        <div className="font-medium mx-3 text-darkBlue">
+          {String(value)}
+        </div>
+      )
+    } else {
+      // Handle null/undefined values
+      return (
+        <div className="font-medium mx-3 text-darkBlue text-gray-400">
+          غير محدد
         </div>
       )
     }
@@ -149,8 +170,8 @@ const AttachmentList = ({ attachmentList }: AttachmentListProps) => {
       <h2 className="py-3 ">المرفقات</h2>
       <div className="space-y-[10px]">
         {Array.isArray(attachmentList) &&
-          attachmentList.map((file) => (
-            <FileAttachment key={file.name} file={file} />
+          attachmentList.map((file, index) => (
+            <FileAttachment key={file.name + index.toFixed(2)} file={file} />
           ))}
       </div>
     </>
@@ -236,7 +257,7 @@ const RequestDetailsHeader = ({
             {Array.isArray(data) &&
               (data as ResultItem[]).map((resultItem, index) => (
                 <TableRow
-                  key={resultItem.id}
+                  key={resultItem.id + index.toFixed(2)}
                   className={`${index % 2 !== 0 ? "bg-cloudGray" : "bg-white"}`}
                 >
                   {Object.entries(resultItem)

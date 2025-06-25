@@ -1,5 +1,6 @@
 "use client"
 
+import { TrainingField } from "@api/schemas/index"
 import { durationAtom, trainingMethodAtom } from "@atoms"
 import { DateField, InputField, SelectField } from "@components/form"
 import { CheckIcon, XMarkIcon } from "@icons"
@@ -9,7 +10,13 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { trainingCoursesFormAction } from "./TrainingCoursesFormAction"
 
-export const TrainingCoursesForm = () => {
+interface TrainingCoursesFormProps {
+  trainingTravelDaysSettingsFields?: TrainingField[]
+}
+
+export const TrainingCoursesForm = ({
+  trainingTravelDaysSettingsFields,
+}: TrainingCoursesFormProps) => {
   const router = useRouter()
   const [dateFrom, setDateFrom] = useState<Date>(new Date())
   const [dateTo, setDateTo] = useState<Date>(new Date())
@@ -66,15 +73,15 @@ export const TrainingCoursesForm = () => {
           />
         )}
       </div>
-      {(trainingMethod === "local" || trainingMethod === "international") && (
+      {trainingMethod === "local" && (
         <SelectField
           label="إعدادات تواريخ السفر"
           name="travelDateSettings"
           placeholder=""
-          types={[
-            { id: "قبل نهاية التدريب", name: "قبل نهاية التدريب" },
-            { id: "بعد نهاية التدريب", name: "بعد نهاية التدريب" },
-          ]}
+          types={(trainingTravelDaysSettingsFields ?? []).map(({ id, name }) => ({
+            id: id ?? "",
+            name: name ?? "",
+          }))}
           value={travelDateSettings}
           onChange={(value) => setTravelDateSettings(value)}
         />

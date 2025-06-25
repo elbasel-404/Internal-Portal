@@ -33,7 +33,7 @@ export const ExtendedTrainingSection = ({
     <>
       <CheckboxField
         label="تدريب ممتد"
-        name="extendedTraining"
+        name="extended_training"
         required={false}
         checked={extendedTraining}
         onChange={(value) => setExtendedTraining(value)}
@@ -67,6 +67,47 @@ export const ExtendedTrainingSection = ({
           onRemove={handleRemoveTrainingCourse}
         />
       )}
+
+      {trainingCourses.map((trainingCourse, index) => (
+        <div key={index}>
+          <input
+            type="text"
+            hidden
+            aria-hidden
+            readOnly
+            className="hidden"
+            name={`date_from_hidden${index}`}
+            value={trainingCourse.dateFrom}
+          />
+          <input
+            type="text"
+            hidden
+            aria-hidden
+            readOnly
+            className="hidden"
+            name={`date_to_hidden${index}`}
+            value={trainingCourse.dateTo}
+          />
+          <input
+            type="text"
+            hidden
+            aria-hidden
+            readOnly
+            className="hidden"
+            name={`travel_days_hidden${index}`}
+            value={"1"}
+          />
+          <input
+            type="text"
+            hidden
+            aria-hidden
+            readOnly
+            className="hidden"
+            name={`travel_dates_settings_hidden${index}`}
+            value={trainingCourse.travelDateSettings}
+          />
+        </div>
+      ))}
     </>
   )
 }
