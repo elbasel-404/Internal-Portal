@@ -14,7 +14,7 @@ import {
   Table as UITable,
 } from "@ui"
 import { cn } from "@utils"
-import { ReactNode, isValidElement } from "react"
+import { Fragment, ReactNode, isValidElement } from "react"
 import { renderStatusCell } from "./Table/Table"
 interface RequestDetailsProps {
   headers?: RequestHeader[]
@@ -65,17 +65,11 @@ export const RequestDetails = ({
       )
     } else if (isValidElement(value)) {
       // Handle JSX elements (React components)
-      return (
-        <div className="font-medium mx-3 text-darkBlue">
-          {value}
-        </div>
-      )
+      return <div className="font-medium mx-3 text-darkBlue">{value}</div>
     } else if (value !== null && value !== undefined) {
       // Handle other ReactNode types (numbers, etc.)
       return (
-        <div className="font-medium mx-3 text-darkBlue">
-          {String(value)}
-        </div>
+        <div className="font-medium mx-3 text-darkBlue">{String(value)}</div>
       )
     } else {
       // Handle null/undefined values
@@ -145,9 +139,9 @@ export const RequestDetails = ({
             !value.every((v) => v instanceof File)
           )
         })
-        .map(({ label, value, tableHeaders }: RequestHeader) => (
+        .map(({ label, value, tableHeaders, index }: RequestHeader) => (
           <RequestDetailsHeader
-            key={label}
+            key={String(label) + String(index)}
             label={label}
             data={value as []}
             tableHeaders={tableHeaders || []}
@@ -171,7 +165,9 @@ const AttachmentList = ({ attachmentList }: AttachmentListProps) => {
       <div className="space-y-[10px]">
         {Array.isArray(attachmentList) &&
           attachmentList.map((file, index) => (
-            <FileAttachment key={file.name + index.toFixed(2)} file={file} />
+            <Fragment key={String(file.name) + String(index)}>
+              <FileAttachment file={file} />
+            </Fragment>
           ))}
       </div>
     </>
@@ -245,7 +241,7 @@ const RequestDetailsHeader = ({
             <TableRow>
               {tableHeaders.map((col, index) => (
                 <TableHead
-                  key={index}
+                  key={String(col.label) + String(index)}
                   className={"text-right text-darkBlue text-lg w-1/12"}
                 >
                   {col.label}
@@ -257,7 +253,7 @@ const RequestDetailsHeader = ({
             {Array.isArray(data) &&
               (data as ResultItem[]).map((resultItem, index) => (
                 <TableRow
-                  key={resultItem.id + index.toFixed(2)}
+                  key={String(resultItem.id) + String(index)}
                   className={`${index % 2 !== 0 ? "bg-cloudGray" : "bg-white"}`}
                 >
                   {Object.entries(resultItem)
