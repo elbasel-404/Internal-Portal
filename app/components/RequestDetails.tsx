@@ -149,8 +149,8 @@ const AttachmentList = ({ attachmentList }: AttachmentListProps) => {
       <h2 className="py-3 ">المرفقات</h2>
       <div className="space-y-[10px]">
         {Array.isArray(attachmentList) &&
-          attachmentList.map((file) => (
-            <FileAttachment key={file.name} file={file} />
+          attachmentList.map((file, index) => (
+            <FileAttachment key={file.name + index} file={file} />
           ))}
       </div>
     </>
@@ -236,7 +236,7 @@ const RequestDetailsHeader = ({
             {Array.isArray(data) &&
               (data as ResultItem[]).map((resultItem, index) => (
                 <TableRow
-                  key={resultItem.id}
+                  key={`${resultItem.id}${index}`}
                   className={`${index % 2 !== 0 ? "bg-cloudGray" : "bg-white"}`}
                 >
                   {Object.entries(resultItem)
