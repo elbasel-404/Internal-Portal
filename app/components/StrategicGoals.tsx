@@ -1,7 +1,7 @@
-import { GoalRequest } from "@types"
+import { GoalFlowRequest, GoalRequest } from "@types"
 
 interface StrategicGoalsProps {
-  goalsData: GoalRequest[]
+  goalsData: GoalFlowRequest[] | GoalRequest[]
 }
 
 export const StrategicGoals = ({ goalsData }: StrategicGoalsProps) => {
