@@ -14,7 +14,7 @@ import {
   Table as UITable,
 } from "@ui"
 import { cn } from "@utils"
-import { ReactNode } from "react"
+import { Fragment, ReactNode } from "react"
 import { renderStatusCell } from "./Table/Table"
 interface RequestDetailsProps {
   headers?: RequestHeader[]
@@ -124,9 +124,9 @@ export const RequestDetails = ({
             !value.every((v) => v instanceof File)
           )
         })
-        .map(({ label, value, tableHeaders }: RequestHeader) => (
+        .map(({ label, value, tableHeaders, index }: RequestHeader) => (
           <RequestDetailsHeader
-            key={label}
+            key={label + index}
             label={label}
             data={value as []}
             tableHeaders={tableHeaders || []}
@@ -149,8 +149,10 @@ const AttachmentList = ({ attachmentList }: AttachmentListProps) => {
       <h2 className="py-3 ">المرفقات</h2>
       <div className="space-y-[10px]">
         {Array.isArray(attachmentList) &&
-          attachmentList.map((file) => (
-            <FileAttachment key={file.name} file={file} />
+          attachmentList.map((file, index) => (
+            <Fragment key={file.name + index}>
+              <FileAttachment file={file} />
+            </Fragment>
           ))}
       </div>
     </>
@@ -224,7 +226,7 @@ const RequestDetailsHeader = ({
             <TableRow>
               {tableHeaders.map((col, index) => (
                 <TableHead
-                  key={index}
+                  key={col.label + index}
                   className={"text-right text-darkBlue text-lg w-1/12"}
                 >
                   {col.label}
@@ -236,7 +238,7 @@ const RequestDetailsHeader = ({
             {Array.isArray(data) &&
               (data as ResultItem[]).map((resultItem, index) => (
                 <TableRow
-                  key={resultItem.id}
+                  key={resultItem.id + index.toFixed()}
                   className={`${index % 2 !== 0 ? "bg-cloudGray" : "bg-white"}`}
                 >
                   {Object.entries(resultItem)
