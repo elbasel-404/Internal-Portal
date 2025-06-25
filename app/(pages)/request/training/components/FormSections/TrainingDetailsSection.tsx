@@ -29,7 +29,7 @@ export const TrainingDetailsSection = ({
     <div className="space-y-6">
       <InputField
         label="مسمى التدريب"
-        name="trainingName"
+        name="name"
         placeholder="..."
         value={trainingName}
         onChange={handleTrainingNameChangeValue}
@@ -38,7 +38,7 @@ export const TrainingDetailsSection = ({
 
       <RadioField
         label="آلية الانعقاد"
-        name="trainingMethod"
+        name="type"
         options={[
           { value: "internal", label: "داخلي" },
           { value: "local", label: "محلي" },
