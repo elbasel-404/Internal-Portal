@@ -71,7 +71,11 @@ export const EvaluationGoalsFlowForm = ({
           disabled
         />
 
-        <GoalLists goalsData={goalsData} />
+        <GoalLists
+          goalsData={goalsData}
+          evalutaionFlowType={followUpType}
+          editable={true}
+        />
 
         <div className="border-t border-[#ECF0F480]"></div>
 
