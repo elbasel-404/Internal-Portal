@@ -9,7 +9,7 @@ export const getEvaluationFlowGoalDetails = async (
     id: "1",
     employee: "حمد بن يوسف",
     year: "2025",
-    evaluationFlowType: "المتابعة الرسمية",
+    evaluationFlowType: "المتابعة الشخصية",
     evaluationRequestNumber: "12568",
   }
   return { ...evaluationFlowGoalDetails, id }
