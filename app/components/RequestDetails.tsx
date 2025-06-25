@@ -14,7 +14,7 @@ import {
   Table as UITable,
 } from "@ui"
 import { cn } from "@utils"
-import { Fragment, ReactNode } from "react"
+import { Fragment, ReactNode, isValidElement } from "react"
 import { renderStatusCell } from "./Table/Table"
 interface RequestDetailsProps {
   headers?: RequestHeader[]
@@ -57,10 +57,25 @@ export const RequestDetails = ({
           <CheckboxField
             label={""}
             name={key || ""}
-            className="rounded-[3px] shadow-none space-  y-0"
+            className="rounded-[3px] shadow-none space-y-0"
             checked={Boolean(value)}
             disabled
           />
+        </div>
+      )
+    } else if (isValidElement(value)) {
+      // Handle JSX elements (React components)
+      return <div className="font-medium mx-3 text-darkBlue">{value}</div>
+    } else if (value !== null && value !== undefined) {
+      // Handle other ReactNode types (numbers, etc.)
+      return (
+        <div className="font-medium mx-3 text-darkBlue">{String(value)}</div>
+      )
+    } else {
+      // Handle null/undefined values
+      return (
+        <div className="font-medium mx-3 text-darkBlue text-gray-400">
+          غير محدد
         </div>
       )
     }

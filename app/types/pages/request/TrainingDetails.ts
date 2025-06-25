@@ -1,3 +1,9 @@
+export interface TrainingMethod {
+  name: string;
+  checked: boolean;
+}
+
+
 export type TrainingDetails = {
   id: string
   requestDate: string
@@ -9,18 +15,18 @@ export type TrainingDetails = {
   mechanismConvening: string
   courseValue: string
   mandateAllowance: string
-  transcationDate: string
+  transcationDate: string | boolean
   trainingCenter: string
   status: string
   courseProgram: string
   trainingType: string
   trainingName: string
-  trainingMethod: string[]
+  trainingMethod: TrainingMethod[];
   trainingStartDate: string
   trainingEndDate: string
-  country: string
+  country: string | number
   city: string
-  travelDays: string
+  travelDays: string | boolean
   trainingStartBefore: string
   trainingEmployee: string
   trainingSchedule: {

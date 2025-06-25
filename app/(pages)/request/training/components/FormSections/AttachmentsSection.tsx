@@ -7,6 +7,7 @@ export const AttachmentsSection = ({
 }: AttachmentsSectionProps) => (
   <div className="space-y-6">
     <AttachmentsField
+      name="attachment_ids"
       files={files}
       handleFileUpload={fileHandler.upload}
       handleRemoveFile={(index: number) => fileHandler.remove(files[index].id)}
