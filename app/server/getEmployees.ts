@@ -9,7 +9,11 @@ export const getEmployeeRequests = async (): Promise<Employee[]> => {
     Array.isArray(field) ? (field[index]?.toString() ?? "") : ""
 
   const getStringValue = (field: unknown): string =>
-    typeof field === "string" ? field : ""
+    typeof field === "string"
+      ? field
+      : typeof field === "number"
+        ? String(field)
+        : ""
 
   return getData<Employee>({
     url: "api/po/read/employee-search-request",
