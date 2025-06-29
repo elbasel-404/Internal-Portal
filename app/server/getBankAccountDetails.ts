@@ -5,54 +5,53 @@ import {
   ChangeBankAccountElementSchema,
   ResponseSchema,
 } from "../../api-schemas"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
+import { getData } from "./getData"
+import { formatDate } from "@utils"
 
 export const getBankAccountDetails = async (
   id: string,
 ): Promise<BankAccountDetails | void> => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
+  const getArrayValue = (field: unknown, index: number = 1): string =>
+    Array.isArray(field) ? (field[index]?.toString() ?? "") : ""
 
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/hr/change-bank-request"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  const requestBody = { id: id }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
+  const getStringValue = (field: unknown): string =>
+    typeof field === "string"
+      ? field
+      : typeof field === "number"
+        ? String(field)
+        : ""
 
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+  const result = await getData<BankAccountDetails>({
+    url: "api/po/hr/change-bank-request",
+    responseSchema: ResponseSchema,
+    dataSchema: ChangeBankAccountElementSchema,
+    parseData: (data) => {
+      if (!data || data.length === 0) {
+        return [dummyData]
+      }
+
+      const typedData = data[0] as Record<string, unknown>
+
+      return [
+        {
+          id: getStringValue(typedData.id),
+          requestDate: formatDate(
+            new Date(getStringValue(typedData.create_date)),
+          ),
+          employeeCurrentAccount: getStringValue(
+            typedData.current_employee_account,
+          ),
+          bankName: getArrayValue(typedData.new_bank_id),
+          ibanNumber: getStringValue(typedData.iban),
+          accountStatus: getStringValue(typedData.state),
+        },
+      ]
+    },
+    additionalBody: { id },
+    dummyData: [dummyData],
   })
-  const responseJson = await apiResponse.json()
 
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = ChangeBankAccountElementSchema.parse(data[0])
-
-  // ! PARSING
-  // ! ==================================
-
-  const returnedData: BankAccountDetails = {
-    id: validatedData.id.toString(),
-    requestDate: validatedData.create_date.toISOString().split("T")[0],
-    employeeCurrentAccount: validatedData.current_employee_account,
-    bankName: validatedData.new_bank_id[1].toString(),
-    ibanNumber: validatedData.iban,
-    accountStatus: validatedData.state,
-  }
-
-  return returnedData
+  return result[0]
 }
 
 const dummyData: BankAccountDetails = {
