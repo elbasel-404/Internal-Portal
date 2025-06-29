@@ -22,7 +22,14 @@ export {
 //   type PermissionElement
 // } from './permission/schema';
 export { AdNewSchema } from "./ad-news/schema"
-export { DeputationElementSchema, type DeputationElement } from "./deputation/schema"
+export {
+  DeputationTypeSchema,
+  type DeputationType
+} from "./deputation-types/schema"
+export {
+  DeputationElementSchema,
+  type DeputationElement
+} from "./deputation/schema"
 export { EmployeeDepartmentElementSchema } from "./employee-department/schema"
 export {
   EmployeeMembersFieldSchema,
