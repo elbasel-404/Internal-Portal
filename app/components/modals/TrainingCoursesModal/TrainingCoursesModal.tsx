@@ -1,7 +1,11 @@
+import { getTrainingFields } from "@server"
 import { Modal } from "../Modal"
 import { TrainingCoursesForm } from "./TrainingCoursesForm"
 
-export const TrainingCoursesModal = () => {
+export const TrainingCoursesModal = async () => {
+  const trainingTravelDaysSettingsFields = await getTrainingFields(
+    "travel_days_setting",
+  )
   return (
     <Modal
       refreshOnClose={true}
@@ -14,7 +18,9 @@ export const TrainingCoursesModal = () => {
           تواريخ تقسيم الدورات التدريبية
         </p>
       </div>
-      <TrainingCoursesForm />
+      <TrainingCoursesForm
+        trainingTravelDaysSettingsFields={trainingTravelDaysSettingsFields}
+      />
     </Modal>
   )
 }

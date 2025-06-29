@@ -48,6 +48,7 @@ export const HomePageSettingsModal = async () => {
     return keys.map((key) => {
       const active = activeKeys.includes(key)
       const title = getSlotTitle({ key, type: slotType })
+      if (!title) return null
       return (
         <ToggleForm
           slotType={slotType}

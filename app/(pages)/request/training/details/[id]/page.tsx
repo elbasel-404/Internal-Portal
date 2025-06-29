@@ -1,8 +1,12 @@
 import { RequestDetails, RequestStatus, Table } from "@components"
+import { CheckboxField } from "@components/form"
 import { CheckIcon, XMarkIcon } from "@icons"
+import { paths } from "@lib"
 import { getRequestStatus, getTrainingDetails } from "@server"
 import { RequestHeader } from "@types"
 import { Button } from "@ui"
+import { RotateCcw } from "lucide-react"
+import Link from "next/link"
 
 type Params = Promise<{ id: string }>
 interface TrainingDetailsPageProps {
@@ -53,11 +57,33 @@ const TrainingDetailsPage = async ({ params }: TrainingDetailsPageProps) => {
 
   const trainingScheduleData = trainingSchedule ?? []
 
+  const TrainingMethodDisplay = () => {
+    if (!trainingMethod || trainingMethod.length === 0) {
+      return <span className="text-gray-500">لا توجد طرق تدريب محددة</span>
+    }
+
+    return (
+      <div className="flex flex-wrap gap-4">
+        {trainingMethod.map((method, index) => (
+          <div key={index} className="flex items-center gap-2">
+            <CheckboxField
+              label={""}
+              name={""}
+              className="rounded-[3px] shadow-none space-y-0 mt-2"
+              checked={method.checked}
+            />
+            <label className="font-medium text-foreground">{method.name}</label>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
   const requestHeaders: RequestHeader[] = [
     { label: "رقم الطلب", value: id },
     { label: "تاريخ الطلب", value: requestDate },
     { label: "نوع التدريب", value: trainingType },
-    { label: "طبيعة التدريب", value: trainingMethod?.join(", ") },
+    { label: "طبيعة التدريب", value: <TrainingMethodDisplay /> },
     { label: "مسمى التدريب", value: trainingName },
     { label: "آلية الانعقاد", value: mechanismConvening },
     { label: "تاريخ بداية التدريب", value: trainingStartDate },
@@ -92,6 +118,7 @@ const TrainingDetailsPage = async ({ params }: TrainingDetailsPageProps) => {
         requestDetailsLabel="بيانات الموظف"
       />
       <RequestDetails headers={requestHeaders} />
+
       <div className="bg-white rounded-lg py-8 px-4 mt-6">
         <Table
           tableClassName="h-fit"
@@ -110,10 +137,15 @@ const TrainingDetailsPage = async ({ params }: TrainingDetailsPageProps) => {
             مرفوض
           </Button>
 
-          <Button className="flex group gap-1 items-center shadow-none hover:bg-red-600 hover:text-white justify-end text-destructive-foreground bg-destructive-opacity rounded-xl px-4 py-2.5">
-            <XMarkIcon className="fill-destructive-foreground group-hover:fill-white" />
-            تراجع
-          </Button>
+          <Link href={paths.training.href}>
+            <Button
+              type="button"
+              className="flex items-center gap-1 bg-[#DEE5ED] text-stormGray shadow-none hover:bg-gray-300 rounded-xl p-4"
+            >
+              <RotateCcw />
+              تراجع
+            </Button>
+          </Link>
         </div>
       </div>
     </>

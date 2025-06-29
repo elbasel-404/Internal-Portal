@@ -1,14 +1,13 @@
 "use client"
 
-import { RequestDetails } from "@components"
+import { GoalsTable, RequestDetails } from "@components"
 import { GoalRequest } from "@types"
-import { GoalsTable } from "./EvaluationGoalsForm/GoalsTable"
 
-interface GoalDetailsProps {
+interface GoalListProps {
   goalsData: GoalRequest[]
 }
 
-export const GoalDetails = ({ goalsData }: GoalDetailsProps) => {
+export const GoalDetails = ({ goalsData }: GoalListProps) => {
   const totalGoalWeight = goalsData.reduce(
     (sum, goal) => sum + Number(goal.goalWeight || 0),
     0,

@@ -1,7 +1,6 @@
 "use server"
 
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
+import { getData } from "./getData"
 import { OvertimeAssignmentElementSchema, ResponseSchema } from "@api/schemas"
 
 import { OvertimeAssignmentDetails } from "@types"
@@ -9,54 +8,39 @@ import { OvertimeAssignmentDetails } from "@types"
 export const getOvertimeAssignmentDetails = async (
   id: string,
 ): Promise<OvertimeAssignmentDetails | void> => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
-
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/hr/overtime_assignment"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  const requestBody = {
-    id: id,
-  }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
-
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
-  })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = OvertimeAssignmentElementSchema.parse(data[0])
-
-  // ! PARSING
-  // ! ==================================
   const getArrayValue = (field: unknown, index: number = 1): string =>
     Array.isArray(field) ? (field[index]?.toString() ?? "") : ""
 
   const getStringValue = (field: unknown): string =>
     typeof field === "string" ? field : ""
 
-  const returnedData: OvertimeAssignmentDetails = {
-    id: getStringValue(validatedData.name),
-    applicant: getArrayValue(validatedData.employee_id),
-    fromDate: getStringValue(validatedData.date_from),
-    toDate: getStringValue(validatedData.date_to),
-    hours: validatedData.nb_hours?.toString() ?? "",
-    assignmentDescription: getStringValue(validatedData.description),
-  }
-  return returnedData
+  const result = await getData<OvertimeAssignmentDetails>({
+    url: "api/po/hr/overtime_assignment",
+    responseSchema: ResponseSchema,
+    dataSchema: OvertimeAssignmentElementSchema,
+    parseData: (data) => {
+      if (!data || data.length === 0) {
+        return [dummyData]
+      }
+
+      const typedData = data[0] as Record<string, unknown>
+
+      return [
+        {
+          id: getStringValue(typedData.name),
+          applicant: getArrayValue(typedData.employee_id),
+          fromDate: getStringValue(typedData.date_from),
+          toDate: getStringValue(typedData.date_to),
+          hours: typedData.nb_hours?.toString() ?? "",
+          assignmentDescription: getStringValue(typedData.description),
+        },
+      ]
+    },
+    additionalBody: { id },
+    dummyData: [dummyData],
+  })
+
+  return result[0]
 }
 const dummyData: OvertimeAssignmentDetails = {
   id: "#55470",

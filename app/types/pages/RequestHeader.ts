@@ -1,9 +1,10 @@
-import { ReactNode } from "react"
 import type { RequestLabel } from "@types"
+import { JSX, ReactNode } from "react"
 
 export type RequestHeader = {
   label: RequestLabel
-  value: ReactNode | [] | File[]
+  value: ReactNode | JSX.Element | [] | File[] | string
   key?: string
   tableHeaders?: { label: string; key: string }[]
+  index?: number
 }

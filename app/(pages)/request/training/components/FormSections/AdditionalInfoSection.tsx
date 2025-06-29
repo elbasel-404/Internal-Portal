@@ -1,5 +1,4 @@
 import { SelectField, TextareaField } from "@components/form"
-import { SubstituteEmployees } from "../config"
 import { AdditionalInfoSectionProps } from "../FormTypes/types"
 
 export const AdditionalInfoSection = ({
@@ -7,12 +6,16 @@ export const AdditionalInfoSection = ({
   setSubstituteEmployee,
   trainingProgram,
   handleTrainingProgramChangeValue,
+  substituteEmployees,
 }: AdditionalInfoSectionProps) => (
   <div className="space-y-6">
     <SelectField
       label="الموظف البديل"
       name="substitute_employee_id"
-      types={SubstituteEmployees}
+      types={substituteEmployees.map(({ id, complete_name }) => ({
+        id: id ?? "",
+        name: complete_name ?? "",
+      }))}
       placeholder="___"
       value={substituteEmployee}
       onChange={(value) => setSubstituteEmployee(value)}
@@ -20,7 +23,7 @@ export const AdditionalInfoSection = ({
 
     <TextareaField
       label="برنامج الدورة"
-      name="trainingProgram"
+      name="programme_session"
       placeholder=""
       required
       value={trainingProgram}

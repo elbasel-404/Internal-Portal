@@ -6,4 +6,5 @@ export { useLocalStorage } from "./useLocalStorage"
 export { useOnClickOutside } from "./useOnClickOutside"
 export { useDoubleClick } from "./useDoubleClick"
 export { useFormAction } from "./useFormAction"
+export { useIntersectionObserver } from "./useIntersectionObserver"
 // export { useKeyPress } from './useKeyPress';
