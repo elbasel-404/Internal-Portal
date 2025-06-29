@@ -5,7 +5,7 @@ import { homePageSlotsKeys } from "./homePageSlotsKeys"
 import { newsTabsKeys } from "./newsTabsKeys"
 
 export const defaultUser: z.TypeOf<typeof userSchema> = {
-  id: -1,
+  id: 1,
   activeGeneralInfoKeys: [...generalInfoKeys.slice(0, 6)],
   activeHomePageSlotsKeys: [...homePageSlotsKeys],
   activeNewsTabsKeys: [...newsTabsKeys],
