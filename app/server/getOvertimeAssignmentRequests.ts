@@ -11,7 +11,11 @@ export const getOvertimeAssignmentRequests = async (): Promise<
     Array.isArray(field) ? (field[index]?.toString() ?? "") : ""
 
   const getStringValue = (field: unknown): string =>
-    typeof field === "string" ? field : ""
+    typeof field === "string"
+      ? field
+      : typeof field === "number"
+        ? String(field)
+        : ""
 
   return getData<OvertimeAssignmentRequest>({
     url: "api/po/hr/overtime_assignment",

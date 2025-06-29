@@ -3,56 +3,48 @@
 import { CustodyElementSchema } from "@api/schemas/index"
 import { ResponseSchema } from "@api/schemas/responseSchema"
 import type { CustodyDetails } from "@types"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
+import { getData } from "./getData"
 
 export const getCustodyDetails = async (
   id: string,
 ): Promise<CustodyDetails | void> => {
-  const isDemo = await getDemo()
-  if (isDemo) return custodyDetailsDummyData
+  const getStringValue = (field: unknown): string =>
+    typeof field === "string"
+      ? field
+      : typeof field === "number"
+        ? String(field)
+        : ""
 
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/hr/custody"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  const requestBody = { id: id }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
+  const result = await getData<CustodyDetails>({
+    url: "api/po/hr/custody",
+    responseSchema: ResponseSchema,
+    dataSchema: CustodyElementSchema,
+    parseData: (data) => {
+      if (!data || data.length === 0) {
+        return [dummyData]
+      }
 
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+      const typedData = data[0] as Record<string, unknown>
+
+      return [
+        {
+          id: getStringValue(typedData.id),
+          date: getStringValue(typedData.create_date),
+          custodyAmount:
+            getStringValue(typedData.custody_amount) + " " + "ريال سعودي",
+          custodyType: getStringValue(typedData.custody_type),
+          custodyPurpose: getStringValue(typedData.custody_reason),
+        },
+      ]
+    },
+    additionalBody: { id },
+    dummyData: [dummyData],
   })
-  const responseJson = await apiResponse.json()
 
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = CustodyElementSchema.parse(data[0])
-
-  // ! PARSING
-  // ! ==================================
-
-  const returnedData: CustodyDetails = {
-    id: validatedData.id.toString(),
-    date: validatedData.create_date.toISOString().split("T")[0],
-    custodyAmount: validatedData.custody_amount.toString() + " " + "ريال سعودي",
-    custodyType: validatedData.custody_type,
-    custodyPurpose: validatedData.custody_reason,
-  }
-
-  return returnedData
+  return result[0]
 }
 
-const custodyDetailsDummyData: CustodyDetails = {
+const dummyData: CustodyDetails = {
   id: "1",
   date: "2024-15-05",
   custodyAmount: "5000 ريال سعودي",

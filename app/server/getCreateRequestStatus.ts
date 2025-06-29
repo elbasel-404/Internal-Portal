@@ -1,56 +1,31 @@
 import type { CreateRequestStatus } from "@types"
-// import {
-//   RequestCreateWorkflowElementSchema,
-//   ResponseSchema,
-// } from "../../api-schemas"
-// import { getDemo } from "../db/actions/getDemo"
-// import { getFetchHeaders } from "./getFetchHeaders"
+import {
+  RequestCreateWorkflowElementSchema,
+  ResponseSchema,
+} from "../../api-schemas"
+import { getData } from "./getData"
 
 export const getCreateRequestStatus = async (
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   model?: string,
 ): Promise<CreateRequestStatus[]> => {
-  return dummyData
-  // const isDemo = await getDemo()
-  // if (isDemo) return dummyData
+  return getData<CreateRequestStatus>({
+    url: "api/po/request_workflow",
+    includeEmployeeId: true,
+    responseSchema: ResponseSchema,
+    dataSchema: RequestCreateWorkflowElementSchema,
+    additionalBody: { model: model },
+    parseData: (data) => {
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, unknown>
 
-  // // ! VARIBLES
-  // // ! ==================================
-  // const url = "api/po/request_workflow"
-  // const apiRootUrl = process.env.API_ROOT_URL as string
-  // const fetchHeaders = await getFetchHeaders()
-  // const headers = fetchHeaders?.headers
-  // const requestBody = { model: model }
-  // const requestBodyString = JSON.stringify(requestBody)
-  // const requestUrl = `${apiRootUrl}/${url}`
-
-  // // ! FETCH
-  // // ! ==================================
-  // const apiResponse = await fetch(requestUrl, {
-  //   headers,
-  //   method: "POST",
-  //   body: requestBodyString,
-  // })
-  // const responseJson = await apiResponse.json()
-
-  // // ! VALIDATION
-  // // ! ==================================
-  // const validatedResponse = ResponseSchema.parse(responseJson)
-  // const { result } = validatedResponse
-  // const { data } = result
-  // const validatedData = RequestCreateWorkflowElementSchema.array().parse(data)
-
-  // // ! PARSING
-  // // ! ==================================
-
-  // const returnedData: CreateRequestStatus[] = validatedData.map((data) => {
-  //   const vacationItem: CreateRequestStatus = {
-  //     status: data.state,
-  //   }
-  //   return vacationItem
-  // })
-
-  // return returnedData
+        return {
+          status: String(typedItem.state) || "",
+        }
+      })
+    },
+    dummyData,
+  })
 }
 
 const dummyData: CreateRequestStatus[] = [

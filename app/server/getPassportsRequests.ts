@@ -43,7 +43,11 @@ export const getPassportRequests = async (): Promise<PassportRequest[]> => {
   // ! ==================================
 
   const getStringValue = (field: unknown): string =>
-    typeof field === "string" ? field : ""
+    typeof field === "string"
+      ? field
+      : typeof field === "number"
+        ? String(field)
+        : ""
 
   const returnedData: PassportRequest[] = validatedData.map((data) => {
     const newsItem: PassportRequest = {
