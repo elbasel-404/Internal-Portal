@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     // ignoreDuringBuilds: true,
   },
   experimental: {
+    // ppr: "incremental", // needs canary version of next
     reactCompiler: true,
     serverActions: {
       // TODO: test this more
