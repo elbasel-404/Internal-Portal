@@ -11,7 +11,11 @@ export const getVacationDetails = async (
     Array.isArray(field) ? (field[index]?.toString() ?? "") : ""
 
   const getStringValue = (field: unknown): string =>
-    typeof field === "string" ? field : ""
+    typeof field === "string"
+      ? field
+      : typeof field === "number"
+        ? String(field)
+        : ""
 
   const result = await getData<VacationDetails>({
     url: "api/po/hr/holidays/request",

@@ -12,7 +12,11 @@ export const getOvertimeConfirmDetails = async (
     Array.isArray(field) ? (field[index]?.toString() ?? "") : ""
 
   const getStringValue = (field: unknown): string =>
-    typeof field === "string" ? field : ""
+    typeof field === "string"
+      ? field
+      : typeof field === "number"
+        ? String(field)
+        : ""
 
   const result = await getData<OvertimeConfirmDetails>({
     url: "api/po/hr/overtime_request",

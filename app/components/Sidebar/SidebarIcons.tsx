@@ -45,6 +45,7 @@ import {
   PalmTreeIcon,
   PhoneIcon,
   PrinterIcon,
+  ProfileReviewIcon,
   SaveIcon,
   SearchAltIcon,
   ShieldIcon,
@@ -131,4 +132,5 @@ export const SidebarIcons = {
   Lamp: <LampIcon width={30} height={30} />,
   Grid: <GridIcon width={30} height={30} />,
   DownloadApp: <DownloadAppIcon width={30} height={30} />,
+  ProfileReview: <ProfileReviewIcon width={30} height={30} />,
 } as const
