@@ -3,12 +3,12 @@
     {
       "id": 1,
       "activeGeneralInfoKeys": [
+        "employeeRequests",
         "approvalRequests",
         "totalVacationBalance",
         "permissions",
         "remoteWork",
-        "delegations",
-        "employeeRequests"
+        "delegations"
       ],
       "activeHomePageSlotsKeys": [
         "completeProfile",
@@ -21,6 +21,10 @@
         "news"
       ],
       "activeNewsTabsKeys": [
+        "pressTab",
+        "newsTab",
+        "monshaatFamilyTab",
+        "internalTab",
         "vpn",
         "nationalId",
         "office",
@@ -91,55 +95,7 @@
       "batchs": [],
       "batchProducts": [],
       "trainingCourses": []
-    },
-    {
-      "id": 3,
-      "activeGeneralInfoKeys": [
-        "employeeRequests",
-        "approvalRequests",
-        "totalVacationBalance",
-        "permissions",
-        "remoteWork",
-        "delegations"
-      ],
-      "activeHomePageSlotsKeys": [
-        "completeProfile",
-        "generalInfo",
-        "userInfo",
-        "attendance",
-        "approvalRequestsTable",
-        "sliders",
-        "timelineCalendar",
-        "news"
-      ],
-      "activeNewsTabsKeys": [
-        "pressTab",
-        "newsTab",
-        "monshaatFamilyTab",
-        "internalTab",
-        "vpn",
-        "nationalId",
-        "office",
-        "email"
-      ],
-      "demo": true,
-      "convenantData": [
-        {
-          "product": "prod",
-          "statement": "active",
-          "amount": "10",
-          "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
-        }
-      ],
-      "projectCompletion": [],
-      "products": [],
-      "batchs": [],
-      "batchProducts": [],
-      "trainingCourses": []
     }
   ],
-  "userCount": 3
+  "userCount": 2
 }
