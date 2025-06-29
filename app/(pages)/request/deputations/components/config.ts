@@ -4,13 +4,13 @@ export const RequestTypes = [
 ]
 
 export const TransportationTypes = [
-  { label: "جواً", value: "ByAir" },
-  { label: "براً", value: "Overland" },
+  { label: "جواً", value: "air_travel" },
+  { label: "براً", value: "overland" },
 ]
 
 export const DeputationsTypes = [
-  { id: "task", name: "مهمة عمل" },
-  { id: "training", name: "رحلة تدريب" },
+  { id: "1", name: "مهمة عمل" },
+  { id: "7", name: "رحلة تدريب" },
 ]
 
 export const TrainingRequests = [
