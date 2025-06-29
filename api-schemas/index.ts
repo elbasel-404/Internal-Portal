@@ -34,6 +34,7 @@ export {
 } from "./employee-members/schema"
 export { EmployeesListElementSchema } from "./employees-list/schema"
 export { FamilyNewSchema } from "./family-news/schema"
+export { HrTrainingSchema, type HrTraining } from "./hr-training/schema"
 export { NewsElementSchema } from "./news/schema"
 export { OvertimeAssignmentElementSchema } from "./overtime-assignment/schema"
 export { OvertimeConfirmElementSchema } from "./overtime-confirm/schema"
@@ -72,6 +73,15 @@ export {
   SalaryIdentificationElementSchema,
   type SalaryIdentificationElement
 } from "./salary-identification/schema"
+export {
+  SubstituteEmployeesSchema,
+  type SubstituteEmployees
+} from "./substitute-employees/schema"
+export {
+  TrainingFieldSchema,
+  type TrainingField
+} from "./training-fields/schema"
 export { TrainingElementSchema, type TrainingElement } from "./training/schema"
 export { TransactionListElementSchema } from "./transaction-list/schema"
 export { VacationTypeSchema, type VacationType } from "./vacation-types/schema"
+

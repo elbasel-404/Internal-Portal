@@ -143,13 +143,13 @@ export const MenuItems: MenuItem[] = [
       {
         iconKey: "DoubleSquare",
         label: "تخطيط الأداء",
-        href: "/evaluation/goals",
+        href: paths.evaluationGoals.href,
         tag: "jobPerformance",
       },
       {
         iconKey: "Telescope",
         label: "متابعة الأداء",
-        href: "/",
+        href: paths.evaluationFlow.href,
         tag: "jobPerformance",
       },
       {
@@ -158,24 +158,24 @@ export const MenuItems: MenuItem[] = [
         href: "/",
         tag: "jobPerformance",
       },
-      {
-        iconKey: "UserWithChart",
-        label: "الترقيات",
-        href: "/",
-        tag: "jobPerformance",
-      },
-      {
-        iconKey: "Circle",
-        label: "المكافآت والعلاوات",
-        href: "/",
-        tag: "jobPerformance",
-      },
-      {
-        iconKey: "List",
-        label: "طلبات المرافق والخدمات والادارية",
-        href: "/",
-        tag: "facilitiesServices",
-      },
+      // {
+      //   iconKey: "UserWithChart",
+      //   label: "الترقيات",
+      //   href: "/",
+      //   tag: "jobPerformance",
+      // },
+      // {
+      //   iconKey: "Circle",
+      //   label: "المكافآت والعلاوات",
+      //   href: "/",
+      //   tag: "jobPerformance",
+      // },
+      // {
+      //   iconKey: "List",
+      //   label: "طلبات المرافق والخدمات والادارية",
+      //   href: "/",
+      //   tag: "facilitiesServices",
+      // },
       {
         iconKey: "Dollar",
         label: "طلب استعاضة / اقفال عهدة",
@@ -206,12 +206,12 @@ export const MenuItems: MenuItem[] = [
         href: "/",
         tag: "purchases",
       },
-      {
-        iconKey: "Cart",
-        label: "طلب إضافة منتجات",
-        href: "/",
-        tag: "purchases",
-      },
+      // {
+      //   iconKey: "Cart",
+      //   label: "طلب إضافة منتجات",
+      //   href: "/",
+      //   tag: "purchases",
+      // },
       {
         iconKey: "EmptyFile",
         label: "طلب إصدار / تعديل وثيقة",

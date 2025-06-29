@@ -4,6 +4,7 @@ import type { RemoteWorkDetails } from "@types"
 import { RemoteWorkElementSchema, ResponseSchema } from "../../api-schemas"
 import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
+import { formatDate } from "@utils"
 
 export const getRemoteWorkDetails = async (
   id: string,
@@ -42,7 +43,7 @@ export const getRemoteWorkDetails = async (
 
   const returnedData: RemoteWorkDetails = {
     id: validatedData.id.toString(),
-    requestDate: validatedData.create_date.toISOString().split("T")[0],
+    requestDate: formatDate(validatedData.create_date),
     remoteWorkDate: `من ${validatedData.date_from} الي  ${validatedData.date_to}`,
     duration: validatedData.duration.toString(),
     madeThroughTheApp: "false",

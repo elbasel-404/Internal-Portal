@@ -7,6 +7,12 @@ import { getData } from "./getData"
 export const getVacationDetails = async (
   id: string,
 ): Promise<VacationDetails> => {
+  const getArrayValue = (field: unknown, index: number = 1): string =>
+    Array.isArray(field) ? (field[index]?.toString() ?? "") : ""
+
+  const getStringValue = (field: unknown): string =>
+    typeof field === "string" ? field : ""
+
   const result = await getData<VacationDetails>({
     url: "api/po/hr/holidays/request",
     responseSchema: ResponseSchema,
@@ -20,21 +26,13 @@ export const getVacationDetails = async (
 
       return [
         {
-          id: String(typedData.id || ""),
-          requestDate: String(typedData.date || ""),
-          type:
-            Array.isArray(typedData.holiday_status_id) &&
-            typedData.holiday_status_id.length > 1
-              ? String(typedData.holiday_status_id[1])
-              : "",
+          id: getStringValue(typedData.id),
+          requestDate: getStringValue(typedData.date),
+          type: getArrayValue(typedData.holiday_status_id),
           vacationDate: `من ${typedData.date_from || ""} الي ${typedData.date_to || ""}`,
-          duration: String(typedData.duration || ""),
-          alternativeEmployee:
-            Array.isArray(typedData.substitute_employee_id) &&
-            typedData.substitute_employee_id.length > 1
-              ? String(typedData.substitute_employee_id[1])
-              : "",
-          notes: String(typedData.notes || ""),
+          duration: getStringValue(typedData.duration),
+          alternativeEmployee: getArrayValue(typedData.substitute_employee_id),
+          notes: getStringValue(typedData.notes),
           attachments: Array.isArray(typedData.attachment_ids)
             ? typedData.attachment_ids.map(
                 (file) => new File([""], String(file)),

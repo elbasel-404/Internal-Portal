@@ -63,6 +63,10 @@ export const modalPaths = {
     title: "إضافة مؤشر الأداء",
     href: "/modal/IndicatorModal",
   },
+  EditPerformanceModal: {
+    title: "تعديل تخطيط الأداء",
+    href: "/modal/EditPerformanceModal",
+  },
   VpnAcountModal: {
     title: "انشاء طلب حساب vpn",
     href: "/modal/VpnAcountModal",

@@ -51,6 +51,16 @@ const HomePageLayout = async ({
   const slotsToRender = filterSlots(initSlots, activeSlotKeys)
   const visuallyHiddenKeys: HomePageSlotKey[] = []
   if (user.activeNewsTabsKeys.length === 0) visuallyHiddenKeys.push("news")
+  // Only push "news" key if all active keys are in the specified list or there are no keys
+  if (
+    user.activeNewsTabsKeys.length === 0 ||
+    (user.activeNewsTabsKeys.length === 4 &&
+      user.activeNewsTabsKeys.every((key) =>
+        ["vpn", "nationalId", "office", "email"].includes(key),
+      ))
+  ) {
+    visuallyHiddenKeys.push("news")
+  }
 
   return renderLayout({ slotsToRender, children, userId, visuallyHiddenKeys })
 }
