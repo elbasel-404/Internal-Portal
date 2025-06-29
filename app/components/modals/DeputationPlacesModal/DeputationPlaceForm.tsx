@@ -32,7 +32,7 @@ export const DeputationPlaceForm = () => {
       className="flex flex-col gap-4 px-4 mt-4"
     >
       <SelectField
-        name="place"
+        name="country_id"
         label="البلاد"
         placeholder="__"
         types={[
@@ -50,10 +50,9 @@ export const DeputationPlaceForm = () => {
         onChange={handleDeputationPlaceChange}
       />
       <InputField
-        name="city"
+        name="city_name"
         label="المدينة"
         placeholder=""
-        required
         value={city}
       />
       <div className="flex justify-end mb-2 gap-2">
