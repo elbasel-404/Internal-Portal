@@ -4,6 +4,8 @@ import Image from "next/image"
 import { getNewsListRequests } from "@server"
 // import { newsData } from './config';
 
+export const revalidate = 8400 // revalidate every 24 hours
+
 export const FeaturedSection = async () => {
   const newsData = await getNewsListRequests()
   const featuredNews = newsData[0]

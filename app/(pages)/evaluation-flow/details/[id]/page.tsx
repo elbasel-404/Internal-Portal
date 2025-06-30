@@ -6,7 +6,7 @@ import {
   getEvaluationFlowGoalDetails,
   getFlowGoalsRequests,
   getLeadershipCompetenciesRequests,
-  getRequestStatus
+  getRequestStatus,
 } from "@server"
 import { RequestHeader } from "@types"
 import { Button } from "@ui"
@@ -52,17 +52,20 @@ const EvaluationFlowGoalDetailsPage = async ({
       label: "السنة",
       value: year,
     },
-       {
+    {
       label: "رقم طلب تخطيط الأداء",
       value: evaluationRequestNumber,
-    }
+    },
   ]
 
   return (
     <main className="space-y-4">
       <RequestStatus status={requestStatus} />
       <RequestDetails headers={requestHeaders} />
-      <GoalLists goalsData={goalFlowData} evalutaionFlowType={evaluationFlowType} />
+      <GoalLists
+        goalsData={goalFlowData}
+        evalutaionFlowType={evaluationFlowType}
+      />
       <div>
         <CompetenciesSection
           title="الجدارات السلوكية"
