@@ -79,3 +79,8 @@ export const DeputationPlaces = [
   { id: "9", name: "عُمان", city: "مسقط" }, // Oman
   { id: "10", name: "قطر", city: "الدوحة" },
 ]
+
+export const TravelDaysSetting = [
+  { id: 1, name: "قبل بداية الانتداب" },
+  { id: 2, name: "بعد نهاية الانتداب" },
+]
