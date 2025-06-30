@@ -11,6 +11,7 @@ import { useEffect, useState } from "react"
 // import { NewsHeader } from './NewsHeader';
 import { NewsTabs } from "./NewsTabs"
 import { NewsContent } from "./NewsContent"
+import { paths } from "@lib"
 interface NewsSectionProps {
   tabs: NewsTab[]
   ads: AdsListRequst[]
@@ -41,11 +42,16 @@ export const NewsSection = ({
     }
     switch (activeTab) {
       case "internalTab":
-        return <NewsContent data={ads} />
+        return <NewsContent path={paths.internalAdsDetails.href} data={ads} />
       case "newsTab":
-        return <NewsContent data={news} />
+        return <NewsContent path={paths.newsDetails.href} data={news} />
       case "monshaatFamilyTab":
-        return <NewsContent data={familyNews} />
+        return (
+          <NewsContent
+            path={paths.monshaatFamilyDetails.href}
+            data={familyNews}
+          />
+        )
       default:
         return (
           <div className="flex items-center justify-center min-h-96">
