@@ -1,12 +1,12 @@
 import type { NewsTab } from "@types"
 
 export const defaultNewsTabs: NewsTab[] = [
-  {
-    id: -80,
-    key: "pressTab",
-    active: true,
-    label: "الملف الصحفى",
-  },
+  // {
+  //   id: -80,
+  //   key: "pressTab",
+  //   active: true,
+  //   label: "الملف الصحفى",
+  // },
   {
     id: -81,
     key: "newsTab",

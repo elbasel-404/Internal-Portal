@@ -9,7 +9,7 @@ export const getEvaluationGoalDetails = async (
     id: "1",
     employee: "حمد بن يوسف",
     year: "2025",
-    acceptEditRequest: true
+    acceptEditRequest: true,
   }
   return { ...evaluationGoalDetails, id }
 }
