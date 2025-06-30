@@ -1,12 +1,16 @@
 "use server"
 
 import type { NewsListRequest } from "@types"
-import { NewsElementSchema, ResponseSchema } from "@api/schemas"
+import {
+  NewsElementSchema,
+  ResponseSchema,
+  type NewsElementType,
+} from "@api/schemas"
 import { formatDate } from "@utils"
 import { getData } from "./getData"
 
 export const getNewsListRequests = async (): Promise<NewsListRequest[]> => {
-  return getData<NewsListRequest>({
+  return getData<NewsListRequest, NewsElementType>({
     url: "api/po/read/portal-news",
     includeEmployeeId: false,
     additionalBody: { news_type: "news" },

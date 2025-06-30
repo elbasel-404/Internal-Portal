@@ -4,7 +4,7 @@ import {
   getBasicCompetenciesRequests,
   getCreateRequestStatus,
   getFlowGoalsRequests,
-  getLeadershipCompetenciesRequests
+  getLeadershipCompetenciesRequests,
 } from "@server"
 import { EvaluationGoalsFlowForm } from "../components"
 

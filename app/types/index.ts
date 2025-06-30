@@ -72,7 +72,7 @@ export type {
   ProgramData,
   ProjectData,
   PurchaseType,
-  YesNoOption
+  YesNoOption,
 } from "./pages/request/PurchaseTypes"
 export type { RecommendationDetails } from "./pages/request/RecommendationDetails"
 export type { RecommendationRequest } from "./pages/request/RecommendationRequest"
@@ -116,4 +116,3 @@ export type { Rules } from "./shared/Rules"
 export type { TabType } from "./shared/TabType"
 export type { User } from "./shared/User"
 export type { TypedRecord } from "./TypedRecord"
-

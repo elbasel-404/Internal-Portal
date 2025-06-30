@@ -4,11 +4,26 @@ import type { AdsListRequst } from "@types"
 import { AdNewSchema, ResponseSchema } from "@api/schemas"
 import { getData } from "./getData"
 
-export const getAdsNewsList = async (): Promise<AdsListRequst[]> => {
+type GetAdsNewsListArgs = {
+  limit?: number
+  page?: number
+}
+
+/**
+ * Fetches a list of ads news.
+ *
+ * @param {GetAdsNewsListArgs} args - The arguments for fetching ads news.
+ * @param {number} [args.limit] - The maximum number of ads to fetch.
+ * @returns {Promise<AdsListRequst[]>} A promise that resolves to an array of ads news.
+ */
+export const getAdsNewsList = async ({
+  limit,
+  page,
+}: GetAdsNewsListArgs): Promise<AdsListRequst[]> => {
   return getData<AdsListRequst>({
     url: "api/po/read/portal-news",
     includeEmployeeId: false,
-    additionalBody: { news_type: "ads" },
+    additionalBody: { news_type: "ads", limit, page },
     responseSchema: ResponseSchema,
     dataSchema: AdNewSchema,
     parseData: (data) => {

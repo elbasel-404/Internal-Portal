@@ -106,4 +106,3 @@ export { removeTrainingCourse } from "./removeTrainingCourse"
 export { revalidateHomePage } from "./revalidateHomePage"
 export { setUserId } from "./setUserId"
 export { toggleHomePageSetting } from "./toggleHomePageSetting"
-

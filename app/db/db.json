@@ -37,9 +37,7 @@
           "statement": "active",
           "amount": "10",
           "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
+          "attachments": ["file-name-i"]
         }
       ],
       "projectCompletion": [],
@@ -85,9 +83,7 @@
           "statement": "active",
           "amount": "10",
           "invoiceNumber": "25",
-          "attachments": [
-            "file-name-i"
-          ]
+          "attachments": ["file-name-i"]
         }
       ],
       "projectCompletion": [],
