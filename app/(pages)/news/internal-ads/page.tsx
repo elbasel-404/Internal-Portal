@@ -2,8 +2,13 @@ import { paths } from "@lib"
 import { getAdsNewsList } from "@server"
 import { NewsList } from "../components"
 
+export const revalidate = 8400 // revalidate every 24 hours
+
 const InternalAdsPage = async () => {
-  const internalAdsData = await getAdsNewsList()
+  const internalAdsData = await getAdsNewsList({
+    limit: 1,
+    page: 1,
+  })
   return (
     <>
       <NewsList

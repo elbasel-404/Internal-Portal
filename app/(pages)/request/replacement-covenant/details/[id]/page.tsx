@@ -26,7 +26,10 @@ const ReplacementCovenantDetailsPage = async ({
   const { id } = await params
   // const requestCaption =
   //   "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
-  const requestStatus = await getRequestStatus(id, "manage.financial.custody")
+  const requestStatus = await getRequestStatus(
+    id,
+    "manage.financial.custody.close",
+  )
   const {
     date,
     pledgeAmount,

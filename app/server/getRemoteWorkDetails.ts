@@ -46,8 +46,11 @@ export const getRemoteWorkDetails = async (
     requestDate: formatDate(validatedData.create_date),
     remoteWorkDate: `من ${validatedData.date_from} الي  ${validatedData.date_to}`,
     duration: validatedData.duration.toString(),
-    madeThroughTheApp: "false",
-    notes: typeof validatedData.note === "string" ? validatedData.note : "",
+    madeThroughTheApp: validatedData.is_from_mobile ? "نعم" : "لا",
+    notes:
+      typeof validatedData.description === "string"
+        ? validatedData.description
+        : "",
   }
 
   return returnedData

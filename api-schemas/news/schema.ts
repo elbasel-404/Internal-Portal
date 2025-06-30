@@ -44,4 +44,4 @@ export type NewsElement = z.infer<typeof NewsElementSchema>
 //   display_name: z.string(),
 //   __last_update: z.coerce.date(),
 // })
-// export type NewsElement = z.infer<typeof NewsElementSchema>
+export type NewsElementType = z.infer<typeof NewsElementSchema>
