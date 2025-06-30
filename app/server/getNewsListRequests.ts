@@ -9,11 +9,13 @@ import {
 import { formatDate } from "@utils"
 import { getData } from "./getData"
 
-export const getNewsListRequests = async (): Promise<NewsListRequest[]> => {
+export const getNewsListRequests = async (
+  { limit, page } = { limit: 4, page: 1 },
+): Promise<NewsListRequest[]> => {
   return getData<NewsListRequest, NewsElementType>({
     url: "api/po/read/portal-news",
     includeEmployeeId: false,
-    additionalBody: { news_type: "news" },
+    additionalBody: { news_type: "news", limit, page },
     responseSchema: ResponseSchema,
     dataSchema: NewsElementSchema,
     parseData: (data) => {

@@ -5,11 +5,13 @@ import type { NewsFamily } from "@types"
 import { formatDate } from "@utils"
 import { getData } from "./getData"
 
-export const getFamilyNewsList = async (): Promise<NewsFamily[]> => {
+export const getFamilyNewsList = async (
+  { limit, page } = { limit: 4, page: 1 },
+): Promise<NewsFamily[]> => {
   return getData<NewsFamily>({
     url: "api/po/read/portal-news",
     includeEmployeeId: false,
-    additionalBody: { news_type: "family_news" },
+    additionalBody: { news_type: "family_news", limit, page },
     responseSchema: ResponseSchema,
     dataSchema: FamilyNewSchema,
     parseData: (data) => {
