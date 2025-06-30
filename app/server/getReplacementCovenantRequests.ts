@@ -1,14 +1,51 @@
 "use server"
 
+import {
+  ResponseSchema,
+  ReplacementCovenantListElementSchema,
+} from "../../api-schemas"
 import type { ReplacementCovenantRequest } from "@types"
+import { getData } from "./getData"
+import { z } from "zod"
 
 export const getReplacementCovenantRequests = async (): Promise<
   ReplacementCovenantRequest[]
 > => {
-  return ReplacementCovenantDummyData
+  const getStringValue = (field: unknown): string =>
+    typeof field === "string"
+      ? field
+      : typeof field === "number"
+        ? String(field)
+        : ""
+
+  return getData<ReplacementCovenantRequest>({
+    url: "api/po/hr/custody-close/read",
+    includeEmployeeId: true,
+    responseSchema: ResponseSchema,
+    dataSchema: ReplacementCovenantListElementSchema,
+    parseData: (data) => {
+      return data.map((item: unknown) => {
+        const typedItem = item as z.infer<
+          typeof ReplacementCovenantListElementSchema
+        >
+
+        return {
+          id: getStringValue(typedItem.name),
+          date: getStringValue(typedItem.close_date),
+          pledgeAmount: `${getStringValue(typedItem.close_amount)} ريال سعودي`,
+          pledgeType:
+            getStringValue(typedItem.close_type) === "close"
+              ? "اقفال"
+              : "استعاضة",
+          status: getStringValue(typedItem.state),
+        }
+      })
+    },
+    dummyData,
+  })
 }
 
-const ReplacementCovenantDummyData: ReplacementCovenantRequest[] = [
+const dummyData: ReplacementCovenantRequest[] = [
   {
     id: "#55465",
     date: "2024-05-05",
