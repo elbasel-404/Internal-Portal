@@ -31,8 +31,8 @@ export const PlacesTable = ({
 
   const deputationLocationData = data.map((location, index) => ({
     id: index + "id",
-    cityName: location.city_name,
     countryId: location.country_id,
+    cityName: location.city_name,
   }))
 
   const handleRemoveDeputationLocation = async (id: number) => {
@@ -60,7 +60,6 @@ export const PlacesTable = ({
         </div>
 
         <input
-          type="hidden"
           name="location_ids"
           hidden
           aria-hidden
