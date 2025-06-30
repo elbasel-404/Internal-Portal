@@ -36,7 +36,7 @@ export const RequestStatus = ({ status }: RequestStatusProps) => {
 
   return (
     <div className="bg-white pt-4 pb-4 px-4 rounded-lg space-y-4">
-      <div className="bg-[#FAFCFE] flex flex-col lg:flex-row items-center px-2 lg:px-8 p-6 overflow-x-auto">
+      <div className="bg-[#FAFCFE] flex flex-col lg:flex-row items-center px-2 lg:px-8 p-6 overflow-x-auto app-scrollbar">
         {status.map(
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           ({ id, title, subtitle, status, icon }, index) => {
