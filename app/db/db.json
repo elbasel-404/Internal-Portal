@@ -3,12 +3,12 @@
     {
       "id": 1,
       "activeGeneralInfoKeys": [
+        "employeeRequests",
         "approvalRequests",
         "totalVacationBalance",
         "permissions",
         "remoteWork",
-        "delegations",
-        "employeeRequests"
+        "delegations"
       ],
       "activeHomePageSlotsKeys": [
         "completeProfile",
@@ -21,6 +21,10 @@
         "news"
       ],
       "activeNewsTabsKeys": [
+        "pressTab",
+        "newsTab",
+        "monshaatFamilyTab",
+        "internalTab",
         "vpn",
         "nationalId",
         "office",
@@ -42,7 +46,10 @@
       "products": [],
       "batchs": [],
       "batchProducts": [],
-      "trainingCourses": []
+      "trainingCourses": [],
+      "deputationLocation": [
+        {}
+      ]
     },
     {
       "id": 2,
@@ -90,7 +97,8 @@
       "products": [],
       "batchs": [],
       "batchProducts": [],
-      "trainingCourses": []
+      "trainingCourses": [],
+      "deputationLocation": []
     }
   ],
   "userCount": 2
