@@ -1,2 +1,1 @@
-export { EditPerformanceModal } from "./EditPerformanceModal";
-
+export { EditPerformanceModal } from "./EditPerformanceModal"

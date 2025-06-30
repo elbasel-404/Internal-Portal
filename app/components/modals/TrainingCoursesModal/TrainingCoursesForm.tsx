@@ -78,10 +78,12 @@ export const TrainingCoursesForm = ({
           label="إعدادات تواريخ السفر"
           name="travelDateSettings"
           placeholder=""
-          types={(trainingTravelDaysSettingsFields ?? []).map(({ id, name }) => ({
-            id: id ?? "",
-            name: name ?? "",
-          }))}
+          types={(trainingTravelDaysSettingsFields ?? []).map(
+            ({ id, name }) => ({
+              id: id ?? "",
+              name: name ?? "",
+            }),
+          )}
           value={travelDateSettings}
           onChange={(value) => setTravelDateSettings(value)}
         />
