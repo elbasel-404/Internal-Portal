@@ -5,6 +5,8 @@ import { MonshaatGrid } from "./MonshaatGrid"
 import { getFamilyNewsList } from "@server"
 // import { monshaatData } from './config';
 
+export const revalidate = 8400 // revalidate every 24 hours
+
 export const MonshaatFamilySection = async () => {
   const data = await getFamilyNewsList()
   return (

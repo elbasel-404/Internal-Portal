@@ -4,6 +4,7 @@ import { NewsList } from "../components"
 
 const NewsPage = async () => {
   const newsData = await getNewsListRequests()
+
   return (
     <>
       <NewsList
