@@ -12,16 +12,15 @@ import {
   TextareaField,
 } from "@components/form"
 import { paths } from "@lib"
-import { DeputationPlace } from "@types"
 import { useEffect, useState, useTransition } from "react"
 import { toast } from "sonner"
 import { State } from "../../../../../lib/createData"
 import {
   Cities,
-  DeputationPlaces,
   RequestTypes,
   TrainingRequests,
   TransportationTypes,
+  TravelDaysSetting,
 } from "../config"
 import { formAction } from "../helpers/formAction"
 import { PlacesTable } from "./PlacesTable"
@@ -35,11 +34,13 @@ const initialState: State = {
 interface DeputationFormProps {
   deputationType: DeputationType[]
   substituteEmployees: SubstituteEmployees[]
+  deputationLocation: { country_id: string; city_name: string }[]
 }
 
 export const DeputationForm = ({
   deputationType,
   substituteEmployees,
+  deputationLocation,
 }: DeputationFormProps) => {
   const [state, setState] = useState<State>(initialState)
   const [isPending, startTransition] = useTransition()
@@ -57,13 +58,15 @@ export const DeputationForm = ({
   const [cityId, setCityId] = useState<string>("")
   const [deputationStartDate, setDeputationStartDate] = useState(new Date())
   const [deputationEndDate, setDeputationEndDate] = useState(new Date())
+  const [distance, setDistance] = useState(0)
+  const [travelDays, setTravelDays] = useState(0)
+  const [travelDaysSetting, setTravelDaysSetting] = useState("")
   const [duration, setDeputationDuration] = useState<number>(0)
   const [isInternal, setIsInternal] = useState<boolean>(false)
   const [issueVisa, setIssueVisa] = useState<boolean>(false)
   const [substituteEmployee, setSubstituteEmployee] = useState<string>("")
   const [showTrainingRequestNumber, setTrainingRequestNumber] =
     useState<boolean>(false)
-  const [places, updatePlaces] = useState<DeputationPlace[]>(DeputationPlaces)
 
   const handleRequestTypeChange = (value: string) => {
     setRequestType(value)
@@ -97,19 +100,6 @@ export const DeputationForm = ({
     } else {
       setDeputationDuration(0)
     }
-  }
-
-  const handleRemovePlace = (id: string) => {
-    const updatedPlaces = places.filter((place) => place.id !== id)
-    updatePlaces(updatedPlaces)
-  }
-  const handleAddPlace = (newPlace: {
-    id: string
-    name: string
-    city: string
-  }) => {
-    const updatedPlaces = [...places, newPlace]
-    updatePlaces(updatedPlaces)
   }
 
   const handleFileUpload = (uploadedFiles: FileList | null) => {
@@ -180,7 +170,7 @@ export const DeputationForm = ({
             options={TransportationTypes}
             labelStyle="text-base"
             selectedValue={transportationType}
-            required
+            required={false}
             inline={false}
             onChange={handleTransportationTypeChange}
           />
@@ -189,7 +179,8 @@ export const DeputationForm = ({
               label="عدد الكليلومترات"
               name="distance"
               placeholder=""
-              required={showKilometers}
+              value={distance}
+              onChange={(e) => setDistance(Number(e.target.value))}
             />
           )}
           <SelectField
@@ -202,6 +193,7 @@ export const DeputationForm = ({
             }))}
             value={selectedDeputationType}
             onChange={handleDeputationTypeChange}
+            required
           />
           {showTrainingRequestNumber && (
             <SelectField
@@ -257,11 +249,9 @@ export const DeputationForm = ({
             />
           ) : (
             <PlacesTable
-              data={places}
+              data={deputationLocation}
               issueVisa={issueVisa}
               onChangeIssueVisa={(value) => setIssueVisa(value)}
-              onRemove={(id) => handleRemovePlace(id)}
-              onAdd={() => handleAddPlace({ id: "", name: "", city: "" })} // Add a new place
             />
           )}
 
@@ -280,6 +270,25 @@ export const DeputationForm = ({
             onChange={(e) => setTaskDetails(e.target.value)}
             required={false}
           />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <InputField
+              label="أيام السفر"
+              name="travel_days"
+              disabled
+              value={travelDays}
+              onChange={(e) => setTravelDays(Number(e.target.value))}
+            />
+
+            <SelectField
+              label="إعدادات تواريخ السفر"
+              name="travel_days_setting"
+              placeholder=""
+              types={TravelDaysSetting}
+              value={travelDaysSetting}
+              onChange={(value) => setTravelDaysSetting(value)}
+            />
+          </div>
 
           {!isInternal && (
             <SelectField
