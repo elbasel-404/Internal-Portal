@@ -1,4 +1,4 @@
-## [![Docker CI/CD](https://github.com/elbasel42/temp-portal-repo-github/actions/workflows/docker.yml/badge.svg)](https://github.com/elbasel42/temp-portal-repo-github/actions/workflows/docker.yml)
+<!-- ## [![Docker CI/CD](https://github.com/elbasel42/temp-portal-repo-github/actions/workflows/docker.yml/badge.svg)](https://github.com/elbasel42/temp-portal-repo-github/actions/workflows/docker.yml) -->
 
 ## Documentation
 

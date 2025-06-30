@@ -1,57 +1,36 @@
 "use server"
 
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
+import { getData } from "./getData"
 import { OvertimeListElementSchema, ResponseSchema } from "@api/schemas"
 
 import type { OvertimeList } from "@types"
 
 export const getOvertimeList = async (): Promise<OvertimeList[]> => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
-
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/hr/overtime_request/fields"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  const requestBody = {
-    field_name: "assignment_ids",
-  }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
-
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
-  })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = OvertimeListElementSchema.array().parse(data)
-
-  // ! PARSING
-  // ! ==================================
   const getStringValue = (field: unknown): string =>
-    typeof field === "string" ? field : ""
+    typeof field === "string"
+      ? field
+      : typeof field === "number"
+        ? String(field)
+        : ""
 
-  const returnedData: OvertimeList[] = validatedData.map((data) => {
-    const newsItem: OvertimeList = {
-      id: data.id,
-      name: getStringValue(data.name),
-    }
-    return newsItem
+  return getData<OvertimeList>({
+    url: "api/po/hr/overtime_request/fields",
+    includeEmployeeId: true,
+    additionalBody: { field_name: "assignment_ids" },
+    responseSchema: ResponseSchema,
+    dataSchema: OvertimeListElementSchema,
+    parseData: (data) => {
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, unknown>
+
+        return {
+          id: Number(typedItem.id),
+          name: getStringValue(typedItem.name),
+        }
+      })
+    },
+    dummyData,
   })
-
-  return returnedData
 }
 
 const dummyData: OvertimeList[] = [

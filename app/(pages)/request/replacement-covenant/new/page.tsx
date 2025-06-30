@@ -10,7 +10,9 @@ const NewReplacementCovenantPage = async () => {
   if (!userId) return
 
   const { convenantData } = await getUser(userId)
-  const requestStatus = await getCreateRequestStatus("manage.financial.custody")
+  const requestStatus = await getCreateRequestStatus(
+    "manage.financial.custody.close",
+  )
   const requestCaption =
     "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
   return (

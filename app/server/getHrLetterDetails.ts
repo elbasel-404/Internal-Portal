@@ -14,7 +14,11 @@ export const getHrLetterDetails = async (
     Array.isArray(field) ? (field[index]?.toString() ?? "") : ""
 
   const getStringValue = (field: unknown): string =>
-    typeof field === "string" ? field : ""
+    typeof field === "string"
+      ? field
+      : typeof field === "number"
+        ? String(field)
+        : ""
 
   const result = await getData<HrLetterDetails>({
     url: "api/po/salary/identification/request/read",

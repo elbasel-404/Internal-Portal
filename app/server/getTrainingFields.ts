@@ -1,7 +1,4 @@
-import {
-  TrainingField,
-  TrainingFieldSchema
-} from "@api/schemas/index"
+import { TrainingField, TrainingFieldSchema } from "@api/schemas/index"
 import { ResponseSchema } from "@api/schemas/responseSchema"
 import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
@@ -30,7 +27,6 @@ export const getTrainingFields = async (
     body: requestBodyString,
   })
   const responseJson = await apiResponse.json()
-
 
   // ! VALIDATION
   // ! ==================================

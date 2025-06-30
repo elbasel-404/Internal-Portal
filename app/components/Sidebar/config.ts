@@ -218,6 +218,12 @@ export const MenuItems: MenuItem[] = [
         href: paths.workDocument.href,
         tag: "institutionalDiscrimination",
       },
+      {
+        iconKey: "ProfileReview",
+        label: "طلب متدرب",
+        href: paths.trainee.href,
+        tag: "training",
+      },
     ],
   },
   {

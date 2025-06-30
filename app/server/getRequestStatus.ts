@@ -1,59 +1,51 @@
 import type { RequestStatus } from "@types"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
 import {
   RequestDetailsWorkflowElementSchema,
   ResponseSchema,
 } from "@api/schemas"
+import { getData } from "./getData"
+import { z } from "zod"
 
 export const getRequestStatus = async (
   id: string,
   model: string, // id: string,
 ): Promise<RequestStatus[]> => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
+  const getArrayValue = (field: unknown, index: number = 1): string =>
+    Array.isArray(field) ? (field[index]?.toString() ?? "") : ""
 
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/last_update"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  const requestBody = { res_id: id, res_model: model }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
+  const getStringValue = (field: unknown): string =>
+    typeof field === "string"
+      ? field
+      : typeof field === "number"
+        ? String(field)
+        : ""
 
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+  return getData<RequestStatus>({
+    url: "api/po/last_update",
+    includeEmployeeId: true,
+    responseSchema: ResponseSchema,
+    dataSchema: RequestDetailsWorkflowElementSchema,
+    additionalBody: { res_id: id, res_model: model },
+    parseData: (data) => {
+      if (!data || data.length === 0) {
+        return dummyData
+      }
+
+      return data.map((item: unknown) => {
+        const typedItem = item as z.infer<
+          typeof RequestDetailsWorkflowElementSchema
+        >
+        return {
+          id: getStringValue(typedItem.id),
+          title: getArrayValue(typedItem.state),
+          subtitle: getStringValue(typedItem.employee_name),
+          icon: getStringValue(typedItem.icon),
+          status: getStringValue(typedItem?.status),
+        }
+      })
+    },
+    dummyData,
   })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = RequestDetailsWorkflowElementSchema.array().parse(data)
-
-  // ! PARSING
-  // ! ==================================
-
-  const returnedData: RequestStatus[] = validatedData.map((data) => {
-    const vacationItem: RequestStatus = {
-      id: data.id?.toString(),
-      title: data.state[1],
-      subtitle: data.employee_name?.toString(),
-      icon: data.icon,
-      status: data?.status,
-    }
-    return vacationItem
-  })
-
-  return returnedData.length > 0 ? returnedData : dummyData
 }
 
 const dummyData: RequestStatus[] = [

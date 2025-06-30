@@ -4,7 +4,7 @@ import {
   getCreateRequestStatus,
   getSubstituteEmployees,
   getTrainingFields,
-  getUserId
+  getUserId,
 } from "@server"
 import { TrainingForm } from "../components"
 
