@@ -6,7 +6,6 @@ import {
 import { getData } from "./getData"
 
 export const getCreateRequestStatus = async (
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   model?: string,
 ): Promise<CreateRequestStatus[]> => {
   return getData<CreateRequestStatus>({
@@ -16,6 +15,10 @@ export const getCreateRequestStatus = async (
     dataSchema: RequestCreateWorkflowElementSchema,
     additionalBody: { model: model },
     parseData: (data) => {
+      if (!data || data.length === 0) {
+        return dummyData
+      }
+
       return data.map((item: unknown) => {
         const typedItem = item as Record<string, unknown>
 

@@ -3,6 +3,7 @@
 import type { VacationRequest } from "@types"
 import { HolidayElementSchema, ResponseSchema } from "../../api-schemas"
 import { getData } from "./getData"
+import { z } from "zod"
 
 export const getVacationRequests = async (): Promise<VacationRequest[]> => {
   return getData<VacationRequest>({
@@ -12,7 +13,7 @@ export const getVacationRequests = async (): Promise<VacationRequest[]> => {
     dataSchema: HolidayElementSchema,
     parseData: (data) => {
       return data.map((item: unknown) => {
-        const typedItem = item as Record<string, unknown>
+        const typedItem = item as z.infer<typeof HolidayElementSchema>
 
         // Safely extract holiday status
         const holidayStatus =

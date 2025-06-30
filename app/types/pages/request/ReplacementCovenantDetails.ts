@@ -3,7 +3,7 @@ export type ReplacementCovenantDetails = {
   date: string
   pledgeAmount: string
   pledgeType: string
-  covenantRequestNumber: number
+  covenantRequestNumber: string
   covenantPurpose: string
   covenantAmount: string
   covenantDate: string
