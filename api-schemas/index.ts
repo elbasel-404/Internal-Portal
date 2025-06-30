@@ -34,7 +34,7 @@ export {
 export { EmployeesListElementSchema } from "./employees-list/schema"
 export { FamilyNewSchema } from "./family-news/schema"
 export { HrTrainingSchema, type HrTraining } from "./hr-training/schema"
-export { NewsElementSchema } from "./news/schema"
+export { NewsElementSchema, type NewsElementType } from "./news/schema"
 export { OvertimeAssignmentElementSchema } from "./overtime-assignment/schema"
 export { OvertimeConfirmElementSchema } from "./overtime-confirm/schema"
 export { OvertimeListElementSchema } from "./overtime-list/schema"

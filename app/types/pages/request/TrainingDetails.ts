@@ -1,8 +1,7 @@
 export interface TrainingMethod {
-  name: string;
-  checked: boolean;
+  name: string
+  checked: boolean
 }
-
 
 export type TrainingDetails = {
   id: string
@@ -21,7 +20,7 @@ export type TrainingDetails = {
   courseProgram: string
   trainingType: string
   trainingName: string
-  trainingMethod: TrainingMethod[];
+  trainingMethod: TrainingMethod[]
   trainingStartDate: string
   trainingEndDate: string
   country: string | number

@@ -5,7 +5,7 @@ import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
 import { z } from "zod"
 
-interface GetDataOptions<T> {
+interface GetDataOptions<T, D> {
   /* API request configuration */
   url: string
   method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
@@ -18,7 +18,7 @@ interface GetDataOptions<T> {
   dataSchema?: z.ZodType
 
   /* Data transformation */
-  parseData?: (data: unknown[]) => T[]
+  parseData?: (data: D[]) => T[]
 
   /* Demo mode fallback */
   dummyData: T[]
@@ -32,11 +32,14 @@ interface GetDataOptions<T> {
  *
  * @template T The expected return type (array of items)
  * @template R The raw response data type
+ * @template D the data type to be parsed
  *
  * @param options Configuration options for the data fetching operation
  * @returns Promise that resolves to an array of the expected type
  */
-export const getData = async <T>(options: GetDataOptions<T>): Promise<T[]> => {
+export const getData = async <T, D = unknown>(
+  options: GetDataOptions<T, D>,
+): Promise<T[]> => {
   const {
     url,
     method = "POST",
