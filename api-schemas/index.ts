@@ -83,3 +83,4 @@ export {
 export { TrainingElementSchema, type TrainingElement } from "./training/schema"
 export { TransactionListElementSchema } from "./transaction-list/schema"
 export { VacationTypeSchema, type VacationType } from "./vacation-types/schema"
+export { ReplacementCovenantListElementSchema } from "./replacement-covenant-list/schema"

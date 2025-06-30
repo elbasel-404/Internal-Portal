@@ -4,6 +4,7 @@ import {
   ResponseSchema,
 } from "@api/schemas"
 import { getData } from "./getData"
+import { z } from "zod"
 
 export const getRequestStatus = async (
   id: string,
@@ -26,9 +27,14 @@ export const getRequestStatus = async (
     dataSchema: RequestDetailsWorkflowElementSchema,
     additionalBody: { res_id: id, res_model: model },
     parseData: (data) => {
-      return data.map((item: unknown) => {
-        const typedItem = item as Record<string, unknown>
+      if (!data || data.length === 0) {
+        return dummyData
+      }
 
+      return data.map((item: unknown) => {
+        const typedItem = item as z.infer<
+          typeof RequestDetailsWorkflowElementSchema
+        >
         return {
           id: getStringValue(typedItem.id),
           title: getArrayValue(typedItem.state),
