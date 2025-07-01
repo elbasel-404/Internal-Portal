@@ -1,13 +1,48 @@
 "use server"
 
+import { ResponseSchema } from "@api/schemas/responseSchema"
 import { PurchaseDetails } from "@types"
+import { getData } from "./getData"
 import { getPurchaseProductsByRequestId } from "./getPurchaseProductsByRequestId"
 
 export const getPurchaseDetails = async (
   id: string,
 ): Promise<PurchaseDetails | void> => {
   const purchaseProducts = await getPurchaseProductsByRequestId(id)
-  return { ...dummyData, purchaseProducts }
+  const result = await getData<PurchaseDetails>({
+    url: "api/purchase/request/read/po",
+    responseSchema: ResponseSchema,
+    parseData: (data) => {
+      if (!data || data.length === 0) {
+        return [dummyData]
+      }
+
+      const typedData = data[0] as Record<string, unknown>
+
+      return [
+        {
+          id: String(typedData.id || "__"),
+          requestDate: String(typedData.date || "__"),
+          type: "__",
+          requestTitle: "__",
+          requestOutcomes: "__",
+          projectName: "__",
+          programName: "__",
+          planType: "__",
+          description: "__",
+          costs: "__",
+          awardAmountBeforeChange: "__",
+          awardAmount: "__",
+          attachments: [],
+          purchaseProducts: [],
+        },
+      ]
+    },
+    additionalBody: { id },
+    dummyData: [dummyData],
+  })
+
+  return { ...result[0], purchaseProducts }
 }
 
 const dummyData: PurchaseDetails = {
