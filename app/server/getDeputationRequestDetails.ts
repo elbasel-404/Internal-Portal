@@ -96,9 +96,9 @@ export const getDeputationRequestDetails = async (
       { id: "1", name: "السعودية", city: "الرياض" },
       { id: "2", name: "مصر", city: "القاهرة" },
     ],
-    attachments: validatedData.attachment_ids.map(
-      (file: any) => new File([""], file.toString()),
-    ),
+    attachments: Array.isArray(validatedData.attachment_ids)
+      ? validatedData.attachment_ids.map((file) => new File([""], String(file)))
+      : [],
   }
 
   return returnedData
