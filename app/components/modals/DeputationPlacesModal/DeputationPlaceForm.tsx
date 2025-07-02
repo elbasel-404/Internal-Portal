@@ -5,7 +5,7 @@ import { InputField, SelectField } from "@components/form"
 import { CheckIcon, XMarkIcon } from "@icons"
 import { Button } from "@ui"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { ChangeEvent, useState } from "react"
 import { deputationPlaceFormAction } from "./DeputationPlaceFormAction"
 
 export const DeputationPlaceForm = () => {
@@ -14,11 +14,6 @@ export const DeputationPlaceForm = () => {
   const [city, setCity] = useState("")
   const closeModal = () => {
     router.back()
-  }
-
-  const handleDeputationPlaceChange = (value: string) => {
-    setPlace(value)
-    setCity("")
   }
 
   const handleSubmit = () => {
@@ -32,7 +27,7 @@ export const DeputationPlaceForm = () => {
       className="flex flex-col gap-4 px-4 mt-4"
     >
       <SelectField
-        name="place"
+        name="country_id"
         label="البلاد"
         placeholder="__"
         types={[
@@ -47,14 +42,16 @@ export const DeputationPlaceForm = () => {
           { id: "10", name: "قطر" },
         ]}
         value={place}
-        onChange={handleDeputationPlaceChange}
+        onChange={(value) => {
+          setPlace(value)
+        }}
       />
       <InputField
-        name="city"
+        name="city_name"
         label="المدينة"
         placeholder=""
-        required
         value={city}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => setCity(e.target.value)}
       />
       <div className="flex justify-end mb-2 gap-2">
         <Button

@@ -1,9 +1,9 @@
 "use server"
 
-import { db } from "@db" // Database instance
+import { db } from "@db"; // Database instance
 import { getUserIndex } from "@db/actions"
 import { getUserId } from "@server"
-import { ProjectCompletionSchema } from "@zodSchemas"
+import { DeputationLocationSchema } from "@zodSchemas"
 
 export const deputationPlaceFormAction = async (formData: FormData) => {
   //TODO: Handle Store Places
@@ -17,7 +17,7 @@ export const deputationPlaceFormAction = async (formData: FormData) => {
       success,
       data: validatedData,
       // error is not used, removing to fix linting error
-    } = ProjectCompletionSchema.safeParse(responseData)
+    } = DeputationLocationSchema.safeParse(responseData)
 
     await db.read()
 
@@ -25,8 +25,10 @@ export const deputationPlaceFormAction = async (formData: FormData) => {
     if (!userId) return
     if (!success) return
 
+    console.log(success, validatedData)
+
     const userIndex = await getUserIndex(userId)
-    db.data.users[userIndex].projectCompletion.push(validatedData)
+    db.data.users[userIndex].deputationLocation.push(validatedData)
 
     await db.write()
   } catch {

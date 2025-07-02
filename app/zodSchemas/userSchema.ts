@@ -2,6 +2,7 @@ import { z } from "zod"
 import { BatchProductSchema } from "./batchProductsSchema"
 import { BatchSchema } from "./batchSchema"
 import { CovenantSchema } from "./covenantSchema"
+import { DeputationLocationSchema } from './deputationLocationSchema'
 import { generalInfoKeyEnum } from "./generalInfoKeyEnum"
 import { homePageSlotKeyEnum } from "./homePageSlotKeyEnum"
 import { newsTabsKeyEnum } from "./newsTabsKeyEnum"
@@ -21,4 +22,5 @@ export const userSchema = z.object({
   batchs: z.array(BatchSchema),
   batchProducts: z.array(BatchProductSchema),
   trainingCourses: z.array(TrainingCoursesSchema),
+  deputationLocation: z.array(DeputationLocationSchema)
 })

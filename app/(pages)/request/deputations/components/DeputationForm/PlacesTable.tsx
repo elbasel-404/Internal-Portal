@@ -1,22 +1,14 @@
 "use client"
 
-import { DeputationPlace } from "@types"
-import {
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-  Table as UITable,
-  Button,
-} from "@ui"
-import { CirclePlusIcon, TrashIcon } from "@icons"
+import { Table } from "@components"
 import { CheckboxField } from "@components/form"
 import { ModalLink } from "@components/modals/ModalLink"
+import { CirclePlusIcon } from "@icons"
+import { removeDeputationLocation } from "@server"
 
 interface DeputationPlacesProps {
   //TODO: DeputationPlace Type
-  data: DeputationPlace[]
+  data: { country_id: string; city_name: string }[]
   issueVisa: boolean
   onChangeIssueVisa: (value: boolean) => void
   onRemove?: (id: string) => void
@@ -33,10 +25,19 @@ export const PlacesTable = ({
   data,
   issueVisa,
   onChangeIssueVisa,
-  onRemove,
 }: DeputationPlacesProps) => {
   // Removed unused function
   // function changeIssueVisa(value: boolean): void {}
+
+  const deputationLocationData = data.map((location, index) => ({
+    id: index + "id",
+    countryId: location.country_id,
+    cityName: location.city_name,
+  }))
+
+  const handleRemoveDeputationLocation = async (id: number) => {
+    await removeDeputationLocation(id)
+  }
 
   return (
     <>
@@ -57,50 +58,30 @@ export const PlacesTable = ({
             </ModalLink>
           </div>
         </div>
-        <UITable>
-          <TableHeader className="bg-cloudGray">
-            <TableRow>
-              {tableHeaders.map((col, index) => (
-                <TableHead
-                  key={index}
-                  className={"text-right text-darkBlue text-lg w-1/12"}
-                >
-                  {col.label}
-                </TableHead>
-              ))}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {data.map((item, index) => (
-              <TableRow
-                key={item.id}
-                className={`${index % 2 !== 0 ? "bg-cloudGray" : "bg-white"}`}
-              >
-                {Object.entries(item)
-                  .filter(([key]) => key !== "id")
-                  .map(([key, value]) => (
-                    <TableCell key={key} className="w-1/12">
-                      {value}
-                    </TableCell>
-                  ))}
-                <TableCell className="w-1/12">
-                  <Button
-                    className="flex group gap-1 items-center shadow-none hover:bg-red-600 hover:text-white justify-end text-destructive-foreground bg-destructive-opacity rounded-xl px-4 py-2.5"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      if (onRemove) {
-                        onRemove(item.id)
-                      }
-                    }}
-                  >
-                    <TrashIcon className="fill-destructive-foreground group-hover:fill-white" />
-                    حذف
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </UITable>
+
+        <input
+          name="location_ids"
+          hidden
+          aria-hidden
+          className="hidden"
+          value={JSON.stringify(
+            data.map((location) => ({
+              country_id: location.country_id,
+              city_name: location.city_name,
+            })),
+          )}
+        />
+
+        {data.length > 0 && (
+          <Table
+            tableClassName="h-fit"
+            columns={tableHeaders}
+            rows={deputationLocationData}
+            toggleId={false}
+            toggleDelete
+            onRemove={handleRemoveDeputationLocation}
+          />
+        )}
         <div className="my-10">
           <CheckboxField
             name="issueVisa"
