@@ -4,13 +4,13 @@ export const RequestTypes = [
 ]
 
 export const TransportationTypes = [
-  { label: "جواً", value: "ByAir" },
-  { label: "براً", value: "Overland" },
+  { label: "جواً", value: "air_travel" },
+  { label: "براً", value: "overland" },
 ]
 
 export const DeputationsTypes = [
-  { id: "task", name: "مهمة عمل" },
-  { id: "training", name: "رحلة تدريب" },
+  { id: "1", name: "مهمة عمل" },
+  { id: "7", name: "رحلة تدريب" },
 ]
 
 export const TrainingRequests = [
@@ -78,4 +78,9 @@ export const DeputationPlaces = [
   { id: "8", name: "السودان", city: "الخرطوم" }, // Sudan
   { id: "9", name: "عُمان", city: "مسقط" }, // Oman
   { id: "10", name: "قطر", city: "الدوحة" },
+]
+
+export const TravelDaysSetting = [
+  { id: 1, name: "قبل بداية الانتداب" },
+  { id: 2, name: "بعد نهاية الانتداب" },
 ]

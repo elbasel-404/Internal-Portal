@@ -24,4 +24,5 @@ export const defaultUser: z.TypeOf<typeof userSchema> = {
   batchs: [],
   batchProducts: [],
   trainingCourses: [],
+  deputationLocation: [],
 } as const
