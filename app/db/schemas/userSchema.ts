@@ -2,6 +2,7 @@ import {
   BatchProductSchema,
   BatchSchema,
   CovenantSchema,
+  DeputationLocationSchema,
   generalInfoKeyEnum,
   homePageSlotKeyEnum,
   newsTabsKeyEnum,
@@ -23,4 +24,5 @@ export const userSchema = z.object({
   batchs: z.array(BatchSchema),
   batchProducts: z.array(BatchProductSchema),
   trainingCourses: z.array(TrainingCoursesSchema),
+  deputationLocation: z.array(DeputationLocationSchema),
 })

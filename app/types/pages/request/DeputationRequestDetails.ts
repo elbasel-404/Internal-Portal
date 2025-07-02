@@ -25,7 +25,6 @@ export type DeputationRequestDetails = {
   replacementEmployee: string
   status: string
   reason: string
-  notes: string
   deputationPlaces: DeputationPlace[]
   attachments: File[]
 }

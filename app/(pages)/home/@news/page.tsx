@@ -13,15 +13,15 @@ export const revalidate = 8400 // revalidate every 24 hours
 const NewsSlot = async () => {
   // const userId = await getUserId()
   const ads = await getAdsNewsList({
-    limit: 2,
+    limit: 3,
     page: 1,
   })
   const news = await getNewsListRequests({
-    limit: 4,
+    limit: 3,
     page: 1,
   })
   const familyNews = await getFamilyNewsList({
-    limit: 4,
+    limit: 3,
     page: 1,
   })
   // let tabs = defaultNewsTabs

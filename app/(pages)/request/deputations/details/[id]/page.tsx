@@ -1,9 +1,9 @@
 import { RequestDetails, RequestStatus } from "@components"
-import { getRequestStatus, getDeputationRequestDetails } from "@server"
+import { ModalLink } from "@components/modals/ModalLink"
+import { AnglesLeftIcon } from "@icons"
+import { getDeputationRequestDetails, getRequestStatus } from "@server"
 import { RequestHeader } from "@types"
 import { ReactNode } from "react"
-import { AnglesLeftIcon } from "@icons"
-import { ModalLink } from "@components/modals/ModalLink"
 
 type Params = Promise<{ id: string }>
 
@@ -41,17 +41,10 @@ const DeputationDetailsPage = async ({
     deputationAmount,
     transferDate,
     reserved,
-    status,
     reason,
-    notes,
     attachments,
     deputationPlaces,
   } = (await getDeputationRequestDetails(id)) || {}
-
-  const isInternal = deputation === "داخلي"
-  const displayReason = status === "مرفوض"
-  const displayTrainingRequestNumber = deputationType === "رحلة تدريب"
-  const displayKilometers = transportation === "برا"
 
   const requestHeaders: RequestHeader[] = [
     {
@@ -86,22 +79,16 @@ const DeputationDetailsPage = async ({
       label: "المدة",
       value: duration,
     },
-    ...(displayTrainingRequestNumber
-      ? [
-          {
-            label: "رقم طلب التدريب" as RequestHeader["label"],
-            value: trainingRequestNumber,
-          },
-        ]
-      : []),
-    ...(displayKilometers
-      ? [
-          {
-            label: "عدد الكيلومترات" as RequestHeader["label"],
-            value: kilometers,
-          },
-        ]
-      : []),
+    {
+      label: "رقم طلب التدريب" as RequestHeader["label"],
+      value: trainingRequestNumber,
+    },
+
+    {
+      label: "عدد الكيلومترات" as RequestHeader["label"],
+      value: kilometers,
+    },
+
     {
       label: "المهمة",
       value: task,
@@ -123,24 +110,19 @@ const DeputationDetailsPage = async ({
       value: reserved,
       key: "reserved",
     },
-    ...(isInternal
-      ? [
-          {
-            label: "المدينة" as RequestHeader["label"],
-            value: city,
-          },
-        ]
-      : [
-          {
-            label: "إصدار تأشيرة" as RequestHeader["label"],
-            value: issueVisa,
-            key: "issueVisa",
-          },
-          {
-            label: "الموظف البديل" as RequestHeader["label"],
-            value: replacementEmployee,
-          },
-        ]),
+    {
+      label: "المدينة" as RequestHeader["label"],
+      value: city,
+    },
+    {
+      label: "إصدار تأشيرة" as RequestHeader["label"],
+      value: issueVisa,
+      key: "issueVisa",
+    },
+    {
+      label: "الموظف البديل" as RequestHeader["label"],
+      value: replacementEmployee,
+    },
     {
       label: "تاريخ السفر للانتداب",
       value: travelStartDate,
@@ -157,32 +139,20 @@ const DeputationDetailsPage = async ({
       label: "تاريخ التحويل",
       value: transferDate,
     },
-    ...(displayReason
-      ? [
-          {
-            label: "سبب الرفض" as RequestHeader["label"],
-            value: reason,
-          },
-        ]
-      : []),
     {
-      label: "ملاحظات" as RequestHeader["label"],
-      value: notes,
+      label: "سبب الرفض" as RequestHeader["label"],
+      value: reason,
     },
-    ...(isInternal
-      ? []
-      : [
-          {
-            label: "مكان الانتداب" as RequestHeader["label"],
-            value: deputationPlaces as ReactNode,
-            tableHeaders: [
-              { label: "الدولة", key: "name" },
-              { label: "المدينة", key: "city" },
-            ],
-          },
-        ]),
     {
-      label: "المرفقات" as RequestHeader["label"],
+      label: "مكان الانتداب" as RequestHeader["label"],
+      value: deputationPlaces as ReactNode,
+      tableHeaders: [
+        { label: "الدولة", key: "name" },
+        { label: "المدينة", key: "city" },
+      ],
+    },
+    {
+      label: "المرفقات",
       value: attachments,
     },
   ]
