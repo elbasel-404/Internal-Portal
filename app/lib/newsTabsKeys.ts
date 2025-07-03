@@ -1,5 +1,6 @@
 export const newsTabsKeys = [
-  "pressTab",
+  // !TODO: uncomment the below to enable the press tab
+  // "pressTab",
   "newsTab",
   "monshaatFamilyTab",
   "internalTab",
