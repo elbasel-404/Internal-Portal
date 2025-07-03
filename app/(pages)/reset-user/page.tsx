@@ -13,7 +13,7 @@ const ResetUerPage = () => {
     await createUser()
     setTimeout(() => {
       redirect("/home")
-    }, 4000)
+    }, 3000)
     // await logout()
   }
 
