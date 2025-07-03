@@ -1,3 +1,5 @@
+"use client"
+
 import { ModalLink } from "@components/modals/ModalLink"
 import { GearIcon, HelloIcon, SearchIcon } from "@icons"
 import { getNotifications } from "@server"
@@ -5,9 +7,20 @@ import { Button, Input } from "@ui"
 import { MegaMenu } from "./MegaMenu"
 import { NavBarPadding } from "./NabBarPadding"
 import { Notification } from "./Notification"
+import { useEffect, useState } from "react"
+import { NotificationItem } from "@types" // Adjust the import path as needed
 
-export const NavBar = async () => {
-  const notifications = await getNotifications()
+export const NavBar = () => {
+  const [notifications, setNotifications] = useState<NotificationItem[]>([])
+
+  const loadNotifications = async () => {
+    const newNotifications = await getNotifications()
+    setNotifications(newNotifications)
+  }
+  useEffect(() => {
+    loadNotifications()
+  }, [])
+
   return (
     <nav className={"flex items-center bg-white p-4 lg:px-16"}>
       {/* ! Padding is in this component: */}
