@@ -1,5 +1,6 @@
 import type { NewsTab } from "@types"
 
+// ! TODO: uncomment the below to enable the press tab
 export const defaultNewsTabs: NewsTab[] = [
   // {
   //   id: -80,
