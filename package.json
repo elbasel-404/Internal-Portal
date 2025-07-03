@@ -64,7 +64,7 @@
     "react-dom": "19.1.0",
     "react-hook-form": "^7.59.0",
     "react-is": "19.0.0-rc-6f23540c7d-20240528",
-    "react-json-view-lite": "^2.3.0",
+    "react-json-view-lite": "^2.4.1",
     "recharts": "2.13.0-alpha.3",
     "server-only": "^0.0.1",
     "sonner": "^1.7.4",
