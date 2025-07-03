@@ -1,14 +1,20 @@
 "use client"
 
-import { logout } from "@auth"
+// import { logout } from "@auth"
 import { deleteUserId } from "@server"
 import { Loader } from "lucide-react"
 import { useEffect } from "react"
+import { createUser } from "../../server/createUser"
+import { redirect } from "next/navigation"
 
 const ResetUerPage = () => {
   const resetUser = async () => {
     await deleteUserId()
-    await logout()
+    await createUser()
+    setTimeout(() => {
+      redirect("/home")
+    }, 4000)
+    // await logout()
   }
 
   useEffect(() => {
