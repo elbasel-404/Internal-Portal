@@ -23,17 +23,21 @@ export const getPurchaseDetails = async (
         {
           id: String(typedData.id || "__"),
           requestDate: String(typedData.date || "__"),
-          type: "__",
-          requestTitle: "__",
-          requestOutcomes: "__",
-          projectName: "__",
-          programName: "__",
+          type: String(typedData.type || "__"),
+          requestTitle: String(typedData.request_title || "__"),
+          requestOutcomes: String(typedData.note || "__"),
+          projectName: String(typedData.project_name || "__"),
+          programName: String(typedData.purchase_initiative_id || "__"),
           planType: "__",
-          description: "__",
-          costs: "__",
+          description: String(typedData.description || "__"),
+          costs: String(typedData.amount_total || "__"),
           awardAmountBeforeChange: "__",
-          awardAmount: "__",
-          attachments: [],
+          awardAmount: String(typedData.award_amount || "__"),
+          attachments: Array.isArray(typedData.attachment_ids)
+            ? typedData.attachment_ids.map(
+                (file) => new File([""], String(file)),
+              )
+            : [],
           purchaseProducts: [],
         },
       ]

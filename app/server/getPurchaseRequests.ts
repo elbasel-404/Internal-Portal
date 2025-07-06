@@ -17,9 +17,9 @@ export const getPurchaseRequests = async (): Promise<PurchaseRequest[]> => {
           id: String(typedItem.id || ""),
           date: String(typedItem.date || "__"),
           description: String(typedItem.description),
-          costs: "__",
+          costs: String(typedItem.amount_total + " " + "ريال سعودي"),
           submissionMechanism: "__",
-          status: "__",
+          status: String(typedItem.state || "__"),
         }
       })
     },
