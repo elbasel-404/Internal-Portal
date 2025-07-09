@@ -7,14 +7,18 @@ import { Dispatch, SetStateAction, useCallback } from "react"
 import { useIsMobile } from "../../hooks/useIsMobile"
 import { SidebarContent } from "./SidebarContent"
 import { SideBarToggle } from "./SideBarToggle"
-
+import { ProfileInfo } from "@types"
 interface SidebarProps {
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
+  userInfo: ProfileInfo
+}
+interface AppSideBarProps {
+  userInfo: ProfileInfo
 }
 
 // Main App Sidebar component
-export const AppSideBar = () => {
+export const AppSideBar = ({ userInfo }: AppSideBarProps) => {
   const [isOpen, setIsOpen] = useAtom(isSideBarOpenAtom)
   const isMobileScreen = useIsMobile()
 
@@ -27,26 +31,30 @@ export const AppSideBar = () => {
       )}
     >
       <SideBarToggle />
-      <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
+      <Sidebar isOpen={isOpen} userInfo={userInfo} setIsOpen={setIsOpen} />
     </div>
   )
 }
 
 // Desktop Sidebar
-const DesktopSidebar = ({ isOpen, setIsOpen }: SidebarProps) => (
+const DesktopSidebar = ({ isOpen, setIsOpen, userInfo }: SidebarProps) => (
   <div className="hidden h-full lg:block">
     <div
       className={`bg-sidebar transition-all duration-500 min-h-screen ${
         isOpen ? "w-[280px]" : "w-[71px]"
       } flex flex-col`}
     >
-      <SidebarContent isOpen={isOpen} setIsOpen={setIsOpen} />
+      <SidebarContent
+        isOpen={isOpen}
+        userInfo={userInfo}
+        setIsOpen={setIsOpen}
+      />
     </div>
   </div>
 )
 
 // Mobile Sidebar
-const MobileSidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
+const MobileSidebar = ({ isOpen, setIsOpen, userInfo }: SidebarProps) => {
   const handleBackdropClick = useCallback(() => setIsOpen(false), [setIsOpen])
 
   return (
@@ -61,7 +69,11 @@ const MobileSidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
           },
         )}
       >
-        <SidebarContent isOpen={isOpen} setIsOpen={setIsOpen} />
+        <SidebarContent
+          isOpen={isOpen}
+          userInfo={userInfo}
+          setIsOpen={setIsOpen}
+        />
       </div>
     </div>
   )
