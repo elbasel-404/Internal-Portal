@@ -28,7 +28,7 @@ export const AttachmentsSection = () => {
       {purchaseType === "directPayment" && (
         <CheckboxListField
           label="نوع المرفقات"
-          name="attachments_type"
+          name="attachment_types_ids"
           options={[
             { value: "termsBooklet", label: "كراسة الشروط" },
             { value: "specifications", label: "مواصفات" },

@@ -22,11 +22,11 @@ const PurchaseTypeSelector = () => {
 
   return (
     <RadioField
-      name="purchase_type"
+      name="request_type"
       options={[
-        { value: "operational", label: "تشغيلي" },
-        { value: "Strategic", label: "الخطة الإستراتيجية" },
-        { value: "directPayment", label: "دفعة مباشرة" },
+        { value: "material", label: "تشغيلي" },
+        { value: "project", label: "الخطة الإستراتيجية" },
+        { value: "direct_payment", label: "دفعة مباشرة" },
       ]}
       required={true}
       labelStyle="font-medium text-base"
@@ -44,7 +44,7 @@ const AddressRequestField = () => {
   return (
     <InputField
       label="عنوان الطلب"
-      name="address_request"
+      name="request_title"
       placeholder=""
       value={addressRequest}
       onChange={(e: ChangeEvent<HTMLInputElement>) =>

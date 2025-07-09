@@ -7,7 +7,7 @@ import { atomWithStorage } from "jotai/utils"
 // Basic information atoms
 export const purchaseTypeAtom = atomWithStorage<PurchaseType>(
   "purchaseType",
-  "operational",
+  "material",
 )
 export const addressRequestAtom = atomWithStorage<string>("addressRequest", "")
 export const descriptionAtom = atomWithStorage<string>("description", "")

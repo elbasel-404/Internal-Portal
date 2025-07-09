@@ -9,6 +9,11 @@ export const getPurchaseDetails = async (
   id: string,
 ): Promise<PurchaseDetails | void> => {
   const purchaseProducts = await getPurchaseProductsByRequestId(id)
+  const purchaseType = (type: string) => {
+    if (type === "material") return "تشغيلي"
+    else if (type === "project") return "الخطة الاستراتيجية"
+    else return "دفعة مباشرة"
+  }
   const result = await getData<PurchaseDetails>({
     url: "api/purchase/request/read/po",
     responseSchema: ResponseSchema,
@@ -23,16 +28,20 @@ export const getPurchaseDetails = async (
         {
           id: String(typedData.id || "__"),
           requestDate: String(typedData.date || "__"),
-          type: String(typedData.type || "__"),
+          type: purchaseType(String(typedData.type)),
           requestTitle: String(typedData.request_title || "__"),
           requestOutcomes: String(typedData.note || "__"),
           projectName: String(typedData.project_name || "__"),
-          programName: String(typedData.purchase_initiative_id || "__"),
-          planType: "__",
+          programName: Array.isArray(typedData.purchase_initiative_id)
+            ? String(typedData.purchase_initiative_id[1] || "__")
+            : "__",
+          planType: Array.isArray(typedData.strategic_plan_type_id)
+            ? String(typedData.strategic_plan_type_id[1] || "__")
+            : "__",
           description: String(typedData.description || "__"),
-          costs: String(typedData.amount_total || "__"),
+          costs: String(typedData.amount_total + " " + "ريال سعودي"),
           awardAmountBeforeChange: "__",
-          awardAmount: String(typedData.award_amount || "__"),
+          awardAmount: String(typedData.award_amount + " " + "ريال سعودي"),
           attachments: Array.isArray(typedData.attachment_ids)
             ? typedData.attachment_ids.map(
                 (file) => new File([""], String(file)),

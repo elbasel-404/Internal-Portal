@@ -22,7 +22,7 @@ export const ProjectDetailsSection = () => {
   const [purchaseType] = useAtom(purchaseTypeAtom)
   return (
     <div className="space-y-6">
-      {purchaseType !== "directPayment" ? (
+      {purchaseType !== "direct_payment" ? (
         <>
           <RequestOutputsField />
           <PlanSelectionGroup />
@@ -42,7 +42,7 @@ const RequestOutputsField = () => {
   return (
     <TextareaField
       label="مخرجات الطلب"
-      name="request_outputs"
+      name="notes"
       placeholder="مخرجات الطلب"
       value={requestOutputs}
       onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
@@ -59,13 +59,13 @@ const PlanSelectionGroup = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
         <SelectField
           label="نوع الخطة"
-          name="planType"
+          name="strategic_plan_type_id"
           placeholder="اختر نوع الخطة"
           types={[]}
         />
         <SelectField
           label="اسم (المبادرة/البرنامج)"
-          name="programName"
+          name="purchase_initiative_id"
           placeholder="اختر اسم المبادرة/البرنامج"
           types={[]}
         />
@@ -73,7 +73,7 @@ const PlanSelectionGroup = () => {
 
       <SelectField
         label="اسم المشروع"
-        name="projectName"
+        name="purchase_program_id"
         placeholder="اختر اسم المشروع"
         types={[]}
       />
@@ -92,7 +92,7 @@ const ProjectDatesGroup = () => {
         <DateField
           required
           label="تاريخ بداية المشروع المتوقع"
-          name="date_from"
+          name="date_start_project"
           date={dateFrom}
           onChange={(date) => setDateFrom(date || new Date())}
         />
@@ -101,7 +101,7 @@ const ProjectDatesGroup = () => {
         <DateField
           required
           label="تاريخ نهاية المشروع المتوقع"
-          name="date_to"
+          name="date_end_project"
           date={dateTo}
           onChange={(date) => setDateTo(date || new Date())}
         />
@@ -109,7 +109,7 @@ const ProjectDatesGroup = () => {
       <div className="space-y-2">
         <InputField
           label="مدة المشروع"
-          name="duration"
+          name="duration_project"
           disabled
           value={duration}
           placeholder=""
@@ -142,23 +142,34 @@ const CostsField = () => {
   const [purchaseType] = useAtom(purchaseTypeAtom)
 
   useEffect(() => {
-    if (purchaseType !== "directPayment") {
+    if (purchaseType !== "direct_payment") {
       setCosts(0)
     }
   }, [purchaseType, setCosts])
 
   return (
-    <InputField
-      label="التكاليف"
-      name="costs"
-      placeholder=""
-      value={costs}
-      onChange={(e: ChangeEvent<HTMLInputElement>) =>
-        setCosts(Number(e.target.value))
-      }
-      required
-      disabled={purchaseType === "directPayment"}
-      icon={<RiyalCurrencyIcon />}
-    />
+    <>
+      <input
+        type="text"
+        name="award_amount"
+        hidden
+        aria-hidden
+        readOnly
+        value="10"
+        className="hidden"
+      />
+      <InputField
+        label="التكاليف"
+        name="estimated_budget"
+        placeholder=""
+        value={costs}
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setCosts(Number(e.target.value))
+        }
+        required
+        disabled={purchaseType === "direct_payment"}
+        icon={<RiyalCurrencyIcon />}
+      />
+    </>
   )
 }
