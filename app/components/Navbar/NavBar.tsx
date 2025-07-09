@@ -8,9 +8,13 @@ import { MegaMenu } from "./MegaMenu"
 import { NavBarPadding } from "./NabBarPadding"
 import { Notification } from "./Notification"
 import { useEffect, useState } from "react"
-import { NotificationItem } from "@types" // Adjust the import path as needed
+import { NotificationItem, ProfileInfo } from "@types" // Adjust the import path as needed
 
-export const NavBar = () => {
+interface userProps {
+  userInfo: ProfileInfo
+}
+
+export const NavBar = ({ userInfo }: userProps) => {
   const [notifications, setNotifications] = useState<NotificationItem[]>([])
 
   const loadNotifications = async () => {
@@ -28,7 +32,9 @@ export const NavBar = () => {
       <div className="ml-auto flex items-center gap-4">
         {/* <ProfileInfo /> */}
         <div className="hidden gap-1 sm:flex md:items-center">
-          <h1 className="text-2xl font-bold">طاب مسائك، عساف</h1>
+          <h1 className="text-2xl font-bold">
+            طاب مسائك، {userInfo.name?.split(" ")[0]}
+          </h1>
           <HelloIcon />
         </div>
       </div>

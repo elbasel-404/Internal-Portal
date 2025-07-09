@@ -1,14 +1,15 @@
 import { CalenderSmallIcon, LineUpIcon, TagIcon } from "@icons"
-import type { User } from "@types"
+import type { ProfileInfo } from "@types"
 import { Button, UserInfoCard } from "@ui"
 import Image from "next/image"
 
 interface UserInfoProps {
-  user: User
+  user: ProfileInfo
 }
 
 export const UserInfo = ({ user }: UserInfoProps) => {
-  const { name, department, duration, employeeId, image, job, score } = user
+  const { name, department, serviceDuration, jobNumber, image, job, degree } =
+    user
 
   return (
     <div className="bg-white">
@@ -46,7 +47,7 @@ export const UserInfo = ({ user }: UserInfoProps) => {
                 variant="default"
                 className="bg-lightGrayish text-foreground hover:bg-lightGrayish cursor-default px-4 py-2.5 rounded-full shadow-none"
               >
-                الرقم الوظيفي: {employeeId}
+                الرقم الوظيفي: {jobNumber}
               </Button>
             </div>
           </div>
@@ -59,12 +60,12 @@ export const UserInfo = ({ user }: UserInfoProps) => {
             <UserInfoCard
               title="الدرجة"
               icon={<LineUpIcon />}
-              content={score}
+              content={degree}
             />
             <UserInfoCard
               title="مدة الخدمة"
               icon={<CalenderSmallIcon />}
-              content={duration}
+              content={serviceDuration}
             />
           </div>
         </div>
