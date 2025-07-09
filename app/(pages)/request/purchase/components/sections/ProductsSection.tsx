@@ -99,6 +99,66 @@ export const ProductsSection = ({ data }: ProductsProps) => {
           </div>
         </>
       )}
+
+      {productsData.map((product, index) => (
+        <div key={index}>
+          <input
+            type="text"
+            hidden
+            aria-hidden
+            readOnly
+            className="hidden"
+            name={`products[${index}][product_id]`}
+            value={product.id}
+          />
+          <input
+            type="text"
+            hidden
+            aria-hidden
+            readOnly
+            className="hidden"
+            name={`products[${index}][description]`}
+            value={product.description}
+          />
+          <input
+            type="text"
+            hidden
+            aria-hidden
+            readOnly
+            className="hidden"
+            name={`products[${index}][product_qty]`}
+            value={product.quantity}
+          />
+          <input
+            type="text"
+            hidden
+            aria-hidden
+            readOnly
+            className="hidden"
+            name={`products[${index}][price_unit]`}
+            value={product.unitPrice}
+          />
+          <input
+            type="text"
+            hidden
+            aria-hidden
+            readOnly
+            className="hidden"
+            name={`products[${index}][taxes_id]`}
+            value={product.tax}
+          />
+        </div>
+      ))}
+
+      <input
+        type="text"
+        hidden
+        aria-hidden
+        readOnly
+        className="hidden"
+        name={`estimated_budget`}
+        value={totalAmount}
+      />
     </>
   )
 }
