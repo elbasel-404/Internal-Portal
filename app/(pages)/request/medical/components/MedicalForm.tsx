@@ -11,26 +11,31 @@ import {
 } from "@components/form"
 import { paths } from "@lib"
 import { FileWithId } from "@types"
-import { ChangeEvent, useActionState, useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState, useTransition } from "react"
 import { toast } from "sonner"
 import { State } from "./helpers/State"
 import { formAction } from "./helpers/formAction"
-import { getStateAction } from "./helpers/getStateAction"
-import { initialState } from "./helpers/initialState"
 
 const types = [
   { id: "add", name: "إضافة" },
   { id: "exclude", name: "استبعاد" },
 ]
 
-const stateAction = getStateAction<State>(formAction)
+const initialState: State = {
+  success: false,
+  errors: null,
+  id: null,
+}
 
 interface MedicalFormProps {
   relativeRelation: RelativeRelationElement[]
 }
 
 export const MedicalForm = ({ relativeRelation }: MedicalFormProps) => {
-  const [state, action, pending] = useActionState(stateAction, initialState)
+  const [state, setState] = useState<State>(initialState)
+  const [isPending, startTransition] = useTransition()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const pending = isPending || isSubmitting
   const [files, setFiles] = useState<FileWithId[]>([])
   const [requestType, setRequestType] = useState("")
   const [relation, setRelation] = useState("")
@@ -66,15 +71,17 @@ export const MedicalForm = ({ relativeRelation }: MedicalFormProps) => {
     if (errors) toast.error(errors)
   }, [state])
 
-  useEffect(() => {
-    if (pending) {
-      toast.loading("جاري انشاء الطلب", {
-        id: "vacation-form-loading-toast",
-      })
-    } else {
-      toast.dismiss("vacation-form-loading-toast")
-    }
-  }, [pending])
+  const action = async (formData: FormData) => {
+    setIsSubmitting(true)
+    toast.loading("جاري انشاء الطلب", { id: "medical-form-pending" })
+
+    startTransition(async () => {
+      const result = await formAction(formData)
+      setState(result)
+      setIsSubmitting(false)
+      toast.dismiss("medical-form-pending")
+    })
+  }
 
   if (state.success) {
     return (
@@ -142,6 +149,15 @@ export const MedicalForm = ({ relativeRelation }: MedicalFormProps) => {
           required={false}
           value={individualEnglishName}
           onChange={handleIndividualEnglishNameChange}
+        />
+        <input
+          type="text"
+          name="insurance_amount"
+          hidden
+          aria-hidden
+          readOnly
+          value="12"
+          className="hidden"
         />
         <AttachmentsField
           files={files}
