@@ -24,11 +24,11 @@ export {
 export { AdNewSchema } from "./ad-news/schema"
 export {
   DeputationTypeSchema,
-  type DeputationType
+  type DeputationType,
 } from "./deputation-types/schema"
 export {
   DeputationElementSchema,
-  type DeputationElement
+  type DeputationElement,
 } from "./deputation/schema"
 export { EmployeeDepartmentElementSchema } from "./employee-department/schema"
 export {
@@ -92,3 +92,5 @@ export { TrainingElementSchema, type TrainingElement } from "./training/schema"
 export { TransactionListElementSchema } from "./transaction-list/schema"
 export { VacationTypeSchema, type VacationType } from "./vacation-types/schema"
 export { ReplacementCovenantListElementSchema } from "./replacement-covenant-list/schema"
+export { RulesSchema } from "./rules/schema"
+export { ObligationSchema } from "./obligation/schema"
