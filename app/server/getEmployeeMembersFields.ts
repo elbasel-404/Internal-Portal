@@ -9,17 +9,18 @@ import { getData } from "./getData"
 
 export const getEmployeeMembersFields = async (
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  fieldName: string,
+  field_name: string,
 ): Promise<EmployeeMembersField[]> => {
   return getData<EmployeeMembersField>({
     url: "api/po/hr/employee/members/fields",
+    additionalBody: { field_name: field_name },
     responseSchema: ResponseSchema,
-    dataSchema: EmployeeMembersFieldSchema.array(),
+    dataSchema: EmployeeMembersFieldSchema,
     parseData: (data) => {
       return data.map((item: unknown) => {
         const typedItem = item as Record<string, unknown>
         return {
-          id: Number(typedItem.id || 0),
+          id: typedItem.id || 0,
           name: String(typedItem.name || ""),
           birthday: typedItem.birthday as string | undefined,
           family_name_ar: typedItem.family_name_ar as string | undefined,
@@ -42,21 +43,21 @@ export const getEmployeeMembersFields = async (
         }
       })
     },
-    dummyData: dummyData,
+    dummyData,
   })
 }
 
 const dummyData: EmployeeMembersField[] = [
   {
-    id: 5,
+    id: "add",
     name: "إضافة",
   },
   {
-    id: 7,
+    id: "update",
     name: "تحديث",
   },
   {
-    id: 16,
+    id: "delete",
     name: "حذف",
   },
 ]
