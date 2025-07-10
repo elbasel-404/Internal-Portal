@@ -1,9 +1,9 @@
 export type Rules = {
   title: string
   description: string
-  policyNumber: number
+  policyNumber: string
   timestamp: string
-  sideImages: string[]
+  sideImages?: string[]
   mainImage?: string
   attachment?: string
 }
