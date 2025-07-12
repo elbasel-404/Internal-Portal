@@ -1,6 +1,5 @@
 "use client"
 
-import { isSideBarOpenAtom } from "@atoms"
 import { VisuallyHidden } from "@components"
 // import { useKeyPress } from '@hooks';
 import {
@@ -18,8 +17,6 @@ import {
   DialogTitle,
 } from "@ui"
 import { cn, sleep } from "@utils"
-import { useSetAtom } from "jotai"
-import { Route } from "next"
 import { useRouter } from "next/navigation"
 import { MouseEvent, useEffect, useState, type ReactNode } from "react"
 
@@ -57,8 +54,6 @@ export const Modal = ({
   children,
   onModalOpen,
   onModalClose,
-  handleClickCapture,
-  handleClickInternally = false,
   // onOpenChange,
   refreshOnClose = true,
   modalDescription = "",
@@ -85,7 +80,6 @@ export const Modal = ({
     introOverlayClassName,
   )
 
-  const [modalOpen, setModalOpen] = useState(true)
   const [currentContentClassName, setCurrentContentClassName] =
     useState(contentClassName)
 
@@ -93,7 +87,6 @@ export const Modal = ({
     useState(overlayClassName)
 
   const router = useRouter()
-  const setSideBarOpen = useSetAtom(isSideBarOpenAtom)
 
   const closeDialog = async () => {
     if (onModalClose) await onModalClose()
@@ -110,7 +103,6 @@ export const Modal = ({
     setCurrentContentClassName(contentClassName)
     setCurrentOverlayClassName(overlayClassName)
     await sleep(0.45)
-    setModalOpen(false)
 
     // if (handleClickInternally) await sleep(2);
     if (typeof window === "undefined") return
@@ -125,56 +117,15 @@ export const Modal = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // ! TODO Move this to modal components instead
-  const internalHandleClickCapture = async (
-    event: MouseEvent<HTMLDivElement>,
-  ) => {
-    if (!handleClickInternally) return
-    const target = event.target
-    const tagName = (target as HTMLElement).tagName
-
-    if (tagName === "BUTTON") return
-    event.preventDefault()
-    let linkElement
-    if (["DIV", "svg", "A", "path"].includes(tagName)) {
-      const isDivElement = tagName === "DIV"
-      const isLinkElement = tagName === "A"
-      const isSvgElement = tagName === "svg"
-      const isPathElement = tagName === "path"
-
-      if (isDivElement) {
-        linkElement = (target as HTMLElement).parentElement
-      }
-      if (isPathElement) {
-        const parentSvg = (target as HTMLElement).parentElement
-        const parentDiv = (parentSvg as HTMLElement).parentElement
-        linkElement = parentDiv?.parentElement
-      }
-      if (isSvgElement) {
-        const parentDiv = (target as HTMLElement).parentElement
-        linkElement = parentDiv?.parentElement
-      }
-      if (isLinkElement) {
-        linkElement = target
-      }
-      const pushHref = (linkElement as HTMLElement)?.getAttribute("href")
-      router.back()
-      await sleep(0.1)
-      router.push(pushHref as Route)
-      setSideBarOpen(false)
-    }
-  }
-
   // if (!modalOpen) return null;
 
   return (
-    <Dialog open={modalOpen}>
+    <Dialog open={true}>
       <VisuallyHidden>
         <DialogTitle title="User Settings" />
         <DialogDescription description={modalDescription} />
       </VisuallyHidden>
       <DialogContent
-        onClickCapture={handleClickCapture || internalHandleClickCapture}
         // onCloseAunmouutoFocus={closeDialog}
         // onInteractOutside={closeDialog}
         onOpenAutoFocus={onModalOpen}
