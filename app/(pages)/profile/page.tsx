@@ -95,7 +95,7 @@ const ProfilePage = async () => {
       <div className="bg-white p-6 rounded-xl flex gap-4 flex-col md:flex-row">
         <div className="md:w-0-1/4 bg-primary-opacity rounded-xl p-4 h-fit">
           <Image
-            src="/profile-img.jpg"
+            src={personalData.image}
             alt="profile"
             width={100}
             height={100}
@@ -103,11 +103,9 @@ const ProfilePage = async () => {
           />
           <div className="flex flex-col mt-2">
             <h2 className="font-medium text-foreground text-2xl">
-              عساف بن رشود الصاعدي
+              {personalData.name}
             </h2>
-            <p className="font-medium text-grey-600">
-              مدير الأنظمة الداخلية (مكلف)
-            </p>
+            <p className="font-medium text-grey-600">{workData.job}</p>
           </div>
         </div>
         <div className="md:w-3/4 ">

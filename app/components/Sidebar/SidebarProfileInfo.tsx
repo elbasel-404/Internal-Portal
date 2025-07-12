@@ -7,12 +7,16 @@ import Link from "next/link"
 import { paths } from "../../lib/paths"
 import { Button } from "../../ui/button"
 import { logout } from "@auth"
-
+import { ProfileInfo } from "@types"
 interface SideBarHeaderProps {
   isOpen: boolean
+  userInfo: ProfileInfo
 }
 
-export const SidebarProfileInfo = ({ isOpen }: SideBarHeaderProps) => {
+export const SidebarProfileInfo = ({
+  isOpen,
+  userInfo,
+}: SideBarHeaderProps) => {
   return (
     <>
       <div
@@ -24,7 +28,7 @@ export const SidebarProfileInfo = ({ isOpen }: SideBarHeaderProps) => {
           className={`w-12 h-12 rounded-full mt-32`}
           width={100}
           height={100}
-          src="/demo-img.png"
+          src={userInfo.image}
           alt="profile-picture"
         />
         <Link
@@ -57,15 +61,13 @@ export const SidebarProfileInfo = ({ isOpen }: SideBarHeaderProps) => {
             className="w-20 h-20 rounded-full"
             width={100}
             height={100}
-            src="/demo-img.png"
+            src={userInfo.image}
             alt="profile-picture"
           />
           <h1 className="text-2xl font-medium text-white text-center">
-            عساف بن رشود الصاعدي
+            {userInfo.name}
           </h1>
-          <p className="font-light text-white text-base">
-            مدير الأنظمة الداخلية (مكلف)
-          </p>
+          <p className="font-light text-white text-base">{userInfo.job} </p>
         </Link>
         <div className="flex gap-3 mt-2">
           <Link
