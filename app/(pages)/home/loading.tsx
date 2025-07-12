@@ -1,7 +1,5 @@
-import { Loader } from "@components"
-
 const Loading = () => {
-  return <Loader />
+  return null
 }
 
 export default Loading
