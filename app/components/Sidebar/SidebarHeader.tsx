@@ -2,13 +2,19 @@ import { ArrowLeftToLineIcon, ArrowRightToLineIcon } from "@icons"
 import Image from "next/image"
 import { Dispatch, SetStateAction } from "react"
 import { SidebarProfileInfo } from "./SidebarProfileInfo"
+import { ProfileInfo } from "@types"
 
 interface SideBarHeaderProps {
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
+  userInfo: ProfileInfo
 }
 
-export const SidebarHeader = ({ isOpen, setIsOpen }: SideBarHeaderProps) => {
+export const SidebarHeader = ({
+  isOpen,
+  setIsOpen,
+  userInfo,
+}: SideBarHeaderProps) => {
   return (
     <>
       <div className="absolute top-0 left-0">
@@ -52,7 +58,7 @@ export const SidebarHeader = ({ isOpen, setIsOpen }: SideBarHeaderProps) => {
         </div>
       )}
 
-      <SidebarProfileInfo isOpen={isOpen} />
+      <SidebarProfileInfo isOpen={isOpen} userInfo={userInfo} />
     </>
   )
 }
