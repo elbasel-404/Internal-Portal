@@ -2,7 +2,7 @@ import { Body } from "@components"
 import { fonts } from "@lib"
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
-// import NextTopLoader from "nextjs-toploader"
+import NextTopLoader from "nextjs-toploader"
 import "./globals.css"
 
 // export const dynamic = "force-dynamic"
@@ -30,7 +30,7 @@ const RootLayout = async ({
       <Body
         className={`${fonts.className} antialiased app-scrollbar bg-background text-foreground`}
       >
-        {/* <NextTopLoader color="#007C9E" height={5} showSpinner={false} /> */}
+        <NextTopLoader color="#007C9E" height={10} showSpinner={false} />
         {modalSlot}
         {children}
       </Body>
