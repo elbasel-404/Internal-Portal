@@ -167,7 +167,7 @@ export const MedicalForm = ({ relativeRelation }: MedicalFormProps) => {
           }
           required
         />
-        <SubmitButton />
+        <SubmitButton loading={pending} />
       </div>
     </form>
   )
