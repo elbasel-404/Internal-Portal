@@ -8,11 +8,18 @@ export const getFetchHeaders = async () => {
   const SESSION_ID = process.env.SESSION_ID as string
 
   const session = await getSession()
-  if (!session) return
-
-  const { access_token } = session
+  const access_token = session?.access_token
   const BEARER_TOKEN = access_token
 
+  if (!API_KEY || !API_KEY_HEADER_NAME || !SESSION_ID || !BEARER_TOKEN) {
+    console.error("Missing required environment variables for API headers", {
+      API_KEY,
+      API_KEY_HEADER_NAME,
+      SESSION_ID,
+      BEARER_TOKEN,
+      session,
+    })
+  }
   const headers = {
     [API_KEY_HEADER_NAME]: API_KEY,
     Authorization: `Bearer ${BEARER_TOKEN}`,
