@@ -147,17 +147,15 @@
     {
       "id": 4,
       "activeGeneralInfoKeys": [
-        "employeeRequests",
-        "approvalRequests",
-        "totalVacationBalance",
         "permissions",
         "remoteWork",
-        "delegations"
+        "delegations",
+        "totalVacationBalance",
+        "approvalRequests"
       ],
       "activeHomePageSlotsKeys": [
         "completeProfile",
         "generalInfo",
-        "userInfo",
         "attendance",
         "approvalRequestsTable",
         "sliders",
@@ -165,13 +163,11 @@
         "news"
       ],
       "activeNewsTabsKeys": [
-        "newsTab",
-        "monshaatFamilyTab",
-        "internalTab",
         "vpn",
         "nationalId",
         "office",
-        "email"
+        "email",
+        "newsTab"
       ],
       "demo": true,
       "convenantData": [
