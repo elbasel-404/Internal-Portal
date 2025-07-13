@@ -5,6 +5,8 @@ import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
 import { z } from "zod"
 
+const DEBUG = true
+
 interface GetDataOptions<T, D> {
   /* API request configuration */
   url: string
@@ -53,9 +55,23 @@ export const getData = async <T, D = unknown>(
     employeeIdKey = "employee_id",
   } = options
 
+  let timeStart = 0
+
   // Check if in demo mode
+  if (DEBUG) {
+    timeStart = Date.now()
+    logAltSeperator()
+    console.log("Fetching ", { url })
+  }
+
   const isDemo = await getDemo()
-  if (isDemo) return dummyData
+  if (isDemo) {
+    if (DEBUG) {
+      console.log("Returning dummy data for", { url })
+      logAltSeperator()
+    }
+    return dummyData
+  }
 
   try {
     // !! VARIABLES
@@ -71,6 +87,10 @@ export const getData = async <T, D = unknown>(
         errorTitle: "Failed to get headers for API request",
         url,
       })
+      if (DEBUG) {
+        logAltSeperator()
+      }
+
       return dummyData
     }
 
@@ -97,6 +117,12 @@ export const getData = async <T, D = unknown>(
     })
 
     const responseJson = await apiResponse.json()
+    if (DEBUG) {
+      const timeEnd = Date.now()
+      const timeTaken = timeEnd - timeStart
+      console.log("Fetched", { url, timeTaken })
+      logMedSeperator()
+    }
 
     // VALIDATION
     // ==================================
@@ -114,6 +140,9 @@ export const getData = async <T, D = unknown>(
           errorDetails: validationError,
           errorTitle: "response validation failed",
         })
+        if (DEBUG) {
+          logAltSeperator()
+        }
 
         return dummyData
       }
@@ -165,9 +194,32 @@ export const getData = async <T, D = unknown>(
       errorTitle,
     })
 
+    if (DEBUG) {
+      console.log("Done", { url })
+      logAltSeperator()
+    }
+
     return dummyData
   }
 }
+
+// !! Logging
+
+const logSeperator = () => {
+  console.log("\x1b[33m\n========================================\n\x1b[0m")
+}
+
+const logAltSeperator = () => {
+  console.log("\x1b[32m\n----------------------------------------\n\x1b[0m")
+}
+
+const logMedSeperator = () => {
+  console.log("\x1b[35m\n+++++++++++++++++++++\n\x1b[0m")
+}
+
+// !! Info Logging
+
+// !! Error Logging
 
 type LogErrorParams = {
   errorTitle?: string
@@ -202,10 +254,6 @@ const extractFilePaths = (text: string | undefined) => {
   )
   files.shift()
   return files
-}
-
-const logSeperator = () => {
-  console.log("\n========================================\n")
 }
 
 const logErrorTitle = (title?: string) => {

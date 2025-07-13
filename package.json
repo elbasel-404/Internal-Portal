@@ -75,6 +75,7 @@
     "tailwind-scrollbar": "^3.1.0",
     "tailwindcss-animate": "^1.0.7",
     "unstorage": "^1.16.0",
+    "usehooks-ts": "^3.1.1",
     "vitest": "^3.2.4",
     "zod": "^3.25.69",
     "zod-openapi": "^4.2.4"

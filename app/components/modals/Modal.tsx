@@ -1,24 +1,16 @@
 "use client"
 
 import { VisuallyHidden } from "@components"
-// import { useKeyPress } from '@hooks';
 import {
   Dialog,
-  //   Input,
-  // DialogFooter,
-  //   Label,
   DialogClose,
   DialogContent,
   DialogDescription,
-  //   DialogTrigger,
-  //   Button,
-  // DialogContent,
-  // DialogHeader,
   DialogTitle,
 } from "@ui"
 import { cn, sleep } from "@utils"
 import { useRouter } from "next/navigation"
-import { MouseEvent, useEffect, useState, type ReactNode } from "react"
+import { MouseEvent, useState, type ReactNode } from "react"
 
 interface ModalProps {
   children?: ReactNode
@@ -52,10 +44,6 @@ const defaultContentOutroClassName = "animate-out fade-out-0"
 
 export const Modal = ({
   children,
-  onModalOpen,
-  onModalClose,
-  // onOpenChange,
-  refreshOnClose = true,
   modalDescription = "",
 
   initialContentClassName,
@@ -66,6 +54,8 @@ export const Modal = ({
   introOverlayClassName,
   outroOverlayClassName,
 }: ModalProps) => {
+  const router = useRouter()
+
   const contentClassName = cn(
     defaultContentCLassName,
     defaultContentIntroClassName,
@@ -86,10 +76,7 @@ export const Modal = ({
   const [currentOverlayClassName, setCurrentOverlayClassName] =
     useState(overlayClassName)
 
-  const router = useRouter()
-
   const closeDialog = async () => {
-    if (onModalClose) await onModalClose()
     const contentClassName = cn(
       currentContentClassName,
       defaultContentOutroClassName,
@@ -102,22 +89,11 @@ export const Modal = ({
     )
     setCurrentContentClassName(contentClassName)
     setCurrentOverlayClassName(overlayClassName)
+
     await sleep(0.45)
 
-    // if (handleClickInternally) await sleep(2);
-    if (typeof window === "undefined") return
-    const path = window.location.href
-    if (path.includes("modal")) router.back()
+    router.back()
   }
-
-  useEffect(() => {
-    return () => {
-      if (refreshOnClose) router.refresh()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  // if (!modalOpen) return null;
 
   return (
     <Dialog open={true}>
@@ -126,13 +102,13 @@ export const Modal = ({
         <DialogDescription description={modalDescription} />
       </VisuallyHidden>
       <DialogContent
-        // onCloseAunmouutoFocus={closeDialog}
-        // onInteractOutside={closeDialog}
-        onOpenAutoFocus={onModalOpen}
-        onEscapeKeyDown={closeDialog}
-        onPointerDownOutside={closeDialog}
-        className={currentContentClassName}
         overlayClassName={currentOverlayClassName}
+        onInteractOutside={closeDialog}
+        onEscapeKeyDown={closeDialog}
+        className={currentContentClassName}
+        // onCloseAunmouutoFocus={closeDialog}
+        // onOpenAutoFocus={onModalOpen}
+        // onPointerDownOutside={closeDialog}
       >
         {children}
       </DialogContent>
