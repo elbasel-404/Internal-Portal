@@ -1,0 +1,108 @@
+# This file is a template, and might need editing before it works on your project.
+# To contribute improvements to CI/CD templates, please follow the Development guide at:
+# https://docs.gitlab.com/ee/development/cicd/templates.html
+# This specific template is located at:
+# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Docker.gitlab-ci.yml
+
+# Build a Docker image with CI/CD and push to the GitLab registry.
+# Docker-in-Docker documentation: https://docs.gitlab.com/ee/ci/docker/using_docker_build.html
+#
+# This template uses one generic job with conditional builds
+# for the default branch and all other (MR) branches.
+#dummychange
+stages:
+  - build
+  - push
+  - deploy
+variables:
+  #DOCKER_IMAGE_NAME: monshaat/portal:latest
+  #DOCKER_TLS_CERTDIR: ""  # Disables TLS since it may not be supported docker pull monshaat/portal:latest
+  DOCKER_IMAGE_TAG: $CI_COMMIT_SHORT_SHA
+  DOCKER_IMAGE_NAME: monshaat/portal:$CI_COMMIT_SHORT_SHA
+  #dummy change ro build
+
+docker-build:
+  # Use the official docker image.
+  image: ruby
+  stage: build
+  tags:
+    - monshaat
+  #services:
+  #- docker:20.10.24-dind
+  #variables:
+  #DOCKER_HOST: "tcp://localhost:2375"
+  #DOCKER_TLS_CERTDIR: ""
+  #3DOCKER_DRIVER: "overlay2"
+
+  script:
+    - echo "Checking Docker status..."
+    - docker version
+    - docker info
+    - echo "Logging into Docker Hub..."
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - echo "Building the Docker image..."
+    - docker build --pull -t "$DOCKER_IMAGE_NAME" .
+  rules:
+    - if: $CI_COMMIT_BRANCH == "dev" # Only build for the dev branch
+docker-push:
+  # Use the official docker image.
+  #image: docker:24-dind
+  stage: push
+  tags:
+    - monshaat
+  #services:
+  #- docker:24-dind
+  #variables:
+  #DOCKER_HOST: "tcp://localhost:2375"
+  #DOCKER_TLS_CERTDIR: ""
+  #DOCKER_DRIVER: "overlay2"
+
+  before_script:
+    - echo "Checking Docker status..."
+    - docker version
+    - docker info
+    - echo "Logging into Docker Hub..."
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  # All branches are tagged with $DOCKER_IMAGE_NAME (defaults to commit ref slug)
+  # Default branch is also tagged with `latest`
+  script:
+    - echo "Pushing the Docker image to Docker Hub..."
+    #- docker push monshaat/portal:latest # this should be changed to DOCKER_IMAGE_NAME
+    - docker push "$DOCKER_IMAGE_NAME"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "dev" # Only build for the dev branch
+docker-deploy:
+  # Use the official docker image.
+  #image: docker:24-dind
+  stage: deploy
+  tags:
+    - monshaat
+  #services:
+  #- docker:24-dind
+  #variables:
+  #DOCKER_HOST: "tcp://localhost:2375"
+  #DOCKER_TLS_CERTDIR: ""
+  #DOCKER_DRIVER: "overlay2"
+
+  before_script:
+    - echo "Checking Docker status..."
+    - docker version
+    - docker info
+    - echo "Logging into Docker Hub..."
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  # All branches are tagged with $DOCKER_IMAGE_NAME (defaults to commit ref slug)
+  # Default branch is also tagged with `latest`
+  script:
+    - echo "Pulling latest image from GitHub Container Registry..."
+    #- docker pull monshaat/portal:latest
+    - docker pull "$DOCKER_IMAGE_NAME"
+    - echo "Stopping old container..."
+    - docker stop next-container
+    - docker rm next-container
+    - echo "Running new container..."
+    #- docker run -d --name next-container -p 8082:3000 monshaat/portal:latest
+    - docker run -d --name next-container -p 8082:3000 "$DOCKER_IMAGE_NAME"
+    - echo "Deployment complete!"
+
+  rules:
+    - if: $CI_COMMIT_BRANCH == "dev" # Only build for the dev branch

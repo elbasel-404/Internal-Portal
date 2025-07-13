@@ -49,7 +49,7 @@ export const getData = async <T, D = unknown>(
     dataSchema,
     parseData,
     dummyData,
-    debug = false,
+    // debug = false,
     employeeIdKey = "employee_id",
   } = options
 
@@ -58,14 +58,21 @@ export const getData = async <T, D = unknown>(
   if (isDemo) return dummyData
 
   try {
-    // VARIABLES
+    // !! VARIABLES
     // ==================================
     const apiRootUrl = process.env.API_ROOT_URL as string
     const fetchHeaders = await getFetchHeaders()
     const headers = fetchHeaders?.headers
 
     // Return dummy data if headers aren't available
-    if (!headers) return dummyData
+    if (!headers) {
+      // console.error("Failed to get headers for API request")
+      logError({
+        errorTitle: "Failed to get headers for API request",
+        url,
+      })
+      return dummyData
+    }
 
     // Generate request body
     const requestBody: Record<string, unknown> = { ...additionalBody }
@@ -82,12 +89,6 @@ export const getData = async <T, D = unknown>(
     const requestBodyString = JSON.stringify(requestBody)
     const requestUrl = `${apiRootUrl}/${url}`
 
-    if (debug) {
-      // log("Request URL:", requestUrl)
-      // log("Request Body:", requestBodyString)
-    }
-
-    // FETCH
     // ==================================
     const apiResponse = await fetch(requestUrl, {
       headers,
@@ -96,10 +97,6 @@ export const getData = async <T, D = unknown>(
     })
 
     const responseJson = await apiResponse.json()
-
-    if (debug) {
-      // log("API Response:", responseJson)
-    }
 
     // VALIDATION
     // ==================================
@@ -110,7 +107,14 @@ export const getData = async <T, D = unknown>(
       validatedResponse = responseSchema.safeParse(responseJson)
 
       if (!validatedResponse.success) {
-        console.error("Response validation failed:", validatedResponse.error)
+        const validationError = validatedResponse.error.format()
+        logError({
+          url,
+          responseJson,
+          errorDetails: validationError,
+          errorTitle: "response validation failed",
+        })
+
         return dummyData
       }
 
@@ -130,7 +134,13 @@ export const getData = async <T, D = unknown>(
       validatedData = schemaToUse.safeParse(data)
 
       if (!validatedData.success) {
-        console.error("Data validation failed:", validatedData.error)
+        const errorDetails = validatedData.error.format()
+        logError({
+          url,
+          responseJson,
+          errorDetails,
+          errorTitle: "data validation failed",
+        })
         return dummyData
       }
 
@@ -145,8 +155,64 @@ export const getData = async <T, D = unknown>(
 
     // Return raw data if no parser provided
     return Array.isArray(data) ? data : [data]
-  } catch (error) {
-    console.error("Error fetching data:", error)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    const errorTitle = error.message
+    const errorDetails = error.cause
+    logError({
+      url,
+      errorDetails,
+      errorTitle,
+    })
+
     return dummyData
   }
+}
+
+type LogErrorParams = {
+  errorTitle?: string
+  url?: string
+  responseJson?: string
+  errorDetails?: unknown
+}
+const logError = ({
+  url,
+  errorTitle,
+  responseJson,
+  errorDetails,
+}: LogErrorParams) => {
+  const error = new Error()
+  const stack = error.stack
+
+  logSeperator()
+  logErrorTitle(errorTitle)
+  console.log({ url })
+  console.log(extractFilePaths(stack))
+  console.log(errorDetails)
+  if (responseJson) {
+    console.log({ responseJson })
+  }
+  logSeperator()
+}
+const extractFilePaths = (text: string | undefined) => {
+  if (!text) return []
+  const regex = /([./\w()@-]+\.tsx?:\d+:\d+)/g
+  const files = [...text.matchAll(regex)].map((m) =>
+    m[1].replace("///(rsc)/", ""),
+  )
+  files.shift()
+  return files
+}
+
+const logSeperator = () => {
+  console.log("\n========================================\n")
+}
+
+const logErrorTitle = (title?: string) => {
+  if (!title) return
+  console.log(
+    "\x1b[31m\x1b[1m\x1b[40m%s\x1b[0m",
+    "   " + title.toUpperCase(),
+    "\n",
+  )
 }

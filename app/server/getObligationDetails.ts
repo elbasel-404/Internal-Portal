@@ -1,12 +1,44 @@
 "use server"
 
 import type { ObligationDetails } from "@types"
+import { ObligationSchema, ResponseSchema } from "../../api-schemas"
+import { getData } from "./getData"
+import { z } from "zod"
 
 export const getObligationDetails =
   async (): Promise<ObligationDetails | void> => {
-    try {
-      const obligationDetails: ObligationDetails = {
-        details: `انطلاقا من حرص الهيئة على المسائل المتصلة بالاستغلالية والتحيز من أجل
+    const result = await getData<ObligationDetails>({
+      url: "api/po/hr/obligation",
+      includeEmployeeId: true,
+      responseSchema: ResponseSchema,
+      dataSchema: ObligationSchema,
+      parseData: (data) => {
+        return data.map((item: unknown) => {
+          const typedItem = item as z.infer<typeof ObligationSchema>
+
+          return {
+            details: String(typedItem.obligation_settings_text || ""),
+            family: {
+              answer: typedItem.family.answer,
+              description: String(typedItem.family.description || ""),
+            },
+            relationship: {
+              answer: typedItem.relationship.answer,
+              description: String(typedItem.relationship.description || ""),
+            },
+            work: {
+              answer: typedItem.work.answer,
+              description: String(typedItem.work.description || ""),
+            },
+          }
+        })
+      },
+      dummyData: [dummyData],
+    })
+    return result[0]
+  }
+const dummyData: ObligationDetails = {
+  details: `انطلاقا من حرص الهيئة على المسائل المتصلة بالاستغلالية والتحيز من أجل
           المحافظة على سلامة أعمالها، وسمعتها وسمعة موظفيها وثقة الجمهور بها،
           وإبعاد كل ما من شأنه أن يوجد تضاربا للمصالح فيما يتصل بأعمالها أو لمن
           يقومون بتنفيذها أو اتخاذ قرار أو رأي بشأنها، فمن الضروري الكشف عن أي
@@ -41,9 +73,16 @@ export const getObligationDetails =
           بأخلاقيات الوظيفة، وأي إفصاح سيعامل بسرية تامة، وسيتم البث في مدى وجود
           تضارب للمصالح من عدمه من خلال الهيئة.
           `,
-      }
-      return obligationDetails
-    } catch {
-      return
-    }
-  }
+  family: {
+    answer: false,
+    description: "",
+  },
+  relationship: {
+    answer: false,
+    description: "",
+  },
+  work: {
+    answer: false,
+    description: "",
+  },
+}

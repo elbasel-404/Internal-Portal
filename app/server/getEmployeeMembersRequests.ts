@@ -3,6 +3,7 @@
 import { EmployeeMemberSchema } from "@api/schemas/index"
 import { ResponseSchema } from "@api/schemas/responseSchema"
 import type { EmployeeMembersRequest } from "@types"
+import { z } from "zod"
 import { getData } from "./getData"
 
 export const getEmployeeMembersRequests = async (): Promise<
@@ -10,12 +11,12 @@ export const getEmployeeMembersRequests = async (): Promise<
 > => {
   return getData<EmployeeMembersRequest>({
     url: "api/po/hr/employee/members/read",
-    additionalBody: { employee_id: Number }, // Ensures employee_id is converted to number
+    includeEmployeeId: true,
     responseSchema: ResponseSchema,
     dataSchema: EmployeeMemberSchema,
     parseData: (data) => {
       return data.map((rawItem: unknown) => {
-        const item = rawItem as Record<string, unknown>
+        const item = rawItem as z.infer<typeof EmployeeMemberSchema>
         const employeeId = Array.isArray(item.employee_id)
           ? item.employee_id[1]
           : ""

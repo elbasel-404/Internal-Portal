@@ -1,6 +1,6 @@
 "use server"
 
-import { db } from "@db"; // Database instance
+import { db } from "@db" // Database instance
 import { getUserIndex } from "@db/actions"
 import { getUserId } from "@server"
 import { DeputationLocationSchema } from "@zodSchemas"
@@ -24,8 +24,6 @@ export const deputationPlaceFormAction = async (formData: FormData) => {
     const userId = await getUserId()
     if (!userId) return
     if (!success) return
-
-    console.log(success, validatedData)
 
     const userIndex = await getUserIndex(userId)
     db.data.users[userIndex].deputationLocation.push(validatedData)

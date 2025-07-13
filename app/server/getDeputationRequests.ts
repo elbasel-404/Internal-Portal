@@ -42,8 +42,6 @@ export const getDeputationRequests = async (): Promise<DeputationRequest[]> => {
   })
   const responseJson = await apiResponse.json()
 
-  console.log("Deputation Requests Response:", responseJson)
-
   // ! VALIDATION
   // ! ==================================
   const validatedResponse = ResponseSchema.safeParse(responseJson)

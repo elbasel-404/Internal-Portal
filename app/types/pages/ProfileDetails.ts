@@ -2,6 +2,8 @@ export type ProfileDetails = {
   personalData: {
     id: string
     nameEN: string
+    name: string
+    image: string
     nationality: string
     maritalStatus: string
     gender: string
@@ -11,6 +13,7 @@ export type ProfileDetails = {
   }
   workData: {
     department: string
+    job: string
     directManager: string
     appointmentDate: string
     governmentWorkStartDate: string

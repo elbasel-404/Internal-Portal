@@ -285,7 +285,143 @@ export const MenuItems: MenuItem[] = [
     ],
   },
   {
+    iconKey: "InternalSystems1",
+    label: "الأنظمة الداخلية",
+    hasSubMenu: true,
+    href: "/modal/InternalSystemsModal" as Route,
+    subMenuItems: [
+      {
+        iconKey: "Info",
+        label: "مركز الطلبات والدعم",
+        href: paths.tickets.href,
+      },
+      {
+        iconKey: "Info",
+        label: "ادارة علاقات العملاء",
+        href: paths.crm.href,
+      },
+      { iconKey: "Users", label: "سهل +", href: paths.sahlPlus.href },
+      {
+        iconKey: "List",
+        label: "نظام ادارة المهام",
+        href: paths.taskManagement.href,
+      },
+      {
+        iconKey: "Chart",
+        label: "الأداء المالي",
+        href: paths.financePerformance.href,
+      },
+      {
+        iconKey: "Indicator",
+        label: "مؤشرات وبيانات المدفوعات",
+        href: paths.paymentsIndicators.href,
+      },
+      {
+        iconKey: "Files",
+        label: "نظام ادارة الملفات (ايثاق)",
+        href: paths.ethaq.href,
+      },
+      { iconKey: "Board", label: "نظام ادارة المشاريع", href: paths.pmo.href },
+      {
+        iconKey: "FileWithRightArrow",
+        label: "نظام المحفوظات",
+        href: paths.mahfouzat.href,
+      },
+      { iconKey: "Lamp", label: "معمل ابتكار الخدمات", href: paths.lab.href },
+      {
+        iconKey: "Cylinder",
+        label: "مركز المعلومات",
+        href: paths.informationCenter.href,
+      },
+      {
+        iconKey: "Key",
+        label: "استعادة كلمة المرور",
+        href: paths.resetPassword.href,
+      },
+      { iconKey: "Phone", label: "الهاتف الشبكي", href: paths.phone.href },
+      { iconKey: "Printer", label: "رمز الطابعة", href: paths.printer.href },
+    ],
+  },
+  {
+    iconKey: "InternalSystems2",
+    label: "الأنظمة الداخلية",
+    hasSubMenu: true,
+    href: "/modal/InternalSystemsModal" as Route,
+    subMenuItems: [
+      {
+        iconKey: "Info",
+        label: "مركز الطلبات والدعم",
+        href: paths.tickets.href,
+      },
+      {
+        iconKey: "Info",
+        label: "ادارة علاقات العملاء",
+        href: paths.crm.href,
+      },
+      { iconKey: "Users", label: "سهل +", href: paths.sahlPlus.href },
+      {
+        iconKey: "List",
+        label: "نظام ادارة المهام",
+        href: paths.taskManagement.href,
+      },
+      {
+        iconKey: "Chart",
+        label: "الأداء المالي",
+        href: paths.financePerformance.href,
+      },
+      {
+        iconKey: "Indicator",
+        label: "مؤشرات وبيانات المدفوعات",
+        href: paths.paymentsIndicators.href,
+      },
+      {
+        iconKey: "Files",
+        label: "نظام ادارة الملفات (ايثاق)",
+        href: paths.ethaq.href,
+      },
+      { iconKey: "Board", label: "نظام ادارة المشاريع", href: paths.pmo.href },
+      {
+        iconKey: "FileWithRightArrow",
+        label: "نظام المحفوظات",
+        href: paths.mahfouzat.href,
+      },
+      { iconKey: "Lamp", label: "معمل ابتكار الخدمات", href: paths.lab.href },
+      {
+        iconKey: "Cylinder",
+        label: "مركز المعلومات",
+        href: paths.informationCenter.href,
+      },
+      {
+        iconKey: "Key",
+        label: "استعادة كلمة المرور",
+        href: paths.resetPassword.href,
+      },
+      { iconKey: "Phone", label: "الهاتف الشبكي", href: paths.phone.href },
+      { iconKey: "Printer", label: "رمز الطابعة", href: paths.printer.href },
+    ],
+  },
+  {
     iconKey: "News",
+    label: "الأخبار والإعلانات",
+    href: paths.newsList.href,
+    // subMenuItems: [
+    //   { iconKey: 'Save', label: 'الاخبار', href: '/' },
+    //   { iconKey: 'BookAlt', label: 'اعلانات داخلية', href: '/' },
+    //   { iconKey: 'T', label: 'عائلة منشآت', href: '/' },
+    // ],
+  },
+  {
+    iconKey: "News1",
+    label: "الأخبار والإعلانات",
+    href: paths.newsList.href,
+    // subMenuItems: [
+    //   { iconKey: 'Save', label: 'الاخبار', href: '/' },
+    //   { iconKey: 'BookAlt', label: 'اعلانات داخلية', href: '/' },
+    //   { iconKey: 'T', label: 'عائلة منشآت', href: '/' },
+    // ],
+  },
+  {
+    iconKey: "News2",
     label: "الأخبار والإعلانات",
     href: paths.newsList.href,
     // subMenuItems: [

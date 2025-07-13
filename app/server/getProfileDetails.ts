@@ -19,37 +19,57 @@ export const getProfileDetails = async (): Promise<ProfileDetails> => {
 
       // * ======== contact information ========
       const mobilePhone =
-        typeof typedData.mobile_number === "boolean"
+        typeof typedData.mobile_phone === "boolean"
           ? ""
-          : String(typedData.mobile_number || "")
-      const personalEmail = String(typedData.work_email || "")
+          : String(typedData.mobile_phone || "")
       const secondMobile =
         typeof typedData.mobile_phone2 === "boolean"
-          ? "none"
+          ? ""
           : String(typedData.mobile_phone2 || "")
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const workPhone =
         typeof typedData.work_phone === "boolean"
           ? "none"
           : String(typedData.work_phone || "")
-      const workExt =
-        typeof typedData.work_mobile === "boolean"
-          ? "none"
-          : String(typedData.work_mobile || "")
+      // const workExt =
+      //   typeof typedData.work_mobile === "boolean"
+      //     ? "none"
+      //     : String(typedData.work_mobile || "")
 
       // * ======== date information ========
-      const date = typedData.joining_date ? String(typedData.joining_date) : ""
+      const date = typedData.recruiter_date
+        ? String(typedData.recruiter_date)
+        : ""
 
-      const nameEN = String(typedData.name_english || "")
+      const nameEN = String(typedData.english_name || "")
+      // Handle image safely
+      const imageBase64 =
+        typeof typedData.image === "string" ? typedData.image : ""
 
       return [
         {
           personalData: {
-            id: String(typedData.id || ""),
+            id: String(typedData.identification_id || ""),
             nameEN,
-            nationality: String(typedData.nationality || ""),
-            maritalStatus: String(typedData.marital_status || ""),
-            gender: String(typedData.gender || ""),
+            name: String(typedData.complete_name || ""),
+            image: `data:image/gif;base64,${imageBase64}`,
+            nationality:
+              typeof typedData.country_id === "object" &&
+              Array.isArray(typedData.country_id) &&
+              typedData.country_id.length > 1
+                ? String(typedData.country_id[1])
+                : "",
+            maritalStatus:
+              String(typedData.marital) === "single"
+                ? "اعزب"
+                : String(typedData.marital) === "married"
+                  ? "متزوج"
+                  : "",
+            gender:
+              String(typedData.gender) === "male"
+                ? "ذكر"
+                : String(typedData.gender) === "female"
+                  ? "أنثى"
+                  : "",
             passportNumber: String(typedData.passport_number || ""),
             bloodType: String(typedData.blood_type || ""),
             birthDate: String(typedData.birthday || ""),
@@ -61,6 +81,12 @@ export const getProfileDetails = async (): Promise<ProfileDetails> => {
               typedData.department_id.length > 1
                 ? String(typedData.department_id[1])
                 : "",
+            job:
+              typeof typedData.job_id === "object" &&
+              Array.isArray(typedData.job_id) &&
+              typedData.job_id.length > 1
+                ? String(typedData.job_id[1])
+                : "",
             directManager:
               typeof typedData.parent_id === "object" &&
               Array.isArray(typedData.parent_id) &&
@@ -68,17 +94,15 @@ export const getProfileDetails = async (): Promise<ProfileDetails> => {
                 ? String(typedData.parent_id[1])
                 : "",
             appointmentDate: date,
-            governmentWorkStartDate: String(
-              typedData.government_work_date || "",
-            ),
+            governmentWorkStartDate: String(typedData.begin_work_date || ""),
           },
           contactInformation: {
             mobilePhone,
             secondMobile,
             workEmail: String(typedData.work_email || ""),
-            personalEmail,
-            workplaceLocation: String(typedData.workplace_location || ""),
-            workExtension: workExt,
+            personalEmail: String(typedData.work_email2 || ""),
+            workplaceLocation: String(typedData.work_location || ""),
+            workExtension: workPhone,
           },
         },
       ]
@@ -93,6 +117,8 @@ const dummyData: ProfileDetails = {
   personalData: {
     id: "1",
     nameEN: "Youssef Hamad Abdullah Alqushaymit",
+    name: "عساف بن رشود الصاعدي",
+    image: "/profile-img.jpg",
     nationality: "Saudi",
     maritalStatus: "Single",
     gender: "Male",
@@ -102,6 +128,7 @@ const dummyData: ProfileDetails = {
   },
   workData: {
     department: "المركز السعودي للتعليم الإلكتروني",
+    job: "مدير الأنظمة الداخلية (مكلف)",
     directManager: "يوسف بن حسين الجفري",
     appointmentDate: "15-05-2023",
     governmentWorkStartDate: "15-05-2022",
