@@ -21,7 +21,6 @@
     "@formkit/auto-animate": "^0.8.2",
     "@formkit/drag-and-drop": "^0.2.6",
     "@hookform/resolvers": "^3.10.0",
-    "@monshaat/portal-api": "^8.0.2",
     "@next/bundle-analyzer": "^15.3.5",
     "@paralleldrive/cuid2": "^2.2.2",
     "@pnpm/types": "^1000.6.0",
@@ -59,13 +58,13 @@
     "next": "15.4.0-canary.110",
     "next-themes": "^0.3.0",
     "nextjs-toploader": "^3.8.16",
-    "react": "19.1.0",
+    "react": "19.0.0-rc-69d4b800-20241021",
     "react-chartjs-2": "^5.3.0",
     "react-day-picker": "9.2.1",
     "react-day-pickerv8": "npm:react-day-picker@~8.10.1",
-    "react-dom": "19.1.0",
-    "react-hook-form": "^7.59.0",
     "react-is": "19.0.0-rc-6f23540c7d-20240528",
+    "react-dom": "19.0.0-rc-69d4b800-20241021",
+    "react-hook-form": "^7.59.0",
     "react-json-view-lite": "^2.4.1",
     "recharts": "2.13.0-alpha.3",
     "server-only": "^0.0.1",
@@ -75,11 +74,15 @@
     "tailwind-scrollbar": "^3.1.0",
     "tailwindcss-animate": "^1.0.7",
     "unstorage": "^1.16.0",
+    "usehooks-ts": "^3.1.1",
     "vitest": "^3.2.4",
     "zod": "^3.25.69",
     "zod-openapi": "^4.2.4"
   },
   "pnpm": {
+    "overrides": {
+      "recharts>react-is": "$react-is"
+    },
     "onlyBuiltDependencies": [
       "core-js-pure",
       "esbuild",
