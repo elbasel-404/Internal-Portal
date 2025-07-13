@@ -8,7 +8,6 @@ import { ResponseSchema } from "@api/schemas/responseSchema"
 import { getData } from "./getData"
 
 export const getEmployeeMembersFields = async (
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   field_name: string,
 ): Promise<EmployeeMembersField[]> => {
   return getData<EmployeeMembersField>({
