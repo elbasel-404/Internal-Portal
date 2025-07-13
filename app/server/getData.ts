@@ -5,7 +5,7 @@ import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
 import { z } from "zod"
 
-const DEBUG = true
+const LOG_INFO = true
 
 interface GetDataOptions<T, D> {
   /* API request configuration */
@@ -51,24 +51,23 @@ export const getData = async <T, D = unknown>(
     dataSchema,
     parseData,
     dummyData,
-    // debug = false,
     employeeIdKey = "employee_id",
   } = options
 
   let timeStart = 0
 
   // Check if in demo mode
-  if (DEBUG) {
+  if (LOG_INFO) {
     timeStart = Date.now()
     console.info(
       "\x1b[30m\x1b[1m\x1b[47m%s\x1b[0m",
-      `\n  <==   ${url}   ==>   \n`,
+      `\n  <==   ${url}   ==>  n`,
     )
   }
 
   const isDemo = await getDemo()
   if (isDemo) {
-    if (DEBUG) {
+    if (LOG_INFO) {
       console.info("\x1b[33mReturning dummy data for\x1b[0m", { url })
     }
     return dummyData
@@ -116,14 +115,15 @@ export const getData = async <T, D = unknown>(
     })
 
     const responseJson = await apiResponse.json()
-    if (DEBUG) {
+    if (LOG_INFO) {
       const timeEnd = Date.now()
       const timeTaken = timeEnd - timeStart
-
-      console.info(
-        "\x1b[30m\x1b[1m\x1b[42m%s\x1b[0m",
-        `\n  Loaded   ${url}   ${timeTaken}ms   \n`,
-      )
+      // Log time taken with different background color based on duration
+      const timeColor =
+        timeTaken > 500
+          ? "\x1b[30m\x1b[1m\x1b[41m" // red background for slow requests
+          : "\x1b[30m\x1b[1m\x1b[42m" // green background for fast requests
+      console.info(`${timeColor}%s\x1b[0m`, `\n  ${timeTaken}ms (w-full)  \n`)
     }
 
     // VALIDATION
