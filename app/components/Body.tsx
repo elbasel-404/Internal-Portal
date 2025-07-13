@@ -27,7 +27,7 @@ export const Body = async ({ children, className }: BodyProps) => {
     name: "John Doe",
     degree: "Bachelor of Science",
     department: "Computer Science",
-    image: "https://example.com/image.jpg",
+    image: "/demo-img.png",
     job: "Software Engineer",
     jobNumber: "12345",
     serviceDuration: "5 years",
