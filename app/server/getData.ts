@@ -60,15 +60,16 @@ export const getData = async <T, D = unknown>(
   // Check if in demo mode
   if (DEBUG) {
     timeStart = Date.now()
-    logAltSeperator()
-    console.log("Fetching ", { url })
+    console.info(
+      "\x1b[30m\x1b[1m\x1b[47m%s\x1b[0m",
+      `\n  <==   ${url}   ==>   \n`,
+    )
   }
 
   const isDemo = await getDemo()
   if (isDemo) {
     if (DEBUG) {
-      console.log("Returning dummy data for", { url })
-      logAltSeperator()
+      console.info("\x1b[33mReturning dummy data for\x1b[0m", { url })
     }
     return dummyData
   }
@@ -84,12 +85,10 @@ export const getData = async <T, D = unknown>(
     if (!headers) {
       // console.error("Failed to get headers for API request")
       logError({
-        errorTitle: "Failed to get headers for API request",
+        errorTitle:
+          "Failed to get headers for API request, returning dummy data",
         url,
       })
-      if (DEBUG) {
-        logAltSeperator()
-      }
 
       return dummyData
     }
@@ -120,8 +119,11 @@ export const getData = async <T, D = unknown>(
     if (DEBUG) {
       const timeEnd = Date.now()
       const timeTaken = timeEnd - timeStart
-      console.log("Fetched", { url, timeTaken })
-      logMedSeperator()
+
+      console.info(
+        "\x1b[30m\x1b[1m\x1b[42m%s\x1b[0m",
+        `\n  Loaded   ${url}   ${timeTaken}ms   \n`,
+      )
     }
 
     // VALIDATION
@@ -140,9 +142,6 @@ export const getData = async <T, D = unknown>(
           errorDetails: validationError,
           errorTitle: "response validation failed",
         })
-        if (DEBUG) {
-          logAltSeperator()
-        }
 
         return dummyData
       }
@@ -194,11 +193,6 @@ export const getData = async <T, D = unknown>(
       errorTitle,
     })
 
-    if (DEBUG) {
-      console.log("Done", { url })
-      logAltSeperator()
-    }
-
     return dummyData
   }
 }
@@ -206,16 +200,12 @@ export const getData = async <T, D = unknown>(
 // !! Logging
 
 const logSeperator = () => {
-  console.log("\x1b[33m\n--------------------\n\x1b[0m")
+  console.log("\x1b[33m\n------------\n\x1b[0m")
 }
 
-const logAltSeperator = () => {
-  console.log("\x1b[32m\n========================================\n\x1b[0m")
-}
-
-const logMedSeperator = () => {
-  console.log("\x1b[35m\n+++++++++++++++++++++\n\x1b[0m")
-}
+// const logMedSeperator = () => {
+//   console.log("\x1b[35m\n+++++++++++++++++++++\n\x1b[0m")
+// }
 
 // !! Info Logging
 

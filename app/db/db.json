@@ -167,7 +167,8 @@
         "nationalId",
         "office",
         "email",
-        "newsTab"
+        "newsTab",
+        "monshaatFamilyTab"
       ],
       "demo": true,
       "convenantData": [
