@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "analyze-bundles": "ANALYZE=true pnpm build",
     "format": "prettier --write .",
     "dev": "next dev",
     "build": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/ && mkdir -p .next/standalone/app/db && cp app/db/db.json .next/standalone/app/db/db.json",
