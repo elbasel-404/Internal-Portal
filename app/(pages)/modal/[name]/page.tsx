@@ -6,8 +6,9 @@ import { useEffect } from "react"
 const ModalPage = () => {
   const router = useRouter()
   useEffect(() => {
-    router.back()
-  }, [router])
+    router.replace("/home")
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className="flex items-center justify-center min-h-[50vh]">

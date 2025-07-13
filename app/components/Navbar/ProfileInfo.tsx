@@ -1,10 +1,10 @@
 import { Button, Popover, PopoverContent, PopoverTrigger } from "@ui"
 import Image from "next/image"
 
-import { getUser } from "@server"
+import { getProfileInfo } from "@server"
 
 export const ProfileInfo = async () => {
-  const user = await getUser()
+  const user = await getProfileInfo()
 
   return (
     <Popover>
@@ -13,7 +13,7 @@ export const ProfileInfo = async () => {
           className="w-10 h-10 rounded-full cursor-pointer"
           width={40}
           height={40}
-          src="/demo-img.png"
+          src={user.image}
           alt="profile-picture"
         />
       </PopoverTrigger>
@@ -29,7 +29,7 @@ export const ProfileInfo = async () => {
           alt="profile-picture"
         />
         <h1 className="text-2xl text-foreground text-center">{user.name}</h1>
-        <p className="font-light">مدير الأنظمة الداخلية (مكلف)</p>
+        <p className="font-light">{user.job}</p>
         <Button className="w-full min-h-12 text-primary font-medium bg-primary-opacity rounded-full shadow-none hover:text-white hover:bg-primary">
           بياناتي
         </Button>

@@ -9,7 +9,7 @@ import {
 } from "@icons"
 import { Rules } from "@types"
 import { Button, Input } from "@ui"
-import Image from "next/image"
+// import Image from "next/image"
 import { useState } from "react"
 
 interface RulesDataProps {
@@ -50,10 +50,10 @@ const RulesPolicy = ({ rulesData }: RulesDataProps) => {
               title,
               description,
               policyNumber,
-              sideImages,
+              // sideImages,
               attachment,
               timestamp,
-              mainImage,
+              // mainImage,
             },
             i,
           ) => (
@@ -88,7 +88,7 @@ const RulesPolicy = ({ rulesData }: RulesDataProps) => {
                 </p>
                 <p className="text-stormGray text-sm">بتاريخ {timestamp}</p>
               </div>
-              {sideImages?.length > 0 && mainImage && (
+              {/* {sideImages?.length > 0 && mainImage && (
                 <div className={`space-y-4`}>
                   <div
                     className={`flex flex-col md:flex-row gap-4 mt-4 ${
@@ -122,7 +122,7 @@ const RulesPolicy = ({ rulesData }: RulesDataProps) => {
                     </div>
                   </div>
                 </div>
-              )}
+              )} */}
 
               {attachment && (
                 <div className="flex flex-col gap-3 mt-4">

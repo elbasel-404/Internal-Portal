@@ -43,6 +43,7 @@ export { EmployeesListElementSchema } from "./employees-list/schema"
 export { FamilyNewSchema } from "./family-news/schema"
 export { HrTrainingSchema, type HrTraining } from "./hr-training/schema"
 export { NewsElementSchema, type NewsElementType } from "./news/schema"
+export { ObligationSchema } from "./obligation/schema"
 export { OvertimeAssignmentElementSchema } from "./overtime-assignment/schema"
 export { OvertimeConfirmElementSchema } from "./overtime-confirm/schema"
 export { OvertimeListElementSchema } from "./overtime-list/schema"
@@ -78,6 +79,7 @@ export {
   RequestDetailsWorkflowElementSchema,
   type RequestDetailsWorkflowElement
 } from "./request-details-workflow/schema"
+export { RulesSchema } from "./rules/schema"
 export {
   SalaryIdentificationElementSchema,
   type SalaryIdentificationElement

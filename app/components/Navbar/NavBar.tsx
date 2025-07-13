@@ -1,3 +1,5 @@
+"use client"
+
 import { ModalLink } from "@components/modals/ModalLink"
 import { GearIcon, HelloIcon, SearchIcon } from "@icons"
 import { getNotifications } from "@server"
@@ -5,9 +7,24 @@ import { Button, Input } from "@ui"
 import { MegaMenu } from "./MegaMenu"
 import { NavBarPadding } from "./NabBarPadding"
 import { Notification } from "./Notification"
+import { useEffect, useState } from "react"
+import { NotificationItem, ProfileInfo } from "@types" // Adjust the import path as needed
 
-export const NavBar = async () => {
-  const notifications = await getNotifications()
+interface userProps {
+  userInfo: ProfileInfo
+}
+
+export const NavBar = ({ userInfo }: userProps) => {
+  const [notifications, setNotifications] = useState<NotificationItem[]>([])
+
+  const loadNotifications = async () => {
+    const newNotifications = await getNotifications()
+    setNotifications(newNotifications)
+  }
+  useEffect(() => {
+    loadNotifications()
+  }, [])
+
   return (
     <nav className={"flex items-center bg-white p-4 lg:px-16"}>
       {/* ! Padding is in this component: */}
@@ -15,7 +32,9 @@ export const NavBar = async () => {
       <div className="ml-auto flex items-center gap-4">
         {/* <ProfileInfo /> */}
         <div className="hidden gap-1 sm:flex md:items-center">
-          <h1 className="text-2xl font-bold">طاب مسائك، عساف</h1>
+          <h1 className="text-2xl font-bold">
+            طاب مسائك، {userInfo.name?.split(" ")[0]}
+          </h1>
           <HelloIcon />
         </div>
       </div>
