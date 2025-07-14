@@ -21,16 +21,34 @@ const productTableHeaders = [
 
 interface Props {
   requestStatus?: { id: string }[]
-  productsData: PurchaseProduct[]
+  productsData: PurchaseProduct[] | undefined
+  totalAmount: string | undefined
 }
 
 export const ProductsTableSection = ({
   requestStatus,
   productsData,
+  totalAmount,
 }: Props) => {
   if (requestStatus) {
     if (!requestStatus?.some((step) => step.id === "6")) return null
   }
+
+  const transformedData = productsData?.map((product, idx) => ({
+    id: product.id?.toString() ?? idx.toString(),
+    product: product.product_name,
+    description: product.product_name,
+    quantity: product.product_qty,
+    completedQuantity: product.quantity_completed,
+    completedCost: product.amount_completed,
+    underCompletedQauntity: product.quantity_under_completed,
+    remainingQuantity: product.quantity_remain,
+    remainingCost: product.amount_quantity_remain,
+    unitPrice: product.price_unit,
+    unitPriceWithTax: product.unit_price_after_tax.toFixed(2),
+    subtotal: product.price_subtotal,
+    subtotalWithTax: product.total_after_tax,
+  }))
 
   return (
     <div className="bg-white pt-4 pb-4 px-4 rounded-lg space-y-3">
@@ -43,13 +61,13 @@ export const ProductsTableSection = ({
         <Table
           tableClassName="h-fit"
           columns={productTableHeaders}
-          rows={productsData}
+          rows={transformedData ?? []}
           toggleId={false}
         />
-        <div className="p-4 bg-cloudGray flex items-center justify-end pl-20 gap-4 sm:gap-10">
+        <div className="p-4 bg-cloudGray flex items-center justify-end pl-20 gap-4 sm:gap-8">
           <p className="text-foreground font-medium">الإجمالي مع الضريبة</p>
           <span className="flex items-center gap-2 text-foreground font-medium text-xl">
-            {20000}
+            {totalAmount?.replace("ريال سعودي", "").trim()}
             <RiyalCurrencyIcon />
           </span>
         </div>
