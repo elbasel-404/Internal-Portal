@@ -13,7 +13,12 @@ export const PurchaseSchema = z.object({
   note: z.any(),
   award_amount: z.any(),
   amount_total: z.any(),
+  direct_payment_type_id: z.any(),
+  payment_partner_id: z.any(),
+  strategic_plan_type_id: z.any(),
   state: z.any(),
+  products: z.any(),
+  payments: z.any(),
   attachment_ids: z.any(),
 })
 export type PurchaseType = z.infer<typeof PurchaseSchema>
