@@ -1,3 +1,4 @@
+import { PurchasePayments } from "./PurchasePayments"
 import { PurchaseProduct } from "./PurchaseProduct"
 
 export type PurchaseDetails = {
@@ -10,9 +11,12 @@ export type PurchaseDetails = {
   planType: string
   programName: string
   projectName: string
-  costs: string
+  totalAmount: string
   awardAmount: string
   awardAmountBeforeChange: string
+  paymentType: string
+  payment_partner: string
   attachments: File[]
   purchaseProducts: PurchaseProduct[]
+  payments: PurchasePayments[]
 }
