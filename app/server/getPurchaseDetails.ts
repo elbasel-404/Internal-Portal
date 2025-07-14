@@ -1,14 +1,13 @@
 "use server"
 
+import { PurchaseSchema } from "@api/schemas/index"
 import { ResponseSchema } from "@api/schemas/responseSchema"
-import { PurchaseDetails } from "@types"
+import { PurchaseDetails, PurchasePayments, PurchaseProduct } from "@types"
 import { getData } from "./getData"
-import { getPurchaseProductsByRequestId } from "./getPurchaseProductsByRequestId"
 
 export const getPurchaseDetails = async (
   id: string,
 ): Promise<PurchaseDetails | void> => {
-  const purchaseProducts = await getPurchaseProductsByRequestId(id)
   const purchaseType = (type: string) => {
     if (type === "material") return "تشغيلي"
     else if (type === "project") return "الخطة الاستراتيجية"
@@ -17,6 +16,8 @@ export const getPurchaseDetails = async (
   const result = await getData<PurchaseDetails>({
     url: "api/purchase/request/read/po",
     responseSchema: ResponseSchema,
+    dataSchema: PurchaseSchema,
+    includeEmployeeId: false,
     parseData: (data) => {
       if (!data || data.length === 0) {
         return [dummyData]
@@ -38,8 +39,14 @@ export const getPurchaseDetails = async (
           planType: Array.isArray(typedData.strategic_plan_type_id)
             ? String(typedData.strategic_plan_type_id[1] || "__")
             : "__",
+          paymentType: Array.isArray(typedData.direct_payment_type_id)
+            ? String(typedData.direct_payment_type_id[1] || "__")
+            : "__",
+          payment_partner: Array.isArray(typedData.payment_partner_id)
+            ? String(typedData.payment_partner_id[1] || "__")
+            : "__",
           description: String(typedData.description || "__"),
-          costs: String(typedData.amount_total + " " + "ريال سعودي"),
+          totalAmount: String(typedData.amount_total + " " + "ريال سعودي"),
           awardAmountBeforeChange: "__",
           awardAmount: String(typedData.award_amount + " " + "ريال سعودي"),
           attachments: Array.isArray(typedData.attachment_ids)
@@ -47,7 +54,12 @@ export const getPurchaseDetails = async (
                 (file) => new File([""], String(file)),
               )
             : [],
-          purchaseProducts: [],
+          purchaseProducts: Array.isArray(typedData.products)
+            ? (typedData.products as PurchaseProduct[])
+            : [],
+          payments: Array.isArray(typedData.payments)
+            ? (typedData.payments as PurchasePayments[])
+            : [],
         },
       ]
     },
@@ -55,7 +67,7 @@ export const getPurchaseDetails = async (
     dummyData: [dummyData],
   })
 
-  return { ...result[0], purchaseProducts }
+  return result[0]
 }
 
 const dummyData: PurchaseDetails = {
@@ -67,8 +79,10 @@ const dummyData: PurchaseDetails = {
   projectName: "مبادرة التحول الرقمي",
   programName: "برنامج الابتكار الحكومي",
   planType: "خطة سنوية",
+  paymentType: "فواتير الخدمات",
+  payment_partner: "أعضاء اللجنة التنفيذية لمجلس ادارة منشآت",
   description: 'عملية شراء لتطبيق "سهل+" لتحسين تجربة المستخدم.',
-  costs: "250,000 ريال",
+  totalAmount: "250,000 ريال",
   awardAmount: "245,000 ريال",
   awardAmountBeforeChange: "250,000 ريال",
   attachments: [
@@ -76,4 +90,5 @@ const dummyData: PurchaseDetails = {
     new File([""], "نموذج طلب .pdf"),
   ],
   purchaseProducts: [],
+  payments: [],
 }
