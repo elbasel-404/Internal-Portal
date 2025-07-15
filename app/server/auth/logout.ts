@@ -8,7 +8,7 @@ export const logout = async () => {
   const cookieStore = await cookies()
   cookieStore.delete("session")
   cookieStore.delete("employeeId")
-  cookieStore.set("demo", "true")
+  cookieStore.set("demo", "false")
   revalidatePath("/", "layout")
   redirect("/home")
 }

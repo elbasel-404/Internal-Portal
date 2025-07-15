@@ -90,7 +90,7 @@ export const signIn = async (
   })
   const cookieStore = await cookies()
   cookieStore.set("session", session, { expires, httpOnly: true })
-  cookieStore.set("demo", "true")
+  cookieStore.set("demo", "false")
 
   // ! ================= Employee ID =================
   const employeeId = await getEmployeeId()
