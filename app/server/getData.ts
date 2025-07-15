@@ -59,7 +59,14 @@ export const getData = async <T, D = unknown>(
   // Check if in demo mode
   if (LOG_INFO) {
     timeStart = Date.now()
-    console.info("\x1b[30m\x1b[1m\x1b[47m%s\x1b[0m", `\n  <==   ${url}   ==>  `)
+    console.info("\x1b[30m\x1b[1m\x1b[47m%s\x1b[0m", ` <==   ${url}   ==>  `)
+    // check if additional body is en empty object:
+    if (!(Object.keys(additionalBody).length === 0)) {
+      console.info(
+        "\x1b[30m\x1b[1m\x1b[43m%s\x1b[0m",
+        ` <==   ${JSON.stringify(additionalBody)}   ==>  `,
+      )
+    }
   }
 
   const isDemo = await getDemo()
@@ -120,7 +127,8 @@ export const getData = async <T, D = unknown>(
         timeTaken > 500
           ? "\x1b[30m\x1b[1m\x1b[41m" // red background for slow requests
           : "\x1b[30m\x1b[1m\x1b[42m" // green background for fast requests
-      console.info(`${timeColor}%s\x1b[0m`, `\n  ${timeTaken}ms \n`)
+      console.info(`${timeColor}%s\x1b[0m`, `${timeTaken}ms`)
+      logSeperator();
     }
 
     // VALIDATION
