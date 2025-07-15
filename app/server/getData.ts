@@ -5,7 +5,7 @@ import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
 import { z } from "zod"
 
-const DEBUG = true
+const LOG_INFO = true
 
 interface GetDataOptions<T, D> {
   /* API request configuration */
@@ -51,24 +51,28 @@ export const getData = async <T, D = unknown>(
     dataSchema,
     parseData,
     dummyData,
-    // debug = false,
     employeeIdKey = "employee_id",
   } = options
 
   let timeStart = 0
 
   // Check if in demo mode
-  if (DEBUG) {
+  if (LOG_INFO) {
     timeStart = Date.now()
-    logAltSeperator()
-    console.log("Fetching ", { url })
+    console.info("\x1b[30m\x1b[1m\x1b[47m%s\x1b[0m", ` <==   ${url}   ==>  `)
+    // check if additional body is en empty object:
+    if (!(Object.keys(additionalBody).length === 0)) {
+      console.info(
+        "\x1b[30m\x1b[1m\x1b[43m%s\x1b[0m",
+        ` <==   ${JSON.stringify(additionalBody)}   ==>  `,
+      )
+    }
   }
 
   const isDemo = await getDemo()
   if (isDemo) {
-    if (DEBUG) {
-      console.log("Returning dummy data for", { url })
-      logAltSeperator()
+    if (LOG_INFO) {
+      console.info("\x1b[33mReturning dummy data for\x1b[0m", { url })
     }
     return dummyData
   }
@@ -84,12 +88,10 @@ export const getData = async <T, D = unknown>(
     if (!headers) {
       // console.error("Failed to get headers for API request")
       logError({
-        errorTitle: "Failed to get headers for API request",
+        errorTitle:
+          "Failed to get headers for API request, returning dummy data",
         url,
       })
-      if (DEBUG) {
-        logAltSeperator()
-      }
 
       return dummyData
     }
@@ -117,11 +119,16 @@ export const getData = async <T, D = unknown>(
     })
 
     const responseJson = await apiResponse.json()
-    if (DEBUG) {
+    if (LOG_INFO) {
       const timeEnd = Date.now()
       const timeTaken = timeEnd - timeStart
-      console.log("Fetched", { url, timeTaken })
-      logMedSeperator()
+      // Log time taken with different background color based on duration
+      const timeColor =
+        timeTaken > 500
+          ? "\x1b[30m\x1b[1m\x1b[41m" // red background for slow requests
+          : "\x1b[30m\x1b[1m\x1b[42m" // green background for fast requests
+      console.info(`${timeColor}%s\x1b[0m`, `${timeTaken}ms`)
+      logSeperator();
     }
 
     // VALIDATION
@@ -140,9 +147,6 @@ export const getData = async <T, D = unknown>(
           errorDetails: validationError,
           errorTitle: "response validation failed",
         })
-        if (DEBUG) {
-          logAltSeperator()
-        }
 
         return dummyData
       }
@@ -194,11 +198,6 @@ export const getData = async <T, D = unknown>(
       errorTitle,
     })
 
-    if (DEBUG) {
-      console.log("Done", { url })
-      logAltSeperator()
-    }
-
     return dummyData
   }
 }
@@ -206,16 +205,12 @@ export const getData = async <T, D = unknown>(
 // !! Logging
 
 const logSeperator = () => {
-  console.log("\x1b[33m\n--------------------\n\x1b[0m")
+  console.log("\x1b[33m\n------------\n\x1b[0m")
 }
 
-const logAltSeperator = () => {
-  console.log("\x1b[32m\n========================================\n\x1b[0m")
-}
-
-const logMedSeperator = () => {
-  console.log("\x1b[35m\n+++++++++++++++++++++\n\x1b[0m")
-}
+// const logMedSeperator = () => {
+//   console.log("\x1b[35m\n+++++++++++++++++++++\n\x1b[0m")
+// }
 
 // !! Info Logging
 

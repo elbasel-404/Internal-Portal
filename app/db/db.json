@@ -167,6 +167,53 @@
         "nationalId",
         "office",
         "email",
+        "newsTab",
+        "monshaatFamilyTab"
+      ],
+      "demo": true,
+      "convenantData": [
+        {
+          "product": "prod",
+          "statement": "active",
+          "amount": "10",
+          "invoiceNumber": "25",
+          "attachments": [
+            "file-name-i"
+          ]
+        }
+      ],
+      "projectCompletion": [],
+      "products": [],
+      "batchs": [],
+      "batchProducts": [],
+      "trainingCourses": [],
+      "deputationLocation": []
+    },
+    {
+      "id": 5,
+      "activeGeneralInfoKeys": [
+        "employeeRequests",
+        "approvalRequests",
+        "totalVacationBalance",
+        "permissions",
+        "remoteWork",
+        "delegations"
+      ],
+      "activeHomePageSlotsKeys": [
+        "completeProfile",
+        "generalInfo",
+        "userInfo",
+        "attendance",
+        "approvalRequestsTable",
+        "sliders",
+        "timelineCalendar",
+        "news"
+      ],
+      "activeNewsTabsKeys": [
+        "vpn",
+        "nationalId",
+        "office",
+        "email",
         "newsTab"
       ],
       "demo": true,
@@ -189,5 +236,5 @@
       "deputationLocation": []
     }
   ],
-  "userCount": 4
+  "userCount": 5
 }
