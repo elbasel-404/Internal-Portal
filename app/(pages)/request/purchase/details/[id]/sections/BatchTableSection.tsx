@@ -123,7 +123,7 @@ export const BatchTableSection = ({ requestStatus, payments }: Props) => {
         </div>
       )}
 
-      {batchData?.length && (
+      {batchData && (
         <Table
           tableClassName="h-fit"
           columns={batchTableHeader}
