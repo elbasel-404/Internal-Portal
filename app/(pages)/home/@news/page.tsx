@@ -20,7 +20,6 @@ const NewsSlot = () => {
   const [news, setNews] = useState<NewsListRequest[]>([])
   const [familyNews, setFamilyNews] = useState<NewsFamily[]>([])
   const [tabs, setTabs] = useState<NewsTab[]>([])
-  const [loaded, setLoaded] = useState(false)
 
   const { isIntersecting: isIntersectingOuter, ref: refOuter } =
     useIntersectionObserver({
@@ -46,43 +45,63 @@ const NewsSlot = () => {
     }
   }
 
+  const loadAds = () => {
+    if (ads.length > 0) return
+    getAdsNewsList({
+      limit: 3,
+      page: 1,
+    }).then((ads) => {
+      setAds(ads)
+    })
+  }
+
+  const loadNews = () => {
+    if (news.length > 0) return
+    getNewsListRequests({
+      limit: 3,
+      page: 1,
+    }).then((news) => {
+      setNews(news)
+    })
+  }
+
+  const loadFamilyNews = () => {
+    if (familyNews.length > 0) return
+    getFamilyNewsList({
+      limit: 3,
+      page: 1,
+    }).then((familyNews) => {
+      setFamilyNews(familyNews)
+    })
+  }
+
   const init = async () => {
-    loadTabs()
     setLoading(true)
-    const ads = await getAdsNewsList({
-      limit: 3,
-      page: 1,
-    })
-    const news = await getNewsListRequests({
-      limit: 3,
-      page: 1,
-    })
-    const familyNews = await getFamilyNewsList({
-      limit: 3,
-      page: 1,
-    })
-    setAds(ads)
-    setNews(news)
-    setFamilyNews(familyNews)
+    await loadTabs()
     setLoading(false)
-    setLoaded(true)
+    // setLoaded(true)
   }
 
   useEffect(() => {
-    if (loaded) return
     if (!isIntersectingOuter) return
     init()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isIntersectingOuter])
 
   useEffect(() => {
-    if (!loaded) return
     if (!isIntersectingInner) return
     loadTabs()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isIntersectingInner])
 
-  // if (loading) return <Loader />
+  useEffect(() => {
+    if (tabs.length === 0) return
+
+    loadNews();
+    loadAds();
+    loadFamilyNews();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tabs])
 
   return (
     <>
