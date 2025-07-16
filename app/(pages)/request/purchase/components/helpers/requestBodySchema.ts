@@ -8,6 +8,8 @@ export const requestBodySchema = z.object({
   request_title: z.any(),
   purchase_initiative_id: z.any(),
   purchase_program_id: z.any(),
+  payment_partner_id: z.any(),
+  direct_payment_type_id: z.any(),
   date_start_project: z.any(),
   date_end_project: z.any(),
   duration_project: z.any(),
