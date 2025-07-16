@@ -25,7 +25,7 @@ export const AttachmentsSection = () => {
 
   return (
     <div className="space-y-6">
-      {purchaseType === "directPayment" && (
+      {purchaseType === "direct_payment" && (
         <CheckboxListField
           label="نوع المرفقات"
           name="attachment_types_ids"
