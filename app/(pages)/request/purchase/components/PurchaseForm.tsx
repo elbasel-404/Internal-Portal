@@ -1,5 +1,6 @@
 "use client"
 
+import { PurchaseField } from "@api/schemas/index"
 import { purchaseTypeAtom } from "@atoms"
 import { SubmitButton } from "@components/form"
 import { ProductSchema, ProjectCompletionSchema } from "@zodSchemas"
@@ -31,10 +32,22 @@ const initialState: State = {
 interface PurchaseProps {
   projectCompletionData: ProjectCompletionData[]
   productsData: ProductsData[]
+  purchaseTypes: PurchaseField[]
+  purchasePlanTypes: PurchaseField[]
+  purchaseInitiative: PurchaseField[]
+  purchaseProgram: PurchaseField[]
+  purchasePaymentTypes: PurchaseField[]
+  purchaseResourceName: PurchaseField[]
 }
 export const PurchaseForm = ({
   projectCompletionData,
   productsData,
+  purchaseTypes,
+  purchaseInitiative,
+  purchasePaymentTypes,
+  purchasePlanTypes,
+  purchaseProgram,
+  purchaseResourceName,
 }: PurchaseProps) => {
   const [purchaseType] = useAtom(purchaseTypeAtom)
   const [state, setState] = useState<State>(initialState)
@@ -74,9 +87,15 @@ export const PurchaseForm = ({
       <PurchaseFormHeader />
 
       <div className="p-4 space-y-6">
-        <BasicInformationSection />
+        <BasicInformationSection purchaseTypes={purchaseTypes} />
         <AttachmentsSection />
-        <ProjectDetailsSection />
+        <ProjectDetailsSection
+          purchaseInitiative={purchaseInitiative}
+          purchasePaymentTypes={purchasePaymentTypes}
+          purchasePlanTypes={purchasePlanTypes}
+          purchaseProgram={purchaseProgram}
+          purchaseResourceName={purchaseResourceName}
+        />
         <RequirementsSection />
         {purchaseType !== "direct_payment" ? (
           <ProjectCompletionSection data={projectCompletionData} />
