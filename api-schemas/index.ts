@@ -61,6 +61,10 @@ export {
   type ProbationEvaluationElement
 } from "./probation-evaluation/schema"
 export { ProfileElementSchema, type ProfileElement } from "./profile/schema"
+export {
+  PurchaseFieldSchema,
+  type PurchaseField
+} from "./purchase-fields/schema"
 export { PurchaseSchema, type PurchaseType } from "./purchase/schema"
 export {
   RecommendationSchema,
