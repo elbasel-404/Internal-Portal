@@ -1,5 +1,6 @@
 "use client"
 
+import { PurchaseField } from "@api/schemas/index"
 import {
   costsAtom,
   dateFromAtom,
@@ -16,20 +17,41 @@ import {
 } from "@components/form"
 import { RiyalCurrencyIcon } from "@icons"
 import { useAtom } from "jotai"
-import { ChangeEvent, useEffect } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 
-export const ProjectDetailsSection = () => {
+interface ProjectDetailsSectionProps {
+  purchaseInitiative: PurchaseField[]
+  purchasePaymentTypes: PurchaseField[]
+  purchasePlanTypes: PurchaseField[]
+  purchaseProgram: PurchaseField[]
+  purchaseResourceName: PurchaseField[]
+}
+
+export const ProjectDetailsSection = ({
+  purchaseInitiative,
+  purchasePaymentTypes,
+  purchasePlanTypes,
+  purchaseProgram,
+  purchaseResourceName,
+}: ProjectDetailsSectionProps) => {
   const [purchaseType] = useAtom(purchaseTypeAtom)
   return (
     <div className="space-y-6">
       {purchaseType !== "direct_payment" ? (
         <>
           <RequestOutputsField />
-          <PlanSelectionGroup />
+          <PlanSelectionGroup
+            purchaseInitiative={purchaseInitiative}
+            purchasePlanTypes={purchasePlanTypes}
+            purchaseProgram={purchaseProgram}
+          />
           <ProjectDatesGroup />
         </>
       ) : (
-        <BatchGroup />
+        <BatchGroup
+          purchasePaymentTypes={purchasePaymentTypes}
+          purchaseResourceName={purchaseResourceName}
+        />
       )}
       <CostsField />
     </div>
@@ -53,7 +75,20 @@ const RequestOutputsField = () => {
   )
 }
 
-const PlanSelectionGroup = () => {
+interface PlanSelectionGroupProps {
+  purchaseInitiative: PurchaseField[]
+  purchasePlanTypes: PurchaseField[]
+  purchaseProgram: PurchaseField[]
+}
+
+const PlanSelectionGroup = ({
+  purchaseInitiative,
+  purchasePlanTypes,
+  purchaseProgram,
+}: PlanSelectionGroupProps) => {
+  const [strategicPlanId, setStrategicPlanId] = useState("")
+  const [purchaseInitiativeId, setPurchaseIntiativeId] = useState("")
+  const [purchaseProgramId, setPurchaseProgramId] = useState("")
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -61,13 +96,27 @@ const PlanSelectionGroup = () => {
           label="نوع الخطة"
           name="strategic_plan_type_id"
           placeholder="اختر نوع الخطة"
-          types={[]}
+          types={purchasePlanTypes.map((type) => ({
+            id: type.id,
+            name: type.name,
+          }))}
+          value={strategicPlanId}
+          onChange={(value) => {
+            setStrategicPlanId(value)
+          }}
         />
         <SelectField
           label="اسم (المبادرة/البرنامج)"
           name="purchase_initiative_id"
           placeholder="اختر اسم المبادرة/البرنامج"
-          types={[]}
+          types={purchaseInitiative.map((type) => ({
+            id: type.id,
+            name: type.name,
+          }))}
+          value={purchaseInitiativeId}
+          onChange={(value) => {
+            setPurchaseIntiativeId(value)
+          }}
         />
       </div>
 
@@ -75,7 +124,14 @@ const PlanSelectionGroup = () => {
         label="اسم المشروع"
         name="purchase_program_id"
         placeholder="اختر اسم المشروع"
-        types={[]}
+        types={purchaseProgram.map((type) => ({
+          id: type.id,
+          name: type.name,
+        }))}
+        value={purchaseProgramId}
+        onChange={(value) => {
+          setPurchaseProgramId(value)
+        }}
       />
     </>
   )
@@ -118,20 +174,35 @@ const ProjectDatesGroup = () => {
     </div>
   )
 }
-const BatchGroup = () => {
+
+interface BatchGroupProps {
+  purchasePaymentTypes: PurchaseField[]
+  purchaseResourceName: PurchaseField[]
+}
+
+const BatchGroup = ({
+  purchasePaymentTypes,
+  purchaseResourceName,
+}: BatchGroupProps) => {
   return (
     <>
       <SelectField
         label="نوع الدفعة"
-        name="BatchType"
+        name="direct_payment_type_id"
         placeholder="اختر نوع الدفعة"
-        types={[]}
+        types={purchasePaymentTypes.map((type) => ({
+          id: type.id,
+          name: type.name,
+        }))}
       />
       <SelectField
         label="اسم المورد"
-        name="resourceName"
+        name="payment_partner_id"
         placeholder="اختر اسم المورد"
-        types={[]}
+        types={purchaseResourceName.map((type) => ({
+          id: type.id,
+          name: type.name,
+        }))}
       />
     </>
   )
