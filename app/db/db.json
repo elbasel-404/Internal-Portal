@@ -213,8 +213,7 @@
         "vpn",
         "nationalId",
         "office",
-        "email",
-        "newsTab"
+        "email"
       ],
       "demo": true,
       "convenantData": [
