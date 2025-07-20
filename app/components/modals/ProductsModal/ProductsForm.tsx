@@ -1,14 +1,19 @@
 "use client"
 
+import { PurchaseField } from "@api/schemas/index"
 import { InputField, SelectField, TextareaField } from "@components/form"
 import { CheckIcon, RiyalCurrencyIcon, XMarkIcon } from "@icons"
 import { Button } from "@ui"
 import { useRouter } from "next/navigation"
 import { ChangeEvent, useState } from "react"
 import { productsFormAction } from "./ProductsFormAction"
-import { ProductsList, TaxsList } from "./config"
+import { TaxsList } from "./config"
 
-export const ProductsForm = () => {
+interface ProductsFormProps {
+  productsData: PurchaseField[]
+}
+
+export const ProductsForm = ({ productsData }: ProductsFormProps) => {
   const router = useRouter()
   const [products, setProducts] = useState("")
   const [description, setDescription] = useState("")
@@ -56,7 +61,10 @@ export const ProductsForm = () => {
         placeholder=""
         value={products}
         onChange={handleProductsChange}
-        types={ProductsList}
+        types={productsData.map((product) => ({
+          id: product.id,
+          name: product.name,
+        }))}
       />
       <TextareaField
         label="الوصف"

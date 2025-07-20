@@ -16,5 +16,8 @@ export const requestBodySchema = z.object({
   estimated_budget: z.any(),
   award_amount: z.any(),
   notes: z.any(),
+  is_institutional_excellence: z.any(),
+  is_data_governance: z.any(),
+  is_cyber_security: z.any(),
   attachment_ids: z.instanceof(File).or(z.any()),
 })
