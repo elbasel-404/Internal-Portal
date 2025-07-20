@@ -90,17 +90,22 @@ export async function createData<T extends Record<string, unknown>>(
   const responseJson = await response.json()
   const responseObject = responseJson.at(0)
 
-  const isBadRequest = response.status === 400
-  if (isBadRequest) {
-    const validatedResponseObject = CreateErrorSchema.parse(responseObject)
-    const { error } = validatedResponseObject
+  // const isBadRequest = response.status === 400
+  // if (isBadRequest) {
+  const validatedErrorResponseObject = CreateErrorSchema.parse(responseObject)
 
+  const { error, status } = validatedErrorResponseObject
+
+  if (error) {
+    console.log({ status })
     return {
       success: false,
       errors: Array.isArray(error) ? error : [error],
       id: null,
     }
   }
+
+  // }
 
   const validatedResponseObject = CreateSuccessSchema.parse(responseObject)
   const { data } = validatedResponseObject
