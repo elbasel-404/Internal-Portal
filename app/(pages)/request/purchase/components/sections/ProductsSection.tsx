@@ -46,7 +46,7 @@ export const ProductsSection = ({ data }: ProductsProps) => {
 
     return {
       ...productDetails,
-      id: index + "id",
+      id: productDetails.product,
       totalWithoutTax,
       totalWithTax,
     }

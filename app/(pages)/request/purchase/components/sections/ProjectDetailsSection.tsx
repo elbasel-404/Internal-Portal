@@ -220,15 +220,6 @@ const CostsField = () => {
 
   return (
     <>
-      <input
-        type="text"
-        name="award_amount"
-        hidden
-        aria-hidden
-        readOnly
-        value="10"
-        className="hidden"
-      />
       <InputField
         label="التكاليف"
         name="estimated_budget"
