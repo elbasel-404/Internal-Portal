@@ -100,36 +100,26 @@ export async function createData<T extends Record<string, unknown>>(
 
   const responseJson = await response.json()
 
-    if (LOG_INFO) {
-      const timeEnd = Date.now()
-      const timeTaken = timeEnd - timeStart
-      // Log time taken with different background color based on duration
-      const timeColor =
-        timeTaken > 500
-          ? "\x1b[30m\x1b[1m\x1b[41m" // red background for slow requests
-          : "\x1b[30m\x1b[1m\x1b[42m" // green background for fast requests
-      console.info(`${timeColor}%s\x1b[0m`, `${timeTaken}ms`)
-      logSeperator();
-    }
+  if (LOG_INFO) {
+    const timeEnd = Date.now()
+    const timeTaken = timeEnd - timeStart
+    // Log time taken with different background color based on duration
+    const timeColor =
+      timeTaken > 500
+        ? "\x1b[30m\x1b[1m\x1b[41m" // red background for slow requests
+        : "\x1b[30m\x1b[1m\x1b[42m" // green background for fast requests
+    console.info(`${timeColor}%s\x1b[0m`, `${timeTaken}ms`)
+    logSeperator();
+  }
 
   const responseObject = responseJson.at(0)
 
   // const isBadRequest = response.status === 400
   // if (isBadRequest) {
   const validatedErrorResponseObject = CreateErrorSchema.safeParse(responseObject)
-  const {success: errorSuccess, data: errorData, error: errorValidationError} = validatedErrorResponseObject;
-
-  if (errorValidationError) {
-    return {
-      success: false,
-      errors: [JSON.stringify(errorValidationError.format())],
-      id: null,
-    }
-  }
-
+  const { success: errorSuccess, data: errorData } = validatedErrorResponseObject;
 
   if (errorSuccess) {
-    console.log({ status })
     return {
       success: false, // Assuming errorData is an array of strings or a single string
       errors: Array.isArray(errorData) ? errorData.map(e => (typeof e === 'object' && 'error' in e) ? e.error : String(e)) : [String(errorData)],
