@@ -1,9 +1,9 @@
 export type PurchasePayments = {
-  number: any
-  name: any
-  amount_before_deduction: any
-  deduction_amount: any
+  number: number
+  name: string
+  amount_before_deduction: number
+  deduction_amount: number
   amount: number
-  state_certificate: any
-  payment_state: any
+  state_certificate: string
+  payment_state: string
 }
