@@ -1,6 +1,6 @@
 import { CreateRequestStatus } from "@components"
 import { getUser } from "@db/actions"
-import { getCreateRequestStatus, getUserId } from "@server"
+import { getCreateRequestStatus, getPurchaseFields, getUserId } from "@server"
 import { PurchaseForm } from "../components"
 
 const NewPurchasePage = async () => {
@@ -9,6 +9,12 @@ const NewPurchasePage = async () => {
 
   const { projectCompletion, products } = await getUser(userId)
   // const requestStatus = await getRequestStatus("", "")
+  const purchaseTypes = await getPurchaseFields("type")
+  const purchasePlanTypes = await getPurchaseFields("strategic_plan_type_id")
+  const purchaseInitiative = await getPurchaseFields("purchase_initiative_id")
+  const purchaseProgram = await getPurchaseFields("purchase_program_id")
+  const purchasePaymentTypes = await getPurchaseFields("direct_payment_type_id")
+  const purchaseResourceName = await getPurchaseFields("payment_partner_id")
   const requestStatus = await getCreateRequestStatus("purchase.request")
   const requestCaption =
     "انت الان في مرحلة انشاء الطلب و بانتظار موافقة المدير المباشر"
@@ -18,6 +24,12 @@ const NewPurchasePage = async () => {
       <PurchaseForm
         projectCompletionData={projectCompletion}
         productsData={products}
+        purchaseTypes={purchaseTypes}
+        purchasePlanTypes={purchasePlanTypes}
+        purchaseInitiative={purchaseInitiative}
+        purchasePaymentTypes={purchasePaymentTypes}
+        purchaseProgram={purchaseProgram}
+        purchaseResourceName={purchaseResourceName}
       />
     </div>
   )

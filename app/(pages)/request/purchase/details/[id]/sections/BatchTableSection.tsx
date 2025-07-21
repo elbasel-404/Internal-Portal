@@ -1,19 +1,18 @@
 "use client"
 
-import { batchAmount, completionRequestAtom } from "@atoms"
+import { completionRequestAtom } from "@atoms"
 import { Table } from "@components"
 import { ModalLink } from "@components/modals/ModalLink"
 import { CheckIcon, CirclePlusIcon } from "@icons"
 import { paths } from "@lib"
 import { removeBatch } from "@server"
-import { BatchItem } from "@types"
+import { PurchasePayments } from "@types"
 import { useAtom } from "jotai"
 import { useEffect, useState } from "react"
 
 const batchTableHeader = [
   { label: "رقم الدفعة" },
   { label: "مسمى الدفعة" },
-  { label: "نوع الدفعة" },
   { label: "قيمة الدفعة قبل الخصم" },
   { label: "نسبة الخصم" },
   { label: "قيمة الدفعة" },
@@ -24,12 +23,11 @@ const batchTableHeader = [
 
 interface Props {
   requestStatus: { id: string }[]
-  batchs: BatchItem[]
+  payments: PurchasePayments[] | undefined
 }
 
-export const BatchTableSection = ({ requestStatus, batchs }: Props) => {
+export const BatchTableSection = ({ requestStatus, payments }: Props) => {
   const [completionRequest] = useAtom(completionRequestAtom)
-  const [totalBatchAmount] = useAtom(batchAmount)
   const [showSuccess, setShowSuccess] = useState<boolean>(false)
   const [countdown, setCountdown] = useState<number>(5)
 
@@ -59,15 +57,34 @@ export const BatchTableSection = ({ requestStatus, batchs }: Props) => {
     }
   }, [completionRequest, isProjectCompletionStep])
 
-  const batchData = batchs.map((batch, index) => ({
-    ...batch,
+  const stateCertificateStatus = (state: string) => {
+    if (state === "draft") return "طلب"
+    else if (state === "sector_project_management")
+      return "مشرف القطاع في إدارة المشاريع"
+    else if (state === "project_management_office") return "مكتب إدارة المشاريع"
+    else if (state === "sm") return "مدير القطاع"
+    else if (state === "done") return "اعتمد"
+    else if (state === "refuse") return "مرفوض"
+    else if (state === "cancel") return "ملغي"
+    else return "__"
+  }
+
+  const paymentStatus = (state: string) => {
+    if (state === "progress") return "تحت الإجراء"
+    else if (state === "done") return "تم الصرف"
+    else return "__"
+  }
+
+  const batchData = payments?.map((payment, index) => ({
     id: index.toString(),
-    batchType: "مبلغ",
-    batchAmountWithoutDiscount: totalBatchAmount,
-    discount: "0",
-    batchAmount: totalBatchAmount,
-    achievementCertificate: "",
-    disbursementOrder: "",
+    number: payment.number,
+    name: payment.name || "__",
+    amount_before_deduction: payment.amount_before_deduction || "__",
+    deduction_amount: payment.deduction_amount || "__",
+    amount: payment.amount || "__",
+    state_certificate:
+      stateCertificateStatus(String(payment.state_certificate)) || "__",
+    payment_state: paymentStatus(String(payment.payment_state)) || "__",
   }))
 
   const handleRemoveBatch = (id: number) => {
@@ -105,7 +122,7 @@ export const BatchTableSection = ({ requestStatus, batchs }: Props) => {
         </div>
       )}
 
-      {batchData.length > 0 && (
+      {batchData && (
         <Table
           tableClassName="h-fit"
           columns={batchTableHeader}
