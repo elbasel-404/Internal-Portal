@@ -1,16 +1,12 @@
 "use server"
 
 import { DeputationElementSchema, ResponseSchema } from "@api/schemas/index"
-import { getDemo } from "@db/actions"
 import { DeputationRequestDetails } from "@types"
-import { getFetchHeaders } from "./getFetchHeaders"
+import { getData } from "./getData"
 
 export const getDeputationRequestDetails = async (
   id: string,
 ): Promise<DeputationRequestDetails> => {
-  const isDemo = await getDemo()
-  if (isDemo) return details
-
   const DeputationType = (value: string) => {
     switch (value) {
       case "internal":
@@ -22,89 +18,82 @@ export const getDeputationRequestDetails = async (
     }
   }
 
-  // ! VARIABLES
-  // ! ==================================
-  const url = "api/po/hr/deputation"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  const requestBody = { id: id }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
+  const result = await getData<DeputationRequestDetails>({
+    url: "api/po/hr/deputation",
+    responseSchema: ResponseSchema,
+    dataSchema: DeputationElementSchema,
+    parseData: (data) => {
+      if (!data || data.length === 0) {
+        return [dummyData]
+      }
 
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+      const typedData = data[0] as Record<string, unknown>
+
+      return [
+        {
+          id: String(typedData.id),
+          requestDate: String(typedData.create_date).split(" ")[0],
+          deputation: DeputationType(String(typedData.type)),
+          transportation: String(typedData.transportation_type),
+          deputationType: String(typedData.deputation_type)[1].toString(),
+          trainingRequestNumber: String(
+            typedData.training_request_id,
+          ).toString(),
+          startDate: String(typedData.date_from),
+          endDate: String(typedData.date_to),
+          duration: String(typedData.duration).toString(),
+          kilometers: String(typedData.distance).toString(),
+          city: String(typedData.city_id)[1].toString(),
+          task: String(typedData.task_name),
+          taskDetails:
+            typeof typedData.note === "string"
+              ? typedData.note
+              : typedData.note
+                ? typedData.note.toString()
+                : "__",
+          departureDatesStatus:
+            typedData.travel_days_setting === "before_deputation"
+              ? "قبل بداية الانتداب"
+              : "بعد بداية الانتداب",
+          travelDuration: String(typedData.travel_days).toString(),
+          travelStartDate: String(typedData.date_from_travel),
+          travelEndDate: String(typedData.date_to_travel),
+          deputationAmount: String(typedData.amount).toString(),
+          transferDate:
+            typeof typedData.expected_date === "string"
+              ? typedData.expected_date
+              : typedData.expected_date
+                ? typedData.expected_date.toString()
+                : "__",
+          reserved: Boolean(typedData.ticket_reserved),
+          issueVisa: Boolean(typedData.is_need_visa),
+          replacementEmployee:
+            Array.isArray(typedData.substitute_employee_id) &&
+            typedData.substitute_employee_id[1]
+              ? typedData.substitute_employee_id[1].toString()
+              : "__",
+          status: String(typedData.state),
+          reason: String(typedData.refuse_reason).toString() || "__",
+          deputationPlaces: [
+            { id: "1", name: "السعودية", city: "الرياض" },
+            { id: "2", name: "مصر", city: "القاهرة" },
+          ],
+          attachments: Array.isArray(typedData.attachment_ids)
+            ? typedData.attachment_ids.map(
+                (file) => new File([""], String(file)),
+              )
+            : [],
+        },
+      ]
+    },
+    additionalBody: { id },
+    dummyData: [dummyData],
   })
-  const responseJson = await apiResponse.json()
 
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = DeputationElementSchema.parse(data[0])
-
-  // ! PARSING
-  // ! ==================================
-  const returnedData: DeputationRequestDetails = {
-    id: validatedData.id.toString(),
-    requestDate: validatedData.create_date.split(" ")[0],
-    deputation: DeputationType(validatedData.type),
-    transportation: validatedData.transportation_type,
-    deputationType: validatedData.deputation_type[1].toString(),
-    trainingRequestNumber: validatedData.training_request_id.toString(),
-    startDate: validatedData.date_from,
-    endDate: validatedData.date_to,
-    duration: validatedData.duration.toString(),
-    kilometers: validatedData.distance.toString(),
-    city: validatedData.city_id[1].toString(),
-    task: validatedData.task_name,
-    taskDetails:
-      typeof validatedData.note === "string"
-        ? validatedData.note
-        : validatedData.note
-          ? validatedData.note.toString()
-          : "__",
-    departureDatesStatus:
-      validatedData.travel_days_setting === "before_deputation"
-        ? "قبل بداية الانتداب"
-        : "بعد بداية الانتداب",
-    travelDuration: validatedData.travel_days.toString(),
-    travelStartDate: validatedData.date_from_travel,
-    travelEndDate: validatedData.date_to_travel,
-    deputationAmount: validatedData.amount.toString(),
-    transferDate:
-      typeof validatedData.expected_date === "string"
-        ? validatedData.expected_date
-        : validatedData.expected_date
-          ? validatedData.expected_date.toString()
-          : "__",
-    reserved: validatedData.ticket_reserved,
-    issueVisa: validatedData.is_need_visa,
-    replacementEmployee:
-      Array.isArray(validatedData.substitute_employee_id) &&
-      validatedData.substitute_employee_id[1]
-        ? validatedData.substitute_employee_id[1].toString()
-        : "__",
-    status: validatedData.state,
-    reason: validatedData.refuse_reason.toString() || "__",
-    deputationPlaces: [
-      { id: "1", name: "السعودية", city: "الرياض" },
-      { id: "2", name: "مصر", city: "القاهرة" },
-    ],
-    attachments: Array.isArray(validatedData.attachment_ids)
-      ? validatedData.attachment_ids.map((file) => new File([""], String(file)))
-      : [],
-  }
-
-  return returnedData
+  return result[0]
 }
 
-const details: DeputationRequestDetails = {
+const dummyData: DeputationRequestDetails = {
   id: "2",
   requestDate: "17-04-2024",
   deputation: "خارجي",
