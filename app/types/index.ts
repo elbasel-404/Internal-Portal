@@ -17,6 +17,7 @@ export type { GeneralInfoMap } from "./pages/Indicator"
 export type { NewsTab } from "./pages/NewsTab"
 export type { NewsTabsKey } from "./pages/NewsTabsKey"
 export type { ProfileDetails } from "./pages/ProfileDetails"
+export type { ProfileInfo } from "./pages/ProfileInfo"
 export type { AdsListRequst } from "./pages/request/AdsListRequest"
 export type { AdsNewsDetails } from "./pages/request/AdsNewsDetails"
 export type { ApprovalRequest } from "./pages/request/ApprovalRequest"
@@ -62,6 +63,7 @@ export type { ProbationPeriodEmployees } from "./pages/request/ProbationPeriodEm
 export type { ProbationPeriodFields } from "./pages/request/ProbationPeriodFields"
 export type { ProbationPeriodRequest } from "./pages/request/ProbationPeriodRequest"
 export type { PurchaseDetails } from "./pages/request/PurchaseDetails"
+export type { PurchasePayments } from "./pages/request/PurchasePayments"
 export type { PurchaseProduct } from "./pages/request/PurchaseProduct"
 export type { PurchaseRequest } from "./pages/request/PurchaseRequest"
 export type {
@@ -72,7 +74,7 @@ export type {
   ProgramData,
   ProjectData,
   PurchaseType,
-  YesNoOption,
+  YesNoOption
 } from "./pages/request/PurchaseTypes"
 export type { RecommendationDetails } from "./pages/request/RecommendationDetails"
 export type { RecommendationRequest } from "./pages/request/RecommendationRequest"
@@ -116,4 +118,4 @@ export type { Rules } from "./shared/Rules"
 export type { TabType } from "./shared/TabType"
 export type { User } from "./shared/User"
 export type { TypedRecord } from "./TypedRecord"
-export type { ProfileInfo } from "./pages/ProfileInfo"
+
