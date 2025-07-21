@@ -2,7 +2,7 @@
  * Common types used across the purchase form components
  */
 
-export type PurchaseType = "operational" | "Strategic" | "directPayment"
+export type PurchaseType = "material" | "project" | "direct_payment"
 export type YesNoOption = "yes" | "no" | ""
 export type AttachmentType =
   | "termsBooklet"

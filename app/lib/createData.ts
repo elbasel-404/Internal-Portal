@@ -6,6 +6,8 @@ import { CreateErrorSchema } from "../../api-schemas/CreateErrorSchema"
 import { CreateSuccessSchema } from "../../api-schemas/CreateSuccessSchema"
 import { getStoredEmployeeId } from "@auth"
 
+const LOG_INFO = true
+
 export interface State {
   success: boolean
   errors: string[] | null
@@ -20,6 +22,15 @@ export async function createData<T extends Record<string, unknown>>(
     body: Record<string, FormDataEntryValue>,
   ) => Record<string, FormDataEntryValue>,
 ): Promise<State> {
+
+  let timeStart = 0;
+
+  if (LOG_INFO) {
+    logSeperator();
+    timeStart = Date.now()
+    console.info("\x1b[30m\x1b[1m\x1b[47m%s\x1b[0m", ` <==   ${endpointUrl}   ==>  `)
+  }
+
   // ! ==================================
   // ! VARIABLES
   // ! ==================================
@@ -88,19 +99,35 @@ export async function createData<T extends Record<string, unknown>>(
   })
 
   const responseJson = await response.json()
+
+  if (LOG_INFO) {
+    const timeEnd = Date.now()
+    const timeTaken = timeEnd - timeStart
+    // Log time taken with different background color based on duration
+    const timeColor =
+      timeTaken > 500
+        ? "\x1b[30m\x1b[1m\x1b[41m" // red background for slow requests
+        : "\x1b[30m\x1b[1m\x1b[42m" // green background for fast requests
+    console.info(`${timeColor}%s\x1b[0m`, `${timeTaken}ms`)
+    logSeperator();
+  }
+
   const responseObject = responseJson.at(0)
 
-  const isBadRequest = response.status === 400
-  if (isBadRequest) {
-    const validatedResponseObject = CreateErrorSchema.parse(responseObject)
-    const { error } = validatedResponseObject
+  // const isBadRequest = response.status === 400
+  // if (isBadRequest) {
+  const validatedErrorResponseObject = CreateErrorSchema.safeParse(responseObject)
+  const { success: errorSuccess, data: errorData } = validatedErrorResponseObject;
 
+  if (errorSuccess) {
     return {
-      success: false,
-      errors: Array.isArray(error) ? error : [error],
+      success: false, // Assuming errorData is an array of strings or a single string
+      errors: Array.isArray(errorData) ? errorData.map(e => (typeof e === 'object' && 'error' in e) ? e.error : String(e)) : [String(errorData)],
       id: null,
     }
   }
+
+  // }
 
   const validatedResponseObject = CreateSuccessSchema.parse(responseObject)
   const { data } = validatedResponseObject
@@ -110,4 +137,8 @@ export async function createData<T extends Record<string, unknown>>(
     errors: null,
     id: data && data.id ? data.id : null,
   }
+}
+
+const logSeperator = () => {
+  console.log("\x1b[33m\n------------\n\x1b[0m")
 }

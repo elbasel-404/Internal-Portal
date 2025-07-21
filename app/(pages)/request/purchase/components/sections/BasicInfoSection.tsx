@@ -4,30 +4,38 @@ import { InputField, RadioField, TextareaField } from "@components/form"
 import { useAtom } from "jotai"
 import { ChangeEvent } from "react"
 
+import { PurchaseField } from "@api/schemas/index"
 import { addressRequestAtom, descriptionAtom, purchaseTypeAtom } from "@atoms"
 import { PurchaseType } from "@types"
 
-export const BasicInformationSection = () => {
+interface BasicInformationSectionProps {
+  purchaseTypes: PurchaseField[]
+}
+
+export const BasicInformationSection = ({
+  purchaseTypes,
+}: BasicInformationSectionProps) => {
   return (
     <div className="space-y-6">
-      <PurchaseTypeSelector />
+      <PurchaseTypeSelector purchaseTypes={purchaseTypes} />
       <AddressRequestField />
       <DescriptionField />
     </div>
   )
 }
 
-const PurchaseTypeSelector = () => {
+const PurchaseTypeSelector = ({
+  purchaseTypes,
+}: BasicInformationSectionProps) => {
   const [purchaseType, setPurchaseType] = useAtom(purchaseTypeAtom)
 
   return (
     <RadioField
-      name="purchase_type"
-      options={[
-        { value: "operational", label: "تشغيلي" },
-        { value: "Strategic", label: "الخطة الإستراتيجية" },
-        { value: "directPayment", label: "دفعة مباشرة" },
-      ]}
+      name="request_type"
+      options={purchaseTypes.map((type) => ({
+        value: type.key,
+        label: type.value,
+      }))}
       required={true}
       labelStyle="font-medium text-base"
       radioStyle="flex flex-col sm:flex-row gap-4 mt-3"
@@ -44,7 +52,7 @@ const AddressRequestField = () => {
   return (
     <InputField
       label="عنوان الطلب"
-      name="address_request"
+      name="request_title"
       placeholder=""
       value={addressRequest}
       onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -60,7 +68,7 @@ const DescriptionField = () => {
   return (
     <TextareaField
       label="الوصف"
-      name="description"
+      name=""
       placeholder="ملاحظات حول الطلب"
       value={description}
       onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>

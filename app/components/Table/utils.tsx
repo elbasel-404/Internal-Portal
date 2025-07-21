@@ -17,5 +17,7 @@ export const isCurrencyField = (key: string): boolean => {
     "unitPriceWithTax",
     "subtotal",
     "subtotalWithTax",
+    "amount_before_deduction",
+    "amount",
   ].includes(key)
 }

@@ -36,7 +36,7 @@ const InstitutionalRequirements = () => {
     <div className="space-y-4">
       <RadioField
         label="هل يوجد متطلبات متعلقة بالتميز المؤسسي؟"
-        name="institutional_discrimination"
+        name="is_institutional_excellence"
         options={[
           { value: "yes", label: "نعم" },
           { value: "no", label: "لا" },
@@ -76,7 +76,7 @@ const SecurityRequirements = () => {
     <div className="space-y-4">
       <RadioField
         label="هل يوجد متطلبات متعلقة بالامن السيبراني؟"
-        name="cyber_security"
+        name="is_cyber_security"
         options={[
           { value: "yes", label: "نعم" },
           { value: "no", label: "لا" },
@@ -116,7 +116,7 @@ const DataGovernanceRequirements = () => {
     <div className="space-y-4">
       <RadioField
         label="هل يوجد متطلبات متعلقة بحوكمة البيانات؟"
-        name="data_governance"
+        name="is_data_governance"
         options={[
           { value: "yes", label: "نعم" },
           { value: "no", label: "لا" },
