@@ -1,60 +1,48 @@
 "use server"
 
-import type { AdsNewsDetails } from "@types"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
 import { AdNewSchema, ResponseSchema } from "@api/schemas"
+import type { AdsNewsDetails } from "@types"
+import { getData } from "./getData"
 export const getAdsNewsDetails = async (
   id: string,
 ): Promise<AdsNewsDetails | void> => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
-
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/read/portal-news"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-
   const requestBody = {
     news_type: "ads",
     news_id: id,
   }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
 
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+  const result = await getData<AdsNewsDetails>({
+    url: "api/po/read/portal-news",
+    responseSchema: ResponseSchema,
+    dataSchema: AdNewSchema,
+    parseData: (data) => {
+      if (!data || data.length === 0) {
+        return [dummyData]
+      }
+
+      const typedData = data[0] as Record<string, unknown>
+
+      return [
+        {
+          id: Number(typedData.id),
+          title: String(typedData.title),
+          date: new Date(
+            typedData.create_date as string | number | Date,
+          ).toLocaleDateString("ar-EG", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          }),
+          description: String(typedData.description),
+          imageUrl: `data:image/gif;base64,${String(typedData.image)}`,
+        },
+      ]
+    },
+    additionalBody: requestBody,
+    dummyData: [dummyData],
   })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = AdNewSchema.parse(data[0])
-
-  // ! PARSING
-  // ! ==================================
-  const returnedData: AdsNewsDetails = {
-    id: validatedData.id,
-    title: validatedData.title,
-    date: new Date(validatedData.create_date).toLocaleDateString("ar-EG", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    }),
-    description: validatedData.description,
-    imageUrl: `data:image/gif;base64,${validatedData.image}`,
-  }
-  return returnedData
+  return result[0]
 }
 
 const dummyData: AdsNewsDetails = {
