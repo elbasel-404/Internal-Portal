@@ -22,7 +22,7 @@ const productTableHeaders = [
 interface Props {
   requestStatus?: { id: string }[]
   productsData: PurchaseProduct[] | undefined
-  totalAmount: string | undefined
+  totalAmount?: string | undefined
 }
 
 export const ProductsTableSection = ({
@@ -45,7 +45,7 @@ export const ProductsTableSection = ({
     remainingQuantity: product.quantity_remain,
     remainingCost: product.amount_quantity_remain,
     unitPrice: product.price_unit,
-    unitPriceWithTax: product.unit_price_after_tax.toFixed(2),
+    unitPriceWithTax: product.unit_price_after_tax?.toFixed(2),
     subtotal: product.price_subtotal,
     subtotalWithTax: product.total_after_tax,
   }))

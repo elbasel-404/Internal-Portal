@@ -1,6 +1,6 @@
 "use client"
 
-import { batchAmount, completionRequestAtom } from "@atoms"
+import { completionRequestAtom } from "@atoms"
 import { Table } from "@components"
 import { ModalLink } from "@components/modals/ModalLink"
 import { CheckIcon, CirclePlusIcon } from "@icons"
@@ -28,7 +28,6 @@ interface Props {
 
 export const BatchTableSection = ({ requestStatus, payments }: Props) => {
   const [completionRequest] = useAtom(completionRequestAtom)
-  const [totalBatchAmount] = useAtom(batchAmount)
   const [showSuccess, setShowSuccess] = useState<boolean>(false)
   const [countdown, setCountdown] = useState<number>(5)
 
@@ -84,8 +83,8 @@ export const BatchTableSection = ({ requestStatus, payments }: Props) => {
     deduction_amount: payment.deduction_amount || "__",
     amount: payment.amount || "__",
     state_certificate:
-      stateCertificateStatus(payment.state_certificate) || "__",
-    payment_state: paymentStatus(payment.payment_state) || "__",
+      stateCertificateStatus(String(payment.state_certificate)) || "__",
+    payment_state: paymentStatus(String(payment.payment_state)) || "__",
   }))
 
   const handleRemoveBatch = (id: number) => {

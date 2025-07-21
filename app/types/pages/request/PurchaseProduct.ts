@@ -1,15 +1,15 @@
 export type PurchaseProduct = {
-  product_name: any
-  product_qty: any
-  quantity_completed: any
-  amount_completed: any
-  quantity_under_completed: any
-  quantity_remain: any
-  amount_quantity_remain: any
-  price_unit: any
-  unit_price_after_tax: any
-  price_subtotal: any
-  total_after_tax: any
+  product_name?: string
+  product_qty?: number
+  quantity_completed?: number
+  amount_completed?: number
+  quantity_under_completed?: number
+  quantity_remain?: number
+  amount_quantity_remain?: number
+  price_unit?: number
+  unit_price_after_tax?: number
+  price_subtotal?: number
+  total_after_tax?: number
   id: string
   product: string
   description: string

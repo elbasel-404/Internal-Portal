@@ -35,7 +35,7 @@ export const ProductsSection = ({ data }: ProductsProps) => {
     return matches ? matches[0] : null
   }
 
-  const productsData = data.map((productDetails, index) => {
+  const productsData = data.map((productDetails) => {
     const quantity = Number(productDetails.quantity || 0)
     const unitPrice = productDetails.unitPrice
     const tax = Number(extractNumberUsingRegex(productDetails.tax))
