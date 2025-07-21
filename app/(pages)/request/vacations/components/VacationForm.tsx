@@ -37,8 +37,6 @@ interface VacationFormProps {
 export const VacationForm = ({ vacationElements }: VacationFormProps) => {
   const [state, setState] = useState<State>(initialState)
   const [isPending, startTransition] = useTransition()
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const pending = isPending || isSubmitting
   const [files, setFiles] = useState<FileWithId[]>([])
   const [dateFrom, setDateFrom] = useState(new Date())
   const [dateTo, setDateTo] = useState(new Date())
@@ -96,13 +94,11 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
   }, [state])
 
   const action = async (formData: FormData) => {
-    setIsSubmitting(true)
     toast.loading("جاري انشاء الطلب", { id: "vacation-form-pending" })
 
     startTransition(async () => {
       const result = await formAction(formData)
       setState(result)
-      setIsSubmitting(false)
       toast.dismiss("vacation-form-pending")
     })
   }
@@ -246,7 +242,7 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
         }
       />
 
-      <SubmitButton disabled={pending} loading={pending} />
+      <SubmitButton disabled={isPending} loading={isPending} />
     </form>
   )
 }
