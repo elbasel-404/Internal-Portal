@@ -2,15 +2,10 @@
 
 import { DeputationElementSchema } from "@api/schemas/index"
 import { ResponseSchema } from "@api/schemas/responseSchema"
-import { getStoredEmployeeId } from "@auth"
-import { getDemo } from "@db/actions"
 import type { DeputationRequest } from "@types"
-import { getFetchHeaders } from "./getFetchHeaders"
+import { getData } from "./getData"
 
 export const getDeputationRequests = async (): Promise<DeputationRequest[]> => {
-  const isDemo = await getDemo()
-  if (isDemo) return DeputationRequestsDummyData
-
   const DeputationType = (value: string) => {
     switch (value) {
       case "internal":
@@ -22,53 +17,26 @@ export const getDeputationRequests = async (): Promise<DeputationRequest[]> => {
     }
   }
 
-  // ! VARIABLES
-  // ! ==================================
-  const employeeId = await getStoredEmployeeId()
-  const url = "api/po/hr/deputation"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  const requestBody = { employee_id: employeeId }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
-
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
-  })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.safeParse(responseJson)
-  // const { result } = validatedResponse;
-  const result = validatedResponse.data?.result
-  const data = result?.data
-  const validatedData = DeputationElementSchema.array().parse(data)
-  const deputationsData = validatedData
-
-  // ! PARSING
-  // ! ==================================
-  const returnedData: DeputationRequest[] = deputationsData
-    ? deputationsData.map((data) => {
-        const deputationItem: DeputationRequest = {
-          id: data.id.toString(),
-          requestDate: data.create_date.split(" ")[0],
-          deputation: DeputationType(data.type),
-          startDate: data.date_from,
-          endDate: data.date_to,
-          duration: data.duration.toString(),
-          status: data.state,
+  return getData<DeputationRequest>({
+    url: "api/po/hr/deputation",
+    responseSchema: ResponseSchema,
+    dataSchema: DeputationElementSchema,
+    parseData: (data) => {
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, unknown>
+        return {
+          id: String(typedItem.id),
+          requestDate: String(typedItem.create_date).split(" ")[0],
+          deputation: DeputationType(String(typedItem.type)),
+          startDate: String(typedItem.date_from),
+          endDate: String(typedItem.date_to),
+          duration: String(typedItem.duration).toString(),
+          status: String(typedItem.state),
         }
-        return deputationItem
       })
-    : []
-
-  return returnedData
+    },
+    dummyData: DeputationRequestsDummyData,
+  })
 }
 
 const DeputationRequestsDummyData: DeputationRequest[] = [
