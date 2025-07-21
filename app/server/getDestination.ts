@@ -3,53 +3,26 @@ import {
   DestinationElementSchema,
 } from "@api/schemas/destination/schema"
 import { ResponseSchema } from "@api/schemas/responseSchema"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
+import { getData } from "./getData"
 
 export const getDestinationElement = async (): Promise<
   DestinationElement[]
 > => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
-
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/salary/identification/request/destination/read"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  const requestBody = {}
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
-
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+  return getData<DestinationElement>({
+    url: "api/po/salary/identification/request/destination/read",
+    responseSchema: ResponseSchema,
+    dataSchema: DestinationElementSchema,
+    parseData: (data) => {
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, unknown>
+        return {
+          id: typedItem.id,
+          name: typedItem.name,
+        }
+      })
+    },
+    dummyData: dummyData,
   })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = DestinationElementSchema.array().parse(data)
-
-  // ! PARSING
-  // ! ==================================
-
-  const returnedData: DestinationElement[] = validatedData.map((data) => {
-    const destinationItem: DestinationElement = {
-      id: data.id,
-      name: data.name,
-    }
-    return destinationItem
-  })
-
-  return returnedData
 }
 
 const dummyData: DestinationElement[] = [
