@@ -73,6 +73,7 @@ export const AttachmentsField = ({
               </div>
               <div className="flex items-center gap-2">
                 <Button
+                  type="button"
                   className="bg-primary-opacity p-2.5 rounded-sm shadow-none hover:bg-primary-opacity"
                   onClick={() => handleRemoveFile(index)}
                 >

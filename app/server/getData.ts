@@ -146,6 +146,7 @@ export const getData = async <T, D = unknown>(
           errorDetails: validationError,
           errorTitle: "response validation failed",
         })
+        console.log("Returning dummy data")
 
         return dummyData
       }
