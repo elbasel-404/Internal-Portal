@@ -35,7 +35,7 @@ export const ProductsSection = ({ data }: ProductsProps) => {
     return matches ? matches[0] : null
   }
 
-  const productsData = data.map((productDetails, index) => {
+  const productsData = data.map((productDetails) => {
     const quantity = Number(productDetails.quantity || 0)
     const unitPrice = productDetails.unitPrice
     const tax = Number(extractNumberUsingRegex(productDetails.tax))
@@ -46,7 +46,7 @@ export const ProductsSection = ({ data }: ProductsProps) => {
 
     return {
       ...productDetails,
-      id: index + "id",
+      id: productDetails.product,
       totalWithoutTax,
       totalWithTax,
     }
@@ -99,6 +99,66 @@ export const ProductsSection = ({ data }: ProductsProps) => {
           </div>
         </>
       )}
+
+      {productsData.map((product, index) => (
+        <div key={index}>
+          <input
+            type="text"
+            hidden
+            aria-hidden
+            readOnly
+            className="hidden"
+            name={`products[${index}][product_id]`}
+            value={product.id}
+          />
+          <input
+            type="text"
+            hidden
+            aria-hidden
+            readOnly
+            className="hidden"
+            name={`products[${index}][description]`}
+            value={product.description}
+          />
+          <input
+            type="text"
+            hidden
+            aria-hidden
+            readOnly
+            className="hidden"
+            name={`products[${index}][product_qty]`}
+            value={product.quantity}
+          />
+          <input
+            type="text"
+            hidden
+            aria-hidden
+            readOnly
+            className="hidden"
+            name={`products[${index}][price_unit]`}
+            value={product.unitPrice}
+          />
+          <input
+            type="text"
+            hidden
+            aria-hidden
+            readOnly
+            className="hidden"
+            name={`products[${index}][taxes_id]`}
+            value={product.tax}
+          />
+        </div>
+      ))}
+
+      <input
+        type="text"
+        hidden
+        aria-hidden
+        readOnly
+        className="hidden"
+        name={`estimated_budget`}
+        value={totalAmount}
+      />
     </>
   )
 }

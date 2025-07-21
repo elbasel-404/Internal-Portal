@@ -177,4 +177,64 @@ export const STATUS_CONFIG = {
     icon: TagsIcon,
     className: "bg-primary-opacity text-primary",
   },
+  under_put: {
+    label: "تحت الطرح",
+    icon: TagsIcon,
+    className: "bg-primary-opacity text-primary",
+  },
+  receiving_offers: {
+    label: "استلام العروض",
+    icon: TagsIcon,
+    className: "bg-primary-opacity text-primary",
+  },
+  open_offers: {
+    label: "فتح العروض",
+    icon: TagsIcon,
+    className: "bg-primary-opacity text-primary",
+  },
+  check_offers2: {
+    label: "فحص العروض الفنية",
+    icon: TagsIcon,
+    className: "bg-primary-opacity text-primary",
+  },
+  technical_analysis: {
+    label: "التحليل الفني",
+    icon: TagsIcon,
+    className: "bg-primary-opacity text-primary",
+  },
+  check_offers: {
+    label: "فحص العروض المالية",
+    icon: TagsIcon,
+    className: "bg-primary-opacity text-primary",
+  },
+  awarding_baptism: {
+    label: "الترسية/التعميد",
+    icon: TagsIcon,
+    className: "bg-primary-opacity text-primary",
+  },
+  purchase_order: {
+    label: "أمر الشراء المبدئي",
+    icon: TagsIcon,
+    className: "bg-primary-opacity text-primary",
+  },
+  cancelled: {
+    label: "ملغي",
+    icon: TagsIcon,
+    className: "bg-primary-opacity text-primary",
+  },
+  purchase_requisition: {
+    label: "اتفاقية الشراء",
+    icon: TagsIcon,
+    className: "bg-primary-opacity text-primary",
+  },
+  management_strategy: {
+    label: "مشرف القطاع في إدارة المشاريع",
+    icon: TagsIcon,
+    className: "bg-primary-opacity text-primary",
+  },
+  financial_audit: {
+    label: "مراجعة الميزانية",
+    icon: TagsIcon,
+    className: "bg-primary-opacity text-primary",
+  },
 }

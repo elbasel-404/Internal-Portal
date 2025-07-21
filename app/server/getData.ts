@@ -56,7 +56,6 @@ export const getData = async <T, D = unknown>(
 
   let timeStart = 0
 
-  // Check if in demo mode
   if (LOG_INFO) {
     timeStart = Date.now()
     console.info("\x1b[30m\x1b[1m\x1b[47m%s\x1b[0m", ` <==   ${url}   ==>  `)

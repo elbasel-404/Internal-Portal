@@ -1,7 +1,9 @@
+import { getPurchaseFields } from "@server"
 import { Modal } from "../Modal"
 import { ProductsForm } from "./ProductsForm"
 
-export const ProductsModal = () => {
+export const ProductsModal = async () => {
+  const purchaseProductsData = await getPurchaseFields("product_id")
   return (
     <Modal
       refreshOnClose={true}
@@ -12,7 +14,7 @@ export const ProductsModal = () => {
       <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between bg-primary-opacity py-6 px-[18px] border-r-[3px] border-r-primary">
         <p className="text-xl font-bold text-foreground">المنتجات</p>
       </div>
-      <ProductsForm />
+      <ProductsForm productsData={purchaseProductsData} />
     </Modal>
   )
 }
