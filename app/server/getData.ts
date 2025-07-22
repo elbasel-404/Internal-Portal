@@ -58,7 +58,8 @@ export const getData = async <T, D = unknown>(
 
   if (LOG_INFO) {
     timeStart = Date.now()
-    console.info("\x1b[30m\x1b[1m\x1b[47m%s\x1b[0m", ` <==   ${url}   ==>  `)
+    const seconds = (new Date()).getSeconds();
+    console.info("\x1b[30m\x1b[1m\x1b[47m%s\x1b[0m", ` ${seconds} <==   ${url}   ==>  `)
     // check if additional body is en empty object:
     if (!(Object.keys(additionalBody).length === 0)) {
       console.info(
