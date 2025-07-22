@@ -4,6 +4,7 @@ import type { Metadata } from "next"
 import type { ReactNode } from "react"
 import NextTopLoader from "nextjs-toploader"
 import "./globals.css"
+import { ValidateSession } from "../components/ValidateSession"
 
 // export const dynamic = "force-dynamic"
 
@@ -30,7 +31,8 @@ const RootLayout = async ({
       <Body
         className={`${fonts.className} antialiased app-scrollbar bg-background text-foreground`}
       >
-        <NextTopLoader color="#007C9E" height={10} showSpinner={false} />
+        <ValidateSession />
+        <NextTopLoader color="#007C9E" height={5} showSpinner={false} />
         {modalSlot}
         {children}
       </Body>
