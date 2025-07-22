@@ -1,5 +1,5 @@
-import { InitUser, Login } from "@components"
-import { getSession } from "@server"
+import { InitUser, Login, RefreshSession } from "@components"
+import { getRefreshToken, getSession } from "@server"
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
 import "./(pages)/globals.css"
@@ -19,6 +19,18 @@ interface RootLayoutProps {
 
 const RootLayout = async ({ children }: Readonly<RootLayoutProps>) => {
   const session = await getSession()
+  const refreshToken = await getRefreshToken()
+
+  if (!session && refreshToken) {
+    return (
+      <html>
+        <body className="h-screen flex items-center justify-center bg-gradient-to-b from-sky-500 to-pink-500">
+          <RefreshSession />
+        </body>
+      </html>
+    )
+  }
+
   if (!session) {
     return (
       <html lang="ar">

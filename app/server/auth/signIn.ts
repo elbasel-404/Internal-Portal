@@ -78,7 +78,7 @@ export const signIn = async (
   } = authResponseValidation.data
 
   // ! ================= SESSION =================
-  const expires = new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours
+  const expires = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
   const session = await encrypt({
     scope,
     expires_in,
@@ -88,9 +88,11 @@ export const signIn = async (
     expires,
     username,
   })
+
   const cookieStore = await cookies()
   cookieStore.set("session", session, { expires, httpOnly: true })
   cookieStore.set("demo", "false")
+  cookieStore.set("refersh_token", refresh_token)
 
   // ! ================= Employee ID =================
   const employeeId = await getEmployeeId()
@@ -99,7 +101,7 @@ export const signIn = async (
     httpOnly: true,
   })
 
-  revalidatePath("/", "layout")
+  revalidatePat("/", "layout")
   // ! ================= Return =================
   const returnObject: InitialState = {
     error: null,
