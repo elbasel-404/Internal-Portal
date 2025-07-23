@@ -4,5 +4,5 @@ export type RemoteWorkRequest = {
   status: string
   startDate: string
   endDate: string
-  durationInDays: number
+  durationInDays: string
 }

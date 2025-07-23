@@ -2,61 +2,30 @@
 
 import { TrainingElementSchema } from "@api/schemas/index"
 import { ResponseSchema } from "@api/schemas/responseSchema"
-import { getStoredEmployeeId } from "@auth"
-import { getDemo } from "@db/actions"
 import type { TrainingRequest } from "@types"
-import { getFetchHeaders } from "./getFetchHeaders"
+import { getData } from "./getData"
 
 export const getTrainingRequests = async (): Promise<TrainingRequest[]> => {
-  const isDemo = await getDemo()
-  if (isDemo) return TrainingDummyData
-
-  // ! VARIABLES
-  // ! ==================================
-  const employeeId = await getStoredEmployeeId()
-  const url = "api/po/hr/training-request"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  const requestBody = { employee_id: employeeId }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
-
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
-  })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.safeParse(responseJson)
-  const result = validatedResponse.data?.result
-  const data = result?.data
-  const validatedData = TrainingElementSchema.array().parse(data)
-  const employeeMembersData = validatedData
-
-  // ! PARSING
-  // ! ==================================
-  const returnedData: TrainingRequest[] = employeeMembersData
-    ? employeeMembersData.map((data) => {
-        const employeeMember: TrainingRequest = {
-          id: data.id.toString(),
-          requestDate: data.date,
-          fromDate: data.date_from || "__",
-          toDate: data.date_to || "__",
-          duration: data.duration.toString() + " " + "أيام",
-          type: data.type,
-          status: data.state,
+  return getData<TrainingRequest>({
+    url: "api/po/hr/training-request",
+    responseSchema: ResponseSchema,
+    dataSchema: TrainingElementSchema,
+    parseData: (data) => {
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, any>
+        return {
+          id: typedItem.id.toString(),
+          requestDate: typedItem.date,
+          fromDate: typedItem.date_from || "__",
+          toDate: typedItem.date_to || "__",
+          duration: typedItem.duration.toString() + " " + "أيام",
+          type: typedItem.type,
+          status: typedItem.state,
         }
-        return employeeMember
       })
-    : []
-
-  return returnedData
+    },
+    dummyData: TrainingDummyData,
+  })
 }
 
 const TrainingDummyData: TrainingRequest[] = [

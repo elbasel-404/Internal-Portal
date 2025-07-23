@@ -1,59 +1,43 @@
 "use server"
 
 import type { RemoteWorkDetails } from "@types"
-import { RemoteWorkElementSchema, ResponseSchema } from "../../api-schemas"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
 import { formatDate } from "@utils"
+import { RemoteWorkElementSchema, ResponseSchema } from "../../api-schemas"
+import { getData } from "./getData"
 
 export const getRemoteWorkDetails = async (
   id: string,
 ): Promise<RemoteWorkDetails | void> => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
+  const result = await getData<RemoteWorkDetails>({
+    url: "api/po/hr/distance/work",
+    responseSchema: ResponseSchema,
+    dataSchema: RemoteWorkElementSchema,
+    parseData: (data) => {
+      if (!data || data.length === 0) {
+        return [dummyData]
+      }
 
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/hr/distance/work"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  const requestBody = { id: id }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
+      const typedData = data[0] as Record<string, any>
 
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+      return [
+        {
+          id: String(typedData.id),
+          requestDate: formatDate(typedData.create_date),
+          remoteWorkDate: `من ${typedData.date_from} الي  ${typedData.date_to}`,
+          duration: String(typedData.duration),
+          madeThroughTheApp: typedData.is_from_mobile ? "نعم" : "لا",
+          notes:
+            typeof typedData.description === "string"
+              ? typedData.description
+              : "",
+        },
+      ]
+    },
+    additionalBody: { id },
+    dummyData: [dummyData],
   })
-  const responseJson = await apiResponse.json()
 
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = RemoteWorkElementSchema.parse(data[0])
-
-  // ! PARSING
-  // ! ==================================
-
-  const returnedData: RemoteWorkDetails = {
-    id: validatedData.id.toString(),
-    requestDate: formatDate(validatedData.create_date),
-    remoteWorkDate: `من ${validatedData.date_from} الي  ${validatedData.date_to}`,
-    duration: validatedData.duration.toString(),
-    madeThroughTheApp: validatedData.is_from_mobile ? "نعم" : "لا",
-    notes:
-      typeof validatedData.description === "string"
-        ? validatedData.description
-        : "",
-  }
-
-  return returnedData
+  return result[0]
 }
 
 const dummyData: RemoteWorkDetails = {
