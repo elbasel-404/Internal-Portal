@@ -12,7 +12,7 @@ export const getRemoteWorkRequests = async (): Promise<RemoteWorkRequest[]> => {
     dataSchema: RemoteWorkElementSchema,
     parseData: (data) => {
       return data.map((item: unknown) => {
-        const typedItem = item as Record<string, any>
+        const typedItem = item as Record<string, Date>
         return {
           id: String(typedItem.id),
           date: formatDate(typedItem.create_date),

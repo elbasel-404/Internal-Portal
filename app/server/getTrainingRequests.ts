@@ -12,7 +12,7 @@ export const getTrainingRequests = async (): Promise<TrainingRequest[]> => {
     dataSchema: TrainingElementSchema,
     parseData: (data) => {
       return data.map((item: unknown) => {
-        const typedItem = item as Record<string, any>
+        const typedItem = item as Record<string, string>
         return {
           id: typedItem.id.toString(),
           requestDate: typedItem.date,

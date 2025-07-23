@@ -12,7 +12,7 @@ export const getProbationPeriodEmployees = async (): Promise<
     dataSchema: ProbationEvaluationEmployeeSchema,
     parseData: (data) => {
       return data.map((item: unknown) => {
-        const typedItem = item as Record<string, any>
+        const typedItem = item as Record<string, string>
         return {
           id: String(typedItem.id),
           employeeName: String(typedItem.complete_name),
