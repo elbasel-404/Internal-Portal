@@ -15,7 +15,7 @@ import { useIntersectionObserver } from "usehooks-ts"
 import { Loader } from "@components"
 
 const NewsSlot = () => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [ads, setAds] = useState<AdsListRequst[]>([])
   const [news, setNews] = useState<NewsListRequest[]>([])
   const [familyNews, setFamilyNews] = useState<NewsFamily[]>([])
@@ -75,11 +75,8 @@ const NewsSlot = () => {
     })
   }
 
-  const init = async () => {
-    setLoading(true)
-    await loadTabs()
-    setLoading(false)
-    // setLoaded(true)
+  const init = () => {
+    loadTabs()
   }
 
   useEffect(() => {
@@ -96,31 +93,38 @@ const NewsSlot = () => {
   useEffect(() => {
     if (tabs.length === 0) return
 
-    loadNews();
-    loadAds();
-    loadFamilyNews();
+    loadNews()
+    loadAds()
+    loadFamilyNews()
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabs])
 
+  useEffect(() => {
+    if (ads.length === 0) return
+    if (news.length === 0) return
+    if (familyNews.length === 0) return
+    setLoading(false)
+  }, [ads, news, familyNews])
+
   return (
-    <>
+    <div className="relative">
       <div
         ref={refInner}
         className="h-10 w-full bg-black opacity-0 absolute pointer-events-none z-0"
       ></div>
-      {loading && <Loader />}
-      {!loading && (
-        <div ref={refOuter}>
-          <NewsSection
-            news={news}
-            ads={ads}
-            familyNews={familyNews}
-            tabs={tabs}
-          />
-        </div>
-      )}
-    </>
+      <div ref={refInner} className="absolute inset-0 pointer-events-none z-0">
+        {loading && <Loader />}
+      </div>
+      <div ref={refOuter}>
+        <NewsSection
+          news={news}
+          ads={ads}
+          familyNews={familyNews}
+          tabs={tabs}
+        />
+      </div>
+    </div>
   )
 }
 export default NewsSlot
