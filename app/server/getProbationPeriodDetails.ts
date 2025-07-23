@@ -18,7 +18,7 @@ export const getProbationPeriodDetails = async (
         return [probationPeriodDetails]
       }
 
-      const typedData = data[0] as Record<string, any>
+      const typedData = data[0] as Record<string, string>
 
       return [
         {

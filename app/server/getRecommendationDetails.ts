@@ -17,7 +17,7 @@ export const getRecommendationDetails = async (
         return [dummyData]
       }
 
-      const typedData = data[0] as Record<string, any>
+      const typedData = data[0] as Record<string, string>
 
       return [
         {
