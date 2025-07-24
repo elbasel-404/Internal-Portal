@@ -2,67 +2,55 @@
 
 import { ProbationEvaluationElementSchema } from "@api/schemas/index"
 import { ResponseSchema } from "@api/schemas/responseSchema"
-import { getDemo } from "@db/actions"
 import type { ProbationPeriodDetails } from "@types"
-import { getFetchHeaders } from "./getFetchHeaders"
+import { getData } from "./getData"
 
 export const getProbationPeriodDetails = async (
   // !It will be used for integration
   id: string,
 ): Promise<ProbationPeriodDetails | void> => {
-  const isDemo = await getDemo()
-  if (isDemo) return probationPeriodDetails
+  const result = await getData<ProbationPeriodDetails>({
+    url: "api/po/hr/probation-evaluation",
+    responseSchema: ResponseSchema,
+    dataSchema: ProbationEvaluationElementSchema,
+    parseData: (data) => {
+      if (!data || data.length === 0) {
+        return [probationPeriodDetails]
+      }
 
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/hr/probation-evaluation"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  const requestBody = { id: id }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
+      const typedData = data[0] as Record<string, string>
 
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+      return [
+        {
+          employeeName: typedData.employee_id[1],
+          jobNumber: typedData.job_id[0],
+          jobTitle: typedData.job_id[1],
+          management: typedData.department_id[1],
+          appointmentDate: String(typedData.date_hiring),
+          endProbationPeriodDate: String(typedData.date_probation_end),
+          recommendation: String(typedData.recommendation),
+          notes: String(typedData.notes),
+          probationLineIds: Array.isArray(typedData.probation_line_ids)
+            ? typedData.probation_line_ids.map(
+                (line: { question: string; answer: string }) => ({
+                  question: line.question,
+                  answer: line.answer,
+                }),
+              )
+            : [],
+          attachments: Array.isArray(typedData.attachment_ids)
+            ? typedData.attachment_ids.map(
+                (file) => new File([""], String(file)),
+              )
+            : [],
+        },
+      ]
+    },
+    additionalBody: { id },
+    dummyData: [probationPeriodDetails],
   })
-  const responseJson = await apiResponse.json()
 
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = ProbationEvaluationElementSchema.parse(data[0])
-
-  // ! PARSING
-  // ! ==================================
-
-  const returnedData: ProbationPeriodDetails = {
-    employeeName: validatedData.employee_id[1].toString(),
-    jobNumber: validatedData.job_id[0].toString(),
-    jobTitle: validatedData.job_id[1].toString(),
-    management: validatedData.department_id[1].toString(),
-    appointmentDate: validatedData.date_hiring,
-    endProbationPeriodDate: validatedData.date_probation_end,
-    recommendation: validatedData.recommendation,
-    notes: validatedData.notes.toString(),
-    probationLineIds: validatedData.probation_line_ids.map(
-      (line: { question: string; answer: string }) => ({
-        question: line.question,
-        answer: line.answer,
-      }),
-    ),
-    attachments: validatedData.attachment_ids.map(
-      (file: { toString: () => string }) => new File([""], file.toString()),
-    ),
-  }
-
-  return returnedData
+  return result[0]
 }
 
 const probationPeriodDetails: ProbationPeriodDetails = {

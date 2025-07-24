@@ -2,16 +2,12 @@
 
 import { TrainingElementSchema } from "@api/schemas/index"
 import { ResponseSchema } from "@api/schemas/responseSchema"
-import { getDemo } from "@db/actions"
 import type { TrainingDetails } from "@types"
-import { getFetchHeaders } from "./getFetchHeaders"
+import { getData } from "./getData"
 
 export const getTrainingDetails = async (
   id: string,
 ): Promise<TrainingDetails | void> => {
-  const isDemo = await getDemo()
-  if (isDemo) return trainingDetails
-
   const TravelDaySettingsArabic = (value: string) => {
     if (value === "before_training") return "قبل بداية التدريب"
     else if (value === "after_training") return "بعد نهاية التدريب"
@@ -24,139 +20,144 @@ export const getTrainingDetails = async (
     else return ""
   }
 
-  // ! VARIABLES
-  // ! ==================================
-  const url = "api/po/hr/training-request"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  const requestBody = { id: id }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
+  const result = await getData<TrainingDetails>({
+    url: "api/po/hr/training-request",
+    responseSchema: ResponseSchema,
+    dataSchema: TrainingElementSchema,
+    parseData: (data) => {
+      if (!data || data.length === 0) {
+        return [dummyData]
+      }
 
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+      const typedData = data[0] as Record<string, string>
+
+      const buildTrainingMethod = () => {
+        const methods = []
+
+        if (typedData.is_test) {
+          methods.push({ name: "اختبار", checked: true })
+        } else {
+          methods.push({ name: "اختبار", checked: false })
+        }
+
+        if (typedData.is_training) {
+          methods.push({ name: "تدريب", checked: true })
+        } else {
+          methods.push({ name: "تدريب", checked: false })
+        }
+
+        if (typedData.is_membership) {
+          methods.push({ name: "عضوية", checked: true })
+        } else {
+          methods.push({ name: "عضوية", checked: false })
+        }
+
+        if (typedData.is_studying_subjects) {
+          methods.push({ name: "مواد دراسية", checked: true })
+        } else {
+          methods.push({ name: "مواد دراسية", checked: false })
+        }
+
+        return methods
+      }
+
+      return [
+        {
+          id: typedData.id ?? "",
+          requestDate: typedData.date ?? "",
+          city:
+            Array.isArray(typedData.city_id) && typedData.city_id[1]
+              ? typedData.city_id[1]
+              : "__",
+          country:
+            Array.isArray(typedData.country_id) && typedData.country_id[1]
+              ? typedData.country_id[1]
+              : "__",
+          travelDays: typedData.travel_days ?? "" + " يوم",
+          courseProgram: typedData.programme_session ?? "",
+          courseValue: typedData.amount_training ?? "",
+          duration: typedData.duration ?? "",
+          employeeName:
+            Array.isArray(typedData.employee_id) && typedData.employee_id[1]
+              ? typedData.employee_id[1]
+              : "__",
+          jobNumber:
+            Array.isArray(typedData.employee_id) && typedData.employee_id[0]
+              ? typedData.employee_id[0]
+              : "__",
+          jobTitle:
+            Array.isArray(typedData.grade_id) && typedData.grade_id[1]
+              ? typedData.grade_id[1]
+              : "__",
+          mandateAllowance: typedData.deputation_allowance ?? "",
+          mechanismConvening: TrainingType(typedData.type ?? ""),
+          sector:
+            Array.isArray(typedData.department_id) && typedData.department_id[1]
+              ? typedData.department_id[1]
+              : "__",
+          status: typedData.state ?? "",
+          trainingCenter:
+            typeof typedData.training_center === "string"
+              ? typedData.training_center
+              : typedData.training_center === true
+                ? "true"
+                : typedData.training_center === false
+                  ? "false"
+                  : "",
+          trainingEmployee:
+            Array.isArray(typedData.substitute_employee_id) &&
+            typedData.substitute_employee_id[1]
+              ? typedData.substitute_employee_id[1]
+              : "__",
+          trainingEndDate:
+            typeof typedData.date_to_travel === "string"
+              ? typedData.date_to_travel
+              : "__",
+          trainingStartDate:
+            typeof typedData.date_from_travel === "string"
+              ? typedData.date_from_travel
+              : "__",
+          trainingMethod: buildTrainingMethod(),
+          trainingName: typedData.name ?? "",
+          trainingSchedule: Array.isArray(typedData.hr_training_division_ids)
+            ? typedData.hr_training_division_ids.map((item) => ({
+                id: item.id ?? "",
+                trainingDate:
+                  item.date_from_travel && item.date_to_travel
+                    ? `${item.date_from_travel} / ${item.date_to_travel}`
+                    : "",
+                durationWithDays: item.duration ?? "",
+                travelDays: item.duration ?? "",
+                travelDateSettings: TravelDaySettingsArabic(
+                  item.travel_days_setting ?? "",
+                ),
+                travelDateForTraining: item.date_from_travel ?? "",
+                travelDateForReturn: item.date_to_travel ?? "",
+              }))
+            : [],
+          trainingStartBefore: typedData.travel_days_setting ?? "",
+          trainingType:
+            Array.isArray(typedData.training_type_id) &&
+            typedData.training_type_id[1]
+              ? typedData.training_type_id[1]
+              : "__",
+          transcationDate: typedData.expected_date ?? "__",
+          attachments: Array.isArray(typedData.attachment_ids)
+            ? typedData.attachment_ids.map(
+                (file) => new File([""], String(file)),
+              )
+            : [],
+        },
+      ]
+    },
+    additionalBody: { id },
+    dummyData: [dummyData],
   })
-  const responseJson = await apiResponse.json()
 
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = TrainingElementSchema.parse(data[0])
-
-  // ! TRAINING METHOD CHECKBOXES
-  // ! ==================================
-  const buildTrainingMethod = () => {
-    const methods = []
-
-    if (validatedData.is_test) {
-      methods.push({ name: "اختبار", checked: true })
-    } else {
-      methods.push({ name: "اختبار", checked: false })
-    }
-
-    if (validatedData.is_training) {
-      methods.push({ name: "تدريب", checked: true })
-    } else {
-      methods.push({ name: "تدريب", checked: false })
-    }
-
-    if (validatedData.is_membership) {
-      methods.push({ name: "عضوية", checked: true })
-    } else {
-      methods.push({ name: "عضوية", checked: false })
-    }
-
-    if (validatedData.is_studying_subjects) {
-      methods.push({ name: "مواد دراسية", checked: true })
-    } else {
-      methods.push({ name: "مواد دراسية", checked: false })
-    }
-
-    return methods
-  }
-
-  // ! PARSING
-  // ! ==================================
-
-  const returnedData: TrainingDetails = {
-    id: validatedData.id.toString(),
-    requestDate: validatedData.date,
-    city:
-      Array.isArray(validatedData.city_id) && validatedData.city_id[1]
-        ? validatedData.city_id[1].toString()
-        : "__",
-    country:
-      Array.isArray(validatedData.country_id) && validatedData.country_id[1]
-        ? validatedData.country_id[1].toString()
-        : "__",
-    travelDays: validatedData.travel_days + " " + "يوم",
-    courseProgram: validatedData.programme_session,
-    courseValue: validatedData.amount_training.toString(),
-    duration: validatedData.duration.toString(),
-    employeeName: validatedData.employee_id[1].toString(),
-    jobNumber: validatedData.employee_id[0]?.toString(),
-    jobTitle: validatedData.grade_id[1]?.toString(),
-    mandateAllowance: validatedData.deputation_allowance.toString(),
-    mechanismConvening: TrainingType(validatedData.type),
-    sector: validatedData.department_id[1]?.toString(),
-    status: validatedData.state,
-    trainingCenter:
-      typeof validatedData.training_center === "string"
-        ? validatedData.training_center
-        : validatedData.training_center === true
-          ? "true"
-          : validatedData.training_center === false
-            ? "false"
-            : "",
-    trainingEmployee: Array.isArray(validatedData.substitute_employee_id)
-      ? validatedData.substitute_employee_id[1]?.toString()
-      : "__",
-    trainingEndDate:
-      typeof validatedData.date_to_travel === "boolean"
-        ? "__"
-        : validatedData.date_to_travel,
-    trainingStartDate:
-      typeof validatedData.date_from_travel === "boolean"
-        ? "__"
-        : validatedData.date_from_travel,
-    trainingMethod: buildTrainingMethod(),
-    trainingName: validatedData.name,
-    trainingSchedule: Array.isArray(validatedData.hr_training_division_ids)
-      ? validatedData.hr_training_division_ids.map((item) => ({
-          id: item.id?.toString() ?? "",
-          trainingDate: item.date_from_travel + "/" + item.date_to_travel || "",
-          durationWithDays: item.duration?.toString() ?? "",
-          travelDays: item.duration?.toString() ?? "",
-          travelDateSettings:
-            TravelDaySettingsArabic(item.travel_days_setting) ?? "",
-          travelDateForTraining: item.date_from_travel ?? "",
-          travelDateForReturn: item.date_to_travel ?? "",
-        }))
-      : [],
-    trainingStartBefore:
-      typeof validatedData.travel_days_setting === "boolean"
-        ? validatedData.travel_days_setting.toString()
-        : validatedData.travel_days_setting,
-    trainingType: Array.isArray(validatedData.training_type_id)
-      ? validatedData.training_type_id[1]?.toString()
-      : "__",
-    transcationDate: validatedData.expected_date || "__",
-    attachments: Array.isArray(validatedData.attachment_ids)
-      ? validatedData.attachment_ids.map((file) => new File([""], String(file)))
-      : [],
-  }
-
-  return returnedData
+  return result[0]
 }
 
-const trainingDetails: TrainingDetails = {
+const dummyData: TrainingDetails = {
   id: "15",
   courseValue: "5000 ريال",
   employeeName: "أحمد محمد",
