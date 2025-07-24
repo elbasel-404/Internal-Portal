@@ -1,53 +1,27 @@
 import { TrainingField, TrainingFieldSchema } from "@api/schemas/index"
 import { ResponseSchema } from "@api/schemas/responseSchema"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
+import { getData } from "./getData"
 
 export const getTrainingFields = async (
   fieldName: string,
 ): Promise<TrainingField[]> => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
-
-  // ! VARIABLES
-  // ! ==================================
-  const url = "api/po/hr/training-request/fields"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  const requestBody = { field_name: fieldName }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
-
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+  return getData<TrainingField>({
+    url: "api/po/hr/training-request/fields",
+    responseSchema: ResponseSchema,
+    dataSchema: TrainingFieldSchema,
+    parseData: (data) => {
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, unknown>
+        return {
+          id: Number(typedItem.id),
+          name: String(typedItem.name),
+          training_type: String(typedItem.training_type),
+        }
+      })
+    },
+    additionalBody: { field_name: fieldName },
+    dummyData: dummyData,
   })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = TrainingFieldSchema.array().parse(data)
-
-  // ! PARSING
-  // ! ==================================
-
-  const returnedData: TrainingField[] = validatedData.map((data) => {
-    const employeeMemberFieldItem: TrainingField = {
-      id: data.id,
-      name: data.name,
-      training_type: data.training_type,
-    }
-    return employeeMemberFieldItem
-  })
-
-  return returnedData
 }
 
 const dummyData: TrainingField[] = [

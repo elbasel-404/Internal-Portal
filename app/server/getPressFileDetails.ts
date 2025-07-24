@@ -1,57 +1,43 @@
 "use server"
 
-import type { PressFileDetails } from "@types"
-import { getFetchHeaders } from "./getFetchHeaders"
 import { NewsElementSchema, ResponseSchema } from "@api/schemas"
-import { getDemo } from "../db/actions/getDemo"
-import { formatDate } from "@utils"
+import type { PressFileDetails } from "@types"
+import { getData } from "./getData"
 
 export const getPressFileDetails = async (
   id: string,
 ): Promise<PressFileDetails | void> => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
-
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/read/portal-news"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
   const requestBody = {
     news_type: "news",
     news_id: id,
   }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
 
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+  const result = await getData<PressFileDetails>({
+    url: "api/po/read/portal-news",
+    responseSchema: ResponseSchema,
+    dataSchema: NewsElementSchema,
+    parseData: (data) => {
+      if (!data || data.length === 0) {
+        return [dummyData]
+      }
+
+      const typedData = data[0] as Record<string, unknown>
+
+      return [
+        {
+          id: String(typedData.id),
+          title: String(typedData.title),
+          date: String(typedData.create_date).split(" ")[0],
+          description: String(typedData.description),
+          imageUrl: `data:image/gif;base64,${typedData.image}`,
+        },
+      ]
+    },
+    additionalBody: requestBody,
+    dummyData: [dummyData],
   })
-  const responseJson = await apiResponse.json()
 
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = NewsElementSchema.parse(data[0])
-
-  // ! PARSING
-  // ! ==================================
-
-  const returnedData: PressFileDetails = {
-    id: validatedData.id.toString(),
-    title: validatedData.title,
-    date: formatDate(validatedData.create_date),
-    description: validatedData.description,
-    imageUrl: `data:image/gif;base64,${validatedData.image}`,
-  }
-  return returnedData
+  return result[0]
 }
 
 const dummyData: PressFileDetails = {

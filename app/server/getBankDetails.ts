@@ -3,68 +3,41 @@ import {
   type BankDetail,
 } from "@api/schemas/bank-details/schema"
 import { ResponseSchema } from "@api/schemas/responseSchema"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
+import { getData } from "./getData"
 // Removed unused import: import { da } from "date-fns/locale"
 
 export const getBankDetails = async (): Promise<BankDetail[]> => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
-
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/hr/new-bank"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  const requestBody = {}
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
-
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+  return getData<BankDetail>({
+    url: "api/po/hr/new-bank",
+    responseSchema: ResponseSchema,
+    dataSchema: BankDetailSchema,
+    parseData: (data) => {
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, unknown>
+        return {
+          id: typedItem.id,
+          name: typedItem.name,
+          display_name: typedItem.display_name,
+          street: typedItem.street,
+          street2: typedItem.street2,
+          zip: typedItem.zip,
+          city: typedItem.city,
+          state: typedItem.state,
+          country: typedItem.country,
+          email: typedItem.email,
+          phone: typedItem.phone,
+          active: typedItem.active,
+          bic: typedItem.bic,
+          create_uid: typedItem.create_uid,
+          write_date: typedItem.write_date,
+          __last_update: typedItem.__last_update,
+          create_date: typedItem.create_date,
+          write_uid: typedItem.write_uid,
+        }
+      })
+    },
+    dummyData: dummyData,
   })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = BankDetailSchema.array().parse(data)
-
-  // ! PARSING
-  // ! ==================================
-
-  const returnedData: BankDetail[] = validatedData.map((data) => {
-    const bankItem: BankDetail = {
-      id: data.id,
-      name: data.name,
-      display_name: data.display_name,
-      street: data.street,
-      street2: data.street2,
-      zip: data.zip,
-      city: data.city,
-      state: data.state,
-      country: data.country,
-      email: data.email,
-      phone: data.phone,
-      active: data.active,
-      bic: data.bic,
-      create_uid: data.create_uid,
-      write_date: data.write_date,
-      __last_update: data.__last_update,
-      create_date: data.create_date,
-      write_uid: data.write_uid,
-    }
-    return bankItem
-  })
-
-  return returnedData
 }
 
 const dummyData: BankDetail[] = [

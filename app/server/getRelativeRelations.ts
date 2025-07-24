@@ -3,53 +3,26 @@ import {
   type RelativeRelationElement,
 } from "@api/schemas/relative-relation/schema"
 import { ResponseSchema } from "@api/schemas/responseSchema"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
+import { getData } from "./getData"
 
 export const getRelativeRelations = async (): Promise<
   RelativeRelationElement[]
 > => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
-
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/hr/medical/insurance/relative-relation"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  const requestBody = {}
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
-
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+  return getData<RelativeRelationElement>({
+    url: "api/po/hr/medical/insurance/relative-relation",
+    responseSchema: ResponseSchema,
+    dataSchema: RelativeRelationElementSchema,
+    parseData: (data) => {
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, unknown>
+        return {
+          id: String(typedItem.id),
+          name: String(typedItem.name),
+        }
+      })
+    },
+    dummyData: dummyData,
   })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = RelativeRelationElementSchema.array().parse(data)
-
-  // ! PARSING
-  // ! ==================================
-
-  const returnedData: RelativeRelationElement[] = validatedData.map((data) => {
-    const relationItem: RelativeRelationElement = {
-      id: data.id,
-      name: data.name,
-    }
-    return relationItem
-  })
-
-  return returnedData
 }
 
 const dummyData: RelativeRelationElement[] = [

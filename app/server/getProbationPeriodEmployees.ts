@@ -1,58 +1,32 @@
 import { ProbationEvaluationEmployeeSchema } from "@api/schemas/index"
 import { ResponseSchema } from "@api/schemas/responseSchema"
 import type { ProbationPeriodEmployees } from "@types"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
+import { getData } from "./getData"
 
 export const getProbationPeriodEmployees = async (): Promise<
   ProbationPeriodEmployees[]
 > => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
-
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/hr/probation-evaluation/fields"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
-  const requestBody = { field_name: "employees" }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
-
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+  return getData<ProbationPeriodEmployees>({
+    url: "api/po/hr/probation-evaluation/fields",
+    responseSchema: ResponseSchema,
+    dataSchema: ProbationEvaluationEmployeeSchema,
+    parseData: (data) => {
+      return data.map((item: unknown) => {
+        const typedItem = item as Record<string, string>
+        return {
+          id: String(typedItem.id),
+          employeeName: String(typedItem.complete_name),
+          jobTitle: typedItem.job_id[1],
+          jobNumber: String(typedItem.number),
+          department: typedItem.department_id[1],
+          appointmentDate: String(typedItem.hiring_date),
+          endProbationPeriodDate: String(typedItem.date_probation_end),
+        }
+      })
+    },
+    additionalBody: { field_name: "employees" },
+    dummyData: dummyData,
   })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = ProbationEvaluationEmployeeSchema.array().parse(data)
-
-  // ! PARSING
-  // ! ==================================
-
-  const returnedData: ProbationPeriodEmployees[] = validatedData.map((data) => {
-    const probationPeriodEmployeesItem: ProbationPeriodEmployees = {
-      id: data.id?.toString(),
-      employeeName: data.complete_name?.toString(),
-      jobTitle: data.job_id[1]?.toString(),
-      jobNumber: data.number,
-      department: data.department_id[1]?.toString(),
-      appointmentDate: data.hiring_date,
-      endProbationPeriodDate: data.date_probation_end,
-    }
-    return probationPeriodEmployeesItem
-  })
-
-  return returnedData
 }
 
 const dummyData: ProbationPeriodEmployees[] = [

@@ -3,58 +3,50 @@
 import { FamilyNewSchema, ResponseSchema } from "@api/schemas"
 import type { NewsFamily } from "@types"
 // Removed unused import: import { formatNewsDate } from "@utils"
-import { getDemo } from "../db/actions/getDemo"
-import { getFetchHeaders } from "./getFetchHeaders"
 import { formatDate } from "@utils"
+import { getData } from "./getData"
 
 export const getFamilyNewsDetails = async (
   id: string,
 ): Promise<NewsFamily | void> => {
-  const isDemo = await getDemo()
-  if (isDemo) return dummyData
-
-  // ! VARIBLES
-  // ! ==================================
-  const url = "api/po/read/portal-news"
-  const apiRootUrl = process.env.API_ROOT_URL as string
-  const fetchHeaders = await getFetchHeaders()
-  const headers = fetchHeaders?.headers
   const requestBody = {
     news_type: "family_news",
     news_id: id,
   }
-  const requestBodyString = JSON.stringify(requestBody)
-  const requestUrl = `${apiRootUrl}/${url}`
 
-  // ! FETCH
-  // ! ==================================
-  const apiResponse = await fetch(requestUrl, {
-    headers,
-    method: "POST",
-    body: requestBodyString,
+  const result = await getData<NewsFamily>({
+    url: "api/po/read/portal-news",
+    responseSchema: ResponseSchema,
+    dataSchema: FamilyNewSchema,
+    parseData: (data) => {
+      if (!data || data.length === 0) {
+        return [dummyData]
+      }
+
+      const typedData = data[0] as Record<string, unknown>
+
+      return [
+        {
+          id: Number(typedData.id),
+          title: String(typedData.title),
+          date: formatDate(
+            typedData.create_date instanceof Date
+              ? typedData.create_date
+              : typedData.create_date
+                ? new Date(String(typedData.create_date))
+                : new Date(),
+          ),
+          image: typedData.image
+            ? `data:image/gif;base64,${typedData.image}`
+            : "/monshaatFamily-1.svg",
+          description: String(typedData.resume ?? ""),
+        },
+      ]
+    },
+    additionalBody: requestBody,
+    dummyData: [dummyData],
   })
-  const responseJson = await apiResponse.json()
-
-  // ! VALIDATION
-  // ! ==================================
-  const validatedResponse = ResponseSchema.parse(responseJson)
-  const { result } = validatedResponse
-  const { data } = result
-  const validatedData = FamilyNewSchema.parse(data[0])
-
-  // ! PARSING
-  // ! ==================================
-
-  const returnedData: NewsFamily = {
-    id: validatedData.id,
-    title: validatedData.title,
-    date: formatDate(validatedData.create_date),
-    image: validatedData.image
-      ? `data:image/gif;base64,${validatedData.image}`
-      : "/monshaatFamily-1.svg",
-    description: validatedData.resume,
-  }
-  return returnedData
+  return result[0]
 }
 const dummyData: NewsFamily = {
   id: 1,
