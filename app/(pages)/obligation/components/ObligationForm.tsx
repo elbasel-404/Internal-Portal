@@ -1,9 +1,27 @@
 "use client"
 
 import { CheckboxField, InputField, RadioField } from "@components/form"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+interface ObligationFormProps {
+  family: {
+    answer: boolean
+    description: string
+  }
+  relationship: {
+    answer: boolean
+    description: string
+  }
+  work: {
+    answer: boolean
+    description: string
+  }
+}
 
-export const ObligationForm = () => {
+export const ObligationForm = ({
+  family,
+  relationship,
+  work,
+}: ObligationFormProps) => {
   const [conflictOfInterest, setConflictOfInterest] = useState<string>("")
   const [relatives, setRelatives] = useState("")
   const [workOutside, setWorkOutside] = useState<string>("")
@@ -17,6 +35,24 @@ export const ObligationForm = () => {
   const handleWorkOutsideChange = (value: string) => {
     setWorkOutside(value)
   }
+  /*console.log(conflictOfInterest)
+  useEffect(() => {
+    if (relationship.answer) {
+      setConflictOfInterest("yes")
+    } else {
+      setConflictOfInterest("no")
+    }
+    if (family.answer) {
+      setRelatives("yes")
+    } else {
+      setRelatives("no")
+    }
+    if (work.answer) {
+      setWorkOutside("yes")
+    } else {
+      setWorkOutside("no")
+    }
+  }, [family.answer, relationship.answer, work.answer])*/
 
   return (
     <form className="space-y-4 p-4">
@@ -31,7 +67,7 @@ export const ObligationForm = () => {
           required={true}
           labelStyle="font-medium text-base"
           radioStyle="grid grid-cols-1 md:grid-cols-2 mt-3"
-          className="flex-col"
+          className={`flex-col ${typeof relationship?.answer === "boolean" ? "opacity-50 pointer-events-none" : ""}`}
           selectedValue={conflictOfInterest}
           onChange={handleConflictOfInterestChange}
         />
