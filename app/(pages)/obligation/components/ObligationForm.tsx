@@ -1,21 +1,8 @@
 "use client"
 
 import { CheckboxField, InputField, RadioField } from "@components/form"
-import { useEffect, useState } from "react"
-interface ObligationFormProps {
-  family: {
-    answer: boolean
-    description: string
-  }
-  relationship: {
-    answer: boolean
-    description: string
-  }
-  work: {
-    answer: boolean
-    description: string
-  }
-}
+import { useState } from "react"
+import { ObligationFormProps } from "./ObligationFormProps"
 
 export const ObligationForm = ({
   family,
@@ -35,24 +22,13 @@ export const ObligationForm = ({
   const handleWorkOutsideChange = (value: string) => {
     setWorkOutside(value)
   }
-  /*console.log(conflictOfInterest)
-  useEffect(() => {
-    if (relationship.answer) {
-      setConflictOfInterest("yes")
-    } else {
-      setConflictOfInterest("no")
-    }
-    if (family.answer) {
-      setRelatives("yes")
-    } else {
-      setRelatives("no")
-    }
-    if (work.answer) {
-      setWorkOutside("yes")
-    } else {
-      setWorkOutside("no")
-    }
-  }, [family.answer, relationship.answer, work.answer])*/
+  const handleSelectedValue = (
+    value: boolean | null | undefined,
+    defaultValue: string,
+  ) => {
+    if (value === undefined || value === null) return defaultValue
+    return value === true ? "yes" : "no"
+  }
 
   return (
     <form className="space-y-4 p-4">
@@ -66,14 +42,19 @@ export const ObligationForm = ({
           ]}
           required={true}
           labelStyle="font-medium text-base"
-          radioStyle="grid grid-cols-1 md:grid-cols-2 mt-3"
-          className={`flex-col ${typeof relationship?.answer === "boolean" ? "opacity-50 pointer-events-none" : ""}`}
-          selectedValue={conflictOfInterest}
+          radioStyle={`grid grid-cols-1 md:grid-cols-2 mt-3 ${typeof family?.answer === "boolean" ? "opacity-50 pointer-events-none" : ""}`}
+          className="flex-col"
+          selectedValue={handleSelectedValue(
+            family?.answer,
+            conflictOfInterest,
+          )}
           onChange={handleConflictOfInterestChange}
         />
-        {conflictOfInterest === "yes" && (
+        {(conflictOfInterest === "yes" || family?.answer === true) && (
           <InputField
             name="conflict_of_interest_details"
+            disabled={family?.answer === true}
+            value={family?.description || ""}
             label=""
             placeholder="التفاصيل..."
           />
@@ -91,14 +72,16 @@ export const ObligationForm = ({
           ]}
           required={true}
           labelStyle="font-medium text-base"
-          radioStyle="grid grid-cols-1 md:grid-cols-2 mt-3"
+          radioStyle={`grid grid-cols-1 md:grid-cols-2 mt-3 ${typeof relationship?.answer === "boolean" ? "opacity-50 pointer-events-none" : ""}`}
           className="flex-col"
-          selectedValue={relatives}
+          selectedValue={handleSelectedValue(relationship?.answer, relatives)}
           onChange={handleRelativesChange}
         />
-        {relatives === "yes" && (
+        {(relatives === "yes" || relationship?.answer === true) && (
           <InputField
             name="relatives_details"
+            disabled={relationship?.answer === true}
+            value={relationship?.description || ""}
             label=""
             placeholder="التفاصيل..."
           />
@@ -112,14 +95,16 @@ export const ObligationForm = ({
           ]}
           required={true}
           labelStyle="font-medium text-base"
-          radioStyle="grid grid-cols-1 md:grid-cols-2 mt-3"
+          radioStyle={`grid grid-cols-1 md:grid-cols-2 mt-3 ${typeof work?.answer === "boolean" ? "opacity-50 pointer-events-none" : ""}`}
           className="flex-col"
-          selectedValue={workOutside}
+          selectedValue={handleSelectedValue(work?.answer, workOutside)}
           onChange={handleWorkOutsideChange}
         />
-        {workOutside === "yes" && (
+        {(workOutside === "yes" || work?.answer === true) && (
           <InputField
             name="work_outside_details"
+            disabled={work?.answer === true}
+            value={work?.description || ""}
             label=""
             placeholder="التفاصيل..."
           />
