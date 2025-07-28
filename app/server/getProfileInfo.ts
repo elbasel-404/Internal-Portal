@@ -29,7 +29,7 @@ export const getProfileInfo = async (): Promise<ProfileInfo> => {
 
       // Handle image safely
       const imageBase64 =
-        typeof typedData.image_small === "string" ? typedData.image_small : ""
+        typeof typedData.image_medium === "string" ? typedData.image_medium : ""
 
       return [
         {
