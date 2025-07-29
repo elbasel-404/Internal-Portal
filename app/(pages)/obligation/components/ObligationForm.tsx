@@ -12,6 +12,7 @@ export const ObligationForm = ({
   const [conflictOfInterest, setConflictOfInterest] = useState<string>("")
   const [relatives, setRelatives] = useState("")
   const [workOutside, setWorkOutside] = useState<string>("")
+  const [checked, setChecked] = useState<boolean>(false)
 
   const handleConflictOfInterestChange = (value: string) => {
     setConflictOfInterest(value)
@@ -117,6 +118,9 @@ export const ObligationForm = ({
             className="flex md:items-center gap-x-3"
             labelStyle="text-lg text-black font-medium leading-0"
             checkboxStyle="-order-1 border-black mt-1 md:mt-0"
+            checked={typeof family?.answer === "boolean" ? true : checked}
+            onChange={() => setChecked(!checked)}
+            disabled={typeof family?.answer === "boolean"}
           />
         </div>
       </div>

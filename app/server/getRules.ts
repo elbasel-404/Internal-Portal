@@ -14,6 +14,8 @@ export const getRulesRequests = async (): Promise<Rules[]> => {
     parseData: (data) => {
       return data.map((item: unknown) => {
         const typedItem = item as z.infer<typeof RulesSchema>
+        const match = typedItem.description.match(/href="([^"]+)"/)
+        const href = match ? `http://172.25.54.80${match[1]}` : ""
 
         return {
           title: String(typedItem.title || ""),
@@ -22,6 +24,7 @@ export const getRulesRequests = async (): Promise<Rules[]> => {
           timestamp: String(typedItem.create_date || "")
             .split(" ")
             .join(" | "),
+          attachment: href,
         }
       })
     },
