@@ -1,14 +1,31 @@
 "use client"
 
-import { CheckboxField, InputField, RadioField } from "@components/form"
-import { useState } from "react"
+import {
+  CheckboxField,
+  InputField,
+  RadioField,
+  SubmitButton,
+} from "@components/form"
+import { useEffect, useState, useTransition } from "react"
 import { ObligationFormProps } from "./ObligationFormProps"
+import { toast } from "sonner"
+import { formAction } from "./helpers/formAction"
+import type { State } from "../../../lib/createData"
+
+const initialState: State = {
+  success: false,
+  errors: null,
+  id: null,
+}
 
 export const ObligationForm = ({
   family,
   relationship,
   work,
 }: ObligationFormProps) => {
+  const [state, setState] = useState<State>(initialState)
+  const [isPending, startTransition] = useTransition()
+
   const [conflictOfInterest, setConflictOfInterest] = useState<string>("")
   const [relatives, setRelatives] = useState("")
   const [workOutside, setWorkOutside] = useState<string>("")
@@ -31,8 +48,33 @@ export const ObligationForm = ({
     return value === true ? "yes" : "no"
   }
 
+  useEffect(() => {
+    const { success, errors } = state
+    if (success) toast.success("تم انشاء الطلب بنجاح")
+    if (errors) toast.error(errors[0])
+  }, [state])
+
+  const action = async (formData: FormData) => {
+    toast.loading("جاري انشاء الطلب", { id: "vacation-form-pending" })
+
+    startTransition(async () => {
+      const result = await formAction(formData)
+      setState(result)
+      toast.dismiss("vacation-form-pending")
+    })
+  }
+
+  if (state.success) {
+    return (
+      <div className="bg-white text-black text-lg p-4 space-y-4">
+        <p className="text-center">تم انشاء الطلب بنجاح</p>
+        <p className="text-center">رقم الطلب: {state.id}</p>
+      </div>
+    )
+  }
+
   return (
-    <form className="space-y-4 p-4">
+    <form action={action} className="space-y-4 p-4">
       <div className="space-y-4">
         <RadioField
           label="هل لديك حالات تضارب مصالح حالية أو محتملة لأجل ارتباطك في الهيئة؟"
@@ -124,6 +166,9 @@ export const ObligationForm = ({
           />
         </div>
       </div>
+      {typeof family?.answer !== "boolean" && (
+        <SubmitButton disabled={isPending} loading={isPending} />
+      )}
     </form>
   )
 }
