@@ -134,25 +134,24 @@ const RulesPolicy = ({ rulesData }: RulesDataProps) => {
                     <div className="flex flex-col gap-1 items-center">
                       <p className="text-sm text-stormGray">{title}</p>
                       <div className="flex gap-4 items-center w-full">
-                        <Button
-                          className="bg-primary-opacity shadow-none hover:bg-primary-opacity"
-                          size="icon"
-                          icon={<EyeIcon />}
+                        <a
+                          href={attachment}
+                          target="_blank"
+                          rel="noopener noreferrer"
                         >
-                          <a
-                            className="absolute inset-0"
-                            href={attachment}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                          <Button
+                            className="bg-primary-opacity shadow-none hover:bg-primary-opacity"
+                            size="icon"
+                            icon={<EyeIcon />}
                           />
-                        </Button>
-                        <Button
-                          className="bg-primary-opacity shadow-none hover:bg-primary-opacity"
-                          size="icon"
-                          icon={<DownToLineIcon />}
-                        >
-                          <a className="absolute inset-0" href={attachment} />
-                        </Button>
+                        </a>
+                        <a href={attachment}>
+                          <Button
+                            className="bg-primary-opacity shadow-none hover:bg-primary-opacity"
+                            size="icon"
+                            icon={<DownToLineIcon />}
+                          />
+                        </a>
                       </div>
                     </div>
                   </div>
