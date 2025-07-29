@@ -1,7 +1,7 @@
 export type CovenantDetails = {
   product: string
   statement: string
-  amount: number
-  invoiceNumber: number
+  amount: string
+  invoiceNumber: string
   attachments: string
 }
