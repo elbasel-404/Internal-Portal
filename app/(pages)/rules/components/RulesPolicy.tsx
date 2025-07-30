@@ -8,9 +8,9 @@ import {
   SearchIcon,
 } from "@icons"
 import { Rules } from "@types"
-import { Button, Input } from "@ui"
+import { Button, Input, Pagination } from "@ui"
 // import Image from "next/image"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 
 interface RulesDataProps {
   rulesData: Rules[]
@@ -18,6 +18,24 @@ interface RulesDataProps {
 
 const RulesPolicy = ({ rulesData }: RulesDataProps) => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
+  const itemsPerPage = 7
+  const [currentPage, setCurrentPage] = useState(1)
+
+  const totalPages = useMemo(
+    () => Math.ceil(rulesData.length / itemsPerPage),
+    [rulesData.length, itemsPerPage],
+  )
+
+  const paginatedRequests = useMemo(() => {
+    return rulesData.slice(
+      (currentPage - 1) * itemsPerPage,
+      currentPage * itemsPerPage,
+    )
+  }, [rulesData, currentPage, itemsPerPage])
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
+  }
 
   const toggleDescription = (index: number) => {
     setExpandedIndex((prev) => (prev === index ? null : index))
@@ -44,7 +62,7 @@ const RulesPolicy = ({ rulesData }: RulesDataProps) => {
 
       {/* Rules List */}
       <div className="space-y-4">
-        {rulesData.map(
+        {paginatedRequests.map(
           (
             {
               title,
@@ -159,6 +177,25 @@ const RulesPolicy = ({ rulesData }: RulesDataProps) => {
               )}
             </div>
           ),
+        )}
+      </div>
+      <div className="">
+        {rulesData.length > 0 ? (
+          <div className="flex justify-between items-center mt-4 p-4">
+            <p className="text-[#78787A] text-sm font-light">
+              إظهار {Math.min(currentPage * itemsPerPage, rulesData.length)} من
+              أصل {rulesData.length}
+            </p>
+            {totalPages > 1 && (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
+            )}
+          </div>
+        ) : (
+          <div className="w-full"></div>
         )}
       </div>
     </div>

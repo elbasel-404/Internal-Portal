@@ -78,7 +78,7 @@ export const ObligationForm = ({
       <div className="space-y-4">
         <RadioField
           label="هل لديك حالات تضارب مصالح حالية أو محتملة لأجل ارتباطك في الهيئة؟"
-          name="conflict_of_interest"
+          name="family_answer"
           options={[
             { value: "no", label: "لا، ليس لدي" },
             { value: "yes", label: "نعم، هي على النحو الآتي:" },
@@ -95,7 +95,7 @@ export const ObligationForm = ({
         />
         {(conflictOfInterest === "yes" || family?.answer === true) && (
           <InputField
-            name="conflict_of_interest_details"
+            name="family_description"
             disabled={family?.answer === true}
             value={family?.description || ""}
             label=""
@@ -105,7 +105,7 @@ export const ObligationForm = ({
 
         <RadioField
           label="هل لديك أقارب حتى الدرجة (الرابعة) يعملون في الهيئة؟"
-          name="relatives"
+          name="relationship_answer"
           options={[
             { value: "no", label: "لا، ليس لدي أقارب يعملون في الهيئة" },
             {
@@ -122,7 +122,7 @@ export const ObligationForm = ({
         />
         {(relatives === "yes" || relationship?.answer === true) && (
           <InputField
-            name="relatives_details"
+            name="relationship_description"
             disabled={relationship?.answer === true}
             value={relationship?.description || ""}
             label=""
@@ -131,7 +131,7 @@ export const ObligationForm = ({
         )}
         <RadioField
           label="هل لديك أعمال غير عملك في الهيئة تقوم بها بشكل مباشر أو غير مباشر، سواء كانت بأجر أو بدون أجر، أو لديك شركات تملكها أو أنت شريك فيها، أو أنت مالك أو عضو أو شريك أو ممثل أو متعاون في أعمال أو جهات تجارية أخرى أو حكومية أو غير هادفة للربح؟"
-          name="work_outside"
+          name="work_answer"
           options={[
             { value: "no", label: "لا، ليس لدي" },
             { value: "yes", label: "نعم، هي على النحو الآتي:" },
@@ -145,7 +145,7 @@ export const ObligationForm = ({
         />
         {(workOutside === "yes" || work?.answer === true) && (
           <InputField
-            name="work_outside_details"
+            name="work_description"
             disabled={work?.answer === true}
             value={work?.description || ""}
             label=""
