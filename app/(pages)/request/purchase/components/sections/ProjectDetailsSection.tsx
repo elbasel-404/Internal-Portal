@@ -184,6 +184,8 @@ const BatchGroup = ({
   purchasePaymentTypes,
   purchaseResourceName,
 }: BatchGroupProps) => {
+  const [directPaymentTypeId, setDirectPaymentTypeId] = useState("")
+  const [paymentPartnerId, setPaymentPartnerId] = useState("")
   return (
     <>
       <SelectField
@@ -194,6 +196,10 @@ const BatchGroup = ({
           id: type.id,
           name: type.name,
         }))}
+        value={directPaymentTypeId}
+        onChange={(value) => {
+          setDirectPaymentTypeId(value)
+        }}
       />
       <SelectField
         label="اسم المورد"
@@ -203,6 +209,10 @@ const BatchGroup = ({
           id: type.id,
           name: type.name,
         }))}
+        value={paymentPartnerId}
+        onChange={(value) => {
+          setPaymentPartnerId(value)
+        }}
       />
     </>
   )
