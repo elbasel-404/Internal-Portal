@@ -14,8 +14,8 @@ export const getRulesRequests = async (): Promise<Rules[]> => {
     parseData: (data) => {
       return data.map((item: unknown) => {
         const typedItem = item as z.infer<typeof RulesSchema>
-        const match = typedItem.description.match(/href="([^"]+)"/)
-        const href = match ? `http://172.25.54.80${match[1]}` : ""
+        // const match = typedItem.description.match(/href="([^"]+)"/)
+        // const href = match ? `http://172.25.54.80${match[1]}` : ""
 
         return {
           title: String(typedItem.title || ""),
@@ -24,7 +24,8 @@ export const getRulesRequests = async (): Promise<Rules[]> => {
           timestamp: String(typedItem.create_date || "")
             .split(" ")
             .join(" | "),
-          attachment: href,
+          attachment: String(typedItem.attachment_url_browse || ""),
+          download: String(typedItem.attachment_url_download || ""),
         }
       })
     },
@@ -42,6 +43,7 @@ const dummyData: Rules[] = [
     sideImages: ["/news-1.svg", "/news-2.svg", "/news-3.svg"],
     mainImage: "/rules.svg",
     attachment: "دليل الموظف.pdf",
+    download: "",
   },
   {
     title: "السلوك الوظيفي وأخلاقيات الوظيفة",

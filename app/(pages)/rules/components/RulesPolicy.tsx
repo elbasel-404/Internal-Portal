@@ -71,6 +71,7 @@ const RulesPolicy = ({ rulesData }: RulesDataProps) => {
               // sideImages,
               attachment,
               timestamp,
+              download,
               // mainImage,
             },
             i,
@@ -163,7 +164,7 @@ const RulesPolicy = ({ rulesData }: RulesDataProps) => {
                             icon={<EyeIcon />}
                           />
                         </a>
-                        <a href={attachment}>
+                        <a href={download}>
                           <Button
                             className="bg-primary-opacity shadow-none hover:bg-primary-opacity"
                             size="icon"
