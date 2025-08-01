@@ -101,7 +101,7 @@ export const signIn = async (
     httpOnly: true,
   })
 
-  revalidatePath("/", "layout")
+  revalidatePath("/")
   // ! ================= Return =================
   const returnObject: InitialState = {
     error: null,
