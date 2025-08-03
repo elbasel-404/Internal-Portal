@@ -7,6 +7,6 @@ import { redirect } from "next/navigation"
 export const clearUser = async () => {
   const cookiesStore = await cookies()
   cookiesStore.delete("userId")
-  revalidatePath("/", "layout")
+  revalidatePath("/")
   redirect("/home")
 }
