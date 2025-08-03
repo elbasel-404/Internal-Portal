@@ -7,7 +7,6 @@ import {
   SubmitButton,
 } from "@components/form"
 import { ChangeEvent, useEffect, useState, useTransition } from "react"
-import { ObligationFormProps } from "./ObligationFormProps"
 import { toast } from "sonner"
 import { formAction } from "./helpers/formAction"
 import type { State } from "../../../lib/createData"
@@ -16,6 +15,20 @@ const initialState: State = {
   success: false,
   errors: null,
   id: null,
+}
+interface ObligationFormProps {
+  family: {
+    answer: string
+    description: string
+  }
+  relationship: {
+    answer: string
+    description: string
+  }
+  work: {
+    answer: string
+    description: string
+  }
 }
 
 export const ObligationForm = ({

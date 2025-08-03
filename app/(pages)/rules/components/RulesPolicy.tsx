@@ -9,7 +9,7 @@ import {
 } from "@icons"
 import { Rules } from "@types"
 import { Button, Input, Pagination } from "@ui"
-import { useMemo, useState } from "react"
+import { useState } from "react"
 
 interface RulesDataProps {
   rulesData: Rules[]
@@ -20,17 +20,12 @@ const RulesPolicy = ({ rulesData }: RulesDataProps) => {
   const itemsPerPage = 7
   const [currentPage, setCurrentPage] = useState(1)
 
-  const totalPages = useMemo(
-    () => Math.ceil(rulesData.length / itemsPerPage),
-    [rulesData.length, itemsPerPage],
-  )
+  const totalPages = Math.ceil(rulesData.length / itemsPerPage)
 
-  const paginatedRequests = useMemo(() => {
-    return rulesData.slice(
-      (currentPage - 1) * itemsPerPage,
-      currentPage * itemsPerPage,
-    )
-  }, [rulesData, currentPage, itemsPerPage])
+  const paginatedRequests = rulesData.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage,
+  )
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
