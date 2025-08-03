@@ -68,7 +68,7 @@ export const HomePageSettingsModal = async () => {
       // * `router.refresh()` will be faster than revalidateHomepage()
       // onModalClose={revalidateHomePage}
       // initialContentClassName='h-screen md:w-[52vw]'
-      refreshOnClose={true}
+      // refreshOnClose={true}
       introContentClassName="slide-in-from-bottom-full"
       outroContentClassName="slide-out-to-bottom-full"
     >
