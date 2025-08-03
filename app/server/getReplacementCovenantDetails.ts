@@ -27,7 +27,6 @@ export const getReplacementCovenantDetails = async (
       }
 
       const typedData = data[0] as Record<string, unknown>
-      console.log(typedData)
       return [
         {
           id: getStringValue(typedData.name),

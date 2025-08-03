@@ -9,7 +9,6 @@ import {
 } from "@icons"
 import { Rules } from "@types"
 import { Button, Input, Pagination } from "@ui"
-// import Image from "next/image"
 import { useMemo, useState } from "react"
 
 interface RulesDataProps {
