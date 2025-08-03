@@ -13,6 +13,6 @@ export const toggleDemo = async () => {
   } else {
     cookieStore.set("demo", "true")
   }
-  revalidatePath("/", "layout")
+  revalidatePath("/home")
   return { isDemo: !isDemo }
 }

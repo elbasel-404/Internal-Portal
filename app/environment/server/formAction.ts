@@ -9,5 +9,5 @@ export const formAction = async (formData: FormData) => {
     environmentStorage.set(key, value.toString())
   })
 
-  revalidatePath("/environment", "layout")
+  revalidatePath("/environment")
 }

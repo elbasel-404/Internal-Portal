@@ -4,6 +4,7 @@ import type { Metadata } from "next"
 import type { ReactNode } from "react"
 import "./(pages)/globals.css"
 import { Toaster } from "sonner"
+import { getLoggedOut } from "./server/getLoggedOut"
 
 // export const dynamic = "force-dynamic"
 
@@ -20,8 +21,9 @@ interface RootLayoutProps {
 const RootLayout = async ({ children }: Readonly<RootLayoutProps>) => {
   const session = await getSession()
   const refreshToken = await getRefreshToken()
+  const loggedOut = await getLoggedOut()
 
-  if (!session && refreshToken) {
+  if (!session && refreshToken && !loggedOut) {
     return (
       <html>
         <body className="h-screen flex items-center justify-center bg-gradient-to-b from-sky-500 to-pink-500">
