@@ -1,23 +1,15 @@
 export type ObligationFormProps = {
-  family:
-    | {
-        answer: boolean
-        description: string
-      }
-    | null
-    | undefined
-  relationship:
-    | {
-        answer: boolean
-        description: string
-      }
-    | null
-    | undefined
-  work:
-    | {
-        answer: boolean
-        description: string
-      }
-    | null
-    | undefined
+  family: {
+    answer: string
+    description: string
+  }
+  relationship: {
+    answer: string
+    description: string
+  }
+
+  work: {
+    answer: string
+    description: string
+  }
 }

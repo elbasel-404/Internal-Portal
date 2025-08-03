@@ -17,9 +17,11 @@ const ObligationPage = async () => {
         />
       </div>
       <ObligationForm
-        family={obligationDetails?.family}
-        relationship={obligationDetails?.relationship}
-        work={obligationDetails?.work}
+        family={obligationDetails?.family ?? { answer: "", description: "" }}
+        relationship={
+          obligationDetails?.relationship ?? { answer: "", description: "" }
+        }
+        work={obligationDetails?.work ?? { answer: "", description: "" }}
       />
     </div>
   )

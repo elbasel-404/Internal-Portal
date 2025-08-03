@@ -19,15 +19,15 @@ export const getObligationDetails =
           return {
             details: String(typedItem.obligation_settings_text || ""),
             family: {
-              answer: typedItem.family.answer,
+              answer: String(typedItem.family.answer || ""),
               description: String(typedItem.family.description || ""),
             },
             relationship: {
-              answer: typedItem.relationship.answer,
+              answer: String(typedItem.relationship.answer || ""),
               description: String(typedItem.relationship.description || ""),
             },
             work: {
-              answer: typedItem.work.answer,
+              answer: String(typedItem.work.answer || ""),
               description: String(typedItem.work.description || ""),
             },
           }
@@ -74,15 +74,15 @@ const dummyData: ObligationDetails = {
           تضارب للمصالح من عدمه من خلال الهيئة.
           `,
   family: {
-    answer: false,
+    answer: "",
     description: "",
   },
   relationship: {
-    answer: false,
+    answer: "",
     description: "",
   },
   work: {
-    answer: false,
+    answer: "",
     description: "",
   },
 }
