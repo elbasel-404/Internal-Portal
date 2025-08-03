@@ -13,6 +13,7 @@ export const getPressFileDetails = async (
   }
 
   const result = await getData<PressFileDetails>({
+    revalidate: 86400,
     url: "api/po/read/portal-news",
     responseSchema: ResponseSchema,
     dataSchema: NewsElementSchema,

@@ -21,6 +21,7 @@ export const getAdsNewsList = async ({
   page,
 }: GetAdsNewsListArgs): Promise<AdsListRequst[]> => {
   return getData<AdsListRequst>({
+    revalidate: 86400,
     url: "api/po/read/portal-news",
     includeEmployeeId: false,
     additionalBody: { news_type: "ads", limit, page },
