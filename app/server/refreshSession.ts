@@ -51,7 +51,7 @@ export const refreshSession = async () => {
 
   cookieStore.set("session", session)
   cookieStore.set("refersh_token", refresh_token)
-  revalidatePath("/")
+  revalidatePath("/home")
 }
 
 const authResponseSchema = z.object({
