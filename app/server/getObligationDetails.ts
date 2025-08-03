@@ -17,18 +17,18 @@ export const getObligationDetails =
           const typedItem = item as z.infer<typeof ObligationSchema>
 
           return {
-            details: String(typedItem.obligation_settings_text || ""),
+            details: typedItem.obligation_settings_text.toString(),
             family: {
-              answer: String(typedItem.family.answer || ""),
-              description: String(typedItem.family.description || ""),
+              answer: typedItem.family.answer.toString(),
+              description: typedItem.family.description.toString(),
             },
             relationship: {
-              answer: String(typedItem.relationship.answer || ""),
-              description: String(typedItem.relationship.description || ""),
+              answer: typedItem.relationship.answer.toString(),
+              description: typedItem.relationship.description.toString(),
             },
             work: {
-              answer: String(typedItem.work.answer || ""),
-              description: String(typedItem.work.description || ""),
+              answer: typedItem.work.answer.toString(),
+              description: typedItem.work.description.toString(),
             },
           }
         })
