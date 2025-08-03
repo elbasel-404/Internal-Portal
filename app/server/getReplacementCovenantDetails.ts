@@ -27,7 +27,6 @@ export const getReplacementCovenantDetails = async (
       }
 
       const typedData = data[0] as Record<string, unknown>
-
       return [
         {
           id: getStringValue(typedData.name),
@@ -38,10 +37,18 @@ export const getReplacementCovenantDetails = async (
               ? "اقفال"
               : "استعاضة",
           covenantRequestNumber: getStringValue(typedData.custody_id_number),
-          covenantPurpose:
-            "لتوفير الاعمال والخدمات والنثريات الطارئة الخاصة بخدمات الإدرة العامة للمارفق والخدمات الإدارية",
+          covenantPurpose: getStringValue(typedData.custody_reason),
           covenantAmount: getStringValue(typedData.custody_amount),
           covenantDate: getStringValue(typedData.order_date),
+          details: Array.isArray(typedData.details)
+            ? typedData.details.map((detail: Record<string, unknown>) => ({
+                product: getStringValue(detail.product_name),
+                statement: getStringValue(detail.description),
+                amount: getStringValue(detail.amount),
+                invoiceNumber: getStringValue(detail.invoice_no),
+                attachments: "",
+              }))
+            : [],
         },
       ]
     },
@@ -61,4 +68,27 @@ const dummyData: ReplacementCovenantDetails = {
     "لتوفير الاعمال والخدمات والنثريات الطارئة الخاصة بخدمات الإدرة العامة للمارفق والخدمات الإدارية",
   covenantAmount: "10000",
   covenantDate: "20/2/2025",
+  details: [
+    {
+      product: "المنتج",
+      statement: "بيان المنتج",
+      amount: "1000",
+      invoiceNumber: "12354",
+      attachments: "",
+    },
+    {
+      product: "المنتج",
+      statement: "بيان المنتج",
+      amount: "2000",
+      invoiceNumber: "12354",
+      attachments: "",
+    },
+    {
+      product: "المنتج",
+      statement: "بيان المنتج",
+      amount: "1000",
+      invoiceNumber: "18632",
+      attachments: "",
+    },
+  ],
 }
