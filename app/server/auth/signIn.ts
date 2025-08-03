@@ -101,6 +101,8 @@ export const signIn = async (
     httpOnly: true,
   })
 
+  cookieStore.set("logged_out", "false")
+
   revalidatePath("/")
   // ! ================= Return =================
   const returnObject: InitialState = {
