@@ -6,7 +6,7 @@ import {
   RadioField,
   SubmitButton,
 } from "@components/form"
-import { useEffect, useState, useTransition } from "react"
+import { ChangeEvent, useEffect, useState, useTransition } from "react"
 import { ObligationFormProps } from "./ObligationFormProps"
 import { toast } from "sonner"
 import { formAction } from "./helpers/formAction"
@@ -25,27 +25,18 @@ export const ObligationForm = ({
 }: ObligationFormProps) => {
   const [state, setState] = useState<State>(initialState)
   const [isPending, startTransition] = useTransition()
-
-  const [conflictOfInterest, setConflictOfInterest] = useState<string>("")
-  const [relatives, setRelatives] = useState("")
-  const [workOutside, setWorkOutside] = useState<string>("")
-  const [checked, setChecked] = useState<boolean>(false)
-
-  const handleConflictOfInterestChange = (value: string) => {
-    setConflictOfInterest(value)
-  }
-  const handleRelativesChange = (value: string) => {
-    setRelatives(value)
-  }
-  const handleWorkOutsideChange = (value: string) => {
-    setWorkOutside(value)
-  }
-  const handleSelectedValue = (
-    value: boolean | null | undefined,
-    defaultValue: string,
-  ) => {
-    if (value === undefined || value === null) return defaultValue
-    return value === true ? "yes" : "no"
+  const [form, setForm] = useState({
+    family_answer: family?.answer || "",
+    family_description: family?.description || "",
+    relationship_answer: relationship?.answer || "",
+    relationship_description: relationship?.description || "",
+    work_answer: work?.answer || "",
+    work_description: work?.description || "",
+    approved: false,
+  })
+  const handleInputFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setForm({ ...form, [name]: value })
   }
 
   useEffect(() => {
@@ -55,12 +46,12 @@ export const ObligationForm = ({
   }, [state])
 
   const action = async (formData: FormData) => {
-    toast.loading("جاري انشاء الطلب", { id: "vacation-form-pending" })
+    toast.loading("جاري انشاء الطلب", { id: "obligation-form-pending" })
 
     startTransition(async () => {
       const result = await formAction(formData)
       setState(result)
-      toast.dismiss("vacation-form-pending")
+      toast.dismiss("obligation-form-pending")
     })
   }
 
@@ -85,19 +76,17 @@ export const ObligationForm = ({
           ]}
           required={true}
           labelStyle="font-medium text-base"
-          radioStyle={`grid grid-cols-1 md:grid-cols-2 mt-3 ${typeof family?.answer === "boolean" ? "opacity-50 pointer-events-none" : ""}`}
+          radioStyle={`grid grid-cols-1 md:grid-cols-2 mt-3 ${family?.answer !== "" ? "opacity-50 pointer-events-none" : ""}`}
           className="flex-col"
-          selectedValue={handleSelectedValue(
-            family?.answer,
-            conflictOfInterest,
-          )}
-          onChange={handleConflictOfInterestChange}
+          selectedValue={form.family_answer}
+          onChange={(value) => setForm({ ...form, family_answer: value })}
         />
-        {(conflictOfInterest === "yes" || family?.answer === true) && (
+        {(family?.answer === "yes" || form?.family_answer === "yes") && (
           <InputField
             name="family_description"
-            disabled={family?.answer === true}
-            value={family?.description || ""}
+            disabled={family?.answer === "yes"}
+            value={form.family_description}
+            onChange={handleInputFieldChange}
             label=""
             placeholder="التفاصيل..."
           />
@@ -115,16 +104,18 @@ export const ObligationForm = ({
           ]}
           required={true}
           labelStyle="font-medium text-base"
-          radioStyle={`grid grid-cols-1 md:grid-cols-2 mt-3 ${typeof relationship?.answer === "boolean" ? "opacity-50 pointer-events-none" : ""}`}
+          radioStyle={`grid grid-cols-1 md:grid-cols-2 mt-3 ${relationship?.answer !== "" ? "opacity-50 pointer-events-none" : ""}`}
           className="flex-col"
-          selectedValue={handleSelectedValue(relationship?.answer, relatives)}
-          onChange={handleRelativesChange}
+          selectedValue={form.relationship_answer}
+          onChange={(value) => setForm({ ...form, relationship_answer: value })}
         />
-        {(relatives === "yes" || relationship?.answer === true) && (
+        {(relationship?.answer === "yes" ||
+          form?.relationship_answer === "yes") && (
           <InputField
             name="relationship_description"
-            disabled={relationship?.answer === true}
-            value={relationship?.description || ""}
+            disabled={relationship?.answer === "yes"}
+            value={form.relationship_description}
+            onChange={handleInputFieldChange}
             label=""
             placeholder="التفاصيل..."
           />
@@ -138,16 +129,17 @@ export const ObligationForm = ({
           ]}
           required={true}
           labelStyle="font-medium text-base"
-          radioStyle={`grid grid-cols-1 md:grid-cols-2 mt-3 ${typeof work?.answer === "boolean" ? "opacity-50 pointer-events-none" : ""}`}
+          radioStyle={`grid grid-cols-1 md:grid-cols-2 mt-3 ${work?.answer !== "" ? "opacity-50 pointer-events-none" : ""}`}
           className="flex-col"
-          selectedValue={handleSelectedValue(work?.answer, workOutside)}
-          onChange={handleWorkOutsideChange}
+          selectedValue={form.work_answer}
+          onChange={(value) => setForm({ ...form, work_answer: value })}
         />
-        {(workOutside === "yes" || work?.answer === true) && (
+        {(form?.work_answer === "yes" || work?.answer === "yes") && (
           <InputField
             name="work_description"
-            disabled={work?.answer === true}
-            value={work?.description || ""}
+            disabled={work?.answer === "yes"}
+            value={form.work_description}
+            onChange={handleInputFieldChange}
             label=""
             placeholder="التفاصيل..."
           />
@@ -160,13 +152,13 @@ export const ObligationForm = ({
             className="flex md:items-center gap-x-3"
             labelStyle="text-lg text-black font-medium leading-0"
             checkboxStyle="-order-1 border-black mt-1 md:mt-0"
-            checked={typeof family?.answer === "boolean" ? true : checked}
-            onChange={() => setChecked(!checked)}
-            disabled={typeof family?.answer === "boolean"}
+            checked={family?.answer !== "" ? true : form.approved}
+            onChange={() => setForm({ ...form, approved: !form.approved })}
+            disabled={family?.answer !== ""}
           />
         </div>
       </div>
-      {typeof family?.answer !== "boolean" && (
+      {family?.answer === "" && (
         <SubmitButton disabled={isPending} loading={isPending} />
       )}
     </form>
