@@ -6,7 +6,7 @@ export const ProductsModal = async () => {
   const purchaseProductsData = await getPurchaseFields("product_id")
   return (
     <Modal
-      refreshOnClose={true}
+      // refreshOnClose={true}
       introContentClassName="slide-in-from-bottom-full"
       outroContentClassName="slide-out-to-bottom-full"
       initialContentClassName="w-[35vw] h-[95vh] rounded-none p-0 app-scrollbar overflow-auto"

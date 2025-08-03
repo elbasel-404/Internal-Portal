@@ -4,7 +4,7 @@ import { ProjectCompletionForm } from "./ProjectCompletionForm"
 export const ProjectCompletionModal = () => {
   return (
     <Modal
-      refreshOnClose={true}
+      // refreshOnClose={true}
       introContentClassName="slide-in-from-bottom-full"
       outroContentClassName="slide-out-to-bottom-full"
       initialContentClassName="w-[35vw] h-fit rounded-none p-0 app-scrollbar overflow-auto"

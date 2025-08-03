@@ -717,10 +717,7 @@
       "activeGeneralInfoKeys": [
         "employeeRequests",
         "approvalRequests",
-        "totalVacationBalance",
-        "permissions",
-        "remoteWork",
-        "delegations"
+        "totalVacationBalance"
       ],
       "activeHomePageSlotsKeys": [
         "completeProfile",

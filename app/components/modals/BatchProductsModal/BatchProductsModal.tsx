@@ -15,7 +15,7 @@ export const BatchProductsModal = async ({
   const productsRequestById = await getPurchaseProductsByRequestId(id)
   return (
     <Modal
-      refreshOnClose={true}
+      // refreshOnClose={true}
       introContentClassName="slide-in-from-bottom-full"
       outroContentClassName="slide-out-to-bottom-full"
       initialContentClassName="w-[35vw] h-[85vh] rounded-none p-0 app-scrollbar overflow-auto"

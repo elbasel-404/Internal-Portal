@@ -18,7 +18,8 @@ interface ModalProps {
   onModalClose?: () => Promise<void>
   handleClickCapture?: (event: MouseEvent<HTMLDivElement>) => void
   handleClickInternally?: boolean
-  refreshOnClose?: boolean
+  // ! Refresh on close doesn't work.
+  // refreshOnClose?: boolean
   // onOpenChange?: (isOpen: boolean) => void;
   modalDescription?: string
 
@@ -53,6 +54,8 @@ export const Modal = ({
   initialOverlayClassName,
   introOverlayClassName,
   outroOverlayClassName,
+
+  // refreshOnClose,
 }: ModalProps) => {
   const router = useRouter()
 
@@ -93,6 +96,9 @@ export const Modal = ({
     await sleep(0.45)
 
     router.back()
+    // if (refreshOnClose) {
+    //   router.refresh()
+    // }
   }
 
   return (
