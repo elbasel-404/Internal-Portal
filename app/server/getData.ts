@@ -27,6 +27,10 @@ interface GetDataOptions<T, D> {
 
   /* Debugging */
   debug?: boolean
+
+  /* Caching */
+  cache?: RequestCache
+  revalidate?: number
 }
 
 /**
@@ -52,14 +56,19 @@ export const getData = async <T, D = unknown>(
     parseData,
     dummyData,
     employeeIdKey = "employee_id",
+    cache = "force-cache",
+    revalidate = 3,
   } = options
 
   let timeStart = 0
 
   if (LOG_INFO) {
     timeStart = Date.now()
-    const seconds = (new Date()).getSeconds();
-    console.info("\x1b[30m\x1b[1m\x1b[47m%s\x1b[0m", ` ${seconds} <==   ${url}   ==>  `)
+    const seconds = new Date().getSeconds()
+    console.info(
+      "\x1b[30m\x1b[1m\x1b[47m%s\x1b[0m",
+      ` ${seconds} <==   ${url}   ==>  `,
+    )
     // check if additional body is en empty object:
     if (!(Object.keys(additionalBody).length === 0)) {
       console.info(
@@ -116,6 +125,8 @@ export const getData = async <T, D = unknown>(
       headers,
       method,
       body: method !== "GET" ? requestBodyString : undefined,
+      cache,
+      next: { revalidate },
     })
 
     const responseJson = await apiResponse.json()
@@ -128,7 +139,7 @@ export const getData = async <T, D = unknown>(
           ? "\x1b[30m\x1b[1m\x1b[41m" // red background for slow requests
           : "\x1b[30m\x1b[1m\x1b[42m" // green background for fast requests
       console.info(`${timeColor}%s\x1b[0m`, `${timeTaken}ms`)
-      logSeperator();
+      logSeperator()
     }
 
     // VALIDATION
