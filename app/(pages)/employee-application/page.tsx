@@ -1,6 +1,5 @@
 import { WrappedImage } from "@components"
 import { DownloadIcon } from "@icons"
-// import Link from "next/link"
 
 const EmployeeApplicationPage = () => {
   const apps = [
