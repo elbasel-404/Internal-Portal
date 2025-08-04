@@ -48,6 +48,7 @@ export const getData = async <T, D = unknown>(
   options: GetDataOptions<T, D>,
 ): Promise<T[]> => {
   const {
+    // debug,
     url,
     method = "POST",
     includeEmployeeId = true,
@@ -58,7 +59,7 @@ export const getData = async <T, D = unknown>(
     dummyData,
     employeeIdKey = "employee_id",
     cache = "force-cache",
-    revalidate = 3,
+    revalidate = 3600,
   } = options
 
   let timeStart = 0
@@ -82,8 +83,11 @@ export const getData = async <T, D = unknown>(
   const isDemo = await getDemo()
   if (isDemo) {
     if (LOG_INFO) {
-      console.info("\x1b[33mReturning dummy data for\x1b[0m", { url })
+      console.info("Demo Mode On\x1b[33mReturning dummy data for\x1b[0m", {
+        url,
+      })
     }
+    logReturingDummyData(url)
     return dummyData
   }
 
@@ -98,10 +102,10 @@ export const getData = async <T, D = unknown>(
     if (!headers) {
       // console.error("Failed to get headers for API request")
       logError({
-        errorTitle:
-          "Failed to get headers for API request, returning dummy data",
+        errorTitle: "Failed to get headers for API request",
         url,
       })
+      logReturingDummyData(url)
 
       return dummyData
     }
@@ -150,14 +154,16 @@ export const getData = async <T, D = unknown>(
       validatedResponse = responseSchema.safeParse(responseJson)
 
       if (!validatedResponse.success) {
-        const validationError = validatedResponse.error.format()
+        const validationError = validatedResponse.error.flatten().fieldErrors
+        console.log({ requestBody, headers })
         logError({
           url,
           responseJson,
           errorDetails: validationError,
           errorTitle: "response validation failed",
         })
-        console.log("Returning dummy data")
+        logReturingDummyData(url)
+        logSeperator()
 
         return dummyData
       }
@@ -182,13 +188,14 @@ export const getData = async <T, D = unknown>(
       validatedData = schemaToUse.safeParse(data)
 
       if (!validatedData.success) {
-        const errorDetails = validatedData.error.format()
+        const errorDetails = validatedData.error.flatten().fieldErrors
         logError({
           url,
           responseJson,
           errorDetails,
           errorTitle: "data validation failed",
         })
+        logReturingDummyData(url)
         return dummyData
       }
 
@@ -213,6 +220,7 @@ export const getData = async <T, D = unknown>(
       errorTitle,
     })
 
+    logReturingDummyData(url)
     return dummyData
   }
 }
@@ -223,11 +231,9 @@ const logSeperator = () => {
   console.log("\x1b[33m\n------------\n\x1b[0m")
 }
 
-// const logMedSeperator = () => {
-//   console.log("\x1b[35m\n+++++++++++++++++++++\n\x1b[0m")
-// }
-
-// !! Info Logging
+const logReturingDummyData = (url: string) => {
+  console.log("\x1b[1m\x1b[95mRETURNING DUMMY DATA FOR %s\x1b[0m", url)
+}
 
 // !! Error Logging
 
@@ -251,9 +257,7 @@ const logError = ({
   console.log({ url })
   console.log(extractFilePaths(stack))
   console.log(errorDetails)
-  if (responseJson) {
-    console.log({ responseJson })
-  }
+  console.log({ responseJson })
   logSeperator()
 }
 const extractFilePaths = (text: string | undefined) => {
