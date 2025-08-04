@@ -9,6 +9,11 @@ import { getData } from "./getData"
 export const getJobApplicationsRequests = async (): Promise<
   JobApplicationsRequest[]
 > => {
+  const jobApplicationType = (jobType: string) => {
+    if (jobType === "new") return "جديد"
+    else if (jobType === "replacement") return "بديل مستقيل"
+    return "نقل داخلي"
+  }
   return getData<JobApplicationsRequest>({
     url: "api/po/hr/employee/job/requests/read",
     responseSchema: ResponseSchema,
@@ -16,10 +21,11 @@ export const getJobApplicationsRequests = async (): Promise<
     parseData: (data) => {
       return data.map((item: unknown) => {
         const typedItem = item as z.infer<typeof JobApplicationSchema>
+
         return {
           id: String(typedItem.id || ""),
           date: String(typedItem.date || ""),
-          description: String(typedItem.type || "__"),
+          description: jobApplicationType(typedItem.type),
           jobTitle:
             Array.isArray(typedItem.job_id) && typedItem.job_id.length > 1
               ? String(typedItem.job_id[1])
