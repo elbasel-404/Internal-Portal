@@ -237,4 +237,14 @@ export const STATUS_CONFIG = {
     icon: TagsIcon,
     className: "bg-primary-opacity text-primary",
   },
+  sm: {
+    label: "مدير القطاع",
+    icon: TagsIcon,
+    className: "bg-primary-opacity text-primary",
+  },
+  organisation_development: {
+    label: "التطوير التنظيمي",
+    icon: TagsIcon,
+    className: "bg-primary-opacity text-primary",
+  },
 }

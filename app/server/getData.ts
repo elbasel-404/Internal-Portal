@@ -12,6 +12,7 @@ interface GetDataOptions<T, D> {
   url: string
   method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
   includeEmployeeId?: boolean
+
   additionalBody?: Record<string, unknown>
   employeeIdKey?: string
 
@@ -111,10 +112,7 @@ export const getData = async <T, D = unknown>(
     // Add employee ID to request body if needed
     if (includeEmployeeId) {
       const employeeId = await getStoredEmployeeId()
-      requestBody[employeeIdKey] =
-        typeof additionalBody[employeeIdKey] === "number"
-          ? Number(employeeId)
-          : employeeId
+      requestBody[employeeIdKey] = Number(employeeId)
     }
 
     const requestBodyString = JSON.stringify(requestBody)
@@ -122,6 +120,7 @@ export const getData = async <T, D = unknown>(
 
     // ==================================
     const apiResponse = await fetch(requestUrl, {
+      credentials: "include",
       headers,
       method,
       body: method !== "GET" ? requestBodyString : undefined,
@@ -165,6 +164,10 @@ export const getData = async <T, D = unknown>(
 
       result = validatedResponse.data?.result
       data = result?.data
+      if (LOG_INFO) {
+        console.log(`Fetched ${data.length} items`)
+        console.log([...data.slice(0, 1), "..."])
+      }
     } else {
       // Basic validation without schema
       result = responseJson?.result

@@ -21,11 +21,12 @@ export const getFetchHeaders = async () => {
     })
   }
   const headers = {
+    redirect: "follow" as RequestRedirect,
     [API_KEY_HEADER_NAME]: API_KEY,
     Authorization: `Bearer ${BEARER_TOKEN}`,
     "Content-Type": "application/json",
     Cookie: `session_id=${SESSION_ID}`,
-    "Accept-Encoding": "identity",
+    // "Accept-Encoding": "identity",
   }
   return { headers }
 }
