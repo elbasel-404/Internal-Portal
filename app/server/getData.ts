@@ -12,6 +12,7 @@ interface GetDataOptions<T, D> {
   url: string
   method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
   includeEmployeeId?: boolean
+
   additionalBody?: Record<string, unknown>
   employeeIdKey?: string
 
@@ -58,8 +59,11 @@ export const getData = async <T, D = unknown>(
 
   if (LOG_INFO) {
     timeStart = Date.now()
-    const seconds = (new Date()).getSeconds();
-    console.info("\x1b[30m\x1b[1m\x1b[47m%s\x1b[0m", ` ${seconds} <==   ${url}   ==>  `)
+    const seconds = new Date().getSeconds()
+    console.info(
+      "\x1b[30m\x1b[1m\x1b[47m%s\x1b[0m",
+      ` ${seconds} <==   ${url}   ==>  `,
+    )
     // check if additional body is en empty object:
     if (!(Object.keys(additionalBody).length === 0)) {
       console.info(
@@ -102,10 +106,7 @@ export const getData = async <T, D = unknown>(
     // Add employee ID to request body if needed
     if (includeEmployeeId) {
       const employeeId = await getStoredEmployeeId()
-      requestBody[employeeIdKey] =
-        typeof additionalBody[employeeIdKey] === "number"
-          ? Number(employeeId)
-          : employeeId
+      requestBody[employeeIdKey] = Number(employeeId)
     }
 
     const requestBodyString = JSON.stringify(requestBody)
@@ -113,6 +114,7 @@ export const getData = async <T, D = unknown>(
 
     // ==================================
     const apiResponse = await fetch(requestUrl, {
+      credentials: "include",
       headers,
       method,
       body: method !== "GET" ? requestBodyString : undefined,
@@ -128,7 +130,7 @@ export const getData = async <T, D = unknown>(
           ? "\x1b[30m\x1b[1m\x1b[41m" // red background for slow requests
           : "\x1b[30m\x1b[1m\x1b[42m" // green background for fast requests
       console.info(`${timeColor}%s\x1b[0m`, `${timeTaken}ms`)
-      logSeperator();
+      logSeperator()
     }
 
     // VALIDATION
@@ -154,6 +156,10 @@ export const getData = async <T, D = unknown>(
 
       result = validatedResponse.data?.result
       data = result?.data
+      if (LOG_INFO) {
+        console.log(`Fetched ${data.length} items`)
+        console.log([...data.slice(0, 1), "..."])
+      }
     } else {
       // Basic validation without schema
       result = responseJson?.result
