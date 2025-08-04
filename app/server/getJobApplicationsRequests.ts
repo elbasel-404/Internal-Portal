@@ -1,14 +1,38 @@
 "use server"
 
+import { JobApplicationSchema } from "@api/schemas/index"
+import { ResponseSchema } from "@api/schemas/responseSchema"
 import type { JobApplicationsRequest } from "@types"
+import z from "zod"
+import { getData } from "./getData"
 
 export const getJobApplicationsRequests = async (): Promise<
   JobApplicationsRequest[]
 > => {
-  return JobApplicationsDummyData
+  return getData<JobApplicationsRequest>({
+    url: "api/po/hr/employee/job/requests/read",
+    responseSchema: ResponseSchema,
+    dataSchema: JobApplicationSchema,
+    parseData: (data) => {
+      return data.map((item: unknown) => {
+        const typedItem = item as z.infer<typeof JobApplicationSchema>
+        return {
+          id: String(typedItem.id || ""),
+          date: String(typedItem.date || ""),
+          description: String(typedItem.type || "__"),
+          jobTitle:
+            Array.isArray(typedItem.job_id) && typedItem.job_id.length > 1
+              ? String(typedItem.job_id[1])
+              : "",
+          status: String(typedItem.state || ""),
+        }
+      })
+    },
+    dummyData,
+  })
 }
 
-const JobApplicationsDummyData: JobApplicationsRequest[] = [
+const dummyData: JobApplicationsRequest[] = [
   {
     id: "#55465",
     date: "2024-05-05",
