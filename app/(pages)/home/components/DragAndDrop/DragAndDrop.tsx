@@ -143,10 +143,12 @@ export const DragAndDrop = ({
       ref={parent as RefObject<HTMLDivElement>}
       className={cn(defaultClassName, className)}
     >
-      {dndNodes.map((node) => {
-        const hidden = visuallyHiddenKeys?.includes(node.key)
-        return renderSlot(node, hidden ? "hidden" : "")
-      })}
+      <Animate className="space-y-6">
+        {dndNodes.map((node) => {
+          const hidden = visuallyHiddenKeys?.includes(node.key)
+          return renderSlot(node, hidden ? "hidden" : "")
+        })}
+      </Animate>
     </div>
   )
 }

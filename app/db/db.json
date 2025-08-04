@@ -715,9 +715,12 @@
     {
       "id": 16,
       "activeGeneralInfoKeys": [
-        "employeeRequests",
         "approvalRequests",
-        "totalVacationBalance"
+        "totalVacationBalance",
+        "employeeRequests",
+        "permissions",
+        "remoteWork",
+        "delegations"
       ],
       "activeHomePageSlotsKeys": [
         "completeProfile",
