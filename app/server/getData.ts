@@ -66,7 +66,7 @@ export const getData = async <T, D = unknown>(
 
   if (LOG_INFO) {
     timeStart = Date.now()
-    const seconds = new Date().getSeconds()
+    const seconds = new Date().getMilliseconds()
     console.info(
       "\x1b[30m\x1b[1m\x1b[47m%s\x1b[0m",
       ` ${seconds} <==   ${url}   ==>  `,
@@ -133,17 +133,7 @@ export const getData = async <T, D = unknown>(
     })
 
     const responseJson = await apiResponse.json()
-    if (LOG_INFO) {
-      const timeEnd = Date.now()
-      const timeTaken = timeEnd - timeStart
-      // Log time taken with different background color based on duration
-      const timeColor =
-        timeTaken > 500
-          ? "\x1b[30m\x1b[1m\x1b[41m" // red background for slow requests
-          : "\x1b[30m\x1b[1m\x1b[42m" // green background for fast requests
-      console.info(`${timeColor}%s\x1b[0m`, `${timeTaken}ms`)
-      logSeperator()
-    }
+    // logSeperator()
 
     // VALIDATION
     // ==================================
@@ -163,7 +153,7 @@ export const getData = async <T, D = unknown>(
           errorTitle: "response validation failed",
         })
         logReturingDummyData(url)
-        logSeperator()
+        // logSeperator()
 
         return dummyData
       }
@@ -171,8 +161,12 @@ export const getData = async <T, D = unknown>(
       result = validatedResponse.data?.result
       data = result?.data
       if (LOG_INFO) {
-        console.log(`Fetched ${data.length} items`)
-        console.log([...data.slice(0, 1), "..."])
+        console.log(
+          "\x1b[1m\x1b[42m\x1b[30m  Fetched %d items from %s in %dms  \x1b[0m",
+          data.length,
+          url,
+          Date.now() - timeStart,
+        )
       }
     } else {
       // Basic validation without schema
@@ -252,7 +246,7 @@ const logError = ({
   const error = new Error()
   const stack = error.stack
 
-  logSeperator()
+  // logSeperator()
   logErrorTitle(errorTitle)
   console.log({ url })
   console.log(extractFilePaths(stack))

@@ -35,7 +35,7 @@ const RootLayout = async ({ children }: Readonly<RootLayoutProps>) => {
 
   if (!session) {
     return (
-      <html lang="ar">
+      <html>
         <body>
           <Toaster
             richColors
