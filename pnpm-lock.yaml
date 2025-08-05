@@ -92,6 +92,9 @@ importers:
       '@uidotdev/usehooks':
         specifier: ^2.4.1
         version: 2.4.1(react-dom@19.0.0-rc-69d4b800-20241021(react@19.0.0-rc-69d4b800-20241021))(react@19.0.0-rc-69d4b800-20241021)
+      '@uiw/react-json-view':
+        specifier: 2.0.0-alpha.34
+        version: 2.0.0-alpha.34(@babel/runtime@7.27.6)(react-dom@19.0.0-rc-69d4b800-20241021(react@19.0.0-rc-69d4b800-20241021))(react@19.0.0-rc-69d4b800-20241021)
       babel-plugin-react-compiler:
         specifier: 19.0.0-beta-27714ef-20250124
         version: 19.0.0-beta-27714ef-20250124
@@ -2676,6 +2679,13 @@ packages:
     resolution: {integrity: sha512-1I+RwWyS+kdv3Mv0Vmc+p0dPYH0DTRAo04HLyXReYBL9AeseDWUJyi4THuksBJcu9F0Pih69Ak150VDnqbVnXg==}
     engines: {node: '>=16'}
     peerDependencies:
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
+
+  '@uiw/react-json-view@2.0.0-alpha.34':
+    resolution: {integrity: sha512-FFMg/lx5yhNDEixOyqufzWZFv9GUHXMPurzva6ME4JWTl8Je2Gx9AZQCzeY6cIWpgjJx1nTTZbkic79gp8emwA==}
+    peerDependencies:
+      '@babel/runtime': '>=7.10.0'
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
@@ -8684,6 +8694,12 @@ snapshots:
 
   '@uidotdev/usehooks@2.4.1(react-dom@19.0.0-rc-69d4b800-20241021(react@19.0.0-rc-69d4b800-20241021))(react@19.0.0-rc-69d4b800-20241021)':
     dependencies:
+      react: 19.0.0-rc-69d4b800-20241021
+      react-dom: 19.0.0-rc-69d4b800-20241021(react@19.0.0-rc-69d4b800-20241021)
+
+  '@uiw/react-json-view@2.0.0-alpha.34(@babel/runtime@7.27.6)(react-dom@19.0.0-rc-69d4b800-20241021(react@19.0.0-rc-69d4b800-20241021))(react@19.0.0-rc-69d4b800-20241021)':
+    dependencies:
+      '@babel/runtime': 7.27.6
       react: 19.0.0-rc-69d4b800-20241021
       react-dom: 19.0.0-rc-69d4b800-20241021(react@19.0.0-rc-69d4b800-20241021)
 
