@@ -18,11 +18,12 @@ export const Collapse = ({ children = <></>, title = "", className = "" }) => {
       )}
     >
       <button
+        type="button"
         dir="ltr"
-        className="flex items-center justify-between gap-2 w-full border-b border-1 border-white/50"
+        className="flex items-center justify-between w-full gap-2 border-b border-1 border-white/50"
         onClick={() => setChildrenVisible(!childrenVisible)}
       >
-        <h2 dir="ltr" className="text-2xl font-bold py-4 ">
+        <h2 dir="ltr" className="py-4 text-2xl font-bold ">
           {title}
         </h2>
         {childrenVisible && (

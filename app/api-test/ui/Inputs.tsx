@@ -34,7 +34,7 @@ export const Inputs = ({
             >
               {key}
             </p>
-            <TextInput name={key} defaultValue={value} />
+            <TextInput name={keyPrefix + "-" + key} defaultValue={value} />
           </div>
         </div>
       ))}
@@ -48,6 +48,7 @@ export const Inputs = ({
 
       {showPlusIcon && (
         <button
+          type="button"
           onClick={() => {
             setExtraInputs((prev) => [...prev, prev.length + 1])
           }}
@@ -114,7 +115,7 @@ const EInput = ({ index, handleDeleteInput, keyPrefix }: EInputProps) => {
   return (
     <div dir="ltr" className="flex flex-col justify-center gap-2">
       <input
-        defaultValue={textInputName}
+        defaultValue={keyPrefix + "-" + textInputName}
         onChange={(e) => setTextInputName(e.target.value)}
         dir="ltr"
         placeholder="Enter name"
@@ -122,7 +123,11 @@ const EInput = ({ index, handleDeleteInput, keyPrefix }: EInputProps) => {
         className="bg-red-600 w-1/3 text-white block px-4 py-2 rounded-xl text-lg focus:ring-1 ring-[#1e40af]"
       />
       <div className="flex items-center gap-2">
-        <TextInput name={textInputName} dir="ltr" placeholder="Enter value" />
+        <TextInput
+          name={keyPrefix + "-" + textInputName}
+          dir="ltr"
+          placeholder="Enter value"
+        />
         <button onClick={(e) => handleDeleteInput(e, index)}>
           <Trash2Icon className="text-red-600" />
         </button>
