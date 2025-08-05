@@ -3,6 +3,7 @@ import { ActionState } from "@api/types/ActionState"
 import { useActionState, useEffect, useState, type ReactNode } from "react"
 import { toast } from "sonner"
 import { Output } from "./Output"
+import { LoaderIcon } from "lucide-react"
 
 interface FormProps {
   children: ReactNode
@@ -48,15 +49,16 @@ export const Form = ({
     <>
       <form action={formAction} className="space-y-4">
         {children}
+        <button
+          disabled={isPending}
+          className="flex items-center justify-center w-full gap-2 px-4 py-2 bg-blue-900 rounded-lg disabled:bg-gray-500"
+          type="submit"
+        >
+          Submit
+          {isPending && <LoaderIcon className="animate-spin" />}
+        </button>
       </form>
-      <button
-        disabled={isPending}
-        className="w-full px-4 py-2 bg-blue-900 rounded-lg disabled:bg-gray-500"
-        type="submit"
-      >
-        Submit
-      </button>
-      <div className="pt-8">
+      <div className="pt-8 text-2xl">
         <Output json={json} />
       </div>
     </>
