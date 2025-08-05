@@ -16,6 +16,7 @@ export const RequestBody = ({ body: body }: { body: InputData[] }) => {
 
   useEffect(() => {
     console.log({ requestBody })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
