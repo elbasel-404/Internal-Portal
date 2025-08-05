@@ -59,7 +59,7 @@ export const getData = async <T, D = unknown>(
     dummyData,
     employeeIdKey = "employee_id",
     cache = "force-cache",
-    revalidate = 3600,
+    revalidate = 15,
   } = options
 
   let timeStart = 0
