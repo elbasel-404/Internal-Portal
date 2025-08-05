@@ -37,7 +37,6 @@ const ApiPage = async () => {
         <Animate>
           <Enviroment envVars={[{ key: "apiRootUrl", value: apiRootUrl }]} />
         </Animate>
-        <button className="">Submit</button>
       </Form>
     </main>
   )

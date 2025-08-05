@@ -49,7 +49,16 @@ export const Form = ({
       <form action={formAction} className="space-y-4">
         {children}
       </form>
-      <Output json={json} />
+      <button
+        disabled={isPending}
+        className="w-full px-4 py-2 bg-blue-900 rounded-lg disabled:bg-gray-500"
+        type="submit"
+      >
+        Submit
+      </button>
+      <div className="pt-8">
+        <Output json={json} />
+      </div>
     </>
   )
 }
