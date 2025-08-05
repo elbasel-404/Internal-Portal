@@ -5,7 +5,7 @@ import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
 import { z } from "zod"
 
-const LOG_INFO = true
+const LOG_INFO = false
 
 interface GetDataOptions<T, D> {
   /* API request configuration */

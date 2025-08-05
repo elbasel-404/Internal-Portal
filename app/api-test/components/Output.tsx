@@ -1,5 +1,3 @@
-"use client"
-
 import ReactJsonView from "@microlink/react-json-view"
 
 export const Output = ({ json = {} }) => {

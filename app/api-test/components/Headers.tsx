@@ -5,7 +5,7 @@ import { Collapse } from "../ui/Collapse"
 export const Headers = ({ headersList }: { headersList: InputData[] }) => {
   return (
     <Collapse title="Headers" className="flex-1">
-      <Inputs showPlusIcon={true} keyPrefix="headers'" enteries={headersList} />
+      <Inputs showPlusIcon={true} keyPrefix="headers" enteries={headersList} />
     </Collapse>
   )
 }
