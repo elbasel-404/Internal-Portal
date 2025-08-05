@@ -1,4 +1,7 @@
-import ReactJsonView from "@microlink/react-json-view"
+import dynamic from "next/dynamic"
+const ReactJsonView = dynamic(() => import("@microlink/react-json-view"), {
+  ssr: false,
+})
 
 export const Output = ({ json = {} }) => {
   return (
