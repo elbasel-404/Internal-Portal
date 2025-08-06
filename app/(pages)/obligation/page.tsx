@@ -16,7 +16,13 @@ const ObligationPage = async () => {
           dangerouslySetInnerHTML={{ __html: obligationDetails?.details || "" }}
         />
       </div>
-      <ObligationForm />
+      <ObligationForm
+        family={obligationDetails?.family ?? { answer: "", description: "" }}
+        relationship={
+          obligationDetails?.relationship ?? { answer: "", description: "" }
+        }
+        work={obligationDetails?.work ?? { answer: "", description: "" }}
+      />
     </div>
   )
 }

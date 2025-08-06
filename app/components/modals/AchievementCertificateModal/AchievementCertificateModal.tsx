@@ -4,7 +4,7 @@ import { AchievementCertificateForm } from "./AchievementCertificateForm"
 export const AchievementCertificateModal = async () => {
   return (
     <Modal
-      refreshOnClose={true}
+      // refreshOnClose={true}
       introContentClassName="slide-in-from-bottom-full"
       outroContentClassName="slide-out-to-bottom-full"
       initialContentClassName="w-[30vw] [80vh] rounded-none p-0 app-scrollbar overflow-auto"

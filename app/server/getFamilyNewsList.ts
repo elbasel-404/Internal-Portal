@@ -9,6 +9,7 @@ export const getFamilyNewsList = async (
   { limit, page } = { limit: 4, page: 1 },
 ): Promise<NewsFamily[]> => {
   return getData<NewsFamily>({
+    revalidate: 86400,
     url: "api/po/read/portal-news",
     includeEmployeeId: false,
     additionalBody: { news_type: "family_news", limit, page },

@@ -22,13 +22,15 @@ export async function createData<T extends Record<string, unknown>>(
     body: Record<string, FormDataEntryValue>,
   ) => Record<string, FormDataEntryValue>,
 ): Promise<State> {
-
-  let timeStart = 0;
+  let timeStart = 0
 
   if (LOG_INFO) {
-    logSeperator();
+    logSeperator()
     timeStart = Date.now()
-    console.info("\x1b[30m\x1b[1m\x1b[47m%s\x1b[0m", ` <==   ${endpointUrl}   ==>  `)
+    console.info(
+      "\x1b[30m\x1b[1m\x1b[47m%s\x1b[0m",
+      ` <==   ${endpointUrl}   ==>  `,
+    )
   }
 
   // ! ==================================
@@ -109,20 +111,26 @@ export async function createData<T extends Record<string, unknown>>(
         ? "\x1b[30m\x1b[1m\x1b[41m" // red background for slow requests
         : "\x1b[30m\x1b[1m\x1b[42m" // green background for fast requests
     console.info(`${timeColor}%s\x1b[0m`, `${timeTaken}ms`)
-    logSeperator();
+    logSeperator()
   }
 
   const responseObject = responseJson.at(0)
 
   // const isBadRequest = response.status === 400
   // if (isBadRequest) {
-  const validatedErrorResponseObject = CreateErrorSchema.safeParse(responseObject)
-  const { success: errorSuccess, data: errorData } = validatedErrorResponseObject;
+  const validatedErrorResponseObject =
+    CreateErrorSchema.safeParse(responseObject)
+  const { success: errorSuccess, data: errorData } =
+    validatedErrorResponseObject
 
   if (errorSuccess) {
     return {
       success: false, // Assuming errorData is an array of strings or a single string
-      errors: Array.isArray(errorData) ? errorData.map(e => (typeof e === 'object' && 'error' in e) ? e.error : String(e)) : [String(errorData)],
+      errors: Array.isArray(errorData)
+        ? errorData.map((e) =>
+            typeof e === "object" && "error" in e ? e.error : String(e),
+          )
+        : [errorData.error],
       id: null,
     }
   }
