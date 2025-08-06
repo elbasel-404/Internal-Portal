@@ -6,7 +6,7 @@ export const GoalsModal = async () => {
   const indicatorData = await getIndicatorsRequests()
   return (
     <Modal
-      refreshOnClose={true}
+      // refreshOnClose={true}
       introContentClassName="slide-in-from-bottom-full"
       outroContentClassName="slide-out-to-bottom-full"
       initialContentClassName="w-[60vw] h-[95vh] 2xl:h-fit rounded-none p-0 app-scrollbar overflow-auto"

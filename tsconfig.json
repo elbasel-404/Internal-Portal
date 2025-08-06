@@ -44,7 +44,7 @@
       "@hooks/data": ["./app/hooks/data"],
       "@icons": ["./app/icons/"],
       "@zodSchemas": ["./app/zodSchemas/"],
-      "@api/*": ["./app/api/*"],
+      "@api/*": ["./app/api-test/*"],
       "@api/schemas/*": ["./api-schemas/*"],
       "@api/schemas": ["./api-schemas"],
       "@storage": ["./app/storage"],

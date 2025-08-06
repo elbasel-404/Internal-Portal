@@ -10,6 +10,6 @@ export const logout = async () => {
   cookieStore.delete("employeeId")
   cookieStore.set("demo", "false")
   cookieStore.set("logged_out", "true")
-  revalidatePath("/")
+  revalidatePath("/home")
   redirect("/home")
 }

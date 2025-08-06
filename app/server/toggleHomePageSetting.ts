@@ -10,6 +10,7 @@ import {
 } from "../db/validation"
 import { getUser } from "../db/actions/getUser"
 import { z } from "zod"
+import { revalidateTag } from "next/cache"
 // import { revalidatePath } from "next/cache"
 // import { redirect } from 'next/navigation';
 
@@ -163,6 +164,7 @@ export const toggleHomePageSetting = async (
   if (slotType === "news") await toggleNewsTabs()
   // }, 0);
 
-  // revalidatePath("/home", "page")
+  // revalidatePath("/home")
+  revalidateTag("user")
   return state
 }

@@ -28,7 +28,6 @@ export const renderLayout = ({
         visuallyHiddenKeys={visuallyHiddenKeys}
         userId={userId}
         slots={draggableSlots}
-        className="space-y-6"
       />
     )
   }

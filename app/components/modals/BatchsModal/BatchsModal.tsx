@@ -10,7 +10,7 @@ export const BatchsModal = async () => {
   const { batchProducts } = await getUser(userId)
   return (
     <Modal
-      refreshOnClose={true}
+      // refreshOnClose={true}
       introContentClassName="slide-in-from-bottom-full"
       outroContentClassName="slide-out-to-bottom-full"
       initialContentClassName="w-[80vw] [95vh] rounded-none p-0 app-scrollbar overflow-auto"

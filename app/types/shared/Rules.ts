@@ -6,4 +6,5 @@ export type Rules = {
   sideImages?: string[]
   mainImage?: string
   attachment?: string
+  download?: string
 }
