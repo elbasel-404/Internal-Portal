@@ -1,14 +1,50 @@
+"use client"
 import { getAttendanceGeneralInfo, getAttendanceListRequests } from "@server"
-import { Fragment } from "react"
+import { Fragment, useEffect, useState } from "react"
 import { AttendanceData, AttendanceTable } from "../components"
+import { AttendanceListRequest, GeneralInfo } from "@types"
 
-const AttendanceListPage = async () => {
-  const getAttendanceListData = await getAttendanceListRequests()
-  const getAttendanceData = await getAttendanceGeneralInfo()
+const AttendanceListPage = () => {
+  const [data, setData] = useState<GeneralInfo[]>([])
+  const [list, setList] = useState<AttendanceListRequest[]>([])
+  const [loading, setLoading] = useState(true)
+  const currentDate = new Date().toISOString().split("T")[0]
+
+  const [form, setForm] = useState({
+    start: currentDate,
+    end: currentDate,
+    month: "",
+  })
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true)
+      const listData = await getAttendanceListRequests({
+        start: form.start,
+        end: form.end,
+        month: form.month,
+      })
+      setList(listData)
+      setLoading(false)
+    }
+    fetchData()
+  }, [form.start, form.end, form.month])
+
+  useEffect(() => {
+    const fetchGeneralData = async () => {
+      const generalData = await getAttendanceGeneralInfo()
+      setData(generalData)
+    }
+    fetchGeneralData()
+  }, [])
   return (
     <Fragment>
-      <AttendanceData data={getAttendanceData} />
-      <AttendanceTable data={getAttendanceListData} />
+      <AttendanceData data={data} />
+      <AttendanceTable
+        form={form}
+        setForm={setForm}
+        data={list}
+        loading={loading}
+      />
     </Fragment>
   )
 }

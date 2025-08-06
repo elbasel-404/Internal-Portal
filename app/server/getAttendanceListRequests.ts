@@ -1,15 +1,61 @@
 "use server"
 
 import type { AttendanceListRequest } from "@types"
-
-export const getAttendanceListRequests = async (): Promise<
-  AttendanceListRequest[]
-> => {
-  return attendanceListRequests
+import { AttendanceSchema, ResponseSchema } from "../../api-schemas"
+import { getData } from "./getData"
+import { z } from "zod"
+interface attendProps {
+  start?: string
+  end?: string
+  month?: string
 }
 
-// TODO: Remove description from the request
-const attendanceListRequests: AttendanceListRequest[] = [
+export const getAttendanceListRequests = async ({
+  start,
+  end,
+  month,
+}: attendProps): Promise<AttendanceListRequest[]> => {
+  const getStringValue = (field: unknown): string =>
+    typeof field === "string"
+      ? field
+      : typeof field === "number"
+        ? String(field)
+        : ""
+
+  return getData<AttendanceListRequest>({
+    url: "api/po/read/employee-attendance",
+    includeEmployeeId: true,
+    responseSchema: ResponseSchema,
+    dataSchema: AttendanceSchema,
+    parseData: (data) => {
+      return data.map((item: unknown) => {
+        const typedItem = item as z.infer<typeof AttendanceSchema>
+
+        return {
+          id: getStringValue(typedItem.id),
+          date: getStringValue(typedItem.date),
+          login: getStringValue(typedItem.check_in),
+          exit: getStringValue(typedItem.check_out),
+          workingHours: getStringValue(typedItem.worked_hours),
+          delay: getStringValue(typedItem.retard),
+          earlyExit: getStringValue(typedItem.leave),
+          overTime: getStringValue(typedItem.hours_supp),
+          permission: getStringValue(typedItem.authorization),
+          status: getStringValue(typedItem.absence_type),
+        }
+      })
+    },
+    dummyData,
+    additionalBody: {
+      emp_id: 1722,
+      date_start: start,
+      date_end: end,
+      month_date: month,
+    },
+  })
+}
+
+const dummyData: AttendanceListRequest[] = [
   {
     id: "1",
     date: "2024-12-01",

@@ -10,7 +10,7 @@ interface FilterSectionProps {
   //   | RemoteWorkRequest[]
   //   | HrLetterRequest[]
   //   | AttendanceListRequest[];
-  options: { id: string; description?: string }[]
+  options: { id: string; name?: string }[]
   selectLabel?: string
   selectPlaceholder?: string
   filterHeader?: string
@@ -18,6 +18,18 @@ interface FilterSectionProps {
   isRequestDate?: boolean
   Icon?: ElementType
   onApplyFilters?: () => void
+  form?: {
+    start: string
+    end: string
+    month: string
+  }
+  setForm?: React.Dispatch<
+    React.SetStateAction<{
+      start: string
+      end: string
+      month: string
+    }>
+  >
 }
 
 export const FilterSection = ({
@@ -29,6 +41,8 @@ export const FilterSection = ({
   Icon = FilterIcon,
   isRequestDate = false,
   onApplyFilters,
+  form,
+  setForm,
 }: FilterSectionProps) => {
   return (
     <div className="p-4 space-y-4">
@@ -42,14 +56,43 @@ export const FilterSection = ({
           <DatePicker label="تاريخ الطلب" />
         ) : (
           <>
-            <DatePicker label="التاريخ من*" />
-            <DatePicker label="التاريخ إلى*" />
+            <DatePicker
+              name="start"
+              value={form?.start ? new Date(form.start) : undefined}
+              onChange={(value) => {
+                if (setForm) {
+                  setForm((prev) => ({
+                    ...prev,
+                    start: value ? new Date(value).toISOString() : "",
+                  }))
+                }
+              }}
+              label="التاريخ من*"
+            />
+            <DatePicker
+              name="end"
+              value={form?.end ? new Date(form.end) : undefined}
+              onChange={(value) => {
+                if (setForm) {
+                  setForm((prev) => ({
+                    ...prev,
+                    end: value ? new Date(value).toISOString() : "",
+                  }))
+                }
+              }}
+              label="التاريخ إلى*"
+            />
           </>
         )}
 
         <Select
-          // TODO: Refactor this
-          name=""
+          name="month"
+          value={form?.month}
+          onChange={(value) => {
+            if (setForm) {
+              setForm((prev) => ({ ...prev, month: value }))
+            }
+          }}
           options={options}
           label={selectLabel}
           placeholder={selectPlaceholder}
