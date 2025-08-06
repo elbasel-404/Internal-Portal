@@ -100,7 +100,15 @@ export async function createData<T extends Record<string, unknown>>(
     body: fetchFormData,
   })
 
-  const responseJson = await response.json()
+  let responseJson
+  const responseClone = response.clone()
+  try {
+    responseJson = await response.json()
+  } catch (error) {
+    console.error(error)
+    const responseText = responseClone.text()
+    console.log({ responseText })
+  }
 
   if (LOG_INFO) {
     const timeEnd = Date.now()
