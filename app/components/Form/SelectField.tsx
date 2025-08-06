@@ -10,6 +10,7 @@ interface SelectProps {
   className?: string
   required?: boolean
   value?: string
+  labelStyle?: string
   onChange?: (value: string) => void
 }
 
@@ -21,11 +22,12 @@ export const SelectField = ({
   required = false,
   className,
   value,
+  labelStyle,
   onChange,
 }: SelectProps) => {
   return (
     <div className="flex flex-col gap-1 w-full">
-      <label className="font-medium text-foreground">
+      <label className={`font-medium text-foreground ${labelStyle}`}>
         {label}
         {required && <span className="text-red-500">*</span>}
       </label>
