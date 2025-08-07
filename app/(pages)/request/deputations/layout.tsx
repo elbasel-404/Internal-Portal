@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { DeputationData } from "./components"
+// import { DeputationData } from "./components"
 
 export const metadata = {
   title: "Deputations",
@@ -11,7 +11,7 @@ interface DeputationLayoutProps {
 const DeputationLayout = ({ children }: DeputationLayoutProps) => {
   return (
     <>
-      <DeputationData />
+      {/* <DeputationData /> */}
       <section>{children}</section>
     </>
   )
