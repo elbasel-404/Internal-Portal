@@ -47,7 +47,6 @@ export const getAttendanceListRequests = async ({
     },
     dummyData,
     additionalBody: {
-      emp_id: 1722,
       date_start: start,
       date_end: end,
       month_date: month,
