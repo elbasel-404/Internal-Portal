@@ -6,7 +6,6 @@ export const getFetchHeaders = async () => {
   const API_KEY = process.env.API_KEY as string
   const API_KEY_HEADER_NAME = process.env.API_KEY_HEADER_NAME as string
   const SESSION_ID = process.env.SESSION_ID as string
-
   const session = await getSession()
   const access_token = session?.access_token
   const BEARER_TOKEN = access_token
@@ -21,7 +20,7 @@ export const getFetchHeaders = async () => {
     })
   }
   const headers = {
-    redirect: "follow" as RequestRedirect,
+    // redirect: "follow" as RequestRedirect,
     [API_KEY_HEADER_NAME]: API_KEY,
     Authorization: `Bearer ${BEARER_TOKEN}`,
     "Content-Type": "application/json",

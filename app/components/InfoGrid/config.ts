@@ -36,12 +36,12 @@ export const infoIcons = {
   PerformanceIcon,
   RemoteWorkIcon,
   TimeIcon,
-  ListAlternativeIcon,
-  CalenderSpecialIcon,
-  ClipboardIcon,
+  all_requests: ListAlternativeIcon,
+  pending_requests: CalenderSpecialIcon,
+  refused_requests: ClipboardIcon,
   PaperIcon,
   SandClockIcon,
-  StampIcon,
+  done_requests: StampIcon,
   TimeWithScreenIcon,
   WorkTimeIcon,
   PersonWithLaptopIcon,
@@ -58,4 +58,11 @@ export const infoIcons = {
   PriceIcon,
   FileWithPenIcon,
   TimeBlueIcon,
+} as const
+
+export const arabicTitles = {
+  pending_requests: "الطلبات تحت الاجراء",
+  done_requests: "الطلبات المعتمدة",
+  refused_requests: "الطلبات المرفوضة",
+  all_requests: "كل الطلبات",
 } as const
