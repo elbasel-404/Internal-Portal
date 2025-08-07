@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 
 import { CheckboxField } from "@components/form"
-import { PdfFileIcon, PrinterIcon, TrashIcon } from "@icons"
-import { colors } from "@lib"
+// import { PdfFileIcon, PrinterIcon, TrashIcon } from "@icons"
+// import { colors } from "@lib"
 import type { RequestHeader } from "@types"
 import {
   Button,
@@ -14,32 +15,36 @@ import {
   Table as UITable,
 } from "@ui"
 import { cn } from "@utils"
-import { Fragment, ReactNode, isValidElement } from "react"
+import { type ReactNode, isValidElement } from "react"
 import { renderStatusCell } from "./Table/Table"
+import { FileAttachment } from "./FileAttachment"
 interface RequestDetailsProps {
   headers?: RequestHeader[]
   evaluationCriteria?: ReactNode
   requestDetailsLabel?: string
 }
 
-type AttachmentList = {
-  label: "المرفقات"
-  value: File[]
-}
+// type AttachmentList = {
+//   label: "المرفقات"
+//   value: File[]
+// }
 
 export const RequestDetails = ({
   headers,
   evaluationCriteria,
   requestDetailsLabel = "تفاصيل الطلب",
 }: RequestDetailsProps) => {
-  const attachmentHeader = headers?.find(({ label }) => label === "المرفقات")
   const covenantRequestNumber = headers?.find(
     ({ label }) => label === "رقم طلب العهدة",
   )
-  const attachmentList: AttachmentList | undefined =
-    attachmentHeader && Array.isArray(attachmentHeader.value)
-      ? { label: "المرفقات", value: attachmentHeader.value }
-      : undefined
+  const attachmentHeader = headers?.find(({ label }) => label === "المرفقات")
+  const attachments = attachmentHeader?.value as number[]
+
+  // const attachmentList: AttachmentList | undefined =
+  //   attachmentHeader && Array.isArray(attachmentHeader.value)
+  //     ? { label: "المرفقات", value: attachmentHeader.value }
+  //     : undefined
+  // console.log({ attachmentList })
 
   const notesHeaders = ["ملاحظات", "المهام التي سيتم العمل عليها"]
 
@@ -147,68 +152,12 @@ export const RequestDetails = ({
             tableHeaders={tableHeaders || []}
           />
         ))}
-      {attachmentList && (
-        <AttachmentList attachmentList={attachmentList.value} />
-      )}
+      <div>
+        {attachments.map((id) => (
+          <FileAttachment key={id} fileId={id} />
+        ))}
+      </div>
     </section>
-  )
-}
-
-interface AttachmentListProps {
-  attachmentList: File[]
-}
-
-const AttachmentList = ({ attachmentList }: AttachmentListProps) => {
-  return (
-    <>
-      <h2 className="py-3 ">المرفقات</h2>
-      <div className="space-y-[10px]">
-        {Array.isArray(attachmentList) &&
-          attachmentList.map((file, index) => (
-            <Fragment key={String(file.name) + String(index)}>
-              <FileAttachment file={file} />
-            </Fragment>
-          ))}
-      </div>
-    </>
-  )
-}
-
-const FileAttachment = ({ file }: { file: File }) => {
-  // Build download URL using the attachment ID (file.name)
-  const downloadUrl = `https://publicapis.monshaat.gov.sa/ERP/TaskService/api/attachment/download/${file.name}`
-  return (
-    <div className="rounded-lg gap-3 px-4 flex items-center bg-grey-50 py-3 hover:bg-black/10 transition-colors cursor-pointer">
-      <div className="w-10 h-10 flex bg-[#FFF4CF] items-center rounded-md justify-center">
-        <PdfFileIcon className="w-4 h-4" />
-      </div>
-      {file.name}
-      <div className="mr-auto flex gap-4">
-        <Button
-          className="bg-primary-opacity rounded-sm w-6 h-6 p-0"
-          title="Download"
-          onClick={() => window.open(downloadUrl, "_blank")}
-        >
-          <PrinterIcon
-            className="w-3 h-3"
-            width={12}
-            height={12}
-            fill={colors.light.primary}
-          />
-        </Button>
-        <Button
-          className="bg-primary-opacity rounded-sm w-6 h-6 p-0"
-          title="Delete"
-        >
-          <TrashIcon
-            className="w-3 h-3"
-            width={12}
-            height={12}
-            fill={colors.light.primary}
-          />
-        </Button>
-      </div>
-    </div>
   )
 }
 
