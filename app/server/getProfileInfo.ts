@@ -36,7 +36,9 @@ export const getProfileInfo = async (): Promise<ProfileInfo> => {
           id: getStringValue(typedData.id),
           name: getStringValue(typedData.complete_name),
           image: `data:image/gif;base64,${imageBase64}`,
-          department: getArrayValue(typedData.department_id),
+          department:
+            getArrayValue(typedData.department_id).split(" / ").pop()?.trim() ||
+            "",
           job: getArrayValue(typedData.job_id),
           jobNumber: getStringValue(typedData.number),
           degree: getArrayValue(typedData.degree_id),
