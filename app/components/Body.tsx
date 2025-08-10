@@ -13,25 +13,15 @@ import { type ReactNode } from "react"
 import { Preferences } from "./Preferences"
 import { ValidatePath } from "./ValidatePath"
 import { ToggleDemo } from "./ToggleDemo"
-import { ProfileInfo } from "@types"
-// import { getProfileInfo } from "@server"
+import { getProfileInfo } from "@server"
 interface BodyProps {
   children: ReactNode
   className?: string
 }
 
 export const Body = async ({ children, className }: BodyProps) => {
-  // const userInfo = await getProfileInfo()
-  const userInfo: ProfileInfo = {
-    id: "1",
-    name: "John Doe",
-    degree: "Bachelor of Science",
-    department: "Computer Science",
-    image: "/demo-img.png",
-    job: "Software Engineer",
-    jobNumber: "12345",
-    serviceDuration: "5 years",
-  }
+  const userInfo = await getProfileInfo()
+
   return (
     <body className={className}>
       <AppProvider>
