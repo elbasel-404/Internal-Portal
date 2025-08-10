@@ -19,24 +19,24 @@ export const getPermissionDetails = async (
 
       return [
         {
-          id: String(typedData.id || ""),
-          requestDate: String(typedData.date || ""),
-          dateFrom: String(typedData.date_from || ""),
-          dateTo: String(typedData.date_to || ""),
-          reason: String(typedData.reason || ""),
+          id: String(typedData.id || "__"),
+          requestDate: String(typedData.date || "__"),
+          dateFrom: String(typedData.date_from || "__"),
+          dateTo: String(typedData.date_to || "__"),
+          reason: String(typedData.reason || "__"),
           duration: String(
             typedData.hour_number
               ? Number(typedData.hour_number).toFixed(2)
-              : "",
+              : "__",
           ),
           type:
             Array.isArray(typedData.type_id) && typedData.type_id.length > 1
               ? String(typedData.type_id[1])
-              : "",
+              : "__",
           time: `من ${
-            typedData.hour_from ? Number(typedData.hour_from).toFixed(2) : ""
+            typedData.hour_from ? Number(typedData.hour_from).toFixed(2) : "__"
           } الي ${
-            typedData.hour_to ? Number(typedData.hour_to).toFixed(2) : ""
+            typedData.hour_to ? Number(typedData.hour_to).toFixed(2) : "__"
           }`,
           attachments: Array.isArray(typedData.attachment_ids)
             ? typedData.attachment_ids.map(

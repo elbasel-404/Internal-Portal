@@ -31,12 +31,13 @@ export const getVacationDetails = async (
       return [
         {
           id: getStringValue(typedData.id),
-          requestDate: getStringValue(typedData.date),
-          type: getArrayValue(typedData.holiday_status_id),
-          vacationDate: `من ${typedData.date_from || ""} الي ${typedData.date_to || ""}`,
-          duration: getStringValue(typedData.duration),
-          alternativeEmployee: getArrayValue(typedData.substitute_employee_id),
-          notes: getStringValue(typedData.notes),
+          requestDate: getStringValue(typedData.date) || "__",
+          type: getArrayValue(typedData.holiday_status_id) || "__",
+          vacationDate: `من ${typedData.date_from || "__"} الي ${typedData.date_to || "__"}`,
+          duration: getStringValue(typedData.duration) || "__",
+          alternativeEmployee:
+            getArrayValue(typedData.substitute_employee_id) || "__",
+          notes: getStringValue(typedData.notes) || "__",
           attachments: Array.isArray(typedData.attachment_ids)
             ? typedData.attachment_ids.map(
                 (file) => new File([""], String(file)),
