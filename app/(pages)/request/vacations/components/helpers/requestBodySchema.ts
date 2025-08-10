@@ -6,7 +6,11 @@ export const requestBodySchema = z.object({
   date_to: z.string(),
   substitute_employee_id: z.string(),
   notes: z.string(),
-  attachment_ids: z.instanceof(File).or(z.string()).optional(),
+  attachment_ids: z
+    .instanceof(File)
+    .or(z.string())
+    .optional()
+    .or(z.array(z.instanceof(File))),
   childbirth_date: z.string().optional(),
   death_person: z.string().optional(),
 })
