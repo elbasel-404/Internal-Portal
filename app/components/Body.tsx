@@ -13,13 +13,17 @@ import { type ReactNode } from "react"
 import { Preferences } from "./Preferences"
 import { ValidatePath } from "./ValidatePath"
 import { ToggleDemo } from "./ToggleDemo"
-import { getProfileInfo } from "@server"
+import { getProfileInfo, getSession } from "@server"
 interface BodyProps {
   children: ReactNode
   className?: string
 }
 
 export const Body = async ({ children, className }: BodyProps) => {
+  const session = await getSession()
+  if (!session) {
+    return null
+  }
   const userInfo = await getProfileInfo()
 
   return (
