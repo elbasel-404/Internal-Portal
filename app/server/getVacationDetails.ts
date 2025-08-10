@@ -4,19 +4,19 @@ import { VacationDetails } from "@types"
 import { HolidayElementSchema, ResponseSchema } from "../../api-schemas"
 import { getData } from "./getData"
 
+const getArrayValue = (field: unknown, index: number = 1): string =>
+  Array.isArray(field) ? (field[index]?.toString() ?? "") : ""
+
+const getStringValue = (field: unknown): string =>
+  typeof field === "string"
+    ? field
+    : typeof field === "number"
+      ? String(field)
+      : ""
+
 export const getVacationDetails = async (
   id: string,
 ): Promise<VacationDetails> => {
-  const getArrayValue = (field: unknown, index: number = 1): string =>
-    Array.isArray(field) ? (field[index]?.toString() ?? "") : ""
-
-  const getStringValue = (field: unknown): string =>
-    typeof field === "string"
-      ? field
-      : typeof field === "number"
-        ? String(field)
-        : ""
-
   const result = await getData<VacationDetails>({
     url: "api/po/hr/holidays/request",
     responseSchema: ResponseSchema,
@@ -31,18 +31,13 @@ export const getVacationDetails = async (
       return [
         {
           id: getStringValue(typedData.id),
-          requestDate: getStringValue(typedData.date) || "__",
-          type: getArrayValue(typedData.holiday_status_id) || "__",
-          vacationDate: `من ${typedData.date_from || "__"} الي ${typedData.date_to || "__"}`,
-          duration: getStringValue(typedData.duration) || "__",
-          alternativeEmployee:
-            getArrayValue(typedData.substitute_employee_id) || "__",
-          notes: getStringValue(typedData.notes) || "__",
-          attachments: Array.isArray(typedData.attachment_ids)
-            ? typedData.attachment_ids.map(
-                (file) => new File([""], String(file)),
-              )
-            : [],
+          requestDate: getStringValue(typedData.date),
+          type: getArrayValue(typedData.holiday_status_id),
+          vacationDate: `من ${typedData.date_from || ""} الي ${typedData.date_to || ""}`,
+          duration: getStringValue(typedData.duration),
+          alternativeEmployee: getArrayValue(typedData.substitute_employee_id),
+          notes: getStringValue(typedData.notes),
+          attachments: typedData.attachment_ids as number[],
         },
       ]
     },
@@ -61,8 +56,5 @@ const dummyData: VacationDetails = {
   duration: "5",
   alternativeEmployee: "سعود محمد القحطاني",
   notes: "ملاحظة",
-  attachments: [
-    new File([""], "نموذج طلب 2 .pdf"),
-    new File([""], "نموذج طلب .pdf"),
-  ],
+  attachments: [1, 2],
 }
