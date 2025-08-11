@@ -16,12 +16,12 @@ export const getRulesRequests = async (): Promise<Rules[]> => {
         const typedItem = item as z.infer<typeof RulesSchema>
 
         return {
-          title: String(typedItem.title || ""),
-          description: String(typedItem.resume || ""),
-          policyNumber: String(typedItem.code || ""),
-          timestamp: String(typedItem.create_date || "")
-            .split(" ")
-            .join(" | "),
+          title: typedItem.title.toString(),
+          description: typedItem.resume.toString(),
+          policyNumber: typedItem.code.toString(),
+          timestamp: typedItem.create_date.toString().split(" ").join(" | "),
+          attachment: typedItem.attachment_url_browse.toString(),
+          download: typedItem.attachment_url_download.toString(),
         }
       })
     },
@@ -39,6 +39,7 @@ const dummyData: Rules[] = [
     sideImages: ["/news-1.svg", "/news-2.svg", "/news-3.svg"],
     mainImage: "/rules.svg",
     attachment: "دليل الموظف.pdf",
+    download: "",
   },
   {
     title: "السلوك الوظيفي وأخلاقيات الوظيفة",

@@ -4,6 +4,7 @@ import type { Metadata } from "next"
 import type { ReactNode } from "react"
 import "./(pages)/globals.css"
 import { Toaster } from "sonner"
+import { getLoggedOut } from "./server/getLoggedOut"
 
 // export const dynamic = "force-dynamic"
 
@@ -18,10 +19,13 @@ interface RootLayoutProps {
 // export const experimental_ppr = true // needs canary version of next.js
 
 const RootLayout = async ({ children }: Readonly<RootLayoutProps>) => {
+  // TODO: move this to middleware instead as it is causing the entire app route segments
+  // to be dynamiclly rendered on the server and no longer staticlly rendered.
   const session = await getSession()
   const refreshToken = await getRefreshToken()
+  const loggedOut = await getLoggedOut()
 
-  if (!session && refreshToken) {
+  if (!session && refreshToken && !loggedOut) {
     return (
       <html>
         <body className="h-screen flex items-center justify-center bg-gradient-to-b from-sky-500 to-pink-500">
@@ -33,7 +37,7 @@ const RootLayout = async ({ children }: Readonly<RootLayoutProps>) => {
 
   if (!session) {
     return (
-      <html lang="ar">
+      <html>
         <body>
           <Toaster
             richColors
@@ -49,7 +53,11 @@ const RootLayout = async ({ children }: Readonly<RootLayoutProps>) => {
     )
   }
 
-  return <>{children}</>
+  if (session) {
+    return <>{children}</>
+  }
+
+  return null
 }
 
 export default RootLayout

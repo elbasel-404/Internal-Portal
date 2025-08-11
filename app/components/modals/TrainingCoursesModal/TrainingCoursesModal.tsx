@@ -8,7 +8,7 @@ export const TrainingCoursesModal = async () => {
   )
   return (
     <Modal
-      refreshOnClose={true}
+      // refreshOnClose={true}
       introContentClassName="slide-in-from-bottom-full"
       outroContentClassName="slide-out-to-bottom-full"
       initialContentClassName="w-[55vw] h-fit rounded-none p-0 app-scrollbar overflow-auto"

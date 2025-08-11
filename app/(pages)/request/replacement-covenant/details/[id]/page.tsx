@@ -1,9 +1,5 @@
 import { Instructions, RequestDetails, RequestStatus, Table } from "@components"
-import {
-  getCovenantDetails,
-  getReplacementCovenantDetails,
-  getRequestStatus,
-} from "@server"
+import { getReplacementCovenantDetails, getRequestStatus } from "@server"
 import { RequestHeader } from "@types"
 
 type Params = Promise<{ id: string }>
@@ -38,10 +34,10 @@ const ReplacementCovenantDetailsPage = async ({
     covenantPurpose,
     covenantAmount,
     covenantDate,
+    details,
   } = (await getReplacementCovenantDetails(id)) || {}
-  const covenantDetailsData = await getCovenantDetails()
 
-  const convertedCovenantDetailsData = covenantDetailsData.map(
+  const convertedCovenantDetailsData = details?.map(
     (covenantDetails, index) => ({
       ...covenantDetails,
       id: index + "id",
@@ -94,7 +90,7 @@ const ReplacementCovenantDetailsPage = async ({
       <Table
         tableClassName="h-fit"
         columns={tableHeaders}
-        rows={convertedCovenantDetailsData}
+        rows={convertedCovenantDetailsData ?? []}
         toggleId={false}
       />
       <Instructions

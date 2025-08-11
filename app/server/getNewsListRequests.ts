@@ -13,6 +13,7 @@ export const getNewsListRequests = async (
   { limit, page } = { limit: 4, page: 1 },
 ): Promise<NewsListRequest[]> => {
   return getData<NewsListRequest, NewsElementType>({
+    revalidate: 86400,
     url: "api/po/read/portal-news",
     includeEmployeeId: false,
     additionalBody: { news_type: "news", limit, page },

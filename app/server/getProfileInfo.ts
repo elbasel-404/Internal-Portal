@@ -29,14 +29,16 @@ export const getProfileInfo = async (): Promise<ProfileInfo> => {
 
       // Handle image safely
       const imageBase64 =
-        typeof typedData.image_small === "string" ? typedData.image_small : ""
+        typeof typedData.image_medium === "string" ? typedData.image_medium : ""
 
       return [
         {
           id: getStringValue(typedData.id),
           name: getStringValue(typedData.complete_name),
           image: `data:image/gif;base64,${imageBase64}`,
-          department: getArrayValue(typedData.department_id),
+          department:
+            getArrayValue(typedData.department_id).split(" / ").pop()?.trim() ||
+            "",
           job: getArrayValue(typedData.job_id),
           jobNumber: getStringValue(typedData.number),
           degree: getArrayValue(typedData.degree_id),
