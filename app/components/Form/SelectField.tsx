@@ -1,6 +1,7 @@
 "use client"
 
 import { Select } from "@components"
+import { cn } from "@utils"
 
 interface SelectProps {
   types: { id: number | string; name: string; display_name?: string }[]
@@ -27,7 +28,7 @@ export const SelectField = ({
 }: SelectProps) => {
   return (
     <div className="flex flex-col gap-1 w-full">
-      <label className={`font-medium text-foreground ${labelStyle}`}>
+      <label className={cn("font-medium text-foreground", labelStyle)}>
         {label}
         {required && <span className="text-red-500">*</span>}
       </label>

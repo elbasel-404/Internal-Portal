@@ -6,6 +6,7 @@ import { paths } from "@lib"
 import type { AttendanceListRequest } from "@types"
 import { tableHeaders } from "./config"
 import { Loader } from "@components"
+import type { Dispatch, SetStateAction } from "react"
 
 interface AttendanceListRequestProps {
   data: AttendanceListRequest[]
@@ -14,8 +15,8 @@ interface AttendanceListRequestProps {
     end: string
     month: string
   }
-  setForm?: React.Dispatch<
-    React.SetStateAction<{
+  setForm?: Dispatch<
+    SetStateAction<{
       start: string
       end: string
       month: string
@@ -64,6 +65,7 @@ export const AttendanceTable = ({
           onApplyFilters={() => {}}
           form={form}
           setForm={setForm}
+          loading={loading}
         />
         {loading ? (
           <Loader />
