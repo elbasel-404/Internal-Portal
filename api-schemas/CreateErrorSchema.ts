@@ -1,6 +1,6 @@
 import { z } from "zod"
 
 export const CreateErrorSchema = z.object({
-  status: z.literal("error"),
+  status: z.string(),
   error: z.string(),
 })
