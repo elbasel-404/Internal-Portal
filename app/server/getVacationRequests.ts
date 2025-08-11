@@ -1,14 +1,13 @@
 "use server"
 
 import type { VacationRequest } from "@types"
+import { z } from "zod"
 import { HolidayElementSchema, ResponseSchema } from "../../api-schemas"
 import { getData } from "./getData"
-import { z } from "zod"
 
 export const getVacationRequests = async (): Promise<VacationRequest[]> => {
   return getData<VacationRequest>({
     url: "api/po/hr/holidays/request",
-    includeEmployeeId: true,
     responseSchema: ResponseSchema,
     dataSchema: HolidayElementSchema,
     parseData: (data) => {
@@ -29,14 +28,14 @@ export const getVacationRequests = async (): Promise<VacationRequest[]> => {
             : undefined
 
         return {
-          id: String(typedItem.id || ""),
-          date: String(typedItem.date || ""),
-          description: holidayStatus,
-          startDate: String(typedItem.date_from || ""),
-          endDate: String(typedItem.date_to || ""),
+          id: String(typedItem.id || "__"),
+          date: String(typedItem.date || "__"),
+          description: holidayStatus || "__",
+          startDate: String(typedItem.date_from || "__"),
+          endDate: String(typedItem.date_to || "__"),
           durationInDays: Number(typedItem.duration || 0),
-          approvalDate: doneDate || "",
-          status: String(typedItem.state || ""),
+          approvalDate: doneDate || "__",
+          status: String(typedItem.state || "__"),
         }
       })
     },
