@@ -8,8 +8,7 @@ import {
   SearchIcon,
 } from "@icons"
 import { Rules } from "@types"
-import { Button, Input } from "@ui"
-// import Image from "next/image"
+import { Button, Input, Pagination } from "@ui"
 import { useState } from "react"
 
 interface RulesDataProps {
@@ -18,6 +17,19 @@ interface RulesDataProps {
 
 const RulesPolicy = ({ rulesData }: RulesDataProps) => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
+  const itemsPerPage = 7
+  const [currentPage, setCurrentPage] = useState(1)
+
+  const totalPages = Math.ceil(rulesData.length / itemsPerPage)
+
+  const paginatedRequests = rulesData.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage,
+  )
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
+  }
 
   const toggleDescription = (index: number) => {
     setExpandedIndex((prev) => (prev === index ? null : index))
@@ -44,7 +56,7 @@ const RulesPolicy = ({ rulesData }: RulesDataProps) => {
 
       {/* Rules List */}
       <div className="space-y-4">
-        {rulesData.map(
+        {paginatedRequests.map(
           (
             {
               title,
@@ -53,6 +65,7 @@ const RulesPolicy = ({ rulesData }: RulesDataProps) => {
               // sideImages,
               attachment,
               timestamp,
+              download,
               // mainImage,
             },
             i,
@@ -132,18 +145,26 @@ const RulesPolicy = ({ rulesData }: RulesDataProps) => {
                       <PdfIcon />
                     </div>
                     <div className="flex flex-col gap-1 items-center">
-                      <p className="text-sm text-stormGray">{attachment}</p>
+                      <p className="text-sm text-stormGray">{title}</p>
                       <div className="flex gap-4 items-center w-full">
-                        <Button
-                          className="bg-primary-opacity shadow-none hover:bg-primary-opacity"
-                          size="icon"
-                          icon={<EyeIcon />}
-                        />
-                        <Button
-                          className="bg-primary-opacity shadow-none hover:bg-primary-opacity"
-                          size="icon"
-                          icon={<DownToLineIcon />}
-                        />
+                        <a
+                          href={attachment}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Button
+                            className="bg-primary-opacity shadow-none hover:bg-primary-opacity"
+                            size="icon"
+                            icon={<EyeIcon />}
+                          />
+                        </a>
+                        <a href={download}>
+                          <Button
+                            className="bg-primary-opacity shadow-none hover:bg-primary-opacity"
+                            size="icon"
+                            icon={<DownToLineIcon />}
+                          />
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -151,6 +172,25 @@ const RulesPolicy = ({ rulesData }: RulesDataProps) => {
               )}
             </div>
           ),
+        )}
+      </div>
+      <div className="">
+        {rulesData.length > 0 ? (
+          <div className="flex justify-between items-center mt-4 p-4">
+            <p className="text-[#78787A] text-sm font-light">
+              إظهار {Math.min(currentPage * itemsPerPage, rulesData.length)} من
+              أصل {rulesData.length}
+            </p>
+            {totalPages > 1 && (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
+            )}
+          </div>
+        ) : (
+          <div className="w-full"></div>
         )}
       </div>
     </div>

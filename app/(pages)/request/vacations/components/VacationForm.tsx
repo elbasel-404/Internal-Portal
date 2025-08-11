@@ -1,7 +1,7 @@
 "use client"
 
 import {
-  AttachmentsField,
+  // AttachmentsField,
   DateField,
   FormHeader,
   InputField,
@@ -16,8 +16,8 @@ import { formAction } from "./helpers/formAction"
 // import { getStateAction } from "./helpers/getStateAction" - removed unused import
 
 import type { VacationType } from "@api/schemas/vacation-types/schema"
-import { createFileHandler } from "@atoms"
-import { FileWithId } from "@types"
+// import { createFileHandler } from "@atoms"
+// import { FileWithId } from "@types"
 import type { State } from "../../../../lib/createData"
 
 const substituteEmployees = [
@@ -37,7 +37,7 @@ interface VacationFormProps {
 export const VacationForm = ({ vacationElements }: VacationFormProps) => {
   const [state, setState] = useState<State>(initialState)
   const [isPending, startTransition] = useTransition()
-  const [files, setFiles] = useState<FileWithId[]>([])
+  const [files, setFiles] = useState<File[]>([])
   const [dateFrom, setDateFrom] = useState(new Date())
   const [dateTo, setDateTo] = useState(new Date())
   const [birthDate, setBirthDate] = useState(new Date())
@@ -46,10 +46,13 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
   const [vacationType, setVacationType] = useState("7")
   const [substituteEmployee, setSubstituteEmployee] = useState("1")
 
-  const fileHandler = createFileHandler(
-    () => files,
-    (newFiles) => setFiles(newFiles),
-  )
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputFiles = event.target.files
+    console.log({ inputFiles })
+    if (!inputFiles) return
+    if (inputFiles.length === 0) return
+    setFiles((prev) => prev?.concat(Array.from(inputFiles)))
+  }
 
   const handleVacationTypeChange = (value: string) => {
     setVacationType(value)
@@ -95,6 +98,12 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
 
   const action = async (formData: FormData) => {
     toast.loading("جاري انشاء الطلب", { id: "vacation-form-pending" })
+    formData.delete("attachment_ids")
+    if (files) {
+      Array.from(files).forEach((file) => {
+        formData.append(`attachment_ids`, file)
+      })
+    }
 
     startTransition(async () => {
       const result = await formAction(formData)
@@ -118,16 +127,6 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
       className="bg-white rounded-lg text-black text-lg p-4 space-y-4"
     >
       <FormHeader label="نموذج طلب إجازة" path={paths.vacations.href} />
-      {/* <input
-        type="text"
-        name="employee_id"
-        id="employee_id"
-        hidden
-        aria-hidden
-        readOnly
-        value="1711"
-        className="hidden"
-      /> */}
       <div
         className={`grid grid-cols-1 ${
           vacationType === "16" || vacationType === "18"
@@ -228,7 +227,7 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
       />
 
       {/* Attachments */}
-      <AttachmentsField
+      {/* <AttachmentsField
         files={files}
         handleFileUpload={fileHandler.upload}
         handleRemoveFile={(index: number) =>
@@ -240,7 +239,34 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
             error.toLowerCase().includes("attachment"),
           ) || []
         }
-      />
+      /> */}
+      <div>
+        <label
+          className="cursor-pointer border border-black rounded-lg w-fulls block px-4 py-2"
+          htmlFor="attachment_ids_input"
+        >
+          Upload files
+        </label>
+        <input
+          onChange={handleFileChange}
+          name="attachment_ids"
+          id="attachment_ids_input"
+          type="file"
+          multiple
+          className="hidden"
+        />
+      </div>
+      <div>
+        {Array.from(files ?? []).map(({ name, size, type }) => {
+          return (
+            <div key={name}>
+              <span>fileName: {name}</span>
+              <span>fileSize: {size}</span>
+              <span>fileType: {type}</span>
+            </div>
+          )
+        })}
+      </div>
 
       <SubmitButton disabled={isPending} loading={isPending} />
     </form>

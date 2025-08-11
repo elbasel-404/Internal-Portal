@@ -16,6 +16,8 @@ export const ReplacementCovenantListElementSchema = z.object({
   sector_id: z.any(),
   job_id: z.any(),
   administration_id: z.any(),
+  custody_reason: z.any(),
+  details: z.any(),
 })
 export type ReplacementCovenantListElement = z.infer<
   typeof ReplacementCovenantListElementSchema

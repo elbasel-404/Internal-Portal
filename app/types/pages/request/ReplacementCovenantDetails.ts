@@ -1,3 +1,4 @@
+import type { CovenantDetails } from "@types"
 export type ReplacementCovenantDetails = {
   id: string
   date: string
@@ -7,4 +8,5 @@ export type ReplacementCovenantDetails = {
   covenantPurpose: string
   covenantAmount: string
   covenantDate: string
+  details: CovenantDetails[]
 }

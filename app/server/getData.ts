@@ -1,9 +1,9 @@
 "use server"
 
 import { getStoredEmployeeId } from "@auth"
+import { z } from "zod"
 import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
-import { z } from "zod"
 
 const LOG_INFO = true
 
@@ -12,6 +12,7 @@ interface GetDataOptions<T, D> {
   url: string
   method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
   includeEmployeeId?: boolean
+
   additionalBody?: Record<string, unknown>
   employeeIdKey?: string
 
@@ -27,6 +28,10 @@ interface GetDataOptions<T, D> {
 
   /* Debugging */
   debug?: boolean
+
+  /* Caching */
+  cache?: RequestCache
+  revalidate?: number
 }
 
 /**
@@ -43,6 +48,7 @@ export const getData = async <T, D = unknown>(
   options: GetDataOptions<T, D>,
 ): Promise<T[]> => {
   const {
+    // debug,
     url,
     method = "POST",
     includeEmployeeId = true,
@@ -52,14 +58,19 @@ export const getData = async <T, D = unknown>(
     parseData,
     dummyData,
     employeeIdKey = "employee_id",
+    cache = "force-cache",
+    revalidate = 15,
   } = options
 
   let timeStart = 0
 
   if (LOG_INFO) {
     timeStart = Date.now()
-    const seconds = (new Date()).getSeconds();
-    console.info("\x1b[30m\x1b[1m\x1b[47m%s\x1b[0m", ` ${seconds} <==   ${url}   ==>  `)
+    const seconds = new Date().getMilliseconds()
+    console.info(
+      "\x1b[30m\x1b[1m\x1b[47m%s\x1b[0m",
+      ` ${seconds} <==   ${url}   ==>  `,
+    )
     // check if additional body is en empty object:
     if (!(Object.keys(additionalBody).length === 0)) {
       console.info(
@@ -72,8 +83,11 @@ export const getData = async <T, D = unknown>(
   const isDemo = await getDemo()
   if (isDemo) {
     if (LOG_INFO) {
-      console.info("\x1b[33mReturning dummy data for\x1b[0m", { url })
+      console.info("Demo Mode On\x1b[33mReturning dummy data for\x1b[0m", {
+        url,
+      })
     }
+    logReturingDummyData(url)
     return dummyData
   }
 
@@ -88,10 +102,10 @@ export const getData = async <T, D = unknown>(
     if (!headers) {
       // console.error("Failed to get headers for API request")
       logError({
-        errorTitle:
-          "Failed to get headers for API request, returning dummy data",
+        errorTitle: "Failed to get headers for API request",
         url,
       })
+      logReturingDummyData(url)
 
       return dummyData
     }
@@ -102,10 +116,7 @@ export const getData = async <T, D = unknown>(
     // Add employee ID to request body if needed
     if (includeEmployeeId) {
       const employeeId = await getStoredEmployeeId()
-      requestBody[employeeIdKey] =
-        typeof additionalBody[employeeIdKey] === "number"
-          ? Number(employeeId)
-          : employeeId
+      requestBody[employeeIdKey] = Number(employeeId)
     }
 
     const requestBodyString = JSON.stringify(requestBody)
@@ -113,23 +124,16 @@ export const getData = async <T, D = unknown>(
 
     // ==================================
     const apiResponse = await fetch(requestUrl, {
+      credentials: "include",
       headers,
       method,
       body: method !== "GET" ? requestBodyString : undefined,
+      cache,
+      next: { revalidate },
     })
 
     const responseJson = await apiResponse.json()
-    if (LOG_INFO) {
-      const timeEnd = Date.now()
-      const timeTaken = timeEnd - timeStart
-      // Log time taken with different background color based on duration
-      const timeColor =
-        timeTaken > 500
-          ? "\x1b[30m\x1b[1m\x1b[41m" // red background for slow requests
-          : "\x1b[30m\x1b[1m\x1b[42m" // green background for fast requests
-      console.info(`${timeColor}%s\x1b[0m`, `${timeTaken}ms`)
-      logSeperator();
-    }
+    // logSeperator()
 
     // VALIDATION
     // ==================================
@@ -140,20 +144,30 @@ export const getData = async <T, D = unknown>(
       validatedResponse = responseSchema.safeParse(responseJson)
 
       if (!validatedResponse.success) {
-        const validationError = validatedResponse.error.format()
+        const validationError = validatedResponse.error.flatten().fieldErrors
+        console.log({ requestBody, headers })
         logError({
           url,
           responseJson,
           errorDetails: validationError,
           errorTitle: "response validation failed",
         })
-        console.log("Returning dummy data")
+        logReturingDummyData(url)
+        // logSeperator()
 
         return dummyData
       }
 
       result = validatedResponse.data?.result
       data = result?.data
+      if (LOG_INFO) {
+        console.log(
+          "\x1b[1m\x1b[42m\x1b[30m  Fetched %d items from %s in %dms  \x1b[0m",
+          data.length,
+          url,
+          Date.now() - timeStart,
+        )
+      }
     } else {
       // Basic validation without schema
       result = responseJson?.result
@@ -168,13 +182,14 @@ export const getData = async <T, D = unknown>(
       validatedData = schemaToUse.safeParse(data)
 
       if (!validatedData.success) {
-        const errorDetails = validatedData.error.format()
+        const errorDetails = validatedData.error.flatten().fieldErrors
         logError({
           url,
           responseJson,
           errorDetails,
           errorTitle: "data validation failed",
         })
+        logReturingDummyData(url)
         return dummyData
       }
 
@@ -199,6 +214,7 @@ export const getData = async <T, D = unknown>(
       errorTitle,
     })
 
+    logReturingDummyData(url)
     return dummyData
   }
 }
@@ -206,14 +222,13 @@ export const getData = async <T, D = unknown>(
 // !! Logging
 
 const logSeperator = () => {
-  console.log("\x1b[33m\n------------\n\x1b[0m")
+  console.log("\x1b[33m\n--------------------------------------------------------\x1b[0m")
+  console.log("\x1b[33m---------------------------------------------------------\nx1b[0m")
 }
 
-// const logMedSeperator = () => {
-//   console.log("\x1b[35m\n+++++++++++++++++++++\n\x1b[0m")
-// }
-
-// !! Info Logging
+const logReturingDummyData = (url: string) => {
+  console.log("\x1b[1m\x1b[95mRETURNING DUMMY DATA FOR %s\x1b[0m", url)
+}
 
 // !! Error Logging
 
@@ -232,14 +247,12 @@ const logError = ({
   const error = new Error()
   const stack = error.stack
 
-  logSeperator()
+  // logSeperator()
   logErrorTitle(errorTitle)
   console.log({ url })
   console.log(extractFilePaths(stack))
   console.log(errorDetails)
-  if (responseJson) {
-    console.log({ responseJson })
-  }
+  console.log({ responseJson })
   logSeperator()
 }
 const extractFilePaths = (text: string | undefined) => {

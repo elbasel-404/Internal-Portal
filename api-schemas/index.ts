@@ -42,6 +42,10 @@ export {
 export { EmployeesListElementSchema } from "./employees-list/schema"
 export { FamilyNewSchema } from "./family-news/schema"
 export { HrTrainingSchema, type HrTraining } from "./hr-training/schema"
+export {
+  JobApplicationSchema,
+  type JobApplication
+} from "./job-application/schema"
 export { NewsElementSchema, type NewsElementType } from "./news/schema"
 export { ObligationSchema } from "./obligation/schema"
 export { OvertimeAssignmentElementSchema } from "./overtime-assignment/schema"

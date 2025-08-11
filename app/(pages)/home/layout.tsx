@@ -4,6 +4,7 @@ import { type ReactNode } from "react"
 import { getUser } from "@db/actions"
 import { createInitialSlots, filterSlots, renderLayout } from "./util"
 import { HomePageSlotKey } from "@types"
+import { unstable_cache } from "next/cache"
 
 export interface HomePageLayoutProps {
   children: ReactNode
@@ -46,10 +47,14 @@ const HomePageLayout = async ({
   if (!userId)
     return renderLayout({ slotsToRender: initSlots, children, userId })
 
-  const user = await getUser(userId)
+  const user = await unstable_cache(async () => await getUser(userId), [], {
+    revalidate: false,
+    tags: ["user"],
+  })()
   const activeSlotKeys = user.activeHomePageSlotsKeys || []
   const slotsToRender = filterSlots(initSlots, activeSlotKeys)
   const visuallyHiddenKeys: HomePageSlotKey[] = []
+
   if (user.activeNewsTabsKeys.length === 0) visuallyHiddenKeys.push("news")
   // Only push "news" key if all active keys are in the specified list or there are no keys
   if (

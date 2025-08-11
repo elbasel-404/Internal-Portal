@@ -14,5 +14,7 @@ export const RulesSchema = z.object({
   write_date: z.any(),
   display_name: z.any(),
   __last_update: z.any(),
+  attachment_url_browse: z.any(),
+  attachment_url_download: z.any(),
 })
 export type Rule = z.infer<typeof RulesSchema>

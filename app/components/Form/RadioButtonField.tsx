@@ -47,7 +47,7 @@ export const RadioField = ({
         readOnly
       />
       <RadioGroup
-        defaultValue={selectedValue}
+        value={selectedValue}
         className={`flex ${radioStyle}`}
         onValueChange={handleChange}
       >
