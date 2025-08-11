@@ -53,7 +53,11 @@ const RootLayout = async ({ children }: Readonly<RootLayoutProps>) => {
     )
   }
 
-  return <>{children}</>
+  if (session) {
+    return <>{children}</>
+  }
+
+  return null
 }
 
 export default RootLayout

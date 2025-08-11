@@ -17,6 +17,7 @@ export const FileAttachment = ({ fileId }: FileAttachmentProps) => {
   const fetchFileData = async (): Promise<{
     fileName: string
     fileExtension: string
+    fileId: string
   }> => {
     const session = await getSession()
     const accessToken = session?.access_token
@@ -51,7 +52,15 @@ export const FileAttachment = ({ fileId }: FileAttachmentProps) => {
       throw new Error("Invalid file data received")
     }
 
-    return { fileName: fileData.name, fileExtension: fileData.extension }
+    if (!fileData.id) {
+      throw new Error("Invalid file data received")
+    }
+
+    return {
+      fileName: fileData.name,
+      fileExtension: fileData.extension,
+      fileId: fileData.id,
+    }
   }
 
   const loadFileData = async (): Promise<void> => {
@@ -76,9 +85,9 @@ export const FileAttachment = ({ fileId }: FileAttachmentProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const isLoading = isPending || (!fName && !error)
-  const downloadUrl = fName
-    ? `https://publicapis.monshaat.gov.sa/ERP/TaskService/api/attachment/download/${fName}`
+  const isLoading = isPending || (!fileId && !error)
+  const downloadUrl = fileId
+    ? `https://publicapis.monshaat.gov.sa/ERP/TaskService/api/attachment/download/${fileId}`
     : ""
 
   if (error) {
@@ -145,7 +154,7 @@ const FileCard = ({
   fileExtension: string
   downloadUrl: string
 }) => (
-  <div className="group rounded-lg gap-3 px-4 flex items-center bg-grey-50 py-3 hover:bg-gray-100 hover:shadow-sm transition-all duration-200 cursor-pointer border border-gray-100">
+  <div className="group rounded-lg my-4 gap-3 px-4 flex items-center bg-grey-50 py-3 hover:bg-gray-100 hover:shadow-sm transition-all duration-200 cursor-pointer border border-gray-100">
     {/* File Icon */}
     <div className="w-10 h-10 flex bg-[#FFF4CF] items-center rounded-md justify-center group-hover:bg-[#FFE8A3] transition-colors">
       <PdfFileIcon className="w-4 h-4 text-amber-600" />
