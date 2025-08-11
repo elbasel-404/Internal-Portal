@@ -19,6 +19,7 @@ import type { VacationType } from "@api/schemas/vacation-types/schema"
 // import { createFileHandler } from "@atoms"
 // import { FileWithId } from "@types"
 import type { State } from "../../../../lib/createData"
+import { OutboxIcon, PdfFileIcon } from "@icons"
 
 const substituteEmployees = [
   { id: 1, name: "عاصم بن رشود العصيمي" },
@@ -240,12 +241,34 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
           ) || []
         }
       /> */}
-      <div>
+      <FileAttachment files={files} handleFileChange={handleFileChange} />
+
+      <SubmitButton disabled={isPending} loading={isPending} />
+    </form>
+  )
+}
+
+interface FileAttachmentProps {
+  files: {
+    name: string
+    size: number
+    type: string
+  }[]
+  handleFileChange: (event: ChangeEvent<HTMLInputElement>) => void
+}
+const FileAttachment = ({ files, handleFileChange }: FileAttachmentProps) => {
+  return (
+    <>
+      <div className="flex items-center justify-center border-2 border-dashed border-gray-300 rounded-md p-6">
         <label
-          className="cursor-pointer border border-black rounded-lg w-fulls block px-4 py-2"
+          className="rounded-lg px-4 py-2 cursor-pointer flex flex-col justify-center items-center"
           htmlFor="attachment_ids_input"
         >
-          Upload files
+          <OutboxIcon />
+          <p className="text-primary hover:underline">انقر هنا لإضافة ملف</p>
+          <p className="text-stormGray">
+            تنسقات الملفات المدعومة (PDF ، JPG ، DOC ، PNG, XLX)
+          </p>
         </label>
         <input
           onChange={handleFileChange}
@@ -257,18 +280,20 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
         />
       </div>
       <div>
-        {Array.from(files ?? []).map(({ name, size, type }) => {
+        {Array.from(files ?? []).map(({ name }) => {
           return (
-            <div key={name}>
-              <span>fileName: {name}</span>
-              <span>fileSize: {size}</span>
-              <span>fileType: {type}</span>
+            <div
+              key={name}
+              className="group rounded-lg my-4 gap-3 px-4 flex items-center bg-grey-50 py-3 hover:bg-gray-100 hover:shadow-sm transition-all duration-200 cursor-pointer border border-gray-100"
+            >
+              <div className="w-10 h-10 flex bg-[#FFF4CF] items-center rounded-md justify-center group-hover:bg-[#FFE8A3] transition-colors">
+                <PdfFileIcon className="w-4 h-4 text-amber-600" />
+              </div>
+              <span>{name}</span>
             </div>
           )
         })}
       </div>
-
-      <SubmitButton disabled={isPending} loading={isPending} />
-    </form>
+    </>
   )
 }
