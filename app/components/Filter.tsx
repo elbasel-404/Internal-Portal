@@ -1,7 +1,8 @@
 import { Select } from "@components"
 import { FilterIcon } from "@icons"
 import { Button, DatePicker } from "@ui"
-import { ElementType } from "react"
+import { cn } from "@utils"
+import type { Dispatch, ElementType, SetStateAction } from "react"
 
 interface FilterSectionProps {
   // ! TODO: Unify types
@@ -23,13 +24,14 @@ interface FilterSectionProps {
     end: string
     month: string
   }
-  setForm?: React.Dispatch<
-    React.SetStateAction<{
+  setForm?: Dispatch<
+    SetStateAction<{
       start: string
       end: string
       month: string
     }>
   >
+  loading?: boolean
 }
 
 export const FilterSection = ({
@@ -43,14 +45,21 @@ export const FilterSection = ({
   onApplyFilters,
   form,
   setForm,
+  loading,
 }: FilterSectionProps) => {
+  const disabled = loading
+    ? "opacity-50 pointer-events-none"
+    : "opacity-100 pointer-events-auto"
+  const RequestDate = isRequestDate ? "md:grid-cols-3" : "md:grid-cols-4"
   return (
     <div className="p-4 space-y-4">
       <h2 className="text-stormGray text-xl">{filterHeader}</h2>
       <div
-        className={`grid grid-cols-1 sm:grid-cols-2 ${
-          isRequestDate ? "md:grid-cols-3" : "md:grid-cols-4"
-        } gap-4`}
+        className={cn(
+          "grid grid-cols-1 sm:grid-cols-2 gap-4",
+          disabled,
+          RequestDate,
+        )}
       >
         {isRequestDate ? (
           <DatePicker label="تاريخ الطلب" />
