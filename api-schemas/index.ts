@@ -5,17 +5,17 @@ export { HolidayElementSchema, type HolidayElement } from "./holiday/schema"
 
 export {
   ChangeBankAccountElementSchema,
-  type ChangeBankAccountElement
+  type ChangeBankAccountElement,
 } from "./change-bank-account/schema"
 export { CustodyElementSchema, type CustodyElement } from "./custody/schema"
 export {
   DestinationElementSchema,
-  type DestinationElement
+  type DestinationElement,
 } from "./destination/schema"
 export { HrLetterTypeSchema, type HrLetterType } from "./hr-letter-types/schema"
 export {
   MedicalInsuranceElementSchema,
-  type MedicalInsuranceElement
+  type MedicalInsuranceElement,
 } from "./medical-insurance/schema"
 // export {
 //   PermissionElementSchema,
@@ -24,20 +24,20 @@ export {
 export { AdNewSchema } from "./ad-news/schema"
 export {
   DeputationTypeSchema,
-  type DeputationType
+  type DeputationType,
 } from "./deputation-types/schema"
 export {
   DeputationElementSchema,
-  type DeputationElement
+  type DeputationElement,
 } from "./deputation/schema"
 export { EmployeeDepartmentElementSchema } from "./employee-department/schema"
 export {
   EmployeeMembersFieldSchema,
-  type EmployeeMembersField
+  type EmployeeMembersField,
 } from "./employee-members-fields/schema"
 export {
   EmployeeMemberSchema,
-  type EmployeeMember
+  type EmployeeMember,
 } from "./employee-members/schema"
 export { EmployeesListElementSchema } from "./employees-list/schema"
 export { FamilyNewSchema } from "./family-news/schema"
@@ -54,53 +54,53 @@ export { OvertimeListElementSchema } from "./overtime-list/schema"
 export { PassportRequestSchema } from "./passport-requests/schema"
 export {
   ProbationEvaluationEmployeeSchema,
-  type ProbationEvaluationEmployee
+  type ProbationEvaluationEmployee,
 } from "./probation-evaluation-employees/schema"
 export {
   ProbationEvaluationFieldsSchema,
-  type ProbationEvaluationFields
+  type ProbationEvaluationFields,
 } from "./probation-evaluation-fields/schema"
 export {
   ProbationEvaluationElementSchema,
-  type ProbationEvaluationElement
+  type ProbationEvaluationElement,
 } from "./probation-evaluation/schema"
 export { ProfileElementSchema, type ProfileElement } from "./profile/schema"
 export {
   PurchaseFieldSchema,
-  type PurchaseField
+  type PurchaseField,
 } from "./purchase-fields/schema"
 export { PurchaseSchema, type PurchaseType } from "./purchase/schema"
 export {
   RecommendationSchema,
-  type Recommendation
+  type Recommendation,
 } from "./recommendations/schema"
 export {
   RemoteWorkElementSchema,
-  type RemoteWorkElement
+  type RemoteWorkElement,
 } from "./remote-work/schema"
 export { ReplacementCovenantListElementSchema } from "./replacement-covenant-list/schema"
 export {
   RequestCreateWorkflowElementSchema,
-  type RequestCreateWorkflowElement
+  type RequestCreateWorkflowElement,
 } from "./request-create-workflow/schema"
 export {
   RequestDetailsWorkflowElementSchema,
-  type RequestDetailsWorkflowElement
+  type RequestDetailsWorkflowElement,
 } from "./request-details-workflow/schema"
 export { RulesSchema } from "./rules/schema"
 export {
   SalaryIdentificationElementSchema,
-  type SalaryIdentificationElement
+  type SalaryIdentificationElement,
 } from "./salary-identification/schema"
 export {
   SubstituteEmployeesSchema,
-  type SubstituteEmployees
+  type SubstituteEmployees,
 } from "./substitute-employees/schema"
 export {
   TrainingFieldSchema,
-  type TrainingField
+  type TrainingField,
 } from "./training-fields/schema"
 export { TrainingElementSchema, type TrainingElement } from "./training/schema"
 export { TransactionListElementSchema } from "./transaction-list/schema"
 export { VacationTypeSchema, type VacationType } from "./vacation-types/schema"
-
+export { AttendanceSchema } from "./attendance-list/schema"
