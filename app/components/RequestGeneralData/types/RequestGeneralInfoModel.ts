@@ -1,5 +1,5 @@
 export type RequestGeneralInfoModel =
-  | "holiday"
+  | "holidays"
   | "authorisation"
   | "distance_work"
   | "change_bank_account"
@@ -7,3 +7,11 @@ export type RequestGeneralInfoModel =
   | "deputation"
   | "overtime_assignment"
   | "overtime_request"
+  | "passport_request"
+  | "employee_members"
+  | "medical_insurance"
+  | "purchase_request"
+  | "custody"
+  | "custody_close"
+  | "training_public"
+  | "training_request"

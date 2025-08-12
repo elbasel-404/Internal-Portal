@@ -1,5 +1,4 @@
 import type { ReactNode } from "react"
-import { BankAccountData } from "./components"
 
 export const metadata = {
   title: "Bank Account Change",
@@ -13,7 +12,6 @@ const BankAccountChangeLayout = ({
 }: BankAccountChangeLayoutProps) => {
   return (
     <>
-      <BankAccountData />
       <section>{children}</section>
     </>
   )

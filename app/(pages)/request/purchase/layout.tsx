@@ -1,5 +1,4 @@
 import { ReactNode } from "react"
-import { PurchaseData } from "./components"
 
 export const metadata = {
   title: "Purchase",
@@ -11,7 +10,6 @@ interface PurchaseLayoutProps {
 const PurchaseLayout = ({ children }: PurchaseLayoutProps) => {
   return (
     <>
-      <PurchaseData />
       <section>{children}</section>
     </>
   )

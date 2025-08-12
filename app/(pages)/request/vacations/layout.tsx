@@ -1,5 +1,4 @@
 import { ReactNode } from "react"
-import { VacationData } from "./components"
 
 export const metadata = {
   title: "Vacations",
@@ -9,12 +8,7 @@ interface VacationsLayoutProps {
   children: ReactNode
 }
 const VacationsLayout = ({ children }: VacationsLayoutProps) => {
-  return (
-    <>
-      <VacationData />
-      {children}
-    </>
-  )
+  return <>{children}</>
 }
 
 export default VacationsLayout

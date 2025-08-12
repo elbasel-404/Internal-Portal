@@ -1,5 +1,6 @@
 "use server"
 
+import { getDemo } from "@db/actions"
 import { getFetchHeaders } from "../../server/getFetchHeaders"
 import { RequestGeneralInfoModel } from "./types/RequestGeneralInfoModel"
 
@@ -22,5 +23,18 @@ export const getGeneralInfo = async ({ model }: GetGeneralInfoParams) => {
   const data = result.data
   console.log({ data })
 
+  const isDemo = await getDemo()
+  if (isDemo || !data || data.length === 0) {
+    return dummyData
+  }
   return data
 }
+
+const dummyData = [
+  {
+    pending_custody_close_requests: 2,
+    done_custody_close_requests: 3,
+    refuse_cancel_custody_close_requests: 2,
+    all_custody_close_requests: 7,
+  },
+]

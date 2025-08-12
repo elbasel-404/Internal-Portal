@@ -1,5 +1,4 @@
 import type { ReactNode } from "react"
-import { EmployeeMembersData } from "./components"
 
 export const metadata = {
   title: "Employee Members",
@@ -11,7 +10,6 @@ interface EmployeeMembersLayoutProps {
 const EmployeeMembersLayout = ({ children }: EmployeeMembersLayoutProps) => {
   return (
     <>
-      <EmployeeMembersData />
       <section>{children}</section>
     </>
   )

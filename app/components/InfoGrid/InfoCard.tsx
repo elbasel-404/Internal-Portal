@@ -1,7 +1,7 @@
 // import { ArrowButton } from "@components/buttons"
 // import type { GeneralInfo } from "@types"
 // import { cn } from "@utils"
-import { ElementType } from "react"
+import type { ElementType } from "react"
 import { getIconNode } from "./utils"
 import { infoIcons, arabicTitles } from "./config"
 
