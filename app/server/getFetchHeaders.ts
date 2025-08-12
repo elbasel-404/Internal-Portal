@@ -11,6 +11,9 @@ export const getFetchHeaders = async () => {
   const BEARER_TOKEN = access_token
 
   if (!API_KEY || !API_KEY_HEADER_NAME || !SESSION_ID || !BEARER_TOKEN) {
+    const error = new Error()
+    const stack = error.stack;
+    console.log(extractFilePaths(stack))
     console.error("Missing required environment variables for API headers", {
       API_KEY,
       API_KEY_HEADER_NAME,
@@ -28,4 +31,14 @@ export const getFetchHeaders = async () => {
     // "Accept-Encoding": "identity",
   }
   return { headers }
+}
+
+const extractFilePaths = (text: string | undefined) => {
+  if (!text) return []
+  const regex = /([./\w()@-]+\.tsx?:\d+:\d+)/g
+  const files = [...text.matchAll(regex)].map((m) =>
+    m[1].replace("///(rsc)/", ""),
+  )
+  files.shift()
+  return files
 }

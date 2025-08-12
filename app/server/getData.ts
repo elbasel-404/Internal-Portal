@@ -1,11 +1,11 @@
 "use server"
 
 import { getStoredEmployeeId } from "@auth"
+import { z } from "zod"
 import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
-import { z } from "zod"
 
-const LOG_INFO = false
+const LOG_INFO = true
 
 interface GetDataOptions<T, D> {
   /* API request configuration */
@@ -222,7 +222,8 @@ export const getData = async <T, D = unknown>(
 // !! Logging
 
 const logSeperator = () => {
-  console.log("\x1b[33m\n------------\n\x1b[0m")
+  console.log("\x1b[33m\n--------------------------------------------------------\x1b[0m")
+  console.log("\x1b[33m---------------------------------------------------------\nx1b[0m")
 }
 
 const logReturingDummyData = (url: string) => {
