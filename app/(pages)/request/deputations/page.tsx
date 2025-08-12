@@ -7,7 +7,6 @@ const DeputationListPage = async () => {
   return (
     <div className="mb-12">
       <RequestGeneralData model="deputation" />
-
       <DeputationTable data={DeputationData} />
     </div>
   )

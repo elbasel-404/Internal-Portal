@@ -1,5 +1,4 @@
 import { ReactNode } from "react"
-import { TrainingData } from "./components"
 
 export const metadata = {
   title: "Training",
@@ -11,7 +10,6 @@ interface TrainingLayoutProps {
 const TrainingLayout = ({ children }: TrainingLayoutProps) => {
   return (
     <>
-      <TrainingData />
       <section>{children}</section>
     </>
   )

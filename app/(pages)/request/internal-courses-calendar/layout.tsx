@@ -1,5 +1,4 @@
 import type { ReactNode } from "react"
-import { InternalCoursesData } from "./components"
 
 export const metadata = {
   title: "Internal Courses Calendar",
@@ -13,7 +12,6 @@ const InternalCoursesCalendarLayout = ({
 }: InternalCoursesCalendarLayoutProps) => {
   return (
     <>
-      <InternalCoursesData />
       <section>{children}</section>
     </>
   )

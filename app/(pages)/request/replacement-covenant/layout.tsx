@@ -1,5 +1,4 @@
 import type { ReactNode } from "react"
-import { ReplacementCovenantData } from "./components"
 
 export const metadata = {
   title: "Replacement Covenant",
@@ -13,7 +12,6 @@ const ReplacementCovenantLayout = ({
 }: ReplacementCovenantLayoutProps) => {
   return (
     <>
-      <ReplacementCovenantData />
       <section>{children}</section>
     </>
   )

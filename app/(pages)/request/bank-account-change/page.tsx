@@ -1,4 +1,4 @@
-import { Instructions } from "@components"
+import { Instructions, RequestGeneralData } from "@components"
 import { getBankAccountRequests } from "@server"
 import { BankAccountTable } from "./components"
 
@@ -6,6 +6,8 @@ const BankAccountChangeListPage = async () => {
   const bankAccountData = await getBankAccountRequests()
   return (
     <div className="space-y-4 mb-12">
+      <RequestGeneralData model="change_bank_account" />
+
       <BankAccountTable data={bankAccountData} />
       <Instructions
         title="توضيحات حول الخدمة"

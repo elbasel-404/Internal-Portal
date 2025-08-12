@@ -153,7 +153,7 @@ export const RequestDetails = ({
           />
         ))}
       <div>
-        {attachments.map((id) => (
+        {attachments?.map((id) => (
           <FileAttachment key={id} fileId={id} />
         ))}
       </div>

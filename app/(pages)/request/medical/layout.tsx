@@ -1,5 +1,4 @@
 import type { ReactNode } from "react"
-import { MedicalData } from "./components"
 
 export const metadata = {
   title: "Medical Insurance",
@@ -11,7 +10,6 @@ interface MedicalInsuranceLayoutProps {
 const MedicalInsuranceLayout = ({ children }: MedicalInsuranceLayoutProps) => {
   return (
     <>
-      <MedicalData />
       <section>{children}</section>
     </>
   )
