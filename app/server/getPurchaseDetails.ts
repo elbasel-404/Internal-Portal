@@ -32,7 +32,9 @@ export const getPurchaseDetails = async (
           type: purchaseType(String(typedData.type)),
           requestTitle: String(typedData.request_title || "__"),
           requestOutcomes: String(typedData.note || "__"),
-          projectName: String(typedData.project_name || "__"),
+          projectName: Array.isArray(typedData.purchase_program_id)
+            ? String(typedData.purchase_program_id[1] || "__")
+            : "__",
           programName: Array.isArray(typedData.purchase_initiative_id)
             ? String(typedData.purchase_initiative_id[1] || "__")
             : "__",
@@ -46,7 +48,7 @@ export const getPurchaseDetails = async (
             ? String(typedData.payment_partner_id[1] || "__")
             : "__",
           description: String(typedData.description || "__"),
-          totalAmount: String(typedData.amount_total + " " + "ريال سعودي"),
+          totalAmount: String(typedData.estimated_budget + " " + "ريال سعودي"),
           awardAmountBeforeChange: "__",
           awardAmount: String(typedData.award_amount + " " + "ريال سعودي"),
           attachments: Array.isArray(typedData.attachment_ids)
