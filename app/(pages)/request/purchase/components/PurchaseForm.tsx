@@ -104,6 +104,37 @@ export const PurchaseForm = ({
         )}
         <SubmitButton disabled={pending} loading={pending} />
       </div>
+      {projectCompletionData.map((stage, index) => (
+        <div key={index}>
+          <input
+            type="text"
+            hidden
+            aria-hidden
+            readOnly
+            className="hidden"
+            name={`stages[${index}][name]`}
+            value={stage.phaseName}
+          />
+          <input
+            type="text"
+            hidden
+            aria-hidden
+            readOnly
+            className="hidden"
+            name={`stages[${index}][year]`}
+            value={stage.year}
+          />
+          <input
+            type="text"
+            hidden
+            aria-hidden
+            readOnly
+            className="hidden"
+            name={`stages[${index}][estimated_amount]`}
+            value={stage.amount}
+          />
+        </div>
+      ))}
     </form>
   )
 }
