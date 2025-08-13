@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { EvaluationFlowData } from "./components"
+// import { EvaluationFlowData } from "./components"
 
 export const metadata = {
   title: "Evaluation Flow",
@@ -11,7 +11,7 @@ interface EvaluationFlowLayoutProps {
 const EvaluationFlowLayout = ({ children }: EvaluationFlowLayoutProps) => {
   return (
     <>
-      <EvaluationFlowData />
+      {/* <EvaluationFlowData /> */}
       <section>{children}</section>
     </>
   )
