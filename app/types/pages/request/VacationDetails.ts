@@ -6,5 +6,5 @@ export type VacationDetails = {
   duration: string
   alternativeEmployee: string
   notes: string
-  attachments?: File[]
+  attachments?: number[]
 }
