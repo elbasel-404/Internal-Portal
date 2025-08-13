@@ -1,9 +1,8 @@
 "use client"
 import { getAttendanceListRequests } from "@server"
-import { Fragment, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { AttendanceTable } from "../components"
 import { AttendanceListRequest } from "@types"
-import { RequestGeneralData } from "@components"
 
 const AttendanceListPage = () => {
   const [list, setList] = useState<AttendanceListRequest[]>([])
@@ -29,25 +28,13 @@ const AttendanceListPage = () => {
     fetchData()
   }, [form.start, form.end, form.month])
 
-  // useEffect(() => {
-  //   const fetchGeneralData = async () => {
-  //     const generalData = await getAttendanceGeneralInfo()
-  //     setData(generalData)
-  //   }
-  //   fetchGeneralData()
-  // }, [])
   return (
-    <Fragment>
-      {/* <AttendanceData data={data} /> */}
-      {/* <RequestGeneralData model="change_bank_account" /> */}
-
-      <AttendanceTable
-        form={form}
-        setForm={setForm}
-        data={list}
-        loading={loading}
-      />
-    </Fragment>
+    <AttendanceTable
+      form={form}
+      setForm={setForm}
+      data={list}
+      loading={loading}
+    />
   )
 }
 

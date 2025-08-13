@@ -1,5 +1,5 @@
+import { RequestGeneralData } from "@components"
 import { ReactNode } from "react"
-import { RecommendationData } from "./components"
 
 export const metadata = {
   title: "Recommendation",
@@ -11,7 +11,7 @@ interface RecommendationLayoutProps {
 const RecommendationLayout = ({ children }: RecommendationLayoutProps) => {
   return (
     <>
-      <RecommendationData />
+      <RequestGeneralData model="holidays" />
       <section>{children}</section>
     </>
   )

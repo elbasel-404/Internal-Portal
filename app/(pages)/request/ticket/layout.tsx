@@ -1,5 +1,5 @@
+import { RequestGeneralData } from "@components"
 import type { ReactNode } from "react"
-import { TicketData } from "./components"
 
 export const metadata = {
   title: "Ticket",
@@ -11,7 +11,7 @@ interface TicketLayoutProps {
 const TicketLayout = ({ children }: TicketLayoutProps) => {
   return (
     <>
-      <TicketData />
+      <RequestGeneralData model="holidays" />
       <section>{children}</section>
     </>
   )

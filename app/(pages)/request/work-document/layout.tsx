@@ -1,5 +1,5 @@
+import { RequestGeneralData } from "@components"
 import { ReactNode } from "react"
-import { WorkDocumentData } from "./components"
 
 export const metadata = {
   title: "Work Document",
@@ -11,7 +11,7 @@ interface WorkDocumentLayoutProps {
 const WorkDocumentLayout = ({ children }: WorkDocumentLayoutProps) => {
   return (
     <>
-      <WorkDocumentData />
+      <RequestGeneralData model="holidays" />
       <section>{children}</section>
     </>
   )
