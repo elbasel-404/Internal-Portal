@@ -1,5 +1,5 @@
 export { CompetenciesSection } from "./CompetenciesSection"
-export { EvaluationGoalsData } from "./EvaluationGoalsData"
+// export { EvaluationGoalsData } from "./EvaluationGoalsData"
 export { EvaluationGoalsForm } from "./EvaluationGoalsForm/index"
 export { EvaluationGoalsTable } from "./EvaluationGoalsTable"
 export { GoalDetails } from "./GoalDetails"

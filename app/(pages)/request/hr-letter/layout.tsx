@@ -1,5 +1,5 @@
+import { RequestGeneralData } from "@components"
 import type { ReactNode } from "react"
-import { HrLetterData } from "./components"
 
 export const metadata = {
   title: "HR Letter",
@@ -11,7 +11,7 @@ interface HrLetterLayoutProps {
 const HrLetterLayout = ({ children }: HrLetterLayoutProps) => {
   return (
     <>
-      <HrLetterData />
+      <RequestGeneralData model="salary_request" />
       <section>{children}</section>
     </>
   )

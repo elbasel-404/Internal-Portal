@@ -1,5 +1,5 @@
+import { RequestGeneralData } from "@components"
 import type { ReactNode } from "react"
-import { InternalCoursesData } from "./components"
 
 export const metadata = {
   title: "Internal Courses Calendar",
@@ -13,7 +13,7 @@ const InternalCoursesCalendarLayout = ({
 }: InternalCoursesCalendarLayoutProps) => {
   return (
     <>
-      <InternalCoursesData />
+      <RequestGeneralData model="training_public" />
       <section>{children}</section>
     </>
   )

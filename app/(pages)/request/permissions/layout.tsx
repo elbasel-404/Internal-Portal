@@ -1,5 +1,5 @@
+import { RequestGeneralData } from "@components"
 import { ReactNode } from "react"
-import { PermissionData } from "./components"
 
 export const metadata = {
   title: "Permissions",
@@ -11,7 +11,7 @@ interface PermissionssLayoutProps {
 const PermissionLayout = ({ children }: PermissionssLayoutProps) => {
   return (
     <>
-      <PermissionData />
+      <RequestGeneralData model="authorisation" />
       <section>{children}</section>
     </>
   )
