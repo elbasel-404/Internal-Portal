@@ -1,5 +1,5 @@
+import { RequestGeneralData } from "@components"
 import { ReactNode } from "react"
-import { EvaluationGoalsData } from "./components"
 
 export const metadata = {
   title: "Evaluation Goals",
@@ -11,7 +11,8 @@ interface EvaluationGoalsLayoutProps {
 const EvaluationGoalsLayout = ({ children }: EvaluationGoalsLayoutProps) => {
   return (
     <>
-      <EvaluationGoalsData />
+      {/* TODO: not integrated */}
+      <RequestGeneralData model="holidays" />
       <section>{children}</section>
     </>
   )
