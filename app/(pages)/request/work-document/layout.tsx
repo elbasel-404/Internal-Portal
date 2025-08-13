@@ -11,6 +11,7 @@ interface WorkDocumentLayoutProps {
 const WorkDocumentLayout = ({ children }: WorkDocumentLayoutProps) => {
   return (
     <>
+      {/* @TODO not integrated */}
       <RequestGeneralData model="holidays" />
       <section>{children}</section>
     </>
