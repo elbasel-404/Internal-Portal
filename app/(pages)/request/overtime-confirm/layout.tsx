@@ -1,5 +1,5 @@
+import { RequestGeneralData } from "@components"
 import { ReactNode } from "react"
-import { OvertimeConfirmData } from "./components"
 
 export const metadata = {
   title: "Overtime Confirm",
@@ -11,7 +11,7 @@ interface OvertimeConfirmLayoutProps {
 const OvertimeConfirmLayout = ({ children }: OvertimeConfirmLayoutProps) => {
   return (
     <>
-      <OvertimeConfirmData />
+      <RequestGeneralData model="overtime_request" />
       <section>{children}</section>
     </>
   )

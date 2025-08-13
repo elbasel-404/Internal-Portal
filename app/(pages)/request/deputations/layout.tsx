@@ -1,5 +1,5 @@
+import { RequestGeneralData } from "@components"
 import { ReactNode } from "react"
-import { DeputationData } from "./components"
 
 export const metadata = {
   title: "Deputations",
@@ -11,7 +11,8 @@ interface DeputationLayoutProps {
 const DeputationLayout = ({ children }: DeputationLayoutProps) => {
   return (
     <>
-      <DeputationData />
+      <RequestGeneralData model="deputation" />
+
       <section>{children}</section>
     </>
   )

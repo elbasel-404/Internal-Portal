@@ -1,5 +1,5 @@
+import { RequestGeneralData } from "@components"
 import { ReactNode } from "react"
-import { EvaluationFlowData } from "./components"
 
 export const metadata = {
   title: "Evaluation Flow",
@@ -11,7 +11,8 @@ interface EvaluationFlowLayoutProps {
 const EvaluationFlowLayout = ({ children }: EvaluationFlowLayoutProps) => {
   return (
     <>
-      <EvaluationFlowData />
+      {/* TODO: not integrated */}
+      <RequestGeneralData model="holidays" />
       <section>{children}</section>
     </>
   )
