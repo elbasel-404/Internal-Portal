@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { EvaluationData } from "./components"
+import { RequestGeneralData } from "@components"
 
 export const metadata = {
   title: "Supplier Evaluation Request",
@@ -11,7 +11,8 @@ interface VacationsLayoutProps {
 const VacationsLayout = ({ children }: VacationsLayoutProps) => {
   return (
     <>
-      <EvaluationData />
+      {/* TODO: not integrated */}
+      <RequestGeneralData model="holidays" />
       {children}
     </>
   )

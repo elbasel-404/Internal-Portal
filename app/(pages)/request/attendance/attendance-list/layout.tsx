@@ -2,13 +2,15 @@ import { RequestGeneralData } from "@components"
 import type { ReactNode } from "react"
 
 export const metadata = {
-  title: "Transaction List",
-  description: "Transaction List Data",
+  title: "Attendance List",
+  description: "Attendance List Data",
 }
-interface TransactionListLayoutProps {
+interface AttendanceListLayoutLayoutProps {
   children: ReactNode
 }
-const TransactionLayout = ({ children }: TransactionListLayoutProps) => {
+const AttendanceListLayout = ({
+  children,
+}: AttendanceListLayoutLayoutProps) => {
   return (
     <>
       {/* TODO: not integrated */}
@@ -18,4 +20,4 @@ const TransactionLayout = ({ children }: TransactionListLayoutProps) => {
   )
 }
 
-export default TransactionLayout
+export default AttendanceListLayout

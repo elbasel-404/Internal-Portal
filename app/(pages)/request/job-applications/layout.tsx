@@ -1,5 +1,5 @@
+import { RequestGeneralData } from "@components"
 import type { ReactNode } from "react"
-import { JobApplicationsData } from "./components"
 
 export const metadata = {
   title: "Job Applications",
@@ -11,7 +11,8 @@ interface JobApplicationsLayoutProps {
 const JobApplicationsLayout = ({ children }: JobApplicationsLayoutProps) => {
   return (
     <>
-      <JobApplicationsData />
+      {/* TODO: not integrated */}
+      <RequestGeneralData model="holidays" />
       <section>{children}</section>
     </>
   )
