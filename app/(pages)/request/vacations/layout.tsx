@@ -1,3 +1,4 @@
+import { RequestGeneralData } from "@components"
 import { ReactNode } from "react"
 
 export const metadata = {
@@ -8,7 +9,12 @@ interface VacationsLayoutProps {
   children: ReactNode
 }
 const VacationsLayout = ({ children }: VacationsLayoutProps) => {
-  return <>{children}</>
+  return (
+    <>
+      <RequestGeneralData model="holidays" />
+      {children}
+    </>
+  )
 }
 
 export default VacationsLayout

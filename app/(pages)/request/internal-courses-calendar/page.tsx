@@ -1,4 +1,4 @@
-import { Instructions, RequestGeneralData } from "@components"
+import { Instructions } from "@components"
 import { getInternalCoursesRequests } from "@server"
 import { InternalCoursesTable } from "./components"
 
@@ -6,8 +6,6 @@ const InternalCoursesCalendarListPage = async () => {
   const internalCoursesData = await getInternalCoursesRequests()
   return (
     <div className="space-y-4 mb-12">
-      <RequestGeneralData model="training_public" />
-
       <InternalCoursesTable data={internalCoursesData} />
       <Instructions
         title="توضيحات حول الخدمة"

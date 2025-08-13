@@ -1,4 +1,4 @@
-import { Instructions, RequestGeneralData } from "@components"
+import { Instructions } from "@components"
 import { getCustodyRequests } from "@server"
 import { CustodyTable } from "./components"
 
@@ -6,8 +6,6 @@ const CustodyListPage = async () => {
   const custodyData = await getCustodyRequests()
   return (
     <div className="space-y-4 mb-12">
-      <RequestGeneralData model="custody" />
-
       <CustodyTable data={custodyData} />
       <Instructions
         title="توضيحات حول الخدمة"

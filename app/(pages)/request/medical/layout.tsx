@@ -1,3 +1,4 @@
+import { RequestGeneralData } from "@components"
 import type { ReactNode } from "react"
 
 export const metadata = {
@@ -10,6 +11,7 @@ interface MedicalInsuranceLayoutProps {
 const MedicalInsuranceLayout = ({ children }: MedicalInsuranceLayoutProps) => {
   return (
     <>
+      <RequestGeneralData model="medical_insurance" />
       <section>{children}</section>
     </>
   )

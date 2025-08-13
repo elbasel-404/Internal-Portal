@@ -1,3 +1,4 @@
+import { RequestGeneralData } from "@components"
 import type { ReactNode } from "react"
 
 export const metadata = {
@@ -12,6 +13,8 @@ const BankAccountChangeLayout = ({
 }: BankAccountChangeLayoutProps) => {
   return (
     <>
+      <RequestGeneralData model="change_bank_account" />
+
       <section>{children}</section>
     </>
   )

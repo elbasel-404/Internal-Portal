@@ -1,3 +1,4 @@
+import { RequestGeneralData } from "@components"
 import type { ReactNode } from "react"
 
 export const metadata = {
@@ -12,6 +13,7 @@ const ReplacementCovenantLayout = ({
 }: ReplacementCovenantLayoutProps) => {
   return (
     <>
+      <RequestGeneralData model="custody_close" />
       <section>{children}</section>
     </>
   )

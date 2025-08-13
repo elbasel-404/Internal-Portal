@@ -1,3 +1,4 @@
+import { RequestGeneralData } from "@components"
 import type { ReactNode } from "react"
 
 export const metadata = {
@@ -10,6 +11,7 @@ interface EmployeeMembersLayoutProps {
 const EmployeeMembersLayout = ({ children }: EmployeeMembersLayoutProps) => {
   return (
     <>
+      <RequestGeneralData model="employee_members" />
       <section>{children}</section>
     </>
   )

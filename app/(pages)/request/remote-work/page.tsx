@@ -1,4 +1,4 @@
-import { Instructions, RequestGeneralData } from "@components"
+import { Instructions } from "@components"
 import { RemoteWorkTable } from "./components"
 import { getRemoteWorkRequests } from "@server"
 
@@ -6,8 +6,6 @@ const RemoteWorkListPage = async () => {
   const remoteWorkData = await getRemoteWorkRequests()
   return (
     <div className="space-y-4 mb-12">
-      <RequestGeneralData model="distance_work" />
-
       <RemoteWorkTable data={remoteWorkData} />
       <Instructions
         title="توضيحات حول الخدمة"

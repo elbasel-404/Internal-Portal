@@ -1,4 +1,4 @@
-import { Instructions, RequestGeneralData } from "@components"
+import { Instructions } from "@components"
 import { PermissionTable } from "./components"
 import { getPermissionRequests } from "../../../server/getPermissionRequests"
 
@@ -6,8 +6,6 @@ const PermissionsListPage = async () => {
   const permissionData = await getPermissionRequests()
   return (
     <div className="space-y-4 mb-12">
-      <RequestGeneralData model="authorisation" />
-
       <PermissionTable data={permissionData} />
       <Instructions
         title="توضيحات حول الخدمة"
