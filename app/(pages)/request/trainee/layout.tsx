@@ -11,7 +11,7 @@ interface TraineeLayoutProps {
 const TraineeLayout = ({ children }: TraineeLayoutProps) => {
   return (
     <>
-      {/* @TODO not integrated */}
+      {/* TODO: not integrated */}
       <RequestGeneralData model="holidays" />
       <section>{children}</section>
     </>

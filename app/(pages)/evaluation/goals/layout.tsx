@@ -11,7 +11,7 @@ interface EvaluationGoalsLayoutProps {
 const EvaluationGoalsLayout = ({ children }: EvaluationGoalsLayoutProps) => {
   return (
     <>
-      {/* @TODO not integrated */}
+      {/* TODO: not integrated */}
       <RequestGeneralData model="holidays" />
       <section>{children}</section>
     </>
