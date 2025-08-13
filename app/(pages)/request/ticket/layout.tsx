@@ -11,7 +11,7 @@ interface TicketLayoutProps {
 const TicketLayout = ({ children }: TicketLayoutProps) => {
   return (
     <>
-      {/* @TODO not integrated */}
+      {/* TODO: not integrated */}
       <RequestGeneralData model="holidays" />
       <section>{children}</section>
     </>
