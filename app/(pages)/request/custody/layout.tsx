@@ -1,3 +1,4 @@
+import { RequestGeneralData } from "@components"
 import type { ReactNode } from "react"
 
 export const metadata = {
@@ -10,6 +11,8 @@ interface CustodyLayoutProps {
 const ReplacementCovenantLayout = ({ children }: CustodyLayoutProps) => {
   return (
     <>
+      <RequestGeneralData model="custody" />
+
       <section>{children}</section>
     </>
   )

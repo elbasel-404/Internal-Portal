@@ -1,4 +1,4 @@
-import { Instructions, RequestGeneralData } from "@components"
+import { Instructions } from "@components"
 import { getHrLetterRequests } from "@server"
 import { HrLetterTable } from "./components"
 
@@ -6,8 +6,6 @@ const HrLetterListPage = async () => {
   const hrLetterData = await getHrLetterRequests()
   return (
     <div className="space-y-4 mb-12">
-      <RequestGeneralData model="salary_request" />
-
       <HrLetterTable data={hrLetterData} />
       <Instructions
         title="توضيحات حول الخدمة"

@@ -1,3 +1,4 @@
+import { RequestGeneralData } from "@components"
 import { ReactNode } from "react"
 
 export const metadata = {
@@ -12,6 +13,7 @@ const OvertimeAssignmentLayout = ({
 }: OvertimeAssignmentLayoutProps) => {
   return (
     <>
+      <RequestGeneralData model="overtime_assignment" />
       <section>{children}</section>
     </>
   )

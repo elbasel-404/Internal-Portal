@@ -1,3 +1,4 @@
+import { RequestGeneralData } from "@components"
 import { ReactNode } from "react"
 
 export const metadata = {
@@ -10,6 +11,7 @@ interface VacationsLayoutProps {
 const RemoteWorksLayout = ({ children }: VacationsLayoutProps) => {
   return (
     <>
+      <RequestGeneralData model="distance_work" />
       <section>{children}</section>
     </>
   )

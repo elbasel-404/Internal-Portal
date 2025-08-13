@@ -1,4 +1,4 @@
-import { Instructions, RequestGeneralData } from "@components"
+import { Instructions } from "@components"
 import { VacationTable } from "./components"
 import { getVacationRequests } from "@server"
 
@@ -9,8 +9,6 @@ const VacationsListPage = async () => {
 
   return (
     <div className="space-y-4 mb-12">
-      <RequestGeneralData model="holidays" />
-
       <VacationTable data={VacationRequests} />
       <Instructions
         title="توضيحات حول الخدمة"

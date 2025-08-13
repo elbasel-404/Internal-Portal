@@ -1,3 +1,4 @@
+import { RequestGeneralData } from "@components"
 import type { ReactNode } from "react"
 
 export const metadata = {
@@ -10,6 +11,7 @@ interface HrLetterLayoutProps {
 const HrLetterLayout = ({ children }: HrLetterLayoutProps) => {
   return (
     <>
+      <RequestGeneralData model="salary_request" />
       <section>{children}</section>
     </>
   )

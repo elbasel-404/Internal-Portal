@@ -1,4 +1,4 @@
-import { Instructions, RequestGeneralData } from "@components"
+import { Instructions } from "@components"
 import { getMedicalInsuranceRequests } from "@server"
 import { MedicalTable } from "./components"
 
@@ -6,8 +6,6 @@ const MedicalInsuranceListPage = async () => {
   const medicalInsuranceData = await getMedicalInsuranceRequests()
   return (
     <div className="space-y-4 mb-12">
-      <RequestGeneralData model="medical_insurance" />
-
       <MedicalTable data={medicalInsuranceData} />
       <Instructions
         title="توضيحات حول الخدمة"

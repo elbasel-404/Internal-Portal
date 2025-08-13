@@ -1,3 +1,4 @@
+import { RequestGeneralData } from "@components"
 import { ReactNode } from "react"
 
 export const metadata = {
@@ -10,6 +11,7 @@ interface TrainingLayoutProps {
 const TrainingLayout = ({ children }: TrainingLayoutProps) => {
   return (
     <>
+      <RequestGeneralData model="training_request" />
       <section>{children}</section>
     </>
   )

@@ -1,3 +1,4 @@
+import { RequestGeneralData } from "@components"
 import { ReactNode } from "react"
 
 export const metadata = {
@@ -10,6 +11,7 @@ interface PassportLayoutProps {
 const PassportLayout = ({ children }: PassportLayoutProps) => {
   return (
     <>
+      <RequestGeneralData model="passport_request" />
       <section>{children}</section>
     </>
   )
