@@ -1,7 +1,7 @@
 "use client"
 
 import {
-  AttachmentsField,
+  // AttachmentsField,
   DateField,
   FormHeader,
   InputField,
@@ -16,9 +16,10 @@ import { formAction } from "./helpers/formAction"
 // import { getStateAction } from "./helpers/getStateAction" - removed unused import
 
 import type { VacationType } from "@api/schemas/vacation-types/schema"
-import { createFileHandler } from "@atoms"
-import { FileWithId } from "@types"
+// import { createFileHandler } from "@atoms"
+// import { FileWithId } from "@types"
 import type { State } from "../../../../lib/createData"
+import { OutboxIcon, PdfFileIcon } from "@icons"
 
 const substituteEmployees = [
   { id: 1, name: "عاصم بن رشود العصيمي" },
@@ -37,7 +38,7 @@ interface VacationFormProps {
 export const VacationForm = ({ vacationElements }: VacationFormProps) => {
   const [state, setState] = useState<State>(initialState)
   const [isPending, startTransition] = useTransition()
-  const [files, setFiles] = useState<FileWithId[]>([])
+  const [files, setFiles] = useState<File[]>([])
   const [dateFrom, setDateFrom] = useState(new Date())
   const [dateTo, setDateTo] = useState(new Date())
   const [birthDate, setBirthDate] = useState(new Date())
@@ -46,10 +47,13 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
   const [vacationType, setVacationType] = useState("7")
   const [substituteEmployee, setSubstituteEmployee] = useState("1")
 
-  const fileHandler = createFileHandler(
-    () => files,
-    (newFiles) => setFiles(newFiles),
-  )
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputFiles = event.target.files
+    console.log({ inputFiles })
+    if (!inputFiles) return
+    if (inputFiles.length === 0) return
+    setFiles((prev) => prev?.concat(Array.from(inputFiles)))
+  }
 
   const handleVacationTypeChange = (value: string) => {
     setVacationType(value)
@@ -95,6 +99,12 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
 
   const action = async (formData: FormData) => {
     toast.loading("جاري انشاء الطلب", { id: "vacation-form-pending" })
+    formData.delete("attachment_ids")
+    if (files) {
+      Array.from(files).forEach((file) => {
+        formData.append(`attachment_ids`, file)
+      })
+    }
 
     startTransition(async () => {
       const result = await formAction(formData)
@@ -118,16 +128,6 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
       className="bg-white rounded-lg text-black text-lg p-4 space-y-4"
     >
       <FormHeader label="نموذج طلب إجازة" path={paths.vacations.href} />
-      {/* <input
-        type="text"
-        name="employee_id"
-        id="employee_id"
-        hidden
-        aria-hidden
-        readOnly
-        value="1711"
-        className="hidden"
-      /> */}
       <div
         className={`grid grid-cols-1 ${
           vacationType === "16" || vacationType === "18"
@@ -228,7 +228,7 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
       />
 
       {/* Attachments */}
-      <AttachmentsField
+      {/* <AttachmentsField
         files={files}
         handleFileUpload={fileHandler.upload}
         handleRemoveFile={(index: number) =>
@@ -240,9 +240,60 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
             error.toLowerCase().includes("attachment"),
           ) || []
         }
-      />
+      /> */}
+      <FileAttachment files={files} handleFileChange={handleFileChange} />
 
       <SubmitButton disabled={isPending} loading={isPending} />
     </form>
+  )
+}
+
+interface FileAttachmentProps {
+  files: {
+    name: string
+    size: number
+    type: string
+  }[]
+  handleFileChange: (event: ChangeEvent<HTMLInputElement>) => void
+}
+const FileAttachment = ({ files, handleFileChange }: FileAttachmentProps) => {
+  return (
+    <>
+      <div className="flex items-center justify-center border-2 border-dashed border-gray-300 rounded-md p-6">
+        <label
+          className="rounded-lg px-4 py-2 cursor-pointer flex flex-col justify-center items-center"
+          htmlFor="attachment_ids_input"
+        >
+          <OutboxIcon />
+          <p className="text-primary hover:underline">انقر هنا لإضافة ملف</p>
+          <p className="text-stormGray">
+            تنسقات الملفات المدعومة (PDF ، JPG ، DOC ، PNG, XLX)
+          </p>
+        </label>
+        <input
+          onChange={handleFileChange}
+          name="attachment_ids"
+          id="attachment_ids_input"
+          type="file"
+          multiple
+          className="hidden"
+        />
+      </div>
+      <div>
+        {Array.from(files ?? []).map(({ name }) => {
+          return (
+            <div
+              key={name}
+              className="group rounded-lg my-4 gap-3 px-4 flex items-center bg-grey-50 py-3 hover:bg-gray-100 hover:shadow-sm transition-all duration-200 cursor-pointer border border-gray-100"
+            >
+              <div className="w-10 h-10 flex bg-[#FFF4CF] items-center rounded-md justify-center group-hover:bg-[#FFE8A3] transition-colors">
+                <PdfFileIcon className="w-4 h-4 text-amber-600" />
+              </div>
+              <span>{name}</span>
+            </div>
+          )
+        })}
+      </div>
+    </>
   )
 }

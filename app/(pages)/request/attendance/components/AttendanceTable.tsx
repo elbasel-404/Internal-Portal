@@ -5,27 +5,47 @@ import { PrinterIcon } from "@icons"
 import { paths } from "@lib"
 import type { AttendanceListRequest } from "@types"
 import { tableHeaders } from "./config"
+import { Loader } from "@components"
+import type { Dispatch, SetStateAction } from "react"
 
 interface AttendanceListRequestProps {
   data: AttendanceListRequest[]
+  form?: {
+    start: string
+    end: string
+    month: string
+  }
+  setForm?: Dispatch<
+    SetStateAction<{
+      start: string
+      end: string
+      month: string
+    }>
+  >
+  loading?: boolean
 }
 
 export const defaultMonths = [
-  { id: "1", description: "يناير" },
-  { id: "2", description: "فبراير" },
-  { id: "3", description: "مارس" },
-  { id: "4", description: "أبريل" },
-  { id: "5", description: "مايو" },
-  { id: "6", description: "يونيو" },
-  { id: "7", description: "يوليو" },
-  { id: "8", description: "أغسطس" },
-  { id: "9", description: "سبتمبر" },
-  { id: "10", description: "أكتوبر" },
-  { id: "11", description: "نوفمبر" },
-  { id: "12", description: "ديسمبر" },
+  { id: "01", name: "يناير" },
+  { id: "02", name: "فبراير" },
+  { id: "03", name: "مارس" },
+  { id: "04", name: "أبريل" },
+  { id: "05", name: "مايو" },
+  { id: "06", name: "يونيو" },
+  { id: "07", name: "يوليو" },
+  { id: "08", name: "أغسطس" },
+  { id: "09", name: "سبتمبر" },
+  { id: "10", name: "أكتوبر" },
+  { id: "11", name: "نوفمبر" },
+  { id: "12", name: "ديسمبر" },
 ]
 
-export const AttendanceTable = ({ data }: AttendanceListRequestProps) => {
+export const AttendanceTable = ({
+  data,
+  form,
+  setForm,
+  loading,
+}: AttendanceListRequestProps) => {
   return (
     <>
       <div className="bg-white rounded-lg">
@@ -43,14 +63,20 @@ export const AttendanceTable = ({ data }: AttendanceListRequestProps) => {
           filterButton="طباعة تقارير الحضور و الإنصراف"
           Icon={PrinterIcon}
           onApplyFilters={() => {}}
+          form={form}
+          setForm={setForm}
+          loading={loading}
         />
-
-        <Table
-          columns={tableHeaders}
-          rows={data}
-          link={paths.vacationDetails.href}
-          toggleId={false}
-        />
+        {loading ? (
+          <Loader />
+        ) : (
+          <Table
+            columns={tableHeaders}
+            rows={data}
+            link={paths.vacationDetails.href}
+            toggleId={false}
+          />
+        )}
       </div>
     </>
   )
