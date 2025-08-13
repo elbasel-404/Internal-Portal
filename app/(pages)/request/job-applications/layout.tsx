@@ -11,6 +11,7 @@ interface JobApplicationsLayoutProps {
 const JobApplicationsLayout = ({ children }: JobApplicationsLayoutProps) => {
   return (
     <>
+      {/* @TODO not integrated */}
       <RequestGeneralData model="holidays" />
       <section>{children}</section>
     </>

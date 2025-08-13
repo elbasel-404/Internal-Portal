@@ -11,6 +11,7 @@ interface MedicalInsuranceLayoutProps {
 const ProbationPeriodLayout = ({ children }: MedicalInsuranceLayoutProps) => {
   return (
     <>
+      {/* @TODO not integrated */}
       <RequestGeneralData model="holidays" />
       <section>{children}</section>
     </>

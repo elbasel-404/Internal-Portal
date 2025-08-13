@@ -11,6 +11,7 @@ interface ResignationLayoutProps {
 const ResignationLayout = ({ children }: ResignationLayoutProps) => {
   return (
     <>
+      {/* @TODO not integrated */}
       <RequestGeneralData model="holidays" />
       <section>{children}</section>
     </>

@@ -19,6 +19,7 @@ const GeneralInfoSlot = async () => {
 
   // const infoToRender = info.slice(0, MAX_INFO_SLOTS)
 
+  // @TODO not integrated
   return <RequestGeneralData model="holidays" />
 }
 

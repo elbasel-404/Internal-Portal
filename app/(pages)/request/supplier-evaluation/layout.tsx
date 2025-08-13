@@ -11,6 +11,7 @@ interface VacationsLayoutProps {
 const VacationsLayout = ({ children }: VacationsLayoutProps) => {
   return (
     <>
+      {/* @TODO not integrated */}
       <RequestGeneralData model="holidays" />
       {children}
     </>

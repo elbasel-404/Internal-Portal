@@ -11,6 +11,7 @@ interface TransactionListLayoutProps {
 const TransactionLayout = ({ children }: TransactionListLayoutProps) => {
   return (
     <>
+      {/* @TODO not integrated */}
       <RequestGeneralData model="holidays" />
       <section>{children}</section>
     </>
