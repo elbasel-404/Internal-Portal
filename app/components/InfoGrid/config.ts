@@ -19,6 +19,7 @@ import {
   TabletAltIcon,
   TabletIcon,
   TagWithXIcon,
+  TimeBlueIcon,
   TimeIcon,
   TimeWithScreenIcon,
   TimerStartIcon,
@@ -26,7 +27,6 @@ import {
   WorkTimeIcon,
   WorkingHomeIcon,
   WritingNoteIcon,
-  TimeBlueIcon,
 } from "@icons"
 
 export const infoIcons = {
@@ -55,7 +55,7 @@ export const infoIcons = {
   refuse_change_bank_account_requests: ClipboardIcon,
   done_change_bank_account_requests: StampIcon,
   all_change_bank_account_requests: ListAlternativeIcon,
-  pending_salary_request_requests: SandClockIcon,
+  pending_salary_request_requests: CalenderSpecialIcon,
   refuse_salary_request_requests: ClipboardIcon,
   done_salary_request_requests: StampIcon,
   all_salary_request_requests: ListAlternativeIcon,
