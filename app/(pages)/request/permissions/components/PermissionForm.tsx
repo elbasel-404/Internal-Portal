@@ -15,8 +15,8 @@ import { paths } from "@lib"
 import { FileWithId } from "@types"
 import { useEffect, useState, useTransition } from "react"
 import { toast } from "sonner"
-import { formAction } from "./helpers/formAction"
 import { State } from "../../../../lib/createData"
+import { formAction } from "./helpers/formAction"
 
 const initialState: State = {
   success: false,
@@ -102,6 +102,7 @@ export const PermissionForm = () => {
             types={PermissionTypes}
             value={permissionTypeValue}
             onChange={handlePermissionTypeChange}
+            required
           />
           {permissionTypeValue === "1" && (
             <CheckboxField
