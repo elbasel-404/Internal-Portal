@@ -19,6 +19,7 @@ import {
   TabletAltIcon,
   TabletIcon,
   TagWithXIcon,
+  TimeBlueIcon,
   TimeIcon,
   TimeWithScreenIcon,
   TimerStartIcon,
@@ -26,7 +27,6 @@ import {
   WorkTimeIcon,
   WorkingHomeIcon,
   WritingNoteIcon,
-  TimeBlueIcon,
 } from "@icons"
 
 export const infoIcons = {
@@ -80,7 +80,7 @@ export const infoIcons = {
   done_employee_members_requests: StampIcon,
   refused_employee_members_requests: ClipboardIcon,
   all_employee_members_requests: ListAlternativeIcon,
-  pending_medical_insurance_requests: SandClockIcon,
+  pending_medical_insurance_requests: CalenderSpecialIcon,
   done_medical_insurance_requests: StampIcon,
   refuse_cancel_medical_insurance_requests: ClipboardIcon,
   all_medical_insurance_requests: ListAlternativeIcon,
