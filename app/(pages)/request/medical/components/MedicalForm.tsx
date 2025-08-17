@@ -119,6 +119,7 @@ export const MedicalForm = ({ relativeRelation }: MedicalFormProps) => {
             types={types}
             value={requestType}
             onChange={handleRequestTypeChange}
+            required
           />
           <SelectField
             name="relative_relation"
@@ -130,6 +131,7 @@ export const MedicalForm = ({ relativeRelation }: MedicalFormProps) => {
             }))}
             value={relation}
             onChange={handleRelationChange}
+            required
           />
         </div>
         <InputField
