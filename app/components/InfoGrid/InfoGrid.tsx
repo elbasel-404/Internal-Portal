@@ -1,8 +1,6 @@
 "use client"
 
-import React from "react"
 import { isSideBarOpenAtom } from "@atoms"
-// import type { GeneralInfo } from "@types"
 import { cn } from "@utils"
 import { useAtomValue } from "jotai"
 import { Animate } from "../Animate"
@@ -15,20 +13,22 @@ interface InfoGridProps {
 
 export const InfoGrid = ({ info, className }: InfoGridProps) => {
   const isSideBarOpen = useAtomValue(isSideBarOpenAtom)
+  const cardCount = Object.entries(info).length
 
   return (
     <Animate
-      className={cn(
-        // 'grid lg:grid-cols-3 gap-6 grid-cols-1 sm:grid-cols-2',
-        "flex flex-wrap gap-6",
-        className,
-      )}
+      className={cn("flex flex-wrap gap-6", className)}
     >
       {Object.entries(info).map(([key, value]) => {
         return (
           <div
             key={key}
-            className="md:flex-grow-[1] w-full md:w-[calc(50%-24px)] lg:w-[calc(30%-24px)] transition-all duration-500 "
+            className={cn(
+              "md:flex-grow-[1] w-full transition-all duration-500",
+              cardCount > 4
+                ? "w-[calc(30%-24px)]"
+                : "w-[calc(50%-24px)]"
+            )}
           >
             <InfoCard title={key} count={value} isSideBarOpen={isSideBarOpen} />
           </div>
