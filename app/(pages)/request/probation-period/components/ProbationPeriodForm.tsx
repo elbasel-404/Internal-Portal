@@ -191,6 +191,7 @@ export const ProbationPeriodForm = ({
                 name={"answer_id" + question.id}
                 placeholder=""
                 types={probationPeriodAnswers ?? []}
+                required
                 value={
                   {
                     0: organizationCulture,
@@ -232,6 +233,7 @@ export const ProbationPeriodForm = ({
                 name={"answer_id" + question.id}
                 placeholder=""
                 types={probationPeriodAnswers ?? []}
+                required
                 value={
                   {
                     0: policyCompliance,
@@ -268,7 +270,7 @@ export const ProbationPeriodForm = ({
           files={files}
           handleFileUpload={handleFileUpload}
           handleRemoveFile={handleRemoveFile}
-          required
+          required={false}
         />
         <SubmitButton />
       </div>
