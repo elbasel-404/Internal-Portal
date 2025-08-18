@@ -18,13 +18,15 @@ import { formAction } from "./helpers/formAction"
 import type { VacationType } from "@api/schemas/vacation-types/schema"
 // import { createFileHandler } from "@atoms"
 // import { FileWithId } from "@types"
+import { SubstituteEmployees } from "@api/schemas/index"
+import { OutboxIcon, PdfFileIcon, TrashIcon } from "@icons"
+import { Button } from "@ui"
 import type { State } from "../../../../lib/createData"
-import { OutboxIcon, PdfFileIcon } from "@icons"
 
-const substituteEmployees = [
-  { id: 1, name: "عاصم بن رشود العصيمي" },
-  { id: 2, name: "محمد بن علي الرفاعي" },
-]
+// const substituteEmployees = [
+//   { id: 1, name: "عاصم بن رشود العصيمي" },
+//   { id: 2, name: "محمد بن علي الرفاعي" },
+// ]
 
 const initialState: State = {
   success: false,
@@ -34,8 +36,12 @@ const initialState: State = {
 
 interface VacationFormProps {
   vacationElements: VacationType[]
+  substituteEmployees: SubstituteEmployees[]
 }
-export const VacationForm = ({ vacationElements }: VacationFormProps) => {
+export const VacationForm = ({
+  vacationElements,
+  substituteEmployees,
+}: VacationFormProps) => {
   const [state, setState] = useState<State>(initialState)
   const [isPending, startTransition] = useTransition()
   const [files, setFiles] = useState<File[]>([])
@@ -149,6 +155,7 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
             placeholder=""
             value={vacationType}
             onChange={handleVacationTypeChange}
+            required
           />
         </div>
         {vacationType === "16" && (
@@ -178,10 +185,14 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
           <SelectField
             label="الموظف البديل"
             name="substitute_employee_id"
-            types={substituteEmployees}
+            types={substituteEmployees.map(({ id, complete_name }) => ({
+              id: id ?? "",
+              name: complete_name ?? "",
+            }))}
             placeholder=""
             value={substituteEmployee}
             onChange={handleSubstituteEmployeeChange}
+            required
           />
         </div>
       </div>
@@ -241,7 +252,11 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
           ) || []
         }
       /> */}
-      <FileAttachment files={files} handleFileChange={handleFileChange} />
+      <FileAttachment
+        files={files}
+        handleFileChange={handleFileChange}
+        onFilesChange={setFiles}
+      />
 
       <SubmitButton disabled={isPending} loading={isPending} />
     </form>
@@ -249,16 +264,30 @@ export const VacationForm = ({ vacationElements }: VacationFormProps) => {
 }
 
 interface FileAttachmentProps {
-  files: {
-    name: string
-    size: number
-    type: string
-  }[]
+  files: File[]
   handleFileChange: (event: ChangeEvent<HTMLInputElement>) => void
+  onFilesChange: (files: File[]) => void
 }
-const FileAttachment = ({ files, handleFileChange }: FileAttachmentProps) => {
+
+const FileAttachment = ({
+  files,
+  handleFileChange,
+  onFilesChange,
+}: FileAttachmentProps) => {
+  const handleRemoveFile = (index: number) => {
+    const updatedFiles = files.filter((_, i) => i !== index)
+    onFilesChange(updatedFiles)
+  }
+
   return (
     <>
+      <div>
+        <label className="font-medium text-foreground">
+          المرفقات<span className="text-red-500">*</span>
+        </label>
+      </div>
+
+      {/* Upload Box */}
       <div className="flex items-center justify-center border-2 border-dashed border-gray-300 rounded-md p-6">
         <label
           className="rounded-lg px-4 py-2 cursor-pointer flex flex-col justify-center items-center"
@@ -279,20 +308,30 @@ const FileAttachment = ({ files, handleFileChange }: FileAttachmentProps) => {
           className="hidden"
         />
       </div>
+
+      {/* File List */}
       <div>
-        {Array.from(files ?? []).map(({ name }) => {
-          return (
-            <div
-              key={name}
-              className="group rounded-lg my-4 gap-3 px-4 flex items-center bg-grey-50 py-3 hover:bg-gray-100 hover:shadow-sm transition-all duration-200 cursor-pointer border border-gray-100"
-            >
-              <div className="w-10 h-10 flex bg-[#FFF4CF] items-center rounded-md justify-center group-hover:bg-[#FFE8A3] transition-colors">
-                <PdfFileIcon className="w-4 h-4 text-amber-600" />
+        {files.map(({ name }, index) => (
+          <div key={name} className="bg-cloudGray px-4 py-3 rounded-xl">
+            <div className="flex items-center justify-between p-2 rounded mb-2">
+              <div className="flex items-center gap-2">
+                <span className="bg-[#FFF4CF] p-3 rounded-md">
+                  <PdfFileIcon width={20} height={20} />
+                </span>
+                <span>{name}</span>
               </div>
-              <span>{name}</span>
+              <div className="flex items-center gap-2">
+                <Button
+                  type="button"
+                  className="bg-primary-opacity p-2.5 rounded-sm shadow-none hover:bg-primary-opacity"
+                  onClick={() => handleRemoveFile(index)}
+                >
+                  <TrashIcon width={18} height={18} className="fill-primary" />
+                </Button>
+              </div>
             </div>
-          )
-        })}
+          </div>
+        ))}
       </div>
     </>
   )

@@ -1,5 +1,5 @@
+import { RequestGeneralData } from "@components"
 import { ReactNode } from "react"
-import { PurchaseData } from "./components"
 
 export const metadata = {
   title: "Purchase",
@@ -11,7 +11,7 @@ interface PurchaseLayoutProps {
 const PurchaseLayout = ({ children }: PurchaseLayoutProps) => {
   return (
     <>
-      <PurchaseData />
+      <RequestGeneralData model="purchase_request" />
       <section>{children}</section>
     </>
   )

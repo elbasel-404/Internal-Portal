@@ -8,6 +8,9 @@ import { getData } from "./getData"
 export const getProbationPeriodRequests = async (): Promise<
   ProbationPeriodRequest[]
 > => {
+  const getArrayValue = (field: unknown, index: number = 1): string =>
+    Array.isArray(field) ? (field[index]?.toString() ?? "") : ""
+
   return getData<ProbationPeriodRequest>({
     url: "api/po/hr/probation-evaluation",
     responseSchema: ResponseSchema,
@@ -16,14 +19,10 @@ export const getProbationPeriodRequests = async (): Promise<
       return data.map((item: unknown) => {
         const typedItem = item as Record<string, unknown>
         return {
-          id: String(typedItem.id || ""),
+          id: String(typedItem.name || ""),
           date: String(typedItem.date || ""),
-          employee:
-            Array.isArray(typedItem.employee_id) &&
-            typedItem.employee_id.length > 1
-              ? String(typedItem.employee_id[1])
-              : "",
-          jobTitle: String(typedItem.number || ""),
+          employee: getArrayValue(typedItem.employee_id),
+          jobTitle: getArrayValue(typedItem.job_id),
           recommendation: String(typedItem.recommendation || ""),
           status: String(typedItem.state || ""),
         }

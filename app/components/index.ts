@@ -32,4 +32,5 @@ export { TimePicker } from "./TimePicker"
 export { VisuallyHidden } from "./VisuallyHidden"
 export { WrappedImage } from "./WrappedImage"
 export { Loader } from "./Loader"
-export { RefreshSession } from './RefreshSession'
+export { RefreshSession } from "./RefreshSession"
+export { RequestGeneralData } from "./RequestGeneralData/RequestGeneralData"
