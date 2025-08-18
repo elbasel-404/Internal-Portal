@@ -10,7 +10,7 @@ export const refreshSession = async () => {
   const refreshToken = cookieStore.get("refersh_token")?.value
   // cookieStore.set("session", "test")
   if (!refreshToken) {
-    console.log("No referesh token found")
+    console.error("No refresh token found")
     return "No Refresh token found"
   }
 
@@ -34,7 +34,6 @@ export const refreshSession = async () => {
   const responseJson = await response.json()
   const { data } = authResponseSchema.safeParse(responseJson)
   if (!data) {
-    console.log(responseJson)
     throw new Error("Invalid referesh sesssion response")
   }
   const { result } = data

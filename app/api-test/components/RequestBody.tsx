@@ -10,12 +10,9 @@ import { useEffect } from "react"
 export const RequestBody = ({ body: body }: { body: InputData[] }) => {
   const requestBody = useAtomValue(requestBodyAtom)
 
-  useEffect(() => {
-    console.log({ requestBody })
-  }, [requestBody])
+  useEffect(() => {}, [requestBody])
 
   useEffect(() => {
-    console.log({ requestBody })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

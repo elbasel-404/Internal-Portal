@@ -14,7 +14,6 @@ interface ButtonLinkProps {
 export const ButtonLink = ({ href, children, activeUrls }: ButtonLinkProps) => {
   const pathName = usePathname()
   const active = activeUrls.includes(pathName)
-  console.table({ pathName, url1: activeUrls[0], active })
 
   return (
     <Link

@@ -1,6 +1,8 @@
 // TODO: maintenance
 import type { Config } from "tailwindcss"
 import tailwindAnimate from "tailwindcss-animate"
+import tailwindcssForms from "@tailwindcss/forms"
+import tailwindScrollbar from "tailwind-scrollbar"
 import plugin from "tailwindcss/plugin"
 
 const config: Config = {
@@ -150,8 +152,8 @@ const config: Config = {
     },
   },
   plugins: [
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    require("tailwind-scrollbar")({
+    tailwindcssForms,
+    tailwindScrollbar({
       nocompatible: true,
       preferredStrategy: "pseudoelements",
     }),
