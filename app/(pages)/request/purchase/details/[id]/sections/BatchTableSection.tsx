@@ -11,7 +11,7 @@ import { useAtom } from "jotai"
 import { useEffect, useState } from "react"
 
 const batchTableHeader = [
-  { label: "رقم الدفعة" },
+
   { label: "مسمى الدفعة" },
   { label: "قيمة الدفعة قبل الخصم" },
   { label: "نسبة الخصم" },
@@ -75,12 +75,11 @@ export const BatchTableSection = ({ requestStatus, payments }: Props) => {
     else return "__"
   }
 
-  const batchData = payments?.map((payment, index) => ({
-    id: index.toString(),
-    number: payment.number,
+  const batchData = payments?.map((payment) => ({
+    id: payment.number.toString(),
     name: payment.name || "__",
     amount_before_deduction: payment.amount_before_deduction || "__",
-    deduction_amount: payment.deduction_amount || "__",
+    deduction_amount: payment.deduction_amount.toFixed(1),
     amount: payment.amount || "__",
     state_certificate:
       stateCertificateStatus(String(payment.state_certificate)) || "__",
@@ -128,8 +127,8 @@ export const BatchTableSection = ({ requestStatus, payments }: Props) => {
           columns={batchTableHeader}
           rows={batchData}
           link={paths.batchDetails.href}
-          toggleId={false}
           toggleDelete
+          idTableHeader="رقم الدفعة"
           onRemove={handleRemoveBatch}
         />
       )}
