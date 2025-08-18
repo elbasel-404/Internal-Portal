@@ -1,5 +1,5 @@
 export { colors } from "./colors"
-export { defaultGeneralInfo } from "./defaultGeneralInfo"
+// export { defaultGeneralInfo } from "./defaultGeneralInfo"
 export { defaultHomePageSlots } from "./defaultHomePagSlots"
 export { defaultNewsTabs } from "./defaultNewsTabs"
 export { fonts } from "./fonts"

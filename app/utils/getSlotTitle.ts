@@ -1,4 +1,5 @@
-import { defaultGeneralInfo, defaultHomePageSlots, defaultNewsTabs } from "@lib"
+// import { defaultGeneralInfo, defaultHomePageSlots, defaultNewsTabs } from "@lib"
+import { defaultHomePageSlots, defaultNewsTabs } from "@lib"
 import type { GeneralInfoKey, HomePageSlotKey, NewsTabsKey } from "@types"
 
 type Args = {
@@ -11,10 +12,12 @@ export const getSlotTitle = ({ key, type }: Args) => {
     return title
   }
 
-  if (type === "generalInfo") {
-    const title = defaultGeneralInfo.find((slot) => slot.key === key)?.title
-    return title
-  }
+  //TODO: commented out until integration finished
+
+  // if (type === "generalInfo") {
+  //   const title = defaultGeneralInfo.find((slot) => slot.key === key)?.title
+  //   return title
+  // }
 
   if (type === "news") {
     const title = defaultNewsTabs.find((slot) => slot.key === key)?.label

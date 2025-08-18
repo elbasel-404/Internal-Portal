@@ -1,5 +1,5 @@
+import { RequestGeneralData } from "@components"
 import type { ReactNode } from "react"
-import { ProbationPeriodData } from "./components"
 
 export const metadata = {
   title: "Probation Period",
@@ -11,7 +11,8 @@ interface MedicalInsuranceLayoutProps {
 const ProbationPeriodLayout = ({ children }: MedicalInsuranceLayoutProps) => {
   return (
     <>
-      <ProbationPeriodData />
+      {/* TODO: not integrated */}
+      <RequestGeneralData model="holidays" />
       <section>{children}</section>
     </>
   )

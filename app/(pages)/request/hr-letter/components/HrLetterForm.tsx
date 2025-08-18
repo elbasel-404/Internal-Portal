@@ -10,8 +10,8 @@ import {
 import { paths } from "@lib"
 import { useEffect, useState, useTransition } from "react"
 import { toast } from "sonner"
-import { formAction } from "./helpers/formAction"
 import { State } from "../../../../lib/createData"
+import { formAction } from "./helpers/formAction"
 
 const initialState: State = {
   success: false,
@@ -109,6 +109,7 @@ export const HrLetterForm = ({
             }))}
             value={destinationId}
             onChange={handleDestinationChange}
+            required
           />
           <SelectField
             name="type"
@@ -119,6 +120,7 @@ export const HrLetterForm = ({
             }))}
             value={typeId}
             onChange={handleTypeChange}
+            required
           />
         </div>
         <TextareaField
