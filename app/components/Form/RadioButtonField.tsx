@@ -1,3 +1,4 @@
+"use client";
 import { RadioGroup, RadioGroupItem } from "@ui"
 
 interface RadioFieldProps {
