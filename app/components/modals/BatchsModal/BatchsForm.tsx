@@ -14,12 +14,20 @@ import { BatchProduct, FileWithId } from "@types"
 import { Button } from "@ui"
 import { useAtom } from "jotai"
 import { useRouter } from "next/navigation"
-import { ChangeEvent, useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState, useTransition } from "react"
+import { toast } from "sonner"
 import { ModalLink } from "../ModalLink"
-import { batchsFormAction } from "./BatchsFormAction"
+import { formAction } from "./helpers/formAction"
+import { State } from "./helpers/State"
 
 interface BatchsProps {
   batchProducts: BatchProduct[]
+}
+
+const initialState: State = {
+  success: false,
+  errors: null,
+  id: null,
 }
 
 const tableHeaders = [
@@ -40,11 +48,17 @@ const tableHeaders = [
 
 export const BatchsForm = ({ batchProducts }: BatchsProps) => {
   const router = useRouter()
+  const [state, setState] = useState<State>(initialState)
+  const [isPending, startTransition] = useTransition()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const pending = isPending || isSubmitting
   const [files, setFiles] = useState<FileWithId[]>([])
   const [batchName, setBatchName] = useState("")
   const [batchNumber, setBatchNumber] = useState("")
   const [paymentDate, setPaymentDate] = useState(new Date())
   const [notes, setNotes] = useState("")
+  const [deductionAmount, setDeductionAmount] = useState(0)
+  const [amountBeforeDeduction, setAmountBeforeDeduction] = useState(0)
   const [, setTotalBatchAmount] = useAtom(batchAmount)
 
   const batchProductsData = batchProducts.map((batchProductDetails, index) => {
@@ -58,6 +72,16 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
     (acc, curr) => acc + Number(curr.subtotal),
     0,
   )
+
+  // Prepare batch data for submission
+  const batchData = {
+    name: batchName,
+    number: parseInt(batchNumber) || 0,
+    deduction_amount: deductionAmount,
+    amount_before_deduction: amountBeforeDeduction,
+    amount: totalAmount,
+    products: batchProductsData.map((product) => ({ id: product.id })),
+  }
 
   const handleBatchNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setBatchName(e.target.value)
@@ -88,16 +112,65 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
     setTotalBatchAmount(totalAmount)
   }, [totalAmount, setTotalBatchAmount])
 
+  useEffect(() => {
+    const { success, errors } = state
+    if (success) toast.success("تم انشاء الطلب بنجاح")
+    if (errors) toast.error(errors[0])
+  }, [state])
+
+  const action = async (formData: FormData) => {
+    setIsSubmitting(true)
+    toast.loading("جاري انشاء الطلب", { id: "vacation-form-pending" })
+
+    startTransition(async () => {
+      const result = await formAction(formData)
+      setState(result)
+      setIsSubmitting(false)
+      toast.dismiss("vacation-form-pending")
+    })
+  }
+
+  if (state.success) {
+    return (
+      <div className="bg-white text-black text-lg p-4 space-y-4">
+        <p className="text-center">تم انشاء الطلب بنجاح</p>
+        <p className="text-center">رقم الطلب: {state.id}</p>
+      </div>
+    )
+  }
+
   return (
     <form
-      action={batchsFormAction}
+      action={action}
       onSubmit={handleSubmit}
       className="flex flex-col gap-4 px-4 mt-4"
     >
+      {/* Hidden input for request ID */}
+      <input
+        type="text"
+        name="request_id"
+        hidden
+        aria-hidden
+        readOnly
+        value={localStorage.getItem("requestId") || ""}
+        className="hidden"
+      />
+
+      {/* Hidden input for batch data */}
+      <input
+        type="text"
+        name="payments"
+        hidden
+        aria-hidden
+        readOnly
+        value={JSON.stringify(batchData)}
+        className="hidden"
+      />
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <InputField
           label="رقم الدفعة"
-          name="batchNumber"
+          name="number"
           placeholder=""
           required
           value={batchNumber}
@@ -105,11 +178,28 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
         />
         <InputField
           label="اسم الدفعة"
-          name="batchName"
+          name="name"
           placeholder=""
           required
           value={batchName}
           onChange={handleBatchNameChange}
+        />
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <InputField
+          label="مبلغ الخصم"
+          name="deduction_amount"
+          placeholder="0"
+          value={deductionAmount.toString()}
+          onChange={(e) => setDeductionAmount(Number(e.target.value))}
+        />
+        <InputField
+          label="المبلغ قبل الخصم"
+          name="amount_before_deduction"
+          placeholder="0"
+          value={amountBeforeDeduction.toString()}
+          onChange={(e) => setAmountBeforeDeduction(Number(e.target.value))}
         />
       </div>
 
@@ -186,6 +276,7 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
         <Button
           className="flex items-center gap-1 bg-primary-opacity group text-primary shadow-none hover:bg-primary hover:text-white rounded-xl p-4"
           type="submit"
+          disabled={pending}
         >
           <CheckIcon className="fill-primary group-hover:fill-white" />
           إضافة
