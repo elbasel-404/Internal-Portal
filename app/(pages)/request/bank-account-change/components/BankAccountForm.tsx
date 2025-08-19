@@ -85,6 +85,7 @@ export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
         path={paths.bankAccountChange.href}
       />
       <div className="p-4 space-y-6">
+        {/* TODO not integerated */}
         <InputField
           label="الحساب الحالي للموظف"
           name="bankAccount"
@@ -98,6 +99,7 @@ export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
           types={bankDetails.map((bank) => ({ id: bank.id, name: bank.name }))}
           onChange={handleBankIdChange}
           value={bankId}
+          required
         />
         <InputField
           label="رقم الحساب الجديد IBAN"
@@ -105,6 +107,7 @@ export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
           placeholder="SA__________________"
           value={iban}
           onChange={handleIbanChange}
+          required
         />
         <AttachmentsField
           files={files}
@@ -117,6 +120,7 @@ export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
               error.toLowerCase().includes("attachment"),
             ) || []
           }
+          required
         />
         <SubmitButton disabled={pending} loading={pending} />
       </div>
