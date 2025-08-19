@@ -1,10 +1,10 @@
 "use server"
 
+import { getStoredEmployeeId } from "@auth"
 import { z } from "zod"
-import { getFetchHeaders } from "../server/getFetchHeaders"
 import { CreateErrorSchema } from "../../api-schemas/CreateErrorSchema"
 import { CreateSuccessSchema } from "../../api-schemas/CreateSuccessSchema"
-import { getStoredEmployeeId } from "@auth"
+import { getFetchHeaders } from "../server/getFetchHeaders"
 
 // Toggle this to enable/disable logging
 const LOG_INFO = false
@@ -19,6 +19,7 @@ export async function createData<T extends Record<string, unknown>>(
   endpointUrl: string,
   requestBodySchema: z.ZodType<T, z.ZodTypeDef>,
   formData: FormData,
+  addEmployeeId: boolean = true,
   // transformBody?: (
   // body: Record<string, FormDataEntryValue>,
   // ) => Record<string, FormDataEntryValue>,
@@ -79,16 +80,18 @@ export async function createData<T extends Record<string, unknown>>(
   // const validatedData = validation.data
 
   // Step 3: Build final POST FormData
-  const employeeId = await getStoredEmployeeId()
-  if (!employeeId) {
-    console.error("No employee id found")
-    return {
-      errors: ["Error, please sign out and signin again"],
-      id: null,
-      success: false,
+  if (addEmployeeId) {
+    const employeeId = await getStoredEmployeeId()
+    if (!employeeId) {
+      console.error("No employee id found")
+      return {
+        errors: ["Error, please sign out and signin again"],
+        id: null,
+        success: false,
+      }
     }
+    formData.append("employee_id", employeeId as string)
   }
-  formData.append("employee_id", employeeId as string)
   // const postData = new FormData()
   // postData.append("employee_id", employeeId ?? "")
 
@@ -166,8 +169,7 @@ const COLORS = {
   bold: "\x1b[1m",
 }
 
-const logSeparator = () => {
-}
+const logSeparator = () => {}
 
 const logHeader = (title: string) => {
   console.info(`${COLORS.grayBg} %s ${COLORS.reset}`, `REQUEST: ${title}`)
