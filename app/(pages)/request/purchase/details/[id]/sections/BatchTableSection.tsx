@@ -8,10 +8,10 @@ import { paths } from "@lib"
 import { removeBatch } from "@server"
 import { PurchasePayments } from "@types"
 import { useAtom } from "jotai"
+import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 
 const batchTableHeader = [
-
   { label: "مسمى الدفعة" },
   { label: "قيمة الدفعة قبل الخصم" },
   { label: "نسبة الخصم" },
@@ -30,6 +30,8 @@ export const BatchTableSection = ({ requestStatus, payments }: Props) => {
   const [completionRequest] = useAtom(completionRequestAtom)
   const [showSuccess, setShowSuccess] = useState<boolean>(false)
   const [countdown, setCountdown] = useState<number>(5)
+
+  const requestId = usePathname().split("/").at(-1) // Get the last segment of the path
 
   // Moved the conditional check inside useEffect to fix React Hooks rules violation
   const isProjectCompletionStep = requestStatus.some((step) => step.id === "6")
@@ -90,6 +92,10 @@ export const BatchTableSection = ({ requestStatus, payments }: Props) => {
     void removeBatch(id)
     localStorage.removeItem("batchAmount")
   }
+
+  useEffect(() => {
+    localStorage.setItem("requestId", requestId || "")
+  }, [requestId])
 
   return (
     <div className="bg-white pt-4 pb-4 px-4 rounded-lg space-y-3">
