@@ -51,7 +51,6 @@ export async function createData<T extends Record<string, unknown>>(
   // const requestBodyKeys = Object.keys(requestBody)
   // const fileKeys = requestBodyKeys.filter((key) => key.startsWith("file-"))
   // const files = fileKeys.map((key) => formData.get(key))
-  // console.log({ files })
   // files.forEach(() => requestBody['attachment_ids'])
 
   // return {
@@ -168,7 +167,6 @@ const COLORS = {
 }
 
 const logSeparator = () => {
-  console.log(`${COLORS.yellow}\n------------\n${COLORS.reset}`)
 }
 
 const logHeader = (title: string) => {

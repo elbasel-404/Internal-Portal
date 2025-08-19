@@ -19,5 +19,3 @@ iconFiles.forEach((file) => {
     invalidFiles.push({ file, reason: "File name does not end with `.icon`" })
   }
 })
-console.table(iconFiles)
-console.table(invalidFiles)
