@@ -55,7 +55,6 @@ export const VacationForm = ({
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputFiles = event.target.files
-    console.log({ inputFiles })
     if (!inputFiles) return
     if (inputFiles.length === 0) return
     setFiles((prev) => prev?.concat(Array.from(inputFiles)))

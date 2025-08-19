@@ -65,7 +65,6 @@ export const fetchData = async (
     )
 
   Object.assign(headers, requestHeaders)
-  console.log({ apiRootUrl, requestHeaders, requestBody, url })
   const response = await fetch(`${apiRootUrl}/${url}`, {
     credentials: "include",
     headers: requestHeaders,

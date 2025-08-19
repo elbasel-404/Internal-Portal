@@ -21,7 +21,6 @@ export const getGeneralInfo = async ({ model }: GetGeneralInfoParams) => {
   const json = await response.json()
   const result = json.result
   const data = result.data
-  console.log({ data })
 
   const isDemo = await getDemo()
   if (isDemo || !data || data.length === 0) {

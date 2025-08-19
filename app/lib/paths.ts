@@ -229,7 +229,7 @@ export const paths: Record<string, AppPath> = {
   },
   ticketsNew: {
     title: "إنشاء تذكرة جديدة",
-    href: "/request/ticket/new" as Route,
+    href: "/request/ticket/new/technical/report-problem" as Route,
   },
   ticketsDetails: {
     title: "تفاصيل التذكرة",
