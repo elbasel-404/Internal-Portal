@@ -10,19 +10,26 @@ export const getInternalCoursesRequests = async (): Promise<
 > => {
   return getData<InternalCoursesRequest>({
     url: "api/po/hr/training",
-    employeeIdKey: "create_employee_id",
+    includeEmployeeId: false,
     responseSchema: ResponseSchema,
     dataSchema: TrainingElementSchema,
     parseData: (data) => {
       return data.map((item: unknown) => {
         const typedItem = item as Record<string, unknown>
+        const getType = (type: unknown) => {
+          return type === "regional"
+            ? "محلي"
+            : type === "international"
+              ? "دولي"
+              : "غير محدد"
+        }
         return {
           id: String(typedItem.id || ""),
           courseName: String(typedItem.name || ""),
           fromDate: String(typedItem.date_from || ""),
           toDate: String(typedItem.date_to || ""),
           duration: String(typedItem.number_of_days || ""),
-          type: String(typedItem.type || ""),
+          type: getType(typedItem.type),
           trainingCenter: String(typedItem.training_center || ""),
           status: String(typedItem.state || ""),
         }
