@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server"
 
 import { getStoredEmployeeId } from "@auth"
@@ -5,42 +6,68 @@ import { z } from "zod"
 import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
 
-const LOG_INFO = true
+// Configuration
+const ENABLE_LOGGING = true
+const DEFAULT_REVALIDATE_TIME = 15
+
+// Color constants for consistent logging
+const COLORS = {
+  RESET: '\x1b[0m',
+  BRIGHT: '\x1b[1m',
+  DIM: '\x1b[2m',
+  RED: '\x1b[31m',
+  GREEN: '\x1b[32m',
+  YELLOW: '\x1b[33m',
+  BLUE: '\x1b[34m',
+  MAGENTA: '\x1b[35m',
+  CYAN: '\x1b[36m',
+  WHITE: '\x1b[37m',
+  BG_BLACK: '\x1b[40m',
+  BG_RED: '\x1b[41m',
+  BG_GREEN: '\x1b[42m',
+  BG_YELLOW: '\x1b[43m',
+  BG_BLUE: '\x1b[44m',
+  BG_MAGENTA: '\x1b[45m',
+  BG_CYAN: '\x1b[46m',
+  BG_WHITE: '\x1b[47m'
+} as const
 
 interface GetDataOptions<T, D> {
-  /* API request configuration */
+  /* API Configuration */
   url: string
   method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
   includeEmployeeId?: boolean
-
   additionalBody?: Record<string, unknown>
   employeeIdKey?: string
 
-  /* Schema validation */
+  /* Schema Validation */
   responseSchema?: z.ZodType
   dataSchema?: z.ZodType
 
-  /* Data transformation */
+  /* Data Transformation */
   parseData?: (data: D[]) => T[]
 
-  /* Demo mode fallback */
+  /* Demo Mode Fallback */
   dummyData: T[]
 
-  /* Debugging */
+  /* Performance & Caching */
   debug?: boolean
-
-  /* Caching */
   cache?: RequestCache
   revalidate?: number
 }
 
 /**
  * Unified data fetching function for server-side operations
+ * 
+ * Features:
+ * - Schema validation with Zod
+ * - Demo mode support
+ * - Comprehensive error handling
+ * - Performance monitoring
+ * - Flexible caching options
  *
  * @template T The expected return type (array of items)
- * @template R The raw response data type
- * @template D the data type to be parsed
- *
+ * @template D The data type to be parsed
  * @param options Configuration options for the data fetching operation
  * @returns Promise that resolves to an array of the expected type
  */
@@ -48,7 +75,6 @@ export const getData = async <T, D = unknown>(
   options: GetDataOptions<T, D>,
 ): Promise<T[]> => {
   const {
-    // debug,
     url,
     method = "POST",
     includeEmployeeId = true,
@@ -59,217 +85,344 @@ export const getData = async <T, D = unknown>(
     dummyData,
     employeeIdKey = "employee_id",
     cache = "force-cache",
-    revalidate = 15,
+    revalidate = DEFAULT_REVALIDATE_TIME,
   } = options
 
-  let timeStart = 0
+  const logger = new APILogger(url, ENABLE_LOGGING)
+  
+  // Start performance monitoring
+  logger.startRequest(method, additionalBody)
 
-  if (LOG_INFO) {
-    timeStart = Date.now()
-    const seconds = new Date().getMilliseconds()
-    console.info(
-      "\x1b[30m\x1b[1m\x1b[47m%s\x1b[0m",
-      ` ${seconds} <==   ${url}   ==>  `,
-    )
-    // check if additional body is en empty object:
-    if (!(Object.keys(additionalBody).length === 0)) {
-      console.info(
-        "\x1b[30m\x1b[1m\x1b[43m%s\x1b[0m",
-        ` <==   ${JSON.stringify(additionalBody)}   ==>  `,
-      )
-    }
-  }
-
+  // Check demo mode first
   const isDemo = await getDemo()
   if (isDemo) {
-    if (LOG_INFO) {
-      console.info("Demo Mode On\x1b[33mReturning dummy data for\x1b[0m", {
-        url,
-      })
-    }
-    logReturingDummyData(url)
+    logger.logDemoMode()
     return dummyData
   }
 
   try {
-    // !! VARIABLES
-    // ==================================
-    const apiRootUrl = process.env.API_ROOT_URL as string
-    const fetchHeaders = await getFetchHeaders()
-    const headers = fetchHeaders?.headers
+    // Setup API request components
+    const { apiRootUrl, headers, requestBody } = await prepareAPIRequest(
+      additionalBody,
+      includeEmployeeId,
+      employeeIdKey
+    )
 
-    // Return dummy data if headers aren't available
+    // Validate headers
     if (!headers) {
-      // console.error("Failed to get headers for API request")
-      logError({
-        errorTitle: "Failed to get headers for API request",
-        url,
-      })
-      logReturingDummyData(url)
-
+      logger.logError("Failed to get headers for API request")
       return dummyData
     }
 
-    // Generate request body
-    const requestBody: Record<string, unknown> = { ...additionalBody }
-
-    // Add employee ID to request body if needed
-    if (includeEmployeeId) {
-      const employeeId = await getStoredEmployeeId()
-      requestBody[employeeIdKey] = Number(employeeId)
-    }
-
-    const requestBodyString = JSON.stringify(requestBody)
-    const requestUrl = `${apiRootUrl}/${url}`
-
-    // ==================================
-    const apiResponse = await fetch(requestUrl, {
-      credentials: "include",
-      headers,
+    // Execute API request
+    const apiResponse = await executeAPIRequest({
+      url: `${apiRootUrl}/${url}`,
       method,
-      body: method !== "GET" ? requestBodyString : undefined,
+      headers,
+      body: requestBody,
       cache,
-      next: { revalidate },
+      revalidate
     })
 
     const responseJson = await apiResponse.json()
-    // logSeperator()
 
-    // VALIDATION
-    // ==================================
-    let validatedResponse, result, data
-
-    // Validate response structure if schema provided
-    if (responseSchema) {
-      validatedResponse = responseSchema.safeParse(responseJson)
-
-      if (!validatedResponse.success) {
-        const validationError = validatedResponse.error.flatten().fieldErrors
-        console.log({ requestBody, headers })
-        logError({
-          url,
-          responseJson,
-          errorDetails: validationError,
-          errorTitle: "response validation failed",
-        })
-        logReturingDummyData(url)
-        // logSeperator()
-
-        return dummyData
-      }
-
-      result = validatedResponse.data?.result
-      data = result?.data
-      if (LOG_INFO) {
-        console.log(
-          "\x1b[1m\x1b[42m\x1b[30m  Fetched %d items from %s in %dms  \x1b[0m",
-          data.length,
-          url,
-          Date.now() - timeStart,
-        )
-      }
-    } else {
-      // Basic validation without schema
-      result = responseJson?.result
-      data = result?.data
-    }
-
-    // Validate data with schema if provided
-    let validatedData
-    if (dataSchema && data) {
-      const schemaToUse = Array.isArray(data) ? dataSchema.array() : dataSchema
-
-      validatedData = schemaToUse.safeParse(data)
-
-      if (!validatedData.success) {
-        const errorDetails = validatedData.error.flatten().fieldErrors
-        logError({
-          url,
-          responseJson,
-          errorDetails,
-          errorTitle: "data validation failed",
-        })
-        logReturingDummyData(url)
-        return dummyData
-      }
-
-      data = validatedData.data
-    }
-
-    // PARSING
-    // ==================================
-    if (parseData && data) {
-      return parseData(data)
-    }
-
-    // Return raw data if no parser provided
-    return Array.isArray(data) ? data : [data]
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    const errorTitle = error.message
-    const errorDetails = error.cause
-    logError({
-      url,
-      errorDetails,
-      errorTitle,
+    // Process and validate response
+    const processedData = await processAPIResponse({
+      responseJson,
+      responseSchema,
+      dataSchema,
+      parseData,
+      logger,
+      dummyData
     })
 
-    logReturingDummyData(url)
+    logger.logSuccess(processedData.length)
+    return processedData
+
+  } catch (error) {
+    logger.logUnexpectedError(error as Error)
     return dummyData
   }
 }
 
-// !! Logging
+// ============================================================================
+// HELPER FUNCTIONS
+// ============================================================================
 
-const logSeperator = () => {
-  console.log("\x1b[33m\n--------------------------------------------------------\x1b[0m")
-  console.log("\x1b[33m---------------------------------------------------------\nx1b[0m")
+/**
+ * Prepares API request components (headers, body, URL)
+ */
+async function prepareAPIRequest(
+  additionalBody: Record<string, unknown>,
+  includeEmployeeId: boolean,
+  employeeIdKey: string
+) {
+  const apiRootUrl = process.env.API_ROOT_URL as string
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
+
+  const requestBody: Record<string, unknown> = { ...additionalBody }
+
+  if (includeEmployeeId) {
+    const employeeId = await getStoredEmployeeId()
+    requestBody[employeeIdKey] = Number(employeeId)
+  }
+
+  return { apiRootUrl, headers, requestBody }
 }
 
-const logReturingDummyData = (url: string) => {
-  console.log("\x1b[1m\x1b[95mRETURNING DUMMY DATA FOR %s\x1b[0m", url)
-}
-
-// !! Error Logging
-
-type LogErrorParams = {
-  errorTitle?: string
-  url?: string
-  responseJson?: string
-  errorDetails?: unknown
-}
-const logError = ({
+/**
+ * Executes the API request with proper configuration
+ */
+async function executeAPIRequest({
   url,
-  errorTitle,
+  method,
+  headers,
+  body,
+  cache,
+  revalidate
+}: {
+  url: string
+  method: string
+  headers: HeadersInit
+  body: Record<string, unknown>
+  cache: RequestCache
+  revalidate: number
+}) {
+  const requestBodyString = JSON.stringify(body)
+
+  return await fetch(url, {
+    credentials: "include",
+    headers,
+    method,
+    body: method !== "GET" ? requestBodyString : undefined,
+    cache: cache,
+    next: { revalidate: revalidate },
+  })
+}
+
+/**
+ * Processes and validates API response data
+ */
+async function processAPIResponse<T, D>({
   responseJson,
-  errorDetails,
-}: LogErrorParams) => {
-  const error = new Error()
-  const stack = error.stack
+  responseSchema,
+  dataSchema,
+  parseData,
+  logger,
+  dummyData
+}: {
+  responseJson: any
+  responseSchema?: z.ZodType
+  dataSchema?: z.ZodType
+  parseData?: (data: D[]) => T[]
+  logger: APILogger
+  dummyData: T[]
+}): Promise<T[]> {
+  let data: any
 
-  // logSeperator()
-  logErrorTitle(errorTitle)
-  console.log({ url })
-  console.log(extractFilePaths(stack))
-  console.log(errorDetails)
-  console.log({ responseJson })
-  logSeperator()
-}
-const extractFilePaths = (text: string | undefined) => {
-  if (!text) return []
-  const regex = /([./\w()@-]+\.tsx?:\d+:\d+)/g
-  const files = [...text.matchAll(regex)].map((m) =>
-    m[1].replace("///(rsc)/", ""),
-  )
-  files.shift()
-  return files
+  // Validate response structure
+  if (responseSchema) {
+    const validatedResponse = responseSchema.safeParse(responseJson)
+    
+    if (!validatedResponse.success) {
+      logger.logValidationError("Response validation failed", {
+        errors: validatedResponse.error.flatten().fieldErrors,
+        responseJson
+      })
+      return dummyData
+    }
+
+    data = validatedResponse.data?.result?.data
+  } else {
+    data = responseJson?.result?.data
+  }
+
+  // Validate data schema
+  if (dataSchema && data) {
+    const schemaToUse = Array.isArray(data) ? dataSchema.array() : dataSchema
+    const validatedData = schemaToUse.safeParse(data)
+
+    if (!validatedData.success) {
+      logger.logValidationError("Data validation failed", {
+        errors: validatedData.error.flatten().fieldErrors,
+        responseJson
+      })
+      return dummyData
+    }
+
+    data = validatedData.data
+  }
+
+  // Transform data if parser provided
+  if (parseData && data) {
+    return parseData(data)
+  }
+
+  // Return normalized array
+  return Array.isArray(data) ? data : [data]
 }
 
-const logErrorTitle = (title?: string) => {
-  if (!title) return
-  console.log(
-    "\x1b[31m\x1b[1m\x1b[40m%s\x1b[0m",
-    "   " + title.toUpperCase(),
-    "\n",
-  )
+// ============================================================================
+// LOGGING CLASS
+// ============================================================================
+
+class APILogger {
+  private startTime: number = 0
+  private readonly url: string
+  private readonly enabled: boolean
+
+  constructor(url: string, enabled: boolean = true) {
+    this.url = url
+    this.enabled = enabled
+  }
+
+  startRequest(method: string, additionalBody: Record<string, unknown>) {
+    if (!this.enabled) return
+
+    this.startTime = Date.now()
+    const timestamp = new Date().toISOString()
+
+    console.group(`${COLORS.BRIGHT}${COLORS.CYAN}🚀 API Request Started${COLORS.RESET}`)
+    
+    console.table({
+      URL: this.url,
+      Method: method,
+      Timestamp: timestamp,
+      'Has Additional Body': Object.keys(additionalBody).length > 0
+    })
+
+    if (Object.keys(additionalBody).length > 0) {
+      console.info(`${COLORS.YELLOW}📤 Request Body:${COLORS.RESET}`)
+      console.table(additionalBody)
+    }
+
+    console.groupEnd()
+  }
+
+  logDemoMode() {
+    if (!this.enabled) return
+
+    console.warn(
+      `${COLORS.BRIGHT}${COLORS.BG_YELLOW} 🎭 DEMO MODE ${COLORS.RESET} ` +
+      `${COLORS.YELLOW}Returning dummy data for: ${this.url}${COLORS.RESET}`
+    )
+  }
+
+  logSuccess(itemCount: number) {
+    if (!this.enabled) return
+
+    const duration = Date.now() - this.startTime
+    
+    console.group(`${COLORS.BRIGHT}${COLORS.GREEN}✅ API Request Successful${COLORS.RESET}`)
+    
+    console.table({
+      URL: this.url,
+      'Items Fetched': itemCount,
+      'Duration (ms)': duration,
+      'Items/sec': Math.round(itemCount / (duration / 1000)) || 'N/A'
+    })
+
+    // Performance indicator
+    if (duration > 1000) {
+      console.warn(`${COLORS.YELLOW}⚠️  \n Slow request detected (${duration}ms)${COLORS.RESET}`)
+    } else if (duration > 500) {
+      console.info(`${COLORS.BLUE}ℹ️  \n Moderate response time (${duration}ms)${COLORS.RESET}`)
+    }
+
+    console.groupEnd()
+  }
+
+  logError(title: string, details?: any) {
+    if (!this.enabled) return
+
+    const error = new Error()
+    const stackTrace = this.extractFilePaths(error.stack)
+
+    console.group(`${COLORS.BRIGHT}${COLORS.RED}❌ ${title.toUpperCase()}${COLORS.RESET}`)
+    
+    console.table({
+      URL: this.url,
+      Error: title,
+      Timestamp: new Date().toISOString()
+    })
+
+    if (details) {
+      console.error(`${COLORS.RED}📋 Error Details:${COLORS.RESET}`, details)
+    }
+
+    if (stackTrace.length > 0) {
+      console.info(`${COLORS.DIM}📁 Stack Trace:${COLORS.RESET}`)
+      stackTrace.forEach((path, index) => {
+        console.info(`${COLORS.DIM}  ${index + 1}. ${path}${COLORS.RESET}`)
+      })
+    }
+
+    this.logFallbackNotice()
+    console.groupEnd()
+  }
+
+  logValidationError(title: string, { errors, responseJson }: { errors: any, responseJson: any }) {
+    if (!this.enabled) return
+
+    console.group(`${COLORS.BRIGHT}${COLORS.RED}🔍 ${title.toUpperCase()}${COLORS.RESET}`)
+    
+    console.table({
+      URL: this.url,
+      'Error Type': 'Schema Validation',
+      Timestamp: new Date().toISOString()
+    })
+
+    console.error(`${COLORS.RED}🚫 Validation Errors:${COLORS.RESET}`)
+    console.table(errors)
+
+    if (responseJson) {
+      console.info(`${COLORS.YELLOW}📄 Response Data:${COLORS.RESET}`)
+      console.dir(responseJson, { depth: 3, colors: true })
+    }
+
+    this.logFallbackNotice()
+    console.groupEnd()
+  }
+
+  logUnexpectedError(error: Error) {
+    if (!this.enabled) return
+
+    console.group(`${COLORS.BRIGHT}${COLORS.BG_RED}${COLORS.WHITE} 💥 UNEXPECTED ERROR ${COLORS.RESET}`)
+    
+    console.table({
+      URL: this.url,
+      'Error Message': error.message,
+      'Error Name': error.name,
+      Timestamp: new Date().toISOString()
+    })
+
+    console.error(`${COLORS.RED}📋 Full Error:${COLORS.RESET}`, error)
+
+    if (error.cause) {
+      console.error(`${COLORS.RED}🔗 Error Cause:${COLORS.RESET}`, error.cause)
+    }
+
+    this.logFallbackNotice()
+    console.groupEnd()
+  }
+
+  private logFallbackNotice() {
+    if (!this.enabled) return
+    
+    console.warn(
+      `${COLORS.BRIGHT}${COLORS.MAGENTA}🔄 Falling back to dummy data for: ${this.url}${COLORS.RESET}`
+    )
+  }
+
+  private extractFilePaths(stackTrace: string | undefined): string[] {
+    if (!stackTrace) return []
+    
+    const regex = /([./\w()@-]+\.tsx?:\d+:\d+)/g
+    const files = [...stackTrace.matchAll(regex)]
+      .map(match => match[1].replace("///(rsc)/", ""))
+      .slice(1) // Remove first entry (usually this function)
+    
+    return files
+  }
 }

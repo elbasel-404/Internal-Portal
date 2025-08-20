@@ -51,7 +51,7 @@ export const Select = ({
         {/* Chevron Icon */}
         <svg
           className={twMerge(
-            "w-5 h-5 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] text-[#007497]",
+            "w-5 h-5 transition-transform duration-500 ease text-[#007497]",
             isOpen && "rotate-180",
           )}
           fill="none"
@@ -71,7 +71,7 @@ export const Select = ({
       <div
         className={twMerge(
           "absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-md shadow-lg z-50",
-          "transform transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] origin-top",
+          "transform transition-all duration-500 ease origin-top",
           isOpen
             ? "opacity-100 scale-y-100 translate-y-0"
             : "opacity-0 scale-y-90 -translate-y-4 pointer-events-none",
@@ -107,7 +107,7 @@ export const Select = ({
                 {/* Selected indicator */}
                 {selectedLabel === label && (
                   <svg
-                    className="w-4 h-4 text-[#007497] animate-in zoom-in-75 duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                    className="w-4 h-4 text-[#007497] animate-in zoom-in-75 duration-300 ease"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -134,7 +134,7 @@ export const Select = ({
 
 const selectStyle = twMerge(
   "text-[#11274A] appearance-none bg-[#007497]/10 block w-full border border-gray-200",
-  "p-4 rounded-md transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+  "p-4 rounded-md transition-all duration-300 ease",
   "hover:bg-[#007497]/15 hover:border-[#007497]/30 hover:shadow-sm",
   "focus:border-[#007497] focus:!outline-0 focus:ring-2 focus:ring-blue-500/20",
   "active:scale-[0.996] active:bg-[#007497]/20",
@@ -143,7 +143,7 @@ const selectStyle = twMerge(
 const optionStyle = twMerge(
   "flex items-center justify-between px-4 py-3 text-[#11274A]",
   "hover:bg-[#007497]/10 hover:text-[#007497] cursor-pointer",
-  "transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+  "transition-all duration-300 ease",
   "hover:translate-x-2 hover:shadow-sm hover:bg-gradient-to-r hover:from-[#007497]/5 hover:to-[#007497]/15",
   "focus:bg-[#007497]/15 focus:text-[#007497] focus:outline-none",
   "active:bg-[#007497]/20 active:scale-[0.98] active:translate-x-1",

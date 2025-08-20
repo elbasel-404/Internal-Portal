@@ -7,9 +7,10 @@ export const getFetchHeaders = async () => {
   const API_KEY_HEADER_NAME = process.env.API_KEY_HEADER_NAME as string
   const SESSION_ID = process.env.SESSION_ID as string
   const session = await getSession()
+
   if (!session) {
     console.error("No user session found, please re-login")
-    throw new Error("No active user session")
+    // throw new Error("No active user session")
   }
 
   const access_token = session?.access_token
