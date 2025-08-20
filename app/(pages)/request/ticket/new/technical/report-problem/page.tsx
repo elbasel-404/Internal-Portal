@@ -1,7 +1,9 @@
 // import { getSession } from "@auth"
 import { TextareaField } from "@components/form"
 import { Select } from "../../components/Select"
-import { FileAttachment } from "../../components"
+// import { FileAttachment, SubmitButton } from "../../components"
+import { SubmitButton } from "../../components"
+import { createTechTicket } from "../../server/createTechTicket"
 
 interface ReportProblemTicketPageProps {
   searchParams: Promise<{
@@ -36,17 +38,6 @@ const ReportProblemTicketPage = async ({
     "Authorization",
     "Basic bW9uc2hhYXRfbW9iaWxlX2FwcDpNMGJpbGVAcHA=",
   )
-
-  // const emailHeaders = new Headers()
-  // const session = await getSession()
-  // const accessToken = session?.access_token
-  // emailHeaders.append("Accept", "application/json")
-  // emailHeaders.append("x-api-key", "85ced9c9-b64b-4d76-85a5-ae3b869b044d")
-  // emasilHeaders.append("Authorization", `Bearer ${accessToken}`)
-  // const emailJson = await fetch(
-  //   "https://publicapis.monshaat.gov.sa/ERP/TaskService/api/search_read?model=hr.employee&domain=%5B%5B%22id%22%2C%22%3D%22%2C1722%5D%5D",
-  //   { method: "GET", headers: emailHeaders, redirect: "follow" },
-  // ).then(res => res.json())
 
   const baseUrl = "https://helpstg.monshaat.gov.sa/api/tisu4"
 
@@ -130,7 +121,7 @@ const ReportProblemTicketPage = async ({
   }
 
   return (
-    <form className="bg-white p-4">
+    <form className="bg-white p-4" action={createTechTicket}>
       {/* Main Category - Always show if we have data */}
       <div>
         <input hidden readOnly name="category" defaultValue={category} />
@@ -184,8 +175,11 @@ const ReportProblemTicketPage = async ({
       <div className="mt-4">
         <TextareaField name="comments" label="وصف الابلاغ" required={true} />
       </div>
+      {/* <div className="mt-4">
+        <FileAttachment name="files" />
+      </div> */}
       <div className="mt-4">
-        <FileAttachment />
+        <SubmitButton />
       </div>
       {/* Debug info - Only show if at least one category is selected */}
       {(category || subcategory || subcategory2 || subcategory3) && (
