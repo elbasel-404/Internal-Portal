@@ -11,6 +11,11 @@ interface GetGeneralInfoParams {
 const apiRootUrl = process.env.API_ROOT_URL
 
 export const getGeneralInfo = async ({ model }: GetGeneralInfoParams) => {
+  return dummyData
+  const isDemo = await getDemo()
+  if (isDemo) {
+    return dummyData
+  }
   const { headers } = await getFetchHeaders()
   const fetchUrl = `${apiRootUrl}/api/po/statistics`
   const response = await fetch(fetchUrl, {
@@ -22,10 +27,6 @@ export const getGeneralInfo = async ({ model }: GetGeneralInfoParams) => {
   const result = json.result
   const data = result.data
 
-  const isDemo = await getDemo()
-  if (isDemo || !data || data.length === 0) {
-    return dummyData
-  }
   return data
 }
 
