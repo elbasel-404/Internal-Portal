@@ -3,7 +3,7 @@
 import { ProfileElementSchema, ResponseSchema } from "@api/schemas"
 import { getFetchHeaders } from "../getFetchHeaders"
 
-export const getEmployeeEmail = async () => {
+export const getEmployeeId = async () => {
   // ! VARIABLES
   // ! ==================================
   const url = "api/po/read/profile"
@@ -31,6 +31,6 @@ export const getEmployeeEmail = async () => {
   const validatedData = ProfileElementSchema.parse(data[0])
 
   // ! PARSING
-  const email = validatedData.work_email.toString()
-  return email
+  const employeeId = validatedData.id.toString()
+  return employeeId
 }
