@@ -44,7 +44,6 @@ export const RequestDetails = ({
   //   attachmentHeader && Array.isArray(attachmentHeader.value)
   //     ? { label: "المرفقات", value: attachmentHeader.value }
   //     : undefined
-  // console.log({ attachmentList })
 
   const notesHeaders = ["ملاحظات", "المهام التي سيتم العمل عليها"]
 

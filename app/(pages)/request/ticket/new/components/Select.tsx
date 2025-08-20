@@ -30,6 +30,7 @@ export const Select = ({
     <div className={twMerge("relative w-full", className)}>
       {/* Select Trigger */}
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
         className={twMerge(
           selectStyle,
