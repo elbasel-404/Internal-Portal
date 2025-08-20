@@ -10,7 +10,6 @@ export const ValidateSession = () => {
 
   const init = async () => {
     const session = await getSession()
-    // console.log({ pathName })
     if (!session) {
       router.push(`./${pathName}`)
     }

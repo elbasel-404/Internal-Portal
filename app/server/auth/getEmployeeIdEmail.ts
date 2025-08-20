@@ -1,0 +1,36 @@
+"use server"
+
+import { ProfileElementSchema, ResponseSchema } from "@api/schemas"
+import { getFetchHeaders } from "../getFetchHeaders"
+
+export const getEmployeeEmail = async () => {
+  // ! VARIABLES
+  // ! ==================================
+  const url = "api/po/read/profile"
+  const apiRootUrl = process.env.API_ROOT_URL as string
+  const fetchHeaders = await getFetchHeaders()
+  const headers = fetchHeaders?.headers
+  const requestBody = {}
+  const requestBodyString = JSON.stringify(requestBody)
+  const requestUrl = `${apiRootUrl}/${url}`
+
+  // ! FETCH
+  // ! ==================================
+  const apiResponse = await fetch(requestUrl, {
+    headers,
+    method: "POST",
+    body: requestBodyString,
+  })
+  const responseJson = await apiResponse.json()
+
+  // ! VALIDATION
+  // ! ==================================
+  const validatedResponse = ResponseSchema.parse(responseJson)
+  const { result } = validatedResponse
+  const { data } = result
+  const validatedData = ProfileElementSchema.parse(data[0])
+
+  // ! PARSING
+  const email = validatedData.work_email.toString()
+  return email
+}
