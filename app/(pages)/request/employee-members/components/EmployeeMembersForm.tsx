@@ -68,6 +68,7 @@ export const EmployeeMembersForm = ({
             member={member}
             onRequestTypeChange={handleRequestTypeChange}
             onMemberChange={handleMemberChange}
+            required
           />
 
           <PersonalInfoSection
