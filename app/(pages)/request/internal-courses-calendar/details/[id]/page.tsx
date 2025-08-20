@@ -22,7 +22,6 @@ const InternalCoursesDetailsPage = async ({
     type,
     trainingCenter,
     city,
-    seatsNumber,
     subscribersNumber,
     courseProgram,
     displayButton,
@@ -35,7 +34,6 @@ const InternalCoursesDetailsPage = async ({
     { label: "النوع", value: type },
     { label: "مركز التدريب", value: trainingCenter },
     { label: "المدينة", value: city },
-    { label: "عدد المقاعد", value: seatsNumber },
     { label: "عدد المشتركين", value: subscribersNumber },
     { label: "برنامج الدورة", value: courseProgram },
   ]

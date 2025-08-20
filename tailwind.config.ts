@@ -1,7 +1,7 @@
 // TODO: maintenance
 import type { Config } from "tailwindcss"
 import tailwindAnimate from "tailwindcss-animate"
-import tailwindcssForms from "@tailwindcss/forms"
+// import tailwindcssForms from "@tailwindcss/forms"
 import tailwindScrollbar from "tailwind-scrollbar"
 import plugin from "tailwindcss/plugin"
 
@@ -152,7 +152,7 @@ const config: Config = {
     },
   },
   plugins: [
-    tailwindcssForms,
+    // tailwindcssForms,
     tailwindScrollbar({
       nocompatible: true,
       preferredStrategy: "pseudoelements",
