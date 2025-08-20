@@ -3,14 +3,14 @@ import { OutboxIcon, PdfFileIcon, TrashIcon } from "@icons"
 import { Button } from "@ui"
 import { ChangeEvent, useState, useRef } from "react"
 
-export const FileAttachment = ({ name = "" }) => {
+export const FileAttachment = ({}) => {
   const [files, setFiles] = useState<File[]>([])
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const updateInputFiles = (fileList: File[]) => {
     if (fileInputRef.current) {
       const dt = new DataTransfer()
-      fileList.forEach((file) => dt.items.add(file))
+      fileList.forEach(file => dt.items.add(file))
       fileInputRef.current.files = dt.files
     }
   }
@@ -50,9 +50,9 @@ export const FileAttachment = ({ name = "" }) => {
           </p>
         </label>
         <input
-          name={name}
           ref={fileInputRef}
           onChange={handleFileChange}
+          name="attachment_ids"
           id="attachment_ids_input"
           type="file"
           multiple
