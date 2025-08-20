@@ -95,7 +95,7 @@ export const BatchTableSection = ({ requestStatus, payments }: Props) => {
 
   useEffect(() => {
     localStorage.setItem("requestId", requestId || "")
-  }, [requestId])
+  }, [])
 
   return (
     <div className="bg-white pt-4 pb-4 px-4 rounded-lg space-y-3">
