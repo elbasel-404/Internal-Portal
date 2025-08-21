@@ -19,7 +19,7 @@ interface APIConfig {
 }
 
 const CONFIG: APIConfig = {
-  enableLogging: false,
+  enableLogging: true,
   defaultRevalidateTime: 15,
   maxRetries: 3,
   retryDelay: 1000,
