@@ -1,0 +1,2 @@
+export { ChangeContractTable } from "./ChangeContractTable";
+
