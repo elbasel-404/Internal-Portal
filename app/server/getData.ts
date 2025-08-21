@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server"
 
 import { getStoredEmployeeId } from "@auth"
@@ -19,7 +20,7 @@ interface APIConfig {
 }
 
 const CONFIG: APIConfig = {
-  enableLogging: false,
+  enableLogging: true,
   defaultRevalidateTime: 15,
   maxRetries: 3,
   retryDelay: 1000,
