@@ -31,7 +31,14 @@ export const getBankAccountDetails = async (
       }
 
       const typedData = data[0] as Record<string, unknown>
-
+      const accountStatusValue = () => {
+        const status = getStringValue(typedData.account_status)
+        return status === "approve"
+          ? "مثبت"
+          : status === "reject"
+            ? "غير مثبت"
+            : status
+      }
       return [
         {
           id: getStringValue(typedData.id),
@@ -43,7 +50,7 @@ export const getBankAccountDetails = async (
           ),
           bankName: getArrayValue(typedData.new_bank_id),
           ibanNumber: getStringValue(typedData.iban),
-          accountStatus: getStringValue(typedData.state),
+          accountStatus: accountStatusValue(),
         },
       ]
     },
