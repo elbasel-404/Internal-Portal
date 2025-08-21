@@ -35,6 +35,7 @@ export const AdditionalInfoSection = ({
         value={relationTypeValue}
         placeholder=""
         onChange={onRelationTypeChange}
+        required
       />
     </>
   )

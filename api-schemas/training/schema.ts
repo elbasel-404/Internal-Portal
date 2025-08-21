@@ -112,6 +112,7 @@ export const TrainingElementSchema = z.object({
   message_needaction_counter: z.any(),
   display_name: z.any(),
   __last_update: z.any(),
+  number_of_days: z.any(),
 })
 export type TrainingElement = z.infer<typeof TrainingElementSchema>
 

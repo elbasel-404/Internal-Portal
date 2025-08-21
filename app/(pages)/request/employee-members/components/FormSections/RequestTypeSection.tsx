@@ -6,6 +6,7 @@ interface RequestTypeSectionProps {
   memberField: EmployeeMembersField[]
   requestTypeValue: string
   member: string
+  required?: boolean
   onRequestTypeChange: (value: string) => void
   onMemberChange: (value: string) => void
 }
@@ -17,6 +18,7 @@ export const RequestTypeSection = ({
   member,
   onRequestTypeChange,
   onMemberChange,
+  required,
 }: RequestTypeSectionProps) => {
   return (
     <>
@@ -29,6 +31,7 @@ export const RequestTypeSection = ({
         }))}
         value={requestTypeValue}
         onChange={onRequestTypeChange}
+        required={required}
       />
       {requestTypeValue !== "add" && (
         <SelectField
@@ -41,6 +44,7 @@ export const RequestTypeSection = ({
           value={member}
           placeholder="__"
           onChange={onMemberChange}
+          required={required}
         />
       )}
     </>
