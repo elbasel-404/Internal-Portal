@@ -205,7 +205,7 @@ export const MenuItems: MenuItem[] = [
       {
         iconKey: "DetailFile",
         label: "طلب تغيير تعميد / عقد",
-        href: "/",
+        href: paths.changeContract.href,
         tag: "purchases",
       },
       // {
