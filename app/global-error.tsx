@@ -183,14 +183,14 @@ const ActionButtons = () => {
     startTransition(async () => {
       await clearCookies()
     })
-    startTransition(() => {
-      setTimeout(() => {
-        toast.success("Cookies cleared successfully, reloading page...", { duration: 5000 })
-      }, 1000)
-      setTimeout(() => {
-        window.location.reload()
-      }, 3000)
-    })
+    setTimeout(() => {
+      toast.success("Cookies cleared successfully, reloading page...", {
+        duration: 5000,
+      })
+    }, 1000)
+    setTimeout(() => {
+      window.location.reload()
+    }, 3000)
   }
   return (
     <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-200">
