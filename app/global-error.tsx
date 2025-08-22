@@ -10,7 +10,8 @@ import {
   AlertCircleIcon,
   TrashIcon,
 } from "lucide-react"
-import type { FC } from "react"
+import { useTransition, type FC } from "react"
+import { toast, Toaster } from "sonner"
 
 interface GlobalErrorProps {
   error: Error & {
@@ -29,6 +30,7 @@ const GlobalError: FC<GlobalErrorProps> = ({ error }) => {
   return (
     <html>
       <body className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50 p-4 font-sans">
+        <Toaster richColors position="top-center" />
         <div className="min-h-screen flex items-center justify-center">
           <div className="max-w-4xl w-full bg-white rounded-xl shadow-2xl overflow-hidden">
             <ErrorHeader />
@@ -174,30 +176,42 @@ const ActionButton: FC<{
   </button>
 )
 
-const ActionButtons = () => (
-  <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-200">
-    <ActionButton
-      onClick={() => window.location.reload()}
-      className="bg-gray-600 hover:bg-gray-700 text-white"
-      icon={<RefreshCw className="w-5 h-5" />}
-    >
-      Retry
-    </ActionButton>
+const ActionButtons = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, startTransition] = useTransition()
+  const buttonAction = () => {
+    startTransition(async () => {
+      await clearCookies()
+    })
+    startTransition(() => {
+      setTimeout(() => {
+        toast.success("Cookies cleared successfully, reloading page...", { duration: 5000 })
+      }, 1000)
+      setTimeout(() => {
+        window.location.reload()
+      }, 3000)
+    })
+  }
+  return (
+    <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-200">
+      <ActionButton
+        onClick={() => window.location.reload()}
+        className="bg-gray-600 hover:bg-gray-700 text-white"
+        icon={<RefreshCw className="w-5 h-5" />}
+      >
+        Retry
+      </ActionButton>
 
-    <ActionButton
-      onClick={async () => {
-        await clearCookies()
-        setTimeout(() => {
-          window.location.reload()
-        }, 2000)
-      }}
-      className="bg-red-600 hover:bg-red-700 text-white"
-      icon={<TrashIcon className="w-5 h-5" />}
-    >
-      Clear Cookies
-    </ActionButton>
-  </div>
-)
+      <ActionButton
+        className="bg-red-600 hover:bg-red-700 text-white"
+        icon={<TrashIcon className="w-5 h-5" />}
+        onClick={buttonAction}
+      >
+        Clear Cookies
+      </ActionButton>
+    </div>
+  )
+}
 
 const ErrorContent: FC<{ error: Error & { digest?: string } }> = ({
   error,
@@ -212,6 +226,8 @@ const ErrorContent: FC<{ error: Error & { digest?: string } }> = ({
   return (
     <div className="p-6 space-y-6">
       {/* Primary Error Message */}
+      <ActionButtons />
+
       <ErrorMessage message={message} />
 
       {/* Error Details Grid */}
@@ -224,7 +240,6 @@ const ErrorContent: FC<{ error: Error & { digest?: string } }> = ({
       {stack && <StackTrace stack={stack} />}
 
       {/* Action Buttons */}
-      <ActionButtons />
     </div>
   )
 }
