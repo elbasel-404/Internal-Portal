@@ -63,8 +63,7 @@ export const signIn = async (
       body,
     })
   } catch (error) {
-    console.log({ error: JSON.stringify(error, null, 4) })
-    throw error;
+    throw error
   }
 
   const responseJson = await response?.json()
