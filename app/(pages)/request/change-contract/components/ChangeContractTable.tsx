@@ -1,8 +1,8 @@
 "use client"
 
 import { FilterSection, Table } from "@components"
-import { SearchIcon } from "@icons"
-import { Input } from "@ui"
+import { CirclePlusIcon, FilterIcon, SearchIcon } from "@icons"
+import { Button, Input } from "@ui"
 import { ChangeEvent, useState } from "react"
 
 import { RadioField } from "@components/form"
@@ -11,6 +11,7 @@ import type {
   ChangeContractAgreementRequest,
   ChangeContractPurchaseRequest,
 } from "@types"
+import Link from "next/link"
 
 interface ChangeContractProps {
   purchaseData: ChangeContractPurchaseRequest[]
@@ -42,9 +43,14 @@ export const ChangeContractTable = ({
 }: ChangeContractProps) => {
   const [, setCurrentPage] = useState(1)
   const [searchTerm, setSearchTerm] = useState("")
-  const [isFilterVisible] = useState(false)
+
   const [change_contractStatus, setChangeContractStatus] =
     useState("purchase_order")
+  const [isFilterVisible, setIsFilterVisible] = useState(false)
+
+  const toggleFilter = () => {
+    setIsFilterVisible((prev) => !prev)
+  }
 
   // Return early if required data is not available
   if (!purchaseData && !agreementData) return
@@ -87,6 +93,19 @@ export const ChangeContractTable = ({
               value={searchTerm}
               onChange={handleSearch}
             />
+            <Button
+              onClick={toggleFilter}
+              className="bg-cloudGray p-2.5 rounded-full shadow-none hover:bg-cloudGray"
+            >
+              <FilterIcon className="fill-primary" />
+            </Button>
+            <Link
+              href={paths.changeContractOrdersList.href}
+              className="flex group font-medium items-center gap-2 bg-primary text-white px-4 py-1 rounded-full hover:bg-primary-opacity hover:text-primary hover:border-2 hover:border-primary"
+            >
+              <CirclePlusIcon className="fill-white group-hover:fill-primary" />
+              أضف جديد
+            </Link>
           </div>
         </div>
 
