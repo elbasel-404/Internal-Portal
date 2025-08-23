@@ -1,2 +1,3 @@
-export { ChangeContractTable } from "./ChangeContractTable";
+export { ChangeContractForm } from "./ChangeContractForm"
+export { ChangeContractTable } from "./ChangeContractTable"
 
