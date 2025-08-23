@@ -467,4 +467,17 @@ export const paths: Record<string, AppPath> = {
     title: "طلب متابعة الأداء",
     href: "/evaluation-flow/new",
   },
+
+  contractor: {
+    title: "قائمة طلبات المتعاقدين",
+    href: "/request/contractor",
+  },
+  contractorDetails: {
+    title: "تفاصيل طلب متعاقد",
+    href: "/request/contractor/details/:id",
+  },
+  contractorNew: {
+    title: "طلب متعاقد",
+    href: "/request/contractor/new",
+  },
 }
