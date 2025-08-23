@@ -479,4 +479,12 @@ export const paths: Record<string, AppPath> = {
     title: "تفاصيل طلب تغيير العقد",
     href: "/request/change-contract/details/:id",
   },
+  changeContractOrdersList: {
+    title: "قائمة أوامر الشراء المعتمدة",
+    href: "/request/change-contract/orders-list",
+  },
+  purchaseOrderDetails: {
+    title: "تفاصيل أمر الشراء",
+    href: "/request/change-contract/orders-list/details/:id",
+  },
 }
