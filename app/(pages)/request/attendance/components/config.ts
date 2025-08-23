@@ -24,7 +24,7 @@ export const employeeAttendanceTableHeaders = [
 ]
 
 export const employees = [
-  { id: "1", description: "عبد الله بن حسين جفري" },
-  { id: "2", description: "آرام بنت مساعد العيدان	" },
-  { id: "3", description: "أحمد بن نصار النويصري	" },
+  { id: "1", name: "عبد الله بن حسين جفري" },
+  { id: "2", name: "آرام بنت مساعد العيدان" },
+  { id: "3", name: "أحمد بن نصار النويصري" },
 ]

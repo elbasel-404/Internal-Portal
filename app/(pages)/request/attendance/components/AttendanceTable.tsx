@@ -13,13 +13,13 @@ interface AttendanceListRequestProps {
   form?: {
     start: string
     end: string
-    month: string
+    select: string
   }
   setForm?: Dispatch<
     SetStateAction<{
       start: string
       end: string
-      month: string
+      select: string
     }>
   >
   loading?: boolean
@@ -59,6 +59,7 @@ export const AttendanceTable = ({
           options={defaultMonths}
           selectLabel="الشهر"
           selectPlaceholder="حدد الشهر"
+          selectName="month"
           filterHeader="فرز الطلبات"
           filterButton="طباعة تقارير الحضور و الإنصراف"
           Icon={PrinterIcon}

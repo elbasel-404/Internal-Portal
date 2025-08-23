@@ -12,7 +12,7 @@ const AttendanceListPage = () => {
   const [form, setForm] = useState({
     start: currentDate,
     end: currentDate,
-    month: "",
+    select: "",
   })
   useEffect(() => {
     const fetchData = async () => {
@@ -20,13 +20,13 @@ const AttendanceListPage = () => {
       const listData = await getAttendanceListRequests({
         start: form.start,
         end: form.end,
-        month: form.month,
+        month: form.select,
       })
       setList(listData)
       setLoading(false)
     }
     fetchData()
-  }, [form.start, form.end, form.month])
+  }, [form.start, form.end, form.select])
 
   return (
     <AttendanceTable
