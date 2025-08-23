@@ -10,7 +10,7 @@ export const getChangeContractPurchaseRequests = async (): Promise<
 
 const DummyData: ChangeContractPurchaseRequest[] = [
   {
-    id: "1",
+    id: "28567",
     purchaseOrderNumber: "#12345",
     contractNumber: "#54321",
     competitionName: "منافسة 1",
@@ -20,7 +20,7 @@ const DummyData: ChangeContractPurchaseRequest[] = [
     status: "قيد المراجعة",
   },
   {
-    id: "2",
+    id: "28568",
     purchaseOrderNumber: "#12346",
     contractNumber: "#54322",
     competitionName: "منافسة 2",
@@ -30,7 +30,7 @@ const DummyData: ChangeContractPurchaseRequest[] = [
     status: "موافقة مبدئية",
   },
   {
-    id: "3",
+    id: "28569",
     purchaseOrderNumber: "#12347",
     contractNumber: "#54323",
     competitionName: "منافسة 3",
@@ -40,7 +40,7 @@ const DummyData: ChangeContractPurchaseRequest[] = [
     status: "مكتمل",
   },
   {
-    id: "4",
+    id: "28570",
     purchaseOrderNumber: "#12348",
     contractNumber: "#54324",
     competitionName: "منافسة 4",
@@ -50,7 +50,7 @@ const DummyData: ChangeContractPurchaseRequest[] = [
     status: "مرفوض",
   },
   {
-    id: "5",
+    id: "28571",
     purchaseOrderNumber: "#12349",
     contractNumber: "#54325",
     competitionName: "منافسة 5",
@@ -60,7 +60,7 @@ const DummyData: ChangeContractPurchaseRequest[] = [
     status: "قيد المراجعة",
   },
   {
-    id: "6",
+    id: "28572",
     purchaseOrderNumber: "#12350",
     contractNumber: "#54326",
     competitionName: "منافسة 6",
@@ -70,7 +70,7 @@ const DummyData: ChangeContractPurchaseRequest[] = [
     status: "موافقة مبدئية",
   },
   {
-    id: "7",
+    id: "28573",
     purchaseOrderNumber: "#12351",
     contractNumber: "#54327",
     competitionName: "منافسة 7",
