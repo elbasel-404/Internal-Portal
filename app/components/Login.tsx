@@ -6,6 +6,7 @@ import { Download, Eye, EyeOff, LoaderIcon, Lock, User2 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useActionState, useEffect, useState } from "react"
+import { twMerge } from "tailwind-merge"
 import { toast } from "sonner"
 
 // Constants for input field names
@@ -30,6 +31,23 @@ const initialState: InitialState = {
 export const Login = () => {
   const [state, formAction, pending] = useActionState(signIn, initialState)
   const [showPassword, setShowPassword] = useState(false)
+  const [buttonDisabled, setButtonDisabled] = useState(true)
+
+  // Run when window load completes
+  useEffect(() => {
+    const handleLoad = () => {
+      console.log("Window fully loaded")
+      setButtonDisabled(false)
+    }
+
+    if (document.readyState === "complete") {
+      // Page already loaded before React mounted
+      handleLoad()
+    } else {
+      window.addEventListener("load", handleLoad)
+      return () => window.removeEventListener("load", handleLoad)
+    }
+  }, [])
 
   // Effect to handle and display login errors
   useEffect(() => {
@@ -54,6 +72,7 @@ export const Login = () => {
               width={300}
               height={300}
               className="h-4/5 min-h-[500px] min-w-[300px] w-4/5 max-w-lg"
+              onLoad={() => console.log("app-login image loaded")}
             />
             <div className="-mt-44">
               <Image
@@ -62,6 +81,7 @@ export const Login = () => {
                 width={250}
                 height={100}
                 className="h-auto w-full"
+                onLoad={() => console.log("app-download-section image loaded")}
               />
               <div className="mt-8 flex items-center justify-center gap-3">
                 <Button
@@ -82,6 +102,7 @@ export const Login = () => {
               width={150}
               height={60}
               className="h-auto w-full"
+              onLoad={() => console.log("appstore button loaded")}
             />
             <Image
               src="/googleplay.svg"
@@ -89,6 +110,7 @@ export const Login = () => {
               width={150}
               height={60}
               className="h-auto w-full"
+              onLoad={() => console.log("googleplay button loaded")}
             />
           </div>
         </div>
@@ -168,11 +190,16 @@ export const Login = () => {
             </div>
 
             {/* Submit Button */}
+
             <Button
-              disabled={pending}
+              disabled={pending || buttonDisabled}
               icon={pending && <LoaderIcon className="animate-spin" />}
               type="submit"
-              className="w-full rounded-full bg-[#007497] px-4 py-6 text-white shadow-none transition duration-200 hover:bg-cyan-700"
+              className={twMerge(
+                "w-full rounded-full bg-[#007497] px-4 py-6 text-white shadow-none transition duration-200 hover:bg-cyan-700",
+                (pending || buttonDisabled) &&
+                  "cursor-not-allowed opacity-60 hover:bg-[#007497]",
+              )}
             >
               سجل الدخول
             </Button>

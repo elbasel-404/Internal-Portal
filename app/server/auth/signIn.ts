@@ -54,14 +54,19 @@ export const signIn = async (
     password,
   })
 
+  let response
   // ! ================= FETCH =================
-  const response = await fetch(AUTH_ENDPOINT_URL, {
-    method,
-    headers,
-    body,
-  })
+  try {
+    response = await fetch(AUTH_ENDPOINT_URL, {
+      method,
+      headers,
+      body,
+    })
+  } catch (error) {
+    throw error
+  }
 
-  const responseJson = await response.json()
+  const responseJson = await response?.json()
   // ! ================= RESPONSE VALIDATION =================
   const authResponseValidation = authResponseSchema.safeParse(responseJson)
 
