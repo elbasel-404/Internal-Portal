@@ -44,7 +44,7 @@ export { FamilyNewSchema } from "./family-news/schema"
 export { HrTrainingSchema, type HrTraining } from "./hr-training/schema"
 export {
   JobApplicationSchema,
-  type JobApplication
+  type JobApplication,
 } from "./job-application/schema"
 export { NewsElementSchema, type NewsElementType } from "./news/schema"
 export { ObligationSchema } from "./obligation/schema"
@@ -104,3 +104,4 @@ export { TrainingElementSchema, type TrainingElement } from "./training/schema"
 export { TransactionListElementSchema } from "./transaction-list/schema"
 export { VacationTypeSchema, type VacationType } from "./vacation-types/schema"
 export { AttendanceSchema } from "./attendance-list/schema"
+export { ContractorListElementSchema } from "./Contractor-list/schema"

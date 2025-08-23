@@ -43,14 +43,14 @@ export const AttachmentsField = ({
         <div className="flex items-center justify-center border-2 border-dashed border-gray-300 rounded-md p-6">
           <input
             type="file"
-            id="attachments"
+            id={`attachments-${name}`}
             name={name}
             className="sr-only"
             onChange={(e) => handleFileUpload(e.target.files)}
             multiple
           />
           <label
-            htmlFor="attachments"
+            htmlFor={`attachments-${name}`}
             className="cursor-pointer flex flex-col justify-center items-center"
           >
             <OutboxIcon />
