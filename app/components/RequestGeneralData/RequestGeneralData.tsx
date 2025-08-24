@@ -4,6 +4,9 @@ import { InfoGrid } from "@components"
 
 import { getGeneralInfo } from "./getGenealInfo"
 import type { RequestGeneralInfoModel } from "./types/RequestGeneralInfoModel"
+import { getUser } from "@db/actions"
+import { getUserId } from "@server"
+import { GeneralInfoKeysObject } from "./types/GeneralInfoKeysObject"
 
 interface RequestGeneralDataProps {
   model: RequestGeneralInfoModel
@@ -13,7 +16,20 @@ export const RequestGeneralData = async ({
   model,
 }: RequestGeneralDataProps) => {
   const data = await getGeneralInfo({ model })
-  const dataObject = data[0]
+  const userId = await getUserId()
+  if (!userId) {
+    throw new Error("User not found")
+  }
+  const user = await getUser(userId)
+  const { activeGeneralInfoKeys } = user
+
+  const dataObject: GeneralInfoKeysObject = {}
+
+  for (const key of activeGeneralInfoKeys) {
+    dataObject[key as keyof GeneralInfoKeysObject] =
+      data[key as keyof GeneralInfoKeysObject] || 0
+  }
+
   return (
     <div className="py-6">
       {/* <InfoGrid info={dummyData} className="lg:grid-cols-2" /> */}

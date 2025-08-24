@@ -63,6 +63,7 @@ export const KPIsCollapse = ({
           <h2 className="text-2xl font-bold">{title}</h2>
         </div>
         <button
+        title="button"
           className="flex flex-[0.07] items-center justify-center bg-[#007C9E24]"
           onClick={() => {
             setCollapsedSlots((prev) => {
