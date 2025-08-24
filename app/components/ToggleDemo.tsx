@@ -9,14 +9,17 @@ import { useAtomValue, useSetAtom } from "jotai"
 import { useActionState, useEffect, useState } from "react"
 import { getDemo } from "../db/actions/getDemo"
 import { cn } from "@utils"
+import { toast } from "sonner"
 
 export const dynamic = "force-dynamic"
 
 export type InitialState = {
   isDemo: boolean
+  error: string | null
 }
 const initialState: InitialState = {
   isDemo: true,
+  error: null,
 }
 
 export const ToggleDemo = () => {
@@ -49,6 +52,13 @@ export const ToggleDemo = () => {
   useEffect(() => {
     initDemo()
   }, [])
+
+  useEffect(() => {
+    const { error } = state
+    if (error) {
+      toast.error(error, { duration: 20000 })
+    }
+  }, [state])
 
   return (
     <div

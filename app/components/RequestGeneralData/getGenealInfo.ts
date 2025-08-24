@@ -3,6 +3,7 @@
 import { getDemo } from "@db/actions"
 import { getFetchHeaders } from "../../server/getFetchHeaders"
 import { RequestGeneralInfoModel } from "./types/RequestGeneralInfoModel"
+import type { GeneralInfoKeysObject } from "./types/GeneralInfoKeysObject"
 
 interface GetGeneralInfoParams {
   model: RequestGeneralInfoModel
@@ -10,8 +11,10 @@ interface GetGeneralInfoParams {
 
 const apiRootUrl = process.env.API_ROOT_URL
 
-export const getGeneralInfo = async ({ model }: GetGeneralInfoParams) => {
-  return dummyData
+export const getGeneralInfo = async ({
+  model,
+}: GetGeneralInfoParams): Promise<GeneralInfoKeysObject> => {
+  // return dummyData
   const isDemo = await getDemo()
   if (isDemo) {
     return dummyData
@@ -25,16 +28,16 @@ export const getGeneralInfo = async ({ model }: GetGeneralInfoParams) => {
   })
   const json = await response.json()
   const result = json.result
-  const data = result.data
+  const data = result.data[0] as GeneralInfoKeysObject
 
   return data
 }
 
-const dummyData = [
-  {
-    pending_custody_close_requests: 2,
-    done_custody_close_requests: 3,
-    refuse_cancel_custody_close_requests: 2,
-    all_custody_close_requests: 7,
-  },
-]
+const dummyData = {
+  current_holidays_stock: 15,
+  old_holidays_stock: 5,
+  pending_holidays_requests: 2,
+  done_holidays_requests: 10,
+  refused_cancelled_holidays_requests: 1,
+  all_holidays: 13,
+}
