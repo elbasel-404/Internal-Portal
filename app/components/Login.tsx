@@ -53,7 +53,6 @@ export const Login = () => {
   // Don't enable signin button until the page has loaded.
   useEffect(() => {
     const handleLoad = () => {
-      console.log("Window fully loaded")
       setButtonDisabled(false)
     }
     if (document.readyState === "complete") {
@@ -128,7 +127,6 @@ export const Login = () => {
               width={300}
               height={300}
               className="h-4/5 min-h-[500px] min-w-[300px] w-4/5 max-w-lg"
-              onLoad={() => console.log("app-login image loaded")}
             />
             <div className="-mt-44">
               <Image
@@ -137,7 +135,6 @@ export const Login = () => {
                 width={250}
                 height={100}
                 className="h-auto w-full"
-                onLoad={() => console.log("app-download-section image loaded")}
               />
               <div className="mt-8 flex items-center justify-center gap-3">
                 <Button
@@ -158,7 +155,6 @@ export const Login = () => {
               width={150}
               height={60}
               className="h-auto w-full"
-              onLoad={() => console.log("appstore button loaded")}
             />
             <Image
               src="/googleplay.svg"
@@ -166,7 +162,6 @@ export const Login = () => {
               width={150}
               height={60}
               className="h-auto w-full"
-              onLoad={() => console.log("googleplay button loaded")}
             />
           </div>
         </div>

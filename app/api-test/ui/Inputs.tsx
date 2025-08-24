@@ -48,6 +48,7 @@ export const Inputs = ({
 
       {showPlusIcon && (
         <button
+          title="button"
           type="button"
           onClick={() => {
             setExtraInputs((prev) => [...prev, prev.length + 1])
@@ -128,7 +129,11 @@ const EInput = ({ index, handleDeleteInput, keyPrefix }: EInputProps) => {
           dir="ltr"
           placeholder="Enter value"
         />
-        <button onClick={(e) => handleDeleteInput(e, index)}>
+        <button
+          type="button"
+          title="button"
+          onClick={(e) => handleDeleteInput(e, index)}
+        >
           <Trash2Icon className="text-red-600" />
         </button>
       </div>

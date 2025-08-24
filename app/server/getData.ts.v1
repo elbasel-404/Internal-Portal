@@ -240,7 +240,6 @@ async function fetchWithTimeout({
     return response
   } catch (e) {
     const error = e as Error
-    console.log(JSON.stringify(error, null, 4))
     clearTimeout(id)
     throw createError("Request timeout", 408)
   }
@@ -288,5 +287,5 @@ function createLogger(url: string, level: LogLevel): Logger {
 
 function log(logger: Logger, level: LogLevel, message: string) {
   if (!logger.enabled || level < logger.level) return
-  console.log(`[${LogLevel[level]}] [${logger.id}] ${message}`)
+  (`[${LogLevel[level]}] [${logger.id}] ${message}`)
 }
