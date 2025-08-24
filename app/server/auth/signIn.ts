@@ -11,7 +11,7 @@ export const signIn = async (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   prevState: any,
   formData: FormData,
-) => {
+): Promise<InitialState> => {
   // ! ================= ENV =================
   const CLIENT_SECRET = process.env.CLIENT_SECRET
   const CLIENT_ID = process.env.CLIENT_ID
@@ -63,9 +63,13 @@ export const signIn = async (
       body,
     })
   } catch (error) {
-    throw error
+    const e = error as Error
+    if (e.message.toLowerCase() === "fetch failed") {
+      return {
+        error: "Network error: Fetch failed.",
+      }
+    }
   }
-
   const responseJson = await response?.json()
   // ! ================= RESPONSE VALIDATION =================
   const authResponseValidation = authResponseSchema.safeParse(responseJson)

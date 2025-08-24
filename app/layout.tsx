@@ -28,7 +28,7 @@ const RootLayout = async ({ children }: Readonly<RootLayoutProps>) => {
   if (!session && refreshToken && !loggedOut) {
     return (
       <html>
-        <body className="h-screen flex items-center justify-center bg-gradient-to-b from-sky-500 to-pink-500">
+        <body>
           <RefreshSession />
         </body>
       </html>
@@ -43,7 +43,7 @@ const RootLayout = async ({ children }: Readonly<RootLayoutProps>) => {
             richColors
             expand={true}
             position="top-center"
-            closeButton={true}
+            closeButton={false}
             visibleToasts={10}
           />
           <InitUser />
