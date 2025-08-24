@@ -1,10 +1,11 @@
 import { CreateRequestStatus, Instructions } from "@components"
-import { getCreateRequestStatus } from "@server"
+import { getCreateRequestStatus, getPurchaseOrderProducts } from "@server"
 import { ChangeContractForm } from "../components"
 
 export const dynamic = "force-dynamic"
 
 const NewChangeContractPage = async () => {
+  const products = await getPurchaseOrderProducts()
   const model = "manage.financial.custody"
   const requestStatus = await getCreateRequestStatus(model)
   const requestCaption =
@@ -12,7 +13,7 @@ const NewChangeContractPage = async () => {
   return (
     <div className="space-y-4 mb-16">
       <CreateRequestStatus status={requestStatus} caption={requestCaption} />
-      <ChangeContractForm />
+      <ChangeContractForm productsData={products} />
       <Instructions
         title="توضيحات حول الخدمة"
         description="تتيح هذه الخدمة للموظف امكانية تقديم طلب تغيير امر الشراء / العقد.يتم تعبئة الطلب بالبيانات الاساسية(*) حقول ضرورية"
