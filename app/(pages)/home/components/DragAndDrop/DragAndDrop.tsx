@@ -22,7 +22,6 @@ interface DragAndDropProps {
   indexOffset: number
 }
 
-const defaultClassName = ""
 
 export const DragAndDrop = ({
   slots,
@@ -122,6 +121,7 @@ export const DragAndDrop = ({
           <h2 className="text-2xl font-bold">{title}</h2>
         </div>
         <button
+          title="Collapse/Expand"
           className="flex flex-[0.07] items-center justify-center bg-white rounded-tl-xl"
           onClick={() => {
             setCollapsedSlots((prev) => {
@@ -141,14 +141,12 @@ export const DragAndDrop = ({
   return (
     <div
       ref={parent as RefObject<HTMLDivElement>}
-      className={cn(defaultClassName, className)}
+      className={cn("space-y-6", className)}
     >
-      <Animate className="space-y-6">
-        {dndNodes.map((node) => {
-          const hidden = visuallyHiddenKeys?.includes(node.key)
-          return renderSlot(node, hidden ? "hidden" : "")
-        })}
-      </Animate>
+      {dndNodes.map((node) => {
+        const hidden = visuallyHiddenKeys?.includes(node.key)
+        return renderSlot(node, hidden ? "hidden" : "")
+      })}
     </div>
   )
 }
