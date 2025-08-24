@@ -4,7 +4,7 @@
 import { RequestGeneralData } from "@components"
 import { getSession, getUserId } from "@server"
 
-export const dynamic = "force-dynamic"
+// export const dynamic = "force-dynamic"
 // const MAX_INFO_SLOTS = 6
 
 const GeneralInfoSlot = async () => {

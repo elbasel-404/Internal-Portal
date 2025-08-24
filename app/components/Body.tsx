@@ -30,7 +30,7 @@ export const Body = async ({ children, className }: BodyProps) => {
     <body className={className}>
       <AppProvider>
         {/* <InitUser /> */}
-        <Toaster richColors={true} position="top-center" />
+        <Toaster expand={true} richColors={true} position="top-center" />
         <RegisterChartJSPlugins />
         <AppSideBar userInfo={userInfo} />
         <ValidatePath />
