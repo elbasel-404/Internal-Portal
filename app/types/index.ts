@@ -70,6 +70,7 @@ export type { ProbationPeriodRequest } from "./pages/request/ProbationPeriodRequ
 export type { ProductsType } from "./pages/request/ProductsType"
 export type { PurchaseDetails } from "./pages/request/PurchaseDetails"
 export type { PurchaseOrderDetails } from "./pages/request/PurchaseOrderDetails"
+export type { PurchaseOrderProduct } from "./pages/request/PurchaseOrderProduct "
 export type { PurchasePayments } from "./pages/request/PurchasePayments"
 export type { PurchaseProduct } from "./pages/request/PurchaseProduct"
 export type { PurchaseRequest } from "./pages/request/PurchaseRequest"
