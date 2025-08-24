@@ -14,9 +14,11 @@ export const dynamic = "force-dynamic"
 
 export type InitialState = {
   isDemo: boolean
+  error: string | null
 }
 const initialState: InitialState = {
   isDemo: true,
+  error: null,
 }
 
 export const ToggleDemo = () => {
