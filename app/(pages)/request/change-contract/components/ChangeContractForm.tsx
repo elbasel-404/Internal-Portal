@@ -1,33 +1,29 @@
 "use client"
 
-import { Table } from "@components"
 import {
-    AttachmentsField,
-    CheckboxListField,
-    DateField,
-    FormHeader,
-    InputField,
-    RadioField,
-    SubmitButton,
-    TextareaField,
+  AttachmentsField,
+  CheckboxListField,
+  DateField,
+  FormHeader,
+  InputField,
+  RadioField,
+  SubmitButton,
+  TextareaField,
 } from "@components/form"
 import { ModalLink } from "@components/modals/ModalLink"
 import { CirclePlusIcon } from "@icons"
 import { paths } from "@lib"
-import { useState } from "react"
+import { PurchaseOrderProduct } from "@types"
+import { useEffect, useState } from "react"
+import { ProductsTable } from "./ProductsTable"
 
-const productTableHeaders = [
-  { label: "التصنيف" },
-  { label: "المنتج" },
-  { label: "الوصف" },
-  { label: "الكمية" },
-  { label: "سعر الوحدة" },
-  { label: "الإجمالي" },
-  { label: "الكمية المنجزة" },
-  { label: "الإجراءات" },
-]
+interface ChangeContractFormProps {
+  productsData?: PurchaseOrderProduct[] // Replace 'any' with the actual type if available
+}
 
-export const ChangeContractForm = () => {
+export const ChangeContractForm = ({
+  productsData,
+}: ChangeContractFormProps) => {
   // Checkbox state
   const [selectedTypes, setSelectedTypes] = useState<string[]>([])
 
@@ -57,6 +53,45 @@ export const ChangeContractForm = () => {
   const [additionalAttachmentFiles, setAdditionalAttachmentFiles] = useState<
     File[]
   >([])
+
+  // Effect to automatically check selectedTypes based on radio selections
+  useEffect(() => {
+    const updatedTypes = [...selectedTypes]
+
+    // When newClause is 'yes', check the first option (increaseRequest)
+    if (newClause === "yes") {
+      if (!updatedTypes.includes("increaseRequest")) {
+        updatedTypes.push("increaseRequest")
+      }
+    } else if (newClause === "no") {
+      // Remove increaseRequest when newClause is 'no'
+      const index = updatedTypes.indexOf("increaseRequest")
+      if (index > -1) {
+        updatedTypes.splice(index, 1)
+      }
+    }
+
+    // When periodExtension is 'yes', check the last option (periodChangeRequest)
+    if (periodExtension === "yes") {
+      if (!updatedTypes.includes("periodChangeRequest")) {
+        updatedTypes.push("periodChangeRequest")
+      }
+    } else if (periodExtension === "no") {
+      // Remove periodChangeRequest when periodExtension is 'no'
+      const index = updatedTypes.indexOf("periodChangeRequest")
+      if (index > -1) {
+        updatedTypes.splice(index, 1)
+      }
+    }
+
+    // Update selectedTypes if there are changes
+    if (
+      JSON.stringify(updatedTypes.sort()) !==
+      JSON.stringify(selectedTypes.sort())
+    ) {
+      setSelectedTypes(updatedTypes)
+    }
+  }, [newClause, periodExtension]) // Remove selectedTypes from dependencies to avoid infinite loop
 
   // File upload handlers
   const handleTechnicalReportUpload = (files: FileList | null) => {
@@ -244,23 +279,20 @@ export const ChangeContractForm = () => {
               لها
             </p>
           </div>
-          <ModalLink
-            name="ProductsModal"
-            className="flex group text-sm font-medium items-center gap-2 bg-primary text-white px-4 py-1 rounded-full hover:bg-primary-opacity hover:text-primary border-2 border-primary"
-          >
-            <CirclePlusIcon className="fill-white group-hover:fill-primary" />
-            إضافة عنصر
-          </ModalLink>
+
+          {newClause === "yes" && (
+            <ModalLink
+              name="PurchaseOrderProductsModal"
+              className="flex group text-sm font-medium items-center gap-2 bg-primary text-white px-4 py-1 rounded-full hover:bg-primary-opacity hover:text-primary border-2 border-primary"
+            >
+              <CirclePlusIcon className="fill-white group-hover:fill-primary" />
+              إضافة عنصر
+            </ModalLink>
+          )}
         </div>
-        <>
-          <Table
-            tableClassName="h-fit"
-            columns={productTableHeaders}
-            rows={[]}
-            toggleId={false}
-          />
-        </>
       </>
+
+      <ProductsTable productsData={productsData} />
 
       <SubmitButton />
     </form>
