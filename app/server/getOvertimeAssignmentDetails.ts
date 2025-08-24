@@ -47,7 +47,7 @@ export const getOvertimeAssignmentDetails = async (
   return result[0]
 }
 const dummyData: OvertimeAssignmentDetails = {
-  id: "#55470",
+  id: "dummy-id",
   applicant: "خالد إبراهيم",
   fromDate: "2024-03-05 15:00",
   toDate: "2024-03-05 19:00",
