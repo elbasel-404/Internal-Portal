@@ -9,6 +9,7 @@ import {
   UserHandsIcon,
   UserTriangleIcon,
 } from "@icons"
+import { Tabs } from "@ui"
 import { isSameDay } from "date-fns"
 import { arSA } from "date-fns/locale"
 import { useState } from "react"
@@ -20,19 +21,27 @@ const today = new Date()
 const todayMonth = today.getMonth()
 const todayYear = today.getFullYear()
 
+const tabs = [
+  { name: "تقويمي", filter: "myCalendar" },
+  { name: "تقويم الفريق", filter: "calendarTeam" },
+]
+
 export const TimelineCalendar = () => {
+  const [activeTab, setActiveTab] = useState<string>("myCalendar")
   const [selected, setSelected] = useState<Date>()
   const [month, setMonth] = useState(todayMonth)
   const [year, setYear] = useState(todayYear)
 
   return (
-    <div className="flex flex-col justify-center items-center sm:justify-normal sm:items-stretch bg-white lg:px-4 py-2.5 space-y-4 sm:space-y-6">
+    <div className="flex flex-col justify-center items-center sm:justify-normal sm:items-stretch bg-white lg:px-4 space-y-2">
       <div className="flex flex-col w-full min-[475px]:flex-row justify-between items-center min-[475px]:items-end py-4 text-center xs:text-start gap-2">
-        <SelectField
-          label="عضو الفريق"
-          name="team_member"
-          types={[]}
-          placeholder="__"
+        <Tabs
+          tabs={tabs}
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+          tabClassName="p-4 bg-lightGray h-[68px] rounded-tl-lg rounded-tr-lg border-b-2 border-[#A6B4BE] hover:border-primary"
+          activeTabClassName="font-semibold"
+          tabSectionClassName="gap-4"
         />
         <CalendarDateSelect
           year={year}
@@ -41,6 +50,16 @@ export const TimelineCalendar = () => {
           setMonth={setMonth}
         />
       </div>
+      {activeTab === "calendarTeam" && (
+        <SelectField
+          label="عضو الفريق"
+          name="team_member"
+          types={[]}
+          placeholder="__"
+         className='px-4' 
+        />
+      )}
+
       <DayPicker
         locale={arSA}
         mode="single"
@@ -119,7 +138,7 @@ export const TimelineCalendar = () => {
           root: "w-full",
           months: "space-y-6",
           month_caption: "hidden",
-          month_grid: "w-full",
+          month_grid: "w-full mt-4",
           weekday: "text-center text-foreground text-sm border-b-2 pb-2",
           day_button: "px-4 py-2 rounded-full",
         }}
