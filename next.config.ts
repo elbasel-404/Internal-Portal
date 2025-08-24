@@ -1,11 +1,19 @@
 import type { NextConfig } from "next"
-import withBundleAnalyzer from "@next/bundle-analyzer"
+// import withBundleAnalyzer from "@next/bundle-analyzer"
+import withRspack from "next-rspack"
 
-const withAnalyzer = withBundleAnalyzer({
-  enabled: process.env.ANALYZE === "true",
-})
+// const withAnalyzer = withBundleAnalyzer({
+//   enabled: process.env.ANALYZE === "true",
+// })
 
 const nextConfig: NextConfig = {
+  logging: {
+    incomingRequests: true,
+    fetches: {
+      fullUrl: true,
+      hmrRefreshes: true,
+    },
+  },
   eslint: {
     // dirs: ["app"],
     // ignoreDuringBuilds: true,
@@ -32,4 +40,5 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default withAnalyzer(nextConfig)
+// export default withAnalyzer(nextConfig)
+export default withRspack(nextConfig)

@@ -43,7 +43,7 @@ const RootLayout = async ({ children }: Readonly<RootLayoutProps>) => {
             richColors
             expand={true}
             position="top-center"
-            closeButton={true}
+            closeButton={false}
             visibleToasts={10}
           />
           <InitUser />
