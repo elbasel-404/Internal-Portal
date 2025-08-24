@@ -12,7 +12,8 @@ export const toggleDemo = async () => {
   if (demoLogin) {
     return {
       isDemo: true,
-      error: "Cannot disable demo mode while logged in as demo user.",
+      error:
+        "Cannot disable demo mode while logged in as demo user, please log out and sign in with a real user",
     }
   }
   if (isDemo) {
