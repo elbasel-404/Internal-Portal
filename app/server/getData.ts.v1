@@ -1,0 +1,291 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use server"
+
+import { getStoredEmployeeId } from "@auth"
+import { z } from "zod"
+import { getDemo } from "../db/actions/getDemo"
+import { getFetchHeaders } from "./getFetchHeaders"
+
+// ============================================================================
+// CONFIGURATION
+// ============================================================================
+const CONFIG = {
+  enableLogging: true,
+  revalidateTime: 15,
+  retries: 3,
+  retryDelay: 1000,
+  timeout: 30000,
+} as const
+
+enum LogLevel {
+  DEBUG,
+  INFO,
+  WARN,
+  ERROR,
+  OFF,
+}
+
+// ============================================================================
+// TYPES
+// ============================================================================
+interface GetDataOptions<T, D> {
+  url: string
+  method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
+  includeEmployeeId?: boolean
+  additionalBody?: Record<string, unknown>
+  employeeIdKey?: string
+  responseSchema?: z.ZodType
+  dataSchema?: z.ZodType
+  parseData?: (data: D[]) => T[]
+  dummyData: T[]
+  cache?: RequestCache
+  revalidate?: number
+  maxRetries?: number
+  timeout?: number
+  logLevel?: LogLevel
+}
+
+interface Logger {
+  id: string
+  url: string
+  enabled: boolean
+  level: LogLevel
+}
+
+// ============================================================================
+// MAIN FUNCTION
+// ============================================================================
+export const getData = async <T, D = unknown>(
+  opts: GetDataOptions<T, D>,
+): Promise<T[]> => {
+  const {
+    url,
+    method = "POST",
+    includeEmployeeId = true,
+    additionalBody = {},
+    responseSchema,
+    dataSchema,
+    parseData,
+    dummyData,
+    employeeIdKey = "employee_id",
+    cache = "force-cache",
+    revalidate = CONFIG.revalidateTime,
+    maxRetries = CONFIG.retries,
+    timeout = CONFIG.timeout,
+    logLevel = LogLevel.INFO,
+  } = opts
+
+  const logger = createLogger(url, logLevel)
+  const metrics = { start: Date.now(), retries: 0 }
+
+  log(logger, LogLevel.INFO, `Starting ${method} ${url}`)
+
+  if (await getDemo()) {
+    log(logger, LogLevel.WARN, "Demo mode active, returning dummy data")
+    return dummyData
+  }
+
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    metrics.retries = attempt
+
+    try {
+      if (attempt > 0) {
+        log(logger, LogLevel.WARN, `Retry ${attempt}/${maxRetries}`)
+        await delay(CONFIG.retryDelay * Math.pow(2, attempt - 1))
+      }
+
+      const result = await fetchData<T, D>({
+        url,
+        method,
+        includeEmployeeId,
+        additionalBody,
+        employeeIdKey,
+        responseSchema,
+        dataSchema,
+        parseData,
+        cache,
+        revalidate,
+        timeout,
+        logger,
+      })
+
+      log(logger, LogLevel.INFO, `Success: ${result.length} items fetched`)
+      return result
+    } catch (error: any) {
+      if (isClientError(error)) {
+        log(
+          logger,
+          LogLevel.ERROR,
+          `Client error ${error.status}, using dummy data`,
+        )
+        return dummyData
+      }
+
+      if (attempt === maxRetries) {
+        log(logger, LogLevel.ERROR, `Final error after ${maxRetries} retries`)
+        return dummyData
+      }
+    }
+  }
+
+  return dummyData
+}
+
+// ============================================================================
+// CORE FETCH LOGIC
+// ============================================================================
+async function fetchData<T, D>({
+  url,
+  method,
+  includeEmployeeId,
+  additionalBody,
+  employeeIdKey,
+  responseSchema,
+  dataSchema,
+  parseData,
+  cache,
+  revalidate,
+  timeout,
+}: {
+  url: string
+  method: string
+  includeEmployeeId: boolean
+  additionalBody: Record<string, unknown>
+  employeeIdKey: string
+  responseSchema?: z.ZodType
+  dataSchema?: z.ZodType
+  parseData?: (data: D[]) => T[]
+  cache: RequestCache
+  revalidate: number
+  timeout: number
+  logger: Logger
+}): Promise<T[]> {
+  const { apiRootUrl, headers, body } = await buildRequest(
+    additionalBody,
+    includeEmployeeId,
+    employeeIdKey,
+  )
+
+  const response = await fetchWithTimeout({
+    url: `${apiRootUrl}/${url}`,
+    method,
+    headers,
+    body,
+    cache,
+    revalidate,
+    timeout,
+  })
+
+  if (!response.ok) {
+    throw createError(`API failed: ${response.status}`, response.status)
+  }
+
+  const json = await response.json()
+  return handleResponse<T, D>(json, { responseSchema, dataSchema, parseData })
+}
+
+// ============================================================================
+// HELPERS
+// ============================================================================
+async function buildRequest(
+  additionalBody: Record<string, unknown>,
+  includeEmployeeId: boolean,
+  employeeIdKey: string,
+) {
+  const apiRootUrl = process.env.API_ROOT_URL
+  if (!apiRootUrl) throw createError("API_ROOT_URL not set")
+
+  const headers = (await getFetchHeaders())?.headers
+  const body = { ...additionalBody }
+
+  if (includeEmployeeId) {
+    const employeeId = await getStoredEmployeeId()
+    if (!employeeId) throw createError("Missing employee ID")
+    body[employeeIdKey] = Number(employeeId)
+  }
+
+  return { apiRootUrl, headers, body }
+}
+
+async function fetchWithTimeout({
+  url,
+  method,
+  headers,
+  body,
+  cache,
+  revalidate,
+  timeout,
+}: {
+  url: string
+  method: string
+  headers: HeadersInit
+  body: Record<string, unknown>
+  cache: RequestCache
+  revalidate: number
+  timeout: number
+}) {
+  const controller = new AbortController()
+  const id = setTimeout(() => controller.abort(), timeout)
+
+  try {
+    const response = await fetch(url, {
+      method,
+      headers,
+      body: method !== "GET" ? JSON.stringify(body) : undefined,
+      cache,
+      next: { revalidate },
+      signal: controller.signal,
+    })
+    clearTimeout(id)
+    return response
+  } catch (e) {
+    const error = e as Error
+    clearTimeout(id)
+    throw createError("Request timeout", 408)
+  }
+}
+
+function handleResponse<T, D>(
+  json: any,
+  {
+    responseSchema,
+    dataSchema,
+    parseData,
+  }: {
+    responseSchema?: z.ZodType
+    dataSchema?: z.ZodType
+    parseData?: (data: D[]) => T[]
+  },
+): T[] {
+  let data = responseSchema
+    ? responseSchema.parse(json).result?.data
+    : json?.result?.data
+  if (!data) return []
+
+  if (dataSchema) {
+    data = dataSchema.array().parse(data)
+  }
+
+  return parseData ? parseData(data) : Array.isArray(data) ? data : [data]
+}
+
+// ============================================================================
+// UTILS
+// ============================================================================
+const delay = (ms: number) => new Promise((r) => setTimeout(r, ms))
+const createError = (msg: string, status?: number) => ({
+  name: "APIError",
+  message: msg,
+  status,
+})
+const isClientError = (err: any) =>
+  err?.status && err.status >= 400 && err.status < 500
+
+function createLogger(url: string, level: LogLevel): Logger {
+  return { id: `req_${Date.now()}`, url, enabled: CONFIG.enableLogging, level }
+}
+
+function log(logger: Logger, level: LogLevel, message: string) {
+  if (!logger.enabled || level < logger.level) return
+  (`[${LogLevel[level]}] [${logger.id}] ${message}`)
+}

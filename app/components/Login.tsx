@@ -1,12 +1,23 @@
 "use client"
 
 import { Button } from "@ui"
-import { signIn } from "@server"
-import { Download, Eye, EyeOff, LoaderIcon, Lock, User2 } from "lucide-react"
+import { clearCookies, signIn } from "@server"
+import {
+  Download,
+  Eye,
+  EyeOff,
+  LoaderIcon,
+  Lock,
+  RefreshCwIcon,
+  User2,
+} from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { useActionState, useEffect, useState } from "react"
+import { useActionState, useEffect, useState, useTransition } from "react"
+import { twMerge } from "tailwind-merge"
 import { toast } from "sonner"
+import { demoLogin } from "@auth"
+import { sleep } from "@utils"
 
 // Constants for input field names
 export const rememberMeInputName = "rememberMe"
@@ -30,20 +41,82 @@ const initialState: InitialState = {
 export const Login = () => {
   const [state, formAction, pending] = useActionState(signIn, initialState)
   const [showPassword, setShowPassword] = useState(false)
+  const [buttonDisabled, setButtonDisabled] = useState(true)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, demoLoginFormAction, demoLoginPending] = useActionState(
+    demoLogin,
+    initialState,
+  )
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [__, startTransition] = useTransition()
 
-  // Effect to handle and display login errors
+  // Don't enable signin button until the page has loaded.
+  useEffect(() => {
+    const handleLoad = () => {
+      setButtonDisabled(false)
+    }
+    if (document.readyState === "complete") {
+      handleLoad()
+    } else {
+      window.addEventListener("load", handleLoad)
+      return () => window.removeEventListener("load", handleLoad)
+    }
+  }, [])
+
+  // Show toasts for login errors
   useEffect(() => {
     if (state?.error) {
-      toast.error(state.error, { id: "login-error" })
-    } else {
-      setTimeout(() => {
-        toast.dismiss("login-error")
-      }, 3000)
+      toast.error(state.error, {
+        id: "login-error",
+        duration: 5000,
+      })
+
+      toast("", {
+        className: "p-0 border-0 w-fit bg-transparent",
+        duration: 99999,
+        action: (
+          <Button
+            className="p-0 w-[358px] bg-green-600 -ml-[5px] hover:bg-green-400 hover:text-black ring-2 ring-blue-400 animate-bounce"
+            icon={<RefreshCwIcon />}
+            // size="icon"
+            // variant="outline"
+            onClick={() => {
+              toast.loading("Clearing cookies...")
+              startTransition(async () => {
+                await sleep(2)
+                await clearCookies()
+              })
+            }}
+          >
+            Clear cookies and try again...
+          </Button>
+        ),
+      })
     }
   }, [state])
 
   return (
     <div className="flex h-screen overflow-hidden flex-col items-center justify-center bg-[#11274A] bg-[url(/login-background.svg)] bg-cover bg-center bg-no-repeat px-4 lg:flex-row lg:px-0">
+      {/* Demo Login */}
+      <div className="fixed bottom-0 right-0 mr-4 mb-8">
+        <form
+          action={async (formData: FormData) => {
+            toast.loading("Logging in as demo user...")
+            await sleep(2)
+            startTransition(() => {
+              demoLoginFormAction(formData)
+            })
+          }}
+        >
+          <Button
+            disabled={demoLoginPending}
+            className="ring-2 ring-blue-400 drop-shadow-xl overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900 border rounded-2xl px-10 py-5 text-xl font-semibold text-slate-200 shadow-lg active:scale-95 transition-all duration-300 ease-out tracking-wide backdrop-blur-sm"
+            type="submit"
+          >
+            Demo Login
+          </Button>
+        </form>
+      </div>
       {/* Left Section: App promotion and download links */}
       <div className="hidden flex-col items-center justify-center rounded-bl-[60px] rounded-tr-[60px] bg-gradient-to-t from-[#007C9E] to-[#0D3C5F] p-10 shadow-lg lg:flex lg:w-1/3 lg:-mr-4 z-50 min-h-[650px] min-w[600px] h-fit">
         <div className="flex h-full flex-col items-center">
@@ -168,11 +241,16 @@ export const Login = () => {
             </div>
 
             {/* Submit Button */}
+
             <Button
-              disabled={pending}
+              disabled={pending || buttonDisabled}
               icon={pending && <LoaderIcon className="animate-spin" />}
               type="submit"
-              className="w-full rounded-full bg-[#007497] px-4 py-6 text-white shadow-none transition duration-200 hover:bg-cyan-700"
+              className={twMerge(
+                "w-full rounded-full bg-[#007497] px-4 py-6 text-white shadow-none transition duration-200 hover:bg-cyan-700",
+                (pending || buttonDisabled) &&
+                  "cursor-not-allowed opacity-60 hover:bg-[#007497]",
+              )}
             >
               سجل الدخول
             </Button>
