@@ -1,6 +1,6 @@
 import { RequestDetails, RequestStatus } from "@components"
 import { getContractorDetails, getRequestStatus } from "@server"
-import { RequestHeader } from "@types"
+import type { RequestHeader } from "@types"
 import { RequestTypeSection } from "../../../trainee/details/[id]/components/RequestTypeSection"
 
 type Params = Promise<{ id: string }>

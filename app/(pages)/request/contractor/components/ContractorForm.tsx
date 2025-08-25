@@ -10,8 +10,8 @@ import {
 } from "@components/form"
 import { paths, colors } from "@lib"
 import {
-  Dispatch,
-  SetStateAction,
+  type Dispatch,
+  type SetStateAction,
   useEffect,
   useState,
   useTransition,
