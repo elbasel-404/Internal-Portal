@@ -1,21 +1,28 @@
+"use client" // if in Next.js App Router
+
 import { getPurchaseProductsByRequestId } from "@server"
+import { useEffect, useState } from "react"
 import { Modal } from "../Modal"
 import { BatchProductsForm } from "./BatchProductsForm"
 
-type Params = Promise<string>
+import type { PurchaseProduct } from "@types"
 
-interface PurchaseDetailsPageProps {
-  params: Params
-}
+export const BatchProductsModal = () => {
+  const [productsRequestById, setProductsRequestById] = useState<
+    PurchaseProduct[] | null
+  >(null)
 
-export const BatchProductsModal = async ({
-  params,
-}: PurchaseDetailsPageProps) => {
-  const id = await params
-  const productsRequestById = await getPurchaseProductsByRequestId(id)
+  useEffect(() => {
+    const id = localStorage.getItem("requestId")
+    if (!id) return
+
+    getPurchaseProductsByRequestId(id).then(setProductsRequestById)
+  }, [])
+
+  if (!productsRequestById) return null // or loader/spinner
+
   return (
     <Modal
-      // refreshOnClose={true}
       introContentClassName="slide-in-from-bottom-full"
       outroContentClassName="slide-out-to-bottom-full"
       initialContentClassName="w-[35vw] h-[85vh] rounded-none p-0 app-scrollbar overflow-auto"

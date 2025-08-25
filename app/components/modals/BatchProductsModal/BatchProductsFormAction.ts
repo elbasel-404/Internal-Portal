@@ -1,6 +1,6 @@
 "use server"
 
-import { db } from "@db" // Database instance
+import { db } from "@db"; // Database instance
 import { getUserIndex } from "@db/actions"
 import { getUserId } from "@server"
 import { BatchProductSchema } from "@zodSchemas"
@@ -12,6 +12,8 @@ export const batchProductsFormAction = async (formData: FormData) => {
 
     const responseData = { ...rawData }
 
+    console.log("response", responseData)
+
     const {
       success,
       data: validatedData,
@@ -19,6 +21,8 @@ export const batchProductsFormAction = async (formData: FormData) => {
     } = BatchProductSchema.safeParse(responseData)
 
     await db.read()
+
+    console.log("validatedData", validatedData)
 
     const userId = await getUserId()
     if (!userId) return

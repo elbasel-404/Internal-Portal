@@ -61,10 +61,10 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
   const [amountBeforeDeduction, setAmountBeforeDeduction] = useState(0)
   const [, setTotalBatchAmount] = useAtom(batchAmount)
 
-  const batchProductsData = batchProducts.map((batchProductDetails, index) => {
+  const batchProductsData = batchProducts.map((batchProductDetails) => {
     return {
       ...batchProductDetails,
-      id: index + "id",
+      id: batchProductDetails.id ?? "",
     }
   })
 
@@ -73,15 +73,24 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
     0,
   )
 
-  // Prepare batch data for submission
-  const batchData = {
-    name: batchName,
-    number: parseInt(batchNumber) || 0,
-    deduction_amount: deductionAmount,
-    amount_before_deduction: amountBeforeDeduction,
-    amount: totalAmount,
-    products: batchProductsData.map((product) => ({ id: product.id })),
+  // Format date as YYYY-MM-DD
+  const formatDate = (date: Date) => {
+    return date.toISOString().split("T")[0]
   }
+
+  // Prepare payments array in the required format
+  const paymentsData = [
+    {
+      name: batchName,
+      number: parseInt(batchNumber) || 0,
+      date: formatDate(paymentDate),
+      amount: totalAmount,
+      amount_before_deduction: amountBeforeDeduction,
+      deduction_amount: deductionAmount,
+      notes: notes,
+      products: batchProductsData.map((product) => ({ id: product.id })),
+    },
+  ]
 
   const handleBatchNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setBatchName(e.target.value)
@@ -156,21 +165,21 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
         className="hidden"
       />
 
-      {/* Hidden input for batch data */}
+      {/* Hidden input for payments data in the required format */}
       <input
         type="text"
         name="payments"
         hidden
         aria-hidden
         readOnly
-        value={JSON.stringify(batchData)}
+        value={JSON.stringify(paymentsData)}
         className="hidden"
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <InputField
           label="رقم الدفعة"
-          name="number"
+          name=""
           placeholder=""
           required
           value={batchNumber}
@@ -178,7 +187,7 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
         />
         <InputField
           label="اسم الدفعة"
-          name="name"
+          name=""
           placeholder=""
           required
           value={batchName}
@@ -189,14 +198,14 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <InputField
           label="مبلغ الخصم"
-          name="deduction_amount"
+          name=""
           placeholder="0"
           value={deductionAmount.toString()}
           onChange={(e) => setDeductionAmount(Number(e.target.value))}
         />
         <InputField
           label="المبلغ قبل الخصم"
-          name="amount_before_deduction"
+          name=""
           placeholder="0"
           value={amountBeforeDeduction.toString()}
           onChange={(e) => setAmountBeforeDeduction(Number(e.target.value))}
@@ -205,7 +214,7 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
 
       <DateField
         label="تاريخ السداد"
-        name="paymentDate"
+        name=""
         date={paymentDate}
         onChange={(value) => setPaymentDate(value || new Date())}
         required={false}
@@ -220,7 +229,7 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
       />
 
       <TextareaField
-        name="notes"
+        name=""
         label="ملاحظات"
         placeholder=""
         required={false}
