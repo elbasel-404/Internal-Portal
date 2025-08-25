@@ -1,4 +1,4 @@
-export { AttachmentsField } from "./AttachmentsField"
+export { FileAttachmentField as AttachmentsField } from "./AttachmentsField"
 export { CheckboxField } from "./CheckboxField"
 export { CheckboxListField } from "./CheckboxListField"
 export { DateField } from "./DateField"

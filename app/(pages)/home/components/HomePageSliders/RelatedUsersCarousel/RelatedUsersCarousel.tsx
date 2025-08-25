@@ -56,7 +56,10 @@ export const RelatedUsersCarousel = ({
     >
       <CarouselContent>
         {relatedUsers.map((user) => (
-          <CarouselItem key={user.id} className="md:basis-1/2 lg:basis-1/4">
+          <CarouselItem
+            key={user.id}
+            className="md:basis-1/2 lg:basis-1/4 flex-1"
+          >
             <div className="p-1">
               <RelatedUserCard {...user} />
             </div>
@@ -72,6 +75,7 @@ export const RelatedUsersCarousel = ({
 
           return (
             <button
+              title="Go to page"
               key={index}
               onClick={() => api?.scrollTo(scrollTo)}
               className={cn(

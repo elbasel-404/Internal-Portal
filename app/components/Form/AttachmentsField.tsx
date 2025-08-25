@@ -1,75 +1,85 @@
-import { OutboxIcon, TrashIcon } from "@icons"
+import { OutboxIcon, PdfFileIcon, TrashIcon } from "@icons"
 import { Button } from "@ui"
-import { FileText } from "lucide-react"
+import type { ChangeEvent } from "react"
 
-interface AttachmentsFieldProps {
+interface FileAttachmentFieldProps {
+  files: File[]
+  handleFileChange?: (event: ChangeEvent<HTMLInputElement>) => void
+  onFilesChange?: (files: File[]) => void
   handleFileUpload: (files: FileList | null) => void
   handleRemoveFile: (index: number) => void
   label?: string
   subLabel?: string
   required?: boolean
-  files: File[]
+  errors?: string[] | null
   name?: string
-  errors?: string[]
 }
 
-export const AttachmentsField = ({
-  handleFileUpload,
-  handleRemoveFile,
-  label = "المرفقات",
-  subLabel,
-  required,
+export const FileAttachmentField = ({
   files,
-  name = "attachment_ids",
-  errors = [],
-}: AttachmentsFieldProps) => {
+  handleFileChange,
+  onFilesChange,
+  handleFileUpload,
+  handleRemoveFile: handleRemoveFileProp,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  label = "المرفقات",
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  subLabel = "sublabel",
+  required = false,
+  name,
+}: FileAttachmentFieldProps) => {
+  const handleRemoveFile = (index: number) => {
+    const updatedFiles = files.filter((_, i) => i !== index)
+    if (onFilesChange) {
+      onFilesChange(updatedFiles)
+    }
+    handleRemoveFileProp(index)
+  }
+
   return (
-    <div>
+    <>
       <div>
         <label className="font-medium text-foreground">
-          {label}
-          {required && <span className="text-red-500">*</span>}
+          {label ?? "المرفقات"}<span className="text-red-500">*</span>
         </label>
-        <p className="text-grey-400 text-sm">{subLabel}</p>
       </div>
-      <div className="mt-1 flex flex-col gap-2">
-        {errors && errors.length > 0 && (
-          <div className="text-red-500 text-sm">
-            {errors.map((error, index) => (
-              <p key={index}>{error}</p>
-            ))}
-          </div>
-        )}
-        <div className="flex items-center justify-center border-2 border-dashed border-gray-300 rounded-md p-6">
-          <input
-            type="file"
-            id="attachments"
-            name={name}
-            className="sr-only"
-            onChange={(e) => handleFileUpload(e.target.files)}
-            multiple
-          />
-          <label
-            htmlFor="attachments"
-            className="cursor-pointer flex flex-col justify-center items-center"
-          >
-            <OutboxIcon />
-            <p className="text-primary hover:underline">انقر هنا لإضافة ملف</p>
-            <p className="text-stormGray">
-              تنسقات الملفات المدعومة (PDF ، JPG ، DOC ، PNG, XLX)
-            </p>
-          </label>
-        </div>
-        {files.map((file, index) => (
-          <div key={index} className="bg-cloudGray px-4 py-3 rounded-xl">
+
+      {/* Upload Box */}
+      <div className="flex items-center justify-center border-2 border-dashed border-gray-300 rounded-md p-6">
+        <label
+          className="rounded-lg px-4 py-2 cursor-pointer flex flex-col justify-center items-center"
+          htmlFor="attachment_ids_input"
+        >
+          <OutboxIcon />
+          <p className="text-primary hover:underline">انقر هنا لإضافة ملف</p>
+          <p className="text-stormGray">
+            تنسقات الملفات المدعومة (PDF ، JPG ، DOC ، PNG, XLX)
+          </p>
+        </label>
+        <input
+          required={required}
+          onChange={(e) => {
+            handleFileChange?.(e)
+            handleFileUpload(e.target.files)
+          }}
+          name={name ?? "attachment_ids"}
+          id="attachment_ids_input"
+          type="file"
+          multiple
+          className="hidden"
+        />
+      </div>
+
+      {/* File List */}
+      <div>
+        {files.map(({ name }, index) => (
+          <div key={name} className="bg-cloudGray px-4 py-3 rounded-xl">
             <div className="flex items-center justify-between p-2 rounded mb-2">
               <div className="flex items-center gap-2">
-                <span className="bg-[#FFF4CF] p-4 rounded-md">
-                  <FileText className="text-[#B86B00]" />
+                <span className="bg-[#FFF4CF] p-3 rounded-md">
+                  <PdfFileIcon width={20} height={20} />
                 </span>
-                <p className="text-black font-light line-clamp-1">
-                  {file.name}
-                </p>
+                <span>{name}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Button
@@ -84,6 +94,6 @@ export const AttachmentsField = ({
           </div>
         ))}
       </div>
-    </div>
+    </>
   )
 }
