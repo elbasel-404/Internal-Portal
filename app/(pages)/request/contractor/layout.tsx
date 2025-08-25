@@ -8,6 +8,7 @@ export const metadata = {
 interface ContractorLayoutProps {
   children: ReactNode
 }
+
 const ContractorLayout = ({ children }: ContractorLayoutProps) => {
   return (
     <>

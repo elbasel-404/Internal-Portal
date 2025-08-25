@@ -1,14 +1,12 @@
 "use client"
 
-// import { FilterSection, Table } from "@components"
-import { Table } from "@components"
+import { FilterSection, Table } from "@components"
 import { CirclePlusIcon, FilterIcon, SearchIcon } from "@icons"
 import { Button, Input } from "@ui"
 import Link from "next/link"
-import { ChangeEvent, useState } from "react"
-
+import { type ChangeEvent, useState } from "react"
 import { paths } from "@lib"
-import { ContractorRequest } from "@types"
+import type { ContractorRequest } from "@types"
 
 interface ContractorProps {
   data: ContractorRequest[]
@@ -24,11 +22,11 @@ const tableHeaders = [
 export const ContractorTable = ({ data }: ContractorProps) => {
   const [, setCurrentPage] = useState(1)
   const [searchTerm, setSearchTerm] = useState("")
-  // const [isFilterVisible, setIsFilterVisible] = useState(false)
+  const [isFilterVisible, setIsFilterVisible] = useState(false)
 
-  // const toggleFilter = () => {
-  //   setIsFilterVisible((prev) => !prev)
-  // }
+  const toggleFilter = () => {
+    setIsFilterVisible((prev) => !prev)
+  }
 
   if (!data) return
 
@@ -57,7 +55,7 @@ export const ContractorTable = ({ data }: ContractorProps) => {
               onChange={handleSearch}
             />
             <Button
-              // onClick={toggleFilter}
+              onClick={toggleFilter}
               className="bg-cloudGray p-2.5 rounded-full shadow-none hover:bg-cloudGray"
             >
               <FilterIcon className="fill-primary" />
@@ -72,9 +70,9 @@ export const ContractorTable = ({ data }: ContractorProps) => {
           </div>
         </div>
 
-        {/* {isFilterVisible && (
+        {isFilterVisible && (
           <FilterSection options={data} onApplyFilters={() => {}} />
-        )} */}
+        )}
 
         <Table
           columns={tableHeaders}

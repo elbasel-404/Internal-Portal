@@ -4,8 +4,6 @@ import { getContractorRequestWorkflow } from "../components/getContractorRequest
 import { getPurchaseData } from "../components/getPurchase"
 import { getAttachmentData } from "../components/getAttachment"
 
-export const dynamic = "force-dynamic"
-
 const NewContractorPage = async () => {
   const requestStatus = await getContractorRequestWorkflow()
   const purchaseList = await getPurchaseData()
