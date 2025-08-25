@@ -5,8 +5,8 @@
   "scripts": {
     "analyze-bundles": "ANALYZE=true pnpm build",
     "format": "prettier --write .",
+    "reset": "rm -rf .next && rm -rf node_modules && pnpm i",
     "dev": "next dev --turbopack",
-    "dev:webpack": "next dev",
     "dev:debug": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build --turbopack && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/ && mkdir -p .next/standalone/app/db && cp app/db/db.json .next/standalone/app/db/db.json",
     "start": "next start",
