@@ -39,7 +39,7 @@ interface FileAttachmentFieldProps {
   handleFileChange?: (event: ChangeEvent<HTMLInputElement>) => void
   onFilesChange?: (files: File[]) => void
   handleFileUpload?: (files: FileList | null) => void
-  handleRemoveFile: (index: number) => void
+  handleRemoveFile?: (index: number) => void
   label?: string
   subLabel?: string
   required?: boolean
@@ -64,7 +64,9 @@ export const FileAttachmentField = ({
     if (onFilesChange) {
       onFilesChange(updatedFiles)
     }
-    handleRemoveFileProp(index)
+    if (handleRemoveFileProp) {
+      handleRemoveFileProp(index)
+    }
   }
 
   return (
