@@ -145,7 +145,7 @@ const ContractorDetailsPage = async ({
         requestDetailsLabel="تفاصيل المتعاقد"
         headers={requestContractorDetails}
       />
-      <RequestTypeSection />
+      {state === "معتمد" && <RequestTypeSection />}
       {/* <Instructions
         title="توضيحات حول الخدمة"
         description="تتيح هذه الخدمة للموظف إمكانية تقديم طلب العهدة، يتم تعبئة الطلب بالبيانات الأساسية ويجب على الموظف التأكد من معطيات طلب العهدة."
