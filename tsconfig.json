@@ -49,7 +49,8 @@
       "@api/schemas/*": ["./api-schemas/*"],
       "@api/schemas": ["./api-schemas"],
       "@storage": ["./app/storage"],
-      "@auth": ["./app/server/auth"]
+      "@auth": ["./app/server/auth"],
+      "@factory": ["./app/factory"]
     },
     "typeRoots": ["./node_modules/@types", "modules.d"]
   },
