@@ -1,3 +1,35 @@
+/**
+ * FileAttachmentField component for handling file uploads and displaying attached files.
+ *
+ * @remarks
+ * This component provides a UI for uploading files, displaying a list of attached files,
+ * and removing files from the list. It supports multiple file formats and allows customization
+ * of labels and error handling.
+ *
+ * @param files - Array of File objects representing the currently attached files.
+ * @param onFilesChange - Optional callback invoked when the files array changes.
+ * @param handleFileChange - Optional callback for handling file input change events.
+ * @param handleRemoveFile - @deprecated Callback for removing a file by its index.
+ * @param handleFileUpload - @deprecated Optional callback for handling file uploads from the input.
+ * @param label - @deprecated Optional label for the file attachment field (default: "المرفقات").
+ * @param subLabel - @deprecated Optional sub-label for additional description.
+ * @param required - Optional flag indicating if the field is required.
+ * @param errors - Optional array of error messages.
+ * @param name - Optional name attribute for the file input.
+ *
+ * @example
+ * ```tsx
+ * <FileAttachmentField
+ *   files={files}
+ *   handleFileChange={handleFileChange}
+ *   onFilesChange={setFiles}
+ *   handleFileUpload={handleFileUpload} // @deprecated
+ *   handleRemoveFile={handleRemoveFile}
+ *   label="Attachments"
+ *   required
+ * />
+ * ```
+ */
 import { OutboxIcon, PdfFileIcon, TrashIcon } from "@icons"
 import { Button } from "@ui"
 import type { ChangeEvent } from "react"
@@ -6,7 +38,7 @@ interface FileAttachmentFieldProps {
   files: File[]
   handleFileChange?: (event: ChangeEvent<HTMLInputElement>) => void
   onFilesChange?: (files: File[]) => void
-  handleFileUpload: (files: FileList | null) => void
+  handleFileUpload?: (files: FileList | null) => void
   handleRemoveFile: (index: number) => void
   label?: string
   subLabel?: string
@@ -21,7 +53,6 @@ export const FileAttachmentField = ({
   onFilesChange,
   handleFileUpload,
   handleRemoveFile: handleRemoveFileProp,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   label = "المرفقات",
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   subLabel = "sublabel",
@@ -40,7 +71,8 @@ export const FileAttachmentField = ({
     <>
       <div>
         <label className="font-medium text-foreground">
-          {label ?? "المرفقات"}<span className="text-red-500">*</span>
+          {label ?? "المرفقات"}
+          <span className="text-red-500">*</span>
         </label>
       </div>
 
@@ -60,7 +92,9 @@ export const FileAttachmentField = ({
           required={required}
           onChange={(e) => {
             handleFileChange?.(e)
-            handleFileUpload(e.target.files)
+            if (handleFileUpload) {
+              handleFileUpload(e.target.files)
+            }
           }}
           name={name ?? "attachment_ids"}
           id="attachment_ids_input"
