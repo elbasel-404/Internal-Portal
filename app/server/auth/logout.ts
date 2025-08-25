@@ -6,10 +6,9 @@ import { redirect } from "next/navigation"
 
 export const logout = async () => {
   const cookieStore = await cookies()
-  cookieStore.delete("session")
-  cookieStore.delete("employeeId")
-  cookieStore.set("demo", "false")
-  cookieStore.set("logged_out", "true")
-  revalidatePath("/home")
+  cookieStore.getAll().forEach((cookie) => {
+    cookieStore.delete(cookie.name)
+  })
+  revalidatePath("/")
   redirect("/home")
 }
