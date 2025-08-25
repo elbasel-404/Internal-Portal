@@ -1,7 +1,7 @@
 "use client"
 
-import { Select } from "@components"
-import { cn } from "@utils"
+import { Select } from "@components";
+import { cn } from "@utils";
 
 interface SelectProps {
   types: { id: number | string; name: string; display_name?: string }[]
@@ -12,6 +12,8 @@ interface SelectProps {
   required?: boolean
   value?: string
   labelStyle?: string
+  labelKey?: string
+  valueKey?: string
   onChange?: (value: string) => void
 }
 
@@ -24,6 +26,8 @@ export const SelectField = ({
   className,
   value,
   labelStyle,
+  valueKey = "id",
+  labelKey = "name",
   onChange,
 }: SelectProps) => {
   return (
@@ -39,6 +43,8 @@ export const SelectField = ({
         value={value}
         onChange={onChange}
         className={className}
+        labelKey={labelKey}
+        valueKey={valueKey}
       />
     </div>
   )
