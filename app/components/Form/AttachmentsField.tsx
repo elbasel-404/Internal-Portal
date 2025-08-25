@@ -1,35 +1,3 @@
-/**
- * FileAttachmentField component for handling file uploads and displaying attached files.
- *
- * @remarks
- * This component provides a UI for uploading files, displaying a list of attached files,
- * and removing files from the list. It supports multiple file formats and allows customization
- * of labels and error handling.
- *
- * @param files - Array of File objects representing the currently attached files.
- * @param onFilesChange - Optional callback invoked when the files array changes.
- * @param handleFileChange - Optional callback for handling file input change events.
- * @param handleRemoveFile - @deprecated Callback for removing a file by its index.
- * @param handleFileUpload - @deprecated Optional callback for handling file uploads from the input.
- * @param label - @deprecated Optional label for the file attachment field (default: "المرفقات").
- * @param subLabel - @deprecated Optional sub-label for additional description.
- * @param required - Optional flag indicating if the field is required.
- * @param errors - Optional array of error messages.
- * @param name - Optional name attribute for the file input.
- *
- * @example
- * ```tsx
- * <FileAttachmentField
- *   files={files}
- *   handleFileChange={handleFileChange}
- *   onFilesChange={setFiles}
- *   handleFileUpload={handleFileUpload} // @deprecated
- *   handleRemoveFile={handleRemoveFile}
- *   label="Attachments"
- *   required
- * />
- * ```
- */
 import { OutboxIcon, PdfFileIcon, TrashIcon } from "@icons"
 import { Button } from "@ui"
 import type { ChangeEvent } from "react"
@@ -47,6 +15,39 @@ interface FileAttachmentFieldProps {
   name?: string
 }
 
+/**
+ * FileAttachmentField component for handling file uploads and displaying attached files.
+ *
+ * @remarks
+ * This component provides a UI for uploading files, displaying a list of attached files,
+ * and removing files from the list. It supports multiple file formats and allows customization
+ * of labels and error handling.
+ *
+ * @param files - Array of File objects representing the currently attached files.
+ * @param onFilesChange - Optional callback invoked when the files array changes.
+ * @param handleFileChange - Optional callback for handling file input change events.
+ * 
+ * @param handleRemoveFile - deprecated Callback for removing a file by its index.
+ * @param handleFileUpload - deprecated Optional callback for handling file uploads from the input.
+ * @param label - Optional label for the file attachment field (default: "المرفقات").
+ * @param subLabel - Optional sub-label for additional description.
+ * @param required - Optional flag indicating if the field is required.
+ * @param errors - Optional array of error messages.
+ * @param name - Optional name attribute for the file input.
+ *
+ * @example
+ * ```tsx
+ * <FileAttachmentField
+ *   files={files}
+ *   handleFileChange={handleFileChange}
+ *   onFilesChange={setFiles}
+ *   handleFileUpload={handleFileUpload} // @deprecated
+ *   handleRemoveFile={handleRemoveFile}
+ *   label="Attachments"
+ *   required
+ * />
+ * ```
+ */
 export const FileAttachmentField = ({
   files,
   handleFileChange,
