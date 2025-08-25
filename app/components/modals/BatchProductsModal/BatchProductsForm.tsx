@@ -7,7 +7,6 @@ import { Button } from "@ui"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { batchProductsFormAction } from "./BatchProductsFormAction"
-import { ProductsList } from "./config"
 
 interface BatchProductsFormProps {
   productsDataRequest: PurchaseProduct[]
@@ -38,8 +37,8 @@ export const BatchProductsForm = ({
     if (selectedProduct) {
       setProduct((prev) => ({
         ...prev,
-        name: value,
-        id: value,
+        id: selectedProduct.id,
+        name: selectedProduct.product,
         description: selectedProduct.description || "",
         quantity: selectedProduct.quantity || "",
         completedQuantity: selectedProduct.completedQuantity || "",
@@ -69,20 +68,23 @@ export const BatchProductsForm = ({
     >
       <input
         type="text"
-        name="id"
+        name="name"
         hidden
         aria-hidden
         readOnly
-        value={product.id}
+        value={product.name}
         className="hidden"
       />
       <SelectField
         label="المنتج"
-        name="product"
+        name="id"
         placeholder=""
-        value={product.name}
+        value={product.id}
         onChange={handleProductsChange}
-        types={ProductsList}
+        types={productsDataRequest.map((p) => ({
+          id: p.id,
+          name: p.product ?? "",
+        }))}
       />
 
       <InputField
