@@ -4,10 +4,10 @@ import { FilterSection, Table } from "@components"
 import { CirclePlusIcon, FilterIcon, SearchIcon } from "@icons"
 import { Button, Input } from "@ui"
 import Link from "next/link"
-import { ChangeEvent, useState } from "react"
-
+import { type ChangeEvent, useState } from "react"
 import { paths } from "@lib"
-import { ContractorRequest } from "@types"
+import type { ContractorRequest } from "@types"
+import { useDebounceValue } from "usehooks-ts"
 
 interface ContractorProps {
   data: ContractorRequest[]
@@ -21,8 +21,8 @@ const tableHeaders = [
 ]
 
 export const ContractorTable = ({ data }: ContractorProps) => {
-  const [, setCurrentPage] = useState(1)
   const [searchTerm, setSearchTerm] = useState("")
+  const [debouncedSearchTerm] = useDebounceValue(searchTerm, 500)
   const [isFilterVisible, setIsFilterVisible] = useState(false)
 
   const toggleFilter = () => {
@@ -32,12 +32,11 @@ export const ContractorTable = ({ data }: ContractorProps) => {
   if (!data) return
 
   const filteredRequests = data.filter((request) =>
-    request.id.toLowerCase().includes(searchTerm.toLowerCase()),
+    request.id.toLowerCase().includes(debouncedSearchTerm.toLowerCase()),
   )
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value.trim())
-    setCurrentPage(1)
   }
 
   return (

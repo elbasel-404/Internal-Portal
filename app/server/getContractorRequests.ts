@@ -12,9 +12,11 @@ export const getContractorRequests = async (): Promise<ContractorRequest[]> => {
       : typeof field === "number"
         ? String(field)
         : ""
+  const getArrayValue = (field: unknown, index: number = 1): string =>
+    Array.isArray(field) ? (field[index]?.toString() ?? "") : ""
 
   return getData<ContractorRequest>({
-    url: "api/po/hr/custody-close/read",
+    url: "api/po/contractor-request",
     includeEmployeeId: true,
     responseSchema: ResponseSchema,
     dataSchema: ContractorListElementSchema,
@@ -23,14 +25,11 @@ export const getContractorRequests = async (): Promise<ContractorRequest[]> => {
         const typedItem = item as z.infer<typeof ContractorListElementSchema>
 
         return {
-          id: getStringValue(typedItem.name),
-          date: getStringValue(typedItem.close_date),
-          pledgeAmount: `${getStringValue(typedItem.close_amount)} ريال سعودي`,
-          pledgeType:
-            getStringValue(typedItem.close_type) === "close"
-              ? "اقفال"
-              : "استعاضة",
-          status: getStringValue(typedItem.state),
+          id: getStringValue(typedItem.id),
+          contractorName: getStringValue(typedItem.contractor_name),
+          projectName: getStringValue(typedItem.project_name),
+          date: getStringValue(typedItem.create_date),
+          status: getArrayValue(typedItem.stage_id),
         }
       })
     },
@@ -40,59 +39,59 @@ export const getContractorRequests = async (): Promise<ContractorRequest[]> => {
 
 const dummyData: ContractorRequest[] = [
   {
-    id: "#55465",
-    date: "2024-05-05",
-    pledgeAmount: "1000 ريال سعودي",
-    pledgeType: "عهدة مؤقتة",
-    status: "طلب",
+    id: "00266",
+    contractorName: "أحمد بن أحمد بن أحمد الأحمد",
+    projectName: "النفقات التشغلية للهيئة",
+    date: "2025-03-04 13:09:08",
+    status: "المدير المباشر",
   },
   {
-    id: "#55466",
-    date: "2024-05-06",
-    pledgeAmount: "1000 ريال سعودي",
-    pledgeType: "عهدة مؤقتة",
-    status: "اعتمد",
+    id: "00267",
+    contractorName: "أحمد بن أحمد بن أحمد الأحمد",
+    projectName: "النفقات التشغلية للهيئة",
+    date: "2025-03-04 13:09:08",
+    status: "المدير المباشر",
   },
   {
-    id: "#55467",
-    date: "2024-05-07",
-    pledgeAmount: "1000 ريال سعودي",
-    pledgeType: "عهدة مؤقتة",
-    status: "مدير عام الإدارة والمشتريات",
+    id: "00268",
+    contractorName: "أحمد بن أحمد بن أحمد الأحمد",
+    projectName: "النفقات التشغلية للهيئة",
+    date: "2025-03-04 13:09:08",
+    status: "المدير المباشر",
   },
   {
-    id: "#55468",
-    date: "2024-05-08",
-    pledgeAmount: "1000 ريال سعودي",
-    pledgeType: "عهدة مؤقتة",
-    status: "طلب",
+    id: "00269",
+    contractorName: "أحمد بن أحمد بن أحمد الأحمد",
+    projectName: "النفقات التشغلية للهيئة",
+    date: "2025-03-04 13:09:08",
+    status: "المدير المباشر",
   },
   {
-    id: "#55469",
-    date: "2024-05-09",
-    pledgeAmount: "1000 ريال سعودي",
-    pledgeType: "عهدة مؤقتة",
-    status: "مدير الإدارة المالية",
+    id: "00270",
+    contractorName: "أحمد بن أحمد بن أحمد الأحمد",
+    projectName: "النفقات التشغلية للهيئة",
+    date: "2025-03-04 13:09:08",
+    status: "المدير المباشر",
   },
   {
-    id: "#55470",
-    date: "2024-05-10",
-    pledgeAmount: "1000 ريال سعودي",
-    pledgeType: "عهدة مؤقتة",
-    status: "عمليات الموارد البشرية",
+    id: "00271",
+    contractorName: "أحمد بن أحمد بن أحمد الأحمد",
+    projectName: "النفقات التشغلية للهيئة",
+    date: "2025-03-04 13:09:08",
+    status: "المدير المباشر",
   },
   {
-    id: "#55471",
-    date: "2024-05-11",
-    pledgeAmount: "1000 ريال سعودي",
-    pledgeType: "عهدة مؤقتة",
-    status: "نائب المحافظ",
+    id: "00272",
+    contractorName: "أحمد بن أحمد بن أحمد الأحمد",
+    projectName: "النفقات التشغلية للهيئة",
+    date: "2025-03-04 13:09:08",
+    status: "المدير المباشر",
   },
   {
-    id: "#55472",
-    date: "2024-05-11",
-    pledgeAmount: "1000 ريال سعودي",
-    pledgeType: "عهدة مؤقتة",
-    status: "اعتمد",
+    id: "00273",
+    contractorName: "أحمد بن أحمد بن أحمد الأحمد",
+    projectName: "النفقات التشغلية للهيئة",
+    date: "2025-03-04 13:09:08",
+    status: "المدير المباشر",
   },
 ]
