@@ -15,7 +15,7 @@ import { PdfFileIcon, PrinterIcon } from "@icons"
 import { Button } from "@ui"
 import { toast } from "sonner"
 import { formAction } from "./helpers/formAction"
-import { State } from "../../../../lib/createData"
+import type { State } from "../../../../lib/createData"
 
 const initialState: State = {
   success: false,
