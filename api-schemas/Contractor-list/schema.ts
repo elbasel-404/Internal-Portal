@@ -1,0 +1,31 @@
+import { z } from "zod"
+
+export const ContractorListElementSchema = z.object({
+  id: z.any(),
+  purchase_request_id: z.any(),
+  sector_id: z.any(),
+  department_id: z.any(),
+  job_id: z.any(),
+  direct_manager_id: z.any(),
+  department_manager_id: z.any(),
+  global_department_manager_id: z.any(),
+  sector_manager_id: z.any(),
+  contractor_company: z.any(),
+  contract_date_start: z.any(),
+  contract_date_end: z.any(),
+  id_number: z.any(),
+  nationality: z.any(),
+  job_title: z.any(),
+  employee_number: z.any(),
+  email: z.any(),
+  mobile: z.any(),
+  identity_attachment_ids: z.any(),
+  acceptable_use_attachment_ids: z.any(),
+  nondisclosure_attachment_ids: z.any(),
+  name: z.any(),
+  contractor_name: z.any(),
+  project_name: z.any(),
+  create_date: z.any(),
+  stage_id: z.any(),
+})
+export type ContractorListElement = z.infer<typeof ContractorListElementSchema>

@@ -27,6 +27,9 @@ export type { BankAccountRequest } from "./pages/request/BankAccountRequest"
 export type { BatchDetails } from "./pages/request/BatchDetails"
 export type { BatchItem } from "./pages/request/BatchItem"
 export type { BatchProduct } from "./pages/request/BatchProduct"
+export type { ChangeContractAgreementRequest } from "./pages/request/ChangeContractAgreementRequest"
+export type { ChangeContractDetails } from "./pages/request/ChangeContractDetails"
+export type { ChangeContractPurchaseRequest } from "./pages/request/ChangeContractPurchaseRequest"
 export type { CovenantDetails } from "./pages/request/CovenantDetails"
 export type { CustodyDetails } from "./pages/request/CustodyDetails"
 export type { CustodyRequest } from "./pages/request/CustodyRequest"
@@ -49,6 +52,8 @@ export type { MedicalInsuranceRequest } from "./pages/request/MedicalInsuranceRe
 export type { NewsFamily } from "./pages/request/NewsFamily"
 export type { NewsListRequest } from "./pages/request/NewsListRequest"
 export type { ObligationDetails } from "./pages/request/ObligationDetails"
+export type { OrdersListAgreementRequest } from "./pages/request/OrdersListAgreementRequest"
+export type { OrdersListPurchaseRequest } from "./pages/request/OrdersListPurchaseRequest"
 export type { OvertimeAssignmentDetails } from "./pages/request/OvertimeAssignmentDetails"
 export type { OvertimeAssignmentRequest } from "./pages/request/OvertimeAssignmentRequest"
 export type { OvertimeConfirmDetails } from "./pages/request/OvertimeConfirmDetails"
@@ -62,7 +67,10 @@ export type { ProbationPeriodDetails } from "./pages/request/ProbationPeriodDeta
 export type { ProbationPeriodEmployees } from "./pages/request/ProbationPeriodEmployees"
 export type { ProbationPeriodFields } from "./pages/request/ProbationPeriodFields"
 export type { ProbationPeriodRequest } from "./pages/request/ProbationPeriodRequest"
+export type { ProductsType } from "./pages/request/ProductsType"
 export type { PurchaseDetails } from "./pages/request/PurchaseDetails"
+export type { PurchaseOrderDetails } from "./pages/request/PurchaseOrderDetails"
+export type { PurchaseOrderProduct } from "./pages/request/PurchaseOrderProduct "
 export type { PurchasePayments } from "./pages/request/PurchasePayments"
 export type { PurchaseProduct } from "./pages/request/PurchaseProduct"
 export type { PurchaseRequest } from "./pages/request/PurchaseRequest"
@@ -74,7 +82,7 @@ export type {
   ProgramData,
   ProjectData,
   PurchaseType,
-  YesNoOption
+  YesNoOption,
 } from "./pages/request/PurchaseTypes"
 export type { RecommendationDetails } from "./pages/request/RecommendationDetails"
 export type { RecommendationRequest } from "./pages/request/RecommendationRequest"
@@ -118,4 +126,6 @@ export type { Rules } from "./shared/Rules"
 export type { TabType } from "./shared/TabType"
 export type { User } from "./shared/User"
 export type { TypedRecord } from "./TypedRecord"
-
+export type { ContractorRequest } from "./pages/request/ContractorRequest"
+export type { ContractorDetails } from "./pages/request/ContractorDetails"
+export type { purchase, attachment } from "./pages/request/ContractorFields"
