@@ -5,15 +5,10 @@ import { cn } from "@utils"
 import type { Dispatch, ElementType, SetStateAction } from "react"
 
 interface FilterSectionProps {
-  // ! TODO: Unify types
-  // options:
-  //   | ApprovalRequest[]
-  //   | RemoteWorkRequest[]
-  //   | HrLetterRequest[]
-  //   | AttendanceListRequest[];
   options: { id: string; name?: string }[]
   selectLabel?: string
   selectPlaceholder?: string
+  selectName?: string
   filterHeader?: string
   filterButton?: string
   isRequestDate?: boolean
@@ -22,22 +17,28 @@ interface FilterSectionProps {
   form?: {
     start: string
     end: string
-    month: string
+    select: string
   }
   setForm?: Dispatch<
     SetStateAction<{
       start: string
       end: string
-      month: string
+      select: string
     }>
   >
   loading?: boolean
 }
-
+function toLocalDateString(date: Date) {
+  // بيضبط التاريخ حسب timezone المحلي
+  const d = new Date(date)
+  d.setMinutes(d.getMinutes() - d.getTimezoneOffset())
+  return d.toISOString().split("T")[0] // بيرجع yyyy-mm-dd
+}
 export const FilterSection = ({
   options,
   selectLabel = "نوع الطلب",
   selectPlaceholder = "حدد الطلب",
+  selectName = "type",
   filterHeader = "الفلتر",
   filterButton = "إظهار النتائج",
   Icon = FilterIcon,
@@ -72,7 +73,7 @@ export const FilterSection = ({
                 if (setForm) {
                   setForm((prev) => ({
                     ...prev,
-                    start: value ? new Date(value).toISOString() : "",
+                    start: value ? toLocalDateString(value) : "",
                   }))
                 }
               }}
@@ -85,7 +86,7 @@ export const FilterSection = ({
                 if (setForm) {
                   setForm((prev) => ({
                     ...prev,
-                    end: value ? new Date(value).toISOString() : "",
+                    end: value ? toLocalDateString(value) : "",
                   }))
                 }
               }}
@@ -95,11 +96,11 @@ export const FilterSection = ({
         )}
 
         <Select
-          name="month"
-          value={form?.month}
+          name={selectName}
+          value={form?.select}
           onChange={(value) => {
             if (setForm) {
-              setForm((prev) => ({ ...prev, month: value }))
+              setForm((prev) => ({ ...prev, select: value }))
             }
           }}
           options={options}
