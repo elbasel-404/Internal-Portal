@@ -69,14 +69,14 @@ const Buttons = ({ requestId }: ButtonsProps) => {
       <form>
         <input type="hidden" name="requestId" value={requestId} />
         <button
-          type="button"
+          type="submit"
           formAction={acceptRequest}
           className="bg-green-100 text-green-900 flex-1 rounded-xl"
         >
           قبول
         </button>
         <button
-          type="button"
+          type="submit"
           formAction={rejectRequest}
           className="bg-red-100 text-red-900 flex-1 rounded-xl"
         >
