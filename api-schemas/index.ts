@@ -24,6 +24,8 @@ export {
 export { AdNewSchema } from "./ad-news/schema"
 export { AttendanceSchema } from "./attendance-list/schema"
 export { BatchProductSchema, type BatchProduct } from "./batch-products/schema"
+export { RequestContractorFieldsElementSchema } from "./contractor-fields/schema"
+export { ContractorListElementSchema } from "./Contractor-list/schema"
 export {
   DeputationTypeSchema,
   type DeputationType
