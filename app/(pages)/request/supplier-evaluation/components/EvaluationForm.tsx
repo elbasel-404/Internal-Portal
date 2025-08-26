@@ -16,8 +16,6 @@ import { formAction } from "./helpers/formAction"
 import { getStateAction } from "./helpers/getStateAction"
 
 import type { VacationType } from "@api/schemas/vacation-types/schema"
-import { createFileHandler } from "@atoms"
-import { FileWithId } from "@types"
 import { initialState } from "./helpers/initialState"
 import type { State } from "./helpers/State"
 
@@ -33,7 +31,7 @@ interface VacationFormProps {
 }
 export const EvaluationForm = ({ vacationElements }: VacationFormProps) => {
   const [state, action, pending] = useActionState(stateAction, initialState)
-  const [files, setFiles] = useState<FileWithId[]>([])
+  const [files, setFiles] = useState<File[]>([])
   const [dateFrom, setDateFrom] = useState(new Date())
   const [dateTo, setDateTo] = useState(new Date())
   const [birthDate, setBirthDate] = useState(new Date())
@@ -41,11 +39,6 @@ export const EvaluationForm = ({ vacationElements }: VacationFormProps) => {
   const [duration, setDuration] = useState("1")
   const [vacationType, setVacationType] = useState("7")
   const [substituteEmployee, setSubstituteEmployee] = useState("1")
-
-  const fileHandler = createFileHandler(
-    () => files,
-    (newFiles) => setFiles(newFiles),
-  )
 
   const handleVacationTypeChange = (value: string) => {
     setVacationType(value)
@@ -226,10 +219,8 @@ export const EvaluationForm = ({ vacationElements }: VacationFormProps) => {
       {/* Attachments */}
       <AttachmentsField
         files={files}
-        handleFileUpload={fileHandler.upload}
-        handleRemoveFile={(index: number) =>
-          fileHandler.remove(files[index].id)
-        }
+        onFilesChange={(fileList) => setFiles(fileList)}
+        setFiles={setFiles}
         required
       />
 

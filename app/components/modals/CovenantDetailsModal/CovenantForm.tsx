@@ -13,18 +13,6 @@ export const CovenantForm = () => {
 
   const [files, setFiles] = useState<File[]>([])
 
-  const handleFileUpload = (uploadedFiles: FileList | null) => {
-    if (uploadedFiles) {
-      const newFiles = Array.from(uploadedFiles).map((file) => file)
-      setFiles([...files, ...newFiles])
-    }
-  }
-
-  const handleRemoveFile = (index: number) => {
-    const updatedFiles = files.filter((_, i) => i !== index)
-    setFiles(updatedFiles)
-  }
-
   const closeModal = async () => {
     router.back()
   }
@@ -51,8 +39,8 @@ export const CovenantForm = () => {
       <AttachmentsField
         required
         files={files}
-        handleFileUpload={handleFileUpload}
-        handleRemoveFile={handleRemoveFile}
+        onFilesChange={(fileList) => setFiles(fileList)}
+        setFiles={setFiles}
       />
       <div className="flex justify-end mb-2 gap-2">
         <Button
