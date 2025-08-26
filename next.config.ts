@@ -33,7 +33,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/",
-        destination: "/home",
+        destination: "/home?tab=all-requests",
         permanent: false, // Changed to false for development hot reload
       },
     ]
