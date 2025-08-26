@@ -16,6 +16,8 @@ interface CheckboxListFieldProps {
   checkboxStyle?: string
   required?: boolean
   label?: string
+  checkboxlayoutClass?: string
+  disabled?: boolean
 }
 
 export const CheckboxListField = ({
@@ -28,6 +30,8 @@ export const CheckboxListField = ({
   labelStyle,
   checkboxStyle,
   required,
+  disabled = false,
+  checkboxlayoutClass,
   label,
 }: CheckboxListFieldProps) => {
   const handleCheckboxChange = (value: string, isChecked: boolean) => {
@@ -51,12 +55,13 @@ export const CheckboxListField = ({
         {options.map((option) => (
           <label
             key={option.value}
-            className="flex items-center space-x-2 gap-2"
+            className={`flex items-center space-x-2 gap-2 ${checkboxlayoutClass}`}
           >
             <Checkbox
               name={`${name}-${option.value}`}
               className={`rounded-[3px] border-2 shadow-none ${checkboxStyle}`}
               checked={selectedValues.includes(option.value)}
+              disabled={disabled}
               onCheckedChange={(checked) =>
                 handleCheckboxChange(option.value, checked as boolean)
               }
