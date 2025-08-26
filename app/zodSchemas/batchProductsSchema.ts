@@ -1,7 +1,8 @@
 import { z } from "zod"
 
 export const BatchProductSchema = z.object({
-  product: z.string(),
+  id: z.string(),
+  name: z.string(),
   description: z.string(),
   quantity: z.string(),
   completedQuantity: z.string().optional(),

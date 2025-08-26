@@ -1,5 +1,12 @@
 import { z } from "zod"
 
+// Define the stage schema for the stages array
+const StageSchema = z.object({
+  name: z.any(), // or z.string() if you want validation
+  year: z.any(), // or z.string() if you want validation
+  estimated_amount: z.any(), // or z.string() if you want validation
+})
+
 export const requestBodySchema = z.object({
   employee_id: z.any(),
   request_type: z.any(),
@@ -20,4 +27,7 @@ export const requestBodySchema = z.object({
   is_data_governance: z.any(),
   is_cyber_security: z.any(),
   attachment_ids: z.instanceof(File).or(z.any()),
+
+  // Add support for stages array
+  stages: z.array(StageSchema).optional(),
 })

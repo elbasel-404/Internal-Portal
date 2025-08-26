@@ -15,10 +15,11 @@ const BatchDetailsPage = async ({ params }: BatchDetailsPageProps) => {
   if (!userId) return
 
   const { batchProducts } = await getUser(userId)
-  const batchProductsData = batchProducts.map((batchProductDetails, index) => {
+  const batchProductsData = batchProducts.map((batchProductDetails) => {
     return {
       ...batchProductDetails,
-      id: index + "id",
+      id: batchProductDetails.id,
+      product: batchProductDetails.name ?? "",
     }
   })
 

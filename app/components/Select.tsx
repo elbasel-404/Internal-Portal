@@ -17,8 +17,8 @@ interface SelectProps<T extends Record<string, string | number>> {
   placeholder?: string
   value?: string
   onChange?: (value: string) => void
-  valueKey?: keyof T
-  labelKey?: keyof T
+  valueKey?: string
+  labelKey?: string
   className?: string
 }
 

@@ -47,24 +47,28 @@ const PurchaseDetailsPage = async ({ params }: PurchaseDetailsPageProps) => {
     { label: "النوع" as RequestLabel, value: type },
     { label: "عنوان الطلب" as RequestLabel, value: requestTitle },
     { label: "الوصف" as RequestLabel, value: description },
-    { label: "مخرجات الطلب" as RequestLabel, value: requestOutcomes },
-    { label: "نوع الخطة" as RequestLabel, value: planType },
-    { label: "اسم (المبادرة/البرنامج)" as RequestLabel, value: programName },
-    { label: "اسم المشروع" as RequestLabel, value: projectName },
-    ...(type === "direct_payment"
+    ...(type === "دفعة مباشرة"
       ? [
           { label: "نوع الدفعة" as RequestLabel, value: paymentType },
           { label: "نوع المورد" as RequestLabel, value: payment_partner },
         ]
-      : []),
+      : [
+          { label: "مخرجات الطلب" as RequestLabel, value: requestOutcomes },
+          { label: "نوع الخطة" as RequestLabel, value: planType },
+          {
+            label: "اسم (المبادرة/البرنامج)" as RequestLabel,
+            value: programName,
+          },
+          { label: "اسم المشروع" as RequestLabel, value: projectName },
+          { label: "مبلغ الترسية" as RequestLabel, value: awardAmount },
+          {
+            label: "مبلغ الترسية قبل التغيير" as RequestLabel,
+            value: awardAmountBeforeChange,
+          },
+        ]),
     {
       label: "التكاليف (التكلفة الإجمالية للمشروع)" as RequestLabel,
       value: totalAmount,
-    },
-    { label: "مبلغ الترسية" as RequestLabel, value: awardAmount },
-    {
-      label: "مبلغ الترسية قبل التغيير" as RequestLabel,
-      value: awardAmountBeforeChange,
     },
     { label: "المرفقات" as RequestLabel, value: attachments },
   ]
