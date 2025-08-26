@@ -1,27 +1,21 @@
 "use client"
 
 import {
-  createFileHandler,
-  filesAtom,
   purchaseTypeAtom,
-  selectedAttachmentTypesAtom,
+  selectedAttachmentTypesAtom
 } from "@atoms"
 import { AttachmentsField, CheckboxListField } from "@components/form"
 import { AttachmentType } from "@types"
 import { useAtom } from "jotai"
+import { useState } from "react"
 
 /**
  * Attachments section for selecting and uploading files
  */
 export const AttachmentsSection = () => {
   const [selectedTypes, setSelectedTypes] = useAtom(selectedAttachmentTypesAtom)
-  const [files, setFiles] = useAtom(filesAtom)
+  const [files, setFiles] = useState<File[]>([])
   const [purchaseType] = useAtom(purchaseTypeAtom)
-
-  const fileHandler = createFileHandler(
-    () => files,
-    (newFiles) => setFiles(newFiles),
-  )
 
   return (
     <div className="space-y-6">
@@ -44,10 +38,8 @@ export const AttachmentsSection = () => {
 
       <AttachmentsField
         files={files}
-        handleFileUpload={fileHandler.upload}
-        handleRemoveFile={(index: number) =>
-          fileHandler.remove(files[index].id)
-        }
+        onFilesChange={(fileList) => setFiles(fileList)}
+        setFiles={setFiles}
         required
       />
     </div>

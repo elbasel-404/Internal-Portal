@@ -57,7 +57,7 @@ export const CalendarDateSelect = ({
     }
   }
   return (
-    <div className="flex lg:justify-end lg:items-end px-4 gap-2">
+    <div className="flex lg:justify-end lg:items-end gap-2">
       <Button
         variant="default"
         onClick={goToPreviousMonth}
