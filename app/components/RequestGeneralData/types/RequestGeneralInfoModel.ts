@@ -15,3 +15,4 @@ export type RequestGeneralInfoModel =
   | "custody_close"
   | "training_public"
   | "training_request"
+  | "change_contract"
