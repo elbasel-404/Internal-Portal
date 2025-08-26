@@ -1,22 +1,22 @@
 "use server"
 
-import { db } from "@db" // Database instance
+import { db } from "@db"; // Database instance
 import { getUserIndex } from "@db/actions"
 import { getUserId } from "@server"
 import { BatchSchema } from "@zodSchemas"
 
 export const batchsFormAction = async (formData: FormData) => {
   try {
-    const formEntries = formData.entries()
-    const rawData = Object.fromEntries(formEntries)
+    // const formEntries = formData.entries()
+    // const rawData = Object.fromEntries(formEntries)
 
-    const responseData = { ...rawData }
+    // const responseData = { ...rawData }
 
     const {
       success,
       data: validatedData,
       // error is not used, removing to fix linting error
-    } = BatchSchema.safeParse(responseData)
+    } = BatchSchema.safeParse(formData)
 
     await db.read()
 

@@ -17,6 +17,7 @@ export type PurchaseProduct = {
   completedQuantity?: string
   completedCost?: string
   underCompletedQauntity?: string
+  underCompletedCost?: string
   remainingQuantity?: string
   remainingCost?: string
   unitPrice: string
