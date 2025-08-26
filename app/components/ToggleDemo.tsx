@@ -10,8 +10,8 @@ import { useActionState, useEffect, useState } from "react"
 import { getDemo } from "../db/actions/getDemo"
 import { cn } from "@utils"
 import { toast } from "sonner"
+import { CircleXIcon, ExternalLinkIcon } from "lucide-react"
 
-export const dynamic = "force-dynamic"
 
 export type InitialState = {
   isDemo: boolean
@@ -26,6 +26,7 @@ export const ToggleDemo = () => {
   const isApiError = useAtomValue(apiErrorAtom)
   const setApiError = useSetAtom(apiErrorAtom)
   const [isDemo, setIsDemo] = useState<null | boolean>(null)
+  const [open, setOpen] = useState(false)
 
   const [state, formAction, pending] = useActionState(toggleDemo, initialState)
 
@@ -60,12 +61,35 @@ export const ToggleDemo = () => {
     }
   }, [state])
 
+  if (!open) {
+    return (
+      <div>
+        <button
+          type="button"
+          title="openDemoButton"
+          onClick={() => setOpen(true)}
+          className="fixed bottom-5 left-5 p-2 bg-black rounded-full text-white z-10"
+        >
+          <ExternalLinkIcon className="w-4 h-4" />
+        </button>
+      </div>
+    )
+  }
+
   return (
     <div
       dir="ltr"
-      className="flex w-max flex-col items-center fixed bottom-[20px] left-[20px] rounded-xl overflow-hidden text-white"
+      className="flex w-max flex-col items-center fixed bottom-[20px] left-[20px] text-white"
     >
-      <p className="bg-black border-b border-white/20 text-white px-2 py-1 w-full text-center text-xl">
+      <button
+        className="absolute top-0 right-0 -mt-2 -mr-3 bg-blue-400 rounded-full z-20"
+        type="button"
+        title="toggleDemoButton"
+        onClick={() => setOpen(false)}
+      >
+        <CircleXIcon className="w-4 h-4" />
+      </button>
+      <p className="rounded-t-xl bg-black border-b border-white/20 text-white px-2 py-1 w-full text-center text-xl">
         Version 7.0.0
       </p>
       <form className="bg-black w-full" action={formAction} onSubmit={onSubmit}>
@@ -89,7 +113,7 @@ export const ToggleDemo = () => {
       {isDemo !== null ? (
         <div
           className={cn(
-            "text-sm flex gap-1 justify-center w-full px-2 py-2",
+            "text-sm flex gap-1 justify-center w-full px-2 py-2 rounded-b-xl",
             isDemo ? "bg-green-400" : "bg-red-400",
           )}
         >
