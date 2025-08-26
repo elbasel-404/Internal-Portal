@@ -1,6 +1,4 @@
 import { EmployeeMembersField } from "@api/schemas/index"
-import { createFileHandler } from "@atoms"
-import { FileWithId } from "@types"
 import { useActionState, useEffect, useState } from "react"
 import { toast } from "sonner"
 import { formAction } from "../helpers/formAction"
@@ -35,18 +33,13 @@ const initialFormData: FormData = {
 const stateAction = getStateAction<State>(formAction)
 
 export const useEmployeeMembersForm = (memberField: EmployeeMembersField[]) => {
-  const [files, setFiles] = useState<FileWithId[]>([])
+  const [files, setFiles] = useState<File[]>([])
   const [state, action, pending] = useActionState(stateAction, initialState)
   const [requestTypeValue, setRequestTypeValue] = useState<string>("")
   const [relationTypeValue, setRelationTypeValue] = useState<string>("")
   const [member, setMember] = useState<string>("")
   const [birthDate, setBirthDate] = useState<Date>(new Date())
   const [formData, setFormData] = useState<FormData>(initialFormData)
-
-  const fileHandler = createFileHandler(
-    () => files,
-    (newFiles) => setFiles(newFiles),
-  )
 
   const handleRequestTypeChange = (value: string) => {
     setRequestTypeValue(value)
@@ -130,7 +123,7 @@ export const useEmployeeMembersForm = (memberField: EmployeeMembersField[]) => {
 
     // Actions
     action,
-    fileHandler,
+    setFiles,
     handleRequestTypeChange,
     handleRelationTypeChange,
     handleMemberChange,

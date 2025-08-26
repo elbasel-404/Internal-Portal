@@ -3,7 +3,6 @@ import { Fragment, type ReactNode } from "react"
 import { DragAndDrop } from "../components/DragAndDrop"
 import { unDraggableKeys } from "../config"
 
-export const dynamic = "force-dynamic"
 
 interface RenderLayoutProps {
   slotsToRender: { key: HomePageSlotKey; node: ReactNode }[]

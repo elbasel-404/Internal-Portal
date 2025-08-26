@@ -1,1 +1,0 @@
-export { ApprovalRequestsTable } from "./ApprovalRequestsTable"

@@ -1,6 +1,6 @@
 import type { NextConfig } from "next"
 // import withBundleAnalyzer from "@next/bundle-analyzer"
-import withRspack from "next-rspack"
+// import withRspack from "next-rspack"
 
 // const withAnalyzer = withBundleAnalyzer({
 //   enabled: process.env.ANALYZE === "true",
@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     // ppr: "incremental", // needs canary version of next
-    reactCompiler: true,
+    // reactCompiler: true,
     serverActions: {
       // TODO: test this more
       allowedOrigins: [
@@ -34,12 +34,12 @@ const nextConfig: NextConfig = {
       {
         source: "/",
         destination: "/home",
-        permanent: true,
+        permanent: false, // Changed to false for development hot reload
       },
     ]
   },
 }
 
-// export default nextConfig
+export default nextConfig
 // export default withAnalyzer(nextConfig)
-export default withRspack(nextConfig)
+// export default withRspack(nextConfig)

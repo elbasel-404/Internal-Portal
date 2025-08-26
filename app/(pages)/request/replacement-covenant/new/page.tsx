@@ -3,7 +3,6 @@ import { getUser } from "@db/actions"
 import { getCreateRequestStatus, getUserId } from "@server"
 import { ReplacementCovenantForm } from "../components"
 
-export const dynamic = "force-dynamic"
 
 const NewReplacementCovenantPage = async () => {
   const userId = await getUserId()
