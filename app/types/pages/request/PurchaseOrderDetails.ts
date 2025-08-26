@@ -1,4 +1,4 @@
-import { ProductsType } from "./ProductsType"
+import type { ProductsType } from "./ProductsType"
 
 export type PurchaseOrderDetails = {
   purchaseRequestId: string

@@ -2,7 +2,7 @@ import { RequestDetails, RequestStatus, Table } from "@components"
 import { RiyalCurrencyIcon } from "@icons"
 import { paths } from "@lib"
 import { getPurchaseOrderDetails, getRequestStatus } from "@server"
-import { RequestHeader } from "@types"
+import type { RequestHeader } from "@types"
 import { Button } from "@ui"
 import Link from "next/link"
 
