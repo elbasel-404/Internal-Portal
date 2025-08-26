@@ -2,6 +2,7 @@ import { Modal } from "../Modal"
 import { PurchaseOrderProductsForm } from "./PurchaseOrderProductsForm"
 
 export const PurchaseOrderProductsModal = async () => {
+  
   return (
     <Modal
       introContentClassName="slide-in-from-bottom-full"

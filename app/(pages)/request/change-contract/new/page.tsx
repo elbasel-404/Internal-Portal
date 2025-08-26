@@ -2,8 +2,6 @@ import { CreateRequestStatus, Instructions } from "@components"
 import { getCreateRequestStatus, getPurchaseOrderProducts } from "@server"
 import { ChangeContractForm } from "../components"
 
-export const dynamic = "force-dynamic"
-
 const NewChangeContractPage = async () => {
   const products = await getPurchaseOrderProducts()
   const model = "manage.financial.custody"
