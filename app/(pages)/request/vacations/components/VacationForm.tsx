@@ -1,6 +1,7 @@
 "use client"
 
 import {
+  AttachmentsField,
   // AttachmentsField,
   DateField,
   FormHeader,
@@ -19,10 +20,7 @@ import type { VacationType } from "@api/schemas/vacation-types/schema"
 // import { createFileHandler } from "@atoms"
 // import { FileWithId } from "@types"
 import { SubstituteEmployees } from "@api/schemas/index"
-import { OutboxIcon, PdfFileIcon, TrashIcon } from "@icons"
-import { Button } from "@ui"
 import type { State } from "../../../../lib/createData"
-import { handleFileChange } from "@utils"
 
 // const substituteEmployees = [
 //   { id: 1, name: "عاصم بن رشود العصيمي" },
@@ -231,10 +229,10 @@ export const VacationForm = ({
         required
       />
 
-      <FileAttachment
+      <AttachmentsField
+        onFilesChange={(fileList) => setFiles(fileList)}
+        setFiles={setFiles}
         files={files}
-        handleFileChange={(e) => handleFileChange(e, setFiles)}
-        onFilesChange={setFiles}
       />
 
       <SubmitButton disabled={isPending} loading={isPending} />
@@ -242,76 +240,76 @@ export const VacationForm = ({
   )
 }
 
-interface FileAttachmentProps {
-  files: File[]
-  handleFileChange?: (event: ChangeEvent<HTMLInputElement>) => void
-  onFilesChange: (files: File[]) => void
-}
+// interface FileAttachmentProps {
+//   files: File[]
+//   handleFileChange?: (event: ChangeEvent<HTMLInputElement>) => void
+//   onFilesChange: (files: File[]) => void
+// }
 
-const FileAttachment = ({
-  files,
-  handleFileChange,
-  onFilesChange,
-}: FileAttachmentProps) => {
-  const handleRemoveFile = (index: number) => {
-    const updatedFiles = files.filter((_, i) => i !== index)
-    onFilesChange(updatedFiles)
-  }
+// const FileAttachment = ({
+//   files,
+//   handleFileChange,
+//   onFilesChange,
+// }: FileAttachmentProps) => {
+//   const handleRemoveFile = (index: number) => {
+//     const updatedFiles = files.filter((_, i) => i !== index)
+//     onFilesChange(updatedFiles)
+//   }
 
-  return (
-    <>
-      <div>
-        <label className="font-medium text-foreground">
-          المرفقات<span className="text-red-500">*</span>
-        </label>
-      </div>
+//   return (
+//     <>
+//       <div>
+//         <label className="font-medium text-foreground">
+//           المرفقات<span className="text-red-500">*</span>
+//         </label>
+//       </div>
 
-      {/* Upload Box */}
-      <div className="flex items-center justify-center border-2 border-dashed border-gray-300 rounded-md p-6">
-        <label
-          className="rounded-lg px-4 py-2 cursor-pointer flex flex-col justify-center items-center"
-          htmlFor="attachment_ids_input"
-        >
-          <OutboxIcon />
-          <p className="text-primary hover:underline">انقر هنا لإضافة ملف</p>
-          <p className="text-stormGray">
-            تنسقات الملفات المدعومة (PDF ، JPG ، DOC ، PNG, XLX)
-          </p>
-        </label>
-        <input
-          onChange={handleFileChange}
-          name="attachment_ids"
-          id="attachment_ids_input"
-          type="file"
-          multiple
-          className="hidden"
-        />
-      </div>
+//       {/* Upload Box */}
+//       <div className="flex items-center justify-center border-2 border-dashed border-gray-300 rounded-md p-6">
+//         <label
+//           className="rounded-lg px-4 py-2 cursor-pointer flex flex-col justify-center items-center"
+//           htmlFor="attachment_ids_input"
+//         >
+//           <OutboxIcon />
+//           <p className="text-primary hover:underline">انقر هنا لإضافة ملف</p>
+//           <p className="text-stormGray">
+//             تنسقات الملفات المدعومة (PDF ، JPG ، DOC ، PNG, XLX)
+//           </p>
+//         </label>
+//         <input
+//           onChange={handleFileChange}
+//           name="attachment_ids"
+//           id="attachment_ids_input"
+//           type="file"
+//           multiple
+//           className="hidden"
+//         />
+//       </div>
 
-      {/* File List */}
-      <div>
-        {files.map(({ name }, index) => (
-          <div key={name} className="bg-cloudGray px-4 py-3 rounded-xl">
-            <div className="flex items-center justify-between p-2 rounded mb-2">
-              <div className="flex items-center gap-2">
-                <span className="bg-[#FFF4CF] p-3 rounded-md">
-                  <PdfFileIcon width={20} height={20} />
-                </span>
-                <span>{name}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Button
-                  type="button"
-                  className="bg-primary-opacity p-2.5 rounded-sm shadow-none hover:bg-primary-opacity"
-                  onClick={() => handleRemoveFile(index)}
-                >
-                  <TrashIcon width={18} height={18} className="fill-primary" />
-                </Button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </>
-  )
-}
+//       {/* File List */}
+//       <div>
+//         {files.map(({ name }, index) => (
+//           <div key={name} className="bg-cloudGray px-4 py-3 rounded-xl">
+//             <div className="flex items-center justify-between p-2 rounded mb-2">
+//               <div className="flex items-center gap-2">
+//                 <span className="bg-[#FFF4CF] p-3 rounded-md">
+//                   <PdfFileIcon width={20} height={20} />
+//                 </span>
+//                 <span>{name}</span>
+//               </div>
+//               <div className="flex items-center gap-2">
+//                 <Button
+//                   type="button"
+//                   className="bg-primary-opacity p-2.5 rounded-sm shadow-none hover:bg-primary-opacity"
+//                   onClick={() => handleRemoveFile(index)}
+//                 >
+//                   <TrashIcon width={18} height={18} className="fill-primary" />
+//                 </Button>
+//               </div>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </>
+//   )
+// }

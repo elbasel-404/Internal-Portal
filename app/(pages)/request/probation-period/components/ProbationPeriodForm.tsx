@@ -53,20 +53,6 @@ export const ProbationPeriodForm = ({
   const [teamWork, setTeamWork] = useState("")
   const [communicationSkills, setCommunicationSkills] = useState("")
 
-  const handleFileUpload = (uploadedFiles: FileList | null) => {
-    if (uploadedFiles) {
-      const newFiles = Array.from(uploadedFiles).map(
-        (file) => new File([file], file.name),
-      )
-      setFiles([...files, ...newFiles])
-    }
-  }
-
-  const handleRemoveFile = (index: number) => {
-    const updatedFiles = files.filter((_, i) => i !== index)
-    setFiles(updatedFiles)
-  }
-
   const handleEmployeeChange = (value: string) => {
     setEmployeeName(value)
 
@@ -268,8 +254,8 @@ export const ProbationPeriodForm = ({
         <AttachmentsField
           name="attachment_ids"
           files={files}
-          handleFileUpload={handleFileUpload}
-          handleRemoveFile={handleRemoveFile}
+          onFilesChange={(fileList) => setFiles(fileList)}
+          setFiles={setFiles}
           required={false}
         />
         <SubmitButton />
