@@ -1,15 +1,6 @@
 "use client"
 
-import {
-  completionRequestAtom,
-  createFileHandler,
-  extractAtom,
-  finalSettlementAtom,
-  finalSettlementValueAtom,
-  invoiceAtom,
-  regularCertificatesAtom,
-  wageProtectionAtom,
-} from "@atoms"
+import { completionRequestAtom, finalSettlementValueAtom } from "@atoms"
 import {
   AttachmentsField,
   DateField,
@@ -31,40 +22,11 @@ export const AchievementCertificateForm = () => {
     new Date(),
   )
   const [value, setValue] = useAtom(finalSettlementValueAtom)
-  const [invoiceFiles, setInvoiceFiles] = useAtom(invoiceAtom)
-  const [extractFiles, setExtractFiles] = useAtom(extractAtom)
-  const [wageProtectionFiles, setWageProtectionFiles] =
-    useAtom(wageProtectionAtom)
-  const [regularCertificates, setRegularCertificates] = useAtom(
-    regularCertificatesAtom,
-  )
-  const [finalSettlementFiles, setFinalSettlementFiles] =
-    useAtom(finalSettlementAtom)
-
-  const invoiceFileHandler = createFileHandler(
-    () => invoiceFiles,
-    (newFiles) => setInvoiceFiles(newFiles),
-  )
-
-  const extractFileHandler = createFileHandler(
-    () => extractFiles,
-    (newFiles) => setExtractFiles(newFiles),
-  )
-
-  const wageProtectionFileHandler = createFileHandler(
-    () => wageProtectionFiles,
-    (newFiles) => setWageProtectionFiles(newFiles),
-  )
-
-  const regularCertificatesFileHandler = createFileHandler(
-    () => regularCertificates,
-    (newFiles) => setRegularCertificates(newFiles),
-  )
-
-  const finalSettlementFileHandler = createFileHandler(
-    () => finalSettlementFiles,
-    (newFiles) => setFinalSettlementFiles(newFiles),
-  )
+  const [invoiceFiles, setInvoiceFiles] = useState<File[]>([])
+  const [extractFiles, setExtractFiles] = useState<File[]>([])
+  const [wageProtectionFiles, setWageProtectionFiles] = useState<File[]>([])
+  const [regularCertificates, setRegularCertificates] = useState<File[]>([])
+  const [finalSettlementFiles, setFinalSettlementFiles] = useState<File[]>([])
 
   const closeModal = () => {
     router.back()
@@ -148,10 +110,8 @@ export const AchievementCertificateForm = () => {
         subLabel="فاتورة مختومة برقم ضريبي"
         name="invoice"
         files={invoiceFiles}
-        handleFileUpload={invoiceFileHandler.upload}
-        handleRemoveFile={(index: number) =>
-          invoiceFileHandler.remove(invoiceFiles[index].id)
-        }
+        onFilesChange={(fileList) => setInvoiceFiles(fileList)}
+        setFiles={setInvoiceFiles}
         required={false}
       />
       <AttachmentsField
@@ -159,10 +119,8 @@ export const AchievementCertificateForm = () => {
         subLabel="مدير المشروع مسؤول عن صحة المعلومات المذكورة في المستخلص"
         name="extract"
         files={extractFiles}
-        handleFileUpload={extractFileHandler.upload}
-        handleRemoveFile={(index: number) =>
-          extractFileHandler.remove(extractFiles[index].id)
-        }
+        onFilesChange={(fileList) => setExtractFiles(fileList)}
+        setFiles={setExtractFiles}
         required={false}
       />
       <AttachmentsField
@@ -170,10 +128,8 @@ export const AchievementCertificateForm = () => {
         subLabel="التأكد من صلاحيات الشهادات المرفقة"
         name="wageProtection"
         files={wageProtectionFiles}
-        handleFileUpload={wageProtectionFileHandler.upload}
-        handleRemoveFile={(index: number) =>
-          wageProtectionFileHandler.remove(wageProtectionFiles[index].id)
-        }
+        onFilesChange={(fileList) => setWageProtectionFiles(fileList)}
+        setFiles={setWageProtectionFiles}
         required={false}
       />
       <AttachmentsField
@@ -181,10 +137,8 @@ export const AchievementCertificateForm = () => {
         subLabel="التأكد من صلاحيات الشهادات المرفقة"
         name="regularCertificates"
         files={regularCertificates}
-        handleFileUpload={regularCertificatesFileHandler.upload}
-        handleRemoveFile={(index: number) =>
-          regularCertificatesFileHandler.remove(regularCertificates[index].id)
-        }
+        onFilesChange={(fileList) => setRegularCertificates(fileList)}
+        setFiles={setRegularCertificates}
         required={false}
       />
 
@@ -209,10 +163,8 @@ export const AchievementCertificateForm = () => {
             subLabel="يجب ارفاق المخالصة النهائية بالتنسيق مع ادارة العقود والمشتريات"
             name="finalSettlement"
             files={finalSettlementFiles}
-            handleFileUpload={finalSettlementFileHandler.upload}
-            handleRemoveFile={(index: number) =>
-              finalSettlementFileHandler.remove(finalSettlementFiles[index].id)
-            }
+            onFilesChange={(fileList) => setFinalSettlementFiles(fileList)}
+            setFiles={setFinalSettlementFiles}
             required={false}
           />
         )}

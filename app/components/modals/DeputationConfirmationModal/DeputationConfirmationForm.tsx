@@ -16,20 +16,6 @@ export const DeputationConfirmationForm = () => {
     router.back()
   }
 
-  const handleFileUpload = (uploadedFiles: FileList | null) => {
-    if (uploadedFiles) {
-      const newFiles = Array.from(uploadedFiles).map(
-        (file) => new File([file], file.name),
-      )
-      setFiles([...files, ...newFiles])
-    }
-  }
-
-  const handleRemoveFile = (index: number) => {
-    const updatedFiles = files.filter((_, i) => i !== index)
-    setFiles(updatedFiles)
-  }
-
   const handleSubmit = () => {
     closeModal()
   }
@@ -43,8 +29,8 @@ export const DeputationConfirmationForm = () => {
       <AttachmentsField
         label="المرفقات"
         files={files}
-        handleFileUpload={handleFileUpload}
-        handleRemoveFile={handleRemoveFile}
+        onFilesChange={(fileList) => setFiles(fileList)}
+        setFiles={setFiles}
         required
       />
       <div className="flex justify-end mb-2 gap-2">

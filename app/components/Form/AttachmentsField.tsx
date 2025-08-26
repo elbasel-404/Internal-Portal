@@ -115,8 +115,6 @@ export const FileAttachmentField = ({
             </div>
           </div>
         ))}
-        <h1>Errors: </h1>
-        <div>{JSON.stringify(errors)}</div>
       </div>
     </>
   )
