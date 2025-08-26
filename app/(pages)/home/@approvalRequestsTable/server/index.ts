@@ -1,1 +1,2 @@
-export { getApprovalRequests } from "./getApprovalRequests"
+export { getMyRequests } from "./getMyRequests"
+export { getMyApprovals } from "./getMyApprovals"

@@ -7,7 +7,7 @@ import { getDemo } from "../db/actions/getDemo"
 import { getFetchHeaders } from "./getFetchHeaders"
 
 // Configuration
-const ENABLE_LOGGING = true
+const ENABLE_LOGGING = process.env.ENABLE_API_LOGGING === "true"
 const DEFAULT_REVALIDATE_TIME = 15
 
 // Color constants for consistent logging

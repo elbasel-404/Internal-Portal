@@ -1,7 +1,7 @@
 "use server"
 
 import { getDemo } from "@db/actions"
-import { ApprovalRequest } from "@types"
+import { RequestType } from "@types"
 import { getStoredEmployeeId } from "@auth"
 import z from "zod"
 
@@ -10,10 +10,10 @@ type GetApprovalRequestsParams = {
   cursor?: Date
 }
 
-export const getApprovalRequests = async ({
+export const getMyRequests = async ({
   cursor = new Date("2025-08-17 09:40:25"),
   limit = 20,
-}: GetApprovalRequestsParams): Promise<ApprovalRequest[]> => {
+}: GetApprovalRequestsParams): Promise<RequestType[]> => {
   const demo = await getDemo()
   if (demo) return dummyData
 
@@ -27,6 +27,8 @@ export const getApprovalRequests = async ({
       Authorization: "Bearer tXbNnglm6WdQk2UcZjeDK5CmJvW66b",
       "x-api-key": "85ced9c9-b64b-4d76-85a5-ae3b869b044d",
     },
+    cache: "force-cache" as const,
+    next: { revalidate: 60 * 60 * 24 },
   }
 
   console.info("Fetching /retrieve_all_new")
@@ -139,9 +141,7 @@ const responseSchema = z.array(
   }),
 )
 
-// Extracted from accept/reject switch statements
-// ? Modify ApprovalRequest type
-const dummyData: ApprovalRequest[] = [
+const dummyData: RequestType[] = [
   {
     id: "#55965",
     description: "طلب تنفيذ",
