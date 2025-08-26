@@ -83,4 +83,8 @@ export const modalPaths = {
     title: "انشاء طلب بطاقة",
     href: "/modal/CardIdAcountModal",
   },
+  PurchaseOrderProductsModal: {
+    title: "إضافة منتجات",
+    href: "/modal/PurchaseOrderProductsModal",
+  },
 } as const
