@@ -11,18 +11,6 @@ export const EditPerformanceForm = () => {
   const [reason, setReason] = useState("")
   const router = useRouter()
 
-  const handleFileUpload = (uploadedFiles: FileList | null) => {
-    if (uploadedFiles) {
-      const newFiles = Array.from(uploadedFiles).map((file) => file)
-      setFiles([...files, ...newFiles])
-    }
-  }
-
-  const handleRemoveFile = (index: number) => {
-    const updatedFiles = files.filter((_, i) => i !== index)
-    setFiles(updatedFiles)
-  }
-
   const handleReasonChange = (e: ChangeEvent<HTMLInputElement>) => {
     setReason(e.target.value)
   }
@@ -49,8 +37,8 @@ export const EditPerformanceForm = () => {
       <AttachmentsField
         required
         files={files}
-        handleFileUpload={handleFileUpload}
-        handleRemoveFile={handleRemoveFile}
+        onFilesChange={(fileList) => setFiles(fileList)}
+        setFiles={setFiles}
       />
       <div className="flex justify-end mb-2 gap-2">
         <Button

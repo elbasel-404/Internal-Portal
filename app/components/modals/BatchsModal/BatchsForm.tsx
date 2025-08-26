@@ -1,6 +1,6 @@
 "use client"
 
-import { batchAmount, createFileHandler } from "@atoms"
+import { batchAmount } from "@atoms"
 import { Table } from "@components"
 import {
   AttachmentsField,
@@ -10,7 +10,7 @@ import {
 } from "@components/form"
 import { CheckIcon, CirclePlusIcon, RiyalCurrencyIcon, XMarkIcon } from "@icons"
 import { removeBatchProduct } from "@server"
-import { BatchProduct, FileWithId } from "@types"
+import { BatchProduct } from "@types"
 import { Button } from "@ui"
 import { useAtom } from "jotai"
 import { useRouter } from "next/navigation"
@@ -40,7 +40,7 @@ const tableHeaders = [
 
 export const BatchsForm = ({ batchProducts }: BatchsProps) => {
   const router = useRouter()
-  const [files, setFiles] = useState<FileWithId[]>([])
+  const [files, setFiles] = useState<File[]>([])
   const [batchName, setBatchName] = useState("")
   const [batchNumber, setBatchNumber] = useState("")
   const [paymentDate, setPaymentDate] = useState(new Date())
@@ -66,11 +66,6 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
   const handleBatchNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
     setBatchNumber(e.target.value)
   }
-
-  const fileHandler = createFileHandler(
-    () => files,
-    (newFiles) => setFiles(newFiles),
-  )
 
   const handleRemoveBatchProducts = async (id: number) => {
     await removeBatchProduct(id)
@@ -123,10 +118,8 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
 
       <AttachmentsField
         files={files}
-        handleFileUpload={fileHandler.upload}
-        handleRemoveFile={(index: number) =>
-          fileHandler.remove(files[index].id)
-        }
+        onFilesChange={(fileList) => setFiles(fileList)}
+        setFiles={setFiles}
       />
 
       <TextareaField

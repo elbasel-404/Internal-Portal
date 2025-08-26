@@ -102,20 +102,6 @@ export const DeputationForm = ({
     }
   }
 
-  const handleFileUpload = (uploadedFiles: FileList | null) => {
-    if (uploadedFiles) {
-      const newFiles = Array.from(uploadedFiles).map(
-        (file) => new File([file], file.name),
-      )
-      setFiles([...files, ...newFiles])
-    }
-  }
-
-  const handleRemoveFile = (index: number) => {
-    const updatedFiles = files.filter((_, i) => i !== index)
-    setFiles(updatedFiles)
-  }
-
   useEffect(() => {
     const { success, errors } = state
     if (success) toast.success("تم انشاء الطلب بنجاح")
@@ -308,8 +294,8 @@ export const DeputationForm = ({
         <AttachmentsField
           label="المرفقات"
           files={files}
-          handleFileUpload={handleFileUpload}
-          handleRemoveFile={handleRemoveFile}
+          onFilesChange={(fileList) => setFiles(fileList)}
+          setFiles={setFiles}
         />
 
         <SubmitButton disabled={pending} loading={pending} />
