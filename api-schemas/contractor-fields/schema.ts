@@ -1,4 +1,4 @@
-import * as z from "zod"
+import { z } from "zod"
 
 export const RequestContractorFieldsElementSchema = z.object({
   purchase_request_id: z.any(),
