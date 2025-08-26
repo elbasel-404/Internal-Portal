@@ -24,6 +24,7 @@ export const EmployeeMembersForm = ({
 }: EmployeeMembersFormProps) => {
   const {
     files,
+    setFiles,
     state,
     requestTypeValue,
     relationTypeValue,
@@ -31,7 +32,6 @@ export const EmployeeMembersForm = ({
     birthDate,
     formData,
     action,
-    fileHandler,
     handleRequestTypeChange,
     handleRelationTypeChange,
     handleMemberChange,
@@ -89,10 +89,8 @@ export const EmployeeMembersForm = ({
         <AttachmentsField
           files={files}
           name="attachment_ids"
-          handleFileUpload={fileHandler.upload}
-          handleRemoveFile={(index: number) =>
-            fileHandler.remove(files[index].id)
-          }
+          onFilesChange={(fileList) => setFiles(fileList)}
+          setFiles={setFiles}
           required
         />
 
