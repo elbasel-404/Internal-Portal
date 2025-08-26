@@ -2,15 +2,14 @@
 
 import { SubstituteEmployees, TrainingField } from "@api/schemas/index"
 import {
-  createFileHandler,
   dateFromAtom,
   dateToAtom,
   durationAtom,
-  trainingMethodAtom,
+  trainingMethodAtom
 } from "@atoms"
 import { FormHeader, SubmitButton } from "@components/form"
 import { paths } from "@lib"
-import { FileWithId, TrainingCourse } from "@types"
+import { TrainingCourse } from "@types"
 import { useAtom } from "jotai"
 import { ChangeEvent, useActionState, useEffect, useState } from "react"
 import { toast } from "sonner"
@@ -24,7 +23,7 @@ import {
   TrainingLocationSection,
   TrainingTypeSection,
 } from "./FormSections"
-import { FileHandlerType, SectionProps } from "./FormTypes/types"
+import { SectionProps } from "./FormTypes/types"
 import { formAction } from "./helpers/formAction"
 import { getStateAction } from "./helpers/getStateAction"
 import { initialState } from "./helpers/initialState"
@@ -53,7 +52,7 @@ export const TrainingForm = ({
 }: TrainingFormProps) => {
   // State definitions
   const [state, action, pending] = useActionState(stateAction, initialState)
-  const [files, setFiles] = useState<FileWithId[]>([])
+  const [files, setFiles] = useState<File[]>([])
   const [trainingName, setTrainingName] = useState<string>("")
   const [trainingType, setTrainingType] = useState<string>("")
   const [trainingCenter, setTrainingCenter] = useState<string>("")
@@ -73,12 +72,6 @@ export const TrainingForm = ({
   const [dateTo, setDateTo] = useAtom(dateToAtom)
   const [duration] = useAtom(durationAtom)
   const [trainingMethod, setTrainingMethod] = useAtom(trainingMethodAtom)
-
-  // Handlers
-  const fileHandler: FileHandlerType = createFileHandler(
-    () => files,
-    (newFiles: FileWithId[]) => setFiles(newFiles),
-  )
 
   const handleTrainingNameChangeValue = (
     event: ChangeEvent<HTMLInputElement>,
@@ -190,7 +183,7 @@ export const TrainingForm = ({
       ),
     },
     {
-      component: <AttachmentsSection files={files} fileHandler={fileHandler} />,
+      component: <AttachmentsSection files={files} setFiles={setFiles} />,
     },
     {
       component: (

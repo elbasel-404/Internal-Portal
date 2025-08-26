@@ -1,15 +1,10 @@
 import { SubstituteEmployees, TrainingField } from "@api/schemas/index"
-import { FileWithId, TrainingCourse } from "@types"
-import { ChangeEvent, ReactNode } from "react"
-
-export interface FileHandlerType {
-  upload: (files: FileList | null) => void
-  remove: (id: string) => void
-}
+import { TrainingCourse } from "@types"
+import type { ChangeEvent, Dispatch, ReactNode, SetStateAction } from "react"
 
 export interface AttachmentsSectionProps {
-  files: FileWithId[]
-  fileHandler: FileHandlerType
+  files: File[]
+  setFiles: Dispatch<SetStateAction<File[]>>
 }
 
 export interface SectionProps {
