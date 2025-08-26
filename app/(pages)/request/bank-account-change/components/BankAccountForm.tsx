@@ -1,7 +1,8 @@
 "use client"
 
 import { BankDetail } from "@api/schemas/bank-details/schema"
-import { createFileHandler } from "@atoms"
+// TODO: atc: remove this line
+// import { createFileHandler } from "@atoms"
 import {
   AttachmentsField,
   FormHeader,
@@ -10,11 +11,13 @@ import {
   SubmitButton,
 } from "@components/form"
 import { paths } from "@lib"
-import { FileWithId } from "@types"
-import { useEffect, useState, useTransition } from "react"
+// TODO: atc: remove this line
+// import { FileWithId } from "@types"
+// TODO:Don't forget to use "import __type__ ..."
+import { type ChangeEvent, useEffect, useState, useTransition } from "react"
 import { toast } from "sonner"
 import { formAction } from "./helpers/formAction"
-import { State } from "../../../../lib/createData"
+import type { State } from "../../../../lib/createData"
 
 const initialState: State = {
   success: false,
@@ -31,11 +34,12 @@ export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isPending, startTransition] = useTransition()
   const pending = isPending || isSubmitting
-  const [files, setFiles] = useState<FileWithId[]>([])
+  // TODO: atc: Make sure to use useState<File[]>. Not FileWithId
+  const [files, setFiles] = useState<File[]>([])
   const [iban, setIban] = useState("")
   const [bankId, setBankId] = useState("")
 
-  const handleIbanChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleIbanChange = (event: ChangeEvent<HTMLInputElement>) => {
     setIban(event.target.value)
   }
 
@@ -43,10 +47,10 @@ export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
     setBankId(value)
   }
 
-  const fileHandler = createFileHandler(
-    () => files,
-    (newFiles) => setFiles(newFiles),
-  )
+  // const fileHandler = createFileHandler(
+  //   () => files,
+  //   (newFiles) => setFiles(newFiles),
+  // )
 
   useEffect(() => {
     const { success, errors } = state
@@ -109,18 +113,15 @@ export const BankAccountForm = ({ bankDetails }: BankAccountFormProps) => {
           onChange={handleIbanChange}
           required
         />
+
         <AttachmentsField
           files={files}
-          handleFileUpload={fileHandler.upload}
-          handleRemoveFile={(index: number) =>
-            fileHandler.remove(files[index].id)
-          }
-          errors={
-            state.errors?.filter((error) =>
-              error.toLowerCase().includes("attachment"),
-            ) || []
-          }
-          required
+          onFilesChange={(fileList) => setFiles(fileList)}
+          setFiles={setFiles}
+          // handleFileUpload={fileHandler.upload}
+          // handleRemoveFile={(index: number) =>
+          // fileHandler.remove(files[index].id)
+          // }
         />
         <SubmitButton disabled={pending} loading={pending} />
       </div>

@@ -10,7 +10,7 @@ const EmployeeApplicationPage = () => {
     },
     {
       image: "app-2.svg",
-      buttonText: "لمتجر Apple غير سعودي",
+      buttonText: "لمتجر Apple سعودي",
       url: "/",
     },
     {

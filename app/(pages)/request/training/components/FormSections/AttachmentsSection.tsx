@@ -3,14 +3,14 @@ import { AttachmentsSectionProps } from "../FormTypes/types"
 
 export const AttachmentsSection = ({
   files,
-  fileHandler,
+  setFiles,
 }: AttachmentsSectionProps) => (
   <div className="space-y-6">
     <AttachmentsField
       name="attachment_ids"
       files={files}
-      handleFileUpload={fileHandler.upload}
-      handleRemoveFile={(index: number) => fileHandler.remove(files[index].id)}
+      onFilesChange={(fileList) => setFiles(fileList)}
+      setFiles={setFiles}
       required
     />
   </div>
