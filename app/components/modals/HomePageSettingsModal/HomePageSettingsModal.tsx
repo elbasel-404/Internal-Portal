@@ -8,7 +8,6 @@ import { ToggleForm } from "./ToggleForm"
 import { getUser } from "@db/actions"
 
 // TODO: Test with other values?
-export const dynamic = "force-dynamic"
 
 export const HomePageSettingsModal = async () => {
   const userId = await getUserId()

@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     // ppr: "incremental", // needs canary version of next
-    reactCompiler: true,
+    // reactCompiler: true,
     serverActions: {
       // TODO: test this more
       allowedOrigins: [
@@ -34,7 +34,7 @@ const nextConfig: NextConfig = {
       {
         source: "/",
         destination: "/home",
-        permanent: true,
+        permanent: false, // Changed to false for development hot reload
       },
     ]
   },

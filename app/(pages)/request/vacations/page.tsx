@@ -2,7 +2,6 @@ import { Instructions } from "@components"
 import { VacationTable } from "./components"
 import { getVacationRequests } from "@server"
 
-export const dynamic = "force-dynamic"
 
 const VacationsListPage = async () => {
   const VacationRequests = await getVacationRequests()
