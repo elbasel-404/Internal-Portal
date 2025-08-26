@@ -41,8 +41,8 @@ export const ContractorForm = ({
   const [isPending, startTransition] = useTransition()
 
   const [idFiles, setIdFiles] = useState<File[]>([])
-  const [aupFiles, setAupFiles] = useState<File[]>([])
-  const [ndaFiles, setNdaFiles] = useState<File[]>([])
+  const [acceptableUseFiles, setAcceptableUseFiles] = useState<File[]>([])
+  const [nonDisclosureFiles, setNonDisclosureFiles] = useState<File[]>([])
   const [form, setForm] = useState({
     sh: "",
     projectName: "",
@@ -251,11 +251,14 @@ export const ContractorForm = ({
             label="نموذج الأستخدام المقبول"
             name="acceptable_use_attachment_ids"
             required
-            files={aupFiles}
+            files={acceptableUseFiles}
             handleFileUpload={(fileList) =>
-              fileList && handleFileUpload(setAupFiles, Array.from(fileList))
+              fileList &&
+              handleFileUpload(setAcceptableUseFiles, Array.from(fileList))
             }
-            handleRemoveFile={(index) => handleRemoveFile(setAupFiles, index)}
+            handleRemoveFile={(index) =>
+              handleRemoveFile(setAcceptableUseFiles, index)
+            }
           />
           {attachmentsList[0].acceptableUse &&
             downloadAttachment(
@@ -266,11 +269,14 @@ export const ContractorForm = ({
             label="نموذج سياسة عدم الأفصاح"
             name="nondisclosure_attachment_ids"
             required
-            files={ndaFiles}
+            files={nonDisclosureFiles}
             handleFileUpload={(fileList) =>
-              fileList && handleFileUpload(setNdaFiles, Array.from(fileList))
+              fileList &&
+              handleFileUpload(setNonDisclosureFiles, Array.from(fileList))
             }
-            handleRemoveFile={(index) => handleRemoveFile(setNdaFiles, index)}
+            handleRemoveFile={(index) =>
+              handleRemoveFile(setNonDisclosureFiles, index)
+            }
           />
           {attachmentsList[0].nonDisclosure &&
             downloadAttachment(
