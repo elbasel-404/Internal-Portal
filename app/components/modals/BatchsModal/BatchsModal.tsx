@@ -8,6 +8,18 @@ export const BatchsModal = async () => {
   if (!userId) return
 
   const { batchProducts } = await getUser(userId)
+  // Ensure each batchProduct has the required 'product' property
+  const validBatchProducts = Array.isArray(batchProducts)
+    ? batchProducts.map((bp) => ({
+        ...bp,
+        product: bp.name ?? {
+          id: bp.id,
+          name: bp.name,
+          description: bp.description,
+        }, // Provide a fallback or fetch the product object as needed
+      }))
+    : []
+
   return (
     <Modal
       // refreshOnClose={true}
@@ -18,7 +30,7 @@ export const BatchsModal = async () => {
       <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between bg-primary-opacity py-6 px-[18px] border-r-[3px] border-r-primary">
         <p className="text-xl font-bold text-foreground">إضافة دفعة</p>
       </div>
-      <BatchsForm batchProducts={batchProducts} />
+      <BatchsForm batchProducts={validBatchProducts} />
     </Modal>
   )
 }
