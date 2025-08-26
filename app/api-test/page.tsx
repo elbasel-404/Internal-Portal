@@ -27,7 +27,7 @@ const ApiPage = async () => {
   const apiRootUrl = process.env.API_ROOT_URL as string
 
   return (
-    <main className="min-h-screen px-4 py-8 text-white bg-black">
+    <main className="min-h-screen px-4 py-8 text-white bg-slate-900">
       <Form action={fetchData}>
         <UrlSelect />
         <Animate className="md:gap-2 md:flex ">
