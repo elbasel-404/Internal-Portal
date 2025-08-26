@@ -17,6 +17,7 @@ export const EmployeeAttendanceTable = ({
   data,
 }: EmployeeAttendanceRequestProps) => {
   const [searchTerm, setSearchTerm] = useState("")
+  const [showemployeeDetails, setShowEmployeeDetails] = useState(false)
   const [form, setForm] = useState({
     start: "",
     end: "",
@@ -26,14 +27,14 @@ export const EmployeeAttendanceTable = ({
     request.employeeName.toLowerCase().includes(searchTerm.toLowerCase()),
   )
   const neededHeaders = () => {
-    return form.select
+    return showemployeeDetails
       ? employeeAttendanceTableHeaders.filter(
           (header) => header.label !== "الموظف",
         )
       : employeeAttendanceTableHeaders
   }
   const neededData = () => {
-    return form.select
+    return showemployeeDetails
       ? // eslint-disable-next-line @typescript-eslint/no-unused-vars
         filteredRequests.map(({ employeeName, ...rest }) => rest)
       : filteredRequests
@@ -69,12 +70,18 @@ export const EmployeeAttendanceTable = ({
             filterHeader="فرز الطلبات"
             filterButton="بحث"
             Icon={SearchIcon}
-            onApplyFilters={() => {}}
+            onApplyFilters={() => {
+              if (form.select) {
+                setShowEmployeeDetails(true)
+              } else {
+                setShowEmployeeDetails(false)
+              }
+            }}
             form={form}
             setForm={setForm}
           />
         </div>
-        {form.select && (
+        {showemployeeDetails && (
           <div className="flex gap-6 items-center bg-white rounded-lg my-4 p-4">
             <Image
               className="w-[90px] h-[90px] rounded-full border-2 border-cloudGray"
