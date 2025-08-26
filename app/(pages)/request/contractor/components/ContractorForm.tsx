@@ -9,13 +9,7 @@ import {
   SubmitButton,
 } from "@components/form"
 import { paths, colors } from "@lib"
-import {
-  type Dispatch,
-  type SetStateAction,
-  useEffect,
-  useState,
-  useTransition,
-} from "react"
+import { useEffect, useState, useTransition } from "react"
 import type { purchase, attachment } from "@types"
 import { PdfFileIcon, PrinterIcon } from "@icons"
 import { Button } from "@ui"
@@ -70,19 +64,6 @@ export const ContractorForm = ({
         endDate: selectedPurchase.contractDateEnd,
       })
     }
-  }
-  const handleFileUpload = (
-    setter: Dispatch<SetStateAction<File[]>>,
-    files: File[],
-  ) => {
-    setter((prev) => [...prev, ...files])
-  }
-
-  const handleRemoveFile = (
-    setter: Dispatch<SetStateAction<File[]>>,
-    index: number,
-  ) => {
-    setter((prev) => prev.filter((_, i) => i !== index))
   }
 
   useEffect(() => {
@@ -235,12 +216,10 @@ export const ContractorForm = ({
           <AttachmentsField
             label="الهوية/الأقامة/الجواز"
             name="identity_attachment_ids"
-            required
+            onFilesChange={(fileList) => setIdFiles(fileList)}
+            setFiles={setIdFiles}
             files={idFiles}
-            handleFileUpload={(fileList) =>
-              fileList && handleFileUpload(setIdFiles, Array.from(fileList))
-            }
-            handleRemoveFile={(index) => handleRemoveFile(setIdFiles, index)}
+            required
           />
           {attachmentsList[0].identity &&
             downloadAttachment(
@@ -250,15 +229,10 @@ export const ContractorForm = ({
           <AttachmentsField
             label="نموذج الأستخدام المقبول"
             name="acceptable_use_attachment_ids"
-            required
+            onFilesChange={(fileList) => setAcceptableUseFiles(fileList)}
+            setFiles={setAcceptableUseFiles}
             files={acceptableUseFiles}
-            handleFileUpload={(fileList) =>
-              fileList &&
-              handleFileUpload(setAcceptableUseFiles, Array.from(fileList))
-            }
-            handleRemoveFile={(index) =>
-              handleRemoveFile(setAcceptableUseFiles, index)
-            }
+            required
           />
           {attachmentsList[0].acceptableUse &&
             downloadAttachment(
@@ -268,15 +242,10 @@ export const ContractorForm = ({
           <AttachmentsField
             label="نموذج سياسة عدم الأفصاح"
             name="nondisclosure_attachment_ids"
-            required
+            onFilesChange={(fileList) => setNonDisclosureFiles(fileList)}
+            setFiles={setNonDisclosureFiles}
             files={nonDisclosureFiles}
-            handleFileUpload={(fileList) =>
-              fileList &&
-              handleFileUpload(setNonDisclosureFiles, Array.from(fileList))
-            }
-            handleRemoveFile={(index) =>
-              handleRemoveFile(setNonDisclosureFiles, index)
-            }
+            required
           />
           {attachmentsList[0].nonDisclosure &&
             downloadAttachment(

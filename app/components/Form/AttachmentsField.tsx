@@ -73,7 +73,7 @@ export const FileAttachmentField = ({
       <div className="flex items-center justify-center border-2 border-dashed border-gray-300 rounded-md p-6">
         <label
           className="rounded-lg px-4 py-2 cursor-pointer flex flex-col justify-center items-center"
-          htmlFor="attachment_ids_input"
+          htmlFor={name ?? "attachment_ids_input"}
         >
           <OutboxIcon />
           <p className="text-primary hover:underline">انقر هنا لإضافة ملف</p>
@@ -85,7 +85,7 @@ export const FileAttachmentField = ({
           required={required}
           onChange={(e) => handleFileChange?.(e)}
           name={name ?? "attachment_ids"}
-          id="attachment_ids_input"
+          id={name ?? "attachment_ids_input"}
           type="file"
           multiple
           className="hidden"
