@@ -1,6 +1,5 @@
 "use client"
 
-import { createFileHandler } from "@atoms"
 import {
   AttachmentsField,
   DateField,
@@ -12,7 +11,6 @@ import {
 } from "@components/form"
 import { useFormAction } from "@hooks"
 import { paths } from "@lib"
-import { FileWithId } from "@types"
 import { ChangeEvent, useEffect, useState } from "react"
 import { formAction } from "./helpers/formAction"
 
@@ -30,18 +28,12 @@ export const RefactoredFormExample = () => {
   )
 
   // Form state variables
-  const [files, setFiles] = useState<FileWithId[]>([])
+  const [files, setFiles] = useState<File[]>([])
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
   const [duration, setDuration] = useState("1")
   const [selectedOption, setSelectedOption] = useState("1")
   const [notes, setNotes] = useState("")
-
-  // File handler
-  const fileHandler = createFileHandler(
-    () => files,
-    (newFiles) => setFiles(newFiles),
-  )
 
   // Calculate duration when dates change
   useEffect(() => {
@@ -136,16 +128,9 @@ export const RefactoredFormExample = () => {
       {/* Attachments */}
       <AttachmentsField
         files={files}
-        handleFileUpload={fileHandler.upload}
-        handleRemoveFile={(index: number) =>
-          fileHandler.remove(files[index].id)
-        }
+        onFilesChange={(fileList) => setFiles(fileList)}
+        setFiles={setFiles}
         required
-        errors={
-          state.errors?.filter((error) =>
-            error.toLowerCase().includes("attachment"),
-          ) || []
-        }
       />
 
       <SubmitButton />

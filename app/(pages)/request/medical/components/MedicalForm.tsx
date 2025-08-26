@@ -1,7 +1,6 @@
 "use client"
 
 import { RelativeRelationElement } from "@api/schemas/relative-relation/schema"
-import { createFileHandler } from "@atoms"
 import {
   AttachmentsField,
   FormHeader,
@@ -10,7 +9,6 @@ import {
   SubmitButton,
 } from "@components/form"
 import { paths } from "@lib"
-import { FileWithId } from "@types"
 import { ChangeEvent, useEffect, useState, useTransition } from "react"
 import { toast } from "sonner"
 import { State } from "./helpers/State"
@@ -36,7 +34,7 @@ export const MedicalForm = ({ relativeRelation }: MedicalFormProps) => {
   const [isPending, startTransition] = useTransition()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const pending = isPending || isSubmitting
-  const [files, setFiles] = useState<FileWithId[]>([])
+  const [files, setFiles] = useState<File[]>([])
   const [requestType, setRequestType] = useState("")
   const [relation, setRelation] = useState("")
   const [individualName, setIndividualName] = useState("")
@@ -59,11 +57,6 @@ export const MedicalForm = ({ relativeRelation }: MedicalFormProps) => {
   ) => {
     setIndividualEnglishName(event.target.value)
   }
-
-  const fileHandler = createFileHandler(
-    () => files,
-    (newFiles) => setFiles(newFiles),
-  )
 
   useEffect(() => {
     const { success, errors } = state
@@ -163,10 +156,8 @@ export const MedicalForm = ({ relativeRelation }: MedicalFormProps) => {
         />
         <AttachmentsField
           files={files}
-          handleFileUpload={fileHandler.upload}
-          handleRemoveFile={(index: number) =>
-            fileHandler.remove(files[index].id)
-          }
+          onFilesChange={(fileList) => setFiles(fileList)}
+          setFiles={setFiles}
           required
         />
         <SubmitButton loading={pending} />

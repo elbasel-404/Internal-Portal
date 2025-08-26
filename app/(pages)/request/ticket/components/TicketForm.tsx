@@ -2,7 +2,7 @@
 
 // import { createFileHandler } from "@atoms"
 import {
-  // AttachmentsField,
+  AttachmentsField,
   FormHeader,
   RadioField,
   SubmitButton,
@@ -10,7 +10,7 @@ import {
 } from "@components/form"
 import { paths } from "@lib"
 // import { FileWithId } from "@types"
-// import { useState } from "react"
+import { useState } from "react"
 import {
   NonTechnicalRequest,
   TechnicalReport,
@@ -18,27 +18,22 @@ import {
 } from "./options"
 
 export const TicketForm = () => {
-  // const [ticketType, setTicketType] = useState("technical")
-  // const [techTicketType, setTechTicketType] = useState("reportProblem")
-  // const [nonTechTicketType, setNonTechTicketType] = useState("request")
-  // const [files, setFiles] = useState<FileWithId[]>([])
+  const [ticketType, setTicketType] = useState("technical")
+  const [techTicketType, setTechTicketType] = useState("reportProblem")
+  const [nonTechTicketType, setNonTechTicketType] = useState("request")
+  const [files, setFiles] = useState<File[]>([])
 
-  // const handleTicketTypeChangeValue = (value: string) => {
-  //   setTicketType(value)
-  // }
+  const handleTicketTypeChangeValue = (value: string) => {
+    setTicketType(value)
+  }
 
-  // const handleTechTicketTypeChangeValue = (value: string) => {
-  //   setTechTicketType(value)
-  // }
+  const handleTechTicketTypeChangeValue = (value: string) => {
+    setTechTicketType(value)
+  }
 
-  // const handleNonTechTicketTypeChangeValue = (value: string) => {
-  //   setNonTechTicketType(value)
-  // }
-
-  // const fileHandler = createFileHandler(
-  //   () => files,
-  //   (newFiles) => setFiles(newFiles),
-  // )
+  const handleNonTechTicketTypeChangeValue = (value: string) => {
+    setNonTechTicketType(value)
+  }
 
   return (
     <form className="bg-white rounded-md">
@@ -55,69 +50,67 @@ export const TicketForm = () => {
           labelStyle="font-medium text-base text-grey-500"
           radioStyle="flex-col md:flex-row"
           className="flex-col"
-          // onChange={handleTicketTypeChangeValue}
-          // selectedValue={ticketType}
+          onChange={handleTicketTypeChangeValue}
+          selectedValue={ticketType}
         />
-        {/* {ticketType === "technical" && ( */}
-        <RadioField
-          label="الرجاء اختيار نوع تذكرة التقنية"
-          name="technicalTicketType"
-          options={[
-            { value: "reportProblem", label: "الابلاغ عن مشكلة" },
-            { value: "request", label: "طلب خدمة" },
-          ]}
-          required={true}
-          labelStyle="font-medium text-base text-grey-500"
-          radioStyle="flex-col md:flex-row"
-          className="flex-col"
-          // onChange={handleTechTicketTypeChangeValue}
-          // selectedValue={techTicketType}
-        />
-        {/* )} */}
-        {/* {ticketType === "nonTechnical" && ( */}
-        <RadioField
-          label="الرجاء اختيار نوع تذكرة الغير تقنية"
-          name="nonTechnicalTicketType"
-          options={[{ value: "request", label: "طلب خدمة" }]}
-          required={true}
-          labelStyle="font-medium text-base text-grey-500"
-          radioStyle="flex-col md:flex-row"
-          className="flex-col"
-          // onChange={handleNonTechTicketTypeChangeValue}
-          // selectedValue={nonTechTicketType}
-        />
-        {/* )} */}
-        {/* {ticketType === "nonTechnical" && nonTechTicketType === "request" && ( */}
-        <NonTechnicalRequest />
-        {/* )} */}
-        {/* {ticketType === "technical" && techTicketType === "request" && ( */}
-        <TechnicalRequest />
-        {/* )} */}
-        {/* {ticketType === "technical" && techTicketType === "reportProblem" && ( */}
-        <TechnicalReport />
-        {/* )} */}
+        {ticketType === "technical" && (
+          <RadioField
+            label="الرجاء اختيار نوع تذكرة التقنية"
+            name="technicalTicketType"
+            options={[
+              { value: "reportProblem", label: "الابلاغ عن مشكلة" },
+              { value: "request", label: "طلب خدمة" },
+            ]}
+            required={true}
+            labelStyle="font-medium text-base text-grey-500"
+            radioStyle="flex-col md:flex-row"
+            className="flex-col"
+            onChange={handleTechTicketTypeChangeValue}
+            selectedValue={techTicketType}
+          />
+        )}
+        {ticketType === "nonTechnical" && (
+          <RadioField
+            label="الرجاء اختيار نوع تذكرة الغير تقنية"
+            name="nonTechnicalTicketType"
+            options={[{ value: "request", label: "طلب خدمة" }]}
+            required={true}
+            labelStyle="font-medium text-base text-grey-500"
+            radioStyle="flex-col md:flex-row"
+            className="flex-col"
+            onChange={handleNonTechTicketTypeChangeValue}
+            selectedValue={nonTechTicketType}
+          />
+        )}
+        {ticketType === "nonTechnical" && nonTechTicketType === "request" && (
+          <NonTechnicalRequest />
+        )}
+        {ticketType === "technical" && techTicketType === "request" && (
+          <TechnicalRequest />
+        )}
+        {ticketType === "technical" && techTicketType === "reportProblem" && (
+          <TechnicalReport />
+        )}
         <TextareaField
-          label="label"
+          // label="label"
           name="description"
-          // label={
-          //   ticketType === "technical" && techTicketType === "reportProblem"
-          //     ? "وصف الإبلاغ"
-          //     : "وصف الطلب"
-          // }
-          // placeholder={
-          //   ticketType === "technical" && techTicketType === "reportProblem"
-          //     ? "اكتب عن وصف الإبلاغ"
-          //     : "اكتب عن وصف الطلب"
-          // }
+          label={
+            ticketType === "technical" && techTicketType === "reportProblem"
+              ? "وصف الإبلاغ"
+              : "وصف الطلب"
+          }
+          placeholder={
+            ticketType === "technical" && techTicketType === "reportProblem"
+              ? "اكتب عن وصف الإبلاغ"
+              : "اكتب عن وصف الطلب"
+          }
           required
         />
-        {/* <AttachmentsField
-          handleFileUpload={fileHandler.upload}
-          handleRemoveFile={(index: number) =>
-            fileHandler.remove(files[index].id)
-          }
+        <AttachmentsField
+          onFilesChange={(fileList) => setFiles(fileList)}
+          setFiles={setFiles}
           files={files}
-        /> */}
+        />
         <SubmitButton />
       </div>
     </form>

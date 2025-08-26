@@ -1,17 +1,16 @@
 import { OutboxIcon, PdfFileIcon, TrashIcon } from "@icons"
 import { Button } from "@ui"
-import type { ChangeEvent } from "react"
+import { handleFileChange as defaultHandleFileChange } from "@utils"
+import type { ChangeEvent, Dispatch, SetStateAction } from "react"
 
 interface FileAttachmentFieldProps {
   files: File[]
+  onFilesChange: (files: File[]) => void
   handleFileChange?: (event: ChangeEvent<HTMLInputElement>) => void
-  onFilesChange?: (files: File[]) => void
-  handleFileUpload?: (files: FileList | null) => void
-  handleRemoveFile?: (index: number) => void
+  setFiles: Dispatch<SetStateAction<File[]>>
   label?: string
   subLabel?: string
   required?: boolean
-  errors?: string[] | null
   name?: string
 }
 
@@ -23,16 +22,13 @@ interface FileAttachmentFieldProps {
  * and removing files from the list. It supports multiple file formats and allows customization
  * of labels and error handling.
  *
- * @param handleRemoveFile //!! DO NOT USE THIS Callback for removing a file by its index.
- * @param handleFileUpload //!! DO NOT USE THIS Optional callback for handling file uploads from the input.
  * @param files - Array of File objects representing the currently attached files.
- * @param onFilesChange - Optional callback invoked when the files array changes.
+ * @param onFilesChange - required callback invoked when the files array changes.
  * @param handleFileChange - Optional callback for handling file input change events.
  *
  * @param label - Optional label for the file attachment field (default: "المرفقات").
  * @param subLabel - Optional sub-label for additional description.
  * @param required - Optional flag indicating if the field is required.
- * @param errors - Optional array of error messages.
  * @param name - Optional name attribute for the file input.
  *
  * @example
@@ -41,8 +37,6 @@ interface FileAttachmentFieldProps {
  *   files={files}
  *   handleFileChange={handleFileChange}
  *   onFilesChange={setFiles}
- *   handleFileUpload={handleFileUpload} // @deprecated
- *   handleRemoveFile={handleRemoveFile}
  *   label="Attachments"
  *   required
  * />
@@ -50,10 +44,9 @@ interface FileAttachmentFieldProps {
  */
 export const FileAttachmentField = ({
   files,
-  handleFileChange,
+  setFiles,
+  handleFileChange = (e) => defaultHandleFileChange(e, setFiles),
   onFilesChange,
-  handleFileUpload,
-  handleRemoveFile: handleRemoveFileProp,
   label = "المرفقات",
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   subLabel = "sublabel",
@@ -64,9 +57,6 @@ export const FileAttachmentField = ({
     const updatedFiles = files.filter((_, i) => i !== index)
     if (onFilesChange) {
       onFilesChange(updatedFiles)
-    }
-    if (handleRemoveFileProp) {
-      handleRemoveFileProp(index)
     }
   }
 
@@ -93,12 +83,7 @@ export const FileAttachmentField = ({
         </label>
         <input
           required={required}
-          onChange={(e) => {
-            handleFileChange?.(e)
-            if (handleFileUpload) {
-              handleFileUpload(e.target.files)
-            }
-          }}
+          onChange={(e) => handleFileChange?.(e)}
           name={name ?? "attachment_ids"}
           id="attachment_ids_input"
           type="file"
