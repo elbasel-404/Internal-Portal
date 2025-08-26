@@ -82,7 +82,7 @@ export type {
   ProgramData,
   ProjectData,
   PurchaseType,
-  YesNoOption
+  YesNoOption,
 } from "./pages/request/PurchaseTypes"
 export type { RecommendationDetails } from "./pages/request/RecommendationDetails"
 export type { RecommendationRequest } from "./pages/request/RecommendationRequest"
@@ -126,4 +126,6 @@ export type { Rules } from "./shared/Rules"
 export type { TabType } from "./shared/TabType"
 export type { User } from "./shared/User"
 export type { TypedRecord } from "./TypedRecord"
-
+export type { ContractorRequest } from "./pages/request/ContractorRequest"
+export type { ContractorDetails } from "./pages/request/ContractorDetails"
+export type { purchase, attachment } from "./pages/request/ContractorFields"

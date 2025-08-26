@@ -2,6 +2,7 @@ import * as z from "zod"
 
 export const RequestCreateWorkflowElementSchema = z.object({
   state: z.any(),
+  name: z.any(),
 })
 export type RequestCreateWorkflowElement = z.infer<
   typeof RequestCreateWorkflowElementSchema
