@@ -1,5 +1,5 @@
 export { InfoGrid } from "@components"
-export { ApprovalRequestsTable } from "./ApprovalRequestTable"
+export { ApprovalRequests} from "./ApprovalRequest"
 export { Attendance } from "./Attendance"
 export { CompleteProfile } from "./CompleteProfile"
 export { HomePageSliders } from "./HomePageSliders"

@@ -36,6 +36,7 @@ export const Select = <T extends Record<string, string | number>>({
   return (
     <UISelect dir="rtl" value={value} onValueChange={onChange}>
       <input
+        title={placeholder}
         type="text"
         value={value}
         name={name}

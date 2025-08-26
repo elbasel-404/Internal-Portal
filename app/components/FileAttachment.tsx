@@ -35,7 +35,7 @@ export const FileAttachment = ({ fileId }: FileAttachmentProps) => {
           "x-api-key": "85ced9c9-b64b-4d76-85a5-ae3b869b044d",
         },
         cache: "force-cache" as RequestCache,
-        next: { revalidate: 0 },
+        next: { revalidate: false },
       },
     )
 
