@@ -22,6 +22,7 @@ import { SubstituteEmployees } from "@api/schemas/index"
 import { OutboxIcon, PdfFileIcon, TrashIcon } from "@icons"
 import { Button } from "@ui"
 import type { State } from "../../../../lib/createData"
+import { handleFileChange } from "@utils"
 
 // const substituteEmployees = [
 //   { id: 1, name: "عاصم بن رشود العصيمي" },
@@ -52,13 +53,6 @@ export const VacationForm = ({
   const [duration, setDuration] = useState("1")
   const [vacationType, setVacationType] = useState("7")
   const [substituteEmployee, setSubstituteEmployee] = useState("1")
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const inputFiles = event.target.files
-    if (!inputFiles) return
-    if (inputFiles.length === 0) return
-    setFiles((prev) => prev?.concat(Array.from(inputFiles)))
-  }
 
   const handleVacationTypeChange = (value: string) => {
     setVacationType(value)
@@ -237,23 +231,9 @@ export const VacationForm = ({
         required
       />
 
-      {/* Attachments */}
-      {/* <AttachmentsField
-        files={files}
-        handleFileUpload={fileHandler.upload}
-        handleRemoveFile={(index: number) =>
-          fileHandler.remove(files[index].id)
-        }
-        required
-        errors={
-          state.errors?.filter((error) =>
-            error.toLowerCase().includes("attachment"),
-          ) || []
-        }
-      /> */}
       <FileAttachment
         files={files}
-        handleFileChange={handleFileChange}
+        handleFileChange={(e) => handleFileChange(e, setFiles)}
         onFilesChange={setFiles}
       />
 
@@ -264,7 +244,7 @@ export const VacationForm = ({
 
 interface FileAttachmentProps {
   files: File[]
-  handleFileChange: (event: ChangeEvent<HTMLInputElement>) => void
+  handleFileChange?: (event: ChangeEvent<HTMLInputElement>) => void
   onFilesChange: (files: File[]) => void
 }
 
