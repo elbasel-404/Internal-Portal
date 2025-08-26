@@ -6,7 +6,6 @@ import "./(pages)/globals.css"
 import { Toaster } from "sonner"
 import { getLoggedOut } from "./server/getLoggedOut"
 
-// export const dynamic = "force-dynamic"
 
 export const metadata: Metadata = {
   title: "منشآت",
