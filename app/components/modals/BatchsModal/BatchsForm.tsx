@@ -57,8 +57,6 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
   const [batchNumber, setBatchNumber] = useState("")
   const [paymentDate, setPaymentDate] = useState(new Date())
   const [notes, setNotes] = useState("")
-  const [deductionAmount, setDeductionAmount] = useState(0)
-  const [amountBeforeDeduction, setAmountBeforeDeduction] = useState(0)
   const [, setTotalBatchAmount] = useAtom(batchAmount)
 
   const batchProductsData = batchProducts.map((batchProductDetails) => {
@@ -85,10 +83,21 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
       number: parseInt(batchNumber) || 0,
       date: formatDate(paymentDate),
       amount: totalAmount,
-      amount_before_deduction: amountBeforeDeduction,
-      deduction_amount: deductionAmount,
       notes: notes,
-      products: batchProductsData.map((product) => ({ id: product.id })),
+      products: batchProductsData.map((product) => ({
+        id: product.id,
+        name: product.product,
+        product_qty: product.quantity,
+        price_unit: product.unitPrice,
+        price_subtotal: product.subtotal,
+        quantity_completed: product.completedQuantity,
+        amount_completed: product.completedCost,
+        quantity_under_completed: product.underCompletedQauntity,
+        amount_under_completed: product.underCompletedCost,
+        quantity_remain: product.remainingQuantity,
+        amount_remain: product.remainingCost,
+        unit_price_after_tax: product.unitPriceWithTax,
+      })),
     },
   ]
 
@@ -190,23 +199,6 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
         />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <InputField
-          label="مبلغ الخصم"
-          name=""
-          placeholder="0"
-          value={deductionAmount.toString()}
-          onChange={(e) => setDeductionAmount(Number(e.target.value))}
-        />
-        <InputField
-          label="المبلغ قبل الخصم"
-          name=""
-          placeholder="0"
-          value={amountBeforeDeduction.toString()}
-          onChange={(e) => setAmountBeforeDeduction(Number(e.target.value))}
-        />
-      </div>
-
       <DateField
         label="تاريخ السداد"
         name=""
@@ -216,6 +208,7 @@ export const BatchsForm = ({ batchProducts }: BatchsProps) => {
       />
 
       <AttachmentsField
+        name=""
         files={files}
         onFilesChange={(fileList) => setFiles(fileList)}
         setFiles={setFiles}
