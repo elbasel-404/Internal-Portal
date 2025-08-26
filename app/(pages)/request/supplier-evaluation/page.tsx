@@ -2,7 +2,6 @@
 import { EvaluationTable } from "./components"
 import { getSupplierEvaluationRequests } from "@server"
 
-export const dynamic = "force-dynamic"
 
 const SupplierEvaluationRequestsListPage = async () => {
   const SupplierEvaluationRequests = await getSupplierEvaluationRequests()

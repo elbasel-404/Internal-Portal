@@ -9,6 +9,6 @@ export const clearCookies = async () => {
   cookieStore.getAll().forEach((cookie) => {
     cookieStore.delete(cookie.name)
   })
-  revalidatePath("/")
+  revalidatePath("/home")
   redirect("/home")
 }

@@ -2,7 +2,6 @@ import { CreateRequestStatus } from "@components"
 import { getCreateRequestStatus } from "@server"
 import { CustodyForm } from "../components"
 
-export const dynamic = "force-dynamic"
 
 const NewReplacementCovenantPage = async () => {
   const model = "manage.financial.custody"

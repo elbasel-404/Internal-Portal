@@ -18,7 +18,6 @@ export interface HomePageLayoutProps {
   timelineCalendar: ReactNode
 }
 
-export const dynamic = "force-dynamic"
 
 const HomePageLayout = async ({
   children,
@@ -51,6 +50,7 @@ const HomePageLayout = async ({
     revalidate: false,
     tags: ["user"],
   })()
+
   const activeSlotKeys = user.activeHomePageSlotsKeys || []
   const slotsToRender = filterSlots(initSlots, activeSlotKeys)
   const visuallyHiddenKeys: HomePageSlotKey[] = []
