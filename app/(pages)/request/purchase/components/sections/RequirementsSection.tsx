@@ -1,17 +1,14 @@
 "use client"
 
 import {
-  createFileHandler,
   cyberSecurityAtom,
-  dataFilesAtom,
   dataGovernanceAtom,
-  instFilesAtom,
-  institutionalDiscriminationAtom,
-  securityFilesAtom,
+  institutionalDiscriminationAtom
 } from "@atoms"
 import { AttachmentsField, RadioField } from "@components/form"
 import { YesNoOption } from "@types"
 import { useAtom } from "jotai"
+import { useState } from "react"
 
 export const RequirementsSection = () => {
   return (
@@ -25,12 +22,7 @@ export const RequirementsSection = () => {
 
 const InstitutionalRequirements = () => {
   const [value, setValue] = useAtom(institutionalDiscriminationAtom)
-  const [files, setFiles] = useAtom(instFilesAtom)
-
-  const fileHandler = createFileHandler(
-    () => files,
-    (newFiles) => setFiles(newFiles),
-  )
+  const [files, setFiles] = useState<File[]>([])
 
   return (
     <div className="space-y-4">
@@ -52,10 +44,8 @@ const InstitutionalRequirements = () => {
         <AttachmentsField
           name="inst_attachment_ids"
           files={files}
-          handleFileUpload={fileHandler.upload}
-          handleRemoveFile={(index: number) =>
-            fileHandler.remove(files[index].id)
-          }
+          onFilesChange={(fileList) => setFiles(fileList)}
+          setFiles={setFiles}
           required={false}
         />
       )}
@@ -65,12 +55,7 @@ const InstitutionalRequirements = () => {
 
 const SecurityRequirements = () => {
   const [value, setValue] = useAtom(cyberSecurityAtom)
-  const [files, setFiles] = useAtom(securityFilesAtom)
-
-  const fileHandler = createFileHandler(
-    () => files,
-    (newFiles) => setFiles(newFiles),
-  )
+  const [files, setFiles] = useState<File[]>([])
 
   return (
     <div className="space-y-4">
@@ -92,10 +77,8 @@ const SecurityRequirements = () => {
         <AttachmentsField
           name="security_attachment_ids"
           files={files}
-          handleFileUpload={fileHandler.upload}
-          handleRemoveFile={(index: number) =>
-            fileHandler.remove(files[index].id)
-          }
+          onFilesChange={(fileList) => setFiles(fileList)}
+          setFiles={setFiles}
           required={false}
         />
       )}
@@ -105,12 +88,7 @@ const SecurityRequirements = () => {
 
 const DataGovernanceRequirements = () => {
   const [value, setValue] = useAtom(dataGovernanceAtom)
-  const [files, setFiles] = useAtom(dataFilesAtom)
-
-  const fileHandler = createFileHandler(
-    () => files,
-    (newFiles) => setFiles(newFiles),
-  )
+  const [files, setFiles] = useState<File[]>([])
 
   return (
     <div className="space-y-4">
@@ -132,10 +110,8 @@ const DataGovernanceRequirements = () => {
         <AttachmentsField
           name="data_governance_ids"
           files={files}
-          handleFileUpload={fileHandler.upload}
-          handleRemoveFile={(index: number) =>
-            fileHandler.remove(files[index].id)
-          }
+          onFilesChange={(fileList) => setFiles(fileList)}
+          setFiles={setFiles}
           required={false}
         />
       )}

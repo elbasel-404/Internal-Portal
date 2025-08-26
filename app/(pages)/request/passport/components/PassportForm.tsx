@@ -1,6 +1,5 @@
 "use client"
 
-import { createFileHandler } from "@atoms"
 import {
   AttachmentsField,
   DateField,
@@ -9,7 +8,6 @@ import {
   SubmitButton,
 } from "@components/form"
 import { paths } from "@lib"
-import { FileWithId } from "@types"
 import { useActionState, useEffect, useState } from "react"
 import { toast } from "sonner"
 import { formAction } from "./helpers/formAction"
@@ -21,16 +19,11 @@ const stateAction = getStateAction<State>(formAction)
 
 export const PassportForm = () => {
   const [state, action, pending] = useActionState(stateAction, initialState)
-  const [files, setFiles] = useState<FileWithId[]>([])
+  const [files, setFiles] = useState<File[]>([])
   const [passportExpirationDate, setPassportExpirationDate] = useState<Date>(
     new Date(),
   )
   const [passportNumber, setPassportNumber] = useState("")
-
-  const fileHandler = createFileHandler(
-    () => files,
-    (newFiles) => setFiles(newFiles),
-  )
 
   const handlePassportNumberChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -98,10 +91,8 @@ export const PassportForm = () => {
           name="attachment_ids"
           label="صورة جواز السفر"
           files={files}
-          handleFileUpload={fileHandler.upload}
-          handleRemoveFile={(index: number) =>
-            fileHandler.remove(files[index].id)
-          }
+          onFilesChange={(fileList) => setFiles(fileList)}
+          setFiles={setFiles}
           required
         />
 

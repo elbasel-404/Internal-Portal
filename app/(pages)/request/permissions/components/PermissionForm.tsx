@@ -1,6 +1,5 @@
 "use client"
 
-import { createFileHandler } from "@atoms"
 import {
   AttachmentsField,
   CheckboxField,
@@ -12,7 +11,6 @@ import {
   TimeField,
 } from "@components/form"
 import { paths } from "@lib"
-import { FileWithId } from "@types"
 import { useEffect, useState, useTransition } from "react"
 import { toast } from "sonner"
 import { State } from "../../../../lib/createData"
@@ -34,18 +32,13 @@ export const PermissionForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isPending, startTransition] = useTransition()
   const pending = isPending || isSubmitting
-  const [files, setFiles] = useState<FileWithId[]>([])
+  const [files, setFiles] = useState<File[]>([])
   const [isMultipleDays, setIsMultipleDays] = useState(false)
   const [permissionTypeValue, setPermissionTypeValue] = useState<string>("")
   const [startTime, setStartTime] = useState<Date>(new Date())
   const [endTime, setEndTime] = useState<Date>(new Date())
   const [startDate, setStartDate] = useState<Date>(new Date())
   const [endDate, setEndDate] = useState<Date>(new Date())
-
-  const fileHandler = createFileHandler(
-    () => files,
-    (newFiles) => setFiles(newFiles),
-  )
 
   const handlePermissionTypeChange = (value: string) => {
     setPermissionTypeValue(value) // Update the permission type value
@@ -173,15 +166,8 @@ export const PermissionForm = () => {
         {permissionTypeValue === "1" && (
           <AttachmentsField
             files={files}
-            handleFileUpload={fileHandler.upload}
-            handleRemoveFile={(index: number) =>
-              fileHandler.remove(files[index].id)
-            }
-            errors={
-              state.errors?.filter((error) =>
-                error.toLowerCase().includes("attachment"),
-              ) || []
-            }
+            onFilesChange={(fileList) => setFiles(fileList)}
+            setFiles={setFiles}
           />
         )}
         <SubmitButton disabled={pending} loading={pending} />
