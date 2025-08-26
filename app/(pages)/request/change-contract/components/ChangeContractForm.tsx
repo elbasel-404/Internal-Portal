@@ -93,29 +93,6 @@ export const ChangeContractForm = ({
     }
   }, [newClause, periodExtension]) // Remove selectedTypes from dependencies to avoid infinite loop
 
-  // File upload handlers
-  const handleTechnicalReportUpload = (files: FileList | null) => {
-    if (files) {
-      const fileArray = Array.from(files)
-      setTechnicalReportFiles((prev) => [...prev, ...fileArray])
-    }
-  }
-
-  const handleTechnicalReportRemove = (index: number) => {
-    setTechnicalReportFiles((prev) => prev.filter((_, i) => i !== index))
-  }
-
-  const handleAdditionalAttachmentUpload = (files: FileList | null) => {
-    if (files) {
-      const fileArray = Array.from(files)
-      setAdditionalAttachmentFiles((prev) => [...prev, ...fileArray])
-    }
-  }
-
-  const handleAdditionalAttachmentRemove = (index: number) => {
-    setAdditionalAttachmentFiles((prev) => prev.filter((_, i) => i !== index))
-  }
-
   return (
     <form className="bg-white rounded-lg text-black text-lg p-4 space-y-4">
       <FormHeader
@@ -210,8 +187,8 @@ export const ChangeContractForm = ({
             label="التقرير الفني"
             name="technical_report_attachment_ids"
             files={technicalReportFiles}
-            handleFileUpload={handleTechnicalReportUpload}
-            handleRemoveFile={handleTechnicalReportRemove}
+            onFilesChange={(fileList) => setTechnicalReportFiles(fileList)}
+            setFiles={setTechnicalReportFiles}
             required
           />
         </>
@@ -265,8 +242,8 @@ export const ChangeContractForm = ({
         label="المرفقات (إرفاق عرض السعر للبنود المستحدثة)"
         name="additional_attachment_ids"
         files={additionalAttachmentFiles}
-        handleFileUpload={handleAdditionalAttachmentUpload}
-        handleRemoveFile={handleAdditionalAttachmentRemove}
+        onFilesChange={(fileList) => setAdditionalAttachmentFiles(fileList)}
+        setFiles={setAdditionalAttachmentFiles}
         required
       />
 
