@@ -5,9 +5,11 @@ export const metadata = {
   title: "Contractor",
   description: "Contractor Data",
 }
+
 interface ContractorLayoutProps {
   children: ReactNode
 }
+
 const ContractorLayout = ({ children }: ContractorLayoutProps) => {
   return (
     <>

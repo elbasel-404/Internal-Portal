@@ -13,9 +13,11 @@ export const getContractorDetails = async (
       : typeof field === "number"
         ? String(field)
         : ""
+  const getArrayValue = (field: unknown, index: number = 1): string =>
+    Array.isArray(field) ? (field[index]?.toString() ?? "") : ""
 
   const result = await getData<ContractorDetails>({
-    url: "api/po/hr/custody-close/read",
+    url: "api/po/contractor-request",
     responseSchema: ResponseSchema,
     dataSchema: ContractorListElementSchema,
     parseData: (data) => {
@@ -27,25 +29,31 @@ export const getContractorDetails = async (
       return [
         {
           id: getStringValue(typedData.name),
-          date: getStringValue(typedData.close_date),
-          pledgeAmount: getStringValue(typedData.close_amount),
-          pledgeType:
-            getStringValue(typedData.close_type) === "close"
-              ? "اقفال"
-              : "استعاضة",
-          covenantRequestNumber: getStringValue(typedData.custody_id_number),
-          covenantPurpose: getStringValue(typedData.custody_reason),
-          covenantAmount: getStringValue(typedData.custody_amount),
-          covenantDate: getStringValue(typedData.order_date),
-          details: Array.isArray(typedData.details)
-            ? typedData.details.map((detail: Record<string, unknown>) => ({
-                product: getStringValue(detail.product_name),
-                statement: getStringValue(detail.description),
-                amount: getStringValue(detail.amount),
-                invoiceNumber: getStringValue(detail.invoice_no),
-                attachments: "",
-              }))
-            : [],
+          applicantName: getArrayValue(typedData.purchase_request_id),
+          sector: getArrayValue(typedData.sector_id),
+          department: getArrayValue(typedData.department_id),
+          jobTitle: getArrayValue(typedData.job_id),
+          directManager: getArrayValue(typedData.direct_manager_id),
+          departmentManager: getArrayValue(typedData.department_manager_id),
+          generalManager: getArrayValue(typedData.global_department_manager_id),
+          sectorManager: getArrayValue(typedData.sector_manager_id),
+          projectName: getStringValue(typedData.project_name),
+          contractorCompany: getStringValue(typedData.contractor_company),
+          contractStartDate: getStringValue(typedData.contract_date_start),
+          contractEndDate: getStringValue(typedData.contract_date_end),
+          contractorName: getStringValue(typedData.contractor_name),
+          idNumber: getStringValue(typedData.id_number),
+          nationality: getStringValue(typedData.nationality),
+          jobTitleContractor: getStringValue(typedData.job_title),
+          employeeNumber: getStringValue(typedData.employee_number),
+          email: getStringValue(typedData.email),
+          mobile: getStringValue(typedData.mobile),
+          state: getArrayValue(typedData.stage_id),
+          attachmentList: [
+            getArrayValue(typedData.identity_attachment_ids, 0),
+            getArrayValue(typedData.acceptable_use_attachment_ids, 0),
+            getArrayValue(typedData.nondisclosure_attachment_ids, 0),
+          ],
         },
       ]
     },
@@ -56,36 +64,26 @@ export const getContractorDetails = async (
   return result[0]
 }
 const dummyData: ContractorDetails = {
-  id: "1",
-  date: "2024/15/5",
-  pledgeAmount: "500.000",
-  pledgeType: "_",
-  covenantRequestNumber: "5056",
-  covenantPurpose:
-    "لتوفير الاعمال والخدمات والنثريات الطارئة الخاصة بخدمات الإدرة العامة للمارفق والخدمات الإدارية",
-  covenantAmount: "10000",
-  covenantDate: "20/2/2025",
-  details: [
-    {
-      product: "المنتج",
-      statement: "بيان المنتج",
-      amount: "1000",
-      invoiceNumber: "12354",
-      attachments: "",
-    },
-    {
-      product: "المنتج",
-      statement: "بيان المنتج",
-      amount: "2000",
-      invoiceNumber: "12354",
-      attachments: "",
-    },
-    {
-      product: "المنتج",
-      statement: "بيان المنتج",
-      amount: "1000",
-      invoiceNumber: "18632",
-      attachments: "",
-    },
-  ],
+  id: "",
+  applicantName: "",
+  sector: "",
+  department: "",
+  jobTitle: "",
+  directManager: "",
+  departmentManager: "",
+  generalManager: "",
+  sectorManager: "",
+  projectName: "",
+  contractorCompany: "",
+  contractStartDate: "",
+  contractEndDate: "",
+  contractorName: "",
+  idNumber: "",
+  nationality: "",
+  jobTitleContractor: "",
+  employeeNumber: "",
+  email: "",
+  mobile: "",
+  state: "",
+  attachmentList: ["1", "2"],
 }

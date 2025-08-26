@@ -1,12 +1,24 @@
-import type { CovenantDetails } from "@types"
 export type ContractorDetails = {
   id: string
-  date: string
-  pledgeAmount: string
-  pledgeType: string
-  covenantRequestNumber: string
-  covenantPurpose: string
-  covenantAmount: string
-  covenantDate: string
-  details: CovenantDetails[]
+  applicantName: string
+  sector: string
+  department: string
+  jobTitle: string
+  directManager: string
+  departmentManager: string
+  generalManager: string
+  sectorManager: string
+  projectName: string
+  contractorCompany: string
+  contractStartDate: string
+  contractEndDate: string
+  contractorName: string
+  idNumber: string
+  nationality: string
+  jobTitleContractor: string
+  employeeNumber: string
+  email: string
+  mobile: string
+  state: string
+  attachmentList: string[]
 }

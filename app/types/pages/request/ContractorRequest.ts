@@ -1,7 +1,7 @@
 export type ContractorRequest = {
   id: string
+  contractorName: string
+  projectName: string
   date: string
-  pledgeAmount: string
-  pledgeType: string
   status: string
 }

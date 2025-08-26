@@ -1,6 +1,6 @@
 import { RequestDetails, RequestStatus } from "@components"
 import { getContractorDetails, getRequestStatus } from "@server"
-import { RequestHeader } from "@types"
+import type { RequestHeader } from "@types"
 import { RequestTypeSection } from "../../../trainee/details/[id]/components/RequestTypeSection"
 
 type Params = Promise<{ id: string }>
@@ -13,19 +13,32 @@ const ContractorDetailsPage = async ({
   params,
 }: ContractorDetailsPageProps) => {
   const { id } = await params
-  const attachmentList = [1, 2]
   const requestStatus = await getRequestStatus(
     id,
     "manage.financial.custody.close",
   )
   const {
-    date,
-    pledgeAmount,
-    pledgeType,
-    covenantRequestNumber,
-    covenantPurpose,
-    covenantAmount,
-    covenantDate,
+    applicantName,
+    sector,
+    department,
+    jobTitle,
+    directManager,
+    departmentManager,
+    generalManager,
+    sectorManager,
+    projectName,
+    contractorCompany,
+    contractStartDate,
+    contractEndDate,
+    contractorName,
+    idNumber,
+    nationality,
+    jobTitleContractor,
+    employeeNumber,
+    email,
+    mobile,
+    state,
+    attachmentList,
   } = (await getContractorDetails(id)) || {}
 
   const requestOwnerDetails: RequestHeader[] = [
@@ -35,85 +48,85 @@ const ContractorDetailsPage = async ({
     },
     {
       label: "مقدم الطلب",
-      value: date,
+      value: applicantName,
     },
     {
       label: "القطاع",
-      value: pledgeAmount,
+      value: sector,
     },
     {
       label: "الادارة/القسم",
-      value: pledgeType,
+      value: department,
     },
     {
       label: "المسمي الوظيفي",
-      value: covenantRequestNumber,
+      value: jobTitle,
     },
     {
       label: "المدير المباشر",
-      value: covenantPurpose,
+      value: directManager,
     },
     {
       label: "مدير الادارة",
-      value: covenantAmount,
+      value: departmentManager,
     },
     {
       label: "مدير عام الادارة",
-      value: covenantDate,
+      value: generalManager,
     },
     {
       label: "نائب القطاع المعني",
-      value: covenantDate,
+      value: sectorManager,
     },
   ]
   const requestContractorDetails: RequestHeader[] = [
     {
       label: "اسم المشروع",
-      value: id,
+      value: projectName,
     },
     {
       label: "الشركة المشغلة",
-      value: date,
+      value: contractorCompany,
     },
     {
       label: "تاريخ بداية العقد",
-      value: pledgeAmount,
+      value: contractStartDate,
     },
     {
       label: "تاريخ نهاية العقد",
-      value: pledgeType,
+      value: contractEndDate,
     },
     {
       label: "اسم المتعاقد",
-      value: covenantRequestNumber,
+      value: contractorName,
     },
     {
       label: "رقم الهوية/الاقامة",
-      value: covenantPurpose,
+      value: idNumber,
     },
     {
       label: "الجنسية",
-      value: covenantAmount,
+      value: nationality,
     },
     {
       label: "المسمي الوظيفي",
-      value: covenantDate,
+      value: jobTitleContractor,
     },
     {
       label: "الرقم الوظيفي",
-      value: covenantDate,
+      value: employeeNumber,
     },
     {
       label: "البريد الالكتروني",
-      value: covenantDate,
+      value: email,
     },
     {
       label: "رقم الجوال",
-      value: covenantDate,
+      value: mobile,
     },
     {
       label: "الحالة",
-      value: covenantDate,
+      value: state,
     },
     {
       label: "المرفقات",
@@ -132,7 +145,7 @@ const ContractorDetailsPage = async ({
         requestDetailsLabel="تفاصيل المتعاقد"
         headers={requestContractorDetails}
       />
-      <RequestTypeSection />
+      {state === "معتمد" && <RequestTypeSection />}
       {/* <Instructions
         title="توضيحات حول الخدمة"
         description="تتيح هذه الخدمة للموظف إمكانية تقديم طلب العهدة، يتم تعبئة الطلب بالبيانات الأساسية ويجب على الموظف التأكد من معطيات طلب العهدة."
