@@ -23,12 +23,12 @@ interface FileAttachmentFieldProps {
  * and removing files from the list. It supports multiple file formats and allows customization
  * of labels and error handling.
  *
+ * @param handleRemoveFile //!! DO NOT USE THIS Callback for removing a file by its index.
+ * @param handleFileUpload //!! DO NOT USE THIS Optional callback for handling file uploads from the input.
  * @param files - Array of File objects representing the currently attached files.
  * @param onFilesChange - Optional callback invoked when the files array changes.
  * @param handleFileChange - Optional callback for handling file input change events.
- * 
- * @param handleRemoveFile - deprecated Callback for removing a file by its index.
- * @param handleFileUpload - deprecated Optional callback for handling file uploads from the input.
+ *
  * @param label - Optional label for the file attachment field (default: "المرفقات").
  * @param subLabel - Optional sub-label for additional description.
  * @param required - Optional flag indicating if the field is required.
