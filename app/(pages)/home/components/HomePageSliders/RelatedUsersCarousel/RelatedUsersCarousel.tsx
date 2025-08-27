@@ -58,7 +58,7 @@ export const RelatedUsersCarousel = ({
         {relatedUsers.map((user) => (
           <CarouselItem
             key={user.id}
-            className="md:basis-1/2 lg:basis-1/4 flex-1"
+            className="md:basis-1/2 lg:basis-1/3"
           >
             <div className="p-1">
               <RelatedUserCard {...user} />
