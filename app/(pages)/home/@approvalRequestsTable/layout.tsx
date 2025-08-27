@@ -67,10 +67,12 @@ const RequestsLayout = ({ children }: RequestsLayoutProps) => {
           >
             <FilterIcon className="fill-primary" />
           </Button>
-          <Button className="flex group items-center gap-3 bg-primary-opacity bg-opacity-15 text-primary px-4 py-2.5 rounded-full hover:bg-primary hover:text-white">
-            <CheckIcon className="fill-primary group-hover:fill-white" />
-            قبول الكل
-          </Button>
+          {isMyApprovals && (
+            <Button className="flex group items-center gap-3 bg-primary-opacity bg-opacity-15 text-primary px-4 py-2.5 rounded-full hover:bg-primary hover:text-white">
+              <CheckIcon className="fill-primary group-hover:fill-white" />
+              قبول الكل
+            </Button>
+          )}
         </div>
       </div>
 
