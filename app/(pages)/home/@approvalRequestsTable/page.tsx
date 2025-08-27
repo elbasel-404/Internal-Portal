@@ -23,6 +23,6 @@ const RequestsTableSlot = async ({ searchParams }: RequestsTableSlotProps) => {
     return <MyRequests key="requests-table" requests={myRequests} />
   }
 
-  return <div>Default Table</div>
+  return <MyApprovals key="approvals-table" requests={myApprovals} />
 }
 export default RequestsTableSlot
