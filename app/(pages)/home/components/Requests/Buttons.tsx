@@ -1,4 +1,5 @@
 "use client"
+import { CheckIcon, XMarkIcon } from "@icons"
 import { acceptRequest } from "./acceptRequest"
 import { rejectRequest } from "./rejectRequest"
 
@@ -13,16 +14,18 @@ export const Buttons = ({ requestId }: ButtonsProps) => {
         <button
           type="submit"
           formAction={acceptRequest}
-          className="bg-green-100 basis-full w-full text-green-900 flex-1 rounded-xl"
+          className="flex group gap-1 items-center shadow-none hover:bg-green-600 font-medium hover:text-white justify-end text-success-foreground bg-success rounded-xl px-6 py-2"
         >
-          قبول
+          <CheckIcon className="fill-success-foreground group-hover:fill-white" />
+          اعتمد
         </button>
         <button
           type="submit"
           formAction={rejectRequest}
-          className="bg-red-100 hover:bg-red-400 hover:ring-2 ring-red-400 hover:text-white transition-colors basis-full w-full text-red-900 flex-1 rounded-xl"
+          className="flex group gap-1 items-center shadow-none hover:bg-red-600 font-medium hover:text-white justify-end text-destructive-foreground bg-destructive-opacity rounded-xl px-6 py-2"
         >
-          رفض
+          <XMarkIcon className="fill-destructive-foreground group-hover:fill-white" />
+          مرفوض
         </button>
       </form>
     </div>
