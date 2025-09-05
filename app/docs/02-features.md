@@ -1,94 +1,392 @@
 # 02 - Key Features and Modules
 
-This document outlines the main features and modules available in the portal. These are primarily accessible through the navigation defined in `app/(pages)/`.
+This document provides a comprehensive overview of all features and modules available in the Portal, organized by functionality and user workflows.
 
-## 1. Home Page (`app/(pages)/home/`)
+## 🏠 Dashboard & Home Features
 
-The home page serves as the central dashboard for users upon logging in. It typically includes:
+### Home Page (`app/(pages)/home/`)
 
-- **User Information (`@userInfo`)**: Displays key information about the logged-in user.
-- **Approval Requests Table (`@approvalRequestsTable`)**: Shows pending approval requests that require the user's attention.
-- **Attendance Information (`@attendance`)**: Provides a summary or quick access to attendance records.
-- **Profile Completion Prompt (`@completeProfile`)**: Encourages users to complete their profiles if information is missing.
-- **General Info Widgets (`@generalInfo`)**: Customizable section for various informational widgets.
-- **News Feed (`@news`)**: Displays recent company news or announcements.
-- **Sliders/Carousels (`@sliders`)**: For featured content or important updates.
-- **Timeline Calendar (`@timelineCalendar`)**: Shows upcoming events, deadlines, or schedules.
-- The layout and components are highly configurable, as seen in `app/(pages)/home/components/` and `app/(pages)/home/util/`.
+The personalized dashboard serves as the central hub with configurable widgets:
 
-## 2. News Section (`app/(pages)/news/`)
+#### Core Widgets
+- **User Information (`@userInfo`)**: 
+  - Personal details and quick profile access
+  - Role-based information display
+  - Avatar and contact details
 
-A dedicated section for all types of news and announcements, categorized into:
+- **Approval Requests Table (`@approvalRequestsTable`)**: 
+  - Pending approvals requiring user action
+  - Quick approve/reject functionality
+  - Workflow status indicators
 
-- **Internal Ads (`internal-ads/`)**: Company-specific advertisements or promotions.
-- **Monshaat Family News (`monshaat-family/`)**: News related to employee events, achievements, etc. (Monshaat seems to be the organization's name).
-- **General News (`news/`)**: Broader company news or industry updates.
-- **Press File (`press-file/`)**: Repository for press releases or media content.
-- Each category allows viewing lists and details of news items.
+- **Attendance Information (`@attendance`)**: 
+  - Daily attendance summary
+  - Recent check-in/out times
+  - Monthly attendance overview
 
-## 3. User Profile (`app/(pages)/profile/`)
+- **Profile Completion Prompt (`@completeProfile`)**: 
+  - Progress indicator for profile completeness
+  - Links to update missing information
+  - Compliance reminders
 
-Allows users to view and manage their personal and employment-related information. This section typically includes:
+- **General Info Widgets (`@generalInfo`)**: 
+  - Customizable information panels
+  - Department announcements
+  - System notifications
 
-- Personal details.
-- Contact information.
-- Employment history.
-- Skills and qualifications.
-- Other relevant data points, configurable via components in `app/(pages)/profile/components/`.
+- **News Feed (`@news`)**: 
+  - Latest company news
+  - Priority announcements
+  - Category filtering
 
-## 4. Requests System (`app/(pages)/request/`)
+- **Content Carousels (`@sliders`)**: 
+  - Featured content rotation
+  - Important updates showcase
+  - Policy highlights
 
-This is a comprehensive module for managing various types of employee and administrative requests. It's one of the largest sections of the application.
+- **Timeline Calendar (`@timelineCalendar`)**: 
+  - Upcoming events and deadlines
+  - Personal schedule integration
+  - Company calendar sync
 
-- **General Workflow:** Users can typically create new requests, view the status of their existing requests, and see details of each request. Approvers will have interfaces to approve or reject requests.
-- **Common Request Types Include:**
-  - **Attendance Requests (`attendance/`)**: For rectifying attendance, requesting manual check-ins/outs.
-  - **Bank Account Change (`bank-account-change/`)**: Requesting updates to bank details.
-  - **Custody Requests (`custody/`)**: For requesting or managing company assets/custody items.
-  - **Deputations (`deputations/`)**: Managing deputation assignments.
-  - **HR Letter Requests (`hr-letter/`)**: Requesting various official HR letters (e.g., salary certificate, employment proof).
-  - **Medical Insurance (`medical/`)**: Managing medical insurance claims or requests.
-  - **Overtime Assignment/Confirmation (`overtime-assignment/`, `overtime-confirm/`)**: For managing overtime work.
-  - **Passport Requests (`passport/`)**: For passport-related services or documentation.
-  - **Permissions (`permissions/`)**: Requesting short leaves or permissions.
-  - **Probation Period (`probation-period/`)**: Managing probation evaluations or related requests.
-  - **Purchase Requests (`purchase/`)**: For internal procurement.
-  - **Remote Work Requests (`remote-work/`)**: Requesting to work remotely.
-  - **Resignation Requests (`resignation/`)**: Submitting resignations.
-  - **Training Requests (`training/`)**: Enrolling in or requesting training programs.
-  - **Vacations (`vacations/`)**: Requesting and managing leave.
-- Each request type generally has its own subdirectory with components for forms, details display, and listing. Example: `app/(pages)/request/vacations/components/`.
+#### Dashboard Customization
+- Configurable widget layout in `app/(pages)/home/components/`
+- User preference-based arrangement
+- Role-based widget visibility
 
-## 5. Employee Department (`app/(pages)/employee-department/`)
+## 📰 Communication & News System
 
-- Allows viewing employees by department, likely showing organizational structure.
+### News Management (`app/(pages)/news/`)
 
-## 6. Employee Application (`app/(pages)/employee-application/`)
+Comprehensive communication platform with categorized content:
 
-- This might be related to job applications or internal employee applications for programs/roles.
+#### News Categories
 
-## 7. Evaluation (`app/(pages)/evaluation/`)
+**Internal Advertisements (`internal-ads/`)**
+- Job postings and career opportunities
+- Internal promotions and transfers
+- Department-specific announcements
+- Skills development programs
 
-- Likely for performance evaluations, goal setting (`evaluation/goals/`), and tracking.
+**Family News (`monshaat-family/`)**
+- Employee milestones and celebrations
+- Birth and marriage announcements
+- Achievement recognitions
+- Condolence notices
+- Community events
 
-## 8. Obligation (`app/(pages)/obligation/`)
+**Company News (`news/`)**
+- Policy updates and changes
+- Financial performance updates
+- Strategic initiatives
+- Industry recognition
 
-- This could refer to financial obligations, clearances, or other responsibilities that need tracking.
+**Press & Media (`press-file/`)**
+- External press releases
+- Media coverage archive
+- Company publications
+- Newsletter archive
 
-## 9. Rules & Policies (`app/(pages)/rules/`)
+#### Features
+- Rich text editor for content creation
+- Image and document attachments
+- Comment and reaction system
+- Email notification integration
+- Search and filtering capabilities
 
-- A section to display company rules, policies, and guidelines.
+## 👤 Profile & Personal Information
 
-## 10. Search Employee (`app/(pages)/search-employee/`)
+### User Profile Management (`app/(pages)/profile/`)
 
-- Provides functionality to search for employees within the organization.
+Comprehensive personal information management:
 
-## 11. Surveys (`app/(pages)/surveys/`)
+#### Profile Sections
+- **Personal Details**: Name, contact information, emergency contacts
+- **Employment Information**: Position, department, start date, salary details
+- **Family Information**: Dependents, beneficiaries, family status
+- **Skills & Qualifications**: Certifications, training history, expertise
+- **Bank Details**: Account information for payroll
+- **Document Repository**: Personal document storage
 
-- For conducting and participating in internal surveys.
+#### Features
+- Real-time profile completion tracking
+- Document upload and verification
+- Privacy controls for information sharing
+- Audit trail for changes
+- Integration with HR systems
 
-## 12. Transaction List (`app/(pages)/transaction-list/`)
+## 📋 Request Management System
 
-- Displays a list of transactions, which could be financial, system-related, or specific to certain request types.
+### Core Request Workflow (`app/(pages)/request/`)
 
-This list covers the primary features visible from the page structure. Each feature area often contains its own set of components, forms, and data display logic.
+Unified request processing system handling diverse employee needs:
+
+#### Request Lifecycle
+1. **Initiation**: Form-based request creation
+2. **Submission**: Validation and document attachment
+3. **Routing**: Automatic workflow assignment
+4. **Approval**: Multi-level approval process
+5. **Processing**: Backend system integration
+6. **Completion**: Notification and archival
+
+### Request Types
+
+#### 🕒 Time & Attendance
+
+**Attendance Requests (`attendance/`)**
+- Manual check-in/out corrections
+- Time adjustment requests
+- Missed punch rectification
+- Overtime hour documentation
+
+**Vacation Requests (`vacations/`)**
+- Annual leave applications
+- Sick leave submissions
+- Emergency leave requests
+- Vacation balance tracking
+- Calendar integration
+
+**Permission Requests (`permissions/`)**
+- Short-term absence requests
+- Partial day leave
+- Late arrival/early departure
+- Personal emergency permissions
+
+**Overtime Management (`overtime-assignment/`, `overtime-confirm/`)**
+- Overtime assignment requests
+- Hour confirmation and approval
+- Rate calculation and compensation
+- Project-based overtime tracking
+
+#### 💼 HR & Administrative
+
+**HR Letter Requests (`hr-letter/`)**
+- Employment verification letters
+- Salary certificates
+- No objection certificates
+- Experience letters
+- To-whom-it-may-concern documents
+- Multi-language support (Arabic/English)
+
+**Bank Account Changes (`bank-account-change/`)**
+- Account detail updates
+- Bank switching procedures
+- IBAN verification
+- Document submission requirements
+
+**Passport Services (`passport/`)**
+- Business passport requests
+- Visa application support
+- Travel document processing
+- Embassy coordination
+
+#### 🏥 Benefits & Insurance
+
+**Medical Insurance (`medical/`)**
+- Insurance claim submissions
+- Pre-approval requests
+- Provider network information
+- Reimbursement tracking
+- Family member coverage
+
+#### 🎓 Development & Training
+
+**Training Requests (`training/`)**
+- Internal training enrollment
+- External course approval
+- Conference attendance requests
+- Certification program participation
+- Budget allocation and tracking
+
+**Probation Evaluation (`probation-period/`)**
+- Performance assessment scheduling
+- Goal setting and tracking
+- Feedback collection
+- Evaluation result processing
+
+#### 🏢 Operational
+
+**Custody Requests (`custody/`)**
+- Equipment assignment requests
+- Asset tracking and management
+- Return procedure documentation
+- Maintenance and repair requests
+
+**Purchase Requests (`purchase/`)**
+- Procurement requisitions
+- Budget approval workflow
+- Vendor selection process
+- Delivery tracking
+
+**Deputation Assignments (`deputations/`)**
+- Internal assignment requests
+- Location change procedures
+- Temporary assignment management
+- Return planning
+
+**Remote Work Requests (`remote-work/`)**
+- Work-from-home applications
+- Equipment and setup requirements
+- Performance monitoring agreements
+- Communication protocols
+
+#### 🚪 Career Transitions
+
+**Resignation Requests (`resignation/`)**
+- Resignation submission process
+- Notice period calculation
+- Exit interview scheduling
+- Clearance procedures
+- Knowledge transfer planning
+
+### Request Features
+- **Form Validation**: Real-time validation with clear error messages
+- **Document Management**: Multi-file upload with format verification
+- **Workflow Tracking**: Visual progress indicators and status updates
+- **Notification System**: Email and in-app notifications
+- **Comment System**: Communication between requesters and approvers
+- **Audit Trail**: Complete history of actions and decisions
+
+## 👥 Employee & Organization Management
+
+### Employee Directory (`app/(pages)/search-employee/`)
+
+Advanced employee search and directory services:
+
+#### Search Capabilities
+- **Name-based Search**: First name, last name, nickname
+- **Contact Search**: Phone, email, extension
+- **Department Filtering**: Hierarchical department browsing
+- **Skills-based Search**: Expertise and certification lookup
+- **Location Search**: Office, floor, desk location
+
+#### Features
+- Employee profile cards with quick contact options
+- Organizational chart integration
+- Direct messaging capabilities
+- Calendar availability checking
+- Contact export functionality
+
+### Department Management (`app/(pages)/employee-department/`)
+
+Organizational structure and hierarchy management:
+
+#### Features
+- **Hierarchy Visualization**: Interactive org chart
+- **Department Profiles**: Team information and objectives
+- **Reporting Relationships**: Clear chain of command
+- **Contact Lists**: Department-specific contact information
+- **Statistics Dashboard**: Department metrics and KPIs
+
+### Job Applications (`app/(pages)/employee-application/`)
+
+Internal career development and application management:
+
+#### Features
+- **Internal Job Postings**: Current opportunities
+- **Application Tracking**: Status monitoring
+- **Interview Scheduling**: Calendar integration
+- **Reference Management**: Internal recommendation system
+- **Skills Assessment**: Competency evaluation tools
+
+## 📊 Performance & Analytics
+
+### Evaluation System (`app/(pages)/evaluation/`)
+
+Comprehensive performance management platform:
+
+#### Goal Management (`evaluation/goals/`)
+- **Goal Setting**: SMART goal creation and tracking
+- **Progress Monitoring**: Regular update and review cycles
+- **Alignment Tracking**: Individual goals aligned with company objectives
+- **Performance Analytics**: Achievement metrics and insights
+
+#### Features
+- **360-Degree Feedback**: Multi-source evaluation input
+- **Performance Reviews**: Structured evaluation processes
+- **Development Planning**: Career growth roadmaps
+- **Competency Assessment**: Skills gap analysis
+
+## 📋 Compliance & Administrative
+
+### Obligations Management (`app/(pages)/obligation/`)
+
+Financial and administrative obligation tracking:
+
+#### Types of Obligations
+- **Financial Obligations**: Loans, advances, reimbursements
+- **Compliance Requirements**: Training certifications, document renewals
+- **Contractual Obligations**: Service agreements, non-compete clauses
+- **Clearance Procedures**: Exit clearances, equipment returns
+
+### Rules & Policies (`app/(pages)/rules/`)
+
+Centralized policy and procedure repository:
+
+#### Features
+- **Policy Database**: Searchable policy library
+- **Update Notifications**: Automatic alerts for policy changes
+- **Acknowledgment Tracking**: Employee policy acceptance
+- **Version Control**: Historical policy versions
+- **Compliance Reporting**: Policy adherence monitoring
+
+### Surveys & Feedback (`app/(pages)/surveys/`)
+
+Employee engagement and feedback collection:
+
+#### Survey Types
+- **Employee Satisfaction**: Regular engagement surveys
+- **360-Degree Feedback**: Performance-related surveys
+- **Pulse Surveys**: Quick opinion polls
+- **Exit Interviews**: Departure feedback collection
+- **Training Evaluation**: Course effectiveness assessment
+
+#### Features
+- **Anonymous Responses**: Privacy-protected feedback
+- **Real-time Analytics**: Live survey result dashboards
+- **Custom Question Types**: Multiple choice, rating scales, open text
+- **Automated Reminders**: Response rate optimization
+- **Report Generation**: Comprehensive analysis reports
+
+## 💰 Financial & Transaction Management
+
+### Transaction Tracking (`app/(pages)/transaction-list/`)
+
+Financial transaction monitoring and reporting:
+
+#### Transaction Types
+- **Payroll Transactions**: Salary, bonuses, deductions
+- **Expense Reimbursements**: Travel, training, miscellaneous
+- **Loan Transactions**: Employee loans and repayments
+- **Insurance Claims**: Medical and other insurance transactions
+- **Procurement**: Purchase order processing
+
+#### Features
+- **Real-time Tracking**: Live transaction status
+- **Financial Reporting**: Comprehensive transaction reports
+- **Approval Workflows**: Multi-level authorization
+- **Integration**: ERP and accounting system connectivity
+- **Audit Trail**: Complete transaction history
+
+## 🔧 System Integration & APIs
+
+### External System Integration
+
+The Portal integrates with various external systems:
+
+- **HR Information Systems**: Employee data synchronization
+- **Payroll Systems**: Salary and benefit processing
+- **ERP Systems**: Financial and procurement integration
+- **Email Systems**: Notification and communication
+- **Calendar Systems**: Meeting and event scheduling
+- **Document Management**: File storage and retrieval
+
+### API Architecture
+
+- **RESTful APIs**: Standard HTTP-based communication
+- **Real-time Updates**: WebSocket integration for live updates
+- **Batch Processing**: Scheduled data synchronization
+- **Security**: OAuth2 and JWT-based authentication
+- **Rate Limiting**: API usage monitoring and control
+
+This comprehensive feature set ensures the Portal serves as a complete enterprise solution for employee self-service, HR management, and organizational communication.
