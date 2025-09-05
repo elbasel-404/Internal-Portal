@@ -1,66 +1,275 @@
-<!-- ## [![Docker CI/CD](https://github.com/elbasel42/temp-portal-repo-github/actions/workflows/docker.yml/badge.svg)](https://github.com/elbasel42/temp-portal-repo-github/actions/workflows/docker.yml) -->
+# Internal Portal
 
-## Documentation
+<!-- [![Docker CI/CD](https://github.com/elbasel42/temp-portal-repo-github/actions/workflows/docker.yml/badge.svg)](https://github.com/elbasel42/temp-portal-repo-github/actions/workflows/docker.yml) -->
 
-- [Form Submission Guide](./docs/form-submission-guide.md) - Guide for using the unified form submission logic
-- [Migration Guide](./docs/migration-guide.md) - Guide for migrating existing forms to the unified submission logic
-- [Form Unification Changelog](./docs/form-unification-changelog.md) - Summary of changes made during form submission unification
-- [Form Test Plan](./docs/form-test-plan.md) - Test plan for verifying form submission functionality
-- [Testing](./docs/testing.md) - Information about running unit tests
-- [Implementation Summary](./docs/implementation-summary.md) - Comprehensive summary of the form unification implementation
+A comprehensive enterprise portal built with Next.js that provides employees with centralized access to internal services, information management, and request processing systems.
 
-# ! Building & running docker image:
+## 🚀 Features
 
-# Building
+- **Personalized Dashboard** - Customizable widgets for quick access to information and actions
+- **News & Announcements** - Company news, family updates, and internal advertisements
+- **Profile Management** - Personal and employment information management
+- **Request System** - Submit and track various requests (vacations, HR letters, medical claims)
+- **Employee Directory** - Search colleagues and view department structures
+- **Form Management** - Unified form submission system with validation
+- **Multi-language Support** - Arabic and English interfaces
 
-## Local
+## 🛠️ Tech Stack
 
-For troubleshooting, refer to [Troubleshooting](#troubleshooting)
+- **Frontend**: Next.js 15 (App Router), React 19, TypeScript
+- **Styling**: Tailwind CSS, Radix UI Components
+- **State Management**: Jotai
+- **Forms**: React Hook Form with Zod validation
+- **Database**: File-based storage (db.json)
+- **Testing**: Vitest, React Testing Library
+- **Development**: Storybook, ESLint, Prettier
+- **Deployment**: Docker support
 
-### Install dependencies
+## 📚 Documentation
 
-`pnpm i`
+### Quick Start
+- [Development Setup](./app/docs/04-development-setup.md) - Complete setup instructions
+- [Project Tour](./app/docs/05-project-tour.md) - Guided walkthrough
 
-### Build the app
+### Architecture & Development
+- [Architecture Overview](./app/docs/01-architecture.md) - Technical architecture details
+- [Features Guide](./app/docs/02-features.md) - In-depth feature documentation
+- [UI & State Management](./app/docs/03-ui-and-state.md) - Component and state patterns
+- [Project Map](./app/docs/06-project-map.md) - Feature-to-file mapping
 
-`pnpm build`
+### Specialized Guides
+- [Form Submission Guide](./docs/form-submission-guide.md) - Unified form submission logic
+- [Migration Guide](./docs/migration-guide.md) - Form migration guidelines
+- [Testing Guide](./docs/testing.md) - Running and writing tests
+- [API Documentation](./docs/api-documentation.md) - API schemas and endpoints
 
-### Run the node server:
+## 🚀 Quick Start
 
-`node .next/standalone/server.js`
+### Prerequisites
 
-### (optional) To use the nextjs server instead:
+- **Node.js** 18+ (20+ recommended)
+- **pnpm** 9+ (package manager)
+- **Git** for version control
 
-<sub>if using this command to run the server you don't need to copy static files or database</sub>
-<br>
+### Installation
 
-<sub>CAUTION: might produce unexpected results see: [Next.js Documentation](https://nextjs.org/docs/app/api-reference/config/next-config-js/output)</sub>
-<br>
-`pnpm start`
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd temp-portal-repo
+   ```
 
-## Troubleshooting
+2. **Install dependencies**
+   ```bash
+   pnpm install
+   ```
 
-### Cleaning local files
+3. **Environment Setup**
+   ```bash
+   cp .env.example .env.local
+   # Edit .env.local with your configuration
+   ```
 
-Run the following commands in case you face any unexpected errors:
-<br>
-`rm -rf node_modules`
-<br>
-`rm -rf .next`
-<br>
-remove all data from `app/db/db.json`;
-<br>
-`rm -rf pnpm-lock.yaml`
-<br>
+4. **Initialize the database**
+   ```bash
+   # Ensure the database file exists
+   mkdir -p app/db
+   # Copy default database if needed
+   cp app/db/db.json.example app/db/db.json
+   ```
 
-#### Or copy/past the following to run all commands at once:
+### Development
 
-rm -rf .next && \
-rm -rf pnpm-lock.yaml && \
-mkdir -p .next/standalone/app/db && \
-cp app/db/db.json .next/standalone/app/db/ && \
-=pnpm build && \
-cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/ && \
+**Start the development server:**
+```bash
+pnpm dev
+```
+The application will be available at [http://localhost:3000](http://localhost:3000)
+
+**Development with debugging:**
+```bash
+pnpm dev:debug
+```
+
+**Run Storybook for component development:**
+```bash
+pnpm storybook
+```
+Storybook will be available at [http://localhost:6006](http://localhost:6006)
+
+### Building for Production
+
+**Build the application:**
+```bash
+pnpm build
+```
+
+**Start the production server:**
+```bash
+pnpm serve
+# or
 node .next/standalone/server.js
+```
 
-test
+**Using Next.js server (alternative):**
+```bash
+pnpm start
+```
+> ⚠️ **Note**: This method may produce unexpected results. See [Next.js Documentation](https://nextjs.org/docs/app/api-reference/config/next-config-js/output) for details.
+
+## 🧪 Testing & Quality
+
+**Run tests:**
+```bash
+pnpm test           # Run all tests
+pnpm test:watch     # Run tests in watch mode
+pnpm test:coverage  # Run tests with coverage
+```
+
+**Linting and formatting:**
+```bash
+pnpm lint           # Run ESLint
+pnpm format         # Format code with Prettier
+```
+
+## 🐳 Docker Deployment
+
+**Build Docker image:**
+```bash
+pnpm docker-build
+```
+
+**Run Docker container:**
+```bash
+pnpm docker-run
+```
+
+The application will be available at [http://localhost:3000](http://localhost:3000)
+
+## 🔧 Configuration
+
+### Environment Variables
+
+Create a `.env.local` file in the root directory:
+
+```bash
+# Database Configuration
+DATABASE_PATH=./app/db/db.json
+
+# Authentication (if applicable)
+AUTH_SECRET=your-auth-secret
+AUTH_URL=http://localhost:3000
+
+# External API URLs (customize as needed)
+NEXT_PUBLIC_API_BASE_URL=http://localhost:3000/api
+
+# Feature Flags
+NEXT_PUBLIC_ENABLE_FEATURE_X=true
+```
+
+### Database Setup
+
+The application uses a file-based database stored in `app/db/db.json`. For production deployments, ensure:
+
+1. The database directory is writable
+2. Regular backups are configured
+3. Proper file permissions are set
+
+## 🛠️ Troubleshooting
+
+### Common Issues
+
+**Node/pnpm version conflicts:**
+```bash
+node --version  # Should be 18+
+pnpm --version  # Should be 9+
+```
+
+**Build failures:**
+```bash
+# Clean install
+pnpm reset  # This runs: rm -rf .next && rm -rf node_modules && pnpm i
+```
+
+**Database issues:**
+```bash
+# Reset database to default state
+cp app/db/db.json.example app/db/db.json
+```
+
+**Port conflicts:**
+```bash
+# Check if port 3000 is in use
+lsof -i :3000
+# Kill process if needed
+kill -9 <PID>
+```
+
+### Complete Reset Procedure
+
+If you encounter unexpected errors, run this complete reset:
+
+```bash
+# Clean all generated files
+rm -rf .next
+rm -rf node_modules  
+rm -rf pnpm-lock.yaml
+
+# Reinstall dependencies
+pnpm install
+
+# Rebuild the application
+pnpm build
+
+# Copy required files for standalone mode
+cp -r public .next/standalone/
+cp -r .next/static .next/standalone/.next/
+mkdir -p .next/standalone/app/db
+cp app/db/db.json .next/standalone/app/db/
+
+# Start the server
+node .next/standalone/server.js
+```
+
+### Debug Mode
+
+For debugging issues:
+
+```bash
+# Enable debug output
+NODE_OPTIONS='--inspect' pnpm dev
+
+# For server debugging
+pnpm dev-debug-server
+```
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guidelines](./docs/CONTRIBUTING.md) for details.
+
+### Development Workflow
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Make your changes and add tests
+4. Run the test suite: `pnpm test`
+5. Lint your code: `pnpm lint`
+6. Commit your changes: `git commit -m 'Add amazing feature'`
+7. Push to your branch: `git push origin feature/amazing-feature`
+8. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 📞 Support
+
+For support and questions:
+
+- 📧 **Email**: [support@company.com](mailto:support@company.com)
+- 📖 **Documentation**: [./app/docs/](./app/docs/)
+- 🐛 **Issues**: [GitHub Issues](https://github.com/elbasel42/temp-portal-repo/issues)
+
+## 🔄 Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md) for a list of changes and version history.
