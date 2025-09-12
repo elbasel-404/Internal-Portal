@@ -1,6 +1,6 @@
 # Internal Portal
 
-Massive ERP gov project to handle/manager all hr related activities for governmentally funded startups, over 10,000 lines of code and a companion [tool](https://github.com/elbasel-404/portal-schema-generator).
+Massive ERP gov project to handle/manage all hr related activities for governmentally funded startups, over 10,000 lines of code and a companion [tool](https://github.com/elbasel-404/portal-schema-generator).
 
 With a team of 6 developers working on this project, I'm the team leader/senior developer and software architect.
 
