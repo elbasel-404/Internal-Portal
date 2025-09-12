@@ -17,7 +17,7 @@ This guide covers the complete development workflow for the Portal application, 
 2. **Clone and Setup**
    ```bash
    git clone <repository-url>
-   cd temp-portal-repo
+   cd Internal-Portal
    pnpm install
    cp .env.example .env.local
    ```

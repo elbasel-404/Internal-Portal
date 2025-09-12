@@ -1,15 +1,10 @@
 # Internal Portal
 
-Massive ERP gov project to handle/manage all hr related activities for governmentally funded startups, over 10,000 lines of code and a companion [tool](https://github.com/elbasel-404/portal-schema-generator).
-
-With a team of 6 developers working on this project, I'm the team leader/senior developer and software architect.
+An internal organizational tool built with Next.js that provides employees with centralized access to HR services, information management, and request processing systems. This portal streamlines internal workflows and serves as a central hub for employee self-service functions.
 
 ---
-Please note that below documentation has been generated using AI, expect a margin of error, however stable for the most part.
 
-<!-- [![Docker CI/CD](https://github.com/elbasel42/temp-portal-repo-github/actions/workflows/docker.yml/badge.svg)](https://github.com/elbasel42/temp-portal-repo-github/actions/workflows/docker.yml) -->
-
-A comprehensive enterprise portal built with Next.js that provides employees with centralized access to internal services, information management, and request processing systems.
+A comprehensive internal portal that provides employees with centralized access to organizational services, information management, and request processing systems.
 
 ## 🚀 Features
 
@@ -63,7 +58,7 @@ A comprehensive enterprise portal built with Next.js that provides employees wit
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd temp-portal-repo
+   cd Internal-Portal
    ```
 
 2. **Install dependencies**
@@ -143,12 +138,12 @@ pnpm format         # Format code with Prettier
 
 **Build Docker image:**
 ```bash
-pnpm docker-build
+docker build -t internal-portal:latest .
 ```
 
 **Run Docker container:**
 ```bash
-pnpm docker-run
+docker run -it -p 3000:3000 internal-portal:latest
 ```
 
 The application will be available at [http://localhost:3000](http://localhost:3000)

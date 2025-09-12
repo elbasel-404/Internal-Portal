@@ -18,8 +18,8 @@ Before contributing, ensure you have:
 1. **Fork and Clone**
    ```bash
    # Fork the repository on GitHub
-   git clone https://github.com/YOUR_USERNAME/temp-portal-repo.git
-   cd temp-portal-repo
+   git clone https://github.com/YOUR_USERNAME/Internal-Portal.git
+   cd Internal-Portal
    ```
 
 2. **Install Dependencies**

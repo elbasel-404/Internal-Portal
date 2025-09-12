@@ -1,6 +1,6 @@
 # Project Documentation
 
-Welcome to the project documentation for this enterprise portal. This portal serves as a central hub for employees, providing access to various internal services, information, and request management systems.
+Welcome to the project documentation for this internal portal. This portal serves as a central hub for employees, providing access to various internal services, information, and request management systems.
 
 ## Overview
 

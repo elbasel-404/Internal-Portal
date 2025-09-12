@@ -389,4 +389,4 @@ The Portal integrates with various external systems:
 - **Security**: OAuth2 and JWT-based authentication
 - **Rate Limiting**: API usage monitoring and control
 
-This comprehensive feature set ensures the Portal serves as a complete enterprise solution for employee self-service, HR management, and organizational communication.
+This comprehensive feature set ensures the Portal serves as a complete internal solution for employee self-service, HR management, and organizational communication.

@@ -35,7 +35,7 @@ This comprehensive guide provides step-by-step instructions for setting up a com
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd temp-portal-repo
+cd Internal-Portal
 
 # Verify Node.js and pnpm versions
 node --version  # Should be 18+
