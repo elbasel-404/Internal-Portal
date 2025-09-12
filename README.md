@@ -5,6 +5,7 @@ Massive ERP gov project to handle/manage all hr related activities for governmen
 With a team of 6 developers working on this project, I'm the team leader/senior developer and software architect.
 
 ---
+Please note that below documentation has been generated using AI, expect a margin of error, however stable for the most part.
 
 <!-- [![Docker CI/CD](https://github.com/elbasel42/temp-portal-repo-github/actions/workflows/docker.yml/badge.svg)](https://github.com/elbasel42/temp-portal-repo-github/actions/workflows/docker.yml) -->
 
