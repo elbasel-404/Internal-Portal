@@ -128,10 +128,3 @@ main() {
 }
 
 main
-
-# New Code API Explanation
-# The `getFormAction` function is used to create a form action for a specific API endpoint and operation. It validates the request body, sends a POST request, and validates the response body.
-# The `post` function is used to send a POST request to a specified URL with a request body and headers. It handles timeouts and returns the response.
-# The `apiErrorAtom` is a Jotai atom used to store API errors.
-# The `demoAtom` is a Jotai atom used to store the demo state.
-# The `shouldRefreshAtom` is a Jotai atom used to store the refresh state.
