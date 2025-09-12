@@ -1,5 +1,11 @@
 # Internal Portal
 
+Massive ERP gov project to handle/manager all hr related activities for governmentally funded startups, over 10,000 lines of code and a companion [tool](https://github.com/elbasel-404/portal-schema-generator).
+
+With a team of 6 developers working on this project, I'm the team leader/senior developer and software architect.
+
+---
+
 <!-- [![Docker CI/CD](https://github.com/elbasel42/temp-portal-repo-github/actions/workflows/docker.yml/badge.svg)](https://github.com/elbasel42/temp-portal-repo-github/actions/workflows/docker.yml) -->
 
 A comprehensive enterprise portal built with Next.js that provides employees with centralized access to internal services, information management, and request processing systems.
