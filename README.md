@@ -243,33 +243,6 @@ NODE_OPTIONS='--inspect' pnpm dev
 pnpm dev-debug-server
 ```
 
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guidelines](./docs/CONTRIBUTING.md) for details.
-
-### Development Workflow
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Make your changes and add tests
-4. Run the test suite: `pnpm test`
-5. Lint your code: `pnpm lint`
-6. Commit your changes: `git commit -m 'Add amazing feature'`
-7. Push to your branch: `git push origin feature/amazing-feature`
-8. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📞 Support
-
-For support and questions:
-
-- 📧 **Email**: [support@company.com](mailto:support@company.com)
-- 📖 **Documentation**: [./app/docs/](./app/docs/)
-- 🐛 **Issues**: [GitHub Issues](https://github.com/elbasel42/temp-portal-repo/issues)
-
 ## 🔄 Changelog
 
 See [CHANGELOG.md](./CHANGELOG.md) for a list of changes and version history.
