@@ -248,7 +248,3 @@ NODE_OPTIONS='--inspect' pnpm dev
 # For server debugging
 pnpm dev-debug-server
 ```
-
-## 🔄 Changelog
-
-See [CHANGELOG.md](./CHANGELOG.md) for a list of changes and version history.
