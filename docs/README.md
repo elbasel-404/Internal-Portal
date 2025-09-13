@@ -29,7 +29,7 @@ Welcome to the comprehensive documentation for the Portal application. This inde
 
 ### What is the Portal?
 
-The Portal is a comprehensive enterprise application built with Next.js that provides employees with centralized access to:
+The Portal is a comprehensive internal application built with Next.js that provides employees with centralized access to:
 - **HR Services** - Request management, profile updates, document generation
 - **Communication Tools** - News, announcements, employee directory
 - **Self-Service Features** - Attendance tracking, leave requests, expense claims
@@ -136,11 +136,11 @@ The Portal is a comprehensive enterprise application built with Next.js that pro
 
 ### Development Tools
 - [Storybook](http://localhost:6006) (when running locally)
-- [Git Repository](https://github.com/elbasel42/temp-portal-repo)
-- [Issue Tracker](https://github.com/elbasel42/temp-portal-repo/issues)
+- [Git Repository](../../)
+- [Issue Tracker](../../issues)
 
 ### Community Resources
-- [GitHub Discussions](https://github.com/elbasel42/temp-portal-repo/discussions)
+- [GitHub Discussions](../../discussions)
 - [Contributing Guide](./CONTRIBUTING.md)
 - [Code of Conduct](#code-of-conduct)
 
@@ -149,7 +149,7 @@ The Portal is a comprehensive enterprise application built with Next.js that pro
 ### General Questions
 
 **Q: Who can access the Portal?**
-A: All company employees have access to the Portal using their company credentials.
+A: All organization employees have access to the Portal using their credentials.
 
 **Q: Is the Portal available on mobile devices?**
 A: Yes, the Portal is fully responsive and works on all modern mobile browsers.
@@ -190,19 +190,19 @@ A: Check the [Component Documentation](./component-documentation.md) and run Sto
 ### Support Channels
 
 #### For Users
-- **IT Helpdesk**: support@company.com
-- **HR Questions**: hr@company.com
-- **General Portal Issues**: portal-support@company.com
+- **IT Helpdesk**: Contact your IT support team
+- **HR Questions**: Contact your HR department  
+- **General Portal Issues**: Contact your portal support team
 
 #### For Developers
-- **GitHub Issues**: [Report bugs or request features](https://github.com/elbasel42/temp-portal-repo/issues)
-- **GitHub Discussions**: [Ask questions or share ideas](https://github.com/elbasel42/temp-portal-repo/discussions)
-- **Development Team**: dev-team@company.com
+- **GitHub Issues**: [Report bugs or request features](../../issues)
+- **GitHub Discussions**: [Ask questions or share ideas](../../discussions)
+- **Development Team**: Contact your development team
 
-#### For Administrators
-- **System Administration**: sysadmin@company.com
-- **Security Issues**: security@company.com
-- **Infrastructure Support**: infrastructure@company.com
+#### 🆘 For Administrators
+- **System Administration**: Contact your system administrator
+- **Security Issues**: Contact your security team
+- **Infrastructure Support**: Contact your infrastructure team
 
 ### Response Times
 - **Critical Issues**: 4 hours
