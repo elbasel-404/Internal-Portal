@@ -2,7 +2,7 @@
 import { SignJWT } from "jose"
 
 export const encrypt = async (payload: Record<string, unknown>) => {
-  const key = new TextEncoder().encode(process.env.AUTH_SECRET)
+  const key = new TextEncoder().encode("key")
 
   const encryptedJWT = await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })

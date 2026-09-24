@@ -24,7 +24,7 @@ export const getSubstituteEmployees = async (): Promise<
     "https://apis.monshaat.gov.sa/ERP/TaskService/api/call/all.requests/get_substitute_employees"
   const myHeaders = new Headers()
   myHeaders.append("Authorization", `Bearer ${BEARER_TOKEN}`)
-  myHeaders.append("x-api-key", "85ced9c9-b64b-4d76-85a5-ae3b869b044d")
+  myHeaders.append("x-api-key", "API_KEY")
   myHeaders.append(
     "Cookie",
     "session_id=299e50186cad4718cbcbcb7767a599784865e408",

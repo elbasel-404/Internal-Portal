@@ -13,13 +13,13 @@ export const signIn = async (
   formData: FormData,
 ): Promise<InitialState> => {
   // ! ================= ENV =================
-  const CLIENT_SECRET = process.env.CLIENT_SECRET
-  const CLIENT_ID = process.env.CLIENT_ID
-  const SCOPE = process.env.SCOPE
-  const GRANT_TYPE = process.env.GRANT_TYPE
-  const API_KEY = process.env.API_KEY
-  const API_ROOT_URL = process.env.API_ROOT_URL
-  const SESSION_ID = process.env.SESSION_ID
+  const CLIENT_SECRET = "some_random_string"
+  const CLIENT_ID = "some_random_string"
+  const SCOPE = "some_random_string"
+  const GRANT_TYPE = "some_random_string"
+  const API_KEY = "some_random_string"
+  const API_ROOT_URL = "some_random_string"
+  const SESSION_ID = "some_random_string"
 
   // ! ================= FORM DATA=================
   const formUsername = formData.get("username")?.toString().trim()

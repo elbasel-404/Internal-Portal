@@ -21,7 +21,7 @@ export const getMyApprovals = async (): Promise<RequestType[]> => {
       Accept: "application/json",
       Authorization: `Bearer ${accessToken}`,
       // Cookie: "session_id=7cdbcfdc84f050a2afa624abf502f7d241f19b06",
-      "x-api-key": "85ced9c9-b64b-4d76-85a5-ae3b869b044d",
+      "x-api-key": "API_KEY",
     },
   }).then((res) => res.json())
 

@@ -6,7 +6,6 @@ import NextTopLoader from "nextjs-toploader"
 import "./globals.css"
 import { ValidateSession } from "../components/ValidateSession"
 
-
 export const metadata: Metadata = {
   title: "منشآت",
 }

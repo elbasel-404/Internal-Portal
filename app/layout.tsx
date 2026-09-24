@@ -2,10 +2,9 @@ import { InitUser, Login, RefreshSession } from "@components"
 import { getRefreshToken, getSession } from "@server"
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
-import "./(pages)/globals.css"
+// import "./(pages)/globals.css"
 import { Toaster } from "sonner"
 import { getLoggedOut } from "./server/getLoggedOut"
-
 
 export const metadata: Metadata = {
   title: "منشآت",

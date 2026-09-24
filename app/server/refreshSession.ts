@@ -27,7 +27,7 @@ export const refreshSession = async () => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "x-api-key": "85ced9c9-b64b-4d76-85a5-ae3b869b044d",
+      "x-api-key": "API_KEY",
     },
     body: requestBody,
   })
