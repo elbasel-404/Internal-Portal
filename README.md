@@ -1,5 +1,7 @@
 # Internal Portal
 
+One of my biggest projects that I built for the Saudi Government during my current employment, I lead this project as the main developer managing a team of 6 developers, assigning tasks, building templates, reviewing code, deployment, alignment with product teams and stakeholders.
+
 An internal organizational tool built with Next.js that provides employees with centralized access to HR services, information management, and request processing systems. This portal streamlines internal workflows and serves as a central hub for employee self-service functions.
 
 ---
