@@ -25,7 +25,7 @@ export const getMyRequests = async ({
       cookie: "session_id=098a867e1d251b394882c6d2271d9ec24d024bac",
       Accept: "application/json",
       Authorization: "Bearer tXbNnglm6WdQk2UcZjeDK5CmJvW66b",
-      "x-api-key": "85ced9c9-b64b-4d76-85a5-ae3b869b044d",
+      "x-api-key": "API_KEY",
     },
     cache: "force-cache" as const,
     next: { revalidate: 60 * 60 * 24 },

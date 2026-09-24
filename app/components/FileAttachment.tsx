@@ -32,7 +32,7 @@ export const FileAttachment = ({ fileId }: FileAttachmentProps) => {
         method: "GET",
         headers: {
           Authorization: `Bearer ${accessToken}`,
-          "x-api-key": "85ced9c9-b64b-4d76-85a5-ae3b869b044d",
+          "x-api-key": "API_KEY",
         },
         cache: "force-cache" as RequestCache,
         next: { revalidate: false },

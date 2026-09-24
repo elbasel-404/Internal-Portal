@@ -33,7 +33,7 @@ const ReportProblemTicketPage = async ({
   // API configuration
   const headers = new Headers()
   headers.append("Accept", "application/json")
-  headers.append("x-api-key", "85ced9c9-b64b-4d76-85a5-ae3b869b044d")
+  headers.append("x-api-key", "API_KEY")
   headers.append(
     "Authorization",
     "Basic bW9uc2hhYXRfbW9iaWxlX2FwcDpNMGJpbGVAcHA=",
